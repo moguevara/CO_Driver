@@ -1,0 +1,11 @@
+D:\VS\repo\XOPartOptimizer\bin\Debug\XOPartOptimizer.exe.config
+D:\VS\repo\XOPartOptimizer\bin\Debug\XOPartOptimizer.exe
+D:\VS\repo\XOPartOptimizer\bin\Debug\XOPartOptimizer.pdb
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.fusion_calculator.resources
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.frm_main_page.resources
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.Properties.Resources.resources
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.user_settings.resources
+D:\VS\repo\XOPartOptimizer\obj\Debug\RFB_Tool_Suite.csproj.GenerateResource.cache
+D:\VS\repo\XOPartOptimizer\obj\Debug\RFB_Tool_Suite.csproj.CoreCompileInputs.cache
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.exe
+D:\VS\repo\XOPartOptimizer\obj\Debug\XOPartOptimizer.pdb
