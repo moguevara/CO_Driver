@@ -1,4 +1,4 @@
-﻿namespace XOPartOptimizer
+﻿namespace RFB_Tool_Suite
 {
     partial class user_settings
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,6 +66,9 @@
             this.cmb_language_drop_down = new System.Windows.Forms.ComboBox();
             this.txt_log_file_location = new System.Windows.Forms.TextBox();
             this.txt_historic_log_location = new System.Windows.Forms.TextBox();
+            this.btn_save_user_settings = new System.Windows.Forms.Button();
+            this.btn_default_user_settings = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_min_beep_score)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
@@ -78,23 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_founders_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_preserved_file_count)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1169, 579);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "USER SETTINGS";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -276,7 +261,6 @@
             this.txt_local_user_input.Name = "txt_local_user_input";
             this.txt_local_user_input.Size = new System.Drawing.Size(154, 22);
             this.txt_local_user_input.TabIndex = 1;
-            this.txt_local_user_input.Text = "Rot_Fish_Bandit";
             this.txt_local_user_input.WordWrap = false;
             // 
             // directorySearcher1
@@ -610,7 +594,6 @@
             this.txt_log_file_location.Name = "txt_log_file_location";
             this.txt_log_file_location.Size = new System.Drawing.Size(240, 22);
             this.txt_log_file_location.TabIndex = 39;
-            this.txt_log_file_location.Text = "C:\\Users\\morgh_000.000\\Documents\\my games\\Crossout\\logs";
             this.txt_log_file_location.WordWrap = false;
             // 
             // txt_historic_log_location
@@ -624,14 +607,56 @@
             this.txt_historic_log_location.Name = "txt_historic_log_location";
             this.txt_historic_log_location.Size = new System.Drawing.Size(240, 22);
             this.txt_historic_log_location.TabIndex = 40;
-            this.txt_historic_log_location.Text = "C:\\Users\\morgh_000.000\\Desktop\\screen_element_loc\\historic_logs";
             this.txt_historic_log_location.WordWrap = false;
+            // 
+            // btn_save_user_settings
+            // 
+            this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save_user_settings.Location = new System.Drawing.Point(928, 523);
+            this.btn_save_user_settings.Name = "btn_save_user_settings";
+            this.btn_save_user_settings.Size = new System.Drawing.Size(206, 34);
+            this.btn_save_user_settings.TabIndex = 41;
+            this.btn_save_user_settings.Text = "Save User Settings";
+            this.btn_save_user_settings.UseVisualStyleBackColor = true;
+            this.btn_save_user_settings.Click += new System.EventHandler(this.save_user_settings);
+            // 
+            // btn_default_user_settings
+            // 
+            this.btn_default_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_default_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_default_user_settings.Location = new System.Drawing.Point(828, 523);
+            this.btn_default_user_settings.Name = "btn_default_user_settings";
+            this.btn_default_user_settings.Size = new System.Drawing.Size(94, 34);
+            this.btn_default_user_settings.TabIndex = 42;
+            this.btn_default_user_settings.Text = "Default";
+            this.btn_default_user_settings.UseVisualStyleBackColor = true;
+            this.btn_default_user_settings.Click += new System.EventHandler(this.restore_default_settings);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Lime;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.label1.Size = new System.Drawing.Size(1169, 579);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "USER SETTINGS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.btn_default_user_settings);
+            this.Controls.Add(this.btn_save_user_settings);
             this.Controls.Add(this.txt_historic_log_location);
             this.Controls.Add(this.txt_log_file_location);
             this.Controls.Add(this.cmb_language_drop_down);
@@ -688,8 +713,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -728,5 +751,8 @@
         private System.Windows.Forms.ComboBox cmb_language_drop_down;
         private System.Windows.Forms.TextBox txt_log_file_location;
         private System.Windows.Forms.TextBox txt_historic_log_location;
+        private System.Windows.Forms.Button btn_save_user_settings;
+        private System.Windows.Forms.Button btn_default_user_settings;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace XOPartOptimizer
+namespace RFB_Tool_Suite
 {
     static class Program
     {

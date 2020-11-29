@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace XOPartOptimizer
+namespace RFB_Tool_Suite
 {
     public partial class frm_main_page : Form
     {
         public frm_main_page()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            main_page_panel.Controls.Add(new welcome_page());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,6 +69,21 @@ namespace XOPartOptimizer
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new fusion_calculator());
+        }
+
+        private void chatToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inMatchDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        void initialize_global_data()
+        {
+            
         }
     }
 }

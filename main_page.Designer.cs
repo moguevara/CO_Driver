@@ -1,4 +1,4 @@
-﻿namespace XOPartOptimizer
+﻿namespace RFB_Tool_Suite
 {
     partial class frm_main_page
     {
@@ -31,8 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_main_page));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.strp_main_menu_strip = new System.Windows.Forms.MenuStrip();
             this.userProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inMatchDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewTraceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.combatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gamelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.netlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gfxlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matchmakingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clanWarsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,29 +51,33 @@
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partOptimizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildManagmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chatToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
-            this.menuStrip1.SuspendLayout();
+            this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // strp_main_menu_strip
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.menuStrip1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.strp_main_menu_strip.BackColor = System.Drawing.SystemColors.Control;
+            this.strp_main_menu_strip.Enabled = false;
+            this.strp_main_menu_strip.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.strp_main_menu_strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userProfileToolStripMenuItem,
+            this.inMatchDataToolStripMenuItem,
             this.gameAnalysisToolStripMenuItem,
             this.buildToolsToolStripMenuItem,
+            this.chatToolsToolStripMenuItem,
             this.settingsToolStripMenuItem});
-            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(1195, 23);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            this.strp_main_menu_strip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.strp_main_menu_strip.Location = new System.Drawing.Point(0, 0);
+            this.strp_main_menu_strip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.strp_main_menu_strip.Name = "strp_main_menu_strip";
+            this.strp_main_menu_strip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 22);
+            this.strp_main_menu_strip.TabIndex = 2;
+            this.strp_main_menu_strip.Text = "menuStrip1";
+            this.strp_main_menu_strip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // userProfileToolStripMenuItem
             // 
@@ -75,6 +86,57 @@
             this.userProfileToolStripMenuItem.Name = "userProfileToolStripMenuItem";
             this.userProfileToolStripMenuItem.Size = new System.Drawing.Size(103, 18);
             this.userProfileToolStripMenuItem.Text = "User Profile";
+            // 
+            // inMatchDataToolStripMenuItem
+            // 
+            this.inMatchDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewTraceToolStripMenuItem});
+            this.inMatchDataToolStripMenuItem.Name = "inMatchDataToolStripMenuItem";
+            this.inMatchDataToolStripMenuItem.Size = new System.Drawing.Size(82, 18);
+            this.inMatchDataToolStripMenuItem.Text = "Live Data";
+            this.inMatchDataToolStripMenuItem.Click += new System.EventHandler(this.inMatchDataToolStripMenuItem_Click);
+            // 
+            // viewTraceToolStripMenuItem
+            // 
+            this.viewTraceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.combatToolStripMenuItem,
+            this.gamelogToolStripMenuItem,
+            this.chatlogToolStripMenuItem,
+            this.netlogToolStripMenuItem,
+            this.gfxlogToolStripMenuItem});
+            this.viewTraceToolStripMenuItem.Name = "viewTraceToolStripMenuItem";
+            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewTraceToolStripMenuItem.Text = "Trace Logs";
+            // 
+            // combatToolStripMenuItem
+            // 
+            this.combatToolStripMenuItem.Name = "combatToolStripMenuItem";
+            this.combatToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.combatToolStripMenuItem.Text = "combat.log";
+            // 
+            // gamelogToolStripMenuItem
+            // 
+            this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
+            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem.Text = "game.log";
+            // 
+            // chatlogToolStripMenuItem
+            // 
+            this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
+            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem.Text = "chat.log";
+            // 
+            // netlogToolStripMenuItem
+            // 
+            this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
+            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem.Text = "net.log";
+            // 
+            // gfxlogToolStripMenuItem
+            // 
+            this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
+            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem.Text = "gfx.log";
             // 
             // gameAnalysisToolStripMenuItem
             // 
@@ -160,6 +222,13 @@
             this.buildManagmentToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.buildManagmentToolStripMenuItem.Text = "Build Managment";
             // 
+            // chatToolsToolStripMenuItem
+            // 
+            this.chatToolsToolStripMenuItem.Name = "chatToolsToolStripMenuItem";
+            this.chatToolsToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
+            this.chatToolsToolStripMenuItem.Text = "Chat Tools";
+            this.chatToolsToolStripMenuItem.Click += new System.EventHandler(this.chatToolsToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
@@ -172,9 +241,9 @@
             // main_page_panel
             // 
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_page_panel.Location = new System.Drawing.Point(0, 23);
+            this.main_page_panel.Location = new System.Drawing.Point(0, 22);
             this.main_page_panel.Name = "main_page_panel";
-            this.main_page_panel.Size = new System.Drawing.Size(1195, 600);
+            this.main_page_panel.Size = new System.Drawing.Size(1195, 601);
             this.main_page_panel.TabIndex = 3;
             // 
             // frm_main_page
@@ -185,21 +254,21 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1195, 623);
             this.Controls.Add(this.main_page_panel);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.strp_main_menu_strip);
             this.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.strp_main_menu_strip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1211, 662);
             this.Name = "frm_main_page";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Rot_Fish_Bandit Tool Suite v0.0.1";
+            this.Text = "Rot_Fish_Bandit Tool Suite v0.0.1.1";
             this.TransparencyKey = System.Drawing.Color.Transparent;
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.strp_main_menu_strip.ResumeLayout(false);
+            this.strp_main_menu_strip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,7 +276,6 @@
 
         #endregion
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem userProfileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gameAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matchmakingToolStripMenuItem;
@@ -222,6 +290,15 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buildManagmentToolStripMenuItem;
         private System.Windows.Forms.Panel main_page_panel;
+        private System.Windows.Forms.ToolStripMenuItem chatToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inMatchDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewTraceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem combatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gamelogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chatlogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem netlogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gfxlogToolStripMenuItem;
+        public System.Windows.Forms.MenuStrip strp_main_menu_strip;
     }
 }
 
