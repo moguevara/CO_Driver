@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RFB_Tool_Suite.Properties;
 
 namespace RFB_Tool_Suite
 {
@@ -27,6 +28,15 @@ namespace RFB_Tool_Suite
         {
             base.OnLoad(e);
             Distribution = new Dictionary<int, int> { };
+
+            this.num_item_cost.Value = Convert.ToInt32(Settings.Default["fusion_item_cost"]);
+            this.num_reliabilty_target.Value = Convert.ToInt32(Settings.Default["fusion_reliability_target"]);
+            this.num_reliability_max.Value = Convert.ToInt32(Settings.Default["fusion_reliability_max"]);
+            this.num_power_target.Value = Convert.ToInt32(Settings.Default["fusion_power_target"]);
+            this.num_power_max.Value = Convert.ToInt32(Settings.Default["fusion_power_max"]);
+            this.num_handling_target.Value = Convert.ToInt32(Settings.Default["fusion_handling_target"]);
+            this.num_handling_max.Value = Convert.ToInt32(Settings.Default["fusion_handling_max"]);
+            
             calculate_probabilities(this);
         }
 
@@ -94,6 +104,17 @@ namespace RFB_Tool_Suite
             }
 
             display_probabilities(current_screen);
+
+            Settings.Default["fusion_item_cost"] = Convert.ToInt32(this.num_item_cost.Value);
+            Settings.Default["fusion_reliability_target"] = Convert.ToInt32(this.num_reliabilty_target.Value);
+            Settings.Default["fusion_reliability_max"] = Convert.ToInt32(this.num_reliability_max.Value);
+            Settings.Default["fusion_power_target"] = Convert.ToInt32(this.num_power_target.Value);
+            Settings.Default["fusion_power_max"] = Convert.ToInt32(this.num_power_max.Value);
+            Settings.Default["fusion_handling_target"] = Convert.ToInt32(this.num_handling_target.Value);
+            Settings.Default["fusion_handling_max"] = Convert.ToInt32(this.num_handling_max.Value);
+
+            Settings.Default.Save();
+            Settings.Default.Reload();
         }
 
         void display_probabilities(fusion_calculator current_screen)
@@ -125,6 +146,30 @@ namespace RFB_Tool_Suite
 
         private void calculator_changed(object sender, EventArgs e)
         {
+            calculate_probabilities(this);
+        }
+
+        private void btn_reset_Click(object sender, EventArgs e)
+        {
+            Settings.Default["fusion_item_cost"] = 300;
+            Settings.Default["fusion_reliability_target"] = 1;
+            Settings.Default["fusion_reliability_max"] = 3;
+            Settings.Default["fusion_power_target"] = 0;
+            Settings.Default["fusion_power_max"] = 3;
+            Settings.Default["fusion_handling_target"] =0;
+            Settings.Default["fusion_handling_max"] = 3;
+
+            Settings.Default.Save();
+            Settings.Default.Reload();
+
+            this.num_item_cost.Value = Convert.ToInt32(Settings.Default["fusion_item_cost"]);
+            this.num_reliabilty_target.Value = Convert.ToInt32(Settings.Default["fusion_reliability_target"]);
+            this.num_reliability_max.Value = Convert.ToInt32(Settings.Default["fusion_reliability_max"]);
+            this.num_power_target.Value = Convert.ToInt32(Settings.Default["fusion_power_target"]);
+            this.num_power_max.Value = Convert.ToInt32(Settings.Default["fusion_power_max"]);
+            this.num_handling_target.Value = Convert.ToInt32(Settings.Default["fusion_handling_target"]);
+            this.num_handling_max.Value = Convert.ToInt32(Settings.Default["fusion_handling_max"]);
+
             calculate_probabilities(this);
         }
     }

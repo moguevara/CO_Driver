@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace RFB_Tool_Suite
 {
     public partial class frm_main_page : Form
@@ -21,6 +22,7 @@ namespace RFB_Tool_Suite
         {
             base.OnLoad(e);
             main_page_panel.Controls.Add(new welcome_page());
+            this.Text = string.Format(@"Rot_Fish_Bandit Tool Suite v{0}", global_data.CURRENT_VERSION);
         }
 
         private void button1_Click(object sender, EventArgs e)

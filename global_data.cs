@@ -24,6 +24,6 @@ namespace RFB_Tool_Suite
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
 
-        public SessionStats Current_session = new SessionStats { };
+        public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
     }
 }
