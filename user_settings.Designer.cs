@@ -613,7 +613,7 @@
             // 
             this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_save_user_settings.Location = new System.Drawing.Point(928, 523);
+            this.btn_save_user_settings.Location = new System.Drawing.Point(928, 548);
             this.btn_save_user_settings.Name = "btn_save_user_settings";
             this.btn_save_user_settings.Size = new System.Drawing.Size(206, 34);
             this.btn_save_user_settings.TabIndex = 41;
@@ -625,7 +625,7 @@
             // 
             this.btn_default_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_default_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_default_user_settings.Location = new System.Drawing.Point(828, 523);
+            this.btn_default_user_settings.Location = new System.Drawing.Point(828, 548);
             this.btn_default_user_settings.Name = "btn_default_user_settings";
             this.btn_default_user_settings.Size = new System.Drawing.Size(94, 34);
             this.btn_default_user_settings.TabIndex = 42;
@@ -644,7 +644,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1169, 579);
+            this.label1.Size = new System.Drawing.Size(1169, 601);
             this.label1.TabIndex = 0;
             this.label1.Text = "USER SETTINGS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -696,7 +696,7 @@
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "user_settings";
-            this.Size = new System.Drawing.Size(1169, 579);
+            this.Size = new System.Drawing.Size(1169, 601);
             ((System.ComponentModel.ISupportInitialize)(this.num_min_beep_score)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).EndInit();

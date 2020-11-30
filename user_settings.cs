@@ -104,10 +104,10 @@ namespace RFB_Tool_Suite
 
         private void restore_default_settings(object sender, EventArgs e)
         {
-            Settings.Default["local_user_name"] = "Rot_Fish_Bandit";
-            Settings.Default["log_file_location"] = @"C:\Users\morgh_000.000\Documents\my games\Crossout\logs";
+            Settings.Default["local_user_name"] = "";
+            Settings.Default["log_file_location"] = @"";
             Settings.Default["preserve_historic_files"] = true;
-            Settings.Default["historic_file_location"] = @"C:\Users\morgh_000.000\Desktop\screen_element_loc\historic_logs";
+            Settings.Default["historic_file_location"] = @"";
             Settings.Default["max_preserved_file_count"] = 50;
             Settings.Default["language"] = "English";
             Settings.Default["beep_at_in_game_score"] = true;

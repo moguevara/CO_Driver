@@ -36,7 +36,7 @@
             // lbl_welcome_main
             // 
             this.lbl_welcome_main.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbl_welcome_main.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_welcome_main.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_welcome_main.Location = new System.Drawing.Point(0, 0);
             this.lbl_welcome_main.Name = "lbl_welcome_main";
             this.lbl_welcome_main.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -48,7 +48,7 @@
             // pb_welcome_file_load
             // 
             this.pb_welcome_file_load.ForeColor = System.Drawing.Color.Lime;
-            this.pb_welcome_file_load.Location = new System.Drawing.Point(47, 540);
+            this.pb_welcome_file_load.Location = new System.Drawing.Point(48, 558);
             this.pb_welcome_file_load.Name = "pb_welcome_file_load";
             this.pb_welcome_file_load.Size = new System.Drawing.Size(1100, 30);
             this.pb_welcome_file_load.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -59,7 +59,7 @@
             this.lb_load_status_text.AllowDrop = true;
             this.lb_load_status_text.BackColor = System.Drawing.Color.Transparent;
             this.lb_load_status_text.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_load_status_text.Location = new System.Drawing.Point(47, 507);
+            this.lb_load_status_text.Location = new System.Drawing.Point(48, 525);
             this.lb_load_status_text.Name = "lb_load_status_text";
             this.lb_load_status_text.Size = new System.Drawing.Size(1100, 30);
             this.lb_load_status_text.TabIndex = 2;
@@ -77,7 +77,7 @@
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "welcome_page";
-            this.Size = new System.Drawing.Size(1195, 579);
+            this.Size = new System.Drawing.Size(1195, 601);
             this.ResumeLayout(false);
 
         }

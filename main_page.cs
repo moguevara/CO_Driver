@@ -87,5 +87,35 @@ namespace RFB_Tool_Suite
         {
             
         }
+
+        private void combatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Combat"));
+        }
+
+        private void gamelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Game"));
+        }
+
+        private void chatlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Chat"));
+        }
+
+        private void netlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Net"));
+        }
+
+        private void gfxlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Gfx"));
+        }
     }
 }

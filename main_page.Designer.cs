@@ -111,32 +111,37 @@
             // combatToolStripMenuItem
             // 
             this.combatToolStripMenuItem.Name = "combatToolStripMenuItem";
-            this.combatToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.combatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.combatToolStripMenuItem.Text = "combat.log";
+            this.combatToolStripMenuItem.Click += new System.EventHandler(this.combatToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem
             // 
             this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
-            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gamelogToolStripMenuItem.Text = "game.log";
+            this.gamelogToolStripMenuItem.Click += new System.EventHandler(this.gamelogToolStripMenuItem_Click);
             // 
             // chatlogToolStripMenuItem
             // 
             this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
-            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.chatlogToolStripMenuItem.Text = "chat.log";
+            this.chatlogToolStripMenuItem.Click += new System.EventHandler(this.chatlogToolStripMenuItem_Click);
             // 
             // netlogToolStripMenuItem
             // 
             this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
-            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.netlogToolStripMenuItem.Text = "net.log";
+            this.netlogToolStripMenuItem.Click += new System.EventHandler(this.netlogToolStripMenuItem_Click);
             // 
             // gfxlogToolStripMenuItem
             // 
             this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
-            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gfxlogToolStripMenuItem.Text = "gfx.log";
+            this.gfxlogToolStripMenuItem.Click += new System.EventHandler(this.gfxlogToolStripMenuItem_Click);
             // 
             // gameAnalysisToolStripMenuItem
             // 
@@ -240,6 +245,7 @@
             // 
             // main_page_panel
             // 
+            this.main_page_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_page_panel.Location = new System.Drawing.Point(0, 22);
             this.main_page_panel.Name = "main_page_panel";
