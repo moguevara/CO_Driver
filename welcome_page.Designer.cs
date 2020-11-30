@@ -63,7 +63,7 @@
             this.lb_load_status_text.Name = "lb_load_status_text";
             this.lb_load_status_text.Size = new System.Drawing.Size(1100, 30);
             this.lb_load_status_text.TabIndex = 2;
-            this.lb_load_status_text.Text = "label1";
+            this.lb_load_status_text.Text = "write status text here";
             this.lb_load_status_text.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // welcome_page

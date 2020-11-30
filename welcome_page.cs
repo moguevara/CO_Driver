@@ -25,16 +25,15 @@ namespace RFB_Tool_Suite
             base.OnLoad(e);
 
             initialize_screen_components();
-            find_log_file_path();
-            find_historic_file_path();
-            copy_historic_files();
-            FileInfo[] files = populate_files_list();
-            find_local_user_name(files);
+            //find_log_file_path();
+            //find_historic_file_path();
+            //copy_historic_files();
+            //find_local_user_name();
 
             unlock_menu_strip();
         }
 
-        void find_local_user_name(FileInfo[] files)
+        void find_local_user_name()
         {
             if (Settings.Default["local_user_name"].ToString().Length > 0)
                 return;
@@ -144,8 +143,6 @@ namespace RFB_Tool_Suite
         {
             if (Settings.Default["local_user_name"].ToString().Length > 0)
                 this.lbl_welcome_main.Text = string.Format(@"Welcome {0} to the Rot_Fish_Bandit Crossout Tool Suite V{1}", Settings.Default["local_user_name"].ToString(), global_data.CURRENT_VERSION);
-            else
-                this.lbl_welcome_main.Text = string.Format(@"Welcome to the Rot_Fish_Bandit Crossout Tool Suite V{0}", global_data.CURRENT_VERSION);
         }
 
         void unlock_menu_strip ()

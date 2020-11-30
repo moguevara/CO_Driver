@@ -28,39 +28,43 @@ namespace RFB_Tool_Suite
             string trace_type = this.lbl_trace_name.Text.Split(' ').First().ToLower();
             FileInfo trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
-            var wh = new AutoResetEvent(false);
-            var fsw = new FileSystemWatcher(".");
+            AutoResetEvent wh = new AutoResetEvent(false);
+            FileSystemWatcher fsw = new FileSystemWatcher(".");
             fsw.Filter = trace_file.FullName;
             fsw.EnableRaisingEvents = true;
             fsw.Changed += (s, e) => wh.Set();
             string data_return = "";
-            bool returning_from_wait = false;
 
-            var fs = new FileStream(trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using (var sr = new StreamReader(fs))
+            FileStream fs = new FileStream(trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using (StreamReader sr = new StreamReader(fs))
             {
-                var s = "";
+                string s = "";
                 while (bw_file_tracer.CancellationPending == false)
                 {
                     s = sr.ReadLine();
                     if (s != null)
                     {
                         data_return += string.Format(@"{0}{1}",s,Environment.NewLine);
-                        if (data_return.Length + s.Length > 50000 || returning_from_wait)
+                        if (data_return.Length + s.Length > 50000)
                         {
                             bw_file_tracer.ReportProgress(0, data_return);
                             data_return = "";
-                            returning_from_wait = false;
                         }
                     }
                     else
                     {
-                        returning_from_wait = true;
-                        System.Threading.Thread.Sleep(200);
+                        if (data_return.Length > 0) {
+                            bw_file_tracer.ReportProgress(0, data_return);
+                            data_return = "";
+                        }
+                        System.Threading.Thread.Sleep(1000);
                     }
 
                 }
             }
+            fs.Dispose();
+            fsw.Dispose();
+            wh.Dispose();
         }
 
         private void bw_cancel_trace(object sender, RunWorkerCompletedEventArgs e)
@@ -71,11 +75,6 @@ namespace RFB_Tool_Suite
         private void bw_write_trace(object sender, ProgressChangedEventArgs e)
         {
             this.tb_trace_output.AppendText(e.UserState as string);
-        }
-
-        private void tb_trace_output_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void trace_view_Leave(object sender, EventArgs e)

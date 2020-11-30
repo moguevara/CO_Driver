@@ -272,7 +272,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rot_Fish_Bandit Tool Suite v0.0.1.1";
             this.TransparencyKey = System.Drawing.Color.Transparent;
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.rfb_tool_suite_load);
             this.strp_main_menu_strip.ResumeLayout(false);
             this.strp_main_menu_strip.PerformLayout();
             this.ResumeLayout(false);

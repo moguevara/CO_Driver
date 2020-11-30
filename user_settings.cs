@@ -39,46 +39,6 @@ namespace RFB_Tool_Suite
             this.chk_prestigue_parts.Checked = (bool)Settings.Default["include_prestigue_parts"];
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label18_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label21_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void save_user_settings(object sender, EventArgs e)
         {
             Settings.Default["local_user_name"] = this.txt_local_user_input.Text;

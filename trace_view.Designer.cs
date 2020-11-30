@@ -71,7 +71,6 @@
             this.tb_trace_output.Size = new System.Drawing.Size(1195, 532);
             this.tb_trace_output.TabIndex = 0;
             this.tb_trace_output.WordWrap = false;
-            this.tb_trace_output.TextChanged += new System.EventHandler(this.tb_trace_output_TextChanged);
             // 
             // bw_file_tracer
             // 

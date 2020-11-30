@@ -102,7 +102,6 @@
             this.label3.Size = new System.Drawing.Size(133, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "Log Files Location";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -147,7 +146,6 @@
             this.label13.Size = new System.Drawing.Size(161, 14);
             this.label13.TabIndex = 12;
             this.label13.Text = "Engineers Level (1-30)";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label14
             // 
@@ -203,7 +201,6 @@
             this.label18.Size = new System.Drawing.Size(161, 14);
             this.label18.TabIndex = 17;
             this.label18.Text = "Dawn\'s Children (0-15)";
-            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // label19
             // 
@@ -237,7 +234,6 @@
             this.label21.Size = new System.Drawing.Size(154, 14);
             this.label21.TabIndex = 20;
             this.label21.Text = "Prestigue/Pack Parts?";
-            this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // label23
             // 
@@ -293,7 +289,6 @@
             this.label7.Size = new System.Drawing.Size(154, 14);
             this.label7.TabIndex = 23;
             this.label7.Text = "Beep at In Game Score";
-            this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
             // label8
             // 
@@ -648,7 +643,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "USER SETTINGS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // user_settings
             // 
