@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RFB_Tool_Suite
+namespace CO_Driver
 {
     static class Program
     {

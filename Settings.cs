@@ -1,4 +1,4 @@
-﻿namespace RFB_Tool_Suite.Properties {
+﻿namespace CO_Driver.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

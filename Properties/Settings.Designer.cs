@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RFB_Tool_Suite.Properties {
+namespace CO_Driver.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -224,6 +224,114 @@ namespace RFB_Tool_Suite.Properties {
             }
             set {
                 this["include_prestigue_parts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int fusion_reliability_target {
+            get {
+                return ((int)(this["fusion_reliability_target"]));
+            }
+            set {
+                this["fusion_reliability_target"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int fusion_reliability_max {
+            get {
+                return ((int)(this["fusion_reliability_max"]));
+            }
+            set {
+                this["fusion_reliability_max"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int fusion_power_target {
+            get {
+                return ((int)(this["fusion_power_target"]));
+            }
+            set {
+                this["fusion_power_target"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int fusion_power_max {
+            get {
+                return ((int)(this["fusion_power_max"]));
+            }
+            set {
+                this["fusion_power_max"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int fusion_handling_target {
+            get {
+                return ((int)(this["fusion_handling_target"]));
+            }
+            set {
+                this["fusion_handling_target"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int fusion_handling_max {
+            get {
+                return ((int)(this["fusion_handling_max"]));
+            }
+            set {
+                this["fusion_handling_max"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int fusion_item_cost {
+            get {
+                return ((int)(this["fusion_item_cost"]));
+            }
+            set {
+                this["fusion_item_cost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int local_user_uid {
+            get {
+                return ((int)(this["local_user_uid"]));
+            }
+            set {
+                this["local_user_uid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string live_file_location {
+            get {
+                return ((string)(this["live_file_location"]));
+            }
+            set {
+                this["live_file_location"] = value;
             }
         }
     }
