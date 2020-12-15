@@ -33,7 +33,7 @@ namespace CO_Driver
             int dawns_children_level = Convert.ToInt32(Settings.Default["dawns_children_level"]);
             int firestarts_level = Convert.ToInt32(Settings.Default["firestarts_level"]);
             int founders_level = Convert.ToInt32(Settings.Default["founders_level"]);
-            bool prestigue_parts = (bool)Settings.Default["include_prestigue_parts"];
+            bool prestigue_parts = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
 
             this.dg_available_parts.AllowUserToAddRows = true;
             this.dg_selected_parts.AllowUserToAddRows = true;
@@ -56,8 +56,8 @@ namespace CO_Driver
                     continue;
                 if (master_part_list[i].faction == global_data.FOUNDERS_FACTION && master_part_list[i].level > founders_level)
                     continue;
-                if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
-                    continue;
+                //if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
+                //    continue;
 
                 DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
                 row.Cells[0].Value = master_part_list[i].description;

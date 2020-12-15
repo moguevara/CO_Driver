@@ -24,6 +24,7 @@ namespace CO_Driver
         schedule_display schedule_page = new schedule_display();
         build_view build_page = new build_view();
         part_optimizer part_page = new part_optimizer();
+        part_view avail_part_page = new part_view();
 
         public frm_main_page()
         {
@@ -171,6 +172,13 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(build_page);
         }
+
+        private void partViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(avail_part_page);
+        }
+
         private void process_log_files(object sender, DoWorkEventArgs e)
         {
             file_trace_managment.SessionStats Current_session = new file_trace_managment.SessionStats { };
@@ -277,7 +285,9 @@ namespace CO_Driver
             {
                 file_trace_managment.PartOptResponse response = (file_trace_managment.PartOptResponse)e.UserState;
                 this.part_page.master_part_list = response.master_list;
+                this.avail_part_page.master_part_list = response.master_list;
                 this.part_page.refresh_avail_parts();
+                this.avail_part_page.populate_parts_list();
             }
             else 
             if (e.ProgressPercentage == global_data.DEBUG_GIVE_LINE_UPDATE_EVENT)

@@ -75,6 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="user_controls\part_view.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\part_view.Designer.cs">
+      <DependentUpon>part_view.cs</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\part_optimizer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\build_view.resx">
       <DependentUpon>build_view.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\part_view.resx">
+      <DependentUpon>part_view.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\schedule_display.resx">
       <DependentUpon>schedule_display.cs</DependentUpon>

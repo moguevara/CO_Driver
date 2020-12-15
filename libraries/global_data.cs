@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.29";
+        public static string CURRENT_VERSION = "0.0.1.30";
 
         public const int MATCH_START_EVENT = 1;
         public const int LOAD_PLAYER_EVENT = 2;

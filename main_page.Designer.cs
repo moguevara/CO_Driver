@@ -50,6 +50,8 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
+            this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.automaticPartOptimizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,7 +115,9 @@
             this.buildToolsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.buildToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fusionTrackerToolStripMenuItem,
-            this.partOptimizationToolStripMenuItem});
+            this.partViewToolStripMenuItem,
+            this.partOptimizationToolStripMenuItem,
+            this.automaticPartOptimizerToolStripMenuItem});
             this.buildToolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buildToolsToolStripMenuItem.Name = "buildToolsToolStripMenuItem";
             this.buildToolsToolStripMenuItem.Size = new System.Drawing.Size(96, 18);
@@ -122,15 +126,15 @@
             // fusionTrackerToolStripMenuItem
             // 
             this.fusionTrackerToolStripMenuItem.Name = "fusionTrackerToolStripMenuItem";
-            this.fusionTrackerToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.fusionTrackerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.fusionTrackerToolStripMenuItem.Text = "Fusion Calculator";
             this.fusionTrackerToolStripMenuItem.Click += new System.EventHandler(this.menu_fusion_calculator);
             // 
             // partOptimizationToolStripMenuItem
             // 
             this.partOptimizationToolStripMenuItem.Name = "partOptimizationToolStripMenuItem";
-            this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.partOptimizationToolStripMenuItem.Text = "Part Optimization";
+            this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.partOptimizationToolStripMenuItem.Text = "Manual Part Selection";
             this.partOptimizationToolStripMenuItem.Click += new System.EventHandler(this.partOptimizationToolStripMenuItem_Click);
             // 
             // scheduleToolStripMenuItem
@@ -219,6 +223,19 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
+            // partViewToolStripMenuItem
+            // 
+            this.partViewToolStripMenuItem.Name = "partViewToolStripMenuItem";
+            this.partViewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.partViewToolStripMenuItem.Text = "View Available Parts";
+            this.partViewToolStripMenuItem.Click += new System.EventHandler(this.partViewToolStripMenuItem_Click);
+            // 
+            // automaticPartOptimizerToolStripMenuItem
+            // 
+            this.automaticPartOptimizerToolStripMenuItem.Name = "automaticPartOptimizerToolStripMenuItem";
+            this.automaticPartOptimizerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.automaticPartOptimizerToolStripMenuItem.Text = "Automatic Part Optimizer";
+            // 
             // frm_main_page
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -268,6 +285,8 @@
         private System.Windows.Forms.ToolStripMenuItem partOptimizationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matchAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buildToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem automaticPartOptimizerToolStripMenuItem;
     }
 }
 
