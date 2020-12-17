@@ -398,6 +398,9 @@ namespace CO_Driver
                 case global_data.DAMAGE_EVENT:
                     file_trace_managment.damage_event(line, Current_session);
                     break;
+                case global_data.STRIPE_EVENT:
+                    file_trace_managment.stripe_event(line, Current_session);
+                    break;
                 case global_data.KILL_EVENT:
                     file_trace_managment.kill_event(line, Current_session);
                     break;

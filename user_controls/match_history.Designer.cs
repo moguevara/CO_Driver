@@ -42,6 +42,7 @@
             this.match_score = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_assists = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.match_drone_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,6 +92,7 @@
             this.match_score,
             this.match_kills,
             this.match_assists,
+            this.match_drone_kills,
             this.match_deaths,
             this.match_damage,
             this.match_damage_taken,
@@ -104,6 +106,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dg_match_history_view.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dg_match_history_view.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_match_history_view.EnableHeadersVisualStyles = false;
             this.dg_match_history_view.GridColor = System.Drawing.Color.Lime;
             this.dg_match_history_view.Location = new System.Drawing.Point(0, 65);
@@ -135,130 +138,139 @@
             this.dg_match_history_view.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_match_history_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_match_history_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_match_history_view.Size = new System.Drawing.Size(1195, 539);
+            this.dg_match_history_view.Size = new System.Drawing.Size(1195, 536);
             this.dg_match_history_view.StandardTab = true;
             this.dg_match_history_view.TabIndex = 1;
             // 
             // match_type
             // 
             this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_type.HeaderText = "  Match  Type";
+            this.match_type.HeaderText = "Match  Type";
             this.match_type.Name = "match_type";
             this.match_type.ReadOnly = true;
             this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_type.Width = 85;
+            this.match_type.Width = 67;
             // 
             // match_round_start
             // 
             this.match_round_start.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_round_start.HeaderText = "  Start Time";
+            this.match_round_start.HeaderText = "Start Time";
             this.match_round_start.MinimumWidth = 10;
             this.match_round_start.Name = "match_round_start";
             this.match_round_start.ReadOnly = true;
             this.match_round_start.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_round_start.Width = 79;
+            this.match_round_start.Width = 67;
             // 
             // match_round_duration
             // 
             this.match_round_duration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_round_duration.HeaderText = "  Duration";
+            this.match_round_duration.HeaderText = "Duration";
             this.match_round_duration.Name = "match_round_duration";
             this.match_round_duration.ReadOnly = true;
             this.match_round_duration.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_round_duration.Width = 92;
+            this.match_round_duration.Width = 86;
             // 
             // match_build_used
             // 
             this.match_build_used.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_build_used.HeaderText = "  Build";
+            this.match_build_used.HeaderText = "Build";
             this.match_build_used.MinimumWidth = 10;
             this.match_build_used.Name = "match_build_used";
             this.match_build_used.ReadOnly = true;
             this.match_build_used.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_build_used.Width = 73;
+            this.match_build_used.Width = 65;
             // 
             // match_power_score
             // 
             this.match_power_score.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.match_power_score.HeaderText = "  PS";
+            this.match_power_score.HeaderText = "PS";
             this.match_power_score.Name = "match_power_score";
             this.match_power_score.ReadOnly = true;
             this.match_power_score.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_power_score.Width = 54;
+            this.match_power_score.Width = 44;
             // 
             // match_score
             // 
             this.match_score.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_score.HeaderText = "  Score";
+            this.match_score.HeaderText = "Score";
             this.match_score.Name = "match_score";
             this.match_score.ReadOnly = true;
             this.match_score.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_score.Width = 73;
+            this.match_score.Width = 65;
             // 
             // match_kills
             // 
             this.match_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_kills.HeaderText = "  Kills";
+            this.match_kills.HeaderText = "Kills";
             this.match_kills.Name = "match_kills";
             this.match_kills.ReadOnly = true;
             this.match_kills.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_kills.Width = 73;
+            this.match_kills.Width = 65;
             // 
             // match_assists
             // 
             this.match_assists.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_assists.HeaderText = "  Assits";
+            this.match_assists.HeaderText = "Assists";
             this.match_assists.Name = "match_assists";
             this.match_assists.ReadOnly = true;
             this.match_assists.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.match_assists.Width = 79;
             // 
+            // match_drone_kills
+            // 
+            this.match_drone_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.match_drone_kills.HeaderText = "Drone Kills";
+            this.match_drone_kills.Name = "match_drone_kills";
+            this.match_drone_kills.ReadOnly = true;
+            this.match_drone_kills.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.match_drone_kills.Width = 67;
+            // 
             // match_deaths
             // 
             this.match_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_deaths.HeaderText = "  Survied";
+            this.match_deaths.HeaderText = "Survied";
             this.match_deaths.Name = "match_deaths";
             this.match_deaths.ReadOnly = true;
             this.match_deaths.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_deaths.Width = 85;
+            this.match_deaths.Width = 79;
             // 
             // match_damage
             // 
             this.match_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_damage.HeaderText = "  Dmg";
+            this.match_damage.HeaderText = "Dmg";
             this.match_damage.MinimumWidth = 10;
             this.match_damage.Name = "match_damage";
             this.match_damage.ReadOnly = true;
             this.match_damage.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_damage.Width = 60;
+            this.match_damage.Width = 51;
             // 
             // match_damage_taken
             // 
             this.match_damage_taken.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_damage_taken.HeaderText = "  Dmg Taken";
+            this.match_damage_taken.HeaderText = "Dmg Taken";
             this.match_damage_taken.MinimumWidth = 10;
             this.match_damage_taken.Name = "match_damage_taken";
             this.match_damage_taken.ReadOnly = true;
             this.match_damage_taken.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_damage_taken.Width = 67;
+            this.match_damage_taken.Width = 85;
             // 
             // match_result
             // 
             this.match_result.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_result.HeaderText = "  Result";
+            this.match_result.HeaderText = "Result";
             this.match_result.Name = "match_result";
             this.match_result.ReadOnly = true;
             this.match_result.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_result.Width = 79;
+            this.match_result.Width = 72;
             // 
             // match_reward
             // 
             this.match_reward.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_reward.HeaderText = "  Rewards";
+            this.match_reward.HeaderText = "Rewards";
             this.match_reward.Name = "match_reward";
             this.match_reward.ReadOnly = true;
             this.match_reward.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_reward.Width = 85;
+            this.match_reward.Width = 79;
             // 
             // match_history
             // 
@@ -287,6 +299,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn match_score;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_kills;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_assists;
+        private System.Windows.Forms.DataGridViewTextBoxColumn match_drone_kills;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_deaths;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_damage;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_damage_taken;

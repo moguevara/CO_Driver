@@ -88,6 +88,7 @@ namespace CO_Driver
             public int current_team { get; set; }
             public Stats in_game_stats { get; set; }
             public Stats total_stats { get; set; }
+            public Dictionary<string, int> stripes { get; set; }
             public Dictionary<int, Stats> category_stats { get; set; }
         }
         public class Stats
@@ -95,13 +96,18 @@ namespace CO_Driver
             public int kills { get; set; }
             public int assists { get; set; }
             public int deaths { get; set; }
-            public int weapon_strips { get; set; }
+            public int drone_kills { get; set; }
             public int score { get; set; }
             public double damage { get; set; }
             public double damage_taken { get; set; }
             public int games { get; set; }
             public int wins { get; set; }
             public int losses { get; set; }
+        }
+        public class Stripe
+        {
+            public string description { get; set; }
+            public int count { get; set; }
         }
         public class FileData
         {
@@ -117,7 +123,6 @@ namespace CO_Driver
             public bool processed { get; set; }
             public int file_type { get; set; }
             public FileInfo log_file { get; set; }
-            
         }
 
         public class MatchRecord
@@ -143,9 +148,6 @@ namespace CO_Driver
             public Stats total_build_stats { get; set; }
             public Dictionary<int, Stats> build_stats { get; set; }
         }
-
-       
-
         #endregion
         #region session_managment
         public void initialize_session_stats(SessionStats Current_session)
@@ -192,6 +194,9 @@ namespace CO_Driver
             if (line.Contains("| 	player"))
                 event_id = global_data.LOAD_PLAYER_EVENT;
             else
+            if (line.Contains("| Stripe "))
+                event_id = global_data.STRIPE_EVENT;
+            else
             if (line.Contains("| Damage."))
                 event_id = global_data.DAMAGE_EVENT;
             else
@@ -232,9 +237,6 @@ namespace CO_Driver
                 return;
 
             Current_session.current_game_play_value = game_play;
-
-            
-
 
             clear_in_game_stats(-1, Current_session); /* sum results if game unfinished */
             Current_session.current_match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
@@ -330,6 +332,7 @@ namespace CO_Driver
 
                     entry.Value.in_game = false;
                     entry.Value.in_game_stats = new_stats();
+                    entry.Value.stripes.Clear();
                     entry.Value.party_id = 0;
                 }
             }
@@ -420,6 +423,32 @@ namespace CO_Driver
             }
         }
 
+        public static void stripe_event(string line, SessionStats Current_session)
+        {
+            string stripe_desc = Regex.Match(line, @"\| Stripe '(.+?)'").Groups[1].Value.Replace(" ", "");
+            int stripe_increment = Int32.Parse(Regex.Match(line, @"value increased by (.+?) for").Groups[1].Value.Replace(" ", ""));
+            string player_name = Regex.Match(line, @" \[(.+?)\].").Groups[1].Value.Replace(" ", "");
+
+            if (!Current_session.player_records.ContainsKey(player_name))
+                return;
+
+            if (stripe_desc == "PvpAssist")
+            {
+                Current_session.player_records[player_name].in_game_stats.assists += 1;
+            }
+
+            if (stripe_desc == "PvpTurretKill")
+            {
+                Current_session.player_records[player_name].in_game_stats.drone_kills += 1;
+            }
+
+            if (Current_session.player_records[player_name].stripes.ContainsKey(stripe_desc))
+            {
+                Current_session.player_records[player_name].stripes[stripe_desc] += stripe_increment;
+            }
+            else
+                Current_session.player_records[player_name].stripes.Add(stripe_desc, stripe_increment);
+        }
         public static void damage_event(string line, SessionStats Current_session)
         {
             string attacker = Regex.Match(line, @"attacker: (.+?),").Groups[1].Value.Replace(" ", "");
@@ -486,6 +515,8 @@ namespace CO_Driver
 
         public static void kill_assist_event(string line, SessionStats Current_session)
         {
+            return;
+            //CURRENTLY DOES JACK SHIT
             string assistant = Regex.Match(line, @"assist by (.+?)weapon").Groups[1].Value.Replace(" ", "");
             string weapon = Regex.Match(line, @"weapon: (.+?),").Groups[1].Value.Replace(" ", "");
 
@@ -570,8 +601,6 @@ namespace CO_Driver
             }
         }
 
-       
-
         #endregion
         #region class_managment
         private static Player new_player()
@@ -588,6 +617,7 @@ namespace CO_Driver
                 current_team = 0,
                 in_game_stats = new_stats(),
                 total_stats = new_stats(),
+                stripes = new Dictionary<string, int> { },
                 category_stats = new Dictionary<int, Stats> { }
             };
 
@@ -603,13 +633,22 @@ namespace CO_Driver
                 kills = 0,
                 assists = 0,
                 deaths = 0,
-                weapon_strips = 0,
+                drone_kills = 0,
                 score = 0,
                 damage = 0.0,
                 damage_taken = 0.0,
                 games = 0,
                 wins = 0,
                 losses = 0
+            };
+        }
+
+        private static Stripe new_stripe(string desc, int count)
+        {
+            return new Stripe
+            {
+                description = desc,
+                count = count
             };
         }
 
@@ -621,7 +660,7 @@ namespace CO_Driver
                 kills = a.kills + b.kills,
                 assists = a.assists + b.assists,
                 deaths = a.deaths + b.deaths,
-                weapon_strips = a.weapon_strips + b.weapon_strips,
+                drone_kills = a.drone_kills + b.drone_kills,
                 score = a.score + b.score,
                 damage = a.damage + b.damage,
                 damage_taken = a.damage_taken + b.damage_taken,
