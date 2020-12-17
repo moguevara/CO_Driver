@@ -39,6 +39,61 @@ namespace CO_Driver
             public string weapon_class { get; set;}
         }
 
+        public class Cabin
+        {
+            public string name { get; set; }
+            public string description { get; set; }
+            public int rarity { get; set; }
+            public int energy { get; set; }
+            public int base_speed { get; set; }
+            public int mass_limit { get; set; }
+            public int tonnage { get; set; }
+            public int mass { get; set; }
+            public int durability { get; set; }
+            public int power_score { get; set; }
+            public string cabin_class { get; set; }
+        }
+
+        public class Module
+        {
+            public string name { get; set; }
+            public string description { get; set; }
+            public int rarity { get; set; }
+            public int energy { get; set; }
+            public int durability { get; set; } //i hate that durability and mass are swapped
+            public int mass { get; set; } //but im not sure how to fix it...
+            public int power_score { get; set; }
+            public string module_class { get; set; }
+        }
+
+        public class Engine
+        {
+            public string name { get; set; }
+            public string description { get; set; }
+            public int rarity { get; set; }
+            public int energy { get; set; }
+            public int durability { get; set; }
+            public int mass { get; set; }
+            public int power_score { get; set; }
+            public int tonnage { get; set; }
+            public int mass_limit { get; set; }
+            public int speed_bonus { get; set; }
+            public int power_bonus { get; set; }
+        }
+
+        public class Explosive
+        {
+            public string name { get; set; }
+            public string description { get; set; }
+            public int rarity { get; set; }
+            public int energy { get; set; }
+            public int durability { get; set; }
+            public int mass { get; set; }
+            public int power_score { get; set; }
+            public int blast_damage { get; set; }
+            public string explosive_class { get; set; }
+        }
+
         public static Part new_part(string desc, int faction, int level, int hull, int part_dura, int mass, int power_score, double pass_through, double bullet_resist, double melee_resist)
         {
             return new Part
@@ -72,8 +127,75 @@ namespace CO_Driver
             };
         }
 
+        public static Cabin new_cabin(string name, string desc, int rarity, int energy, int speed, int mass_lim, int tonnage, int mass, int dura, int ps, string cabin_class)
+        {
+            return new Cabin
+            {
+                name = name,
+                description = desc,
+                rarity = rarity,
+                energy = energy,
+                base_speed = speed,
+                mass_limit = mass_lim,
+                tonnage = tonnage,
+                mass = mass,
+                durability = dura,
+                power_score = ps,
+                cabin_class = cabin_class
+            };
+        }
+
+        public static Module new_module(string name, string desc, int rarity, int energy, int dura, int mass, int ps, string module_class)
+        {
+            return new Module
+            {
+                name = name,
+                description = desc,
+                rarity = rarity,
+                energy = energy,
+                durability = dura,
+                mass = mass,
+                power_score = ps,
+                module_class = module_class
+            };
+        }
+        public static Engine new_engine(string name, string desc, int rarity, int energy, int dura, int mass, int ps, int tonnage, int mass_lim, int speed, int power)
+        {
+            return new Engine
+            {
+                name = name,
+                description = desc,
+                rarity = rarity,
+                energy = energy,
+                durability = dura,
+                mass = mass,
+                power_score = ps,
+                tonnage = tonnage,
+                mass_limit = mass_lim,
+                speed_bonus = speed,
+                power_bonus = power
+            };
+        }
+
+        public static Explosive new_explosive(string name, string desc, int rarity, int energy, int dura, int mass, int ps, int blast, string explosive_class)
+        {
+            return new Explosive
+            {
+                name = name,
+                description = desc,
+                rarity = rarity,
+                energy = energy,
+                durability = dura,
+                mass = mass,
+                power_score = ps,
+                blast_damage = blast,
+                explosive_class = explosive_class
+            };
+        }
+
         public static void populate_weapon_list(file_trace_managment.SessionStats Current_session)
         {
+            //MACHINE GUNS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Machinegun_Starter", "SM Hornet", global_data.BASE_RARITY, 2, 2.71, 144, 60, 170, "machine gun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Machinegun", "LM-54 Chord", global_data.COMMON_RARITY, 2, 3.11, 144, 60, 170, "machine gun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Machinegun_Frontal", "ST-M23 Defender", global_data.RARE_RARITY, 3, 7.2, 144, 140, 390, "frontal machine gun"));
@@ -92,6 +214,7 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Minigun_Legend", "MG14 Arbiter", global_data.LEGENDARY_RARITY, 3, 4, 279, 186, 1200, "minigun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_CannonMinigun_legend", "Reaper", global_data.LEGENDARY_RARITY, 6, 12.5, 603, 520, 2400, "minigun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Machinegun_Relic", "Punisher", global_data.RELIC_RARITY, 4, 11, 430, 368, 2400, "machine gun"));
+            //SHOTGUNS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Shotgun", "Lupara", global_data.COMMON_RARITY, 3, 24, 68, 63, 255, "shotgun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Shotgun_rare", "Sledgehammer", global_data.RARE_RARITY, 3, 24.42, 54, 115, 390, "shotgun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Shotgun_Frontal", "Spitfire", global_data.RARE_RARITY, 3, 25.8, 126, 183, 390, "frontal shotgun"));
@@ -108,6 +231,7 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Shotgun_legend", "Hammerfall", global_data.LEGENDARY_RARITY, 5, 42, 122, 221, 2000, "shotgun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_ShotGun_Garbage_legend", "Nidhogg", global_data.LEGENDARY_RARITY, 4, 184, 290, 340, 1600, "reloading shotgun"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Shotgun_Relic", "Breaker", global_data.RELIC_RARITY, 5, 47.4, 180, 387, 3000, "shotgun"));
+            //AUTOCANNONS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Cannon_rare", "AC43 Rapier", global_data.RARE_RARITY, 4, 14.3, 180, 113, 520, "autocannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Cannon_Preepic", "AC50 Storm", global_data.SPECIAL_RARITY, 4, 14.3, 210, 168, 760, "autocannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Cannon_Oneshot_preepic", "Median", global_data.SPECIAL_RARITY, 5, 150, 342, 189, 950, "reloading autocannon"));
@@ -115,6 +239,7 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Cannon_epic", "AC72 Whirlwind", global_data.EPIC_RARITY, 5, 16.2, 486, 391, 1375, "autocannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_CloseCombatCannon", "Whirl", global_data.EPIC_RARITY, 4, 32.76, 729, 457, 1100, "autocannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Cannon_Legend", "Cyclone", global_data.LEGENDARY_RARITY, 5, 21, 570, 535, 2000, "rapid-fire autocannon"));
+            //CANNONS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_EX", "Avenger 57mm", global_data.COMMON_RARITY, 5, 89, 468, 217, 425, "cannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_EX_rare", "Judge 76mm", global_data.RARE_RARITY, 5, 105.8, 585, 320, 650, "cannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_Free_rare", "Little Boy 6LB", global_data.RARE_RARITY, 6, 110, 837, 454, 780, "turret cannon"));
@@ -127,6 +252,7 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_Free_legend", "ZS-46 Mammoth", global_data.LEGENDARY_RARITY, 6, 170, 2633, 1284, 2400, "turret cannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_EX_Relic", "CC-18 Typhoon", global_data.RELIC_RARITY, 6, 255, 2200, 950, 3600, "cannon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_BigCannon_Free_Relic", "ZS-52 Mastodon", global_data.RELIC_RARITY, 6, 75, 2855, 1505, 3600, "turret cannon"));
+            //ROCKET LAUNCHERS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_AutoGuidedCourseGun_rare", "Wasp", global_data.RARE_RARITY, 4, 77.1, 90, 55, 520, "unguided rocket"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_AutoGuidedCourseGun_Nurs_Preepic", "Pyralid", global_data.SPECIAL_RARITY, 4, 89, 98, 69, 760, "unguided rocket"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Improv_HomingMissileLauncher_epic", "ATGM Flute", global_data.EPIC_RARITY, 2, 73.07, 81, 47, 550, "guided rocket"));
@@ -136,8 +262,10 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_HomingMissileLauncherLockOn_epic", "Nest", global_data.EPIC_RARITY, 5, 37, 288, 164, 1375, "homing rocket"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_HomingMissileLauncher_epic", "Pyre", global_data.EPIC_RARITY, 2, 116, 81, 52, 550, "homing rocket"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_HomingMissileLauncherBurstR_legend", "Hurricane", global_data.LEGENDARY_RARITY, 6, 89, 288, 175, 2400, "homing rocket"));
+            //GRENADE LAUNCHERS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_GrenadeLauncher_Auto", "GL-55 Impulse", global_data.EPIC_RARITY, 5, 50, 198, 126, 1375, "grenade launcher"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_GrenadeLauncher_Shotgun", "Retcher", global_data.LEGENDARY_RARITY, 6, 100.2, 234, 213, 2400, "grenade launcher"));
+            //ENERGY WEAPONS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Syfy_FusionRifle", "Synthesis", global_data.SPECIAL_RARITY, 4, 14.18, 158, 175, 760, "plasma emitter"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Plasma_Cutter", "Blockchain", global_data.EPIC_RARITY, 4, 112, 340, 260, 1100, "electric sniper"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Syfy_FusionRifle_epic", "Prometheus", global_data.EPIC_RARITY, 4, 14.4, 200, 185, 1100, "plasma emitter"));
@@ -149,9 +277,11 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Syfy_Tesla", "Spark III", global_data.LEGENDARY_RARITY, 4, 16, 360, 435, 1600, "tesla emitter"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Syfy_Tesla_relic", "Flash I", global_data.RELIC_RARITY, 4, 20, 450, 544, 2400, "tesla emitter"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_SniperCrossbow", "Scorpion", global_data.RELIC_RARITY, 6, 280, 900, 552, 3600, "electric sniper"));
+            //CROSSBOWS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Blast_ClassicCrossbow", "Phoenix", global_data.EPIC_RARITY, 5, 178, 1012, 418, 1375, "crossbow"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_ClassicCrossbow", "Spike-1", global_data.EPIC_RARITY, 4, 180, 810, 305, 1100, "crossbow"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_DoubleCrossbow", "Toadfish", global_data.LEGENDARY_RARITY, 4, 140, 900, 384, 1600, "crossbow"));
+            //MELEE WEAPONS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Drill_epic", "Borer", global_data.RARE_RARITY, 2, 20, 250, 330, 260, "grinding melee"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_SpearExplosive", "Boom", global_data.SPECIAL_RARITY, 1, 199.76, 45, 31, 190, "explosive melee"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Roundsaw_rare", "Buzzsaw", global_data.SPECIAL_RARITY, 2, 33, 125, 279, 380, "grinding melee"));
@@ -159,16 +289,20 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_LanceExplosive", "Lancelot", global_data.EPIC_RARITY, 1, 158.32, 144, 57, 275, "explosive melee"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_ChainSaw_epic", "Mauler", global_data.EPIC_RARITY, 3, 49.5, 94, 327, 825, "grinding melee"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Harvester_legend", "Harvester", global_data.LEGENDARY_RARITY, 4, 30, 940, 765, 1600, "grinding melee"));
+            //FLAMETHROWERS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Flamethrower_frontal", "Remedy", global_data.EPIC_RARITY, 4, 15, 300, 420, 1100, "frontal flamethrower"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Flamethrower_fixed", "Draco", global_data.LEGENDARY_RARITY, 4, 23, 270, 360, 1600, "frontal flamethrower"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Flamethrower_light", "Firebug", global_data.RELIC_RARITY, 4, 25, 315, 540, 2400, "flamethrower"));
+            //HARPOONS AND MINELAYERS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_MineTrap", "Kapkan", global_data.EPIC_RARITY, 2, 0, 360, 267, 550, "harpoon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Harpoon", "Skinner", global_data.EPIC_RARITY, 2, 0.1, 378, 308, 550, "harpoon"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_MineLauncher_Legend", "King", global_data.EPIC_RARITY, 3, 119.26, 540, 240, 825, "minelayer"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_WheelRocket", "Fortune", global_data.LEGENDARY_RARITY, 5, 85, 360, 288, 2000, "minelayer"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_MineLauncher", "Porcupine", global_data.RELIC_RARITY, 3, 174.21, 720, 384, 1800, "minelayer"));
+            //ARTILLERY
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Catapult", "Incinerator", global_data.EPIC_RARITY, 6, 2.5, 540, 472, 1650, "artillery"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Mortar_Revert", "Mandrake", global_data.LEGENDARY_RARITY, 8, 110, 2430, 689, 3200, "artillery"));
+            //TURRETS AND DRONES
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Quadrocopter_rare", "AD-12 Falcon", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "drone"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_TurretDeployer_rare", "DT Cobra", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "turret"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Quadrocopter_preepic", "AD-13 Hawk", global_data.SPECIAL_RARITY, 3, 12.32, 128, 141, 570, "drone"));
@@ -180,6 +314,7 @@ namespace CO_Driver
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Quadrocopter_epic", "MD-3 Owl", global_data.EPIC_RARITY, 4, 100.8, 128, 161, 1100, "drone"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_TurretDeployerMissile_epic", "RT Anaconda", global_data.EPIC_RARITY, 4, 101, 256, 321, 1100, "turret"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Quadrocopter_Syfy", "Annihilator", global_data.LEGENDARY_RARITY, 4, 12, 200, 190, 1600, "drone"));
+            //REVOLVERS
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_MGL_rare", "Emily", global_data.SPECIAL_RARITY, 4, 38.5, 160, 100, 760, "revolver"));
             Current_session.global_weapon_list.Add(new_weapon("CarPart_Gun_Revolver_epic", "Corvo", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver"));
         }
