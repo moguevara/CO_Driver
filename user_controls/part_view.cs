@@ -13,12 +13,12 @@ namespace CO_Driver
 {
     public partial class part_view : UserControl
     {
-        public List<file_trace_managment.Part> master_part_list = new List<file_trace_managment.Part> { };
+        public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
 
         private class unique_parts
         {
             public int part_count { get; set; }
-            public file_trace_managment.Part part { get; set; }
+            public part_loader.Part part { get; set; }
         }
 
         public part_view()

@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="libraries\part_loader.cs" />
     <Compile Include="user_controls\part_view.cs">
       <SubType>UserControl</SubType>
     </Compile>

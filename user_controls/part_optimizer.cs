@@ -13,7 +13,7 @@ namespace CO_Driver
 {
     public partial class part_optimizer : UserControl
     {
-        public List<file_trace_managment.Part> master_part_list = new List<file_trace_managment.Part> { };
+        public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
         public double resistance_modifier = 1.0;
         public part_optimizer()
         {

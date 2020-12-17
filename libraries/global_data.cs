@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.30";
+        public static string CURRENT_VERSION = "0.0.1.31";
 
         public const int MATCH_START_EVENT = 1;
         public const int LOAD_PLAYER_EVENT = 2;
@@ -48,6 +48,14 @@ namespace CO_Driver
         public const int FIRESTARTERS_FACTION = 7;
         public const int FOUNDERS_FACTION = 8;
         public const int PRESTIGUE_PACK_FACTION = 9;
+
+        public const int BASE_RARITY = 0;
+        public const int COMMON_RARITY = 1;
+        public const int RARE_RARITY = 2;
+        public const int SPECIAL_RARITY = 3;
+        public const int EPIC_RARITY = 4;
+        public const int LEGENDARY_RARITY = 5;
+        public const int RELIC_RARITY = 6;
 
         public const int TRACE_EVENT_FILE_COMPLETE = 1;
         public const int UNLOCK_MENU_BAR_EVENT = 2;
