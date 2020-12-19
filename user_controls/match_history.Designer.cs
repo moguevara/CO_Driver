@@ -43,7 +43,6 @@
             this.match_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_assists = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_drone_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.match_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +92,6 @@
             this.match_kills,
             this.match_assists,
             this.match_drone_kills,
-            this.match_deaths,
             this.match_damage,
             this.match_damage_taken,
             this.match_result,
@@ -225,15 +223,6 @@
             this.match_drone_kills.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.match_drone_kills.Width = 67;
             // 
-            // match_deaths
-            // 
-            this.match_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.match_deaths.HeaderText = "Survied";
-            this.match_deaths.Name = "match_deaths";
-            this.match_deaths.ReadOnly = true;
-            this.match_deaths.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_deaths.Width = 79;
-            // 
             // match_damage
             // 
             this.match_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -300,7 +289,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn match_kills;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_assists;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_drone_kills;
-        private System.Windows.Forms.DataGridViewTextBoxColumn match_deaths;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_damage;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_damage_taken;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_result;

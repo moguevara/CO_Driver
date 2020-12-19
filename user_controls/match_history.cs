@@ -44,11 +44,10 @@ namespace CO_Driver
                 row.Cells[6].Value = match.local_player_stats.kills;
                 row.Cells[7].Value = match.local_player_stats.assists;
                 row.Cells[8].Value = match.local_player_stats.drone_kills;
-                row.Cells[9].Value = match.local_player_stats.deaths == 0 ? "Yes" : "No";
-                row.Cells[10].Value = Math.Round(match.local_player_stats.damage, 2);
-                row.Cells[11].Value = Math.Round(match.local_player_stats.damage_taken, 2);
-                row.Cells[12].Value = match.game_result;
-                row.Cells[13].Value = "reward";
+                row.Cells[9].Value = Math.Round(match.local_player_stats.damage, 2);
+                row.Cells[10].Value = Math.Round(match.local_player_stats.damage_taken, 2);
+                row.Cells[11].Value = match.game_result;
+                row.Cells[12].Value = "reward";
 
                 this.dg_match_history_view.Rows.Add(row);
                 i++;
@@ -70,11 +69,10 @@ namespace CO_Driver
             row.Cells[6].Value = last_match_data.local_player_stats.kills;
             row.Cells[7].Value = last_match_data.local_player_stats.assists;
             row.Cells[8].Value = last_match_data.local_player_stats.drone_kills;
-            row.Cells[9].Value = last_match_data.local_player_stats.deaths == 0 ? "Yes" : "No";
-            row.Cells[10].Value = Math.Round(last_match_data.local_player_stats.damage, 2);
-            row.Cells[11].Value = Math.Round(last_match_data.local_player_stats.damage_taken, 2);
-            row.Cells[12].Value = last_match_data.game_result;
-            row.Cells[13].Value = "test";
+            row.Cells[9].Value = Math.Round(last_match_data.local_player_stats.damage, 2);
+            row.Cells[10].Value = Math.Round(last_match_data.local_player_stats.damage_taken, 2);
+            row.Cells[11].Value = last_match_data.game_result;
+            row.Cells[12].Value = "test";
 
             this.dg_match_history_view.Rows.Insert(0, row);
         }

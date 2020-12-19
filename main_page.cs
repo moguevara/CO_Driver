@@ -206,7 +206,7 @@ namespace CO_Driver
         {
             
             bw_file_feed.ReportProgress(global_data.POPULATE_PART_OPT_EVENT,
-                    file_trace_manager.new_part_opt_response(Current_session.global_parts_list));
+                    file_trace_manager.new_part_opt_response(Current_session.part_records.global_parts_list));
         }
 
         private void populate_build_records(file_trace_managment.SessionStats Current_session)
@@ -308,13 +308,33 @@ namespace CO_Driver
                 Current_session.file_data.processing_session_file_day = file.log_file.CreationTime;
                 if (file.log_file.Name.Contains("combat") && File.Exists(file.log_file.FullName))
                 {
+                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.log_file.FullName, (((double)current_progress * 100) / (double)file_count ))));
+                    string[] lines = File.ReadAllLines(file.log_file.FullName);
+
+                    foreach (string line in lines)
+                    {
+                        if (line != null)
+                            combat_log_event_handler(line, Current_session);
+                    }
+                    current_progress++;
+                    file.processed = true;
+                    lines = Array.Empty<string>();
+                }
+            }
+
+            foreach (file_trace_managment.LogFile file in Current_session.file_data.historic_file_list)
+            {
+                Current_session.file_data.processing_session_file = file.log_file;
+                Current_session.file_data.processing_session_file_day = file.log_file.CreationTime;
+                if (file.log_file.Name.Contains("game") && File.Exists(file.log_file.FullName))
+                {
                     bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.log_file.FullName, (((double)current_progress * 100) / (double)file_count))));
                     string[] lines = File.ReadAllLines(file.log_file.FullName);
 
                     foreach (string line in lines)
                     {
                         if (line != null)
-                            log_event_handler(line, Current_session);
+                            game_log_event_handler(line, Current_session);
                     }
                     current_progress++;
                     file.processed = true;
@@ -348,7 +368,7 @@ namespace CO_Driver
                     line = sr.ReadLine();
                     if (line != null)
                     {
-                        log_event_handler(line, Current_session);
+                        combat_log_event_handler(line, Current_session);
                         start_time = DateTime.Now.Ticks;
                     }
                     else
@@ -378,12 +398,15 @@ namespace CO_Driver
 
             process_live_files(most_recent_trace_file.FullName, ftm, Current_session);
         }
-
-        void log_event_handler(string line, file_trace_managment.SessionStats Current_session)
+        void game_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
         {
-            file_trace_managment.assign_current_event(line, Current_session);
+
+        }
+        void combat_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
+        {
+            file_trace_managment.assign_current_combat_event(line, Current_session);
             //if (Current_session.live_trace_data == true)
-            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, line));
+            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_combat_event, line));
             switch (Current_session.current_event)
             {
                 case global_data.MATCH_START_EVENT:

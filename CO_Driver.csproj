@@ -94,7 +94,6 @@
     <Compile Include="user_controls\build_view.Designer.cs">
       <DependentUpon>build_view.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\db_functions.cs" />
     <Compile Include="libraries\file_trace_managment.cs" />
     <Compile Include="libraries\log_file_managment.cs" />
     <Compile Include="user_controls\schedule_display.cs">
