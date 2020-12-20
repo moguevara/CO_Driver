@@ -54,7 +54,19 @@ namespace CO_Driver
         {
             this.tb_build_parts.Clear();
             if (e.RowIndex >= 0)
-                this.tb_build_parts.Text = string.Join(",",build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].parts);
+            {
+                this.tb_build_description.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].build_description;
+                this.tb_cabin.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].cabin.description;
+                this.tb_engine.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].engine.description;
+                this.tb_weapons.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].weapons.Select(x =>x.description));
+                this.tb_generator.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].explosives.Where(x => x.explosive_class == "generator").Select(x => x.description));
+                this.tb_build_parts.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].parts);
+            }
+        }
+
+        private void build_view_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -173,7 +173,7 @@ namespace CO_Driver
             Current_session.current_match_type = global_data.UNDEFINED_MATCH;
             Current_session.current_game_play_value = "";
             Current_session.add_match_to_record = false;
-            Current_session.local_user =  Settings.Default["local_user_name"].ToString();
+            Current_session.local_user = Settings.Default["local_user_name"].ToString();
             Current_session.local_user_uid = Convert.ToInt32(Settings.Default["local_user_uid"]);
             Current_session.current_event = 0;
             Current_session.file_data = new FileData { };
@@ -223,7 +223,7 @@ namespace CO_Driver
             }
             return temp_list;
         }
-        
+
         public static void assign_current_game_event(string line, SessionStats Current_session)
         {
             int event_id = 0;
@@ -284,7 +284,7 @@ namespace CO_Driver
             string map_name = Regex.Match(line, @"map '(.+?)'").Groups[1].Value.Replace(" ", "");
             string game_play = Regex.Match(line, @"Gameplay '(.+?)'").Groups[1].Value.Replace(" ", "");
             Current_session.map_name = map_name;
-            
+
             if (!Current_session.player_records.ContainsKey(Current_session.local_user))
                 return;
 
@@ -294,7 +294,7 @@ namespace CO_Driver
             Current_session.current_match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
-       
+
 
         private static void clear_in_game_stats(int winning_team, SessionStats Current_session)
         {
@@ -330,7 +330,7 @@ namespace CO_Driver
                 match_record.match_type = Current_session.current_match_type;
                 match_record.start_time = Current_session.current_match_start;
                 match_record.stop_time = Current_session.current_match_end;
-                
+
                 match_record.local_player_stats = Current_session.player_records[Current_session.local_user].in_game_stats;
                 match_record.build_hash = Current_session.player_records[Current_session.local_user].build_hash;
                 match_record.power_score = Current_session.player_records[Current_session.local_user].power_score;
@@ -374,12 +374,12 @@ namespace CO_Driver
                         entry.Value.category_stats.Add(Current_session.current_match_type, entry.Value.in_game_stats);
                     }
 
-                    if (entry.Value.current_team == winning_team) 
+                    if (entry.Value.current_team == winning_team)
                     {
                         entry.Value.total_stats.wins++;
                         entry.Value.category_stats[Current_session.current_match_type].wins++;
                     }
-                    else 
+                    else
                     {
                         entry.Value.total_stats.losses++;
                         entry.Value.category_stats[Current_session.current_match_type].losses++;
@@ -436,13 +436,193 @@ namespace CO_Driver
         {
             string long_description = "";
             string short_description = "";
-            
+
             assign_local_user_build_parts(Current_session);
 
+            //CABIN NAMING
+            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin != null)
+            {
+                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin.description;
+                long_description += " cabin ";
+            }
 
-            /* name the build here */
+            //WEAPON NAMING
+            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons.Count() == 0)
+            {
+                long_description += "weaponless build ";
+                if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin != null)
+                {
+                    short_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin.description;
+                }
+            }
+            else
+            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons.Count() == 1) //this needs to be redone when we make the weapon count determination code
+            {
+                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0];
+                short_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0];
+            }
+            else
+            {
+                //DETERMINE IF ALL WEAPONS ARE OF THE SAME CATEGORY
+                string expected_category = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0].weapon_class;
+                bool class_flag = false;
+                foreach (part_loader.Weapon weapon in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons)
+                {
+                    if (weapon.weapon_class != expected_category)
+                        class_flag = true;
+                }
+                if (class_flag == false) //this triggers if the player is mixing weapons of the same category, like running avengers with judges
+                    long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0].weapon_class;
+                else
+                {
+                    //ORDER WEAPON NAMES CORRECTLY FOR BUILDS WITH MIXED WEAPONS
+                    string relic_primary_weapons = "";
+                    string relic_support_weapons = "";
+                    string legendary_primary_weapons = "";
+                    string legendary_support_weapons = "";
+                    string epic_primary_weapons = "";
+                    string epic_support_weapons = "";
+                    string special_primary_weapons = "";
+                    string special_support_weapons = "";
+                    string rare_primary_weapons = "";
+                    string rare_support_weapons = "";
+                    string common_weapons = "";
+                    string base_weapons = "";
+                    foreach (part_loader.Weapon weapon in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons)
+                    {
+                        if (weapon.rarity == global_data.RELIC_RARITY)
+                        {
+                            if (weapon.weapon_class == "tesla emitter")
+                            {
+                                relic_support_weapons += weapon.description;
+                                relic_support_weapons += " ";
+                            }
+                            else
+                            {
+                                relic_primary_weapons += weapon.description;
+                                relic_primary_weapons += " ";
+                            }
+                        }
+                        else
+                        if (weapon.rarity == global_data.LEGENDARY_RARITY)
+                        {
+                            if (weapon.weapon_class == "tesla emitter" || weapon.weapon_class == "drone")
+                            {
+                                legendary_support_weapons += weapon.description;
+                                legendary_support_weapons += " ";
+                            }
+                            else
+                            {
+                                legendary_primary_weapons += weapon.description;
+                                legendary_primary_weapons += " ";
+                            }
+                        }
+                        else
+                        if (weapon.rarity == global_data.EPIC_RARITY)
+                        {
+                            if (weapon.weapon_class == "laser minigun" || weapon.weapon_class == "explosive melee" || weapon.weapon_class == "harpoon" || weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
+                            {
+                                epic_support_weapons += weapon.description;
+                                epic_support_weapons += " ";
+                            }
+                            else
+                            {
+                                epic_primary_weapons += weapon.description;
+                                epic_primary_weapons += " ";
+                            }
+                        }
+                        else
+                        if (weapon.rarity == global_data.SPECIAL_RARITY)
+                        {
+                            if (weapon.weapon_class == "explosive melee" || weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
+                            {
+                                special_support_weapons += weapon.description;
+                                special_support_weapons += " ";
+                            }
+                            else
+                            {
+                                special_primary_weapons += weapon.description;
+                                special_primary_weapons += " ";
+                            }
+                        }
+                        else
+                        if (weapon.rarity == global_data.RARE_RARITY)
+                        {
+                            if (weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
+                            {
+                                rare_support_weapons += weapon.description;
+                                rare_support_weapons += " ";
+                            }
+                            else
+                            {
+                                rare_primary_weapons += weapon.description;
+                                rare_primary_weapons += " ";
+                            }
+                        }
+                        else
+                        if (weapon.rarity == global_data.COMMON_RARITY)
+                        {
+                            common_weapons += weapon.description;
+                            common_weapons += " ";
+                        }
+                        else //base rarity weapons
+                        {
+                            base_weapons += weapon.description;
+                            base_weapons += " ";
+                        }
+                    }
+                    long_description += relic_primary_weapons;
+                    long_description += legendary_primary_weapons;
+                    long_description += epic_primary_weapons;
+                    long_description += special_primary_weapons;
+                    long_description += rare_primary_weapons;
+                    long_description += common_weapons;
+                    long_description += base_weapons;
+                    long_description += relic_support_weapons;
+                    long_description += legendary_support_weapons;
+                    long_description += epic_support_weapons;
+                    long_description += special_support_weapons;
+                    long_description += rare_support_weapons;
+                    short_description += relic_primary_weapons;
+                    short_description += legendary_primary_weapons;
+                    short_description += epic_primary_weapons;
+                    short_description += special_primary_weapons;
+                    short_description += rare_primary_weapons;
+                    short_description += common_weapons;
+                    short_description += base_weapons;
+                }
+            }
 
+            //MOVEMENT PART NAMING (we need to change assign_local_user_build_parts to include a list of movement parts)
+            /*name movement parts here*/
 
+            //MODULE NAMING
+            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].modules.Count() == 0)
+            {
+                long_description += "with no modules";
+            }
+            else
+            {
+                long_description += "with ";
+                foreach (part_loader.Module module in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].modules)
+                {
+                    if (module.module_class != "connector" && module.name != "CarPart_ModuleRadio")
+                    {
+                        long_description += module.description;
+                        long_description += " and ";
+                    }
+                }
+            }
+            //ENGINE NAMING
+            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].engine == null)
+            {
+                long_description += "no engine";
+            }
+            else
+            {
+                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].engine.description;
+                long_description += " engine";
+            }
 
             Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].build_description = long_description;
             Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].short_hand_description = short_description;
@@ -454,19 +634,19 @@ namespace CO_Driver
 
             foreach (string part in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].parts)
             {
-                if (local_build.cabin == null && Current_session.part_records.global_cabin_list.ContainsKey(part))
+                if (Current_session.part_records.global_cabin_list.ContainsKey(part))
                     local_build.cabin = Current_session.part_records.global_cabin_list[part];
                 else
-                if (local_build.engine == null && Current_session.part_records.global_engine_list.ContainsKey(part))
+                if (Current_session.part_records.global_engine_list.ContainsKey(part))
                     local_build.engine = Current_session.part_records.global_engine_list[part];
                 else
-                if (Current_session.part_records.global_weapon_list.ContainsKey(part))
+                if (Current_session.part_records.global_weapon_list.ContainsKey(part) && local_build.weapons.Where(x => x.name == part).Count() == 0)
                     local_build.weapons.Add(Current_session.part_records.global_weapon_list[part]);
                 else
-                if (Current_session.part_records.global_module_list.ContainsKey(part))
+                if (Current_session.part_records.global_module_list.ContainsKey(part) && local_build.modules.Where(x => x.name == part).Count() == 0)
                     local_build.modules.Add(Current_session.part_records.global_module_list[part]);
                 else
-                if (Current_session.part_records.global_explosives_list.ContainsKey(part))
+                if (Current_session.part_records.global_explosives_list.ContainsKey(part) && local_build.explosives.Where(x => x.name == part).Count() == 0)
                     local_build.explosives.Add(Current_session.part_records.global_explosives_list[part]);
             }
 
@@ -575,7 +755,8 @@ namespace CO_Driver
                 Current_session.player_records[attacker].in_game_stats.damage += damage;
                 Current_session.player_records[victim].in_game_stats.damage_taken += damage;
             }
-            if (attacker == Current_session.local_user) {
+            if (attacker == Current_session.local_user)
+            {
                 if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon))
                 {
                     Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
@@ -718,7 +899,7 @@ namespace CO_Driver
             return player;
         }
 
-        
+
 
         private static Stats new_stats()
         {
@@ -788,8 +969,8 @@ namespace CO_Driver
                 build_hash = "",
                 build_description = "",
                 short_hand_description = "",
-                cabin = null,
-                engine = null,
+                cabin = new part_loader.Cabin { },
+                engine = new part_loader.Engine { },
                 weapons = new List<part_loader.Weapon> { },
                 modules = new List<part_loader.Module> { },
                 explosives = new List<part_loader.Explosive> { },
