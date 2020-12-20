@@ -10,6 +10,8 @@ namespace CO_Driver
     {
         public static string CURRENT_VERSION = "0.0.1.33";
 
+        public const int FILE_BUFFER_SIZE = 256;
+
         public const int MATCH_START_EVENT = 1;
         public const int LOAD_PLAYER_EVENT = 2;
         public const int DAMAGE_EVENT = 3;
@@ -21,6 +23,8 @@ namespace CO_Driver
         public const int TEST_DRIVE_EVENT = 9;
         public const int CW_ROUND_END_EVENT = 10;
         public const int STRIPE_EVENT = 11;
+        public const int MATCH_PROPERTY_EVENT = 12;
+        public const int MATCH_REWARD_EVENT = 13;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;

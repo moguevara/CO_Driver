@@ -299,17 +299,18 @@ namespace CO_Driver
 
         private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
         {
-            int file_count = Current_session.file_data.historic_file_list.Count();
+            int file_count = Current_session.file_data.historic_file_session_list.Count();
             int current_progress = 0;
 
-            foreach (file_trace_managment.LogFile file in Current_session.file_data.historic_file_list)
+            foreach (file_trace_managment.LogSession session in Current_session.file_data.historic_file_session_list)
             {
-                Current_session.file_data.processing_session_file = file.log_file;
-                Current_session.file_data.processing_session_file_day = file.log_file.CreationTime;
-                if (file.log_file.Name.Contains("combat") && File.Exists(file.log_file.FullName))
+                FileInfo file = session.combat_log;
+                Current_session.file_data.processing_session_file = file;
+                Current_session.file_data.processing_session_file_day = file.CreationTime;
+                if (file.Name.Contains("combat") && File.Exists(file.FullName))
                 {
-                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.log_file.FullName, (((double)current_progress * 100) / (double)file_count ))));
-                    string[] lines = File.ReadAllLines(file.log_file.FullName);
+                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.FullName, (((double)current_progress * 100) / (double)file_count ))));
+                    string[] lines = File.ReadAllLines(file.FullName);
 
                     foreach (string line in lines)
                     {
@@ -317,27 +318,7 @@ namespace CO_Driver
                             combat_log_event_handler(line, Current_session);
                     }
                     current_progress++;
-                    file.processed = true;
-                    lines = Array.Empty<string>();
-                }
-            }
-
-            foreach (file_trace_managment.LogFile file in Current_session.file_data.historic_file_list)
-            {
-                Current_session.file_data.processing_session_file = file.log_file;
-                Current_session.file_data.processing_session_file_day = file.log_file.CreationTime;
-                if (file.log_file.Name.Contains("game") && File.Exists(file.log_file.FullName))
-                {
-                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.log_file.FullName, (((double)current_progress * 100) / (double)file_count))));
-                    string[] lines = File.ReadAllLines(file.log_file.FullName);
-
-                    foreach (string line in lines)
-                    {
-                        if (line != null)
-                            game_log_event_handler(line, Current_session);
-                    }
-                    current_progress++;
-                    file.processed = true;
+                    session.processed = true;
                     lines = Array.Empty<string>();
                 }
             }
