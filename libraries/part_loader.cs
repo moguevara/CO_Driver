@@ -130,6 +130,22 @@ namespace CO_Driver
                 melee_resistance = melee_resist
             };
         }
+        public static Part new_part()
+        {
+            return new Part
+            {
+                description = "",
+                faction = 0,
+                level = 0,
+                hull_durability = 0,
+                part_durability = 0,
+                mass = 0,
+                power_score = 0,
+                pass_through = 0.0,
+                bullet_resistance = 0.0,
+                melee_resistance = 0.0
+            };
+        }
 
         public static Weapon new_weapon(string name, string desc, int rarity, int energy, double base_damage, int mass, int dura, int ps, string weapon_class)
         {
@@ -144,6 +160,22 @@ namespace CO_Driver
                 durability = dura,
                 power_score = ps,
                 weapon_class = weapon_class
+            };
+        }
+
+        public static Weapon new_weapon()
+        {
+            return new Weapon
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                energy = 0,
+                base_damage = 0,
+                mass = 0,
+                durability = 0,
+                power_score = 0,
+                weapon_class = ""
             };
         }
 
@@ -165,6 +197,24 @@ namespace CO_Driver
             };
         }
 
+        public static Cabin new_cabin()
+        {
+            return new Cabin
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                energy = 0,
+                base_speed = 0,
+                mass_limit = 0,
+                tonnage = 0,
+                mass = 0,
+                durability = 0,
+                power_score = 0,
+                cabin_class = ""
+            };
+        }
+
         public static Module new_module(string name, string desc, int rarity, int energy, int dura, int mass, int ps, string module_class)
         {
             return new Module
@@ -177,6 +227,21 @@ namespace CO_Driver
                 mass = mass,
                 power_score = ps,
                 module_class = module_class
+            };
+        }
+
+        public static Module new_module()
+        {
+            return new Module
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                energy = 0,
+                durability = 0,
+                mass = 0,
+                power_score = 0,
+                module_class = ""
             };
         }
         public static Engine new_engine(string name, string desc, int rarity, int energy, int dura, int mass, int ps, int tonnage, int mass_lim, double speed, double power)
@@ -197,6 +262,24 @@ namespace CO_Driver
             };
         }
 
+        public static Engine new_engine()
+        {
+            return new Engine
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                energy = 0,
+                durability = 0,
+                mass = 0,
+                power_score = 0,
+                tonnage = 0,
+                mass_limit = 0,
+                speed_bonus = 0.0,
+                power_bonus = 0.0
+            };
+        }
+
         public static Explosive new_explosive(string name, string desc, int rarity, int energy, int dura, int mass, int ps, double blast, string explosive_class)
         {
             return new Explosive
@@ -210,6 +293,22 @@ namespace CO_Driver
                 power_score = ps,
                 blast_damage = blast,
                 explosive_class = explosive_class
+            };
+        }
+
+        public static Explosive new_explosive()
+        {
+            return new Explosive
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                energy = 0,
+                durability = 0,
+                mass = 0,
+                power_score = 0,
+                blast_damage = 0,
+                explosive_class = ""
             };
         }
 
@@ -236,6 +335,28 @@ namespace CO_Driver
             };
         }
 
+        public static Movement new_movement()
+        {
+            return new Movement
+            {
+                name = "",
+                description = "",
+                rarity = 0,
+                durability = 0,
+                mass = 0,
+                power_score = 0,
+                max_speed = 0,
+                tonnage = 0,
+                power_loss = 0,
+                melee_resistance = 0,
+                bullet_resistance = 0,
+                fire_resistance = 0,
+                explosive_resistance = 0,
+                pass_through = 0,
+                category = ""
+            };
+        }
+
         public static void populate_movement_list(file_trace_managment.SessionStats Current_session)
         {
             Current_session.part_records.global_movement_list.Add("CarPart_WheelSmall_Starter", new_movement("CarPart_WheelSmall_Starter", "Starter wheel", 40, global_data.BASE_RARITY, 0, 570, 0.09, 50, 70, 0, 0, 0, 0, 0, "light wheel"));
@@ -248,24 +369,24 @@ namespace CO_Driver
             Current_session.part_records.global_movement_list.Add("CarPart_WheelSmallSpiked_S", new_movement("CarPart_WheelSmallSpiked_S", "Studded wheel ST", 60, global_data.RARE_RARITY, 0, 215, 0.1, 100, 40, 0, 0, 0, 0, 0, "light wheel"));
             Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Moonwalker", new_movement("CarPart_Wheel_Moonwalker", "Lunar IV", 100, global_data.SPECIAL_RARITY, 0, 540, 0.05, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
             Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Moonwalker_S", new_movement("CarPart_Wheel_Moonwalker_S", "Lunar IV ST", 100, global_data.SPECIAL_RARITY, 0, 300, 0.1, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_R_rare", new_movement("CarPart_WheelMed_R_rare", "Medium wheel", 40, global_data.COMMON_RARITY, 0, 750, 0.08, 110, 140, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_RS_rare", new_movement("CarPart_WheelMed_RS_rare", "Medium wheel ST", 40, global_data.COMMON_RARITY, 0, 415, 0.15, 110, 140, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon", new_movement("CarPart_Wheel_Baloon", "Balloon tyre", 60, global_data.RARE_RARITY, 0, 900, 0.06, 140, 100, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon_S", new_movement("CarPart_Wheel_Baloon_S", "Balloon tyre ST", 60, global_data.RARE_RARITY, 0, 500, 0.12, 140, 100, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval", new_movement("CarPart_Wheel_Medieval", "Gun-mount wheel", 90, global_data.RARE_RARITY, 0, 750, 0.08, 132, 85, 0, 0, 0, 0, 0.5, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval_S", new_movement("CarPart_Wheel_Medieval_S", "Gun-mount wheel ST", 90, global_data.RARE_RARITY, 0, 415, 0.15, 132, 85, 0, 0, 0, 0, 0.5, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall", new_movement("CarPart_Wheel_AviaSmall", "Landing gear", 60, global_data.RARE_RARITY, 0, 640, 0.05, 110, 70, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall_S", new_movement("CarPart_Wheel_AviaSmall_S", "Landing gear ST", 60, global_data.RARE_RARITY, 0, 355, 0.1, 110, 70, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag", new_movement("CarPart_Wheel_Drag", "Racing wheel", 75, global_data.RARE_RARITY, 0, 1050, 0.08, 160, 145, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag_S", new_movement("CarPart_Wheel_Drag_S", "Racing wheel ST", 75, global_data.RARE_RARITY, 0, 585, 0.15, 160, 145, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping", new_movement("CarPart_Wheel_Hopping", "Stallion", 80, global_data.RARE_RARITY, 0, 820, 0.08, 140, 90, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping_S", new_movement("CarPart_Wheel_Hopping_S", "Stallion ST", 80, global_data.RARE_RARITY, 0, 455, 0.15, 140, 90, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work", new_movement("CarPart_Wheel_Work", "Array", 90, global_data.SPECIAL_RARITY, 0, 1260, 0.08, 200, 175, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work_S", new_movement("CarPart_Wheel_Work_S", "Array ST", 90, global_data.SPECIAL_RARITY, 0, 700, 0.15, 200, 175, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel", new_movement("CarPart_Wheel_SawWheel", "Shiv", 113, global_data.SPECIAL_RARITY, 0, 1125, 0.06, 180, 125, 0.5, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel_S", new_movement("CarPart_Wheel_SawWheel_S", "Shiv ST", 113, global_data.SPECIAL_RARITY, 0, 625, 0.12, 180, 125, 0.5, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic", new_movement("CarPart_WheelMedium_epic", "Hermit", 190, global_data.EPIC_RARITY, 0, 1700, 0.06, 310, 110, 0, 0, 0, 0, 0, "medium wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic_S", new_movement("CarPart_WheelMedium_epic_S", "Hermit (ST)", 190, global_data.EPIC_RARITY, 0, 850, 0.12, 310, 110, 0, 0, 0, 0, 0, "medium wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_R_rare", new_movement("CarPart_WheelMed_R_rare", "Medium wheel", 40, global_data.COMMON_RARITY, 0, 750, 0.08, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_RS_rare", new_movement("CarPart_WheelMed_RS_rare", "Medium wheel ST", 40, global_data.COMMON_RARITY, 0, 415, 0.15, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon", new_movement("CarPart_Wheel_Baloon", "Balloon tyre", 60, global_data.RARE_RARITY, 0, 900, 0.06, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon_S", new_movement("CarPart_Wheel_Baloon_S", "Balloon tyre ST", 60, global_data.RARE_RARITY, 0, 500, 0.12, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval", new_movement("CarPart_Wheel_Medieval", "Gun-mount wheel", 90, global_data.RARE_RARITY, 0, 750, 0.08, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval_S", new_movement("CarPart_Wheel_Medieval_S", "Gun-mount wheel ST", 90, global_data.RARE_RARITY, 0, 415, 0.15, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall", new_movement("CarPart_Wheel_AviaSmall", "Landing gear", 60, global_data.RARE_RARITY, 0, 640, 0.05, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall_S", new_movement("CarPart_Wheel_AviaSmall_S", "Landing gear ST", 60, global_data.RARE_RARITY, 0, 355, 0.1, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag", new_movement("CarPart_Wheel_Drag", "Racing wheel", 75, global_data.RARE_RARITY, 0, 1050, 0.08, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag_S", new_movement("CarPart_Wheel_Drag_S", "Racing wheel ST", 75, global_data.RARE_RARITY, 0, 585, 0.15, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping", new_movement("CarPart_Wheel_Hopping", "Stallion", 80, global_data.RARE_RARITY, 0, 820, 0.08, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping_S", new_movement("CarPart_Wheel_Hopping_S", "Stallion ST", 80, global_data.RARE_RARITY, 0, 455, 0.15, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work", new_movement("CarPart_Wheel_Work", "Array", 90, global_data.SPECIAL_RARITY, 0, 1260, 0.08, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work_S", new_movement("CarPart_Wheel_Work_S", "Array ST", 90, global_data.SPECIAL_RARITY, 0, 700, 0.15, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel", new_movement("CarPart_Wheel_SawWheel", "Shiv", 113, global_data.SPECIAL_RARITY, 0, 1125, 0.06, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel_S", new_movement("CarPart_Wheel_SawWheel_S", "Shiv ST", 113, global_data.SPECIAL_RARITY, 0, 625, 0.12, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic", new_movement("CarPart_WheelMedium_epic", "Hermit", 190, global_data.EPIC_RARITY, 0, 1700, 0.06, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic_S", new_movement("CarPart_WheelMedium_epic_S", "Hermit (ST)", 190, global_data.EPIC_RARITY, 0, 850, 0.12, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
             Current_session.part_records.global_movement_list.Add("CarPart_WheelBig_R_epic", new_movement("CarPart_WheelBig_R_epic", "Large wheel", 90, global_data.RARE_RARITY, 0, 1650, 0.1, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
             Current_session.part_records.global_movement_list.Add("CarPart_WheelBig_RS_epic", new_movement("CarPart_WheelBig_RS_epic", "Large wheel ST", 90, global_data.RARE_RARITY, 0, 900, 0.2, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
             Current_session.part_records.global_movement_list.Add("CarPart_WheelMilitary", new_movement("CarPart_WheelMilitary", "APC wheel", 75, global_data.SPECIAL_RARITY, 0, 1350, 0.08, 215, 250, 0, 0, 0, 0.25, 0, "heavy wheel"));

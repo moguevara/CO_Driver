@@ -440,40 +440,42 @@ namespace CO_Driver
 
             assign_local_user_build_parts(Current_session);
 
+            BuildRecord local_build = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash];
+
             //CABIN NAMING
-            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin != null)
+            if (local_build.cabin.description.Length > 0)
             {
-                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin.description;
+                long_description += local_build.cabin.description;
                 long_description += " cabin ";
             }
 
             //WEAPON NAMING
-            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons.Count() == 0)
+            if (local_build.weapons.Count() == 0)
             {
                 long_description += "weaponless build ";
-                if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin != null)
+                if (local_build.cabin.description.Length > 0)
                 {
-                    short_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].cabin.description;
+                    short_description += local_build.cabin.description;
                 }
             }
             else
-            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons.Count() == 1) //this needs to be redone when we make the weapon count determination code
+            if (local_build.weapons.Count() == 1) //this needs to be redone when we make the weapon count determination code
             {
-                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0];
-                short_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0];
+                long_description += local_build.weapons[0].description;
+                short_description += local_build.weapons[0].description;
             }
             else
             {
                 //DETERMINE IF ALL WEAPONS ARE OF THE SAME CATEGORY
-                string expected_category = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0].weapon_class;
+                string expected_category = local_build.weapons[0].weapon_class;
                 bool class_flag = false;
-                foreach (part_loader.Weapon weapon in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons)
+                foreach (part_loader.Weapon weapon in local_build.weapons)
                 {
                     if (weapon.weapon_class != expected_category)
                         class_flag = true;
                 }
                 if (class_flag == false) //this triggers if the player is mixing weapons of the same category, like running avengers with judges
-                    long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons[0].weapon_class;
+                    long_description += local_build.weapons[0].weapon_class;
                 else
                 {
                     //ORDER WEAPON NAMES CORRECTLY FOR BUILDS WITH MIXED WEAPONS
@@ -489,7 +491,7 @@ namespace CO_Driver
                     string rare_support_weapons = "";
                     string common_weapons = "";
                     string base_weapons = "";
-                    foreach (part_loader.Weapon weapon in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].weapons)
+                    foreach (part_loader.Weapon weapon in local_build.weapons)
                     {
                         if (weapon.rarity == global_data.RELIC_RARITY)
                         {
@@ -594,39 +596,123 @@ namespace CO_Driver
                 }
             }
 
-            //MOVEMENT PART NAMING (we need to change assign_local_user_build_parts to include a list of movement parts)
-            /*name movement parts here*/
-
-            //MODULE NAMING
-            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].modules.Count() == 0)
+            //MOVEMENT PART NAMING
+            if (local_build.movement.Count() == 0)
             {
-                long_description += "with no modules";
+                long_description += "";
+            }
+            else
+            if (local_build.movement.Count() == 1)
+            {
+                long_description += string.Format(@" on {0}s", local_build.movement[0].description);
+                short_description += string.Format(@" on {0}s", local_build.movement[0].description);
             }
             else
             {
-                long_description += "with ";
-                foreach (part_loader.Module module in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].modules)
+                long_description += " on";
+                int movement_count = 1;
+                foreach (part_loader.Movement movement in local_build.movement)
+                {
+                    long_description += movement.description;
+                    if (movement_count < local_build.movement.Count())
+                    {
+                        long_description += ", ";
+                    }
+                    else
+                    {
+                        long_description += " and ";
+                    }
+                    movement_count++;
+                }
+                string expected_category = local_build.movement[0].category;
+                bool class_flag = false;
+                foreach (part_loader.Movement movement in local_build.movement)
+                {
+                    if (movement.category != expected_category)
+                    {
+                        class_flag = true;
+                    }
+                }
+                if (class_flag == false)
+                {
+                    short_description += local_build.movement[0].category;
+                }
+                else
+                {
+                    string short_movement_desc = "";
+                    if (local_build.movement.Select(x => x.category.Contains("wheel")).Count() > 0)
+                    {
+                        short_movement_desc = "wheels";
+                    }
+                    if (local_build.movement.Select(x => x.category.Contains("track")).Count() > 0)
+                    {
+                        short_movement_desc = "tracks";
+                    }
+                    if (local_build.movement.Select(x => x.category == "auger").Count() > 0)
+                    {
+                        short_movement_desc = "augers";
+                    }
+                    if (local_build.movement.Select(x => x.category == "hover").Count() > 0)
+                    {
+                        short_movement_desc = "hovers";
+                    }
+                    if (local_build.movement.Select(x => x.description == "Bigram").Count() > 0)
+                    {
+                        if (local_build.movement.Select(x => x.category.Contains("wheel")).Count() > 0)
+                        {
+                            short_movement_desc = "wheels";
+                        }
+                        else
+                        {
+                            short_movement_desc = "legs";
+                        }
+                    }
+                    if (local_build.movement.Select(x => x.description == "ML 200").Count() > 0)
+                    {
+                        short_movement_desc = "legs";
+                    }
+                    short_description += short_movement_desc;
+                }
+
+            }
+
+            //MODULE NAMING
+            if (local_build.modules.Count() == 0)
+            {
+                long_description += "";
+            }
+            else
+            {
+                long_description += " with ";
+                int module_count = 1;
+                foreach (part_loader.Module module in local_build.modules)
                 {
                     if (module.module_class != "connector" && module.name != "CarPart_ModuleRadio")
                     {
                         long_description += module.description;
-                        long_description += " and ";
+                        if(module_count < local_build.modules.Count)
+                        {
+                            long_description += ", ";
+                        }
                     }
+                    module_count++;
                 }
             }
             //ENGINE NAMING
-            if (Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].engine == null)
+            if (local_build.engine.description == "")
             {
-                long_description += "no engine";
+                long_description += "";
             }
             else
             {
-                long_description += Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].engine.description;
+                long_description += " and ";
+                long_description += local_build.engine.description;
                 long_description += " engine";
             }
 
-            Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].build_description = long_description;
-            Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].short_hand_description = short_description;
+            local_build.build_description = long_description;
+            local_build.short_hand_description = short_description;
+            Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash] = local_build;
         }
 
         private static void assign_local_user_build_parts(SessionStats Current_session)
@@ -975,8 +1061,8 @@ namespace CO_Driver
                 build_hash = "",
                 build_description = "",
                 short_hand_description = "",
-                cabin = new part_loader.Cabin { },
-                engine = new part_loader.Engine { },
+                cabin = part_loader.new_cabin(),
+                engine = part_loader.new_engine(),
                 weapons = new List<part_loader.Weapon> { },
                 modules = new List<part_loader.Module> { },
                 movement = new List<part_loader.Movement> { },
