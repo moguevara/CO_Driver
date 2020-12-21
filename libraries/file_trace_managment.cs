@@ -297,8 +297,6 @@ namespace CO_Driver
             Current_session.current_match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
         }
 
-
-
         private static void clear_in_game_stats(int winning_team, SessionStats Current_session)
         {
             classify_match(Current_session);
@@ -741,6 +739,9 @@ namespace CO_Driver
 
             Current_session.current_match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
+            if (!Current_session.in_match)
+                return;
+
             if (attacker.IndexOf(":") > 0)
                 return;
 
@@ -753,19 +754,16 @@ namespace CO_Driver
             if (!Current_session.player_records.ContainsKey(victim))
                 return;
 
-            if (attacker == Current_session.local_user)
-            {
-                if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon))
-                {
-                    Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
-                }
-            }
-
-            if (!Current_session.in_match)
-                return;
-
             if (attacker != victim)
             {
+                if (attacker == Current_session.local_user)
+                {
+                    if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon))
+                    {
+                        Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
+                    }
+                }
+
                 Current_session.player_records[attacker].in_game_stats.damage += damage;
                 Current_session.player_records[victim].in_game_stats.damage_taken += damage;
             }
