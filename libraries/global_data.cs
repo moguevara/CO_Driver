@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.33";
+        public static string CURRENT_VERSION = "0.0.1.34";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -36,6 +36,9 @@ namespace CO_Driver
         public const int BATTLE_ROYALE_MATCH = 4;
         public const int LEAGUE_6_v_6_MATCH = 5;
         public const int SOLO_LEAGUE_6_v_6_MATCH = 6;
+        public const int EASY_RAID_MATCH = 7;
+        public const int MED_RAID_MATCH = 8;
+        public const int HARD_RAID_MATCH = 9;
 
         public const int UNDEFINED_FILE_TYPE = 0;
         public const int COMBAT_LOG_FILE = 1;

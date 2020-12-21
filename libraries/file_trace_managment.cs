@@ -150,6 +150,7 @@ namespace CO_Driver
             public List<part_loader.Weapon> weapons { get; set; }
             public List<part_loader.Module> modules { get; set; }
             public List<part_loader.Explosive> explosives { get; set; }
+            public List<part_loader.Movement> movement { get; set; }
             public List<string> parts { get; set; }
             public Dictionary<int, Stats> build_stats { get; set; }
             public Stats total_build_stats { get; set; }
@@ -163,6 +164,7 @@ namespace CO_Driver
             public Dictionary<string, part_loader.Engine> global_engine_list { get; set; }
             public Dictionary<string, part_loader.Module> global_module_list { get; set; }
             public Dictionary<string, part_loader.Explosive> global_explosives_list { get; set; }
+            public Dictionary<string, part_loader.Movement> global_movement_list { get; set; }
         }
         #endregion
         #region session_managment
@@ -187,6 +189,7 @@ namespace CO_Driver
             Current_session.part_records.global_cabin_list = new Dictionary<string, part_loader.Cabin> { };
             Current_session.part_records.global_engine_list = new Dictionary<string, part_loader.Engine> { };
             Current_session.part_records.global_explosives_list = new Dictionary<string, part_loader.Explosive> { };
+            Current_session.part_records.global_movement_list = new Dictionary<string, part_loader.Movement> { };
             Current_session.part_records.global_module_list = new Dictionary<string, part_loader.Module> { };
             Current_session.part_records.global_weapon_list = new Dictionary<string, part_loader.Weapon> { };
             Current_session.match_history = new List<MatchRecord> { };
@@ -197,24 +200,24 @@ namespace CO_Driver
             part_loader.populate_cabin_list(Current_session);
             part_loader.populate_engine_list(Current_session);
             part_loader.populate_explosive_list(Current_session);
+            part_loader.populate_movement_list(Current_session);
         }
 
         private List<LogSession> load_historic_file_list()
         {
             List<LogSession> temp_list = new List<LogSession> { };
-            FileInfo[] files = new DirectoryInfo(Settings.Default["historic_file_location"].ToString()).GetFiles("*.*", SearchOption.AllDirectories).Where(s => s.Name.StartsWith("combat") && s.Name.EndsWith("log")).OrderByDescending(p => p.CreationTime).ToArray();
+            FileInfo[] files = new DirectoryInfo(Settings.Default["historic_file_location"].ToString()).GetFiles("*.*", SearchOption.AllDirectories).Where(s => s.Name.StartsWith("combat") && s.Name.EndsWith("log")).OrderByDescending(p => p.LastWriteTime).ToArray();
 
             foreach (FileInfo file in files)
-                temp_list.Add(new LogSession { processed = false, session_start_time = file.CreationTime, combat_log = file, game_log = null });
+                temp_list.Add(new LogSession { processed = false, session_start_time = file.LastWriteTime, combat_log = file, game_log = null });
 
-            files = new DirectoryInfo(Settings.Default["historic_file_location"].ToString()).GetFiles("*.*", SearchOption.AllDirectories).Where(s => s.Name.StartsWith("game") && s.Name.EndsWith("log")).OrderByDescending(p => p.CreationTime).ToArray();
+            files = new DirectoryInfo(Settings.Default["historic_file_location"].ToString()).GetFiles("*.*", SearchOption.AllDirectories).Where(s => s.Name.StartsWith("game") && s.Name.EndsWith("log")).OrderByDescending(p => p.LastWriteTime).ToArray();
 
             foreach (FileInfo file in files)
             {
                 for (int i = 0; i < temp_list.Count; i++)
                 {
-                    if (temp_list[i].session_start_time.Ticks <= file.CreationTime.AddMinutes(5).Ticks &&
-                        temp_list[i].session_start_time.Ticks >= file.CreationTime.AddMinutes(-5).Ticks)
+                    if (temp_list[i].combat_log.Name.Substring(7,12) == file.Name.Substring(5,12))
                     {
                         temp_list[i].game_log = file;
                         break;
@@ -643,6 +646,9 @@ namespace CO_Driver
                 if (Current_session.part_records.global_weapon_list.ContainsKey(part) && local_build.weapons.Where(x => x.name == part).Count() == 0)
                     local_build.weapons.Add(Current_session.part_records.global_weapon_list[part]);
                 else
+                if (Current_session.part_records.global_movement_list.ContainsKey(part) && local_build.movement.Where(x => x.name == part).Count() == 0)
+                    local_build.movement.Add(Current_session.part_records.global_movement_list[part]);
+                else
                 if (Current_session.part_records.global_module_list.ContainsKey(part) && local_build.modules.Where(x => x.name == part).Count() == 0)
                     local_build.modules.Add(Current_session.part_records.global_module_list[part]);
                 else
@@ -733,9 +739,6 @@ namespace CO_Driver
 
             weapon = weapon.Substring(0, weapon.IndexOf(':') > 0 ? weapon.IndexOf(':') : weapon.Length);
 
-            if (!Current_session.in_match)
-                return;
-
             Current_session.current_match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
             if (attacker.IndexOf(":") > 0)
@@ -750,11 +753,6 @@ namespace CO_Driver
             if (!Current_session.player_records.ContainsKey(victim))
                 return;
 
-            if (attacker != victim)
-            {
-                Current_session.player_records[attacker].in_game_stats.damage += damage;
-                Current_session.player_records[victim].in_game_stats.damage_taken += damage;
-            }
             if (attacker == Current_session.local_user)
             {
                 if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon))
@@ -762,6 +760,16 @@ namespace CO_Driver
                     Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
                 }
             }
+
+            if (!Current_session.in_match)
+                return;
+
+            if (attacker != victim)
+            {
+                Current_session.player_records[attacker].in_game_stats.damage += damage;
+                Current_session.player_records[victim].in_game_stats.damage_taken += damage;
+            }
+            
         }
 
         public static void kill_event(string line, SessionStats Current_session)
@@ -973,6 +981,7 @@ namespace CO_Driver
                 engine = new part_loader.Engine { },
                 weapons = new List<part_loader.Weapon> { },
                 modules = new List<part_loader.Module> { },
+                movement = new List<part_loader.Movement> { },
                 explosives = new List<part_loader.Explosive> { },
                 parts = new List<string> { },
                 total_build_stats = new_stats(),

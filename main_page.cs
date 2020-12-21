@@ -45,6 +45,8 @@ namespace CO_Driver
             log_file_manager.get_live_file_location();
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, Settings.Default["live_file_location"].ToString()));
 
+            Settings.Default.Reload();
+
             main_page_panel.Controls.Add(welcome_screen);
 
             this.Text = string.Format(@"CO-Driver v{0}", global_data.CURRENT_VERSION);
@@ -309,7 +311,7 @@ namespace CO_Driver
                 Current_session.file_data.processing_session_file_day = file.CreationTime;
                 if (file.Name.Contains("combat") && File.Exists(file.FullName))
                 {
-                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.FullName, (((double)current_progress * 100) / (double)file_count ))));
+                    bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", file.FullName, (((double)current_progress * 100) / (double)file_count))));
                     string[] lines = File.ReadAllLines(file.FullName);
 
                     foreach (string line in lines)
@@ -324,7 +326,45 @@ namespace CO_Driver
             }
         }
 
-        private void process_live_files(string trace_file_path, file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
+        /*
+
+        int file_count = Current_session.file_data.historic_file_session_list.Count();
+        int current_progress = 0;
+        //string line = "";
+
+
+        foreach (file_trace_managment.LogSession session in Current_session.file_data.historic_file_session_list)
+        {
+            if (!File.Exists(session.combat_log.FullName))
+                continue;
+
+            if (!File.Exists(session.game_log.FullName))
+                continue;
+
+            Current_session.file_data.processing_session_file = session.combat_log;
+            Current_session.file_data.processing_session_file_day = session.combat_log.CreationTime;
+            bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing File ""{0}"" ({1:N2}%)", session.combat_log.FullName, (((double)current_progress * 100) / (double)file_count))));
+
+            using (FileStream combat_stream = File.OpenRead(session.combat_log.FullName))
+            //using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
+            {
+                using (StreamReader combat_reader = new StreamReader(combat_stream))
+                //using (StreamReader game_reader = new StreamReader(game_stream))
+                {
+                    while ((line = combat_reader.ReadLine()) != null)
+                    {
+                        combat_log_event_handler(line, Current_session);
+                    }
+                }
+            }
+
+            current_progress++;
+            session.processed = true;
+        }
+        */
+    //}
+
+    private void process_live_files(string trace_file_path, file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
         {
             FileInfo trace_file = new FileInfo(trace_file_path);
             Current_session.live_trace_data = true;
