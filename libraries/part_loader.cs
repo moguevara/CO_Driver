@@ -36,7 +36,7 @@ namespace CO_Driver
             public int mass { get; set; }
             public int durability { get; set; }
             public int power_score { get; set; }
-            public string weapon_class { get; set;}
+            public string weapon_class { get; set; }
         }
 
         public class Cabin
@@ -61,7 +61,7 @@ namespace CO_Driver
             public int rarity { get; set; }
             public int energy { get; set; }
             public int mass { get; set; }
-            public int durability { get; set; } 
+            public int durability { get; set; }
             public int power_score { get; set; }
             public string module_class { get; set; }
         }
@@ -312,12 +312,12 @@ namespace CO_Driver
             };
         }
 
-        public static Movement new_movement(string name, string desc, int rarity, int ps, int max_speed, int tonnage, double power_loss, int dura, int mass,   
+        public static Movement new_movement(string name, string desc, int rarity, int ps, int max_speed, int tonnage, double power_loss, int dura, int mass,
                                             double melee_resist, double bullet_resist, double fire_resist, double explosive_resist, double pass_through, string category)
         {
             return new Movement
             {
-                name = name, 
+                name = name,
                 description = desc,
                 rarity = rarity,
                 durability = dura,

@@ -217,7 +217,7 @@ namespace CO_Driver
             {
                 for (int i = 0; i < temp_list.Count; i++)
                 {
-                    if (temp_list[i].combat_log.Name.Substring(7,12) == file.Name.Substring(5,12))
+                    if (temp_list[i].combat_log.Name.Substring(7, 12) == file.Name.Substring(5, 12))
                     {
                         temp_list[i].game_log = file;
                         break;
@@ -690,7 +690,7 @@ namespace CO_Driver
                     if (module.module_class != "connector" && module.name != "CarPart_ModuleRadio")
                     {
                         long_description += module.description;
-                        if(module_count < local_build.modules.Count)
+                        if (module_count < local_build.modules.Count)
                         {
                             long_description += ", ";
                         }
@@ -844,7 +844,8 @@ namespace CO_Driver
             {
                 if (attacker == Current_session.local_user)
                 {
-                    if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon))
+                    if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon) &&
+                        !Current_session.part_records.global_explosives_list.ContainsKey(weapon))
                     {
                         Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
                     }
@@ -853,7 +854,7 @@ namespace CO_Driver
                 Current_session.player_records[attacker].in_game_stats.damage += damage;
                 Current_session.player_records[victim].in_game_stats.damage_taken += damage;
             }
-            
+
         }
 
         public static void kill_event(string line, SessionStats Current_session)
