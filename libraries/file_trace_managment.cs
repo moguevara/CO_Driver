@@ -459,14 +459,14 @@ namespace CO_Driver
                 }
             }
             else
-            if (local_build.weapons.Count() == 1) //this needs to be redone when we make the weapon count determination code
+            if (local_build.weapons.Count() == 1)
             {
-                long_description += local_build.weapons[0].description;
-                short_description += local_build.weapons[0].description;
+                long_description += string.Format(@"{0} ", local_build.weapons[0].description);
+                short_description += string.Format(@"{0} ", local_build.weapons[0].description);
             }
             else
             {
-                //DETERMINE IF ALL WEAPONS ARE OF THE SAME CATEGORY
+                //determine if all weapons are of the same category
                 string expected_category = local_build.weapons[0].weapon_class;
                 bool class_flag = false;
                 foreach (part_loader.Weapon weapon in local_build.weapons)
@@ -474,125 +474,37 @@ namespace CO_Driver
                     if (weapon.weapon_class != expected_category)
                         class_flag = true;
                 }
-                if (class_flag == false) //this triggers if the player is mixing weapons of the same category, like running avengers with judges
-                    long_description += local_build.weapons[0].weapon_class;
+                if (class_flag == false)
+                {
+                    List<part_loader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x=>x.rarity).ToList();
+                    foreach (part_loader.Weapon weapon in sorted_weapons)
+                    {
+                        long_description += string.Format(@"{0} ", weapon.description);
+                    }
+                    short_description += string.Format(@"{0} ", local_build.weapons[0].weapon_class);
+                }
                 else
                 {
-                    //ORDER WEAPON NAMES CORRECTLY FOR BUILDS WITH MIXED WEAPONS
-                    string relic_primary_weapons = "";
-                    string relic_support_weapons = "";
-                    string legendary_primary_weapons = "";
-                    string legendary_support_weapons = "";
-                    string epic_primary_weapons = "";
-                    string epic_support_weapons = "";
-                    string special_primary_weapons = "";
-                    string special_support_weapons = "";
-                    string rare_primary_weapons = "";
-                    string rare_support_weapons = "";
-                    string common_weapons = "";
-                    string base_weapons = "";
-                    foreach (part_loader.Weapon weapon in local_build.weapons)
+                    //order weapon names correctly for builds with mixed weapons
+                    List<part_loader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x => x.rarity).ToList();
+                    List<part_loader.Weapon> sorted_supports = new List<part_loader.Weapon>();
+                    foreach (part_loader.Weapon weapon in sorted_weapons)
                     {
-                        if (weapon.rarity == global_data.RELIC_RARITY)
+                        if (weapon.weapon_class == "tesla emitter" || weapon.weapon_class == "drone" || weapon.weapon_class == "turret"
+                            || weapon.weapon_class == "harpoon" || weapon.weapon_class == "explosive melee" || weapon.weapon_class == "laser minigun")
                         {
-                            if (weapon.weapon_class == "tesla emitter")
-                            {
-                                relic_support_weapons += weapon.description;
-                                relic_support_weapons += " ";
-                            }
-                            else
-                            {
-                                relic_primary_weapons += weapon.description;
-                                relic_primary_weapons += " ";
-                            }
+                            sorted_supports.Add(weapon);
                         }
                         else
-                        if (weapon.rarity == global_data.LEGENDARY_RARITY)
                         {
-                            if (weapon.weapon_class == "tesla emitter" || weapon.weapon_class == "drone")
-                            {
-                                legendary_support_weapons += weapon.description;
-                                legendary_support_weapons += " ";
-                            }
-                            else
-                            {
-                                legendary_primary_weapons += weapon.description;
-                                legendary_primary_weapons += " ";
-                            }
-                        }
-                        else
-                        if (weapon.rarity == global_data.EPIC_RARITY)
-                        {
-                            if (weapon.weapon_class == "laser minigun" || weapon.weapon_class == "explosive melee" || weapon.weapon_class == "harpoon" || weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
-                            {
-                                epic_support_weapons += weapon.description;
-                                epic_support_weapons += " ";
-                            }
-                            else
-                            {
-                                epic_primary_weapons += weapon.description;
-                                epic_primary_weapons += " ";
-                            }
-                        }
-                        else
-                        if (weapon.rarity == global_data.SPECIAL_RARITY)
-                        {
-                            if (weapon.weapon_class == "explosive melee" || weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
-                            {
-                                special_support_weapons += weapon.description;
-                                special_support_weapons += " ";
-                            }
-                            else
-                            {
-                                special_primary_weapons += weapon.description;
-                                special_primary_weapons += " ";
-                            }
-                        }
-                        else
-                        if (weapon.rarity == global_data.RARE_RARITY)
-                        {
-                            if (weapon.weapon_class == "turret" || weapon.weapon_class == "drone")
-                            {
-                                rare_support_weapons += weapon.description;
-                                rare_support_weapons += " ";
-                            }
-                            else
-                            {
-                                rare_primary_weapons += weapon.description;
-                                rare_primary_weapons += " ";
-                            }
-                        }
-                        else
-                        if (weapon.rarity == global_data.COMMON_RARITY)
-                        {
-                            common_weapons += weapon.description;
-                            common_weapons += " ";
-                        }
-                        else //base rarity weapons
-                        {
-                            base_weapons += weapon.description;
-                            base_weapons += " ";
+                            long_description += string.Format(@"{0} ", weapon.description);
+                            short_description += string.Format(@"{0} ", weapon.description);
                         }
                     }
-                    long_description += relic_primary_weapons;
-                    long_description += legendary_primary_weapons;
-                    long_description += epic_primary_weapons;
-                    long_description += special_primary_weapons;
-                    long_description += rare_primary_weapons;
-                    long_description += common_weapons;
-                    long_description += base_weapons;
-                    long_description += relic_support_weapons;
-                    long_description += legendary_support_weapons;
-                    long_description += epic_support_weapons;
-                    long_description += special_support_weapons;
-                    long_description += rare_support_weapons;
-                    short_description += relic_primary_weapons;
-                    short_description += legendary_primary_weapons;
-                    short_description += epic_primary_weapons;
-                    short_description += special_primary_weapons;
-                    short_description += rare_primary_weapons;
-                    short_description += common_weapons;
-                    short_description += base_weapons;
+                    foreach(part_loader.Weapon weapon in sorted_supports)
+                    {
+                        long_description += string.Format(@"{0} ", weapon.description);
+                    }
                 }
             }
 
@@ -604,27 +516,32 @@ namespace CO_Driver
             else
             if (local_build.movement.Count() == 1)
             {
-                long_description += string.Format(@" on {0}s", local_build.movement[0].description);
-                short_description += string.Format(@" on {0}s", local_build.movement[0].description);
+                long_description += string.Format(@"on {0}s ", local_build.movement[0].description);
+                short_description += string.Format(@"on {0}s ", local_build.movement[0].description);
             }
             else
             {
-                long_description += " on";
+                long_description += "on ";
                 int movement_count = 1;
-                foreach (part_loader.Movement movement in local_build.movement)
+                foreach (part_loader.Movement movement in local_build.movement) //long description stuff
                 {
                     long_description += movement.description;
-                    if (movement_count < local_build.movement.Count())
+                    if (movement_count < local_build.movement.Count() - 1)
                     {
                         long_description += ", ";
                     }
                     else
+                    if (movement_count < local_build.movement.Count())
                     {
                         long_description += " and ";
                     }
+                    else
+                    {
+                        long_description += " ";
+                    }
                     movement_count++;
                 }
-                string expected_category = local_build.movement[0].category;
+                string expected_category = local_build.movement[0].category; //short description stuff
                 bool class_flag = false;
                 foreach (part_loader.Movement movement in local_build.movement)
                 {
@@ -683,16 +600,25 @@ namespace CO_Driver
             }
             else
             {
-                long_description += " with ";
+                long_description += "with ";
                 int module_count = 1;
                 foreach (part_loader.Module module in local_build.modules)
                 {
                     if (module.module_class != "connector" && module.name != "CarPart_ModuleRadio")
                     {
                         long_description += module.description;
-                        if (module_count < local_build.modules.Count)
+                        if (module_count < local_build.modules.Count() - 1)
                         {
                             long_description += ", ";
+                        }
+                        else
+                        if (module_count < local_build.modules.Count())
+                        {
+                            long_description += " and ";
+                        }
+                        else
+                        {
+                            long_description += " ";
                         }
                     }
                     module_count++;
@@ -705,7 +631,14 @@ namespace CO_Driver
             }
             else
             {
-                long_description += " and ";
+                if (local_build.modules.Count() == 0)
+                {
+                    long_description += "with ";
+                }
+                else
+                {
+                    long_description += "and ";
+                }
                 long_description += local_build.engine.description;
                 long_description += " engine";
             }
