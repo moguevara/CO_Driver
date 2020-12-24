@@ -31,7 +31,7 @@ namespace CO_Driver
             int i = 0;
             foreach (file_trace_managment.MatchRecord match in history_data.match_history)
             {
-                if (i > 100)
+                if (i > 500)
                     break;
                 DataGridViewRow row = (DataGridViewRow)this.dg_match_history_view.Rows[0].Clone();
                 TimeSpan duration = match.stop_time - match.start_time;
@@ -47,12 +47,13 @@ namespace CO_Driver
                 row.Cells[9].Value = Math.Round(match.local_player_stats.damage, 2);
                 row.Cells[10].Value = Math.Round(match.local_player_stats.damage_taken, 2);
                 row.Cells[11].Value = match.game_result;
-                row.Cells[12].Value = "reward";
+                row.Cells[12].Value = string.Join(",", match.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
                 this.dg_match_history_view.Rows.Add(row);
                 i++;
             }
             this.dg_match_history_view.AllowUserToAddRows = false;
+            this.dg_match_history_view.Sort(this.dg_match_history_view.Columns[1], ListSortDirection.Descending);
         }
 
         public void add_last_match_to_table(file_trace_managment ftm)
@@ -72,7 +73,7 @@ namespace CO_Driver
             row.Cells[9].Value = Math.Round(last_match_data.local_player_stats.damage, 2);
             row.Cells[10].Value = Math.Round(last_match_data.local_player_stats.damage_taken, 2);
             row.Cells[11].Value = last_match_data.game_result;
-            row.Cells[12].Value = "test";
+            row.Cells[12].Value = string.Join(",", last_match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
             this.dg_match_history_view.Rows.Insert(0, row);
         }

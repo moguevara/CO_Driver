@@ -114,6 +114,23 @@ namespace CO_Driver
             public string category { get; set; }
         }
 
+        public class Reward
+        {
+            public string name { get; set; }
+            public string description { get; set; }
+            public string short_description { get; set; }
+        }
+
+        public static Reward new_reward(string name, string desc, string short_desc)
+        {
+            return new Reward
+            {
+                name = name,
+                description = desc,
+                short_description = short_desc
+            };
+        }
+
         public static Part new_part(string desc, int faction, int level, int hull, int part_dura, int mass, int power_score, double pass_through, double bullet_resist, double melee_resist)
         {
             return new Part
@@ -357,267 +374,281 @@ namespace CO_Driver
             };
         }
 
+        public static void populate_reward_list(file_trace_managment.SessionStats Current_session)
+        {
+            Current_session.part_records.global_reward_dict.Add("expFactionTotal", new_reward("expFactionTotal", "Total Exp", "Tot Exp"));
+            Current_session.part_records.global_reward_dict.Add("expBaseFactionTotal", new_reward("expBaseFactionTotal", "Faction Exp", "Fac Exp"));
+            Current_session.part_records.global_reward_dict.Add("ClanMoney", new_reward("ClanMoney", "Uranium", "U"));
+            Current_session.part_records.global_reward_dict.Add("Scrap_Common", new_reward("Scrap_Common", "Scrap", "S"));
+            Current_session.part_records.global_reward_dict.Add("Scrap_Rare", new_reward("Scrap_Rare", "Wires", "W"));
+            Current_session.part_records.global_reward_dict.Add("Scrap_Epic", new_reward("Scrap_Epic", "Batteries", "B"));
+            Current_session.part_records.global_reward_dict.Add("Accumulators", new_reward("Accumulators", "unknown", "unknown"));
+            Current_session.part_records.global_reward_dict.Add("HalloweenMoney", new_reward("HalloweenMoney", "Witchy Tokens (-QK9)", "W"));
+            Current_session.part_records.global_reward_dict.Add("Supply", new_reward("Supply", "unknown", "unknown"));
+            Current_session.part_records.global_reward_dict.Add("Platinum", new_reward("Platinum", "unknown", "unknown"));
+        }
+
         public static void populate_movement_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmall_Starter", new_movement("CarPart_WheelSmall_Starter", "Starter wheel", 40, global_data.BASE_RARITY, 0, 570, 0.09, 50, 70, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmall_S_Starter", new_movement("CarPart_WheelSmall_S_Starter", "Starter wheel ST", 40, global_data.BASE_RARITY, 0, 320, 0.17, 50, 70, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmall_R", new_movement("CarPart_WheelSmall_R", "Small wheel", 40, global_data.COMMON_RARITY, 0, 380, 0.06, 65, 40, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmall_RS", new_movement("CarPart_WheelSmall_RS", "Small wheel ST", 40, global_data.COMMON_RARITY, 0, 210, 0.12, 65, 40, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmallChains", new_movement("CarPart_WheelSmallChains", "Chained wheel", 90, global_data.RARE_RARITY, 0, 540, 0.06, 115, 50, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmallChains_S", new_movement("CarPart_WheelSmallChains_S", "Chained wheel ST", 90, global_data.RARE_RARITY, 0, 300, 0.12, 115, 50, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmallSpiked", new_movement("CarPart_WheelSmallSpiked", "Studded wheel", 60, global_data.RARE_RARITY, 0, 390, 0.05, 100, 40, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelSmallSpiked_S", new_movement("CarPart_WheelSmallSpiked_S", "Studded wheel ST", 60, global_data.RARE_RARITY, 0, 215, 0.1, 100, 40, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Moonwalker", new_movement("CarPart_Wheel_Moonwalker", "Lunar IV", 100, global_data.SPECIAL_RARITY, 0, 540, 0.05, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Moonwalker_S", new_movement("CarPart_Wheel_Moonwalker_S", "Lunar IV ST", 100, global_data.SPECIAL_RARITY, 0, 300, 0.1, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_R_rare", new_movement("CarPart_WheelMed_R_rare", "Medium wheel", 40, global_data.COMMON_RARITY, 0, 750, 0.08, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMed_RS_rare", new_movement("CarPart_WheelMed_RS_rare", "Medium wheel ST", 40, global_data.COMMON_RARITY, 0, 415, 0.15, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon", new_movement("CarPart_Wheel_Baloon", "Balloon tyre", 60, global_data.RARE_RARITY, 0, 900, 0.06, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Baloon_S", new_movement("CarPart_Wheel_Baloon_S", "Balloon tyre ST", 60, global_data.RARE_RARITY, 0, 500, 0.12, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval", new_movement("CarPart_Wheel_Medieval", "Gun-mount wheel", 90, global_data.RARE_RARITY, 0, 750, 0.08, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Medieval_S", new_movement("CarPart_Wheel_Medieval_S", "Gun-mount wheel ST", 90, global_data.RARE_RARITY, 0, 415, 0.15, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall", new_movement("CarPart_Wheel_AviaSmall", "Landing gear", 60, global_data.RARE_RARITY, 0, 640, 0.05, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_AviaSmall_S", new_movement("CarPart_Wheel_AviaSmall_S", "Landing gear ST", 60, global_data.RARE_RARITY, 0, 355, 0.1, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag", new_movement("CarPart_Wheel_Drag", "Racing wheel", 75, global_data.RARE_RARITY, 0, 1050, 0.08, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Drag_S", new_movement("CarPart_Wheel_Drag_S", "Racing wheel ST", 75, global_data.RARE_RARITY, 0, 585, 0.15, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping", new_movement("CarPart_Wheel_Hopping", "Stallion", 80, global_data.RARE_RARITY, 0, 820, 0.08, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Hopping_S", new_movement("CarPart_Wheel_Hopping_S", "Stallion ST", 80, global_data.RARE_RARITY, 0, 455, 0.15, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work", new_movement("CarPart_Wheel_Work", "Array", 90, global_data.SPECIAL_RARITY, 0, 1260, 0.08, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_Work_S", new_movement("CarPart_Wheel_Work_S", "Array ST", 90, global_data.SPECIAL_RARITY, 0, 700, 0.15, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel", new_movement("CarPart_Wheel_SawWheel", "Shiv", 113, global_data.SPECIAL_RARITY, 0, 1125, 0.06, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_SawWheel_S", new_movement("CarPart_Wheel_SawWheel_S", "Shiv ST", 113, global_data.SPECIAL_RARITY, 0, 625, 0.12, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic", new_movement("CarPart_WheelMedium_epic", "Hermit", 190, global_data.EPIC_RARITY, 0, 1700, 0.06, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMedium_epic_S", new_movement("CarPart_WheelMedium_epic_S", "Hermit (ST)", 190, global_data.EPIC_RARITY, 0, 850, 0.12, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelBig_R_epic", new_movement("CarPart_WheelBig_R_epic", "Large wheel", 90, global_data.RARE_RARITY, 0, 1650, 0.1, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelBig_RS_epic", new_movement("CarPart_WheelBig_RS_epic", "Large wheel ST", 90, global_data.RARE_RARITY, 0, 900, 0.2, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMilitary", new_movement("CarPart_WheelMilitary", "APC wheel", 75, global_data.SPECIAL_RARITY, 0, 1350, 0.08, 215, 250, 0, 0, 0, 0.25, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelMilitary_S", new_movement("CarPart_WheelMilitary_S", "APC wheel ST", 75, global_data.SPECIAL_RARITY, 0, 750, 0.15, 215, 250, 0, 0, 0, 0.25, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelDouble_R_epic", new_movement("CarPart_WheelDouble_R_epic", "Twin wheel", 90, global_data.SPECIAL_RARITY, 0, 1620, 0.1, 235, 300, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_WheelDouble_RS_epic", new_movement("CarPart_WheelDouble_RS_epic", "Twin wheel ST", 90, global_data.SPECIAL_RARITY, 0, 900, 0.2, 235, 300, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_MonsterTruck", new_movement("CarPart_Wheel_MonsterTruck", "Bigfoot", 225, global_data.EPIC_RARITY, 0, 2250, 0.1, 445, 280, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Wheel_MonsterTruck_S", new_movement("CarPart_Wheel_MonsterTruck_S", "Bigfoot ST", 225, global_data.EPIC_RARITY, 0, 1250, 0.2, 445, 280, 0, 0, 0, 0, 0, "heavy wheel"));
-            Current_session.part_records.global_movement_list.Add("CarPart_TankTrackBig_legend", new_movement("CarPart_TankTrackBig_legend", "Armored track", 625, global_data.EPIC_RARITY, 60, 4000, 0.4, 1300, 1440, 0.5, 0.25, 0.25, 0.25, 0, "heavy track"));
-            Current_session.part_records.global_movement_list.Add("CarPart_TankTrackRomb", new_movement("CarPart_TankTrackRomb", "Goliath", 1000, global_data.EPIC_RARITY, 45, 6000, 0.45, 1600, 1800, 0.5, 0.25, 0.25, 0, 0, "heavy track"));
-            Current_session.part_records.global_movement_list.Add("CarPart_TankTrack_rare", new_movement("CarPart_TankTrack_rare", "Hardened track", 300, global_data.EPIC_RARITY, 75, 1850, 0.22, 600, 400, 0.5, 0.25, 0.25, 0, 0, "medium track"));
-            Current_session.part_records.global_movement_list.Add("CarPart_TankTrackBig_epic", new_movement("CarPart_TankTrackBig_epic", "Small track", 230, global_data.EPIC_RARITY, 90, 935, 0.12, 300, 285, 0.5, 0.25, 0.25, 0, 0, "light track"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Hover_rare_bundle", new_movement("CarPart_Hover_rare_bundle", "Icarus IV", 420, global_data.EPIC_RARITY, 75, 750, 0.08, 160, 325, 0, 0, 0, 0, 0, "hover"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Hover_rare", new_movement("CarPart_Hover_rare", "Icarus VII", 420, global_data.EPIC_RARITY, 75, 750, 0.05, 135, 325, 0, 0, 0, 0, 0, "hover"));
-            Current_session.part_records.global_movement_list.Add("CarPart_MechaWheelLeg", new_movement("CarPart_MechaWheelLeg", "Bigram", 275, global_data.EPIC_RARITY, 45, 2000, 0.2, 600, 700, 0.5, 0, 0, 0, 0, "leg"));
-            Current_session.part_records.global_movement_list.Add("CarPart_MechaLeg", new_movement("CarPart_MechaLeg", "ML 200", 400, global_data.EPIC_RARITY, 40, 2400, 0.2, 810, 900, 0.5, 0, 0, 0, 0, "leg"));
-            Current_session.part_records.global_movement_list.Add("CarPart_Shnekohod", new_movement("CarPart_Shnekohod", "Meat Grinder", 360, global_data.EPIC_RARITY, 60, 2800, 0.35, 820, 800, 0.5, 0, 0, 0, 0, "auger"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmall_Starter", new_movement("CarPart_WheelSmall_Starter", "Starter wheel", 40, global_data.BASE_RARITY, 0, 570, 0.09, 50, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmall_S_Starter", new_movement("CarPart_WheelSmall_S_Starter", "Starter wheel ST", 40, global_data.BASE_RARITY, 0, 320, 0.17, 50, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmall_R", new_movement("CarPart_WheelSmall_R", "Small wheel", 40, global_data.COMMON_RARITY, 0, 380, 0.06, 65, 40, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmall_RS", new_movement("CarPart_WheelSmall_RS", "Small wheel ST", 40, global_data.COMMON_RARITY, 0, 210, 0.12, 65, 40, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmallChains", new_movement("CarPart_WheelSmallChains", "Chained wheel", 90, global_data.RARE_RARITY, 0, 540, 0.06, 115, 50, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmallChains_S", new_movement("CarPart_WheelSmallChains_S", "Chained wheel ST", 90, global_data.RARE_RARITY, 0, 300, 0.12, 115, 50, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmallSpiked", new_movement("CarPart_WheelSmallSpiked", "Studded wheel", 60, global_data.RARE_RARITY, 0, 390, 0.05, 100, 40, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelSmallSpiked_S", new_movement("CarPart_WheelSmallSpiked_S", "Studded wheel ST", 60, global_data.RARE_RARITY, 0, 215, 0.1, 100, 40, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Moonwalker", new_movement("CarPart_Wheel_Moonwalker", "Lunar IV", 100, global_data.SPECIAL_RARITY, 0, 540, 0.05, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Moonwalker_S", new_movement("CarPart_Wheel_Moonwalker_S", "Lunar IV ST", 100, global_data.SPECIAL_RARITY, 0, 300, 0.1, 125, 50, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMed_R_rare", new_movement("CarPart_WheelMed_R_rare", "Medium wheel", 40, global_data.COMMON_RARITY, 0, 750, 0.08, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMed_RS_rare", new_movement("CarPart_WheelMed_RS_rare", "Medium wheel ST", 40, global_data.COMMON_RARITY, 0, 415, 0.15, 110, 140, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Baloon", new_movement("CarPart_Wheel_Baloon", "Balloon tyre", 60, global_data.RARE_RARITY, 0, 900, 0.06, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Baloon_S", new_movement("CarPart_Wheel_Baloon_S", "Balloon tyre ST", 60, global_data.RARE_RARITY, 0, 500, 0.12, 140, 100, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Medieval", new_movement("CarPart_Wheel_Medieval", "Gun-mount wheel", 90, global_data.RARE_RARITY, 0, 750, 0.08, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Medieval_S", new_movement("CarPart_Wheel_Medieval_S", "Gun-mount wheel ST", 90, global_data.RARE_RARITY, 0, 415, 0.15, 132, 85, 0, 0, 0, 0, 0.5, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_AviaSmall", new_movement("CarPart_Wheel_AviaSmall", "Landing gear", 60, global_data.RARE_RARITY, 0, 640, 0.05, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_AviaSmall_S", new_movement("CarPart_Wheel_AviaSmall_S", "Landing gear ST", 60, global_data.RARE_RARITY, 0, 355, 0.1, 110, 70, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Drag", new_movement("CarPart_Wheel_Drag", "Racing wheel", 75, global_data.RARE_RARITY, 0, 1050, 0.08, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Drag_S", new_movement("CarPart_Wheel_Drag_S", "Racing wheel ST", 75, global_data.RARE_RARITY, 0, 585, 0.15, 160, 145, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Hopping", new_movement("CarPart_Wheel_Hopping", "Stallion", 80, global_data.RARE_RARITY, 0, 820, 0.08, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Hopping_S", new_movement("CarPart_Wheel_Hopping_S", "Stallion ST", 80, global_data.RARE_RARITY, 0, 455, 0.15, 140, 90, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Work", new_movement("CarPart_Wheel_Work", "Array", 90, global_data.SPECIAL_RARITY, 0, 1260, 0.08, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_Work_S", new_movement("CarPart_Wheel_Work_S", "Array ST", 90, global_data.SPECIAL_RARITY, 0, 700, 0.15, 200, 175, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_SawWheel", new_movement("CarPart_Wheel_SawWheel", "Shiv", 113, global_data.SPECIAL_RARITY, 0, 1125, 0.06, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_SawWheel_S", new_movement("CarPart_Wheel_SawWheel_S", "Shiv ST", 113, global_data.SPECIAL_RARITY, 0, 625, 0.12, 180, 125, 0.5, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMedium_epic", new_movement("CarPart_WheelMedium_epic", "Hermit", 190, global_data.EPIC_RARITY, 0, 1700, 0.06, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMedium_epic_S", new_movement("CarPart_WheelMedium_epic_S", "Hermit (ST)", 190, global_data.EPIC_RARITY, 0, 850, 0.12, 310, 110, 0, 0, 0, 0, 0, "light wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelBig_R_epic", new_movement("CarPart_WheelBig_R_epic", "Large wheel", 90, global_data.RARE_RARITY, 0, 1650, 0.1, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelBig_RS_epic", new_movement("CarPart_WheelBig_RS_epic", "Large wheel ST", 90, global_data.RARE_RARITY, 0, 900, 0.2, 220, 300, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMilitary", new_movement("CarPart_WheelMilitary", "APC wheel", 75, global_data.SPECIAL_RARITY, 0, 1350, 0.08, 215, 250, 0, 0, 0, 0.25, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelMilitary_S", new_movement("CarPart_WheelMilitary_S", "APC wheel ST", 75, global_data.SPECIAL_RARITY, 0, 750, 0.15, 215, 250, 0, 0, 0, 0.25, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelDouble_R_epic", new_movement("CarPart_WheelDouble_R_epic", "Twin wheel", 90, global_data.SPECIAL_RARITY, 0, 1620, 0.1, 235, 300, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_WheelDouble_RS_epic", new_movement("CarPart_WheelDouble_RS_epic", "Twin wheel ST", 90, global_data.SPECIAL_RARITY, 0, 900, 0.2, 235, 300, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_MonsterTruck", new_movement("CarPart_Wheel_MonsterTruck", "Bigfoot", 225, global_data.EPIC_RARITY, 0, 2250, 0.1, 445, 280, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Wheel_MonsterTruck_S", new_movement("CarPart_Wheel_MonsterTruck_S", "Bigfoot ST", 225, global_data.EPIC_RARITY, 0, 1250, 0.2, 445, 280, 0, 0, 0, 0, 0, "heavy wheel"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_TankTrackBig_legend", new_movement("CarPart_TankTrackBig_legend", "Armored track", 625, global_data.EPIC_RARITY, 60, 4000, 0.4, 1300, 1440, 0.5, 0.25, 0.25, 0.25, 0, "heavy track"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_TankTrackRomb", new_movement("CarPart_TankTrackRomb", "Goliath", 1000, global_data.EPIC_RARITY, 45, 6000, 0.45, 1600, 1800, 0.5, 0.25, 0.25, 0, 0, "heavy track"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_TankTrack_rare", new_movement("CarPart_TankTrack_rare", "Hardened track", 300, global_data.EPIC_RARITY, 75, 1850, 0.22, 600, 400, 0.5, 0.25, 0.25, 0, 0, "medium track"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_TankTrackBig_epic", new_movement("CarPart_TankTrackBig_epic", "Small track", 230, global_data.EPIC_RARITY, 90, 935, 0.12, 300, 285, 0.5, 0.25, 0.25, 0, 0, "light track"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Hover_rare_bundle", new_movement("CarPart_Hover_rare_bundle", "Icarus IV", 420, global_data.EPIC_RARITY, 75, 750, 0.08, 160, 325, 0, 0, 0, 0, 0, "hover"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Hover_rare", new_movement("CarPart_Hover_rare", "Icarus VII", 420, global_data.EPIC_RARITY, 75, 750, 0.05, 135, 325, 0, 0, 0, 0, 0, "hover"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_MechaWheelLeg", new_movement("CarPart_MechaWheelLeg", "Bigram", 275, global_data.EPIC_RARITY, 45, 2000, 0.2, 600, 700, 0.5, 0, 0, 0, 0, "leg"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_MechaLeg", new_movement("CarPart_MechaLeg", "ML 200", 400, global_data.EPIC_RARITY, 40, 2400, 0.2, 810, 900, 0.5, 0, 0, 0, 0, "leg"));
+            Current_session.part_records.global_movement_dict.Add("CarPart_Shnekohod", new_movement("CarPart_Shnekohod", "Meat Grinder", 360, global_data.EPIC_RARITY, 60, 2800, 0.35, 820, 800, 0.5, 0, 0, 0, 0, "auger"));
         }
 
         public static void populate_explosive_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_explosives_list.Add("CarPart_ModuleAmmoBig_epic", new_explosive("CarPart_ModuleAmmoBig_epic", "Ammo pack", global_data.RARE_RARITY, 0, 115, 95, 96, 250.13, "ammo"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_Syfy_DeployAmmo", new_explosive("CarPart_Syfy_DeployAmmo", "Genesis", global_data.SPECIAL_RARITY, 0, 86, 80, 157, 193, "ammo"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_ModuleAmmo_rare", new_explosive("CarPart_ModuleAmmo_rare", "Expanded ammo pack", global_data.EPIC_RARITY, 0, 264, 288, 216, 434.2, "ammo"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_PowerGiver_rare", new_explosive("CarPart_PowerGiver_rare", "Big G", global_data.RARE_RARITY, -1, 101, 36, 150, 72.4, "generator"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_PowerGiverExplosive_epic", new_explosive("CarPart_PowerGiverExplosive_epic", "Ampere", global_data.SPECIAL_RARITY, -2, 30, 108, 410, 345.89, "generator"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_PowerGiver_epic", new_explosive("CarPart_PowerGiver_epic", "PU-1 Charge", global_data.SPECIAL_RARITY, -2, 164, 576, 410, 171.23, "generator"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_PowerGiverExplosive_legend", new_explosive("CarPart_PowerGiverExplosive_legend", "Gasgen", global_data.EPIC_RARITY, -3, 36, 144, 870, 446.21, "generator"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_PowerGiver_legend", new_explosive("CarPart_PowerGiver_legend", "Apollo IV", global_data.LEGENDARY_RARITY, -4, 363, 1152, 1600, 350.01, "generator"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_Barrel", new_explosive("CarPart_Barrel", "Fuel barrel", global_data.COMMON_RARITY, 0, 56, 80, 65, 195.51, "fuel tank"));
-            Current_session.part_records.global_explosives_list.Add("CarPart_ModuleTank_rare", new_explosive("CarPart_ModuleTank_rare", "Fuel tank", global_data.RARE_RARITY, 0, 140, 200, 115, 392.24, "fuel tank"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_ModuleAmmoBig_epic", new_explosive("CarPart_ModuleAmmoBig_epic", "Ammo pack", global_data.RARE_RARITY, 0, 115, 95, 96, 250.13, "ammo"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_Syfy_DeployAmmo", new_explosive("CarPart_Syfy_DeployAmmo", "Genesis", global_data.SPECIAL_RARITY, 0, 86, 80, 157, 193, "ammo"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_ModuleAmmo_rare", new_explosive("CarPart_ModuleAmmo_rare", "Expanded ammo pack", global_data.EPIC_RARITY, 0, 264, 288, 216, 434.2, "ammo"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_PowerGiver_rare", new_explosive("CarPart_PowerGiver_rare", "Big G", global_data.RARE_RARITY, -1, 101, 36, 150, 72.4, "generator"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_PowerGiverExplosive_epic", new_explosive("CarPart_PowerGiverExplosive_epic", "Ampere", global_data.SPECIAL_RARITY, -2, 30, 108, 410, 345.89, "generator"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_PowerGiver_epic", new_explosive("CarPart_PowerGiver_epic", "PU-1 Charge", global_data.SPECIAL_RARITY, -2, 164, 576, 410, 171.23, "generator"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_PowerGiverExplosive_legend", new_explosive("CarPart_PowerGiverExplosive_legend", "Gasgen", global_data.EPIC_RARITY, -3, 36, 144, 870, 446.21, "generator"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_PowerGiver_legend", new_explosive("CarPart_PowerGiver_legend", "Apollo IV", global_data.LEGENDARY_RARITY, -4, 363, 1152, 1600, 350.01, "generator"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_Barrel", new_explosive("CarPart_Barrel", "Fuel barrel", global_data.COMMON_RARITY, 0, 56, 80, 65, 195.51, "fuel tank"));
+            Current_session.part_records.global_explosives_dict.Add("CarPart_ModuleTank_rare", new_explosive("CarPart_ModuleTank_rare", "Fuel tank", global_data.RARE_RARITY, 0, 140, 200, 115, 392.24, "fuel tank"));
         }
 
         public static void populate_engine_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine", new_engine("CarPart_Engine", "Dun horse", global_data.SPECIAL_RARITY, 1, 127, 80, 190, 2500, 500, 0.14, 0.15));
-            Current_session.part_records.global_engine_list.Add("CarPart_EngineMini_rare", new_engine("CarPart_EngineMini_rare", "Hardcore", global_data.SPECIAL_RARITY, 0, 93, 50, 157, 0, 500, 0.09, 0.1));
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine_rare", new_engine("CarPart_Engine_rare", "Razorback", global_data.SPECIAL_RARITY, 1, 370, 400, 190, 0, 2000, 0.04, 0.3));
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine_epic", new_engine("CarPart_Engine_epic", "Cheetah", global_data.EPIC_RARITY, 1, 223, 150, 275, 3000, 1000, 0.2, 0.25));
-            Current_session.part_records.global_engine_list.Add("CarPart_EngineMini_epic", new_engine("CarPart_EngineMini_epic", "Colossus", global_data.EPIC_RARITY, 1, 333, 450, 275, 0, 2500, 0.07, 0.5));
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine_avia_front", new_engine("CarPart_Engine_avia_front", "Golden Eagle", global_data.EPIC_RARITY, 1, 425, 500, 275, 0, 2500, 0.08, 0.4));
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine_v8", new_engine("CarPart_Engine_v8", "Hot red", global_data.EPIC_RARITY, 0, 145, 90, 216, 0, 1000, 0.13, 0.2));
-            Current_session.part_records.global_engine_list.Add("CarPart_Engine_Powerful", new_engine("CarPart_Engine_Powerful", "Oppressor ", global_data.EPIC_RARITY, 1, 425, 500, 275, 3000, 1000, 0.17, 0.3));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine", new_engine("CarPart_Engine", "Dun horse", global_data.SPECIAL_RARITY, 1, 127, 80, 190, 2500, 500, 0.14, 0.15));
+            Current_session.part_records.global_engine_dict.Add("CarPart_EngineMini_rare", new_engine("CarPart_EngineMini_rare", "Hardcore", global_data.SPECIAL_RARITY, 0, 93, 50, 157, 0, 500, 0.09, 0.1));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine_rare", new_engine("CarPart_Engine_rare", "Razorback", global_data.SPECIAL_RARITY, 1, 370, 400, 190, 0, 2000, 0.04, 0.3));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine_epic", new_engine("CarPart_Engine_epic", "Cheetah", global_data.EPIC_RARITY, 1, 223, 150, 275, 3000, 1000, 0.2, 0.25));
+            Current_session.part_records.global_engine_dict.Add("CarPart_EngineMini_epic", new_engine("CarPart_EngineMini_epic", "Colossus", global_data.EPIC_RARITY, 1, 333, 450, 275, 0, 2500, 0.07, 0.5));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine_avia_front", new_engine("CarPart_Engine_avia_front", "Golden Eagle", global_data.EPIC_RARITY, 1, 425, 500, 275, 0, 2500, 0.08, 0.4));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine_v8", new_engine("CarPart_Engine_v8", "Hot red", global_data.EPIC_RARITY, 0, 145, 90, 216, 0, 1000, 0.13, 0.2));
+            Current_session.part_records.global_engine_dict.Add("CarPart_Engine_Powerful", new_engine("CarPart_Engine_Powerful", "Oppressor ", global_data.EPIC_RARITY, 1, 425, 500, 275, 3000, 1000, 0.17, 0.3));
         }
 
         public static void populate_module_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_module_list.Add("CarPart_Lifter", new_module("CarPart_Lifter", "Car jack", global_data.COMMON_RARITY, 1, 112, 160, 85, "self righter"));
-            Current_session.part_records.global_module_list.Add("CarPart_Coupler", new_module("CarPart_Coupler", "Contact 2M", global_data.RARE_RARITY, 0, 90, 100, 115, "connector"));
-            Current_session.part_records.global_module_list.Add("CarPart_Squib", new_module("CarPart_Squib", "Rift 2M", global_data.RARE_RARITY, 0, 15, 35, 115, "connector"));
-            Current_session.part_records.global_module_list.Add("CarPart_Quadrocopter_SelfDefence", new_module("CarPart_Quadrocopter_SelfDefence", "Argus", global_data.EPIC_RARITY, 1, 144, 128, 275, "defence"));
-            Current_session.part_records.global_module_list.Add("CarPart_FusionSpec", new_module("CarPart_FusionSpec", "Power unit", global_data.EPIC_RARITY, 2, 145, 383, 550, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Selfcalc", new_module("CarPart_Selfcalc", "Tormentor", global_data.EPIC_RARITY, 2, 153, 128, 550, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Shield_mortal", new_module("CarPart_Shield_mortal", "Aegis-Prime", global_data.LEGENDARY_RARITY, 3, 112, 80, 1200, "defence"));
-            Current_session.part_records.global_module_list.Add("CarPart_Stealth_epic", new_module("CarPart_Stealth_epic", "Chameleon ", global_data.SPECIAL_RARITY, 1, 68, 48, 190, "stealth"));
-            Current_session.part_records.global_module_list.Add("CarPart_Stealth_legend", new_module("CarPart_Stealth_legend", "Chameleon Mk2", global_data.EPIC_RARITY, 1, 84, 60, 275, "stealth"));
-            Current_session.part_records.global_module_list.Add("CarPart_ModuleRadio", new_module("CarPart_ModuleRadio", "Radio", global_data.COMMON_RARITY, 0, 13, 36, 65, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_RadarSmall", new_module("CarPart_RadarSmall", "RS-1 Ruby", global_data.COMMON_RARITY, 0, 26, 72, 65, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_RadarSmall_rare", new_module("CarPart_RadarSmall_rare", "RD-1 Listener", global_data.RARE_RARITY, 0, 71, 72, 115, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_RadarBig_rare", new_module("CarPart_RadarBig_rare", "Maxwell", global_data.SPECIAL_RARITY, 1, 327, 288, 190, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_Stealth_Seeker_rare", new_module("CarPart_Stealth_Seeker_rare", "Oculus VI", global_data.SPECIAL_RARITY, 1, 174, 110, 190, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_RadarBig_epic", new_module("CarPart_RadarBig_epic", "Doppler", global_data.EPIC_RARITY, 1, 431, 384, 275, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_RadarSmall_epic", new_module("CarPart_RadarSmall_epic", "RD-2 Keen", global_data.EPIC_RARITY, 0, 202, 180, 216, "radar"));
-            Current_session.part_records.global_module_list.Add("CarPart_Stealth_Seeker_epic", new_module("CarPart_Stealth_Seeker_epic", "Verifier", global_data.EPIC_RARITY, 1, 220, 190, 275, "defence"));
-            Current_session.part_records.global_module_list.Add("CarPart_Sniper_rare", new_module("CarPart_Sniper_rare", "TS-1 Horizon", global_data.RARE_RARITY, 1, 36, 36, 130, "optic"));
-            Current_session.part_records.global_module_list.Add("CarPart_Syfy_SniperVisor", new_module("CarPart_Syfy_SniperVisor", "Neutrino", global_data.EPIC_RARITY, 1, 72, 40, 275, "optic"));
-            Current_session.part_records.global_module_list.Add("CarPart_Booster", new_module("CarPart_Booster", "B-1 Aviator", global_data.COMMON_RARITY, 1, 23, 32, 85, "booster"));
-            Current_session.part_records.global_module_list.Add("CarPart_Booster_rare", new_module("CarPart_Booster_rare", "Blastoff", global_data.RARE_RARITY, 1, 48, 48, 130, "booster"));
-            Current_session.part_records.global_module_list.Add("CarPart_Booster_epic", new_module("CarPart_Booster_epic", "Hermes", global_data.EPIC_RARITY, 1, 129, 108, 275, "booster"));
-            Current_session.part_records.global_module_list.Add("CarPart_Radiator", new_module("CarPart_Radiator", "R-1 Breeze", global_data.COMMON_RARITY, 1, 45, 64, 85, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Cooler_rare", new_module("CarPart_Cooler_rare", "CS Taymyr", global_data.RARE_RARITY, 1, 63, 64, 130, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Radiator_rare", new_module("CarPart_Radiator_rare", "R-2 Chill", global_data.RARE_RARITY, 1, 126, 128, 130, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Radiator_epic", new_module("CarPart_Radiator_epic", "RN Seal", global_data.EPIC_RARITY, 1, 77, 64, 275, "support"));
-            Current_session.part_records.global_module_list.Add("CarPart_Cooler_epic", new_module("CarPart_Cooler_epic", "Shiver", global_data.EPIC_RARITY, 1, 115, 96, 275, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Lifter", new_module("CarPart_Lifter", "Car jack", global_data.COMMON_RARITY, 1, 112, 160, 85, "self righter"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Coupler", new_module("CarPart_Coupler", "Contact 2M", global_data.RARE_RARITY, 0, 90, 100, 115, "connector"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Squib", new_module("CarPart_Squib", "Rift 2M", global_data.RARE_RARITY, 0, 15, 35, 115, "connector"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Quadrocopter_SelfDefence", new_module("CarPart_Quadrocopter_SelfDefence", "Argus", global_data.EPIC_RARITY, 1, 144, 128, 275, "defence"));
+            Current_session.part_records.global_module_dict.Add("CarPart_FusionSpec", new_module("CarPart_FusionSpec", "Power unit", global_data.EPIC_RARITY, 2, 145, 383, 550, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Selfcalc", new_module("CarPart_Selfcalc", "Tormentor", global_data.EPIC_RARITY, 2, 153, 128, 550, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Shield_mortal", new_module("CarPart_Shield_mortal", "Aegis-Prime", global_data.LEGENDARY_RARITY, 3, 112, 80, 1200, "defence"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Stealth_epic", new_module("CarPart_Stealth_epic", "Chameleon ", global_data.SPECIAL_RARITY, 1, 68, 48, 190, "stealth"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Stealth_legend", new_module("CarPart_Stealth_legend", "Chameleon Mk2", global_data.EPIC_RARITY, 1, 84, 60, 275, "stealth"));
+            Current_session.part_records.global_module_dict.Add("CarPart_ModuleRadio", new_module("CarPart_ModuleRadio", "Radio", global_data.COMMON_RARITY, 0, 13, 36, 65, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_RadarSmall", new_module("CarPart_RadarSmall", "RS-1 Ruby", global_data.COMMON_RARITY, 0, 26, 72, 65, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_RadarSmall_rare", new_module("CarPart_RadarSmall_rare", "RD-1 Listener", global_data.RARE_RARITY, 0, 71, 72, 115, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_RadarBig_rare", new_module("CarPart_RadarBig_rare", "Maxwell", global_data.SPECIAL_RARITY, 1, 327, 288, 190, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Stealth_Seeker_rare", new_module("CarPart_Stealth_Seeker_rare", "Oculus VI", global_data.SPECIAL_RARITY, 1, 174, 110, 190, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_RadarBig_epic", new_module("CarPart_RadarBig_epic", "Doppler", global_data.EPIC_RARITY, 1, 431, 384, 275, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_RadarSmall_epic", new_module("CarPart_RadarSmall_epic", "RD-2 Keen", global_data.EPIC_RARITY, 0, 202, 180, 216, "radar"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Stealth_Seeker_epic", new_module("CarPart_Stealth_Seeker_epic", "Verifier", global_data.EPIC_RARITY, 1, 220, 190, 275, "defence"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Sniper_rare", new_module("CarPart_Sniper_rare", "TS-1 Horizon", global_data.RARE_RARITY, 1, 36, 36, 130, "optic"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Syfy_SniperVisor", new_module("CarPart_Syfy_SniperVisor", "Neutrino", global_data.EPIC_RARITY, 1, 72, 40, 275, "optic"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Booster", new_module("CarPart_Booster", "B-1 Aviator", global_data.COMMON_RARITY, 1, 23, 32, 85, "booster"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Booster_rare", new_module("CarPart_Booster_rare", "Blastoff", global_data.RARE_RARITY, 1, 48, 48, 130, "booster"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Booster_epic", new_module("CarPart_Booster_epic", "Hermes", global_data.EPIC_RARITY, 1, 129, 108, 275, "booster"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Radiator", new_module("CarPart_Radiator", "R-1 Breeze", global_data.COMMON_RARITY, 1, 45, 64, 85, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Cooler_rare", new_module("CarPart_Cooler_rare", "CS Taymyr", global_data.RARE_RARITY, 1, 63, 64, 130, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Radiator_rare", new_module("CarPart_Radiator_rare", "R-2 Chill", global_data.RARE_RARITY, 1, 126, 128, 130, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Radiator_epic", new_module("CarPart_Radiator_epic", "RN Seal", global_data.EPIC_RARITY, 1, 77, 64, 275, "support"));
+            Current_session.part_records.global_module_dict.Add("CarPart_Cooler_epic", new_module("CarPart_Cooler_epic", "Shiver", global_data.EPIC_RARITY, 1, 115, 96, 275, "support"));
         }
 
         public static void populate_cabin_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_cabin_list.Add("Cabin_Buggy_Small", new_cabin("Cabin_Buggy_Small", "Duster", global_data.COMMON_RARITY, 9, 95, 4000, 2000, 300, 170, 250, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Basic", new_cabin("Chassis_Basic", "Growl", global_data.RARE_RARITY, 11, 100, 6000, 3000, 450, 230, 750, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Tribal", new_cabin("Cabin_Tribal", "Bat", global_data.SPECIAL_RARITY, 11, 100, 6500, 3900, 600, 265, 1300, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Pestilence", new_cabin("Cabin_Pestilence", "Blight", global_data.EPIC_RARITY, 12, 100, 8300, 4100, 700, 300, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_InnateMelee", new_cabin("Cabin_InnateMelee", "Cerberus", global_data.EPIC_RARITY, 12, 100, 8500, 4000, 850, 285, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Moby_935", new_cabin("Cabin_Moby_935", "Cockpit", global_data.EPIC_RARITY, 12, 105, 7700, 3700, 450, 245, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Halloween2020_Cab", new_cabin("Cabin_Halloween2020_Cab", "Dusk", global_data.EPIC_RARITY, 12, 100, 8600, 4200, 850, 280, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("CarPart_Chainsaw_dble_epic", new_cabin("CarPart_Chainsaw_dble_epic", "Harpy", global_data.EPIC_RARITY, 12, 100, 8500, 4500, 1000, 295, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_DronSpawn", new_cabin("Cabin_DronSpawn", "Werewolf", global_data.EPIC_RARITY, 12, 100, 8000, 4000, 600, 250, 1800, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Tribal_cab2", new_cabin("Cabin_Tribal_cab2", "Griffon", global_data.LEGENDARY_RARITY, 12, 100, 9000, 4800, 700, 314, 2400, "light cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Small", new_cabin("Chassis_Small", "Guerilla", global_data.BASE_RARITY, 7, 65, 6000, 3000, 360, 250, 160, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_FordPickup", new_cabin("Chassis_FordPickup", "Huntsman", global_data.COMMON_RARITY, 8, 75, 7000, 3000, 700, 275, 250, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Light", new_cabin("Cabin_Light", "Sprinter", global_data.COMMON_RARITY, 8, 90, 6000, 2800, 350, 220, 250, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_FordPickup_Alpha", new_cabin("Chassis_FordPickup_Alpha", "Thug", global_data.COMMON_RARITY, 8, 75, 7000, 3500, 800, 280, 250, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_VWT1", new_cabin("Chassis_VWT1", "WWT1", global_data.COMMON_RARITY, 8, 70, 9000, 3000, 1200, 310, 250, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_ArmoredPickup", new_cabin("Cabin_ArmoredPickup", "Bear", global_data.RARE_RARITY, 10, 75, 9500, 4000, 1150, 340, 750, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Rage", new_cabin("Chassis_Rage", "Fury", global_data.RARE_RARITY, 10, 80, 9000, 4500, 950, 310, 750, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Riviera", new_cabin("Cabin_Riviera", "Hot Rod", global_data.RARE_RARITY, 10, 85, 9000, 4000, 900, 305, 750, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_ChevyPickup", new_cabin("Chassis_ChevyPickup", "Jockey", global_data.RARE_RARITY, 10, 75, 10000, 4000, 1400, 380, 750, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Wyvern", new_cabin("Chassis_Wyvern", "Wyvern", global_data.RARE_RARITY, 10, 80, 9000, 4000, 800, 290, 750, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Moonwalker", new_cabin("Cabin_Moonwalker", "Pilgrim", global_data.SPECIAL_RARITY, 11, 70, 12000, 4300, 1700, 310, 1100, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Zubilo", new_cabin("Cabin_Zubilo", "Favorite", global_data.EPIC_RARITY, 12, 90, 10500, 5250, 700, 280, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Mi24", new_cabin("Cabin_Mi24", "Ghost", global_data.EPIC_RARITY, 12, 80, 12000, 6000, 1050, 330, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Famine", new_cabin("Cabin_Famine", "Howl", global_data.EPIC_RARITY, 12, 90, 10500, 4500, 400, 250, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Workers_epic", new_cabin("Cabin_Workers_epic", "Omnibox", global_data.EPIC_RARITY, 12, 70, 12500, 6500, 2100, 369, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Lunar_Rover", new_cabin("Cabin_Lunar_Rover", "Photon", global_data.EPIC_RARITY, 12, 80, 13000, 5000, 2000, 335, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Satellite", new_cabin("Cabin_Satellite", "Quantum", global_data.EPIC_RARITY, 12, 90, 10000, 5000, 600, 260, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Spider", new_cabin("Chassis_Spider", "Steppe spider", global_data.EPIC_RARITY, 12, 60, 16000, 7000, 3250, 445, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Death", new_cabin("Cabin_Death", "The Call", global_data.EPIC_RARITY, 12, 85, 10500, 6000, 950, 300, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Lambo", new_cabin("Cabin_Lambo", "Torero", global_data.EPIC_RARITY, 12, 100, 10000, 5500, 750, 310, 1500, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Bell_Uh1_Oracle", new_cabin("Cabin_Bell_Uh1_Oracle", "Beholder", global_data.LEGENDARY_RARITY, 12, 90, 12500, 5400, 800, 305, 2100, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Scientists_Cab4", new_cabin("Cabin_Scientists_Cab4", "Nova", global_data.LEGENDARY_RARITY, 12, 80, 15400, 5500, 2300, 419, 2100, "medium cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Gazelle", new_cabin("Chassis_Gazelle", "Docker", global_data.COMMON_RARITY, 7, 60, 12000, 4000, 2400, 390, 250, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Panzer", new_cabin("Chassis_Panzer", "Carapace", global_data.RARE_RARITY, 10, 50, 16000, 6000, 3600, 440, 750, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Kamaz", new_cabin("Chassis_Kamaz", "Trucker", global_data.RARE_RARITY, 9, 60, 16000, 6000, 3200, 410, 750, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Military", new_cabin("Chassis_Military", "Jawbreaker", global_data.SPECIAL_RARITY, 10, 60, 17500, 6500, 3000, 410, 1100, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Bulldozer", new_cabin("Cabin_Bulldozer", "Bastion", global_data.EPIC_RARITY, 11, 60, 20000, 9000, 4500, 495, 1500, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_War", new_cabin("Cabin_War", "Echo", global_data.EPIC_RARITY, 11, 70, 18000, 10000, 3500, 440, 1500, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Chassis_Maz", new_cabin("Chassis_Maz", "Humpback", global_data.EPIC_RARITY, 11, 60, 20000, 8000, 4000, 470, 1500, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Big", new_cabin("Cabin_Big", "Icebox", global_data.EPIC_RARITY, 11, 65, 19000, 9000, 3800, 455, 1500, "heavy cabin"));
-            Current_session.part_records.global_cabin_list.Add("Cabin_Military_cab4", new_cabin("Cabin_Military_cab4", "Cohort", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Buggy_Small", new_cabin("Cabin_Buggy_Small", "Duster", global_data.COMMON_RARITY, 9, 95, 4000, 2000, 300, 170, 250, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Basic", new_cabin("Chassis_Basic", "Growl", global_data.RARE_RARITY, 11, 100, 6000, 3000, 450, 230, 750, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Tribal", new_cabin("Cabin_Tribal", "Bat", global_data.SPECIAL_RARITY, 11, 100, 6500, 3900, 600, 265, 1300, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Pestilence", new_cabin("Cabin_Pestilence", "Blight", global_data.EPIC_RARITY, 12, 100, 8300, 4100, 700, 300, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_InnateMelee", new_cabin("Cabin_InnateMelee", "Cerberus", global_data.EPIC_RARITY, 12, 100, 8500, 4000, 850, 285, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Moby_935", new_cabin("Cabin_Moby_935", "Cockpit", global_data.EPIC_RARITY, 12, 105, 7700, 3700, 450, 245, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Halloween2020_Cab", new_cabin("Cabin_Halloween2020_Cab", "Dusk", global_data.EPIC_RARITY, 12, 100, 8600, 4200, 850, 280, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("CarPart_Chainsaw_dble_epic", new_cabin("CarPart_Chainsaw_dble_epic", "Harpy", global_data.EPIC_RARITY, 12, 100, 8500, 4500, 1000, 295, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_DronSpawn", new_cabin("Cabin_DronSpawn", "Werewolf", global_data.EPIC_RARITY, 12, 100, 8000, 4000, 600, 250, 1800, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Tribal_cab2", new_cabin("Cabin_Tribal_cab2", "Griffon", global_data.LEGENDARY_RARITY, 12, 100, 9000, 4800, 700, 314, 2400, "light cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Small", new_cabin("Chassis_Small", "Guerilla", global_data.BASE_RARITY, 7, 65, 6000, 3000, 360, 250, 160, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_FordPickup", new_cabin("Chassis_FordPickup", "Huntsman", global_data.COMMON_RARITY, 8, 75, 7000, 3000, 700, 275, 250, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Light", new_cabin("Cabin_Light", "Sprinter", global_data.COMMON_RARITY, 8, 90, 6000, 2800, 350, 220, 250, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_FordPickup_Alpha", new_cabin("Chassis_FordPickup_Alpha", "Thug", global_data.COMMON_RARITY, 8, 75, 7000, 3500, 800, 280, 250, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_VWT1", new_cabin("Chassis_VWT1", "WWT1", global_data.COMMON_RARITY, 8, 70, 9000, 3000, 1200, 310, 250, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_ArmoredPickup", new_cabin("Cabin_ArmoredPickup", "Bear", global_data.RARE_RARITY, 10, 75, 9500, 4000, 1150, 340, 750, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Rage", new_cabin("Chassis_Rage", "Fury", global_data.RARE_RARITY, 10, 80, 9000, 4500, 950, 310, 750, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Riviera", new_cabin("Cabin_Riviera", "Hot Rod", global_data.RARE_RARITY, 10, 85, 9000, 4000, 900, 305, 750, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_ChevyPickup", new_cabin("Chassis_ChevyPickup", "Jockey", global_data.RARE_RARITY, 10, 75, 10000, 4000, 1400, 380, 750, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Wyvern", new_cabin("Chassis_Wyvern", "Wyvern", global_data.RARE_RARITY, 10, 80, 9000, 4000, 800, 290, 750, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Moonwalker", new_cabin("Cabin_Moonwalker", "Pilgrim", global_data.SPECIAL_RARITY, 11, 70, 12000, 4300, 1700, 310, 1100, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Zubilo", new_cabin("Cabin_Zubilo", "Favorite", global_data.EPIC_RARITY, 12, 90, 10500, 5250, 700, 280, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Mi24", new_cabin("Cabin_Mi24", "Ghost", global_data.EPIC_RARITY, 12, 80, 12000, 6000, 1050, 330, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Famine", new_cabin("Cabin_Famine", "Howl", global_data.EPIC_RARITY, 12, 90, 10500, 4500, 400, 250, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Workers_epic", new_cabin("Cabin_Workers_epic", "Omnibox", global_data.EPIC_RARITY, 12, 70, 12500, 6500, 2100, 369, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Lunar_Rover", new_cabin("Cabin_Lunar_Rover", "Photon", global_data.EPIC_RARITY, 12, 80, 13000, 5000, 2000, 335, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Satellite", new_cabin("Cabin_Satellite", "Quantum", global_data.EPIC_RARITY, 12, 90, 10000, 5000, 600, 260, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Spider", new_cabin("Chassis_Spider", "Steppe spider", global_data.EPIC_RARITY, 12, 60, 16000, 7000, 3250, 445, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Death", new_cabin("Cabin_Death", "The Call", global_data.EPIC_RARITY, 12, 85, 10500, 6000, 950, 300, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Lambo", new_cabin("Cabin_Lambo", "Torero", global_data.EPIC_RARITY, 12, 100, 10000, 5500, 750, 310, 1500, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Bell_Uh1_Oracle", new_cabin("Cabin_Bell_Uh1_Oracle", "Beholder", global_data.LEGENDARY_RARITY, 12, 90, 12500, 5400, 800, 305, 2100, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Scientists_Cab4", new_cabin("Cabin_Scientists_Cab4", "Nova", global_data.LEGENDARY_RARITY, 12, 80, 15400, 5500, 2300, 419, 2100, "medium cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Gazelle", new_cabin("Chassis_Gazelle", "Docker", global_data.COMMON_RARITY, 7, 60, 12000, 4000, 2400, 390, 250, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Panzer", new_cabin("Chassis_Panzer", "Carapace", global_data.RARE_RARITY, 10, 50, 16000, 6000, 3600, 440, 750, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Kamaz", new_cabin("Chassis_Kamaz", "Trucker", global_data.RARE_RARITY, 9, 60, 16000, 6000, 3200, 410, 750, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Military", new_cabin("Chassis_Military", "Jawbreaker", global_data.SPECIAL_RARITY, 10, 60, 17500, 6500, 3000, 410, 1100, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Bulldozer", new_cabin("Cabin_Bulldozer", "Bastion", global_data.EPIC_RARITY, 11, 60, 20000, 9000, 4500, 495, 1500, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_War", new_cabin("Cabin_War", "Echo", global_data.EPIC_RARITY, 11, 70, 18000, 10000, 3500, 440, 1500, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Chassis_Maz", new_cabin("Chassis_Maz", "Humpback", global_data.EPIC_RARITY, 11, 60, 20000, 8000, 4000, 470, 1500, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Big", new_cabin("Cabin_Big", "Icebox", global_data.EPIC_RARITY, 11, 65, 19000, 9000, 3800, 455, 1500, "heavy cabin"));
+            Current_session.part_records.global_cabin_dict.Add("Cabin_Military_cab4", new_cabin("Cabin_Military_cab4", "Cohort", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin"));
         }
 
         public static void populate_weapon_list(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Starter", new_weapon("CarPart_Gun_Machinegun_Starter", "SM Hornet", global_data.BASE_RARITY, 2, 2.71, 144, 52, 100, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun", new_weapon("CarPart_Gun_Machinegun", "LM-54 Chord", global_data.COMMON_RARITY, 2, 3.11, 144, 60, 170, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Frontal", new_weapon("CarPart_Gun_Machinegun_Frontal", "ST-M23 Defender", global_data.RARE_RARITY, 3, 7.2, 144, 140, 390, "frontal machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_rare", new_weapon("CarPart_Gun_Machinegun_rare", "Vector", global_data.RARE_RARITY, 3, 7.07, 171, 74, 390, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_SMG", new_weapon("CarPart_Gun_SMG", "M-37 Piercer", global_data.SPECIAL_RARITY, 3, 7.7, 195, 133, 570, "rapid-fire machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Preepic", new_weapon("CarPart_Gun_Machinegun_Preepic", "Sinus-0", global_data.SPECIAL_RARITY, 3, 7.56, 185, 90, 570, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_ParticleBeam", new_weapon("CarPart_Gun_Syfy_ParticleBeam", "Aurora", global_data.EPIC_RARITY, 4, 1.08, 315, 275, 1100, "laser minigun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_SmartMachinegun", new_weapon("CarPart_Gun_SmartMachinegun", "Caucasus", global_data.EPIC_RARITY, 4, 11.3, 824, 314, 1100, "automatic machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Frontal_Epic", new_weapon("CarPart_Gun_Machinegun_Frontal_Epic", "M-29 Protector", global_data.EPIC_RARITY, 3, 8.9, 170, 213, 825, "frontal machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_SMG_Epic", new_weapon("CarPart_Gun_SMG_Epic", "M-38 Fidget", global_data.EPIC_RARITY, 3, 7.4, 220, 145, 825, "rapid-fire machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Minigun", new_weapon("CarPart_Gun_Minigun", "MG13 Equalizer", global_data.EPIC_RARITY, 3, 3.8, 216, 163, 825, "minigun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Carabine", new_weapon("CarPart_Gun_Carabine", "R-37-39 Adapter", global_data.EPIC_RARITY, 4, 12.28, 240, 154, 1100, "reloading machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Corner", new_weapon("CarPart_Gun_Machinegun_Corner", "ST-M26 Tackler", global_data.EPIC_RARITY, 3, 16.1, 180, 228, 825, "frontal machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Legendary", new_weapon("CarPart_Gun_Machinegun_Legendary", "Aspect", global_data.LEGENDARY_RARITY, 4, 9.6, 342, 220, 1600, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_SMG_Legend", new_weapon("CarPart_Gun_SMG_Legend", "M-39 Imp", global_data.LEGENDARY_RARITY, 3, 8.24, 280, 209, 1200, "rapid-fire machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Minigun_Legend", new_weapon("CarPart_Gun_Minigun_Legend", "MG14 Arbiter", global_data.LEGENDARY_RARITY, 3, 4, 279, 186, 1200, "minigun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_CannonMinigun_legend", new_weapon("CarPart_Gun_CannonMinigun_legend", "Reaper", global_data.LEGENDARY_RARITY, 6, 12.5, 603, 520, 2400, "minigun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Machinegun_Relic", new_weapon("CarPart_Gun_Machinegun_Relic", "Punisher", global_data.RELIC_RARITY, 4, 11, 430, 368, 2400, "machine gun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun", new_weapon("CarPart_Gun_Shotgun", "Lupara", global_data.COMMON_RARITY, 3, 24, 68, 63, 255, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_rare", new_weapon("CarPart_Gun_Shotgun_rare", "Sledgehammer", global_data.RARE_RARITY, 3, 24.42, 54, 115, 390, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Frontal", new_weapon("CarPart_Gun_Shotgun_Frontal", "Spitfire", global_data.RARE_RARITY, 3, 25.8, 126, 183, 390, "frontal shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Fixed_Rare", new_weapon("CarPart_Gun_Shotgun_Fixed_Rare", "Goblin", global_data.SPECIAL_RARITY, 2, 24.54, 90, 128, 380, "frontal shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_ShotGun_Garbage", new_weapon("CarPart_Gun_ShotGun_Garbage", "Junkbow", global_data.SPECIAL_RARITY, 4, 144, 189, 247, 760, "reloading shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Frontal_Preepic", new_weapon("CarPart_Gun_Shotgun_Frontal_Preepic", "Leech", global_data.SPECIAL_RARITY, 3, 28.2, 135, 190, 570, "frontal shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Preepic", new_weapon("CarPart_Gun_Shotgun_Preepic", "Mace", global_data.SPECIAL_RARITY, 3, 25.98, 65, 120, 570, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_NailGun_rare", new_weapon("CarPart_Gun_NailGun_rare", "Summator", global_data.SPECIAL_RARITY, 4, 138, 180, 157, 760, "charging shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_MiddleRangeShotgun", new_weapon("CarPart_Gun_MiddleRangeShotgun", "Arothron", global_data.EPIC_RARITY, 4, 211.2, 378, 280, 1100, "reloading shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_ShotGun_Garbage_epic", new_weapon("CarPart_Gun_ShotGun_Garbage_epic", "Fafnir", global_data.EPIC_RARITY, 4, 152, 255, 315, 1100, "reloading shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_ShotGun", new_weapon("CarPart_Gun_Syfy_ShotGun", "Gravastar", global_data.EPIC_RARITY, 4, 42, 306, 196, 1100, "laser shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Corner", new_weapon("CarPart_Gun_Shotgun_Corner", "Rupture", global_data.EPIC_RARITY, 3, 29.4, 160, 229, 825, "frontal shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_epic", new_weapon("CarPart_Gun_Shotgun_epic", "Thunderbolt", global_data.EPIC_RARITY, 4, 39.6, 90, 173, 1100, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_legend", new_weapon("CarPart_Gun_Shotgun_legend", "Hammerfall", global_data.LEGENDARY_RARITY, 5, 42, 122, 221, 2000, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_ShotGun_Garbage_legend", new_weapon("CarPart_Gun_ShotGun_Garbage_legend", "Nidhogg", global_data.LEGENDARY_RARITY, 4, 184, 290, 340, 1600, "reloading shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Shotgun_Relic", new_weapon("CarPart_Gun_Shotgun_Relic", "Breaker", global_data.RELIC_RARITY, 5, 47.4, 180, 387, 3000, "shotgun"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Cannon_rare", new_weapon("CarPart_Gun_Cannon_rare", "AC43 Rapier", global_data.RARE_RARITY, 4, 14.3, 180, 113, 520, "autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Cannon_Preepic", new_weapon("CarPart_Gun_Cannon_Preepic", "AC50 Storm", global_data.SPECIAL_RARITY, 4, 14.3, 210, 168, 760, "autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Cannon_Oneshot_preepic", new_weapon("CarPart_Gun_Cannon_Oneshot_preepic", "Median", global_data.SPECIAL_RARITY, 5, 150, 342, 189, 950, "reloading autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Lcannon_epic", new_weapon("CarPart_Gun_Lcannon_epic", "AC64 Joule", global_data.EPIC_RARITY, 4, 13.6, 240, 216, 1100, "rapid-fire autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Cannon_epic", new_weapon("CarPart_Gun_Cannon_epic", "AC72 Whirlwind", global_data.EPIC_RARITY, 5, 16.2, 486, 391, 1375, "autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_CloseCombatCannon", new_weapon("CarPart_Gun_CloseCombatCannon", "Whirl", global_data.EPIC_RARITY, 4, 32.76, 729, 457, 1100, "autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Cannon_Legend", new_weapon("CarPart_Gun_Cannon_Legend", "Cyclone", global_data.LEGENDARY_RARITY, 5, 21, 570, 535, 2000, "rapid-fire autocannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX", new_weapon("CarPart_Gun_BigCannon_EX", "Avenger 57mm", global_data.COMMON_RARITY, 5, 89, 468, 217, 425, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX_rare", new_weapon("CarPart_Gun_BigCannon_EX_rare", "Judge 76mm", global_data.RARE_RARITY, 5, 105.8, 585, 320, 650, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_rare", new_weapon("CarPart_Gun_BigCannon_Free_rare", "Little Boy 6LB", global_data.RARE_RARITY, 6, 110, 837, 454, 780, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_Preepic", new_weapon("CarPart_Gun_BigCannon_Free_Preepic", "ZS-33 Hulk", global_data.SPECIAL_RARITY, 6, 121, 850, 583, 1140, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX_Preepic", new_weapon("CarPart_Gun_BigCannon_EX_Preepic", "Prosecutor 76mm", global_data.SPECIAL_RARITY, 5, 118, 670, 400, 950, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_T34_epic", new_weapon("CarPart_Gun_BigCannon_Free_T34_epic", "Elephant", global_data.EPIC_RARITY, 6, 126.1, 1300, 847, 1650, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX_epic", new_weapon("CarPart_Gun_BigCannon_EX_epic", "Executioner 88mm", global_data.EPIC_RARITY, 5, 143.41, 864, 495, 1375, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_epic", new_weapon("CarPart_Gun_BigCannon_Free_epic", "ZS-34 Fat Man", global_data.EPIC_RARITY, 6, 136, 1215, 830, 1650, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX_Legend", new_weapon("CarPart_Gun_BigCannon_EX_Legend", "BC-17 Tsunami", global_data.LEGENDARY_RARITY, 6, 213, 1850, 746, 2400, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_legend", new_weapon("CarPart_Gun_BigCannon_Free_legend", "ZS-46 Mammoth", global_data.LEGENDARY_RARITY, 6, 170, 2633, 1284, 2400, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_EX_Relic", new_weapon("CarPart_Gun_BigCannon_EX_Relic", "CC-18 Typhoon", global_data.RELIC_RARITY, 6, 255, 2200, 950, 3600, "cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_BigCannon_Free_Relic", new_weapon("CarPart_Gun_BigCannon_Free_Relic", "ZS-52 Mastodon", global_data.RELIC_RARITY, 6, 75, 2855, 1505, 3600, "turret cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_AutoGuidedCourseGun_rare", new_weapon("CarPart_AutoGuidedCourseGun_rare", "Wasp", global_data.RARE_RARITY, 4, 77.1, 90, 55, 520, "unguided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_AutoGuidedCourseGun_Nurs_Preepic", new_weapon("CarPart_AutoGuidedCourseGun_Nurs_Preepic", "Pyralid", global_data.SPECIAL_RARITY, 4, 89, 98, 69, 760, "unguided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Improv_HomingMissileLauncher_epic", new_weapon("CarPart_Improv_HomingMissileLauncher_epic", "ATGM Flute", global_data.EPIC_RARITY, 2, 73.07, 81, 47, 550, "guided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_GuidedMissile_Sniper", new_weapon("CarPart_Gun_GuidedMissile_Sniper", "Clarinet TOW", global_data.EPIC_RARITY, 5, 198.5, 270, 172, 1375, "guided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_AutoGuidedCourseGun_epic", new_weapon("CarPart_AutoGuidedCourseGun_epic", "Cricket", global_data.EPIC_RARITY, 5, 51.14, 288, 150, 1375, "unguided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_AutoGuidedCourseGun_Epic2", new_weapon("CarPart_AutoGuidedCourseGun_Epic2", "Locust", global_data.EPIC_RARITY, 4, 94, 110, 100, 1100, "unguided rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_HomingMissileLauncherLockOn_epic", new_weapon("CarPart_HomingMissileLauncherLockOn_epic", "Nest", global_data.EPIC_RARITY, 5, 37, 288, 164, 1375, "homing rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_HomingMissileLauncher_epic", new_weapon("CarPart_HomingMissileLauncher_epic", "Pyre", global_data.EPIC_RARITY, 2, 116, 81, 52, 550, "homing rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_HomingMissileLauncherBurstR_legend", new_weapon("CarPart_HomingMissileLauncherBurstR_legend", "Hurricane", global_data.LEGENDARY_RARITY, 6, 89, 288, 175, 2400, "homing rocket"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_GrenadeLauncher_Auto", new_weapon("CarPart_Gun_GrenadeLauncher_Auto", "GL-55 Impulse", global_data.EPIC_RARITY, 5, 50, 198, 126, 1375, "grenade launcher"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_GrenadeLauncher_Shotgun", new_weapon("CarPart_Gun_GrenadeLauncher_Shotgun", "Retcher", global_data.LEGENDARY_RARITY, 6, 100.2, 234, 213, 2400, "grenade launcher"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_FusionRifle", new_weapon("CarPart_Gun_Syfy_FusionRifle", "Synthesis", global_data.SPECIAL_RARITY, 4, 14.18, 158, 175, 760, "plasma emitter"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Plasma_Cutter", new_weapon("CarPart_Gun_Plasma_Cutter", "Blockchain", global_data.EPIC_RARITY, 4, 112, 340, 260, 1100, "electric sniper"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_FusionRifle_epic", new_weapon("CarPart_Gun_Syfy_FusionRifle_epic", "Prometheus", global_data.EPIC_RARITY, 4, 14.4, 200, 185, 1100, "plasma emitter"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_Plazma", new_weapon("CarPart_Gun_Syfy_Plazma", "Quasar", global_data.EPIC_RARITY, 6, 135, 792, 535, 1650, "plasma cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Plasma_Drill", new_weapon("CarPart_Gun_Plasma_Drill", "Trigger", global_data.EPIC_RARITY, 4, 7, 410, 246, 1100, "reloading laser"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_LightningGun", new_weapon("CarPart_Gun_LightningGun", "Assembler", global_data.LEGENDARY_RARITY, 6, 233.1, 293, 312, 2400, "electric sniper"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_FusionRifle_legend", new_weapon("CarPart_Gun_Syfy_FusionRifle_legend", "Helios", global_data.LEGENDARY_RARITY, 4, 15.3, 250, 225, 1600, "plasma emitter"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_Plazma_Legend", new_weapon("CarPart_Gun_Syfy_Plazma_Legend", "Pulsar", global_data.LEGENDARY_RARITY, 6, 142, 950, 693, 2400, "plasma cannon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_Tesla", new_weapon("CarPart_Gun_Syfy_Tesla", "Spark III", global_data.LEGENDARY_RARITY, 4, 16, 360, 435, 1600, "tesla emitter"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Syfy_Tesla_relic", new_weapon("CarPart_Gun_Syfy_Tesla_relic", "Flash I", global_data.RELIC_RARITY, 4, 20, 450, 544, 2400, "tesla emitter"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_SniperCrossbow", new_weapon("CarPart_Gun_SniperCrossbow", "Scorpion", global_data.RELIC_RARITY, 6, 280, 900, 552, 3600, "electric sniper"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Blast_ClassicCrossbow", new_weapon("CarPart_Gun_Blast_ClassicCrossbow", "Phoenix", global_data.EPIC_RARITY, 5, 178, 1012, 418, 1375, "crossbow"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_ClassicCrossbow", new_weapon("CarPart_Gun_ClassicCrossbow", "Spike-1", global_data.EPIC_RARITY, 4, 180, 810, 305, 1100, "crossbow"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_DoubleCrossbow", new_weapon("CarPart_Gun_DoubleCrossbow", "Toadfish", global_data.LEGENDARY_RARITY, 4, 140, 900, 384, 1600, "crossbow"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Drill_epic", new_weapon("CarPart_Drill_epic", "Borer", global_data.RARE_RARITY, 2, 20, 250, 330, 260, "grinding melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_SpearExplosive", new_weapon("CarPart_SpearExplosive", "Boom", global_data.SPECIAL_RARITY, 1, 199.76, 45, 31, 190, "explosive melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Roundsaw_rare", new_weapon("CarPart_Roundsaw_rare", "Buzzsaw", global_data.SPECIAL_RARITY, 2, 33, 125, 279, 380, "grinding melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Chainsaw_dble_epic", new_weapon("CarPart_Chainsaw_dble_epic", "Lacerator", global_data.EPIC_RARITY, 3, 50, 188, 401, 825, "grinding melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_LanceExplosive", new_weapon("CarPart_LanceExplosive", "Lancelot", global_data.EPIC_RARITY, 1, 158.32, 144, 57, 275, "explosive melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_ChainSaw_epic", new_weapon("CarPart_ChainSaw_epic", "Mauler", global_data.EPIC_RARITY, 3, 49.5, 94, 327, 825, "grinding melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Harvester_legend", new_weapon("CarPart_Harvester_legend", "Harvester", global_data.LEGENDARY_RARITY, 4, 30, 940, 765, 1600, "grinding melee"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Flamethrower_frontal", new_weapon("CarPart_Gun_Flamethrower_frontal", "Remedy", global_data.EPIC_RARITY, 4, 15, 300, 420, 1100, "frontal flamethrower"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Flamethrower_fixed", new_weapon("CarPart_Gun_Flamethrower_fixed", "Draco", global_data.LEGENDARY_RARITY, 4, 23, 270, 360, 1600, "frontal flamethrower"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Flamethrower_light", new_weapon("CarPart_Gun_Flamethrower_light", "Firebug", global_data.RELIC_RARITY, 4, 25, 315, 540, 2400, "flamethrower"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_MineTrap", new_weapon("CarPart_Gun_MineTrap", "Kapkan", global_data.EPIC_RARITY, 2, 0, 360, 267, 550, "harpoon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Harpoon", new_weapon("CarPart_Gun_Harpoon", "Skinner", global_data.EPIC_RARITY, 2, 0.1, 378, 308, 550, "harpoon"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_MineLauncher_Legend", new_weapon("CarPart_Gun_MineLauncher_Legend", "King", global_data.EPIC_RARITY, 3, 119.26, 540, 240, 825, "minelayer"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_WheelRocket", new_weapon("CarPart_Gun_WheelRocket", "Fortune", global_data.LEGENDARY_RARITY, 5, 85, 360, 288, 2000, "minelayer"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_MineLauncher", new_weapon("CarPart_Gun_MineLauncher", "Porcupine", global_data.RELIC_RARITY, 3, 174.21, 720, 384, 1800, "minelayer"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Catapult", new_weapon("CarPart_Gun_Catapult", "Incinerator", global_data.EPIC_RARITY, 6, 2.5, 540, 472, 1650, "artillery"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Mortar_Revert", new_weapon("CarPart_Gun_Mortar_Revert", "Mandrake", global_data.LEGENDARY_RARITY, 8, 110, 2430, 689, 3200, "artillery"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Quadrocopter_rare", new_weapon("CarPart_Quadrocopter_rare", "AD-12 Falcon", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_TurretDeployer_rare", new_weapon("CarPart_TurretDeployer_rare", "DT Cobra", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "turret"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Quadrocopter_preepic", new_weapon("CarPart_Quadrocopter_preepic", "AD-13 Hawk", global_data.SPECIAL_RARITY, 3, 12.32, 128, 141, 570, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_WheelDroneDeployer", new_weapon("CarPart_WheelDroneDeployer", "Sidekick", global_data.SPECIAL_RARITY, 4, 15.3, 256, 141, 760, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_TurretDeployer_Preepic", new_weapon("CarPart_TurretDeployer_Preepic", "T4 Python", global_data.SPECIAL_RARITY, 3, 11.2, 128, 141, 570, "turret"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_TurretDeployer_Shield", new_weapon("CarPart_TurretDeployer_Shield", "Barrier IX", global_data.EPIC_RARITY, 3, 0, 128, 161, 825, "turret"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_kamikazeDroneDeployer", new_weapon("CarPart_kamikazeDroneDeployer", "Fuze", global_data.EPIC_RARITY, 4, 134.1, 128, 161, 1100, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_WheelDroneDeployer_epic", new_weapon("CarPart_WheelDroneDeployer_epic", "Grenadier", global_data.EPIC_RARITY, 4, 33.6, 180, 141, 1100, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Quadrocopter_epic", new_weapon("CarPart_Quadrocopter_epic", "MD-3 Owl", global_data.EPIC_RARITY, 4, 100.8, 128, 161, 1100, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_TurretDeployerMissile_epic", new_weapon("CarPart_TurretDeployerMissile_epic", "RT Anaconda", global_data.EPIC_RARITY, 4, 101, 256, 321, 1100, "turret"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Quadrocopter_Syfy", new_weapon("CarPart_Quadrocopter_Syfy", "Annihilator", global_data.LEGENDARY_RARITY, 4, 12, 200, 190, 1600, "drone"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_MGL_rare", new_weapon("CarPart_Gun_MGL_rare", "Emily", global_data.SPECIAL_RARITY, 4, 38.5, 160, 100, 760, "revolver"));
-            Current_session.part_records.global_weapon_list.Add("CarPart_Gun_Revolver_epic", new_weapon("CarPart_Gun_Revolver_epic", "Corvo", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Starter", new_weapon("CarPart_Gun_Machinegun_Starter", "SM Hornet", global_data.BASE_RARITY, 2, 2.71, 144, 52, 100, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun", new_weapon("CarPart_Gun_Machinegun", "LM-54 Chord", global_data.COMMON_RARITY, 2, 3.11, 144, 60, 170, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Frontal", new_weapon("CarPart_Gun_Machinegun_Frontal", "ST-M23 Defender", global_data.RARE_RARITY, 3, 7.2, 144, 140, 390, "frontal machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_rare", new_weapon("CarPart_Gun_Machinegun_rare", "Vector", global_data.RARE_RARITY, 3, 7.07, 171, 74, 390, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_SMG", new_weapon("CarPart_Gun_SMG", "M-37 Piercer", global_data.SPECIAL_RARITY, 3, 7.7, 195, 133, 570, "rapid-fire machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Preepic", new_weapon("CarPart_Gun_Machinegun_Preepic", "Sinus-0", global_data.SPECIAL_RARITY, 3, 7.56, 185, 90, 570, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_ParticleBeam", new_weapon("CarPart_Gun_Syfy_ParticleBeam", "Aurora", global_data.EPIC_RARITY, 4, 1.08, 315, 275, 1100, "laser minigun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_SmartMachinegun", new_weapon("CarPart_Gun_SmartMachinegun", "Caucasus", global_data.EPIC_RARITY, 4, 11.3, 824, 314, 1100, "automatic machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Frontal_Epic", new_weapon("CarPart_Gun_Machinegun_Frontal_Epic", "M-29 Protector", global_data.EPIC_RARITY, 3, 8.9, 170, 213, 825, "frontal machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_SMG_Epic", new_weapon("CarPart_Gun_SMG_Epic", "M-38 Fidget", global_data.EPIC_RARITY, 3, 7.4, 220, 145, 825, "rapid-fire machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Minigun", new_weapon("CarPart_Gun_Minigun", "MG13 Equalizer", global_data.EPIC_RARITY, 3, 3.8, 216, 163, 825, "minigun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Carabine", new_weapon("CarPart_Gun_Carabine", "R-37-39 Adapter", global_data.EPIC_RARITY, 4, 12.28, 240, 154, 1100, "reloading machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Corner", new_weapon("CarPart_Gun_Machinegun_Corner", "ST-M26 Tackler", global_data.EPIC_RARITY, 3, 16.1, 180, 228, 825, "frontal machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Legendary", new_weapon("CarPart_Gun_Machinegun_Legendary", "Aspect", global_data.LEGENDARY_RARITY, 4, 9.6, 342, 220, 1600, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_SMG_Legend", new_weapon("CarPart_Gun_SMG_Legend", "M-39 Imp", global_data.LEGENDARY_RARITY, 3, 8.24, 280, 209, 1200, "rapid-fire machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Minigun_Legend", new_weapon("CarPart_Gun_Minigun_Legend", "MG14 Arbiter", global_data.LEGENDARY_RARITY, 3, 4, 279, 186, 1200, "minigun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_CannonMinigun_legend", new_weapon("CarPart_Gun_CannonMinigun_legend", "Reaper", global_data.LEGENDARY_RARITY, 6, 12.5, 603, 520, 2400, "minigun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Relic", new_weapon("CarPart_Gun_Machinegun_Relic", "Punisher", global_data.RELIC_RARITY, 4, 11, 430, 368, 2400, "machine gun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun", new_weapon("CarPart_Gun_Shotgun", "Lupara", global_data.COMMON_RARITY, 3, 24, 68, 63, 255, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_rare", new_weapon("CarPart_Gun_Shotgun_rare", "Sledgehammer", global_data.RARE_RARITY, 3, 24.42, 54, 115, 390, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Frontal", new_weapon("CarPart_Gun_Shotgun_Frontal", "Spitfire", global_data.RARE_RARITY, 3, 25.8, 126, 183, 390, "frontal shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Fixed_Rare", new_weapon("CarPart_Gun_Shotgun_Fixed_Rare", "Goblin", global_data.SPECIAL_RARITY, 2, 24.54, 90, 128, 380, "frontal shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage", new_weapon("CarPart_Gun_ShotGun_Garbage", "Junkbow", global_data.SPECIAL_RARITY, 4, 144, 189, 247, 760, "reloading shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Frontal_Preepic", new_weapon("CarPart_Gun_Shotgun_Frontal_Preepic", "Leech", global_data.SPECIAL_RARITY, 3, 28.2, 135, 190, 570, "frontal shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Preepic", new_weapon("CarPart_Gun_Shotgun_Preepic", "Mace", global_data.SPECIAL_RARITY, 3, 25.98, 65, 120, 570, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_NailGun_rare", new_weapon("CarPart_Gun_NailGun_rare", "Summator", global_data.SPECIAL_RARITY, 4, 138, 180, 157, 760, "charging shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_MiddleRangeShotgun", new_weapon("CarPart_Gun_MiddleRangeShotgun", "Arothron", global_data.EPIC_RARITY, 4, 211.2, 378, 280, 1100, "reloading shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage_epic", new_weapon("CarPart_Gun_ShotGun_Garbage_epic", "Fafnir", global_data.EPIC_RARITY, 4, 152, 255, 315, 1100, "reloading shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_ShotGun", new_weapon("CarPart_Gun_Syfy_ShotGun", "Gravastar", global_data.EPIC_RARITY, 4, 42, 306, 196, 1100, "laser shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Corner", new_weapon("CarPart_Gun_Shotgun_Corner", "Rupture", global_data.EPIC_RARITY, 3, 29.4, 160, 229, 825, "frontal shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_epic", new_weapon("CarPart_Gun_Shotgun_epic", "Thunderbolt", global_data.EPIC_RARITY, 4, 39.6, 90, 173, 1100, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_legend", new_weapon("CarPart_Gun_Shotgun_legend", "Hammerfall", global_data.LEGENDARY_RARITY, 5, 42, 122, 221, 2000, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage_legend", new_weapon("CarPart_Gun_ShotGun_Garbage_legend", "Nidhogg", global_data.LEGENDARY_RARITY, 4, 184, 290, 340, 1600, "reloading shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Shotgun_Relic", new_weapon("CarPart_Gun_Shotgun_Relic", "Breaker", global_data.RELIC_RARITY, 5, 47.4, 180, 387, 3000, "shotgun"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Cannon_rare", new_weapon("CarPart_Gun_Cannon_rare", "AC43 Rapier", global_data.RARE_RARITY, 4, 14.3, 180, 113, 520, "autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Cannon_Preepic", new_weapon("CarPart_Gun_Cannon_Preepic", "AC50 Storm", global_data.SPECIAL_RARITY, 4, 14.3, 210, 168, 760, "autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Cannon_Oneshot_preepic", new_weapon("CarPart_Gun_Cannon_Oneshot_preepic", "Median", global_data.SPECIAL_RARITY, 5, 150, 342, 189, 950, "reloading autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Lcannon_epic", new_weapon("CarPart_Gun_Lcannon_epic", "AC64 Joule", global_data.EPIC_RARITY, 4, 13.6, 240, 216, 1100, "rapid-fire autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Cannon_epic", new_weapon("CarPart_Gun_Cannon_epic", "AC72 Whirlwind", global_data.EPIC_RARITY, 5, 16.2, 486, 391, 1375, "autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_CloseCombatCannon", new_weapon("CarPart_Gun_CloseCombatCannon", "Whirl", global_data.EPIC_RARITY, 4, 32.76, 729, 457, 1100, "autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Cannon_Legend", new_weapon("CarPart_Gun_Cannon_Legend", "Cyclone", global_data.LEGENDARY_RARITY, 5, 21, 570, 535, 2000, "rapid-fire autocannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX", new_weapon("CarPart_Gun_BigCannon_EX", "Avenger 57mm", global_data.COMMON_RARITY, 5, 89, 468, 217, 425, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX_rare", new_weapon("CarPart_Gun_BigCannon_EX_rare", "Judge 76mm", global_data.RARE_RARITY, 5, 105.8, 585, 320, 650, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_rare", new_weapon("CarPart_Gun_BigCannon_Free_rare", "Little Boy 6LB", global_data.RARE_RARITY, 6, 110, 837, 454, 780, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_Preepic", new_weapon("CarPart_Gun_BigCannon_Free_Preepic", "ZS-33 Hulk", global_data.SPECIAL_RARITY, 6, 121, 850, 583, 1140, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX_Preepic", new_weapon("CarPart_Gun_BigCannon_EX_Preepic", "Prosecutor 76mm", global_data.SPECIAL_RARITY, 5, 118, 670, 400, 950, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_T34_epic", new_weapon("CarPart_Gun_BigCannon_Free_T34_epic", "Elephant", global_data.EPIC_RARITY, 6, 126.1, 1300, 847, 1650, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX_epic", new_weapon("CarPart_Gun_BigCannon_EX_epic", "Executioner 88mm", global_data.EPIC_RARITY, 5, 143.41, 864, 495, 1375, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_epic", new_weapon("CarPart_Gun_BigCannon_Free_epic", "ZS-34 Fat Man", global_data.EPIC_RARITY, 6, 136, 1215, 830, 1650, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX_Legend", new_weapon("CarPart_Gun_BigCannon_EX_Legend", "BC-17 Tsunami", global_data.LEGENDARY_RARITY, 6, 213, 1850, 746, 2400, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_legend", new_weapon("CarPart_Gun_BigCannon_Free_legend", "ZS-46 Mammoth", global_data.LEGENDARY_RARITY, 6, 170, 2633, 1284, 2400, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_EX_Relic", new_weapon("CarPart_Gun_BigCannon_EX_Relic", "CC-18 Typhoon", global_data.RELIC_RARITY, 6, 255, 2200, 950, 3600, "cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_BigCannon_Free_Relic", new_weapon("CarPart_Gun_BigCannon_Free_Relic", "ZS-52 Mastodon", global_data.RELIC_RARITY, 6, 75, 2855, 1505, 3600, "turret cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_AutoGuidedCourseGun_rare", new_weapon("CarPart_AutoGuidedCourseGun_rare", "Wasp", global_data.RARE_RARITY, 4, 77.1, 90, 55, 520, "unguided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_AutoGuidedCourseGun_Nurs_Preepic", new_weapon("CarPart_AutoGuidedCourseGun_Nurs_Preepic", "Pyralid", global_data.SPECIAL_RARITY, 4, 89, 98, 69, 760, "unguided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Improv_HomingMissileLauncher_epic", new_weapon("CarPart_Improv_HomingMissileLauncher_epic", "ATGM Flute", global_data.EPIC_RARITY, 2, 73.07, 81, 47, 550, "guided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_GuidedMissile_Sniper", new_weapon("CarPart_Gun_GuidedMissile_Sniper", "Clarinet TOW", global_data.EPIC_RARITY, 5, 198.5, 270, 172, 1375, "guided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_AutoGuidedCourseGun_epic", new_weapon("CarPart_AutoGuidedCourseGun_epic", "Cricket", global_data.EPIC_RARITY, 5, 51.14, 288, 150, 1375, "unguided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_AutoGuidedCourseGun_Epic2", new_weapon("CarPart_AutoGuidedCourseGun_Epic2", "Locust", global_data.EPIC_RARITY, 4, 94, 110, 100, 1100, "unguided rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_HomingMissileLauncherLockOn_epic", new_weapon("CarPart_HomingMissileLauncherLockOn_epic", "Nest", global_data.EPIC_RARITY, 5, 37, 288, 164, 1375, "homing rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_HomingMissileLauncher_epic", new_weapon("CarPart_HomingMissileLauncher_epic", "Pyre", global_data.EPIC_RARITY, 2, 116, 81, 52, 550, "homing rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_HomingMissileLauncherBurstR_legend", new_weapon("CarPart_HomingMissileLauncherBurstR_legend", "Hurricane", global_data.LEGENDARY_RARITY, 6, 89, 288, 175, 2400, "homing rocket"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_GrenadeLauncher_Auto", new_weapon("CarPart_Gun_GrenadeLauncher_Auto", "GL-55 Impulse", global_data.EPIC_RARITY, 5, 50, 198, 126, 1375, "grenade launcher"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_GrenadeLauncher_Shotgun", new_weapon("CarPart_Gun_GrenadeLauncher_Shotgun", "Retcher", global_data.LEGENDARY_RARITY, 6, 100.2, 234, 213, 2400, "grenade launcher"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_FusionRifle", new_weapon("CarPart_Gun_Syfy_FusionRifle", "Synthesis", global_data.SPECIAL_RARITY, 4, 14.18, 158, 175, 760, "plasma emitter"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Plasma_Cutter", new_weapon("CarPart_Gun_Plasma_Cutter", "Blockchain", global_data.EPIC_RARITY, 4, 112, 340, 260, 1100, "electric sniper"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_FusionRifle_epic", new_weapon("CarPart_Gun_Syfy_FusionRifle_epic", "Prometheus", global_data.EPIC_RARITY, 4, 14.4, 200, 185, 1100, "plasma emitter"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_Plazma", new_weapon("CarPart_Gun_Syfy_Plazma", "Quasar", global_data.EPIC_RARITY, 6, 135, 792, 535, 1650, "plasma cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Plasma_Drill", new_weapon("CarPart_Gun_Plasma_Drill", "Trigger", global_data.EPIC_RARITY, 4, 7, 410, 246, 1100, "reloading laser"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_LightningGun", new_weapon("CarPart_Gun_LightningGun", "Assembler", global_data.LEGENDARY_RARITY, 6, 233.1, 293, 312, 2400, "electric sniper"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_FusionRifle_legend", new_weapon("CarPart_Gun_Syfy_FusionRifle_legend", "Helios", global_data.LEGENDARY_RARITY, 4, 15.3, 250, 225, 1600, "plasma emitter"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_Plazma_Legend", new_weapon("CarPart_Gun_Syfy_Plazma_Legend", "Pulsar", global_data.LEGENDARY_RARITY, 6, 142, 950, 693, 2400, "plasma cannon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_Tesla", new_weapon("CarPart_Gun_Syfy_Tesla", "Spark III", global_data.LEGENDARY_RARITY, 4, 16, 360, 435, 1600, "tesla emitter"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Syfy_Tesla_relic", new_weapon("CarPart_Gun_Syfy_Tesla_relic", "Flash I", global_data.RELIC_RARITY, 4, 20, 450, 544, 2400, "tesla emitter"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_SniperCrossbow", new_weapon("CarPart_Gun_SniperCrossbow", "Scorpion", global_data.RELIC_RARITY, 6, 280, 900, 552, 3600, "electric sniper"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Blast_ClassicCrossbow", new_weapon("CarPart_Gun_Blast_ClassicCrossbow", "Phoenix", global_data.EPIC_RARITY, 5, 178, 1012, 418, 1375, "crossbow"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_ClassicCrossbow", new_weapon("CarPart_Gun_ClassicCrossbow", "Spike-1", global_data.EPIC_RARITY, 4, 180, 810, 305, 1100, "crossbow"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_DoubleCrossbow", new_weapon("CarPart_Gun_DoubleCrossbow", "Toadfish", global_data.LEGENDARY_RARITY, 4, 140, 900, 384, 1600, "crossbow"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Drill_epic", new_weapon("CarPart_Drill_epic", "Borer", global_data.RARE_RARITY, 2, 20, 250, 330, 260, "grinding melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_SpearExplosive", new_weapon("CarPart_SpearExplosive", "Boom", global_data.SPECIAL_RARITY, 1, 199.76, 45, 31, 190, "explosive melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Roundsaw_rare", new_weapon("CarPart_Roundsaw_rare", "Buzzsaw", global_data.SPECIAL_RARITY, 2, 33, 125, 279, 380, "grinding melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Chainsaw_dble_epic", new_weapon("CarPart_Chainsaw_dble_epic", "Lacerator", global_data.EPIC_RARITY, 3, 50, 188, 401, 825, "grinding melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_LanceExplosive", new_weapon("CarPart_LanceExplosive", "Lancelot", global_data.EPIC_RARITY, 1, 158.32, 144, 57, 275, "explosive melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_ChainSaw_epic", new_weapon("CarPart_ChainSaw_epic", "Mauler", global_data.EPIC_RARITY, 3, 49.5, 94, 327, 825, "grinding melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Harvester_legend", new_weapon("CarPart_Harvester_legend", "Harvester", global_data.LEGENDARY_RARITY, 4, 30, 940, 765, 1600, "grinding melee"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Flamethrower_frontal", new_weapon("CarPart_Gun_Flamethrower_frontal", "Remedy", global_data.EPIC_RARITY, 4, 15, 300, 420, 1100, "frontal flamethrower"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Flamethrower_fixed", new_weapon("CarPart_Gun_Flamethrower_fixed", "Draco", global_data.LEGENDARY_RARITY, 4, 23, 270, 360, 1600, "frontal flamethrower"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Flamethrower_light", new_weapon("CarPart_Gun_Flamethrower_light", "Firebug", global_data.RELIC_RARITY, 4, 25, 315, 540, 2400, "flamethrower"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_MineTrap", new_weapon("CarPart_Gun_MineTrap", "Kapkan", global_data.EPIC_RARITY, 2, 0, 360, 267, 550, "harpoon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Harpoon", new_weapon("CarPart_Gun_Harpoon", "Skinner", global_data.EPIC_RARITY, 2, 0.1, 378, 308, 550, "harpoon"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_MineLauncher_Legend", new_weapon("CarPart_Gun_MineLauncher_Legend", "King", global_data.EPIC_RARITY, 3, 119.26, 540, 240, 825, "minelayer"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_WheelRocket", new_weapon("CarPart_Gun_WheelRocket", "Fortune", global_data.LEGENDARY_RARITY, 5, 85, 360, 288, 2000, "minelayer"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_MineLauncher", new_weapon("CarPart_Gun_MineLauncher", "Porcupine", global_data.RELIC_RARITY, 3, 174.21, 720, 384, 1800, "minelayer"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Catapult", new_weapon("CarPart_Gun_Catapult", "Incinerator", global_data.EPIC_RARITY, 6, 2.5, 540, 472, 1650, "artillery"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Mortar_Revert", new_weapon("CarPart_Gun_Mortar_Revert", "Mandrake", global_data.LEGENDARY_RARITY, 8, 110, 2430, 689, 3200, "artillery"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Quadrocopter_rare", new_weapon("CarPart_Quadrocopter_rare", "AD-12 Falcon", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_TurretDeployer_rare", new_weapon("CarPart_TurretDeployer_rare", "DT Cobra", global_data.RARE_RARITY, 3, 10, 128, 126, 390, "turret"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Quadrocopter_preepic", new_weapon("CarPart_Quadrocopter_preepic", "AD-13 Hawk", global_data.SPECIAL_RARITY, 3, 12.32, 128, 141, 570, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_WheelDroneDeployer", new_weapon("CarPart_WheelDroneDeployer", "Sidekick", global_data.SPECIAL_RARITY, 4, 15.3, 256, 141, 760, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_TurretDeployer_Preepic", new_weapon("CarPart_TurretDeployer_Preepic", "T4 Python", global_data.SPECIAL_RARITY, 3, 11.2, 128, 141, 570, "turret"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_TurretDeployer_Shield", new_weapon("CarPart_TurretDeployer_Shield", "Barrier IX", global_data.EPIC_RARITY, 3, 0, 128, 161, 825, "turret"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_kamikazeDroneDeployer", new_weapon("CarPart_kamikazeDroneDeployer", "Fuze", global_data.EPIC_RARITY, 4, 134.1, 128, 161, 1100, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_WheelDroneDeployer_epic", new_weapon("CarPart_WheelDroneDeployer_epic", "Grenadier", global_data.EPIC_RARITY, 4, 33.6, 180, 141, 1100, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Quadrocopter_epic", new_weapon("CarPart_Quadrocopter_epic", "MD-3 Owl", global_data.EPIC_RARITY, 4, 100.8, 128, 161, 1100, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_TurretDeployerMissile_epic", new_weapon("CarPart_TurretDeployerMissile_epic", "RT Anaconda", global_data.EPIC_RARITY, 4, 101, 256, 321, 1100, "turret"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Quadrocopter_Syfy", new_weapon("CarPart_Quadrocopter_Syfy", "Annihilator", global_data.LEGENDARY_RARITY, 4, 12, 200, 190, 1600, "drone"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_MGL_rare", new_weapon("CarPart_Gun_MGL_rare", "Emily", global_data.SPECIAL_RARITY, 4, 38.5, 160, 100, 760, "revolver"));
+            Current_session.part_records.global_weapon_dict.Add("CarPart_Gun_Revolver_epic", new_weapon("CarPart_Gun_Revolver_epic", "Corvo", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver"));
         }
 
         public static void populate_global_parts_list(file_trace_managment.SessionStats Current_session)
