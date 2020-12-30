@@ -38,7 +38,9 @@
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partOptimizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.automaticPartOptimizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clanWarScheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inMatchDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +52,6 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.automaticPartOptimizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +73,7 @@
             this.strp_main_menu_strip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.strp_main_menu_strip.Name = "strp_main_menu_strip";
             this.strp_main_menu_strip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 23);
+            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 22);
             this.strp_main_menu_strip.TabIndex = 2;
             this.strp_main_menu_strip.Text = "menuStrip1";
             this.strp_main_menu_strip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -83,15 +83,15 @@
             this.userProfileToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.userProfileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.userProfileToolStripMenuItem.Name = "userProfileToolStripMenuItem";
-            this.userProfileToolStripMenuItem.Size = new System.Drawing.Size(103, 18);
-            this.userProfileToolStripMenuItem.Text = "User Profile";
+            this.userProfileToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
+            this.userProfileToolStripMenuItem.Text = "Profile";
             this.userProfileToolStripMenuItem.Click += new System.EventHandler(this.userProfileToolStripMenuItem_Click);
             // 
             // matchHistoryToolStripMenuItem
             // 
             this.matchHistoryToolStripMenuItem.Name = "matchHistoryToolStripMenuItem";
-            this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(110, 18);
-            this.matchHistoryToolStripMenuItem.Text = "Match History";
+            this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
+            this.matchHistoryToolStripMenuItem.Text = "History";
             this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
             // 
             // matchAnalysisToolStripMenuItem
@@ -99,8 +99,8 @@
             this.matchAnalysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buildToolStripMenuItem});
             this.matchAnalysisToolStripMenuItem.Name = "matchAnalysisToolStripMenuItem";
-            this.matchAnalysisToolStripMenuItem.Size = new System.Drawing.Size(110, 18);
-            this.matchAnalysisToolStripMenuItem.Text = "Game Analysis";
+            this.matchAnalysisToolStripMenuItem.Size = new System.Drawing.Size(75, 18);
+            this.matchAnalysisToolStripMenuItem.Text = "Analysis";
             this.matchAnalysisToolStripMenuItem.Click += new System.EventHandler(this.matchAnalysisToolStripMenuItem_Click);
             // 
             // buildToolStripMenuItem
@@ -130,12 +130,25 @@
             this.fusionTrackerToolStripMenuItem.Text = "Fusion Calculator";
             this.fusionTrackerToolStripMenuItem.Click += new System.EventHandler(this.menu_fusion_calculator);
             // 
+            // partViewToolStripMenuItem
+            // 
+            this.partViewToolStripMenuItem.Name = "partViewToolStripMenuItem";
+            this.partViewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.partViewToolStripMenuItem.Text = "View Available Parts";
+            this.partViewToolStripMenuItem.Click += new System.EventHandler(this.partViewToolStripMenuItem_Click);
+            // 
             // partOptimizationToolStripMenuItem
             // 
             this.partOptimizationToolStripMenuItem.Name = "partOptimizationToolStripMenuItem";
             this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.partOptimizationToolStripMenuItem.Text = "Manual Part Selection";
             this.partOptimizationToolStripMenuItem.Click += new System.EventHandler(this.partOptimizationToolStripMenuItem_Click);
+            // 
+            // automaticPartOptimizerToolStripMenuItem
+            // 
+            this.automaticPartOptimizerToolStripMenuItem.Name = "automaticPartOptimizerToolStripMenuItem";
+            this.automaticPartOptimizerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.automaticPartOptimizerToolStripMenuItem.Text = "Automatic Part Optimizer";
             // 
             // scheduleToolStripMenuItem
             // 
@@ -168,35 +181,35 @@
             // viewTraceToolStripMenuItem
             // 
             this.viewTraceToolStripMenuItem.Name = "viewTraceToolStripMenuItem";
-            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewTraceToolStripMenuItem.Text = "combat.log";
             this.viewTraceToolStripMenuItem.Click += new System.EventHandler(this.viewTraceToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem1
             // 
             this.gamelogToolStripMenuItem1.Name = "gamelogToolStripMenuItem1";
-            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gamelogToolStripMenuItem1.Text = "game.log";
             this.gamelogToolStripMenuItem1.Click += new System.EventHandler(this.gamelogToolStripMenuItem1_Click);
             // 
             // chatlogToolStripMenuItem1
             // 
             this.chatlogToolStripMenuItem1.Name = "chatlogToolStripMenuItem1";
-            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.chatlogToolStripMenuItem1.Text = "chat.log";
             this.chatlogToolStripMenuItem1.Click += new System.EventHandler(this.chatlogToolStripMenuItem1_Click);
             // 
             // netlogToolStripMenuItem1
             // 
             this.netlogToolStripMenuItem1.Name = "netlogToolStripMenuItem1";
-            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.netlogToolStripMenuItem1.Text = "net.log";
             this.netlogToolStripMenuItem1.Click += new System.EventHandler(this.netlogToolStripMenuItem1_Click);
             // 
             // gfxlogToolStripMenuItem1
             // 
             this.gfxlogToolStripMenuItem1.Name = "gfxlogToolStripMenuItem1";
-            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gfxlogToolStripMenuItem1.Text = "gfx.log";
             this.gfxlogToolStripMenuItem1.Click += new System.EventHandler(this.gfxlogToolStripMenuItem1_Click);
             // 
@@ -212,9 +225,9 @@
             // main_page_panel
             // 
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_page_panel.Location = new System.Drawing.Point(0, 23);
+            this.main_page_panel.Location = new System.Drawing.Point(0, 22);
             this.main_page_panel.Name = "main_page_panel";
-            this.main_page_panel.Size = new System.Drawing.Size(1195, 600);
+            this.main_page_panel.Size = new System.Drawing.Size(1195, 601);
             this.main_page_panel.TabIndex = 3;
             // 
             // bw_file_feed
@@ -222,19 +235,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // partViewToolStripMenuItem
-            // 
-            this.partViewToolStripMenuItem.Name = "partViewToolStripMenuItem";
-            this.partViewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.partViewToolStripMenuItem.Text = "View Available Parts";
-            this.partViewToolStripMenuItem.Click += new System.EventHandler(this.partViewToolStripMenuItem_Click);
-            // 
-            // automaticPartOptimizerToolStripMenuItem
-            // 
-            this.automaticPartOptimizerToolStripMenuItem.Name = "automaticPartOptimizerToolStripMenuItem";
-            this.automaticPartOptimizerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.automaticPartOptimizerToolStripMenuItem.Text = "Automatic Part Optimizer";
             // 
             // frm_main_page
             // 

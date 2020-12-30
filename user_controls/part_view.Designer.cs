@@ -120,6 +120,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dg_available_parts.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dg_available_parts.RowHeadersVisible = false;
             this.dg_available_parts.RowHeadersWidth = 10;
             this.dg_available_parts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;

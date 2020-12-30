@@ -28,22 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dg_build_view_grid = new System.Windows.Forms.DataGridView();
             this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_losses = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_win_loss = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lb_build_header = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_build_parts = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,12 +53,11 @@
             this.tb_weapons = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tb_movement = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tb_engine = new System.Windows.Forms.TextBox();
-            this.label = new System.Windows.Forms.Label();
-            this.tb_generator = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tb_short_desc = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tb_modules = new System.Windows.Forms.TextBox();
+            this.cb_build_game_modes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dg_build_view_grid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,35 +70,34 @@
             this.dg_build_view_grid.BackgroundColor = System.Drawing.Color.Black;
             this.dg_build_view_grid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_build_view_grid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_build_view_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_build_view_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dg_build_view_grid.ColumnHeadersHeight = 20;
             this.dg_build_view_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_build_view_grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.build_build_hash,
+            this.build_deaths,
             this.build_games,
             this.build_kills,
-            this.build_deaths,
             this.build_kills_deaths,
             this.build_avg_damage,
             this.build_damage_taken,
             this.build_wins,
-            this.build_losses,
             this.build_win_loss});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_build_view_grid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_build_view_grid.DefaultCellStyle = dataGridViewCellStyle10;
             this.dg_build_view_grid.EnableHeadersVisualStyles = false;
             this.dg_build_view_grid.GridColor = System.Drawing.Color.Lime;
             this.dg_build_view_grid.Location = new System.Drawing.Point(5, 65);
@@ -108,22 +105,22 @@
             this.dg_build_view_grid.Name = "dg_build_view_grid";
             this.dg_build_view_grid.ReadOnly = true;
             this.dg_build_view_grid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_build_view_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_build_view_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dg_build_view_grid.RowHeadersWidth = 10;
             this.dg_build_view_grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_build_view_grid.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_build_view_grid.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dg_build_view_grid.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_build_view_grid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_build_view_grid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -138,19 +135,27 @@
             // 
             // build_build_hash
             // 
-            this.build_build_hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.build_build_hash.HeaderText = "Hash";
+            this.build_build_hash.MinimumWidth = 65;
             this.build_build_hash.Name = "build_build_hash";
             this.build_build_hash.ReadOnly = true;
-            this.build_build_hash.Width = 59;
+            this.build_build_hash.Width = 65;
+            // 
+            // build_deaths
+            // 
+            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_deaths.HeaderText = "PS";
+            this.build_deaths.Name = "build_deaths";
+            this.build_deaths.ReadOnly = true;
+            this.build_deaths.Width = 45;
             // 
             // build_games
             // 
             this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_games.HeaderText = "Games";
+            this.build_games.HeaderText = "#";
             this.build_games.Name = "build_games";
             this.build_games.ReadOnly = true;
-            this.build_games.Width = 66;
+            this.build_games.Width = 38;
             // 
             // build_kills
             // 
@@ -159,14 +164,6 @@
             this.build_kills.Name = "build_kills";
             this.build_kills.ReadOnly = true;
             this.build_kills.Width = 38;
-            // 
-            // build_deaths
-            // 
-            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_deaths.HeaderText = "D";
-            this.build_deaths.Name = "build_deaths";
-            this.build_deaths.ReadOnly = true;
-            this.build_deaths.Width = 38;
             // 
             // build_kills_deaths
             // 
@@ -200,33 +197,25 @@
             this.build_wins.ReadOnly = true;
             this.build_wins.Width = 38;
             // 
-            // build_losses
-            // 
-            this.build_losses.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_losses.HeaderText = "L";
-            this.build_losses.Name = "build_losses";
-            this.build_losses.ReadOnly = true;
-            this.build_losses.Width = 38;
-            // 
             // build_win_loss
             // 
             this.build_win_loss.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_win_loss.HeaderText = "W/L";
+            this.build_win_loss.HeaderText = "WR";
             this.build_win_loss.Name = "build_win_loss";
             this.build_win_loss.ReadOnly = true;
-            this.build_win_loss.Width = 52;
+            this.build_win_loss.Width = 45;
             // 
-            // label1
+            // lb_build_header
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1195, 65);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Build View";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lb_build_header.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lb_build_header.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_build_header.Location = new System.Drawing.Point(0, 0);
+            this.lb_build_header.Name = "lb_build_header";
+            this.lb_build_header.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.lb_build_header.Size = new System.Drawing.Size(1195, 65);
+            this.lb_build_header.TabIndex = 0;
+            this.lb_build_header.Text = "Build View";
+            this.lb_build_header.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
@@ -252,7 +241,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(558, 65);
+            this.label3.Location = new System.Drawing.Point(558, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 14);
             this.label3.TabIndex = 5;
@@ -263,7 +252,7 @@
             this.tb_build_description.BackColor = System.Drawing.Color.Black;
             this.tb_build_description.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_build_description.ForeColor = System.Drawing.Color.Lime;
-            this.tb_build_description.Location = new System.Drawing.Point(561, 82);
+            this.tb_build_description.Location = new System.Drawing.Point(561, 90);
             this.tb_build_description.Name = "tb_build_description";
             this.tb_build_description.ReadOnly = true;
             this.tb_build_description.Size = new System.Drawing.Size(621, 15);
@@ -272,7 +261,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(558, 135);
+            this.label4.Location = new System.Drawing.Point(558, 143);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 14);
             this.label4.TabIndex = 7;
@@ -283,7 +272,7 @@
             this.tb_cabin.BackColor = System.Drawing.Color.Black;
             this.tb_cabin.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_cabin.ForeColor = System.Drawing.Color.Lime;
-            this.tb_cabin.Location = new System.Drawing.Point(561, 152);
+            this.tb_cabin.Location = new System.Drawing.Point(561, 160);
             this.tb_cabin.Name = "tb_cabin";
             this.tb_cabin.ReadOnly = true;
             this.tb_cabin.Size = new System.Drawing.Size(621, 15);
@@ -292,7 +281,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(558, 170);
+            this.label5.Location = new System.Drawing.Point(558, 178);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 14);
             this.label5.TabIndex = 9;
@@ -303,7 +292,7 @@
             this.tb_weapons.BackColor = System.Drawing.Color.Black;
             this.tb_weapons.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_weapons.ForeColor = System.Drawing.Color.Lime;
-            this.tb_weapons.Location = new System.Drawing.Point(561, 187);
+            this.tb_weapons.Location = new System.Drawing.Point(561, 195);
             this.tb_weapons.Name = "tb_weapons";
             this.tb_weapons.ReadOnly = true;
             this.tb_weapons.Size = new System.Drawing.Size(621, 15);
@@ -312,7 +301,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(558, 205);
+            this.label6.Location = new System.Drawing.Point(558, 213);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 14);
             this.label6.TabIndex = 11;
@@ -323,56 +312,16 @@
             this.tb_movement.BackColor = System.Drawing.Color.Black;
             this.tb_movement.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_movement.ForeColor = System.Drawing.Color.Lime;
-            this.tb_movement.Location = new System.Drawing.Point(561, 222);
+            this.tb_movement.Location = new System.Drawing.Point(561, 230);
             this.tb_movement.Name = "tb_movement";
             this.tb_movement.ReadOnly = true;
             this.tb_movement.Size = new System.Drawing.Size(621, 15);
             this.tb_movement.TabIndex = 12;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(558, 240);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 14);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Engine:";
-            // 
-            // tb_engine
-            // 
-            this.tb_engine.BackColor = System.Drawing.Color.Black;
-            this.tb_engine.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_engine.ForeColor = System.Drawing.Color.Lime;
-            this.tb_engine.Location = new System.Drawing.Point(561, 257);
-            this.tb_engine.Name = "tb_engine";
-            this.tb_engine.ReadOnly = true;
-            this.tb_engine.Size = new System.Drawing.Size(621, 15);
-            this.tb_engine.TabIndex = 14;
-            // 
-            // label
-            // 
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(558, 275);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(77, 14);
-            this.label.TabIndex = 15;
-            this.label.Text = "Generator:";
-            // 
-            // tb_generator
-            // 
-            this.tb_generator.BackColor = System.Drawing.Color.Black;
-            this.tb_generator.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_generator.ForeColor = System.Drawing.Color.Lime;
-            this.tb_generator.Location = new System.Drawing.Point(561, 292);
-            this.tb_generator.Name = "tb_generator";
-            this.tb_generator.ReadOnly = true;
-            this.tb_generator.Size = new System.Drawing.Size(621, 15);
-            this.tb_generator.TabIndex = 16;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(558, 100);
+            this.label8.Location = new System.Drawing.Point(558, 108);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(133, 14);
             this.label8.TabIndex = 17;
@@ -383,22 +332,55 @@
             this.tb_short_desc.BackColor = System.Drawing.Color.Black;
             this.tb_short_desc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_short_desc.ForeColor = System.Drawing.Color.Lime;
-            this.tb_short_desc.Location = new System.Drawing.Point(561, 117);
+            this.tb_short_desc.Location = new System.Drawing.Point(561, 125);
             this.tb_short_desc.Name = "tb_short_desc";
             this.tb_short_desc.ReadOnly = true;
             this.tb_short_desc.Size = new System.Drawing.Size(621, 15);
             this.tb_short_desc.TabIndex = 18;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(558, 248);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 14);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Modules:";
+            // 
+            // tb_modules
+            // 
+            this.tb_modules.BackColor = System.Drawing.Color.Black;
+            this.tb_modules.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_modules.ForeColor = System.Drawing.Color.Lime;
+            this.tb_modules.Location = new System.Drawing.Point(561, 265);
+            this.tb_modules.Name = "tb_modules";
+            this.tb_modules.ReadOnly = true;
+            this.tb_modules.Size = new System.Drawing.Size(621, 15);
+            this.tb_modules.TabIndex = 14;
+            // 
+            // cb_build_game_modes
+            // 
+            this.cb_build_game_modes.BackColor = System.Drawing.Color.Black;
+            this.cb_build_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_build_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_build_game_modes.ForeColor = System.Drawing.Color.Lime;
+            this.cb_build_game_modes.FormattingEnabled = true;
+            this.cb_build_game_modes.Location = new System.Drawing.Point(986, 65);
+            this.cb_build_game_modes.MaxDropDownItems = 32;
+            this.cb_build_game_modes.Name = "cb_build_game_modes";
+            this.cb_build_game_modes.Size = new System.Drawing.Size(196, 22);
+            this.cb_build_game_modes.TabIndex = 19;
+            this.cb_build_game_modes.SelectedIndexChanged += new System.EventHandler(this.cb_build_game_modes_SelectedIndexChanged);
             // 
             // build_view
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.cb_build_game_modes);
             this.Controls.Add(this.tb_short_desc);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.tb_generator);
-            this.Controls.Add(this.label);
-            this.Controls.Add(this.tb_engine);
+            this.Controls.Add(this.tb_modules);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tb_movement);
             this.Controls.Add(this.label6);
@@ -411,7 +393,7 @@
             this.Controls.Add(this.tb_build_parts);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dg_build_view_grid);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lb_build_header);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
@@ -426,19 +408,9 @@
 
         #endregion
         public System.Windows.Forms.DataGridView dg_build_view_grid;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lb_build_header;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox tb_build_parts;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_build_hash;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_games;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_kills;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_deaths;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_kills_deaths;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_avg_damage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_damage_taken;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_wins;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_losses;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_win_loss;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox tb_build_description;
         private System.Windows.Forms.Label label4;
@@ -447,11 +419,19 @@
         public System.Windows.Forms.TextBox tb_weapons;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox tb_movement;
-        private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.TextBox tb_engine;
-        private System.Windows.Forms.Label label;
-        public System.Windows.Forms.TextBox tb_generator;
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox tb_short_desc;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox tb_modules;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_build_hash;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_deaths;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_games;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_kills;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_kills_deaths;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_avg_damage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_damage_taken;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_wins;
+        private System.Windows.Forms.DataGridViewTextBoxColumn build_win_loss;
+        private System.Windows.Forms.ComboBox cb_build_game_modes;
     }
 }

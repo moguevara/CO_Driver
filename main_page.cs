@@ -35,7 +35,6 @@ namespace CO_Driver
         }
         private void CO_Driver_load(object sender, EventArgs e)
         {
-
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
             log_file_manager.find_log_file_path();
@@ -193,7 +192,7 @@ namespace CO_Driver
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
-            populate_part_optimization(Current_session);
+            populate_static_elements(Current_session);
             System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
         }
@@ -207,11 +206,11 @@ namespace CO_Driver
                     file_trace_manager.new_match_history_list(Current_session.match_history));
         }
 
-        private void populate_part_optimization(file_trace_managment.SessionStats Current_session)
+        private void populate_static_elements(file_trace_managment.SessionStats Current_session)
         {
             
-            bw_file_feed.ReportProgress(global_data.POPULATE_PART_OPT_EVENT,
-                    file_trace_manager.new_part_opt_response(Current_session.part_records.global_parts_list));
+            bw_file_feed.ReportProgress(global_data.POPULATE_STATIC_ELEMENTS_EVENT,
+                    file_trace_manager.new_static_element_response(Current_session.static_records));
         }
 
         private void populate_build_records(file_trace_managment.SessionStats Current_session)
@@ -265,7 +264,7 @@ namespace CO_Driver
             {
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 this.match_history_page.history_data = (file_trace_managment.MatchHistoryResponse)e.UserState;
-                this.match_history_page.refersh_history_table(file_trace_manager);
+                this.match_history_page.refersh_history_table();
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
@@ -275,7 +274,7 @@ namespace CO_Driver
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.start_time));
 
                 this.match_history_page.last_match_data = response.last_match;
-                this.match_history_page.add_last_match_to_table(file_trace_manager);
+                this.match_history_page.add_last_match_to_table();
             }
             else 
             if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
@@ -284,16 +283,20 @@ namespace CO_Driver
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
                 this.build_page.build_records = response.build_records;
                 this.build_page.populate_build_record_table();
+                
             }
             else
-            if (e.ProgressPercentage == global_data.POPULATE_PART_OPT_EVENT)
+            if (e.ProgressPercentage == global_data.POPULATE_STATIC_ELEMENTS_EVENT)
             {
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Configuring Build Optimization" + Environment.NewLine));
-                file_trace_managment.PartOptResponse response = (file_trace_managment.PartOptResponse)e.UserState;
-                this.part_page.master_part_list = response.master_list;
-                this.avail_part_page.master_part_list = response.master_list;
+                file_trace_managment.StaticRecordResponse response = (file_trace_managment.StaticRecordResponse)e.UserState;
+                this.part_page.master_part_list = response.master_static_records.global_parts_list;
+                this.avail_part_page.master_part_list = response.master_static_records.global_parts_list;
                 this.part_page.refresh_avail_parts();
+                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Parts Based on Faction Levels" + Environment.NewLine));
                 this.avail_part_page.populate_parts_list();
+                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Clan War Schedule" + Environment.NewLine));
+                this.schedule_page.event_times = response.master_static_records.global_event_times;
             }
             else 
             if (e.ProgressPercentage == global_data.DEBUG_GIVE_LINE_UPDATE_EVENT)
@@ -319,7 +322,7 @@ namespace CO_Driver
                 Current_session.file_data.processing_combat_session_file = session.combat_log;
                 Current_session.file_data.processing_game_session_file = session.game_log;
                 Current_session.file_data.processing_combat_session_file_day = DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
-                bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing log files from {0,-20:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)current_progress * 100) / (double)file_count))));
+                bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)current_progress * 100) / (double)file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
                 using (FileStream combat_stream = File.OpenRead(session.combat_log.FullName))
@@ -499,7 +502,7 @@ namespace CO_Driver
             {
                 case global_data.MATCH_START_EVENT:
                     file_trace_managment.match_start_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.add_match_to_record == true)
+                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.LOAD_PLAYER_EVENT:
@@ -521,9 +524,12 @@ namespace CO_Driver
                 case global_data.SCORE_EVENT:
                     file_trace_managment.score_event(line, Current_session);
                     break;
+                case global_data.CW_ROUND_END_EVENT:
+                    file_trace_managment.clan_war_round_end_event(line, Current_session);
+                    break;
                 case global_data.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.add_match_to_record == true)
+                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
             }

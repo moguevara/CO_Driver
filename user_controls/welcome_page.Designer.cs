@@ -45,6 +45,7 @@
             // 
             this.pb_welcome_file_load.ForeColor = System.Drawing.Color.Lime;
             resources.ApplyResources(this.pb_welcome_file_load, "pb_welcome_file_load");
+            this.pb_welcome_file_load.MarqueeAnimationSpeed = 200;
             this.pb_welcome_file_load.Name = "pb_welcome_file_load";
             this.pb_welcome_file_load.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 

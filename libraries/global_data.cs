@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.39";
+        public static string CURRENT_VERSION = "0.0.1.47";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -32,17 +32,19 @@ namespace CO_Driver
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
 
-        public const int UNDEFINED_MATCH = 0;
+        public const int ALL_MATCHS = 0;
         public const int STANDARD_MATCH = 1;
         public const int STANDARD_CW_MATCH = 2;
         public const int LEVIATHIAN_CW_MATCH = 3;
         public const int BATTLE_ROYALE_MATCH = 4;
         public const int LEAGUE_6_v_6_MATCH = 5;
-        public const int SOLO_LEAGUE_6_v_6_MATCH = 6;
-        public const int EASY_RAID_MATCH = 7;
-        public const int MED_RAID_MATCH = 8;
-        public const int HARD_RAID_MATCH = 9;
-        public const int CUSTOM_MATCH = 10;
+        public const int EASY_RAID_MATCH = 6;
+        public const int MED_RAID_MATCH = 7;
+        public const int HARD_RAID_MATCH = 8;
+        public const int CUSTOM_MATCH = 9;
+        public const int UNDEFINED_MATCH = 10;
+
+        public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
         public const int UNDEFINED_FILE_TYPE = 0;
         public const int COMBAT_LOG_FILE = 1;
@@ -75,7 +77,7 @@ namespace CO_Driver
         public const int POPULATE_MATCH_HISTORY_EVENT = 4;
         public const int MATCH_END_POPULATE_EVENT = 5;
         public const int BUILD_POPULATE_EVENT = 6;
-        public const int POPULATE_PART_OPT_EVENT = 7;
+        public const int POPULATE_STATIC_ELEMENTS_EVENT = 7;
         public const int DEBUG_GIVE_LINE_UPDATE_EVENT = 8;
 
         public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";

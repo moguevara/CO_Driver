@@ -217,6 +217,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dg_game_modes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dg_game_modes.RowHeadersVisible = false;
             this.dg_game_modes.RowHeadersWidth = 10;
             this.dg_game_modes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -311,10 +312,10 @@
             // build_win_loss
             // 
             this.build_win_loss.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_win_loss.HeaderText = "  W/L";
+            this.build_win_loss.HeaderText = "  WR";
             this.build_win_loss.Name = "build_win_loss";
             this.build_win_loss.ReadOnly = true;
-            this.build_win_loss.Width = 66;
+            this.build_win_loss.Width = 59;
             // 
             // label6
             // 
@@ -378,6 +379,7 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dg_build_review.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dg_build_review.RowHeadersVisible = false;
             this.dg_build_review.RowHeadersWidth = 10;
             this.dg_build_review.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -473,10 +475,10 @@
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn10.HeaderText = "  W/L";
+            this.dataGridViewTextBoxColumn10.HeaderText = "  WR";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 66;
+            this.dataGridViewTextBoxColumn10.Width = 59;
             // 
             // label7
             // 
@@ -527,6 +529,9 @@
         public System.Windows.Forms.Label lbl_matches_won;
         public System.Windows.Forms.Label lbl_matches_lost;
         public System.Windows.Forms.DataGridView dg_game_modes;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.DataGridView dg_build_review;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_game_mode;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_games;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_kills;
@@ -537,8 +542,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn build_wins;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_losses;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_win_loss;
-        private System.Windows.Forms.Label label6;
-        public System.Windows.Forms.DataGridView dg_build_review;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -549,6 +552,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.Label label7;
     }
 }

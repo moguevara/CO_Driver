@@ -23,44 +23,31 @@ namespace CO_Driver
         public void populate_user_profile_screen(file_trace_managment ftm)
         {
             this.lb_user_profile.Text = string.Format(@"{0} User Profile", local_player_data.nickname);
-            populate_match_type_table(ftm);
+            populate_match_type_table();
             populate_build_summary_table();
         }
 
-        public void populate_match_type_table(file_trace_managment ftm)
+        public void populate_match_type_table()
         {
             this.dg_game_modes.Rows.Clear();
 
-            DataGridViewRow row = (DataGridViewRow)this.dg_game_modes.Rows[0].Clone();
-            row.Cells[0].Value = "Total";
-            row.Cells[1].Value = local_player_data.total_stats.games;
-            row.Cells[2].Value = local_player_data.total_stats.kills;
-            row.Cells[3].Value = local_player_data.total_stats.deaths;
-            row.Cells[4].Value = Math.Round(local_player_data.total_stats.deaths > 0 ? (double)local_player_data.total_stats.kills / (double)local_player_data.total_stats.deaths : 0, 2);
-            row.Cells[5].Value = Math.Round((double)local_player_data.total_stats.damage / (double)local_player_data.total_stats.games, 1);
-            row.Cells[6].Value = Math.Round((double)local_player_data.total_stats.damage_taken / (double)local_player_data.total_stats.games, 1);
-            row.Cells[7].Value = local_player_data.total_stats.wins;
-            row.Cells[8].Value = local_player_data.total_stats.losses;
-            row.Cells[9].Value = Math.Round(local_player_data.total_stats.losses > 0 ? (double)local_player_data.total_stats.wins / (double)local_player_data.total_stats.losses : 0, 2);
-            this.dg_game_modes.Rows.Add(row);
-
             foreach (KeyValuePair<int, file_trace_managment.Stats> entry in local_player_data.category_stats)
             {
-                row = (DataGridViewRow)this.dg_game_modes.Rows[0].Clone();
-                row.Cells[0].Value = ftm.decode_match_type(entry.Key);
+                DataGridViewRow row = (DataGridViewRow)this.dg_game_modes.Rows[0].Clone();
+                row.Cells[0].Value = file_trace_managment.decode_match_type(entry.Key);
                 row.Cells[1].Value = entry.Value.games;
                 row.Cells[2].Value = entry.Value.kills;
                 row.Cells[3].Value = entry.Value.deaths;
                 row.Cells[4].Value = Math.Round(entry.Value.deaths > 0 ? (double)entry.Value.kills / (double)entry.Value.deaths : 0.0, 2);
-                row.Cells[5].Value = Math.Round((double)entry.Value.damage / (double)entry.Value.games, 1);
-                row.Cells[6].Value = Math.Round((double)entry.Value.damage_taken / (double)entry.Value.games, 1);
+                row.Cells[5].Value = Math.Round((double)entry.Value.damage / (double)entry.Value.rounds, 1);
+                row.Cells[6].Value = Math.Round((double)entry.Value.damage_taken / (double)entry.Value.rounds, 1);
                 row.Cells[7].Value = entry.Value.wins;
                 row.Cells[8].Value = entry.Value.losses;
-                row.Cells[9].Value = Math.Round(entry.Value.losses > 0 ? (double)entry.Value.wins / (double)entry.Value.losses : 0.0, 2);
+                row.Cells[9].Value = Math.Round(entry.Value.losses > 0 ? (double)entry.Value.wins / (double)entry.Value.games : 0.0, 2);
                 this.dg_game_modes.Rows.Add(row);
             }
-            this.dg_game_modes.AllowUserToAddRows = false;
 
+            this.dg_game_modes.AllowUserToAddRows = false;
             this.dg_game_modes.Sort(this.dg_game_modes.Columns[1], ListSortDirection.Descending);
         }
 
@@ -72,16 +59,15 @@ namespace CO_Driver
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_build_review.Rows[0].Clone();
                 row.Cells[0].Value = build.Key;
-                row.Cells[1].Value = build.Value.total_build_stats.games;
-                row.Cells[2].Value = build.Value.total_build_stats.kills;
-                row.Cells[3].Value = build.Value.total_build_stats.deaths;
-                row.Cells[4].Value = Math.Round(build.Value.total_build_stats.deaths > 0 ? (double)build.Value.total_build_stats.kills / (double)build.Value.total_build_stats.deaths : 0.0, 2);
-                row.Cells[5].Value = Math.Round((double)build.Value.total_build_stats.damage / (double)build.Value.total_build_stats.games, 1);
-                row.Cells[6].Value = Math.Round((double)build.Value.total_build_stats.damage_taken / (double)build.Value.total_build_stats.games, 1);
-                row.Cells[7].Value = build.Value.total_build_stats.wins;
-                row.Cells[8].Value = build.Value.total_build_stats.losses;
-                row.Cells[9].Value = Math.Round(build.Value.total_build_stats.losses > 0 ? (double)build.Value.total_build_stats.wins / (double)build.Value.total_build_stats.losses : 0.0, 2);
-
+                row.Cells[1].Value = build.Value.build_stats[global_data.ALL_MATCHS].games;
+                row.Cells[2].Value = build.Value.build_stats[global_data.ALL_MATCHS].kills;
+                row.Cells[3].Value = build.Value.build_stats[global_data.ALL_MATCHS].deaths;
+                row.Cells[4].Value = Math.Round(build.Value.build_stats[global_data.ALL_MATCHS].deaths > 0 ? (double)build.Value.build_stats[global_data.ALL_MATCHS].kills / (double)build.Value.build_stats[global_data.ALL_MATCHS].deaths : 0.0, 2);
+                row.Cells[5].Value = Math.Round((double)build.Value.build_stats[global_data.ALL_MATCHS].damage / (double)build.Value.build_stats[global_data.ALL_MATCHS].rounds, 1);
+                row.Cells[6].Value = Math.Round((double)build.Value.build_stats[global_data.ALL_MATCHS].damage_taken / (double)build.Value.build_stats[global_data.ALL_MATCHS].rounds, 1);
+                row.Cells[7].Value = build.Value.build_stats[global_data.ALL_MATCHS].wins;
+                row.Cells[8].Value = build.Value.build_stats[global_data.ALL_MATCHS].losses;
+                row.Cells[9].Value = Math.Round(build.Value.build_stats[global_data.ALL_MATCHS].losses > 0 ? (double)build.Value.build_stats[global_data.ALL_MATCHS].wins / (double)build.Value.build_stats[global_data.ALL_MATCHS].games : 0.0, 2);
                 this.dg_build_review.Rows.Add(row);
             }
 
