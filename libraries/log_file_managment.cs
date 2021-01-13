@@ -27,11 +27,10 @@ namespace CO_Driver
         }
         public void find_historic_file_path()
         {
-            string historic_file_path = Settings.Default["historic_file_location"].ToString();
+            string historic_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\historic_logs";
 
             if (!Directory.Exists(historic_file_path))
             {
-                historic_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver";
                 Directory.CreateDirectory(historic_file_path);
             }
 
@@ -52,6 +51,7 @@ namespace CO_Driver
 
             bool first = true;
             FileInfo[] files;
+
             try
             {
                 files = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray();
@@ -75,12 +75,10 @@ namespace CO_Driver
                         File.Copy(file.FullName, destination_file_name);
                 }
             }
-
-            //COPY FILES FROM OLD
+            
             try
             {
-                string historic_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\RFB_Tool_Suite";
-                files = new DirectoryInfo(historic_file_path).GetFiles("*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray();
+                files = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver").GetFiles("*.log", SearchOption.TopDirectoryOnly).ToArray();
             }
             catch (Exception ex)
             {
@@ -89,17 +87,29 @@ namespace CO_Driver
 
             foreach (FileInfo file in files)
             {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    String destination_file_name = string.Format("{0}{1}{2}{3}", Settings.Default["historic_file_location"].ToString(), "\\", Path.GetFileNameWithoutExtension(file.Name), ".log");
+                String destination_file_name = string.Format("{0}{1}{2}{3}", Settings.Default["historic_file_location"].ToString(), "\\", Path.GetFileNameWithoutExtension(file.Name), ".log");
 
-                    if (!File.Exists(destination_file_name))
-                        File.Copy(file.FullName, destination_file_name);
+                if (!File.Exists(destination_file_name))
+                {
+                    File.Copy(file.FullName, destination_file_name);
                 }
+                File.Delete(file.FullName);
+            }
+        }
+
+        public void create_stream_file_location()
+        {
+            string stream_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\stream_templates";
+
+            if (!Directory.Exists(stream_file_path))
+            {
+                Directory.CreateDirectory(stream_file_path);
+            }
+
+            if (stream_file_path != Settings.Default["stream_file_location"].ToString())
+            {
+                Settings.Default["stream_file_location"] = stream_file_path;
+                Settings.Default.Save();
             }
         }
 

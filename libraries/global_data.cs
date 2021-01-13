@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.47";
+        public static string CURRENT_VERSION = "0.0.1.52";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -28,6 +28,8 @@ namespace CO_Driver
         public const int QUEST_EVENT = 14;
         public const int ADD_PLAYER_EVENT = 15;
         public const int UPDATE_PLAYER_EVENT = 16;
+        public const int DATE_ASSIGNMENT_EVENT = 17;
+        public const int ASSIGN_CLIENT_VERSION_EVENT = 18;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
@@ -42,7 +44,8 @@ namespace CO_Driver
         public const int MED_RAID_MATCH = 7;
         public const int HARD_RAID_MATCH = 8;
         public const int CUSTOM_MATCH = 9;
-        public const int UNDEFINED_MATCH = 10;
+        public const int BEDLAM_MATCH = 10;
+        public const int UNDEFINED_MATCH = 11;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 

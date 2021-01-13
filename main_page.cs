@@ -45,6 +45,7 @@ namespace CO_Driver
             log_file_manager.copy_historic_files();
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, Settings.Default["historic_file_location"].ToString()));
             log_file_manager.get_live_file_location();
+            log_file_manager.create_stream_file_location();
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, Settings.Default["live_file_location"].ToString()));
 
             Settings.Default.Reload();
@@ -322,6 +323,9 @@ namespace CO_Driver
                 Current_session.file_data.processing_combat_session_file = session.combat_log;
                 Current_session.file_data.processing_game_session_file = session.game_log;
                 Current_session.file_data.processing_combat_session_file_day = DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+
+                //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
+
                 bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)current_progress * 100) / (double)file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
@@ -378,99 +382,101 @@ namespace CO_Driver
             }
         }
 
-    private void process_live_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
+    private void process_live_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session) 
         {
-            FileInfo combat_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-            FileInfo game_trace_file =   new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+        FileInfo combat_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+        FileInfo game_trace_file =   new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
-            Current_session.live_trace_data = true;
-            Current_session.file_data.processing_combat_session_file = combat_trace_file;
+        Current_session.live_trace_data = true;
+        Current_session.file_data.processing_combat_session_file = combat_trace_file;
+        Current_session.file_data.processing_game_session_file = game_trace_file;
+        Current_session.file_data.processing_combat_session_file_day = combat_trace_file.CreationTime;
 
-            using (AutoResetEvent game_auto_reset = new AutoResetEvent(false))
-            using (AutoResetEvent combat_auto_reset = new AutoResetEvent(false))
+        using (AutoResetEvent game_auto_reset = new AutoResetEvent(false))
+        using (AutoResetEvent combat_auto_reset = new AutoResetEvent(false))
+        {
+            using (FileSystemWatcher game_file_system_watcher = new FileSystemWatcher("."))
+            using (FileSystemWatcher combat_file_system_watcher = new FileSystemWatcher("."))
             {
-                using (FileSystemWatcher game_file_system_watcher = new FileSystemWatcher("."))
-                using (FileSystemWatcher combat_file_system_watcher = new FileSystemWatcher("."))
+                game_file_system_watcher.Filter = game_trace_file.FullName;
+                combat_file_system_watcher.Filter = combat_trace_file.FullName;
+                game_file_system_watcher.EnableRaisingEvents = true;
+                combat_file_system_watcher.EnableRaisingEvents = true;
+                game_file_system_watcher.Changed += (s, e) => game_auto_reset.Set();
+                combat_file_system_watcher.Changed += (s, e) => combat_auto_reset.Set();
+
+                long start_time = DateTime.Now.Ticks;
+                bool found_new_file = false;
+                bool first = true;
+
+                using (FileStream game_file_stream = new FileStream(game_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (FileStream combat_file_stream = new FileStream(combat_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    game_file_system_watcher.Filter = game_trace_file.FullName;
-                    combat_file_system_watcher.Filter = combat_trace_file.FullName;
-                    game_file_system_watcher.EnableRaisingEvents = true;
-                    combat_file_system_watcher.EnableRaisingEvents = true;
-                    game_file_system_watcher.Changed += (s, e) => game_auto_reset.Set();
-                    combat_file_system_watcher.Changed += (s, e) => combat_auto_reset.Set();
-
-                    long start_time = DateTime.Now.Ticks;
-                    bool found_new_file = false;
-                    bool first = true;
-
-                    using (FileStream game_file_stream = new FileStream(game_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (FileStream combat_file_stream = new FileStream(combat_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (StreamReader game_reader = new StreamReader(game_file_stream))
+                    using (StreamReader combat_reader = new StreamReader(combat_file_stream))
                     {
-                        using (StreamReader game_reader = new StreamReader(game_file_stream))
-                        using (StreamReader combat_reader = new StreamReader(combat_file_stream))
+                        string game_line = game_reader.ReadLine();
+                        string combat_line = combat_reader.ReadLine();
+
+                        while (found_new_file == false)
                         {
-                            string game_line = game_reader.ReadLine();
-                            string combat_line = game_line = combat_reader.ReadLine();
+                            while (combat_line != null && combat_line.Length == 0)
+                                combat_line = combat_reader.ReadLine();
 
-                            while (found_new_file == false)
+                            while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
+                                game_line = game_reader.ReadLine();
+
+                            if (combat_line != null && game_line != null)
                             {
-                                while (combat_line != null && combat_line.Length == 0)
-                                    combat_line = combat_reader.ReadLine();
-
-                                while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
-                                    game_line = game_reader.ReadLine();
-
-                                if (combat_line != null && game_line != null)
-                                {
-                                    if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
-                                    {
-                                        combat_log_event_handler(combat_line, Current_session);
-                                        combat_line = combat_reader.ReadLine();
-                                    }
-                                    else
-                                    {
-                                        game_log_event_handler(game_line, Current_session);
-                                        game_line = game_reader.ReadLine();
-                                    }
-                                    start_time = DateTime.Now.Ticks;
-                                }
-                                else
-                                if (combat_line != null)
+                                if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
                                 {
                                     combat_log_event_handler(combat_line, Current_session);
                                     combat_line = combat_reader.ReadLine();
-                                    start_time = DateTime.Now.Ticks;
                                 }
                                 else
-                                if (game_line != null)
                                 {
                                     game_log_event_handler(game_line, Current_session);
                                     game_line = game_reader.ReadLine();
+                                }
+                                start_time = DateTime.Now.Ticks;
+                            }
+                            else
+                            if (combat_line != null)
+                            {
+                                combat_log_event_handler(combat_line, Current_session);
+                                combat_line = combat_reader.ReadLine();
+                                start_time = DateTime.Now.Ticks;
+                            }
+                            else
+                            if (game_line != null)
+                            {
+                                game_log_event_handler(game_line, Current_session);
+                                game_line = game_reader.ReadLine();
+                                start_time = DateTime.Now.Ticks;
+                            }
+                            else
+                            {
+                                if (first == true)
+                                {
+                                    first = false;
+                                    unlock_menu_strip();
+                                }
+
+                                if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
+                                {
+                                    if (combat_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName &&
+                                        game_trace_file.FullName   != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
+                                    {
+                                        found_new_file = true;
+                                    }
                                     start_time = DateTime.Now.Ticks;
                                 }
-                                else
-                                {
-                                    if (first == true)
-                                    {
-                                        first = false;
-                                        unlock_menu_strip();
-                                    }
-
-                                    if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
-                                    {
-                                        if (combat_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName &&
-                                            game_trace_file.FullName   != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
-                                        {
-                                            found_new_file = true;
-                                        }
-                                        start_time = DateTime.Now.Ticks;
-                                    }
-                                    System.Threading.Thread.Sleep(1000);
-                                }
+                                System.Threading.Thread.Sleep(500);
                             }
                         }
                     }
                 }
+            }
             }
 
             process_live_files(ftm, Current_session);
@@ -484,11 +490,15 @@ namespace CO_Driver
             {
                 case global_data.MATCH_REWARD_EVENT:
                     file_trace_managment.match_reward_event(line, Current_session);
+                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
+                        bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.MATCH_PROPERTY_EVENT:
                     file_trace_managment.assign_match_property(line, Current_session);
                     break;
                 case global_data.QUEST_EVENT:
+                    break;
+                case global_data.DATE_ASSIGNMENT_EVENT:
                     break;
 
             }
@@ -502,11 +512,8 @@ namespace CO_Driver
             {
                 case global_data.MATCH_START_EVENT:
                     file_trace_managment.match_start_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
-                        bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.LOAD_PLAYER_EVENT:
-                    
                     file_trace_managment.load_player_event(line, Current_session);
                     break;
                 case global_data.DAMAGE_EVENT:
@@ -526,6 +533,9 @@ namespace CO_Driver
                     break;
                 case global_data.CW_ROUND_END_EVENT:
                     file_trace_managment.clan_war_round_end_event(line, Current_session);
+                    break;
+                case global_data.MAIN_MENU_EVENT:
+                    file_trace_managment.main_menu_event(line, Current_session);
                     break;
                 case global_data.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
