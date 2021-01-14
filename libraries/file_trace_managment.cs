@@ -73,7 +73,6 @@ namespace CO_Driver
 
         public class CurrentMatchData
         {
-            
             public int player_count { get; set; }
             public string map_name { get; set; }
             public int current_match_type { get; set; }
@@ -82,7 +81,6 @@ namespace CO_Driver
             public bool add_match_to_record { get; set; }
             public DateTime current_match_start { get; set; }
             public DateTime current_match_end { get; set; }
-            public DateTime last_timestamp { get; set; }
             public double current_match_duration_seconds { get; set; }
             public bool passed_end_of_match_event { get; set; }
             public bool passed_match_reward_event { get; set; }
@@ -211,9 +209,6 @@ namespace CO_Driver
             Current_session.current_match_data.current_match_duration_seconds = 0.0;
             Current_session.current_match_data.passed_end_of_match_event = false;
             Current_session.current_match_data.passed_match_reward_event = false;
-            Current_session.current_match_data.current_match_start = new DateTime { };
-            Current_session.current_match_data.current_match_end = new DateTime { };
-            Current_session.current_match_data.map_name = "";
             Current_session.local_user = Settings.Default["local_user_name"].ToString();
             Current_session.local_user_uid = Convert.ToInt32(Settings.Default["local_user_uid"]);
             Current_session.current_event = 0;
@@ -439,6 +434,9 @@ namespace CO_Driver
 
         private static void clear_in_game_stats(SessionStats Current_session)
         {
+            if (!Current_session.in_match)
+                return;
+
             if (Current_session.current_match_data.current_match_start > Current_session.current_match_data.current_match_end)
             {
                 Current_session.file_data.processing_combat_session_file_day = Current_session.file_data.processing_combat_session_file_day.AddDays(1.0);
@@ -590,7 +588,7 @@ namespace CO_Driver
         private static void finalize_match_record(SessionStats Current_session)
         {
             MatchRecord match_record = new_match_record();
-
+            match_record.match_id = Current_session.match_history.Count;
             if (Current_session.current_match_data.current_match_type == global_data.BEDLAM_MATCH)
             {
                 match_record.game_result = "";
@@ -622,16 +620,13 @@ namespace CO_Driver
             match_record.power_score = Current_session.player_records[Current_session.local_user].power_score;
             match_record.match_rewards = Current_session.current_match_data.current_match_rewards;
             match_record.match_attributes = Current_session.current_match_data.current_match_attributes;
-            match_record.match_id = Current_session.match_history.Count;
+
             Current_session.match_history.Add(match_record);
         }
 
 
         private static void assign_local_user_build_parts(SessionStats Current_session)
         {
-            if (!Current_session.player_records.ContainsKey(Current_session.local_user))
-                return;
-
             BuildRecord local_build = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash];
 
             foreach (string part in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].parts)
