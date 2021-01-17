@@ -172,17 +172,18 @@ namespace CO_Driver
             main_page_panel.Controls.Add(part_page);
         }
 
-        private void buildToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(build_page);
-        }
-
         private void partViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(avail_part_page);
         }
+
+        private void matchAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(build_page);
+        }
+
 
         private void process_log_files(object sender, DoWorkEventArgs e)
         {
@@ -265,14 +266,16 @@ namespace CO_Driver
             {
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 this.match_history_page.history_data = (file_trace_managment.MatchHistoryResponse)e.UserState;
+                this.build_page.match_history = (file_trace_managment.MatchHistoryResponse)e.UserState;
                 this.match_history_page.refersh_history_table();
+                this.build_page.populate_build_record_table();
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
             {
                 file_trace_managment.MatchEndResponse response = (file_trace_managment.MatchEndResponse)e.UserState;
 
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.start_time));
+                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.match_data.match_start));
 
                 this.match_history_page.last_match_data = response.last_match;
                 this.match_history_page.add_last_match_to_table();
@@ -284,7 +287,6 @@ namespace CO_Driver
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
                 this.build_page.build_records = response.build_records;
                 this.build_page.populate_build_record_table();
-                
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_STATIC_ELEMENTS_EVENT)
@@ -498,7 +500,9 @@ namespace CO_Driver
                     break;
                 case global_data.QUEST_EVENT:
                     break;
-
+                case global_data.ASSIGN_CLIENT_VERSION_EVENT:
+                    file_trace_managment.assign_client_version_event(line, Current_session);
+                    break;
             }
         }
         void combat_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
@@ -543,11 +547,6 @@ namespace CO_Driver
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
             }
-        }
-
-        private void matchAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         
