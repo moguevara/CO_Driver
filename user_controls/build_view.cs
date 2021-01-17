@@ -97,7 +97,7 @@ namespace CO_Driver
                     if (power_score_filter == "8500-9499" && (match.local_player.power_score < 8500 || match.local_player.power_score > 9499))
                         continue;
 
-                    if (power_score_filter == "9500-12499" && (match.local_player.power_score < 9500 || match.local_player.power_score > 12999))
+                    if (power_score_filter == "9500-12999" && (match.local_player.power_score < 9500 || match.local_player.power_score > 12999))
                         continue;
 
                     if (power_score_filter == "13000+" && (match.local_player.power_score < 13000 || match.local_player.power_score > 22000))
@@ -143,8 +143,8 @@ namespace CO_Driver
                 if (match.local_player.power_score >= 8500 && match.local_player.power_score <= 9499 && !power_scores.Contains("8500-9499"))
                     power_scores.Add("8500-9499");
 
-                if (match.local_player.power_score >= 9500 && match.local_player.power_score <= 12999 && !power_scores.Contains("9500-12499"))
-                    power_scores.Add("9500-12499");
+                if (match.local_player.power_score >= 9500 && match.local_player.power_score <= 12999 && !power_scores.Contains("9500-12999"))
+                    power_scores.Add("9500-12999");
 
                 if (match.local_player.power_score >= 13000 && match.local_player.power_score <= 22000 && !power_scores.Contains("13000+"))
                     power_scores.Add("13000+");
@@ -327,7 +327,53 @@ namespace CO_Driver
 
         private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+            foreach (DataGridViewCell cell in this.dg_build_view_grid.SelectedCells)
+            {
+                if (cell.RowIndex != e.RowIndex)
+                {
+                    foreach (DataGridViewCell c in dg_build_view_grid.Rows[cell.RowIndex].Cells)
+                    {
+                        e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+                    }
+                }
+                else
+                {
+                    foreach (DataGridViewCell c in dg_build_view_grid.Rows[cell.RowIndex].Cells)
+                    {
+                        e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.Single;
+                    }
+                }
+                if (cell.ColumnIndex != e.ColumnIndex)
+                {
+                    for (int r = 0; r < this.dg_build_view_grid.ColumnCount; r++)
+                    {
+                        foreach (DataGridViewCell c in dg_build_view_grid.Rows[r].Cells)
+                        {
+                            if (c.ColumnIndex != e.ColumnIndex)
+                            {
+                                e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int r = 0; r < this.dg_build_view_grid.ColumnCount; r++)
+                    {
+                        foreach (DataGridViewCell c in dg_build_view_grid.Rows[r].Cells)
+                        {
+                            if (c.ColumnIndex == e.ColumnIndex)
+                            {
+                                e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.Single;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void cb_grouped_SelectedIndexChanged(object sender, EventArgs e)
@@ -371,6 +417,11 @@ namespace CO_Driver
             power_score_filter = "All Power Scores";
             client_versions_filter = "All Versions";
             populate_build_record_table();
+        }
+
+        private void dg_build_view_grid_SelectionChanged(object sender, EventArgs e)
+        {
+            this.dg_build_view_grid.Invalidate();
         }
     }
 }

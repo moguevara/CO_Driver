@@ -33,15 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dg_build_view_grid = new System.Windows.Forms.DataGridView();
-            this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_win_loss = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb_build_header = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_build_parts = new System.Windows.Forms.TextBox();
@@ -63,6 +54,15 @@
             this.cb_power_score = new System.Windows.Forms.ComboBox();
             this.cb_client_version = new System.Windows.Forms.ComboBox();
             this.btn_reset_filters = new System.Windows.Forms.Button();
+            this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_wins = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_win_loss = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dg_build_view_grid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,7 +111,7 @@
             this.dg_build_view_grid.Margin = new System.Windows.Forms.Padding(0);
             this.dg_build_view_grid.Name = "dg_build_view_grid";
             this.dg_build_view_grid.ReadOnly = true;
-            this.dg_build_view_grid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dg_build_view_grid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -120,7 +120,6 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dg_build_view_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dg_build_view_grid.RowHeadersVisible = false;
             this.dg_build_view_grid.RowHeadersWidth = 10;
             this.dg_build_view_grid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -142,78 +141,7 @@
             this.dg_build_view_grid.TabIndex = 2;
             this.dg_build_view_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_build_view_grid_CellClick);
             this.dg_build_view_grid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dg_build_view_grid_CellPainting);
-            // 
-            // build_build_hash
-            // 
-            this.build_build_hash.HeaderText = "Hash";
-            this.build_build_hash.MinimumWidth = 65;
-            this.build_build_hash.Name = "build_build_hash";
-            this.build_build_hash.ReadOnly = true;
-            this.build_build_hash.Width = 65;
-            // 
-            // build_deaths
-            // 
-            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_deaths.HeaderText = "PS";
-            this.build_deaths.Name = "build_deaths";
-            this.build_deaths.ReadOnly = true;
-            this.build_deaths.Width = 44;
-            // 
-            // build_games
-            // 
-            this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_games.HeaderText = "#";
-            this.build_games.Name = "build_games";
-            this.build_games.ReadOnly = true;
-            this.build_games.Width = 37;
-            // 
-            // build_kills
-            // 
-            this.build_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_kills.HeaderText = "K";
-            this.build_kills.Name = "build_kills";
-            this.build_kills.ReadOnly = true;
-            this.build_kills.Width = 37;
-            // 
-            // build_kills_deaths
-            // 
-            this.build_kills_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_kills_deaths.HeaderText = "K/D";
-            this.build_kills_deaths.Name = "build_kills_deaths";
-            this.build_kills_deaths.ReadOnly = true;
-            this.build_kills_deaths.Width = 51;
-            // 
-            // build_avg_damage
-            // 
-            this.build_avg_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_avg_damage.HeaderText = "Dmg";
-            this.build_avg_damage.Name = "build_avg_damage";
-            this.build_avg_damage.ReadOnly = true;
-            this.build_avg_damage.Width = 51;
-            // 
-            // build_damage_taken
-            // 
-            this.build_damage_taken.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_damage_taken.HeaderText = "Dmg Rec";
-            this.build_damage_taken.Name = "build_damage_taken";
-            this.build_damage_taken.ReadOnly = true;
-            this.build_damage_taken.Width = 79;
-            // 
-            // build_wins
-            // 
-            this.build_wins.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_wins.HeaderText = "W";
-            this.build_wins.Name = "build_wins";
-            this.build_wins.ReadOnly = true;
-            this.build_wins.Width = 37;
-            // 
-            // build_win_loss
-            // 
-            this.build_win_loss.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.build_win_loss.HeaderText = "WR";
-            this.build_win_loss.Name = "build_win_loss";
-            this.build_win_loss.ReadOnly = true;
-            this.build_win_loss.Width = 44;
+            this.dg_build_view_grid.SelectionChanged += new System.EventHandler(this.dg_build_view_grid_SelectionChanged);
             // 
             // lb_build_header
             // 
@@ -450,6 +378,78 @@
             this.btn_reset_filters.UseVisualStyleBackColor = true;
             this.btn_reset_filters.Click += new System.EventHandler(this.btn_reset_filters_Click);
             // 
+            // build_build_hash
+            // 
+            this.build_build_hash.HeaderText = "Hash";
+            this.build_build_hash.MinimumWidth = 65;
+            this.build_build_hash.Name = "build_build_hash";
+            this.build_build_hash.ReadOnly = true;
+            this.build_build_hash.Width = 65;
+            // 
+            // build_deaths
+            // 
+            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_deaths.HeaderText = "PS";
+            this.build_deaths.Name = "build_deaths";
+            this.build_deaths.ReadOnly = true;
+            this.build_deaths.Width = 44;
+            // 
+            // build_games
+            // 
+            this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_games.HeaderText = "# G";
+            this.build_games.Name = "build_games";
+            this.build_games.ReadOnly = true;
+            this.build_games.Width = 51;
+            // 
+            // build_kills
+            // 
+            this.build_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_kills.HeaderText = "K";
+            this.build_kills.Name = "build_kills";
+            this.build_kills.ReadOnly = true;
+            this.build_kills.Width = 37;
+            // 
+            // build_kills_deaths
+            // 
+            this.build_kills_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_kills_deaths.HeaderText = "K/D";
+            this.build_kills_deaths.Name = "build_kills_deaths";
+            this.build_kills_deaths.ReadOnly = true;
+            this.build_kills_deaths.Width = 51;
+            // 
+            // build_avg_damage
+            // 
+            this.build_avg_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_avg_damage.HeaderText = "Dmg";
+            this.build_avg_damage.Name = "build_avg_damage";
+            this.build_avg_damage.ReadOnly = true;
+            this.build_avg_damage.Width = 51;
+            // 
+            // build_damage_taken
+            // 
+            this.build_damage_taken.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_damage_taken.HeaderText = "Dmg Rec";
+            this.build_damage_taken.Name = "build_damage_taken";
+            this.build_damage_taken.ReadOnly = true;
+            this.build_damage_taken.Width = 79;
+            // 
+            // build_wins
+            // 
+            this.build_wins.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_wins.HeaderText = "W";
+            this.build_wins.Name = "build_wins";
+            this.build_wins.ReadOnly = true;
+            this.build_wins.Width = 37;
+            // 
+            // build_win_loss
+            // 
+            this.build_win_loss.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.build_win_loss.HeaderText = "WR";
+            this.build_win_loss.Name = "build_win_loss";
+            this.build_win_loss.ReadOnly = true;
+            this.build_win_loss.Width = 44;
+            // 
             // build_view
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -506,6 +506,12 @@
         public System.Windows.Forms.TextBox tb_short_desc;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox tb_modules;
+        private System.Windows.Forms.ComboBox cb_build_game_modes;
+        private System.Windows.Forms.ComboBox cb_grouped;
+        private System.Windows.Forms.ComboBox cb_map;
+        private System.Windows.Forms.ComboBox cb_power_score;
+        private System.Windows.Forms.ComboBox cb_client_version;
+        private System.Windows.Forms.Button btn_reset_filters;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_build_hash;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_deaths;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_games;
@@ -515,11 +521,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn build_damage_taken;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_wins;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_win_loss;
-        private System.Windows.Forms.ComboBox cb_build_game_modes;
-        private System.Windows.Forms.ComboBox cb_grouped;
-        private System.Windows.Forms.ComboBox cb_map;
-        private System.Windows.Forms.ComboBox cb_power_score;
-        private System.Windows.Forms.ComboBox cb_client_version;
-        private System.Windows.Forms.Button btn_reset_filters;
     }
 }
