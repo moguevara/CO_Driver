@@ -39,7 +39,6 @@ namespace CO_Driver
             this.num_firestarter_level.Value = Convert.ToInt32(Settings.Default["firestarts_level"]);
             this.num_founders_level.Value = Convert.ToInt32(Settings.Default["founders_level"]);
             this.chk_prestigue_parts.Checked = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
-            this.chk_twitch_mode.Checked = Convert.ToBoolean(Settings.Default["generate_streaming_files"]);
         }
 
         private void save_user_settings(object sender, EventArgs e)
@@ -61,7 +60,6 @@ namespace CO_Driver
             Settings.Default["firestarts_level"] = Convert.ToInt32(this.num_firestarter_level.Value);
             Settings.Default["founders_level"] = Convert.ToInt32(this.num_founders_level.Value);
             Settings.Default["include_prestigue_parts"] = this.chk_prestigue_parts.Checked;
-            Settings.Default["generate_streaming_files"] = this.chk_twitch_mode.Checked;
 
             Settings.Default.Save();
         }
@@ -94,7 +92,6 @@ namespace CO_Driver
             Settings.Default["fusion_power_max"] = 3;
             Settings.Default["fusion_handling_target"] = 0;
             Settings.Default["fusion_handling_max"] = 3;
-            Settings.Default["generate_streaming_files"] = false;
 
             Settings.Default.Save();
 
@@ -120,7 +117,6 @@ namespace CO_Driver
             this.num_firestarter_level.Value = Convert.ToInt32(Settings.Default["firestarts_level"]);
             this.num_founders_level.Value = Convert.ToInt32(Settings.Default["founders_level"]);
             this.chk_prestigue_parts.Checked = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
-            this.chk_twitch_mode.Checked = Convert.ToBoolean(Settings.Default["generate_streaming_files"]);
         }
     }
 }

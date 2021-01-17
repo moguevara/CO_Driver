@@ -69,8 +69,6 @@
             this.btn_save_user_settings = new System.Windows.Forms.Button();
             this.btn_default_user_settings = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.chk_twitch_mode = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_min_beep_score)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
@@ -312,7 +310,6 @@
             // chk_beep_at_score
             // 
             this.chk_beep_at_score.AutoSize = true;
-            this.chk_beep_at_score.Enabled = false;
             this.chk_beep_at_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_beep_at_score.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_beep_at_score.ForeColor = System.Drawing.Color.Lime;
@@ -326,7 +323,6 @@
             // 
             this.num_min_beep_score.BackColor = System.Drawing.Color.Black;
             this.num_min_beep_score.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.num_min_beep_score.Enabled = false;
             this.num_min_beep_score.ForeColor = System.Drawing.Color.Lime;
             this.num_min_beep_score.Location = new System.Drawing.Point(295, 281);
             this.num_min_beep_score.Maximum = new decimal(new int[] {
@@ -653,36 +649,11 @@
             this.label1.Text = "USER SETTINGS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // chk_twitch_mode
-            // 
-            this.chk_twitch_mode.AutoSize = true;
-            this.chk_twitch_mode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chk_twitch_mode.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_twitch_mode.ForeColor = System.Drawing.Color.Lime;
-            this.chk_twitch_mode.Location = new System.Drawing.Point(295, 321);
-            this.chk_twitch_mode.Name = "chk_twitch_mode";
-            this.chk_twitch_mode.Size = new System.Drawing.Size(12, 11);
-            this.chk_twitch_mode.TabIndex = 43;
-            this.chk_twitch_mode.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Lime;
-            this.label10.Location = new System.Drawing.Point(3, 323);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(175, 14);
-            this.label10.TabIndex = 44;
-            this.label10.Text = "Twitch/YT Streaming Mode";
-            // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.chk_twitch_mode);
             this.Controls.Add(this.btn_default_user_settings);
             this.Controls.Add(this.btn_save_user_settings);
             this.Controls.Add(this.txt_historic_log_location);
@@ -783,7 +754,5 @@
         private System.Windows.Forms.Button btn_save_user_settings;
         private System.Windows.Forms.Button btn_default_user_settings;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chk_twitch_mode;
-        private System.Windows.Forms.Label label10;
     }
 }

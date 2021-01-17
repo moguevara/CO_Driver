@@ -28,62 +28,56 @@ namespace CO_Driver
         {
             this.dg_match_history_view.Rows.Clear();
             this.dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
-            this.dg_match_history_view.AllowUserToAddRows = true;
             int i = 0;
             foreach (file_trace_managment.MatchRecord match in history_data.match_history)
             {
-                if (i > 500)
-                    break;
+                if (i > 1000)
+                    continue;
                 DataGridViewRow row = (DataGridViewRow)this.dg_match_history_view.Rows[0].Clone();
-                TimeSpan duration = match.match_data.match_end - match.match_data.match_start;
-                row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
-                row.Cells[1].Value = match.match_data.match_start;
+                TimeSpan duration = match.stop_time - match.start_time;
+                row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_type);
+                row.Cells[1].Value = match.start_time;
                 row.Cells[2].Value = string.Format(@"{0}M{1}s", duration.Minutes, duration.Seconds);
-                row.Cells[3].Value = match.match_data.map_name;
-                row.Cells[4].Value = match.local_player.build_hash;
-                row.Cells[5].Value = match.local_player.power_score;
-                row.Cells[6].Value = match.local_player.stats.score;
-                row.Cells[7].Value = match.local_player.stats.kills;
-                row.Cells[8].Value = match.local_player.stats.assists;
-                row.Cells[9].Value = match.local_player.stats.drone_kills;
-                row.Cells[10].Value = Math.Round(match.local_player.stats.damage, 1);
-                row.Cells[11].Value = Math.Round(match.local_player.stats.damage_taken, 1);
-                row.Cells[12].Value = match.match_data.game_result;
-                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
+                row.Cells[3].Value = match.map_name;
+                row.Cells[4].Value = match.build_hash;
+                row.Cells[5].Value = match.power_score;
+                row.Cells[6].Value = match.local_player_stats.score;
+                row.Cells[7].Value = match.local_player_stats.kills;
+                row.Cells[8].Value = match.local_player_stats.assists;
+                row.Cells[9].Value = match.local_player_stats.drone_kills;
+                row.Cells[10].Value = Math.Round(match.local_player_stats.damage, 2);
+                row.Cells[11].Value = Math.Round(match.local_player_stats.damage_taken, 2);
+                row.Cells[12].Value = match.game_result;
+                row.Cells[13].Value = string.Join(",", match.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
                 this.dg_match_history_view.Rows.Add(row);
                 i++;
             }
-
             this.dg_match_history_view.AllowUserToAddRows = false;
             this.dg_match_history_view.Sort(this.dg_match_history_view.Columns[1], ListSortDirection.Descending);
         }
 
         public void add_last_match_to_table()
         {
-            this.dg_match_history_view.AllowUserToAddRows = true;
-
             DataGridViewRow row = (DataGridViewRow)this.dg_match_history_view.Rows[0].Clone();
-            TimeSpan duration = last_match_data.match_data.match_end - last_match_data.match_data.match_start;
-
-            row.Cells[0].Value = file_trace_managment.decode_match_type(last_match_data.match_data.match_type);
-            row.Cells[1].Value = last_match_data.match_data.match_start;
+            row.Cells[0].Value = file_trace_managment.decode_match_type(last_match_data.match_type);
+            
+            TimeSpan duration = last_match_data.stop_time - last_match_data.start_time;
+            row.Cells[1].Value = last_match_data.start_time;
             row.Cells[2].Value = string.Format(@"{0}M{1}s", duration.Minutes, duration.Seconds);
-            row.Cells[3].Value = last_match_data.match_data.map_name;
-            row.Cells[4].Value = last_match_data.local_player.build_hash;
-            row.Cells[5].Value = last_match_data.local_player.power_score;
-            row.Cells[6].Value = last_match_data.local_player.stats.score;
-            row.Cells[7].Value = last_match_data.local_player.stats.kills;
-            row.Cells[8].Value = last_match_data.local_player.stats.assists;
-            row.Cells[9].Value = last_match_data.local_player.stats.drone_kills;
-            row.Cells[10].Value = Math.Round(last_match_data.local_player.stats.damage, 1);
-            row.Cells[11].Value = Math.Round(last_match_data.local_player.stats.damage_taken, 1);
-            row.Cells[12].Value = last_match_data.match_data.game_result;
-            row.Cells[13].Value = string.Join(",", last_match_data.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
-            this.dg_match_history_view.Rows.Add(row);
+            row.Cells[3].Value = last_match_data.map_name;
+            row.Cells[4].Value = last_match_data.build_hash;
+            row.Cells[5].Value = last_match_data.power_score;
+            row.Cells[6].Value = last_match_data.local_player_stats.score;
+            row.Cells[7].Value = last_match_data.local_player_stats.kills;
+            row.Cells[8].Value = last_match_data.local_player_stats.assists;
+            row.Cells[9].Value = last_match_data.local_player_stats.drone_kills;
+            row.Cells[10].Value = Math.Round(last_match_data.local_player_stats.damage, 2);
+            row.Cells[11].Value = Math.Round(last_match_data.local_player_stats.damage_taken, 2);
+            row.Cells[12].Value = last_match_data.game_result;
+            row.Cells[13].Value = string.Join(",", last_match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
-            this.dg_match_history_view.AllowUserToAddRows = false;
-            this.dg_match_history_view.Sort(this.dg_match_history_view.Columns[1], ListSortDirection.Descending);
+            this.dg_match_history_view.Rows.Insert(0, row);
         }
 
         private void dg_match_history_view_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

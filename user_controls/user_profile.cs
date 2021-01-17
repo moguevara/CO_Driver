@@ -59,15 +59,15 @@ namespace CO_Driver
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_build_review.Rows[0].Clone();
                 row.Cells[0].Value = build.Key;
-                row.Cells[1].Value = 0;
-                row.Cells[2].Value = 0;
-                row.Cells[3].Value = 0;
-                row.Cells[4].Value = 0;
-                row.Cells[5].Value = 0;
-                row.Cells[6].Value = 0;
-                row.Cells[7].Value = 0;
-                row.Cells[8].Value = 0;
-                row.Cells[9].Value = 0;
+                row.Cells[1].Value = build.Value.build_stats[global_data.ALL_MATCHS].games;
+                row.Cells[2].Value = build.Value.build_stats[global_data.ALL_MATCHS].kills;
+                row.Cells[3].Value = build.Value.build_stats[global_data.ALL_MATCHS].deaths;
+                row.Cells[4].Value = Math.Round(build.Value.build_stats[global_data.ALL_MATCHS].deaths > 0 ? (double)build.Value.build_stats[global_data.ALL_MATCHS].kills / (double)build.Value.build_stats[global_data.ALL_MATCHS].deaths : 0.0, 2);
+                row.Cells[5].Value = Math.Round((double)build.Value.build_stats[global_data.ALL_MATCHS].damage / (double)build.Value.build_stats[global_data.ALL_MATCHS].rounds, 1);
+                row.Cells[6].Value = Math.Round((double)build.Value.build_stats[global_data.ALL_MATCHS].damage_taken / (double)build.Value.build_stats[global_data.ALL_MATCHS].rounds, 1);
+                row.Cells[7].Value = build.Value.build_stats[global_data.ALL_MATCHS].wins;
+                row.Cells[8].Value = build.Value.build_stats[global_data.ALL_MATCHS].losses;
+                row.Cells[9].Value = Math.Round(build.Value.build_stats[global_data.ALL_MATCHS].losses > 0 ? (double)build.Value.build_stats[global_data.ALL_MATCHS].wins / (double)build.Value.build_stats[global_data.ALL_MATCHS].games : 0.0, 2);
                 this.dg_build_review.Rows.Add(row);
             }
 

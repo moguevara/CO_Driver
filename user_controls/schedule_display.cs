@@ -54,7 +54,6 @@ namespace CO_Driver
                         }
                     }
                 }
-                row.Cells[8].Value = DateTime.Today.AddHours(i).ToString("HH:mm");
                 this.dg_build_view_grid.Rows.Add(row);
             }
 
@@ -78,6 +77,7 @@ namespace CO_Driver
 
         private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            
             if (e.RowIndex != dg_build_view_grid.Rows.Count - 1)
                 e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
 
@@ -113,7 +113,7 @@ namespace CO_Driver
             if (IsTheSameCellValue(e.ColumnIndex, e.RowIndex))
             {
                 e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
-
+                
             }
             else
             {
