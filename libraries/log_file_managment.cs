@@ -99,7 +99,6 @@ namespace CO_Driver
 
         public void create_stream_file_location()
         {
-            return;
             string stream_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\stream_templates";
 
             if (!Directory.Exists(stream_file_path))

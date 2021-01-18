@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.52";
+        public static string CURRENT_VERSION = "0.0.1.57";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -45,7 +45,9 @@ namespace CO_Driver
         public const int HARD_RAID_MATCH = 8;
         public const int CUSTOM_MATCH = 9;
         public const int BEDLAM_MATCH = 10;
-        public const int UNDEFINED_MATCH = 11;
+        public const int ADVENTURE_MATCH = 11;
+        public const int PRESENT_HEIST_MATCH = 12;
+        public const int UNDEFINED_MATCH = 13;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
