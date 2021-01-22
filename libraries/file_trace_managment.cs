@@ -24,7 +24,6 @@ namespace CO_Driver
         }
         public class UserProfileResponse
         {
-            public Player local_player_record { get; set; }
             public List<MatchRecord> match_history { get; set; }
             public Dictionary<string, BuildRecord> build_records { get; set; }
         }
@@ -64,9 +63,8 @@ namespace CO_Driver
             public int local_user_uid { get; set; }
             public int current_event { get; set; }
             public string client_version { get; set; }
-            public MatchData current_match_data { get; set; }
+            public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
-            public Dictionary<string, Player> player_records { get; set; }
             public Dictionary<string, BuildRecord> player_build_records { get; set; }
             public List<MatchRecord> match_history { get; set; }
             public StaticRecordDB static_records { get; set; }
@@ -78,12 +76,10 @@ namespace CO_Driver
             public string team_1 { get; set; }
             public string team_2 { get; set; }
             public MatchData match_data { get; set; }
-            public PlayerMatchRecord local_player { get; set; }
         }
 
         public class MatchData
         {
-            public int player_count { get; set; }
             public string map_name { get; set; }
             public int match_type { get; set; }
             public string match_type_desc { get; set; }
@@ -94,11 +90,13 @@ namespace CO_Driver
             public DateTime match_start { get; set; }
             public DateTime match_end { get; set; }
             public double match_duration_seconds { get; set; }
-            public bool passed_end_of_match_event { get; set; }
-            public bool passed_match_reward_event { get; set; }
             public bool add_match_to_record { get; set; }
+            public string nemesis { get; set; }
+            public List<string> victims { get; set; }
             public List<MatchAttribute> match_attributes { get; set; }
             public Dictionary<string, int> match_rewards { get; set; }
+            public Player local_player { get; set; }
+            public Dictionary<string, Player> player_records { get; set; }
         }
         public class Player
         {
@@ -108,11 +106,9 @@ namespace CO_Driver
             public string build_hash { get; set; }
             public int power_score { get; set; }
             public int bot { get; set; }
-            public bool in_game { get; set; }
-            public int current_team { get; set; }
-            public Stats in_game_stats { get; set; }
-            public Dictionary<string, int> stripes { get; set; }
-            public Dictionary<int, Stats> category_stats { get; set; }
+            public int team { get; set; }
+            public Stats stats { get; set; }
+            public List<string> stripes { get; set; }
         }
 
         public class PlayerMatchRecord
@@ -125,7 +121,7 @@ namespace CO_Driver
             public int bot { get; set; }
             public int team { get; set; }
             public Stats stats { get; set; }
-            public Dictionary<string, int> stripes { get; set; }
+            public List<string> stripes { get; set; }
         }
 
         public class Stats
@@ -212,7 +208,7 @@ namespace CO_Driver
         {
             Current_session.live_trace_data = false;
             Current_session.in_match = false;
-            Current_session.current_match_data = new_match_data();
+            Current_session.current_match = new_match_data();
             Current_session.local_user = Settings.Default["local_user_name"].ToString();
             Current_session.local_user_uid = Convert.ToInt32(Settings.Default["local_user_uid"]);
             Current_session.current_event = 0;
@@ -221,7 +217,6 @@ namespace CO_Driver
             Current_session.file_data.historic_file_location = Settings.Default["historic_file_location"].ToString();
             Current_session.file_data.stream_overlay_output_location = Settings.Default["stream_file_location"].ToString();
             Current_session.file_data.historic_file_session_list = load_historic_file_list();
-            Current_session.player_records = new Dictionary<string, Player> { };
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
             Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
@@ -347,17 +342,12 @@ namespace CO_Driver
 
         public static void main_menu_event(string line, SessionStats Current_session)
         {
-            if (Current_session.in_match)
-                clear_in_game_stats(Current_session); /* sum results if game unfinished */
+            clear_in_game_stats(Current_session); 
         }
 
         public static void match_start_event(string line, SessionStats Current_session)
         {
-            if (!Current_session.player_records.ContainsKey(Current_session.local_user))
-                return;
-
-            if (Current_session.in_match)
-                clear_in_game_stats(Current_session); /* sum results if game unfinished */
+            clear_in_game_stats(Current_session); 
 
             Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| ===== Gameplay '(?<gameplay_type>.+)' started, map '(?<map_name>.+)' ======$");
 
@@ -367,19 +357,18 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.current_match_data.add_match_to_record = false;
-            Current_session.current_match_data.map_name = line_results.Groups["map_name"].Value;
-            Current_session.current_match_data.client_version = Current_session.client_version;
-            Current_session.current_match_data.game_play_value = line_results.Groups["gameplay_type"].Value;
-            Current_session.current_match_data.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            Current_session.current_match.add_match_to_record = false;
+            Current_session.current_match.map_name = line_results.Groups["map_name"].Value;
+            Current_session.current_match.client_version = Current_session.client_version;
+            Current_session.current_match.game_play_value = line_results.Groups["gameplay_type"].Value;
+            Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
             Current_session.in_match = true;
         }
 
         public static void clan_war_round_end_event(string line, SessionStats Current_session)
         {
-            foreach (KeyValuePair<string, Player> entry in Current_session.player_records)
-                if (entry.Value.in_game)
-                    entry.Value.in_game_stats.rounds = entry.Value.in_game_stats.rounds + 1;
+            foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
+                entry.Value.stats.rounds = entry.Value.stats.rounds + 1;
         }
 
         public static void match_end_event(string line, SessionStats Current_session)
@@ -392,45 +381,48 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.current_match_data.passed_end_of_match_event = true;
-            Current_session.current_match_data.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line.Substring(0, 2), line.Substring(3, 2), line.Substring(6, 2)), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
-            Current_session.current_match_data.winning_team = Int32.Parse(line_results.Groups["winning_team"].Value);
-            Current_session.current_match_data.match_duration_seconds = Convert.ToDouble(line_results.Groups["battle_time"].Value);
-            
-            if (Current_session.current_match_data.passed_end_of_match_event && Current_session.current_match_data.passed_match_reward_event)
-                clear_in_game_stats(Current_session);
+            Current_session.current_match.winning_team = Int32.Parse(line_results.Groups["winning_team"].Value);
+            Current_session.current_match.match_duration_seconds = Convert.ToDouble(line_results.Groups["battle_time"].Value);
+
+            clear_in_game_stats(Current_session);
         }
 
         public static void match_reward_event(string line, SessionStats Current_session)
         {
-            Current_session.current_match_data.passed_match_reward_event = true;
 
-            Current_session.current_match_data.match_rewards = new Dictionary<string, int> { };
+            //TODO:MAKE THIS SUCK LESS
+            Dictionary<string, int> match_rewards = new Dictionary<string, int> { };
             if (line.Contains("expFactionTotal"))
-                Current_session.current_match_data.match_rewards.Add("expFactionTotal", Int32.Parse(Regex.Match(line, @"expFactionTotal (.+?)$").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("expFactionTotal", Int32.Parse(Regex.Match(line, @"expFactionTotal (.+?)$").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("expBaseFactionTotal"))
-                Current_session.current_match_data.match_rewards.Add("expBaseFactionTotal", Int32.Parse(Regex.Match(line, @"expBaseFactionTotal (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("expBaseFactionTotal", Int32.Parse(Regex.Match(line, @"expBaseFactionTotal (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("ClanMoney"))
-                Current_session.current_match_data.match_rewards.Add("ClanMoney", Int32.Parse(Regex.Match(line, @"ClanMoney (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("ClanMoney", Int32.Parse(Regex.Match(line, @"ClanMoney (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Scrap_Common"))
-                Current_session.current_match_data.match_rewards.Add("Scrap_Common", Int32.Parse(Regex.Match(line, @"Scrap_Common (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Scrap_Common", Int32.Parse(Regex.Match(line, @"Scrap_Common (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Scrap_Rare"))
-                Current_session.current_match_data.match_rewards.Add("Scrap_Rare", Int32.Parse(Regex.Match(line, @"Scrap_Rare (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Scrap_Rare", Int32.Parse(Regex.Match(line, @"Scrap_Rare (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Scrap_Epic"))
-                Current_session.current_match_data.match_rewards.Add("Scrap_Epic", Int32.Parse(Regex.Match(line, @"Scrap_Epic (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Scrap_Epic", Int32.Parse(Regex.Match(line, @"Scrap_Epic (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Accumulators"))
-                Current_session.current_match_data.match_rewards.Add("Accumulators", Int32.Parse(Regex.Match(line, @"Accumulators (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Accumulators", Int32.Parse(Regex.Match(line, @"Accumulators (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("HalloweenMoney"))
-                Current_session.current_match_data.match_rewards.Add("HalloweenMoney", Int32.Parse(Regex.Match(line, @"HalloweenMoney (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("HalloweenMoney", Int32.Parse(Regex.Match(line, @"HalloweenMoney (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Supply"))
-                Current_session.current_match_data.match_rewards.Add("Supply", Int32.Parse(Regex.Match(line, @"Supply (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Supply", Int32.Parse(Regex.Match(line, @"Supply (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Platinum"))
-                Current_session.current_match_data.match_rewards.Add("Platinum", Int32.Parse(Regex.Match(line, @"Platinum (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("Platinum", Int32.Parse(Regex.Match(line, @"Platinum (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("NewYearMoney"))
-                Current_session.current_match_data.match_rewards.Add("NewYearMoney", Int32.Parse(Regex.Match(line, @"NewYearMoney (.+?),").Groups[1].Value.Replace(" ", "")));
+                match_rewards.Add("NewYearMoney", Int32.Parse(Regex.Match(line, @"NewYearMoney (.+?),").Groups[1].Value.Replace(" ", "")));
 
-            if (Current_session.current_match_data.passed_end_of_match_event && Current_session.current_match_data.passed_match_reward_event)
-                clear_in_game_stats(Current_session);
+            if (Current_session.in_match)
+                Current_session.current_match.match_rewards = match_rewards;
+            else if (Current_session.match_history.Count() > 0)
+            {
+                //if (Current_session.match_history.Last().match_data.match_rewards.Count() > 0)
+                //    MessageBox.Show(string.Format(@"trying to override rewards {0} to match type {1}", line, Current_session.match_history.Last().match_data.match_type_desc));
+                Current_session.match_history.Last().match_data.match_rewards = match_rewards;
+            }
         }
 
         private static void clear_in_game_stats(SessionStats Current_session)
@@ -438,39 +430,31 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            if (Current_session.current_match_data.match_start > Current_session.current_match_data.match_end)
+            if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
+                return;
+
+            if (Current_session.current_match.match_start > Current_session.current_match.match_end)
             {
                 Current_session.file_data.processing_combat_session_file_day = Current_session.file_data.processing_combat_session_file_day.AddDays(1.0);
-                Current_session.current_match_data.match_end = Current_session.current_match_data.match_end.AddDays(1.0);
+                Current_session.current_match.match_end = Current_session.current_match.match_end.AddDays(1.0);
             }
 
             classify_match(Current_session);
             classify_local_user_build(Current_session);
 
-            foreach (KeyValuePair<string, Player> entry in Current_session.player_records)
+            foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
             {
-                if (entry.Value.in_game)
-                {
-                    entry.Value.in_game_stats.games++;
-                    entry.Value.in_game_stats.games++;
+                entry.Value.stats.games += 1;
 
-                    if (entry.Value.current_team == Current_session.current_match_data.winning_team)
-                    {
-                        entry.Value.in_game_stats.wins++;
-                        entry.Value.in_game_stats.wins++;
-                    }
-                    else
-                    {
-                        entry.Value.in_game_stats.losses++;
-                        entry.Value.in_game_stats.losses++;
-                    }
-                }
+                if (entry.Value.team == Current_session.current_match.winning_team)
+                    entry.Value.stats.wins += 1;
+                else
+                    entry.Value.stats.losses += 1;
             }
 
             finalize_match_record(Current_session);
-            finalize_player_records(Current_session);
 
-            Current_session.current_match_data = new_match_data();
+            Current_session.current_match = new_match_data();
             Current_session.in_match = false;
         }
 
@@ -478,102 +462,90 @@ namespace CO_Driver
         {
             int player_count = 0;
             int highest_power_score = 0;
-            Current_session.current_match_data.match_type = global_data.UNDEFINED_MATCH;
+            Current_session.current_match.match_type = global_data.UNDEFINED_MATCH;
 
-            foreach (KeyValuePair<string, Player> entry in Current_session.player_records)
+            foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
             {
-                if (entry.Value.in_game)
-                {
-                    player_count++;
-                    if (entry.Value.power_score > highest_power_score)
-                        highest_power_score = entry.Value.power_score;
-                }
+                if (entry.Value.power_score > highest_power_score)
+                    highest_power_score = entry.Value.power_score;
             }
 
-            if (Current_session.current_match_data.game_play_value.Contains("BestOf3"))
-                Current_session.current_match_data.match_type = global_data.STANDARD_CW_MATCH;
+            player_count = Current_session.current_match.player_records.Count();
 
-            if (Current_session.current_match_data.game_play_value.Contains("BestOf3") && highest_power_score > 22000)
-                Current_session.current_match_data.match_type = global_data.LEVIATHIAN_CW_MATCH;
+            if ((Current_session.current_match.game_play_value.Contains("Conquer") ||
+                 Current_session.current_match.game_play_value.Contains("Domination") ||
+                 Current_session.current_match.game_play_value.Contains("Assault")) && player_count == 16)
+                Current_session.current_match.match_type = global_data.STANDARD_MATCH;
 
-            if (Current_session.current_match_data.map_name.Contains("red_rocks_battle_royale"))
-                Current_session.current_match_data.match_type = global_data.BATTLE_ROYALE_MATCH;
+            if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value == "Default").Count() > 0 && 
+                (Current_session.current_match.game_play_value.Contains("Conquer") ||
+                 Current_session.current_match.game_play_value.Contains("Domination") ||
+                 Current_session.current_match.game_play_value.Contains("Assault")) && player_count == 16)
+                Current_session.current_match.match_type = global_data.STANDARD_RESTRICTED_MATCH;
 
-            if (Current_session.current_match_data.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_easy")).Count() > 0)
-                Current_session.current_match_data.match_type = global_data.EASY_RAID_MATCH;
+            if ((Current_session.current_match.game_play_value.Contains("ConquerCoopVsAi") ||
+                 Current_session.current_match.game_play_value.Contains("DominationCoopVsAi") ||
+                 Current_session.current_match.game_play_value.Contains("AssaultCoopVsAi")) && player_count == 16)
+                Current_session.current_match.match_type = global_data.PATROL_MATCH;
 
-            if (Current_session.current_match_data.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_medium")).Count() > 0)
-                Current_session.current_match_data.match_type = global_data.MED_RAID_MATCH;
+            if (Current_session.current_match.game_play_value.Contains("BestOf3"))
+                Current_session.current_match.match_type = global_data.STANDARD_CW_MATCH;
 
-            if (Current_session.current_match_data.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_hard")).Count() > 0)
-                Current_session.current_match_data.match_type = global_data.HARD_RAID_MATCH;
+            if (Current_session.current_match.game_play_value.Contains("BestOf3") && highest_power_score > 22000)
+                Current_session.current_match.match_type = global_data.LEVIATHIAN_CW_MATCH;
 
-            if ((Current_session.current_match_data.game_play_value.Contains("Conquer") ||
-                 Current_session.current_match_data.game_play_value.Contains("Domination") ||
-                 Current_session.current_match_data.game_play_value.Contains("Assault")) && player_count == 16)
-                Current_session.current_match_data.match_type = global_data.STANDARD_MATCH;
+            if (Current_session.current_match.map_name.Contains("red_rocks_battle_royale"))
+                Current_session.current_match.match_type = global_data.BATTLE_ROYALE_MATCH;
 
-            if ((Current_session.current_match_data.game_play_value.Contains("Conquer") ||
-                 Current_session.current_match_data.game_play_value.Contains("Domination") ||
-                 Current_session.current_match_data.game_play_value.Contains("Assault")) && player_count == 12)
-                Current_session.current_match_data.match_type = global_data.LEAGUE_6_v_6_MATCH;
+            if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_easy")).Count() > 0)
+                Current_session.current_match.match_type = global_data.EASY_RAID_MATCH;
 
-            if (Current_session.current_match_data.match_attributes.Where(x => x.attribute.Contains("custom_game")).Count() > 0)
-                Current_session.current_match_data.match_type = global_data.CUSTOM_MATCH;
+            if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_medium")).Count() > 0)
+                Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
 
-            if(Current_session.current_match_data.game_play_value.Contains("FreePlay"))
-                Current_session.current_match_data.match_type = global_data.BEDLAM_MATCH;
+            if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_hard")).Count() > 0)
+                Current_session.current_match.match_type = global_data.HARD_RAID_MATCH;
 
-            if (Current_session.current_match_data.game_play_value.Contains("Exploration"))
-                Current_session.current_match_data.match_type = global_data.ADVENTURE_MATCH;
+            if ((Current_session.current_match.game_play_value.Contains("Conquer") ||
+                 Current_session.current_match.game_play_value.Contains("Domination") ||
+                 Current_session.current_match.game_play_value.Contains("Assault")) && player_count == 12)
+                Current_session.current_match.match_type = global_data.LEAGUE_6_v_6_MATCH;
 
-            if (Current_session.current_match_data.game_play_value.Contains("Brawl_NewYear_Convoy"))
-                Current_session.current_match_data.match_type = global_data.PRESENT_HEIST_MATCH;
+            if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("custom_game")).Count() > 0)
+                Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
-            Current_session.current_match_data.match_type_desc = decode_match_type(Current_session.current_match_data.match_type);
-        }
+            if(Current_session.current_match.game_play_value.Contains("FreePlay"))
+                Current_session.current_match.match_type = global_data.BEDLAM_MATCH;
 
-        private static void finalize_player_records(SessionStats Current_session)
-        {
-            foreach (KeyValuePair<string, Player> entry in Current_session.player_records)
-            {
-                if (entry.Value.in_game)
-                {
-                    entry.Value.category_stats[global_data.ALL_MATCHS] = sum_stats(entry.Value.category_stats[global_data.ALL_MATCHS], entry.Value.in_game_stats);
-                    if (entry.Value.category_stats.ContainsKey(Current_session.current_match_data.match_type))
-                    {
-                        entry.Value.category_stats[Current_session.current_match_data.match_type] = sum_stats(entry.Value.category_stats[Current_session.current_match_data.match_type], entry.Value.in_game_stats);
-                    }
-                    else
-                    {
-                        entry.Value.category_stats.Add(Current_session.current_match_data.match_type, entry.Value.in_game_stats);
-                    }
+            if (Current_session.current_match.game_play_value.Contains("Exploration"))
+                Current_session.current_match.match_type = global_data.ADVENTURE_MATCH;
 
-                    entry.Value.in_game = false;
-                    entry.Value.in_game_stats = new_stats();
-                    entry.Value.stripes.Clear();
-                    entry.Value.party_id = 0;
-                }
-            }
+            if (Current_session.current_match.game_play_value.Contains("Brawl_NewYear_Convoy"))
+                Current_session.current_match.match_type = global_data.PRESENT_HEIST_MATCH;
+
+            //if (Current_session.current_match.match_type == global_data.UNDEFINED_MATCH)
+            //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
+
+            Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
         }
 
         private static void finalize_match_record(SessionStats Current_session)
         {
             MatchRecord match_record = new_match_record();
              
-            match_record.local_player = assign_match_player_record(Current_session.player_records[Current_session.local_user]);
             match_record.match_id = Current_session.match_history.Count;
-            match_record.match_data = Current_session.current_match_data;
+            match_record.match_data = Current_session.current_match;
+            match_record.match_data.local_player = Current_session.current_match.player_records[Current_session.local_user];
 
-            if (Current_session.current_match_data.match_type == global_data.BEDLAM_MATCH || Current_session.current_match_data.match_type == global_data.ADVENTURE_MATCH)
+            if (Current_session.current_match.match_type == global_data.BEDLAM_MATCH || Current_session.current_match.match_type == global_data.ADVENTURE_MATCH)
             {
                 match_record.match_data.game_result = "";
             }
-            else if (Current_session.player_records[Current_session.local_user].current_team == Current_session.current_match_data.winning_team)
+            else if (Current_session.current_match.player_records[Current_session.local_user].team == Current_session.current_match.winning_team)
             {
                 match_record.match_data.game_result = "Win";
             }
-            else if (Current_session.current_match_data.winning_team == -1)
+            else if (Current_session.current_match.winning_team == -1)
             {
                 match_record.match_data.game_result = "Unfinished";
             }
@@ -582,13 +554,13 @@ namespace CO_Driver
                 match_record.match_data.game_result = "Loss";
             }
 
-            if (Current_session.current_match_data.match_duration_seconds > 0.1)
+            if (Current_session.current_match.match_duration_seconds > 0.1)
             {
-                match_record.match_data.match_end = Current_session.current_match_data.match_start.AddSeconds(Current_session.current_match_data.match_duration_seconds);
+                match_record.match_data.match_end = Current_session.current_match.match_start.AddSeconds(Current_session.current_match.match_duration_seconds);
             }
             else
             {
-                match_record.match_data.match_end = Current_session.current_match_data.match_end;
+                match_record.match_data.match_end = Current_session.current_match.match_end;
             }
 
             Current_session.match_history.Add(match_record);
@@ -596,9 +568,9 @@ namespace CO_Driver
 
         private static void assign_local_user_build_parts(SessionStats Current_session)
         {
-            BuildRecord local_build = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash];
+            BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash];
 
-            foreach (string part in Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash].parts)
+            foreach (string part in Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash].parts)
             {
                 if (Current_session.static_records.global_cabin_dict.ContainsKey(part))
                     local_build.cabin = Current_session.static_records.global_cabin_dict[part];
@@ -619,7 +591,7 @@ namespace CO_Driver
                     local_build.explosives.Add(Current_session.static_records.global_explosives_dict[part]);
             }
 
-            Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash] = local_build;
+            Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash] = local_build;
         }
 
         public static void assign_client_version_event(string line, SessionStats Current_session)
@@ -650,18 +622,17 @@ namespace CO_Driver
             int uid = Int32.Parse(line_results.Groups["uid"].Value);
             int bot = Int32.Parse(line_results.Groups["bot"].Value);
             int party_id = Int32.Parse(line_results.Groups["party_id"].Value);
-            int current_team = Int32.Parse(line_results.Groups["team"].Value);
+            int team = Int32.Parse(line_results.Groups["team"].Value);
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
 
-            if (Current_session.player_records.ContainsKey(player_name))
+            if (Current_session.current_match.player_records.ContainsKey(player_name))
             {
-                Current_session.player_records[player_name].uid = uid;
-                Current_session.player_records[player_name].bot = bot;
-                Current_session.player_records[player_name].in_game = true;
-                Current_session.player_records[player_name].party_id = party_id;
-                Current_session.player_records[player_name].build_hash = build_hash;
-                Current_session.player_records[player_name].power_score = power_score;
-                Current_session.player_records[player_name].current_team = current_team;
+                Current_session.current_match.player_records[player_name].uid = uid;
+                Current_session.current_match.player_records[player_name].bot = bot;
+                Current_session.current_match.player_records[player_name].party_id = party_id;
+                Current_session.current_match.player_records[player_name].build_hash = build_hash;
+                Current_session.current_match.player_records[player_name].power_score = power_score;
+                Current_session.current_match.player_records[player_name].team = team;
             }
             else
             {
@@ -669,13 +640,11 @@ namespace CO_Driver
                 current_player.nickname = player_name;
                 current_player.uid = uid;
                 current_player.bot = bot;
-                current_player.in_game = true;
                 current_player.party_id = party_id;
                 current_player.build_hash = build_hash;
                 current_player.power_score = power_score;
-                current_player.current_team = current_team;
-                current_player.category_stats.Add(global_data.ALL_MATCHS, new_stats());
-                Current_session.player_records.Add(player_name, current_player);
+                current_player.team = team;
+                Current_session.current_match.player_records.Add(player_name, current_player);
             }
 
             if (player_name == Current_session.local_user)
@@ -700,31 +669,25 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.current_match_data.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            Current_session.current_match.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
             string stripe_desc = line_results.Groups["stripe"].Value;
             int stripe_increment = Int32.Parse(line_results.Groups["increment"].Value);
             string player_name = line_results.Groups["player_name"].Value;
 
-            if (!Current_session.player_records.ContainsKey(player_name))
+            if (!Current_session.current_match.player_records.ContainsKey(player_name))
                 return;
 
             if (stripe_desc == "PvpAssist")
             {
-                Current_session.player_records[player_name].in_game_stats.assists += 1;
+                Current_session.current_match.player_records[player_name].stats.assists += 1;
             }
 
             if (stripe_desc == "PvpTurretKill")
             {
-                Current_session.player_records[player_name].in_game_stats.drone_kills += 1;
+                Current_session.current_match.player_records[player_name].stats.drone_kills += 1;
             }
-
-            if (Current_session.player_records[player_name].stripes.ContainsKey(stripe_desc))
-            {
-                Current_session.player_records[player_name].stripes[stripe_desc] += stripe_increment;
-            }
-            else
-                Current_session.player_records[player_name].stripes.Add(stripe_desc, stripe_increment);
+            Current_session.current_match.player_records[player_name].stripes.Add(stripe_desc);
         }
         public static void damage_event(string line, SessionStats Current_session)
         {
@@ -739,7 +702,7 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.current_match_data.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            Current_session.current_match.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
             string attacker = line_results.Groups["attacker"].Value.Replace(" ", "");
             string victim = line_results.Groups["victim"].Value.Replace(" ", "");
@@ -754,25 +717,25 @@ namespace CO_Driver
             if (victim.IndexOf(":") > 0)
                 return;
 
-            if (!Current_session.player_records.ContainsKey(attacker))
+            if (!Current_session.current_match.player_records.ContainsKey(attacker))
                 return;
 
-            if (!Current_session.player_records.ContainsKey(victim))
+            if (!Current_session.current_match.player_records.ContainsKey(victim))
                 return;
 
             if (attacker != victim)
             {
                 if (attacker == Current_session.local_user)
                 {
-                    if (!Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Contains(weapon) &&
+                    if (!Current_session.player_build_records[Current_session.current_match.player_records[attacker].build_hash].parts.Contains(weapon) &&
                         !Current_session.static_records.global_explosives_dict.ContainsKey(weapon))
                     {
-                        Current_session.player_build_records[Current_session.player_records[attacker].build_hash].parts.Add(weapon);
+                        Current_session.player_build_records[Current_session.current_match.player_records[attacker].build_hash].parts.Add(weapon);
                     }
                 }
 
-                Current_session.player_records[attacker].in_game_stats.damage += damage;
-                Current_session.player_records[victim].in_game_stats.damage_taken += damage;
+                Current_session.current_match.player_records[attacker].stats.damage += damage;
+                Current_session.current_match.player_records[victim].stats.damage_taken += damage;
             }
         }
 
@@ -797,14 +760,20 @@ namespace CO_Driver
             if (victim.IndexOf(":") > 0)
                 return;
 
-            if (!Current_session.player_records.ContainsKey(killer))
+            if (!Current_session.current_match.player_records.ContainsKey(killer))
                 return;
 
-            if (!Current_session.player_records.ContainsKey(victim))
+            if (!Current_session.current_match.player_records.ContainsKey(victim))
                 return;
 
-            Current_session.player_records[killer].in_game_stats.kills++;
-            Current_session.player_records[victim].in_game_stats.deaths++;
+            if (killer == Current_session.local_user && Current_session.current_match.player_records[victim].bot == 0)
+                Current_session.current_match.victims.Add(victim);
+
+            if (victim == Current_session.local_user && Current_session.current_match.player_records[killer].bot == 0)
+                Current_session.current_match.nemesis = killer;
+
+            Current_session.current_match.player_records[killer].stats.kills++;
+            Current_session.current_match.player_records[victim].stats.deaths++;
         }
 
         public static void kill_assist_event(string line, SessionStats Current_session)
@@ -816,7 +785,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick: (?<nickname>.+?),		Got:(?<score>.+?),		reason: (?<score_reason>.+?)");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick: (?<nickname>.*),		Got:(?<score>.+?),		reason: (?<score_reason>.+?)");
 
             if (line_results.Groups.Count < 2)
             {
@@ -827,19 +796,19 @@ namespace CO_Driver
             string scorer = line_results.Groups["nickname"].Value.Replace(" ", "");
             int points = Int32.Parse(line_results.Groups["score"].Value);
 
-            if (!Current_session.player_records.ContainsKey(scorer))
+            if (!Current_session.current_match.player_records.ContainsKey(scorer))
                 return;
 
-            Current_session.player_records[scorer].in_game_stats.score += points;
+            Current_session.current_match.player_records[scorer].stats.score += points;
         }
 
         
         public static void assign_match_property(string line, SessionStats Current_session)
         {
             if (line.Contains("custom_game"))
-                Current_session.current_match_data.match_attributes.Add(new_match_attribute("custom_game", Regex.Match(line, @": (.+?)$").Groups[1].Value.Replace(" ", "")));
+                Current_session.current_match.match_attributes.Add(new_match_attribute("custom_game", Regex.Match(line, @": (.+?)$").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("queueTag"))
-                Current_session.current_match_data.match_attributes.Add(new_match_attribute("queueTag", Regex.Match(line, @": (.+?)$").Groups[1].Value.Replace(" ", "")));
+                Current_session.current_match.match_attributes.Add(new_match_attribute("queueTag", Regex.Match(line, @": (.+?)$").Groups[1].Value.Replace(" ", "")));
         }
 
         public static string decode_match_type(int match_type)
@@ -872,6 +841,10 @@ namespace CO_Driver
                     return "Present Heist";
                 case global_data.ADVENTURE_MATCH:
                     return "Adventure";
+                case global_data.PATROL_MATCH:
+                    return "Patrol";
+                case global_data.STANDARD_RESTRICTED_MATCH:
+                    return "Restricted 8v8";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:
@@ -910,7 +883,7 @@ namespace CO_Driver
 
             assign_local_user_build_parts(Current_session);
 
-            BuildRecord local_build = Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash];
+            BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash];
 
             //CABIN NAMING
             if (local_build.cabin.description.Length > 0)
@@ -1116,12 +1089,12 @@ namespace CO_Driver
             local_build.archetype_description = "";
             local_build.full_description = long_description;
             local_build.short_description = short_description;
-            Current_session.player_build_records[Current_session.player_records[Current_session.local_user].build_hash] = local_build;
+            Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash] = local_build;
         }
 
         public static void generate_stat_card(SessionStats Current_session)
         {
-            if (!Current_session.player_records.ContainsKey(Current_session.local_user))
+            if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
 
             int game_mode = global_data.STANDARD_MATCH;
@@ -1132,16 +1105,16 @@ namespace CO_Driver
             int total_kills;
             int total_deaths;
 
-            total_wins = Current_session.player_records[Current_session.local_user].category_stats[game_mode].wins;
-            total_losses = Current_session.player_records[Current_session.local_user].category_stats[game_mode].losses;
-            total_games = Current_session.player_records[Current_session.local_user].category_stats[game_mode].games;
+            total_wins = 0;
+            total_losses = 0;
+            total_games = 0;
 
             if (total_games == 0)
                 return;
 
-            total_damage = Current_session.player_records[Current_session.local_user].category_stats[game_mode].damage;
-            total_kills = Current_session.player_records[Current_session.local_user].category_stats[game_mode].kills;
-            total_deaths = Current_session.player_records[Current_session.local_user].category_stats[game_mode].deaths;
+            total_damage = 0;
+            total_kills = 0;
+            total_deaths = 0;
 
             List<String> lines = new List<String> { };
 
@@ -1165,14 +1138,12 @@ namespace CO_Driver
                 nickname = "",
                 uid = 0,
                 bot = 0,
-                in_game = true,
                 party_id = 0,
                 build_hash = "",
                 power_score = 0,
-                current_team = 0,
-                in_game_stats = new_stats(),
-                stripes = new Dictionary<string, int> { },
-                category_stats = new Dictionary<int, Stats> { }
+                team = 0,
+                stats = new_stats(),
+                stripes = new List<string> { }
             };
 
             return player;
@@ -1188,8 +1159,8 @@ namespace CO_Driver
                 party_id = player.party_id,
                 build_hash = player.build_hash,
                 power_score = player.power_score,
-                team = player.current_team,
-                stats = player.in_game_stats,
+                team = player.team,
+                stats = player.stats,
                 stripes = player.stripes
             };
         }
@@ -1256,8 +1227,7 @@ namespace CO_Driver
                 match_id = 0,
                 team_1 = "",
                 team_2 = "",
-                match_data = new_match_data(),
-                local_player = new PlayerMatchRecord { }
+                match_data = new_match_data()
             };
         }
 
@@ -1265,7 +1235,6 @@ namespace CO_Driver
         {
             return new MatchData
             {
-                player_count = 0,
                 map_name = "",
                 match_type = global_data.UNDEFINED_MATCH,
                 match_type_desc = "",
@@ -1276,11 +1245,13 @@ namespace CO_Driver
                 match_start = new DateTime { },
                 match_end = new DateTime { },
                 match_duration_seconds = 0.0,
-                passed_end_of_match_event = false,
-                passed_match_reward_event = false,
                 add_match_to_record = false,
+                nemesis = "",
+                victims = new List<string> { },
                 match_attributes = new List<MatchAttribute> { },
-                match_rewards = new Dictionary<string, int> { }
+                match_rewards = new Dictionary<string, int> { },
+                local_player = new_player(),
+                player_records = new Dictionary<string, Player> { }
             };
         }
 
@@ -1340,11 +1311,10 @@ namespace CO_Driver
             };
         }
 
-        public UserProfileResponse new_user_profile(Player local_player, List<MatchRecord> matches, Dictionary<string, BuildRecord> builds)
+        public UserProfileResponse new_user_profile(List<MatchRecord> matches, Dictionary<string, BuildRecord> builds)
         {
             return new UserProfileResponse
             {
-                local_player_record = local_player,
                 match_history = matches,
                 build_records = builds
             };

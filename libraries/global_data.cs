@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.57";
+        public static string CURRENT_VERSION = "0.0.1.63";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -47,7 +47,9 @@ namespace CO_Driver
         public const int BEDLAM_MATCH = 10;
         public const int ADVENTURE_MATCH = 11;
         public const int PRESENT_HEIST_MATCH = 12;
-        public const int UNDEFINED_MATCH = 13;
+        public const int PATROL_MATCH = 13;
+        public const int STANDARD_RESTRICTED_MATCH = 14;
+        public const int UNDEFINED_MATCH = 15;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
@@ -84,6 +86,17 @@ namespace CO_Driver
         public const int BUILD_POPULATE_EVENT = 6;
         public const int POPULATE_STATIC_ELEMENTS_EVENT = 7;
         public const int DEBUG_GIVE_LINE_UPDATE_EVENT = 8;
+
+        public const string GAME_MODE_FILTER_DEFAULT = "All Game Modes";
+        public const string GROUP_FILTER_DEFAULT = "Solo/Grouped";
+        public const string MAP_FILTER_DEFAULT = "All Maps";
+        public const string POWER_SCORE_FILTER_DEFAULT = "All Power Scores";
+        public const string CLIENT_VERSION_FILTER_DEFAULT = "All Versions";
+        public const string WEAPONS_FILTER_DEFAULT = "All Weapons";
+        public const string MOVEMENT_FILTER_DEFAULT = "All Movement";
+        public const string MODULE_FILTER_DEFAULT = "All Modules";
+
+
 
         public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
     }

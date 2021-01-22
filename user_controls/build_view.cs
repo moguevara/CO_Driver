@@ -26,11 +26,11 @@ namespace CO_Driver
         public file_trace_managment.MatchHistoryResponse match_history = new file_trace_managment.MatchHistoryResponse { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         private Dictionary<string, BuildStats> build_stats = new Dictionary<string, BuildStats> { };
-        private string game_mode_filter = "All Game Modes";
-        private string group_filter = "Solo/Grouped";
-        private string map_filter = "All Maps";
-        private string power_score_filter = "All Power Scores";
-        private string client_versions_filter = "All Versions";
+        private string game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
+        private string group_filter = global_data.GROUP_FILTER_DEFAULT;
+        private string map_filter = global_data.MAP_FILTER_DEFAULT;
+        private string power_score_filter = global_data.POWER_SCORE_FILTER_DEFAULT;
+        private string client_versions_filter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
         private string new_selection = "";
         private string previous_selection = "";
 
@@ -54,114 +54,114 @@ namespace CO_Driver
 
             reset_filters();
 
-            foreach (file_trace_managment.MatchRecord match in match_history.match_history)
+            foreach (file_trace_managment.MatchRecord match in match_history.match_history.ToList())
             {
-                if (game_mode_filter != "All Game Modes" && game_mode_filter != match.match_data.match_type_desc)
+                if (game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && game_mode_filter != match.match_data.match_type_desc)
                     continue;
 
-                if (group_filter == "Solo" && match.local_player.party_id > 0)
+                if (group_filter == "Solo" &&  match.match_data.local_player.party_id > 0)
                     continue;
 
-                if (group_filter == "Grouped" && match.local_player.party_id == 0)
+                if (group_filter == "Grouped" &&  match.match_data.local_player.party_id == 0)
                     continue;
 
-                if (map_filter != "All Maps" && map_filter != match.match_data.map_name)
+                if (map_filter != global_data.MAP_FILTER_DEFAULT && map_filter != match.match_data.map_name)
                     continue;
 
-                if (client_versions_filter != "All Versions" && client_versions_filter != match.match_data.client_version)
+                if (client_versions_filter != global_data.CLIENT_VERSION_FILTER_DEFAULT && client_versions_filter != match.match_data.client_version)
                     continue;
 
-                if (power_score_filter != "All Power Scores")
+                if (power_score_filter != global_data.POWER_SCORE_FILTER_DEFAULT)
                 {
-                    if (power_score_filter == "0-2499" && (match.local_player.power_score < 0 || match.local_player.power_score > 2499))
+                    if (power_score_filter == "0-2499" && ( match.match_data.local_player.power_score < 0 ||  match.match_data.local_player.power_score > 2499))
                         continue;
 
-                    if (power_score_filter == "2500-3499" && (match.local_player.power_score < 2500 || match.local_player.power_score > 3499))
+                    if (power_score_filter == "2500-3499" && ( match.match_data.local_player.power_score < 2500 ||  match.match_data.local_player.power_score > 3499))
                         continue;
 
-                    if (power_score_filter == "3500-4499" && (match.local_player.power_score < 3500 || match.local_player.power_score > 4499))
+                    if (power_score_filter == "3500-4499" && ( match.match_data.local_player.power_score < 3500 ||  match.match_data.local_player.power_score > 4499))
                         continue;
 
-                    if (power_score_filter == "4500-5499" && (match.local_player.power_score < 4500 || match.local_player.power_score > 5499))
+                    if (power_score_filter == "4500-5499" && ( match.match_data.local_player.power_score < 4500 ||  match.match_data.local_player.power_score > 5499))
                         continue;
 
-                    if (power_score_filter == "5500-6499" && (match.local_player.power_score < 5500 || match.local_player.power_score > 6499))
+                    if (power_score_filter == "5500-6499" && ( match.match_data.local_player.power_score < 5500 ||  match.match_data.local_player.power_score > 6499))
                         continue;
 
-                    if (power_score_filter == "6500-7499" && (match.local_player.power_score < 6500 || match.local_player.power_score > 7499))
+                    if (power_score_filter == "6500-7499" && ( match.match_data.local_player.power_score < 6500 ||  match.match_data.local_player.power_score > 7499))
                         continue;
 
-                    if (power_score_filter == "7500-8499" && (match.local_player.power_score < 7500 || match.local_player.power_score > 8499))
+                    if (power_score_filter == "7500-8499" && ( match.match_data.local_player.power_score < 7500 ||  match.match_data.local_player.power_score > 8499))
                         continue;
 
-                    if (power_score_filter == "8500-9499" && (match.local_player.power_score < 8500 || match.local_player.power_score > 9499))
+                    if (power_score_filter == "8500-9499" && ( match.match_data.local_player.power_score < 8500 ||  match.match_data.local_player.power_score > 9499))
                         continue;
 
-                    if (power_score_filter == "9500-12999" && (match.local_player.power_score < 9500 || match.local_player.power_score > 12999))
+                    if (power_score_filter == "9500-12999" && ( match.match_data.local_player.power_score < 9500 ||  match.match_data.local_player.power_score > 12999))
                         continue;
 
-                    if (power_score_filter == "13000+" && (match.local_player.power_score < 13000 || match.local_player.power_score > 22000))
+                    if (power_score_filter == "13000+" && ( match.match_data.local_player.power_score < 13000 ||  match.match_data.local_player.power_score > 22000))
                         continue;
 
-                    if (power_score_filter == "Leviathian" && match.local_player.power_score < 22000)
+                    if (power_score_filter == "Leviathian" &&  match.match_data.local_player.power_score < 22000)
                         continue;
                 }
 
                 if (!game_modes.Contains(match.match_data.match_type_desc))
                     game_modes.Add((match.match_data.match_type_desc));
 
-                if (match.local_player.party_id == 0 && !grouped.Contains("Solo"))
+                if ( match.match_data.local_player.party_id == 0 && !grouped.Contains("Solo"))
                     grouped.Add("Solo");
 
-                if (match.local_player.party_id > 0 && !grouped.Contains("Grouped"))
+                if ( match.match_data.local_player.party_id > 0 && !grouped.Contains("Grouped"))
                     grouped.Add("Grouped");
 
                 if (!maps.Contains(match.match_data.map_name))
                     maps.Add((match.match_data.map_name));
 
-                if (match.local_player.power_score >= 0 && match.local_player.power_score <= 2499 && !power_scores.Contains("0-2499"))
+                if ( match.match_data.local_player.power_score >= 0 &&  match.match_data.local_player.power_score <= 2499 && !power_scores.Contains("0-2499"))
                     power_scores.Add("0-2499");
 
-                if (match.local_player.power_score >= 2500 && match.local_player.power_score <= 2499 && !power_scores.Contains("2500-3499"))
+                if ( match.match_data.local_player.power_score >= 2500 &&  match.match_data.local_player.power_score <= 2499 && !power_scores.Contains("2500-3499"))
                     power_scores.Add("2500-3499");
 
-                if (match.local_player.power_score >= 3500 && match.local_player.power_score <= 4499 && !power_scores.Contains("3500-4499"))
+                if ( match.match_data.local_player.power_score >= 3500 &&  match.match_data.local_player.power_score <= 4499 && !power_scores.Contains("3500-4499"))
                     power_scores.Add("3500-4499");
 
-                if (match.local_player.power_score >= 4500 && match.local_player.power_score <= 5499 && !power_scores.Contains("4500-5499"))
+                if ( match.match_data.local_player.power_score >= 4500 &&  match.match_data.local_player.power_score <= 5499 && !power_scores.Contains("4500-5499"))
                     power_scores.Add("4500-5499");
 
-                if (match.local_player.power_score >= 5500 && match.local_player.power_score <= 6499 && !power_scores.Contains("5500-6499"))
+                if ( match.match_data.local_player.power_score >= 5500 &&  match.match_data.local_player.power_score <= 6499 && !power_scores.Contains("5500-6499"))
                     power_scores.Add("5500-6499");
 
-                if (match.local_player.power_score >= 6500 && match.local_player.power_score <= 7499 && !power_scores.Contains("6500-7499"))
+                if ( match.match_data.local_player.power_score >= 6500 &&  match.match_data.local_player.power_score <= 7499 && !power_scores.Contains("6500-7499"))
                     power_scores.Add("6500-7499");
 
-                if (match.local_player.power_score >= 7500 && match.local_player.power_score <= 8499 && !power_scores.Contains("7500-8499"))
+                if ( match.match_data.local_player.power_score >= 7500 &&  match.match_data.local_player.power_score <= 8499 && !power_scores.Contains("7500-8499"))
                     power_scores.Add("7500-8499");
 
-                if (match.local_player.power_score >= 8500 && match.local_player.power_score <= 9499 && !power_scores.Contains("8500-9499"))
+                if ( match.match_data.local_player.power_score >= 8500 &&  match.match_data.local_player.power_score <= 9499 && !power_scores.Contains("8500-9499"))
                     power_scores.Add("8500-9499");
 
-                if (match.local_player.power_score >= 9500 && match.local_player.power_score <= 12999 && !power_scores.Contains("9500-12999"))
+                if ( match.match_data.local_player.power_score >= 9500 &&  match.match_data.local_player.power_score <= 12999 && !power_scores.Contains("9500-12999"))
                     power_scores.Add("9500-12999");
 
-                if (match.local_player.power_score >= 13000 && match.local_player.power_score <= 22000 && !power_scores.Contains("13000+"))
+                if ( match.match_data.local_player.power_score >= 13000 &&  match.match_data.local_player.power_score <= 22000 && !power_scores.Contains("13000+"))
                     power_scores.Add("13000+");
 
-                if (match.local_player.power_score >= 22000 && !power_scores.Contains("Leviathian"))
+                if ( match.match_data.local_player.power_score >= 22000 && !power_scores.Contains("Leviathian"))
                     power_scores.Add("Leviathian");
 
                 if (!client_versions.Contains(match.match_data.client_version))
                     client_versions.Add((match.match_data.client_version));
 
-                if (!build_stats.ContainsKey(match.local_player.build_hash))
+                if (!build_stats.ContainsKey( match.match_data.local_player.build_hash))
                 {
-                    build_stats.Add(match.local_player.build_hash, new BuildStats { build_hash = match.local_player.build_hash, power_score = match.local_player.power_score, stats = match.local_player.stats });
+                    build_stats.Add( match.match_data.local_player.build_hash, new BuildStats { build_hash =  match.match_data.local_player.build_hash, power_score =  match.match_data.local_player.power_score, stats =  match.match_data.local_player.stats });
                 }
                 else
                 {
-                    build_stats[match.local_player.build_hash].stats = file_trace_managment.sum_stats(build_stats[match.local_player.build_hash].stats, match.local_player.stats);
+                    build_stats[ match.match_data.local_player.build_hash].stats = file_trace_managment.sum_stats(build_stats[ match.match_data.local_player.build_hash].stats,  match.match_data.local_player.stats);
                 }
             }
         }
@@ -174,11 +174,11 @@ namespace CO_Driver
             power_scores = new List<string> { };
             client_versions = new List<string> { };
 
-            game_modes.Add("All Game Modes");
-            grouped.Add("Solo/Grouped");
-            maps.Add("All Maps");
-            power_scores.Add("All Power Scores");
-            client_versions.Add("All Versions");
+            game_modes.Add(global_data.GAME_MODE_FILTER_DEFAULT);
+            grouped.Add(global_data.GROUP_FILTER_DEFAULT);
+            maps.Add(global_data.MAP_FILTER_DEFAULT);
+            power_scores.Add(global_data.POWER_SCORE_FILTER_DEFAULT);
+            client_versions.Add(global_data.CLIENT_VERSION_FILTER_DEFAULT);
         }
 
         private void populate_filters()
@@ -189,10 +189,10 @@ namespace CO_Driver
             cb_power_score.Items.Clear();
             cb_client_version.Items.Clear();
 
-            game_modes = game_modes.OrderBy(x => x != "All Game Modes").ThenBy(x => x).ToList();
-            maps = maps.OrderBy(x => x != "All Maps").ThenBy(x => x).ToList();
-            power_scores = power_scores.OrderBy(x => x != "All Power Scores").ThenBy(x => x).ToList();
-            client_versions = client_versions.OrderBy(x => x != "All Versions").ThenBy(x => x).ToList();
+            game_modes = game_modes.OrderBy(x => x != global_data.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            maps = maps.OrderBy(x => x != global_data.MAP_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            power_scores = power_scores.OrderBy(x => x != global_data.POWER_SCORE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            client_versions = client_versions.OrderBy(x => x != global_data.CLIENT_VERSION_FILTER_DEFAULT).ThenBy(x => x).ToList();
 
             if (power_scores.Contains("13000+"))
             {
@@ -326,10 +326,10 @@ namespace CO_Driver
 
         private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.ColumnIndex == 0)
-                e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.Single;
-
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            if (this.dg_build_view_grid.SelectedCells.Count == 0)
                 return;
 
             List<int> selected_rows = new List<int> { };
@@ -389,11 +389,11 @@ namespace CO_Driver
         private void btn_reset_filters_Click(object sender, EventArgs e)
         {
             reset_filters();
-            game_mode_filter = "All Game Modes";
-            group_filter = "Solo/Grouped";
-            map_filter = "All Maps";
-            power_score_filter = "All Power Scores";
-            client_versions_filter = "All Versions";
+            game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
+            group_filter = global_data.GROUP_FILTER_DEFAULT;
+            map_filter = global_data.MAP_FILTER_DEFAULT;
+            power_score_filter = global_data.POWER_SCORE_FILTER_DEFAULT;
+            client_versions_filter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
             populate_build_record_table();
         }
 

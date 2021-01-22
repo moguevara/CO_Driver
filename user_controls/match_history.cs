@@ -12,7 +12,7 @@ namespace CO_Driver
 {
     public partial class match_history : UserControl
     {
-        public file_trace_managment.MatchHistoryResponse history_data = new file_trace_managment.MatchHistoryResponse { };
+        public List<file_trace_managment.MatchRecord> history = new List<file_trace_managment.MatchRecord> { };
         public file_trace_managment.MatchRecord last_match_data = new file_trace_managment.MatchRecord { };
         public match_history()
         {
@@ -29,30 +29,26 @@ namespace CO_Driver
             this.dg_match_history_view.Rows.Clear();
             this.dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
             this.dg_match_history_view.AllowUserToAddRows = true;
-            int i = 0;
-            foreach (file_trace_managment.MatchRecord match in history_data.match_history)
+            foreach (file_trace_managment.MatchRecord match in history.ToList())
             {
-                if (i > 500)
-                    break;
                 DataGridViewRow row = (DataGridViewRow)this.dg_match_history_view.Rows[0].Clone();
                 TimeSpan duration = match.match_data.match_end - match.match_data.match_start;
                 row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
                 row.Cells[1].Value = match.match_data.match_start;
                 row.Cells[2].Value = string.Format(@"{0}M{1}s", duration.Minutes, duration.Seconds);
                 row.Cells[3].Value = match.match_data.map_name;
-                row.Cells[4].Value = match.local_player.build_hash;
-                row.Cells[5].Value = match.local_player.power_score;
-                row.Cells[6].Value = match.local_player.stats.score;
-                row.Cells[7].Value = match.local_player.stats.kills;
-                row.Cells[8].Value = match.local_player.stats.assists;
-                row.Cells[9].Value = match.local_player.stats.drone_kills;
-                row.Cells[10].Value = Math.Round(match.local_player.stats.damage, 1);
-                row.Cells[11].Value = Math.Round(match.local_player.stats.damage_taken, 1);
+                row.Cells[4].Value =  match.match_data.local_player.build_hash;
+                row.Cells[5].Value =  match.match_data.local_player.power_score;
+                row.Cells[6].Value =  match.match_data.local_player.stats.score;
+                row.Cells[7].Value =  match.match_data.local_player.stats.kills;
+                row.Cells[8].Value =  match.match_data.local_player.stats.assists;
+                row.Cells[9].Value =  match.match_data.local_player.stats.drone_kills;
+                row.Cells[10].Value = Math.Round( match.match_data.local_player.stats.damage, 1);
+                row.Cells[11].Value = Math.Round( match.match_data.local_player.stats.damage_taken, 1);
                 row.Cells[12].Value = match.match_data.game_result;
                 row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
                 this.dg_match_history_view.Rows.Add(row);
-                i++;
             }
 
             this.dg_match_history_view.AllowUserToAddRows = false;
@@ -70,14 +66,14 @@ namespace CO_Driver
             row.Cells[1].Value = last_match_data.match_data.match_start;
             row.Cells[2].Value = string.Format(@"{0}M{1}s", duration.Minutes, duration.Seconds);
             row.Cells[3].Value = last_match_data.match_data.map_name;
-            row.Cells[4].Value = last_match_data.local_player.build_hash;
-            row.Cells[5].Value = last_match_data.local_player.power_score;
-            row.Cells[6].Value = last_match_data.local_player.stats.score;
-            row.Cells[7].Value = last_match_data.local_player.stats.kills;
-            row.Cells[8].Value = last_match_data.local_player.stats.assists;
-            row.Cells[9].Value = last_match_data.local_player.stats.drone_kills;
-            row.Cells[10].Value = Math.Round(last_match_data.local_player.stats.damage, 1);
-            row.Cells[11].Value = Math.Round(last_match_data.local_player.stats.damage_taken, 1);
+            row.Cells[4].Value = last_match_data.match_data.local_player.build_hash;
+            row.Cells[5].Value = last_match_data.match_data.local_player.power_score;
+            row.Cells[6].Value = last_match_data.match_data.local_player.stats.score;
+            row.Cells[7].Value = last_match_data.match_data.local_player.stats.kills;
+            row.Cells[8].Value = last_match_data.match_data.local_player.stats.assists;
+            row.Cells[9].Value = last_match_data.match_data.local_player.stats.drone_kills;
+            row.Cells[10].Value = Math.Round(last_match_data.match_data.local_player.stats.damage, 1);
+            row.Cells[11].Value = Math.Round(last_match_data.match_data.local_player.stats.damage_taken, 1);
             row.Cells[12].Value = last_match_data.match_data.game_result;
             row.Cells[13].Value = string.Join(",", last_match_data.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
             this.dg_match_history_view.Rows.Add(row);

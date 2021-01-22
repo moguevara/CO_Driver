@@ -191,10 +191,10 @@ namespace CO_Driver
             file_trace_managment ftm = new file_trace_managment();
             ftm.initialize_session_stats(Current_session);
             process_historic_files(ftm, Current_session);
+            populate_static_elements(Current_session);
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
-            populate_static_elements(Current_session);
             System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
         }
@@ -225,7 +225,6 @@ namespace CO_Driver
         {
             bw_file_feed.ReportProgress(global_data.POPULATE_USER_PROFILE_EVENT, 
                 file_trace_manager.new_user_profile(
-                    Current_session.player_records[Current_session.local_user],
                     Current_session.match_history,
                     Current_session.player_build_records));
         }
@@ -256,29 +255,26 @@ namespace CO_Driver
             {
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating User Profile" + Environment.NewLine));
                 file_trace_managment.UserProfileResponse response = (file_trace_managment.UserProfileResponse)e.UserState;
-                //this.user_profile_page.local_player_data = response.local_player_record;
-                //this.user_profile_page.match_history_data = response.match_history;
-                //this.user_profile_page.local_player_build_data = response.build_records;
-                //this.user_profile_page.populate_user_profile_screen(file_trace_manager);
+                this.user_profile_page.match_history = response.match_history;
+                this.user_profile_page.build_records = response.build_records;
+                this.user_profile_page.populate_user_profile_screen();
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
             {
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
-                this.match_history_page.history_data = (file_trace_managment.MatchHistoryResponse)e.UserState;
-                this.build_page.match_history = (file_trace_managment.MatchHistoryResponse)e.UserState;
-                this.user_profile_page.match_history = (file_trace_managment.MatchHistoryResponse)e.UserState;
+                file_trace_managment.MatchHistoryResponse response = (file_trace_managment.MatchHistoryResponse)e.UserState;
+                this.match_history_page.history = response.match_history;
+                this.build_page.match_history = response;
                 this.match_history_page.refersh_history_table();
                 this.build_page.populate_build_record_table();
-                this.user_profile_page.populate_user_profile_screen();
+                
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
             {
                 file_trace_managment.MatchEndResponse response = (file_trace_managment.MatchEndResponse)e.UserState;
-
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.match_data.match_start));
-
                 this.match_history_page.last_match_data = response.last_match;
                 this.match_history_page.add_last_match_to_table();
             }
@@ -288,9 +284,7 @@ namespace CO_Driver
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
                 this.build_page.build_records = response.build_records;
-                this.user_profile_page.build_records = response.build_records;
                 this.build_page.populate_build_record_table();
-                this.user_profile_page.populate_user_profile_screen();
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_STATIC_ELEMENTS_EVENT)
@@ -496,7 +490,7 @@ namespace CO_Driver
             {
                 case global_data.MATCH_REWARD_EVENT:
                     file_trace_managment.match_reward_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
+                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.MATCH_PROPERTY_EVENT:
@@ -518,7 +512,7 @@ namespace CO_Driver
             {
                 case global_data.MATCH_START_EVENT:
                     file_trace_managment.match_start_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
+                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.LOAD_PLAYER_EVENT:
@@ -547,7 +541,7 @@ namespace CO_Driver
                     break;
                 case global_data.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match_data.add_match_to_record == true)
+                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
                         bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
             }
