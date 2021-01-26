@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.63";
+        public static string CURRENT_VERSION = "0.0.1.64";
 
         public const int FILE_BUFFER_SIZE = 256;
 

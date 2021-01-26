@@ -28,6 +28,7 @@ namespace CO_Driver
         build_view build_page = new build_view();
         part_optimizer part_page = new part_optimizer();
         part_view avail_part_page = new part_view();
+        previous_match last_match_page = new previous_match();
 
         public frm_main_page()
         {
@@ -35,6 +36,9 @@ namespace CO_Driver
         }
         private void CO_Driver_load(object sender, EventArgs e)
         {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
             log_file_manager.find_log_file_path();
@@ -54,7 +58,14 @@ namespace CO_Driver
 
             this.Text = string.Format(@"CO-Driver v{0}", global_data.CURRENT_VERSION);
             System.Threading.Thread.Sleep(1000);
-            bw_file_feed.RunWorkerAsync();
+            try
+            {
+                bw_file_feed.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Background worked failed:" + ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -156,16 +167,6 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(match_history_page);
         }
-        private void clanWarScheduleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(schedule_page);
-        }
-        private void eventScheduleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(schedule_page);
-        }
         private void partOptimizationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
@@ -184,6 +185,22 @@ namespace CO_Driver
             main_page_panel.Controls.Add(build_page);
         }
 
+        private void previousMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(last_match_page);
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(schedule_page);
+        }
 
         private void process_log_files(object sender, DoWorkEventArgs e)
         {
@@ -253,7 +270,7 @@ namespace CO_Driver
             else
             if (e.ProgressPercentage == global_data.POPULATE_USER_PROFILE_EVENT)
             {
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating User Profile" + Environment.NewLine));
+                //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating User Profile" + Environment.NewLine));
                 file_trace_managment.UserProfileResponse response = (file_trace_managment.UserProfileResponse)e.UserState;
                 this.user_profile_page.match_history = response.match_history;
                 this.user_profile_page.build_records = response.build_records;
@@ -262,7 +279,7 @@ namespace CO_Driver
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
             {
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
+                //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 file_trace_managment.MatchHistoryResponse response = (file_trace_managment.MatchHistoryResponse)e.UserState;
                 this.match_history_page.history = response.match_history;
                 this.build_page.match_history = response;
@@ -273,15 +290,17 @@ namespace CO_Driver
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
             {
-                file_trace_managment.MatchEndResponse response = (file_trace_managment.MatchEndResponse)e.UserState;
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.match_data.match_start));
-                this.match_history_page.last_match_data = response.last_match;
-                this.match_history_page.add_last_match_to_table();
+                file_trace_managment.MatchEndResponse response = new file_trace_managment.MatchEndResponse { };
+                response = (file_trace_managment.MatchEndResponse)e.UserState;
+                welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.match_start));
+                last_match_page.last_match_data = response.last_match;
+                last_match_page.last_build_record = response.last_build;
+                last_match_page.populate_previous_match();
             }
             else 
             if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
             {
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
+                //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
                 this.build_page.build_records = response.build_records;
                 this.build_page.populate_build_record_table();
@@ -303,7 +322,7 @@ namespace CO_Driver
             if (e.ProgressPercentage == global_data.DEBUG_GIVE_LINE_UPDATE_EVENT)
             {
                 file_trace_managment.DebugResponse response = (file_trace_managment.DebugResponse)e.UserState;
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"{0}" + Environment.NewLine, response.line));
+                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"{0}{1}" + Environment.NewLine, response.event_type, response.line));
             }
         }
 
@@ -380,129 +399,151 @@ namespace CO_Driver
                 current_progress++;
                 session.processed = true;
             }
+
         }
 
-    private void process_live_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
+        private void process_live_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
         {
+            bool found_new_file = false;
+
             FileInfo combat_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-            FileInfo game_trace_file =   new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo game_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
             Current_session.live_trace_data = true;
             Current_session.file_data.processing_combat_session_file = combat_trace_file;
             Current_session.file_data.processing_game_session_file = game_trace_file;
             Current_session.file_data.processing_combat_session_file_day = combat_trace_file.CreationTime;
 
-            using (AutoResetEvent game_auto_reset = new AutoResetEvent(false))
-            using (AutoResetEvent combat_auto_reset = new AutoResetEvent(false))
+            AutoResetEvent game_auto_reset = new AutoResetEvent(false);
+            AutoResetEvent combat_auto_reset = new AutoResetEvent(false);
+            FileSystemWatcher game_file_system_watcher = new FileSystemWatcher(".");
+            FileSystemWatcher combat_file_system_watcher = new FileSystemWatcher(".");
+            game_file_system_watcher.Filter = game_trace_file.FullName;
+            combat_file_system_watcher.Filter = combat_trace_file.FullName;
+            game_file_system_watcher.EnableRaisingEvents = true;
+            combat_file_system_watcher.EnableRaisingEvents = true;
+            game_file_system_watcher.Changed += (s, e) => game_auto_reset.Set();
+            combat_file_system_watcher.Changed += (s, e) => combat_auto_reset.Set();
+
+            long start_time = DateTime.Now.Ticks;
+            bool first = true;
+            FileStream game_file_stream = new FileStream(game_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            FileStream combat_file_stream = new FileStream(combat_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader game_reader = new StreamReader(game_file_stream);
+            StreamReader combat_reader = new StreamReader(combat_file_stream);
+
+            try
             {
-                using (FileSystemWatcher game_file_system_watcher = new FileSystemWatcher("."))
-                using (FileSystemWatcher combat_file_system_watcher = new FileSystemWatcher("."))
+                string game_line = game_reader.ReadLine();
+                string combat_line = game_line = combat_reader.ReadLine();
+
+                while (found_new_file == false)
                 {
-                    game_file_system_watcher.Filter = game_trace_file.FullName;
-                    combat_file_system_watcher.Filter = combat_trace_file.FullName;
-                    game_file_system_watcher.EnableRaisingEvents = true;
-                    combat_file_system_watcher.EnableRaisingEvents = true;
-                    game_file_system_watcher.Changed += (s, e) => game_auto_reset.Set();
-                    combat_file_system_watcher.Changed += (s, e) => combat_auto_reset.Set();
-
-                    long start_time = DateTime.Now.Ticks;
-                    bool found_new_file = false;
-                    bool first = true;
-
-                    using (FileStream game_file_stream = new FileStream(game_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (FileStream combat_file_stream = new FileStream(combat_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    if (combat_line != null && combat_line.Length == 0)
                     {
-                        using (StreamReader game_reader = new StreamReader(game_file_stream))
-                        using (StreamReader combat_reader = new StreamReader(combat_file_stream))
+                        combat_line = combat_reader.ReadLine();
+                    }
+                    else
+                    if (game_line != null && game_line.Length == 0)
+                    {
+                        game_line = game_reader.ReadLine();
+                    }
+                    else
+                    if (game_line != null && game_line.Substring(0, 9) == "--- Date:")
+                    {
+                        game_line = game_reader.ReadLine();
+                    }
+                    else
+                    if (combat_line != null && game_line != null)
+                    {
+                        if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
                         {
-                            string game_line = game_reader.ReadLine();
-                            string combat_line = game_line = combat_reader.ReadLine();
-
-                            while (found_new_file == false)
-                            {
-                                while (combat_line != null && combat_line.Length == 0)
-                                    combat_line = combat_reader.ReadLine();
-
-                                while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
-                                    game_line = game_reader.ReadLine();
-
-                                if (combat_line != null && game_line != null)
-                                {
-                                    if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
-                                    {
-                                        combat_log_event_handler(combat_line, Current_session);
-                                        combat_line = combat_reader.ReadLine();
-                                    }
-                                    else
-                                    {
-                                        game_log_event_handler(game_line, Current_session);
-                                        game_line = game_reader.ReadLine();
-                                    }
-                                    start_time = DateTime.Now.Ticks;
-                                }
-                                else
-                                if (combat_line != null)
-                                {
-                                    combat_log_event_handler(combat_line, Current_session);
-                                    combat_line = combat_reader.ReadLine();
-                                    start_time = DateTime.Now.Ticks;
-                                }
-                                else
-                                if (game_line != null)
-                                {
-                                    game_log_event_handler(game_line, Current_session);
-                                    game_line = game_reader.ReadLine();
-                                    start_time = DateTime.Now.Ticks;
-                                }
-                                else
-                                {
-                                    if (first == true)
-                                    {
-                                        first = false;
-                                        unlock_menu_strip();
-                                    }
-
-                                    if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
-                                    {
-                                        if (combat_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName &&
-                                            game_trace_file.FullName   != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log",   SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
-                                        {
-                                            found_new_file = true;
-                                        }
-                                        start_time = DateTime.Now.Ticks;
-                                    }
-                                    System.Threading.Thread.Sleep(500);
-                                }
-                            }
+                            combat_log_event_handler(combat_line, Current_session);
+                            combat_line = combat_reader.ReadLine();
                         }
+                        else
+                        {
+                            game_log_event_handler(game_line, Current_session);
+                            game_line = game_reader.ReadLine();
+                        }
+                        start_time = DateTime.Now.Ticks;
+                    }
+                    else
+                    if (combat_line != null)
+                    {
+                        combat_log_event_handler(combat_line, Current_session);
+                        combat_line = combat_reader.ReadLine();
+                        start_time = DateTime.Now.Ticks;
+                    }
+                    else
+                    if (game_line != null)
+                    {
+                        game_log_event_handler(game_line, Current_session);
+                        game_line = game_reader.ReadLine();
+                        start_time = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        if (first == true)
+                        {
+                            first = false;
+                            unlock_menu_strip();
+                        }
+
+                        if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
+                        {
+                            if (combat_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName ||
+                                game_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
+                            {
+                                found_new_file = true;
+                            }
+                            start_time = DateTime.Now.Ticks;
+                        }
+
+                        System.Threading.Thread.Sleep(100);
+                        combat_line = combat_reader.ReadLine();
+                        game_line = game_reader.ReadLine();
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error has occured with the background task." + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.StackTrace);
+            }
+            finally
+            {
+                game_auto_reset.Dispose();
+                combat_auto_reset.Dispose();
+                game_file_system_watcher.Dispose();
+                combat_file_system_watcher.Dispose();
+                game_file_stream.Dispose();
+                combat_file_stream.Dispose();
+                game_reader.Dispose();
+                combat_reader.Dispose();
+            }
             process_live_files(ftm, Current_session);
         }
         void game_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
+    {
+        file_trace_managment.assign_current_game_event(line, Current_session);
+        //if (Current_session.live_trace_data == true)
+        //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
+        switch (Current_session.current_event)
         {
-            file_trace_managment.assign_current_game_event(line, Current_session);
-            //if (Current_session.live_trace_data == true)
-            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
-            switch (Current_session.current_event)
-            {
-                case global_data.MATCH_REWARD_EVENT:
-                    file_trace_managment.match_reward_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
-                        bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
-                    break;
-                case global_data.MATCH_PROPERTY_EVENT:
-                    file_trace_managment.assign_match_property(line, Current_session);
-                    break;
-                case global_data.QUEST_EVENT:
-                    break;
-                case global_data.ASSIGN_CLIENT_VERSION_EVENT:
-                    file_trace_managment.assign_client_version_event(line, Current_session);
-                    break;
-            }
+            case global_data.MATCH_REWARD_EVENT:
+                file_trace_managment.match_reward_event(line, Current_session);
+                add_last_match(Current_session);
+                break;
+            case global_data.MATCH_PROPERTY_EVENT:
+                file_trace_managment.assign_match_property(line, Current_session);
+                break;
+            case global_data.QUEST_EVENT:
+                break;
+            case global_data.ASSIGN_CLIENT_VERSION_EVENT:
+                file_trace_managment.assign_client_version_event(line, Current_session);
+                break;
         }
+    }
         void combat_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
         {
             file_trace_managment.assign_current_combat_event(line, Current_session);
@@ -511,9 +552,8 @@ namespace CO_Driver
             switch (Current_session.current_event)
             {
                 case global_data.MATCH_START_EVENT:
+                    add_last_match(Current_session);
                     file_trace_managment.match_start_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
-                        bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
                     break;
                 case global_data.LOAD_PLAYER_EVENT:
                     file_trace_managment.load_player_event(line, Current_session);
@@ -538,15 +578,29 @@ namespace CO_Driver
                     break;
                 case global_data.MAIN_MENU_EVENT:
                     file_trace_managment.main_menu_event(line, Current_session);
+                    add_last_match(Current_session);
                     break;
                 case global_data.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
-                    if (Current_session.live_trace_data == true && Current_session.current_match.add_match_to_record == true)
-                        bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.match_history[Current_session.match_history.Count() - 1]));
+                    add_last_match(Current_session);
                     break;
             }
         }
 
-        
+        void add_last_match(file_trace_managment.SessionStats Current_session)
+        {
+            if (Current_session.live_trace_data == false)
+                return;
+
+            file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
+
+            if (Current_session.player_build_records.ContainsKey(Current_session.current_match.local_player.build_hash))
+                last_build_record = Current_session.player_build_records[Current_session.current_match.local_player.build_hash];
+
+            bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
+            populate_user_profile(Current_session);
+            populate_match_history(Current_session);
+            populate_build_records(Current_session);
+        }
     }
 }

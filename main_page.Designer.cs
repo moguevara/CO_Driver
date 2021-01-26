@@ -41,7 +41,6 @@
             this.partOptimizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.automaticPartOptimizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clanWarScheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inMatchDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTraceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamelogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +50,8 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
+            this.previousMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,18 +62,20 @@
             this.strp_main_menu_strip.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.strp_main_menu_strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userProfileToolStripMenuItem,
-            this.matchHistoryToolStripMenuItem,
+            this.previousMatchToolStripMenuItem,
             this.matchAnalysisToolStripMenuItem,
+            this.matchHistoryToolStripMenuItem,
             this.buildToolsToolStripMenuItem,
             this.scheduleToolStripMenuItem,
             this.inMatchDataToolStripMenuItem,
+            this.checkForUpdateToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.strp_main_menu_strip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.strp_main_menu_strip.Location = new System.Drawing.Point(0, 0);
             this.strp_main_menu_strip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.strp_main_menu_strip.Name = "strp_main_menu_strip";
             this.strp_main_menu_strip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 22);
+            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 23);
             this.strp_main_menu_strip.TabIndex = 2;
             this.strp_main_menu_strip.Text = "menuStrip1";
             this.strp_main_menu_strip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -142,18 +145,10 @@
             // 
             // scheduleToolStripMenuItem
             // 
-            this.scheduleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clanWarScheduleToolStripMenuItem});
             this.scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(75, 18);
-            this.scheduleToolStripMenuItem.Text = "Schedule";
-            // 
-            // clanWarScheduleToolStripMenuItem
-            // 
-            this.clanWarScheduleToolStripMenuItem.Name = "clanWarScheduleToolStripMenuItem";
-            this.clanWarScheduleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.clanWarScheduleToolStripMenuItem.Text = "Clan War Schedule";
-            this.clanWarScheduleToolStripMenuItem.Click += new System.EventHandler(this.clanWarScheduleToolStripMenuItem_Click);
+            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(138, 18);
+            this.scheduleToolStripMenuItem.Text = "Clan War Schedule";
+            this.scheduleToolStripMenuItem.Click += new System.EventHandler(this.scheduleToolStripMenuItem_Click);
             // 
             // inMatchDataToolStripMenuItem
             // 
@@ -215,9 +210,9 @@
             // main_page_panel
             // 
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_page_panel.Location = new System.Drawing.Point(0, 22);
+            this.main_page_panel.Location = new System.Drawing.Point(0, 23);
             this.main_page_panel.Name = "main_page_panel";
-            this.main_page_panel.Size = new System.Drawing.Size(1195, 601);
+            this.main_page_panel.Size = new System.Drawing.Size(1195, 600);
             this.main_page_panel.TabIndex = 3;
             // 
             // bw_file_feed
@@ -225,6 +220,20 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
+            // 
+            // previousMatchToolStripMenuItem
+            // 
+            this.previousMatchToolStripMenuItem.Name = "previousMatchToolStripMenuItem";
+            this.previousMatchToolStripMenuItem.Size = new System.Drawing.Size(117, 18);
+            this.previousMatchToolStripMenuItem.Text = "Previous Match";
+            this.previousMatchToolStripMenuItem.Click += new System.EventHandler(this.previousMatchToolStripMenuItem_Click);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(131, 18);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for Update";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 
@@ -271,11 +280,12 @@
         private System.ComponentModel.BackgroundWorker bw_file_feed;
         private System.Windows.Forms.ToolStripMenuItem matchHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scheduleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clanWarScheduleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem partOptimizationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matchAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem partViewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem automaticPartOptimizerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previousMatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
     }
 }
 

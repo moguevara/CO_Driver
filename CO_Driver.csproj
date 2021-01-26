@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="libraries\part_loader.cs" />
+    <Compile Include="user_controls\previous_match.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\previous_match.Designer.cs">
+      <DependentUpon>previous_match.cs</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\part_view.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     <EmbeddedResource Include="user_controls\part_view.resx">
       <DependentUpon>part_view.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\previous_match.resx">
+      <DependentUpon>previous_match.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\schedule_display.resx">
       <DependentUpon>schedule_display.cs</DependentUpon>
