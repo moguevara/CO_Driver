@@ -12,8 +12,8 @@ using System.Text.RegularExpressions;
 using CO_Driver.Properties;
 using System.Threading;
 using System.Globalization;
-
-
+using System.Net;
+using System.Diagnostics;
 
 namespace CO_Driver
 {
@@ -193,7 +193,26 @@ namespace CO_Driver
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            string version_json = string.Empty;
+            using (WebClient client = new WebClient())
+            {
+                version_json = client.DownloadString("https://codriver.dept116.com/version/codriver-dept116-latest-version.json");
+            }
+            if (Regex.Match(version_json, "{version:\\\"(?<version>.*)\\\"}").Groups["version"].Value == global_data.CURRENT_VERSION)
+            {
+                MessageBox.Show(string.Concat("You have the latest version. (", global_data.CURRENT_VERSION, ")"));
+            }
+            else if (MessageBox.Show("There is a newer version. Would you like to Update? The app will restart and use powershell to update.", "Update Ready", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ProcessStartInfo newProcessInfo = new ProcessStartInfo()
+                {
+                    FileName = "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+                    WorkingDirectory = Environment.CurrentDirectory,
+                    Verb = "runas",
+                    Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item \"CO_Driver.exe\";Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile \"CO_Driver.exe\";Start-Process \"CO_Driver.exe\";\""
+                };
+                Process.Start(newProcessInfo);
+            }
         }
 
         private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
