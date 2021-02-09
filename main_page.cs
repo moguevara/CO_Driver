@@ -677,7 +677,7 @@ namespace CO_Driver
                 FileName = "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
                 WorkingDirectory = Environment.CurrentDirectory,
                 Verb = "runas",
-                Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item \"CO_Driver.exe\";Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile \"CO_Driver.exe\";Start-Process \"CO_Driver.exe\";\""
+                Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item '" + Environment.CurrentDirectory + "\\CO_Driver.exe';Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile '" + Environment.CurrentDirectory + "\\CO_Driver.exe'; Start-Process '" + Environment.CurrentDirectory + "\\CO_Driver.exe';"
             };
             Process.Start(newProcessInfo);
         }
