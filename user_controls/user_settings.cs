@@ -24,12 +24,8 @@ namespace CO_Driver
             base.OnLoad(e);
             this.txt_local_user_input.Text = Settings.Default["local_user_name"].ToString();
             this.txt_log_file_location.Text = Settings.Default["log_file_location"].ToString();
-            this.chk_preserve_historical_data.Checked = Convert.ToBoolean(Settings.Default["preserve_historic_files"]);
             this.txt_historic_log_location.Text = Settings.Default["historic_file_location"].ToString();
-            this.num_preserved_file_count.Value = Convert.ToInt32(Settings.Default["max_preserved_file_count"]);
             this.cmb_language_drop_down.SelectedItem = Settings.Default["language"].ToString();
-            this.chk_beep_at_score.Checked = Convert.ToBoolean(Settings.Default["beep_at_in_game_score"]);
-            this.num_min_beep_score.Value = Convert.ToInt32(Settings.Default["minimum_score_to_beep"]);
             this.num_engineer_level.Value = Convert.ToInt32(Settings.Default["engineer_level"]);
             this.num_lunatic_level.Value = Convert.ToInt32(Settings.Default["lunatics_level"]);
             this.num_nomad_level.Value = Convert.ToInt32(Settings.Default["nomads_level"]);
@@ -46,12 +42,8 @@ namespace CO_Driver
         {
             Settings.Default["local_user_name"] = this.txt_local_user_input.Text;
             Settings.Default["log_file_location"] = this.txt_log_file_location.Text;
-            Settings.Default["preserve_historic_files"] = this.chk_preserve_historical_data.Checked;
             Settings.Default["historic_file_location"] = this.txt_historic_log_location.Text;
-            Settings.Default["max_preserved_file_count"] = Convert.ToInt32(this.num_preserved_file_count.Value);
             Settings.Default["language"] = this.cmb_language_drop_down.SelectedItem.ToString();
-            Settings.Default["beep_at_in_game_score"] = this.chk_beep_at_score.Checked;
-            Settings.Default["minimum_score_to_beep"] = Convert.ToInt32(this.num_min_beep_score.Value);
             Settings.Default["engineer_level"] = Convert.ToInt32(this.num_engineer_level.Value);
             Settings.Default["lunatics_level"] = Convert.ToInt32(this.num_lunatic_level.Value);
             Settings.Default["nomads_level"] = Convert.ToInt32(this.num_nomad_level.Value);
@@ -105,12 +97,8 @@ namespace CO_Driver
 
             this.txt_local_user_input.Text = Settings.Default["local_user_name"].ToString();
             this.txt_log_file_location.Text = Settings.Default["log_file_location"].ToString();
-            this.chk_preserve_historical_data.Checked = Convert.ToBoolean(Settings.Default["preserve_historic_files"]);
             this.txt_historic_log_location.Text = Settings.Default["historic_file_location"].ToString();
-            this.num_preserved_file_count.Value = Convert.ToInt32(Settings.Default["max_preserved_file_count"]);
             this.cmb_language_drop_down.SelectedItem = Settings.Default["language"].ToString();
-            this.chk_beep_at_score.Checked = Convert.ToBoolean(Settings.Default["beep_at_in_game_score"]);
-            this.num_min_beep_score.Value = Convert.ToInt32(Settings.Default["minimum_score_to_beep"]);
             this.num_engineer_level.Value = Convert.ToInt32(Settings.Default["engineer_level"]);
             this.num_lunatic_level.Value = Convert.ToInt32(Settings.Default["lunatics_level"]);
             this.num_nomad_level.Value = Convert.ToInt32(Settings.Default["nomads_level"]);
@@ -121,6 +109,16 @@ namespace CO_Driver
             this.num_founders_level.Value = Convert.ToInt32(Settings.Default["founders_level"]);
             this.chk_prestigue_parts.Checked = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
             this.chk_twitch_mode.Checked = Convert.ToBoolean(Settings.Default["generate_streaming_files"]);
+        }
+
+        private void chk_twitch_mode_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

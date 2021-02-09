@@ -47,7 +47,6 @@
             this.lb_user_name = new System.Windows.Forms.Label();
             this.cb_grouped = new System.Windows.Forms.ComboBox();
             this.cb_power_score = new System.Windows.Forms.ComboBox();
-            this.cb_sessions = new System.Windows.Forms.ComboBox();
             this.cb_movement = new System.Windows.Forms.ComboBox();
             this.cb_weapons = new System.Windows.Forms.ComboBox();
             this.cb_versions = new System.Windows.Forms.ComboBox();
@@ -160,6 +159,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cb_game_modes = new System.Windows.Forms.ComboBox();
             this.cb_modules = new System.Windows.Forms.ComboBox();
+            this.btn_save_user_settings = new System.Windows.Forms.Button();
             this.gb_resources.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_resources)).BeginInit();
             this.gb_map_data.SuspendLayout();
@@ -220,10 +220,10 @@
             this.cb_grouped.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_grouped.ForeColor = System.Drawing.Color.Lime;
             this.cb_grouped.FormattingEnabled = true;
-            this.cb_grouped.Location = new System.Drawing.Point(833, 3);
+            this.cb_grouped.Location = new System.Drawing.Point(648, 3);
             this.cb_grouped.MaxDropDownItems = 32;
             this.cb_grouped.Name = "cb_grouped";
-            this.cb_grouped.Size = new System.Drawing.Size(141, 22);
+            this.cb_grouped.Size = new System.Drawing.Size(190, 22);
             this.cb_grouped.TabIndex = 21;
             this.cb_grouped.SelectedIndexChanged += new System.EventHandler(this.cb_grouped_SelectedIndexChanged);
             // 
@@ -235,27 +235,12 @@
             this.cb_power_score.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_power_score.ForeColor = System.Drawing.Color.Lime;
             this.cb_power_score.FormattingEnabled = true;
-            this.cb_power_score.Location = new System.Drawing.Point(615, 3);
+            this.cb_power_score.Location = new System.Drawing.Point(430, 3);
             this.cb_power_score.MaxDropDownItems = 32;
             this.cb_power_score.Name = "cb_power_score";
             this.cb_power_score.Size = new System.Drawing.Size(212, 22);
             this.cb_power_score.TabIndex = 22;
             this.cb_power_score.SelectedIndexChanged += new System.EventHandler(this.cb_power_score_SelectedIndexChanged);
-            // 
-            // cb_sessions
-            // 
-            this.cb_sessions.BackColor = System.Drawing.Color.Black;
-            this.cb_sessions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_sessions.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cb_sessions.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_sessions.ForeColor = System.Drawing.Color.Lime;
-            this.cb_sessions.FormattingEnabled = true;
-            this.cb_sessions.Location = new System.Drawing.Point(430, 3);
-            this.cb_sessions.MaxDropDownItems = 32;
-            this.cb_sessions.Name = "cb_sessions";
-            this.cb_sessions.Size = new System.Drawing.Size(179, 22);
-            this.cb_sessions.TabIndex = 23;
-            this.cb_sessions.SelectedIndexChanged += new System.EventHandler(this.cb_sessions_SelectedIndexChanged);
             // 
             // cb_movement
             // 
@@ -1891,7 +1876,7 @@
             this.cb_game_modes.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_game_modes.ForeColor = System.Drawing.Color.Lime;
             this.cb_game_modes.FormattingEnabled = true;
-            this.cb_game_modes.Location = new System.Drawing.Point(980, 3);
+            this.cb_game_modes.Location = new System.Drawing.Point(844, 3);
             this.cb_game_modes.MaxDropDownItems = 32;
             this.cb_game_modes.Name = "cb_game_modes";
             this.cb_game_modes.Size = new System.Drawing.Size(212, 22);
@@ -1913,10 +1898,23 @@
             this.cb_modules.TabIndex = 38;
             this.cb_modules.SelectedIndexChanged += new System.EventHandler(this.cb_modules_SelectedIndexChanged);
             // 
+            // btn_save_user_settings
+            // 
+            this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save_user_settings.Location = new System.Drawing.Point(1062, 3);
+            this.btn_save_user_settings.Name = "btn_save_user_settings";
+            this.btn_save_user_settings.Size = new System.Drawing.Size(130, 22);
+            this.btn_save_user_settings.TabIndex = 42;
+            this.btn_save_user_settings.Text = "Reset";
+            this.btn_save_user_settings.UseVisualStyleBackColor = true;
+            this.btn_save_user_settings.Click += new System.EventHandler(this.btn_save_user_settings_Click);
+            // 
             // user_profile
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.btn_save_user_settings);
             this.Controls.Add(this.cb_modules);
             this.Controls.Add(this.pn_best_map);
             this.Controls.Add(this.pn_long_form);
@@ -1932,7 +1930,6 @@
             this.Controls.Add(this.cb_versions);
             this.Controls.Add(this.cb_weapons);
             this.Controls.Add(this.cb_movement);
-            this.Controls.Add(this.cb_sessions);
             this.Controls.Add(this.cb_power_score);
             this.Controls.Add(this.cb_grouped);
             this.Controls.Add(this.cb_game_modes);
@@ -2014,7 +2011,6 @@
         private System.Windows.Forms.Label lb_user_name;
         private System.Windows.Forms.ComboBox cb_grouped;
         private System.Windows.Forms.ComboBox cb_power_score;
-        private System.Windows.Forms.ComboBox cb_sessions;
         private System.Windows.Forms.ComboBox cb_movement;
         private System.Windows.Forms.ComboBox cb_weapons;
         private System.Windows.Forms.ComboBox cb_versions;
@@ -2127,5 +2123,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label lb_best_map;
         private System.Windows.Forms.ComboBox cb_modules;
+        private System.Windows.Forms.Button btn_save_user_settings;
     }
 }

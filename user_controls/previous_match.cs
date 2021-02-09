@@ -16,7 +16,11 @@ namespace CO_Driver
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
         private string blue_team = "";
         private string red_team = "";
-        private List<string> solo_queue_names = new List<string> { "A worthy collection of players.", "The elite of solo queue.", "Crossout's finest."};
+        private List<string> solo_queue_names = new List<string> { "A worthy collection of players.", 
+                                                                   "The elite of solo queue.", 
+                                                                   "Crossout's finest.",
+                                                                   "Crossout's best and brightest.",
+                                                                   "Worthy opponents"};
         public previous_match()
         {
             InitializeComponent();
@@ -119,7 +123,7 @@ namespace CO_Driver
                     row = (DataGridViewRow)this.dg_damage_rec.Rows[0].Clone();
                     row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
                     row.Cells[0].Value = damage_record.attacker;
-                    row.Cells[1].Value = Math.Round(last_match_data.damage_record.Where(x => x.victim == last_match_data.local_player.nickname && x.attacker == damage_record.attacker).Sum(x => x.damage), 1);
+                    row.Cells[1].Value = Math.Round(last_match_data.damage_record.Where(x => x.victim == damage_record.victim && x.attacker == damage_record.attacker).Sum(x => x.damage), 1);
                     dg_damage_rec.Rows.Add(row);
                 }
 
@@ -150,6 +154,9 @@ namespace CO_Driver
             foreach (file_trace_managment.DamageRecord damage_record in last_match_data.damage_record.OrderBy(x=>x.victim).ThenByDescending(x=>x.damage).ToList())
             {
                 if (damage_record.attacker != last_match_data.local_player.nickname)
+                    continue;
+
+                if (damage_record.victim == last_match_data.local_player.nickname)
                     continue;
 
                 DataGridViewRow row;

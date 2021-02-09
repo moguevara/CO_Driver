@@ -687,6 +687,7 @@ namespace CO_Driver
             Current_session.static_records.global_weapon_dict.Add("CarPart_TurretDeployer_Preepic", new_weapon("CarPart_TurretDeployer_Preepic", "T4 Python", global_data.SPECIAL_RARITY, 3, 11.2, 128, 141, 570, "turret"));
             Current_session.static_records.global_weapon_dict.Add("CarPart_TurretDeployer_Shield", new_weapon("CarPart_TurretDeployer_Shield", "Barrier IX", global_data.EPIC_RARITY, 3, 0, 128, 161, 825, "turret"));
             Current_session.static_records.global_weapon_dict.Add("CarPart_kamikazeDroneDeployer", new_weapon("CarPart_kamikazeDroneDeployer", "Fuze", global_data.EPIC_RARITY, 4, 134.1, 128, 161, 1100, "drone"));
+            Current_session.static_records.global_weapon_dict.Add("Cabin_DronSpawn", new_weapon("Cabin_DronSpawn", "Werewolf Drone", global_data.EPIC_RARITY, 0, 134.1, 128, 161, 0, "drone"));
             Current_session.static_records.global_weapon_dict.Add("CarPart_WheelDroneDeployer_epic", new_weapon("CarPart_WheelDroneDeployer_epic", "Grenadier", global_data.EPIC_RARITY, 4, 33.6, 180, 141, 1100, "drone"));
             Current_session.static_records.global_weapon_dict.Add("CarPart_Quadrocopter_epic", new_weapon("CarPart_Quadrocopter_epic", "MD-3 Owl", global_data.EPIC_RARITY, 4, 100.8, 128, 161, 1100, "drone"));
             Current_session.static_records.global_weapon_dict.Add("CarPart_TurretDeployerMissile_epic", new_weapon("CarPart_TurretDeployerMissile_epic", "RT Anaconda", global_data.EPIC_RARITY, 4, 101, 256, 321, 1100, "turret"));

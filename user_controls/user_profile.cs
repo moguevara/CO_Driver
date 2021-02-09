@@ -34,6 +34,7 @@ namespace CO_Driver
 
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public bool force_refresh = false;
         private string local_user;
         private int games_played;
         private int total_rounds;
@@ -87,10 +88,15 @@ namespace CO_Driver
 
         public void populate_user_profile_screen()
         {
-            new_selection = string.Format(@"{0},{1},{2},{3},{4},{5},{6}", game_mode_filter, group_filter, power_score_filter, client_versions_filter, weapons_filter, movement_filter, module_filter);
+            if (!force_refresh)
+            {
+                new_selection = string.Format(@"{0},{1},{2},{3},{4},{5},{6}", game_mode_filter, group_filter, power_score_filter, client_versions_filter, weapons_filter, movement_filter, module_filter);
 
-            if (new_selection == previous_selection)
-                return;
+                if (new_selection == previous_selection)
+                    return;
+            }
+
+            force_refresh = false;
 
             previous_selection = new_selection;
 
@@ -682,6 +688,18 @@ namespace CO_Driver
             if (this.cb_modules.SelectedIndex >= 0)
                 module_filter = this.cb_modules.Text;
 
+            populate_user_profile_screen();
+        }
+
+        private void btn_save_user_settings_Click(object sender, EventArgs e)
+        {
+            game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
+            group_filter = global_data.GROUP_FILTER_DEFAULT;
+            power_score_filter = global_data.POWER_SCORE_FILTER_DEFAULT;
+            client_versions_filter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
+            weapons_filter = global_data.WEAPONS_FILTER_DEFAULT;
+            movement_filter = global_data.MOVEMENT_FILTER_DEFAULT;
+            module_filter = global_data.MODULE_FILTER_DEFAULT;
             populate_user_profile_screen();
         }
     }

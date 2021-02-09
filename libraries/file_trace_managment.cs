@@ -66,6 +66,7 @@ namespace CO_Driver
             public string client_version { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
+            public GarageData garage_data { get; set; }
             public Dictionary<string, BuildRecord> player_build_records { get; set; }
             public List<MatchRecord> match_history { get; set; }
             public StaticRecordDB static_records { get; set; }
@@ -97,6 +98,21 @@ namespace CO_Driver
             public List<DamageRecord> damage_record { get; set; }
             public Dictionary<string, Player> player_records { get; set; }
             
+        }
+
+        public class GarageData 
+        {
+            public DateTime garage_start { get; set; }
+            public GarageDamageRecord damage_record { get; set; }
+        }
+
+        public class GarageDamageRecord
+        {
+            public string attacker { get; set; }
+            public DateTime time { get; set; }
+            public string weapon { get; set; }
+            public double damage { get; set; }
+            public string flags { get; set; }
         }
 
         public class DamageRecord
@@ -212,6 +228,8 @@ namespace CO_Driver
             Current_session.local_user = Settings.Default["local_user_name"].ToString();
             Current_session.local_user_uid = Convert.ToInt32(Settings.Default["local_user_uid"]);
             Current_session.current_event = 0;
+            Current_session.garage_data = new GarageData { };
+            Current_session.garage_data.garage_start = new DateTime { };
             Current_session.file_data = new FileData { };
             Current_session.file_data.log_file_location = Settings.Default["log_file_location"].ToString();
             Current_session.file_data.historic_file_location = Settings.Default["historic_file_location"].ToString();
@@ -345,6 +363,18 @@ namespace CO_Driver
             clear_in_game_stats(Current_session); 
         }
 
+        public static void test_drive_event(string line, SessionStats Current_session)
+        {
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\|");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            Current_session.garage_data.garage_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture).AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value));
+        }
         public static void match_start_event(string line, SessionStats Current_session)
         {
             clear_in_game_stats(Current_session);
@@ -423,6 +453,8 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
+            Current_session.in_match = false;
+
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
 
@@ -446,7 +478,6 @@ namespace CO_Driver
             }
 
             finalize_match_record(Current_session);
-            Current_session.in_match = false;
         }
 
         private static void classify_match(SessionStats Current_session)
@@ -494,6 +525,9 @@ namespace CO_Driver
             if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_medium")).Count() > 0)
                 Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
 
+            if (Current_session.current_match.game_play_value.Contains("Pve_Greatescape"))
+                Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
+
             if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value.ToLower().Contains("pve_hard")).Count() > 0)
                 Current_session.current_match.match_type = global_data.HARD_RAID_MATCH;
 
@@ -513,6 +547,9 @@ namespace CO_Driver
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_NewYear_Convoy"))
                 Current_session.current_match.match_type = global_data.PRESENT_HEIST_MATCH;
+
+            if (Current_session.current_match.game_play_value.Contains("Brawl_AssaultAllCannons"))
+                Current_session.current_match.match_type = global_data.CANNON_BRAWL_MATCH;
 
             //if (Current_session.current_match.match_type == global_data.UNDEFINED_MATCH)
             //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
@@ -680,7 +717,7 @@ namespace CO_Driver
         }
         public static void damage_event(string line, SessionStats Current_session)
         {
-            if (!Current_session.in_match)
+            if (!Current_session.in_match && !Current_session.live_trace_data)
                 return;
 
             Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Damage\. Victim: (?<victim>[^,]+), attacker: (?<attacker>[^,]+), weapon '(?<weapon>[^']+)', damage: (?<damage>[^\s]+) (?<flags>.+)$");
@@ -698,6 +735,7 @@ namespace CO_Driver
             double damage = Convert.ToDouble(line_results.Groups["damage"].Value);
             string weapon = line_results.Groups["weapon"].Value;
             string weapon_name = "";
+            string flags = line_results.Groups["flags"].Value;
             bool found_damage_record = false;
 
             weapon = weapon.Substring(0, weapon.IndexOf(':') > 0 ? weapon.IndexOf(':') : weapon.Length);
@@ -708,12 +746,6 @@ namespace CO_Driver
             if (victim.IndexOf(":") > 0)
                 return;
 
-            if (!Current_session.current_match.player_records.ContainsKey(attacker))
-                return;
-
-            if (!Current_session.current_match.player_records.ContainsKey(victim))
-                return;
-
             if (Current_session.static_records.global_weapon_dict.ContainsKey(weapon))
                 weapon_name = Current_session.static_records.global_weapon_dict[weapon].description;
             else
@@ -721,6 +753,18 @@ namespace CO_Driver
                 weapon_name = Current_session.static_records.global_explosives_dict[weapon].description;
             else
                 weapon_name = "Ramming";
+
+            if (!Current_session.in_match)
+            {
+                Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_match.match_end.AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value)), weapon = weapon_name, damage = damage, flags = flags };
+                return;
+            }
+
+            if (!Current_session.current_match.player_records.ContainsKey(attacker))
+                return;
+
+            if (!Current_session.current_match.player_records.ContainsKey(victim))
+                return;
 
             foreach (DamageRecord record in Current_session.current_match.damage_record)
             {
@@ -859,6 +903,8 @@ namespace CO_Driver
                     return "Patrol";
                 case global_data.STANDARD_RESTRICTED_MATCH:
                     return "Restricted 8v8";
+                case global_data.CANNON_BRAWL_MATCH:
+                    return "Cannon Brawl";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:

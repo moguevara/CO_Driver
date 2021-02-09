@@ -64,6 +64,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,6 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="user_controls\garage_view.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\garage_view.Designer.cs">
+      <DependentUpon>garage_view.cs</DependentUpon>
+    </Compile>
     <Compile Include="libraries\part_loader.cs" />
     <Compile Include="user_controls\previous_match.cs">
       <SubType>UserControl</SubType>
@@ -154,6 +161,9 @@
     <Compile Include="user_controls\welcome_page.Designer.cs">
       <DependentUpon>welcome_page.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="user_controls\garage_view.resx">
+      <DependentUpon>garage_view.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="user_controls\part_optimizer.resx">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RotFish.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

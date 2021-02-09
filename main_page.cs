@@ -14,6 +14,8 @@ using System.Threading;
 using System.Globalization;
 using System.Net;
 using System.Diagnostics;
+using System.Drawing.Imaging;
+
 
 namespace CO_Driver
 {
@@ -29,6 +31,7 @@ namespace CO_Driver
         part_optimizer part_page = new part_optimizer();
         part_view avail_part_page = new part_view();
         previous_match last_match_page = new previous_match();
+        garage_view garage_page = new garage_view();
 
         public frm_main_page()
         {
@@ -41,30 +44,43 @@ namespace CO_Driver
 
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
+
             log_file_manager.find_log_file_path();
             log_file_manager.find_historic_file_path();
             log_file_manager.find_local_user_name();
+
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found local user_name ""{0}""" + Environment.NewLine, Settings.Default["local_user_name"].ToString()));
             this.welcome_screen.tb_progress_tracking.AppendText("Loading parts for optimizer." + Environment.NewLine);
+
             log_file_manager.copy_historic_files();
+
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, Settings.Default["historic_file_location"].ToString()));
+
             log_file_manager.get_live_file_location();
             log_file_manager.create_stream_file_location();
+
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, Settings.Default["live_file_location"].ToString()));
 
             Settings.Default.Reload();
+            Settings.Default.Upgrade();
 
+            if (Settings.Default["local_user_name"].ToString().Length == 0)
+                Application.Restart();
+
+            garage_page.initialize_live_feed();
             main_page_panel.Controls.Add(welcome_screen);
 
             this.Text = string.Format(@"CO-Driver v{0}", global_data.CURRENT_VERSION);
+
             System.Threading.Thread.Sleep(1000);
+
             try
             {
                 bw_file_feed.RunWorkerAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Background worked failed:" + ex.Message);
+                MessageBox.Show(@"Background worker failed:" + ex.Message + Environment.NewLine + ex.InnerException);
             }
         }
 
@@ -193,32 +209,24 @@ namespace CO_Driver
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string version_json = string.Empty;
-            using (WebClient client = new WebClient())
-            {
-                version_json = client.DownloadString("https://codriver.dept116.com/version/codriver-dept116-latest-version.json");
-            }
-            if (Regex.Match(version_json, "{version:\\\"(?<version>.*)\\\"}").Groups["version"].Value == global_data.CURRENT_VERSION)
-            {
-                MessageBox.Show(string.Concat("You have the latest version. (", global_data.CURRENT_VERSION, ")"));
-            }
-            else if (MessageBox.Show("There is a newer version. Would you like to Update? The app will restart and use powershell to update.", "Update Ready", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                ProcessStartInfo newProcessInfo = new ProcessStartInfo()
-                {
-                    FileName = "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
-                    WorkingDirectory = Environment.CurrentDirectory,
-                    Verb = "runas",
-                    Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item \"CO_Driver.exe\";Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile \"CO_Driver.exe\";Start-Process \"CO_Driver.exe\";\""
-                };
-                Process.Start(newProcessInfo);
-            }
+            check_for_update(true);
+        }
+
+        private void printCurrentWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            capture_screen_shot();
         }
 
         private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(schedule_page);
+        }
+
+        private void garageToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(garage_page);
         }
 
         private void process_log_files(object sender, DoWorkEventArgs e)
@@ -234,9 +242,11 @@ namespace CO_Driver
             System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
         }
-        void unlock_menu_strip()
+        void unlock_menu_strip(file_trace_managment.SessionStats Current_session)
         {
             bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
+            Current_session.live_trace_data = true;
+            add_last_match(Current_session);
         }
         private void populate_match_history(file_trace_managment.SessionStats Current_session)
         {
@@ -265,6 +275,25 @@ namespace CO_Driver
                     Current_session.player_build_records));
         }
 
+        private void update_garage_view(file_trace_managment.SessionStats Current_session)
+        {
+            if (!Current_session.live_trace_data)
+                return;
+
+            if (Current_session.in_match)
+                return;
+
+            if (Current_session.garage_data.damage_record.attacker != Current_session.local_user)
+                return;
+
+            bw_file_feed.ReportProgress(global_data.GARAGE_DAMAGE_EVENT, Current_session.garage_data.damage_record);
+        }
+
+        private void clear_current_test_drive_data()
+        {
+            bw_file_feed.ReportProgress(global_data.TEST_DRIVE_END_EVENT, null);
+        }
+
         private void process_log_event(object sender, ProgressChangedEventArgs e)
         {
             if (e.ProgressPercentage == global_data.TRACE_EVENT_FILE_COMPLETE)
@@ -284,6 +313,7 @@ namespace CO_Driver
                     this.welcome_screen.tb_progress_tracking.AppendText(string.Format("Complete." + Environment.NewLine));
                     this.welcome_screen.pb_welcome_file_load.Value = 100;
                     this.welcome_screen.lb_load_status_text.Text = "Complete.";
+                    //check_for_update(false);
                 }
             }
             else
@@ -291,19 +321,19 @@ namespace CO_Driver
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating User Profile" + Environment.NewLine));
                 file_trace_managment.UserProfileResponse response = (file_trace_managment.UserProfileResponse)e.UserState;
-                this.user_profile_page.match_history = response.match_history;
-                this.user_profile_page.build_records = response.build_records;
-                this.user_profile_page.populate_user_profile_screen();
+                user_profile_page.match_history = response.match_history;
+                user_profile_page.build_records = response.build_records;
+                user_profile_page.populate_user_profile_screen();
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 file_trace_managment.MatchHistoryResponse response = (file_trace_managment.MatchHistoryResponse)e.UserState;
-                this.match_history_page.history = response.match_history;
-                this.build_page.match_history = response;
-                this.match_history_page.refersh_history_table();
-                this.build_page.populate_build_record_table();
+                match_history_page.history = response.match_history;
+                build_page.match_history = response;
+                match_history_page.refersh_history_table();
+                build_page.populate_build_record_table();
                 
             }
             else
@@ -321,27 +351,38 @@ namespace CO_Driver
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
-                this.build_page.build_records = response.build_records;
-                this.build_page.populate_build_record_table();
+                build_page.build_records = response.build_records;
+                build_page.populate_build_record_table();
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_STATIC_ELEMENTS_EVENT)
             {
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Configuring Build Optimization" + Environment.NewLine));
+                welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Configuring Build Optimization" + Environment.NewLine));
                 file_trace_managment.StaticRecordResponse response = (file_trace_managment.StaticRecordResponse)e.UserState;
-                this.part_page.master_part_list = response.master_static_records.global_parts_list;
-                this.avail_part_page.master_part_list = response.master_static_records.global_parts_list;
-                this.part_page.refresh_avail_parts();
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Parts Based on Faction Levels" + Environment.NewLine));
-                this.avail_part_page.populate_parts_list();
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Clan War Schedule" + Environment.NewLine));
-                this.schedule_page.event_times = response.master_static_records.global_event_times;
+                part_page.master_part_list = response.master_static_records.global_parts_list;
+                avail_part_page.master_part_list = response.master_static_records.global_parts_list;
+                part_page.refresh_avail_parts();
+                welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Parts Based on Faction Levels" + Environment.NewLine));
+                avail_part_page.populate_parts_list();
+                welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Loading Clan War Schedule" + Environment.NewLine));
+                schedule_page.event_times = response.master_static_records.global_event_times;
             }
-            else 
+            else
+            if (e.ProgressPercentage == global_data.GARAGE_DAMAGE_EVENT)
+            {
+                file_trace_managment.GarageDamageRecord response = (file_trace_managment.GarageDamageRecord)e.UserState;
+                garage_page.add_damage_record(response);
+            }
+            else
+            if (e.ProgressPercentage == global_data.TEST_DRIVE_END_EVENT)
+            {
+                garage_page.reset_damage_records();
+            }
+            else
             if (e.ProgressPercentage == global_data.DEBUG_GIVE_LINE_UPDATE_EVENT)
             {
                 file_trace_managment.DebugResponse response = (file_trace_managment.DebugResponse)e.UserState;
-                this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"{0}{1}" + Environment.NewLine, response.event_type, response.line));
+                welcome_screen.tb_progress_tracking.AppendText(string.Format(@"{0}{1}" + Environment.NewLine, response.event_type, response.line));
             }
         }
 
@@ -399,7 +440,7 @@ namespace CO_Driver
                                     game_line = game_reader.ReadLine();
                                 }
                             }
-                            else 
+                            else
                             if (combat_line != null)
                             {
                                 combat_log_event_handler(combat_line, Current_session);
@@ -428,7 +469,6 @@ namespace CO_Driver
             FileInfo combat_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
             FileInfo game_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
-            Current_session.live_trace_data = true;
             Current_session.file_data.processing_combat_session_file = combat_trace_file;
             Current_session.file_data.processing_game_session_file = game_trace_file;
             Current_session.file_data.processing_combat_session_file_day = combat_trace_file.CreationTime;
@@ -506,7 +546,7 @@ namespace CO_Driver
                         if (first == true)
                         {
                             first = false;
-                            unlock_menu_strip();
+                            unlock_menu_strip(Current_session);
                         }
 
                         if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
@@ -567,7 +607,7 @@ namespace CO_Driver
         {
             file_trace_managment.assign_current_combat_event(line, Current_session);
             //if (Current_session.live_trace_data == true)
-            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:"+line));
+            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:"+ Current_session.live_trace_data.ToString() + Current_session.in_match.ToString() + line));
             switch (Current_session.current_event)
             {
                 case global_data.MATCH_START_EVENT:
@@ -579,6 +619,7 @@ namespace CO_Driver
                     break;
                 case global_data.DAMAGE_EVENT:
                     file_trace_managment.damage_event(line, Current_session);
+                    update_garage_view(Current_session);
                     break;
                 case global_data.STRIPE_EVENT:
                     file_trace_managment.stripe_event(line, Current_session);
@@ -599,11 +640,61 @@ namespace CO_Driver
                     file_trace_managment.main_menu_event(line, Current_session);
                     add_last_match(Current_session);
                     break;
+                case global_data.TEST_DRIVE_EVENT:
+                    file_trace_managment.test_drive_event(line, Current_session);
+                    clear_current_test_drive_data();
+                    break;
                 case global_data.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
                     add_last_match(Current_session);
                     break;
             }
+        }
+
+        private void check_for_update(bool notify)
+        {
+            string version_json = string.Empty;
+            using (WebClient client = new WebClient())
+            {
+                version_json = client.DownloadString("https://codriver.dept116.com/version/codriver-dept116-latest-version.json");
+            }
+            version_json = Regex.Match(version_json, "{version:\\\"(?<version>.*)\\\"}").Groups["version"].Value;
+            if (string.Equals(version_json, global_data.CURRENT_VERSION))
+            {
+                if (notify)
+                    MessageBox.Show(string.Concat("You have the latest version. (", global_data.CURRENT_VERSION, ")"));
+            }
+            else if (MessageBox.Show("New version of CO_Driver (" + version_json + ") detected." + Environment.NewLine + "Would you like to Update? The app will restart and use powershell to update.", "Update Ready", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                update_co_driver();
+            }
+        }
+
+        private void update_co_driver()
+        {
+            ProcessStartInfo newProcessInfo = new ProcessStartInfo()
+            {
+                FileName = "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+                WorkingDirectory = Environment.CurrentDirectory,
+                Verb = "runas",
+                Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item \"CO_Driver.exe\";Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile \"CO_Driver.exe\";Start-Process \"CO_Driver.exe\";\""
+            };
+            Process.Start(newProcessInfo);
+        }
+
+        private void capture_screen_shot()
+        {
+            string screenshot_directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + string.Format(@"\CO_Driver\screenshots");
+
+            if (!Directory.Exists(screenshot_directory))
+            {
+                Directory.CreateDirectory(screenshot_directory);
+            }
+
+            Bitmap bmp = new Bitmap(main_page_panel.Width, main_page_panel.Height);
+            main_page_panel.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+            Clipboard.SetImage((Image)bmp);
+            bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
         }
 
         void add_last_match(file_trace_managment.SessionStats Current_session)
@@ -617,9 +708,13 @@ namespace CO_Driver
                 last_build_record = Current_session.player_build_records[Current_session.current_match.local_player.build_hash];
 
             bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
+
+            user_profile_page.force_refresh = true;
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
         }
+
+        
     }
 }

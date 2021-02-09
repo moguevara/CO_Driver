@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.0.1.64";
+        public static string CURRENT_VERSION = "0.0.1.73";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -49,7 +49,8 @@ namespace CO_Driver
         public const int PRESENT_HEIST_MATCH = 12;
         public const int PATROL_MATCH = 13;
         public const int STANDARD_RESTRICTED_MATCH = 14;
-        public const int UNDEFINED_MATCH = 15;
+        public const int CANNON_BRAWL_MATCH = 15;
+        public const int UNDEFINED_MATCH = 16;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
@@ -86,6 +87,8 @@ namespace CO_Driver
         public const int BUILD_POPULATE_EVENT = 6;
         public const int POPULATE_STATIC_ELEMENTS_EVENT = 7;
         public const int DEBUG_GIVE_LINE_UPDATE_EVENT = 8;
+        public const int GARAGE_DAMAGE_EVENT = 9;
+        public const int TEST_DRIVE_END_EVENT = 10;
 
         public const string GAME_MODE_FILTER_DEFAULT = "All Game Modes";
         public const string GROUP_FILTER_DEFAULT = "Solo/Grouped";
@@ -95,8 +98,6 @@ namespace CO_Driver
         public const string WEAPONS_FILTER_DEFAULT = "All Weapons";
         public const string MOVEMENT_FILTER_DEFAULT = "All Movement";
         public const string MODULE_FILTER_DEFAULT = "All Modules";
-
-
 
         public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
     }

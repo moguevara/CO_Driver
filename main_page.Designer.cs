@@ -33,8 +33,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.strp_main_menu_strip = new System.Windows.Forms.MenuStrip();
             this.userProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.matchHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previousMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matchAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.matchHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,11 +48,12 @@
             this.chatlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.netlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gfxlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.previousMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.garageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +64,7 @@
             this.strp_main_menu_strip.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.strp_main_menu_strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userProfileToolStripMenuItem,
+            this.garageToolsToolStripMenuItem,
             this.previousMatchToolStripMenuItem,
             this.matchAnalysisToolStripMenuItem,
             this.matchHistoryToolStripMenuItem,
@@ -69,13 +72,14 @@
             this.scheduleToolStripMenuItem,
             this.inMatchDataToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
+            this.printCurrentWindowToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.strp_main_menu_strip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.strp_main_menu_strip.Location = new System.Drawing.Point(0, 0);
             this.strp_main_menu_strip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.strp_main_menu_strip.Name = "strp_main_menu_strip";
             this.strp_main_menu_strip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 23);
+            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 41);
             this.strp_main_menu_strip.TabIndex = 2;
             this.strp_main_menu_strip.Text = "menuStrip1";
             this.strp_main_menu_strip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -89,12 +93,12 @@
             this.userProfileToolStripMenuItem.Text = "Profile";
             this.userProfileToolStripMenuItem.Click += new System.EventHandler(this.userProfileToolStripMenuItem_Click);
             // 
-            // matchHistoryToolStripMenuItem
+            // previousMatchToolStripMenuItem
             // 
-            this.matchHistoryToolStripMenuItem.Name = "matchHistoryToolStripMenuItem";
-            this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
-            this.matchHistoryToolStripMenuItem.Text = "History";
-            this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
+            this.previousMatchToolStripMenuItem.Name = "previousMatchToolStripMenuItem";
+            this.previousMatchToolStripMenuItem.Size = new System.Drawing.Size(117, 18);
+            this.previousMatchToolStripMenuItem.Text = "Previous Match";
+            this.previousMatchToolStripMenuItem.Click += new System.EventHandler(this.previousMatchToolStripMenuItem_Click);
             // 
             // matchAnalysisToolStripMenuItem
             // 
@@ -102,6 +106,13 @@
             this.matchAnalysisToolStripMenuItem.Size = new System.Drawing.Size(103, 18);
             this.matchAnalysisToolStripMenuItem.Text = "Build Review";
             this.matchAnalysisToolStripMenuItem.Click += new System.EventHandler(this.matchAnalysisToolStripMenuItem_Click);
+            // 
+            // matchHistoryToolStripMenuItem
+            // 
+            this.matchHistoryToolStripMenuItem.Name = "matchHistoryToolStripMenuItem";
+            this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
+            this.matchHistoryToolStripMenuItem.Text = "History";
+            this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
             // 
             // buildToolsToolStripMenuItem
             // 
@@ -198,6 +209,20 @@
             this.gfxlogToolStripMenuItem1.Text = "gfx.log";
             this.gfxlogToolStripMenuItem1.Click += new System.EventHandler(this.gfxlogToolStripMenuItem1_Click);
             // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(131, 18);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for Update";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // printCurrentWindowToolStripMenuItem
+            // 
+            this.printCurrentWindowToolStripMenuItem.Name = "printCurrentWindowToolStripMenuItem";
+            this.printCurrentWindowToolStripMenuItem.Size = new System.Drawing.Size(173, 18);
+            this.printCurrentWindowToolStripMenuItem.Text = "Capture Current Window";
+            this.printCurrentWindowToolStripMenuItem.Click += new System.EventHandler(this.printCurrentWindowToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
@@ -210,9 +235,9 @@
             // main_page_panel
             // 
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_page_panel.Location = new System.Drawing.Point(0, 23);
+            this.main_page_panel.Location = new System.Drawing.Point(0, 41);
             this.main_page_panel.Name = "main_page_panel";
-            this.main_page_panel.Size = new System.Drawing.Size(1195, 600);
+            this.main_page_panel.Size = new System.Drawing.Size(1195, 582);
             this.main_page_panel.TabIndex = 3;
             // 
             // bw_file_feed
@@ -221,19 +246,12 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
-            // previousMatchToolStripMenuItem
+            // garageToolsToolStripMenuItem
             // 
-            this.previousMatchToolStripMenuItem.Name = "previousMatchToolStripMenuItem";
-            this.previousMatchToolStripMenuItem.Size = new System.Drawing.Size(117, 18);
-            this.previousMatchToolStripMenuItem.Text = "Previous Match";
-            this.previousMatchToolStripMenuItem.Click += new System.EventHandler(this.previousMatchToolStripMenuItem_Click);
-            // 
-            // checkForUpdateToolStripMenuItem
-            // 
-            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(131, 18);
-            this.checkForUpdateToolStripMenuItem.Text = "Check for Update";
-            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            this.garageToolsToolStripMenuItem.Name = "garageToolsToolStripMenuItem";
+            this.garageToolsToolStripMenuItem.Size = new System.Drawing.Size(103, 18);
+            this.garageToolsToolStripMenuItem.Text = "Garage Tools";
+            this.garageToolsToolStripMenuItem.Click += new System.EventHandler(this.garageToolsToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 
@@ -286,6 +304,8 @@
         private System.Windows.Forms.ToolStripMenuItem automaticPartOptimizerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousMatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printCurrentWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem garageToolsToolStripMenuItem;
     }
 }
 
