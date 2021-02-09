@@ -317,7 +317,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Co_Driver"
         "ProductCode" = "8:{9A56B6D5-B8DB-482F-A6D1-7BA2EFE71BD6}"
-        "PackageCode" = "8:{09002569-E8AA-4E4C-84AF-9DE10C4D9F70}"
+        "PackageCode" = "8:{F9B60095-5BF1-496F-9F1B-DCA827C6A884}"
         "UpgradeCode" = "8:{8521ED8A-C756-4CEF-8CCA-2CAB3BBE49A5}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
