@@ -127,7 +127,7 @@ namespace CO_Driver
             current_total_series = new Series { };
             current_total_series.LabelBackColor = Color.Black;
             current_total_series.LabelForeColor = Color.Lime;
-            current_total_series.ChartType = SeriesChartType.Line;
+            current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.AddXY(0, 0);
 
             draw_text_elements();
@@ -296,13 +296,13 @@ namespace CO_Driver
             current_total_series.Color = Color.Lime;
             current_total_series.LabelBackColor = Color.Black;
             current_total_series.LabelForeColor = Color.Lime;
-            current_total_series.ChartType = SeriesChartType.Line;
+            current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.Clear();
             current_total_series.Points.AddXY(0, 0);
 
             ch_live_feed.Series.Add(new Series("bullshit"));
             ch_live_feed.Series["bullshit"].IsVisibleInLegend = false;
-            ch_live_feed.Series["bullshit"].ChartType = SeriesChartType.Line;
+            ch_live_feed.Series["bullshit"].ChartType = SeriesChartType.StepLine;
             ch_live_feed.Series["bullshit"].Points.AddXY(0, 0);
             ch_live_feed.Series["bullshit"].Points.AddXY(1, 1);
 
@@ -319,7 +319,7 @@ namespace CO_Driver
             ch_live_feed.Series[name].LegendText = name;
 
             if (rec.flags.Contains("HIGH_RATE_FIRE") || rec.flags.Contains("CONTINUOUS"))
-                ch_live_feed.Series[name].ChartType = SeriesChartType.Line;
+                ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
             else
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
 

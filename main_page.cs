@@ -9,29 +9,33 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
-using CO_Driver.Properties;
 using System.Threading;
 using System.Globalization;
 using System.Net;
 using System.Diagnostics;
 using System.Drawing.Imaging;
-
+using System.Reflection;
 
 namespace CO_Driver
 {
     public partial class frm_main_page : Form
     {
-        log_file_managment log_file_manager = new log_file_managment();
-        file_trace_managment file_trace_manager = new file_trace_managment();
-        welcome_page welcome_screen = new welcome_page();
-        user_profile user_profile_page = new user_profile();
-        match_history match_history_page = new match_history();
-        schedule_display schedule_page = new schedule_display();
-        build_view build_page = new build_view();
-        part_optimizer part_page = new part_optimizer();
-        part_view avail_part_page = new part_view();
-        previous_match last_match_page = new previous_match();
-        garage_view garage_page = new garage_view();
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+
+        public log_file_managment log_file_manager = new log_file_managment();
+        public file_trace_managment file_trace_manager = new file_trace_managment();
+        public welcome_page welcome_screen = new welcome_page();
+        public user_profile user_profile_page = new user_profile();
+        public match_history match_history_page = new match_history();
+        public schedule_display schedule_page = new schedule_display();
+        public build_view build_page = new build_view();
+        public part_optimizer part_page = new part_optimizer();
+        public part_view avail_part_page = new part_view();
+        public previous_match match_detail_page = new previous_match();
+        public garage_view garage_page = new garage_view();
+        public fusion_calculator fusion_page = new fusion_calculator();
+        public user_settings settings_page = new user_settings();
+        public about_screen about_page = new about_screen();
 
         public frm_main_page()
         {
@@ -42,41 +46,34 @@ namespace CO_Driver
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
+
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
 
-            log_file_manager.find_log_file_path();
-            log_file_manager.find_historic_file_path();
-            log_file_manager.find_local_user_name();
+            load_user_settings();
 
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found local user_name ""{0}""" + Environment.NewLine, Settings.Default["local_user_name"].ToString()));
-            this.welcome_screen.tb_progress_tracking.AppendText("Loading parts for optimizer." + Environment.NewLine);
+            if (session.local_user_name == null)
+            {
+                MessageBox.Show("An error has occured while loading, please try restarting CO_Driver. If the problem persists please report to https://discord.gg/kKcnVXu2Xe. Thanks.");
+                Application.Exit();
+            }
 
-            log_file_manager.copy_historic_files();
+            welcome_screen.session = session;
+            part_page.session = session;
+            avail_part_page.session = session;
+            settings_page.session = session;
+            about_page.session = session;
 
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, Settings.Default["historic_file_location"].ToString()));
-
-            log_file_manager.get_live_file_location();
-            log_file_manager.create_stream_file_location();
-
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, Settings.Default["live_file_location"].ToString()));
-
-            Settings.Default.Reload();
-            Settings.Default.Upgrade();
-
-            if (Settings.Default["local_user_name"].ToString().Length == 0)
-                Application.Restart();
+            match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
 
             garage_page.initialize_live_feed();
             main_page_panel.Controls.Add(welcome_screen);
 
-            this.Text = string.Format(@"CO-Driver v{0}", global_data.CURRENT_VERSION);
-
-            System.Threading.Thread.Sleep(1000);
+            this.Text = string.Format(@"CO-Driver v{0}", get_current_version());
 
             try
             {
-                bw_file_feed.RunWorkerAsync();
+                bw_file_feed.RunWorkerAsync(argument: session);
             }
             catch (Exception ex)
             {
@@ -116,10 +113,10 @@ namespace CO_Driver
         private void menu_user_settings_click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new user_settings());
+            main_page_panel.Controls.Add(settings_page);
         }
 
-        private void clear_main_page_panel()
+        public void clear_main_page_panel()
         {
             /*
             foreach (Control ctrl in main_page_panel.Controls)
@@ -132,7 +129,7 @@ namespace CO_Driver
         private void menu_fusion_calculator(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new fusion_calculator());
+            main_page_panel.Controls.Add(fusion_page);
         }
 
         private void chatToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -147,31 +144,31 @@ namespace CO_Driver
         private void viewTraceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Combat"));
+            main_page_panel.Controls.Add(new trace_view("Combat", session));
         }
 
         private void gamelogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Game"));
+            main_page_panel.Controls.Add(new trace_view("Game", session));
         }
 
         private void chatlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Chat"));
+            main_page_panel.Controls.Add(new trace_view("Chat", session));
         }
 
         private void netlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Net"));
+            main_page_panel.Controls.Add(new trace_view("Net", session));
         }
 
         private void gfxlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Gfx"));
+            main_page_panel.Controls.Add(new trace_view("Gfx", session));
         }
         private void userProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -203,13 +200,10 @@ namespace CO_Driver
 
         private void previousMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            match_detail_page.show_last_match = true;
+            match_detail_page.populate_match();
             clear_main_page_panel();
-            main_page_panel.Controls.Add(last_match_page);
-        }
-
-        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            check_for_update(true);
+            main_page_panel.Controls.Add(match_detail_page);
         }
 
         private void printCurrentWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -229,11 +223,19 @@ namespace CO_Driver
             main_page_panel.Controls.Add(garage_page);
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(about_page);
+        }
+
         private void process_log_files(object sender, DoWorkEventArgs e)
         {
+            log_file_managment.session_variables session_variables = (log_file_managment.session_variables)e.Argument;
+
             file_trace_managment.SessionStats Current_session = new file_trace_managment.SessionStats { };
             file_trace_managment ftm = new file_trace_managment();
-            ftm.initialize_session_stats(Current_session);
+            ftm.initialize_session_stats(Current_session, session_variables);
             process_historic_files(ftm, Current_session);
             populate_static_elements(Current_session);
             populate_user_profile(Current_session);
@@ -283,6 +285,9 @@ namespace CO_Driver
             if (Current_session.in_match)
                 return;
 
+            if (!Current_session.in_garage)
+                return;
+
             if (Current_session.garage_data.damage_record.attacker != Current_session.local_user)
                 return;
 
@@ -313,7 +318,6 @@ namespace CO_Driver
                     this.welcome_screen.tb_progress_tracking.AppendText(string.Format("Complete." + Environment.NewLine));
                     this.welcome_screen.pb_welcome_file_load.Value = 100;
                     this.welcome_screen.lb_load_status_text.Text = "Complete.";
-                    //check_for_update(false);
                 }
             }
             else
@@ -334,7 +338,7 @@ namespace CO_Driver
                 build_page.match_history = response;
                 match_history_page.refersh_history_table();
                 build_page.populate_build_record_table();
-                
+                //match_detail_page.populate_match();
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
@@ -342,9 +346,10 @@ namespace CO_Driver
                 file_trace_managment.MatchEndResponse response = new file_trace_managment.MatchEndResponse { };
                 response = (file_trace_managment.MatchEndResponse)e.UserState;
                 welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Adding match from current session at {0}" + Environment.NewLine, response.last_match.match_start));
-                last_match_page.last_match_data = response.last_match;
-                last_match_page.last_build_record = response.last_build;
-                last_match_page.populate_previous_match();
+                match_detail_page.previous_match_data = response.last_match;
+                match_detail_page.last_build_record = response.last_build;
+                match_detail_page.populate_match();
+                
             }
             else 
             if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
@@ -459,15 +464,14 @@ namespace CO_Driver
                 current_progress++;
                 session.processed = true;
             }
-
         }
 
         private void process_live_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
         {
             bool found_new_file = false;
 
-            FileInfo combat_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-            FileInfo game_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo combat_trace_file = new DirectoryInfo(session.log_file_location).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo game_trace_file = new DirectoryInfo(session.log_file_location).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
             Current_session.file_data.processing_combat_session_file = combat_trace_file;
             Current_session.file_data.processing_game_session_file = game_trace_file;
@@ -551,8 +555,8 @@ namespace CO_Driver
 
                         if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
                         {
-                            if (combat_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName ||
-                                game_trace_file.FullName != new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
+                            if (combat_trace_file.FullName != new DirectoryInfo(session.log_file_location).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName ||
+                                game_trace_file.FullName != new DirectoryInfo(session.log_file_location).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
                             {
                                 found_new_file = true;
                             }
@@ -651,50 +655,39 @@ namespace CO_Driver
             }
         }
 
-        private void check_for_update(bool notify)
-        {
-            string version_json = string.Empty;
-            using (WebClient client = new WebClient())
-            {
-                version_json = client.DownloadString("https://codriver.dept116.com/version/codriver-dept116-latest-version.json");
-            }
-            version_json = Regex.Match(version_json, "{version:\\\"(?<version>.*)\\\"}").Groups["version"].Value;
-            if (string.Equals(version_json, global_data.CURRENT_VERSION))
-            {
-                if (notify)
-                    MessageBox.Show(string.Concat("You have the latest version. (", global_data.CURRENT_VERSION, ")"));
-            }
-            else if (MessageBox.Show("New version of CO_Driver (" + version_json + ") detected." + Environment.NewLine + "Would you like to Update? The app will restart and use powershell to update.", "Update Ready", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                update_co_driver();
-            }
-        }
-
-        private void update_co_driver()
-        {
-            ProcessStartInfo newProcessInfo = new ProcessStartInfo()
-            {
-                FileName = "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
-                WorkingDirectory = Environment.CurrentDirectory,
-                Verb = "runas",
-                Arguments = "-WINDOWSTYLE HIDDEN -Command \"Get-Process -Name \"CO_Driver\" | Stop-Process; Remove-Item '" + Environment.CurrentDirectory + "\\CO_Driver.exe';Invoke-WebRequest -Uri \"https://codriver.dept116.com/CODriverDownload/CO_Driver.exe\" -outfile '" + Environment.CurrentDirectory + "\\CO_Driver.exe'; Start-Process '" + Environment.CurrentDirectory + "\\CO_Driver.exe';"
-            };
-            Process.Start(newProcessInfo);
-        }
-
         private void capture_screen_shot()
         {
             string screenshot_directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + string.Format(@"\CO_Driver\screenshots");
+            int border_width = 1;
 
             if (!Directory.Exists(screenshot_directory))
             {
                 Directory.CreateDirectory(screenshot_directory);
             }
 
-            Bitmap bmp = new Bitmap(main_page_panel.Width, main_page_panel.Height);
-            main_page_panel.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+            Bitmap bmp = new Bitmap(main_page_panel.Width + border_width * 2, main_page_panel.Height + border_width * 2);
+            main_page_panel.DrawToBitmap(bmp, new Rectangle(border_width, border_width, main_page_panel.Width + border_width, main_page_panel.Height + border_width));
+
+
+            System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp);
+            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         0),          new Point(0,         bmp.Height));
+            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         0),          new Point(bmp.Width, 0));
+            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         bmp.Height), new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(bmp.Width, 0),          new Point(bmp.Width, bmp.Height));
+
             Clipboard.SetImage((Image)bmp);
-            bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
+
+            try
+            {
+                bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            bmp.Dispose();
+            gr.Dispose();
         }
 
         void add_last_match(file_trace_managment.SessionStats Current_session)
@@ -713,6 +706,43 @@ namespace CO_Driver
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
+        }
+
+        public string get_current_version()
+        {
+            return global_data.CURRENT_VERSION;
+        }
+
+        public void load_user_settings()
+        {
+            session = log_file_manager.new_session_variables();
+
+            log_file_manager.find_log_file_path(session);
+            log_file_manager.find_historic_file_path(session);
+            this.welcome_screen.tb_progress_tracking.AppendText("Loading parts for optimizer." + Environment.NewLine);
+
+            log_file_manager.copy_historic_files(session);
+            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, session.historic_file_location));
+
+            log_file_manager.find_local_user_name(session);
+            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found local user_name ""{0}""" + Environment.NewLine, session.local_user_name));
+
+            
+
+            log_file_manager.get_live_file_location(session);
+            log_file_manager.create_stream_file_location(session);
+
+            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, session.live_file_location));
+        }
+        
+
+        private void load_match_details(object sender, file_trace_managment.MatchRecord historic_match)
+        {
+            match_detail_page.historical_match_data = historic_match.match_data;
+            match_detail_page.show_last_match = false;
+            match_detail_page.populate_match();
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(match_detail_page);
         }
 
         

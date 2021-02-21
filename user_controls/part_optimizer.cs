@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CO_Driver.Properties;
 
 namespace CO_Driver
 {
     public partial class part_optimizer : UserControl
     {
         public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public double resistance_modifier = 1.0;
         public part_optimizer()
         {
@@ -25,15 +25,15 @@ namespace CO_Driver
             this.dg_available_parts.Rows.Clear();
             this.dg_selected_parts.Rows.Clear();
 
-            int engineer_level = Convert.ToInt32(Settings.Default["engineer_level"]);
-            int lunatics_level = Convert.ToInt32(Settings.Default["lunatics_level"]);
-            int nomads_level = Convert.ToInt32(Settings.Default["nomads_level"]);
-            int scavengers_level = Convert.ToInt32(Settings.Default["scavengers_level"]);
-            int steppenwolfs_level = Convert.ToInt32(Settings.Default["steppenwolfs_level"]);
-            int dawns_children_level = Convert.ToInt32(Settings.Default["dawns_children_level"]);
-            int firestarts_level = Convert.ToInt32(Settings.Default["firestarts_level"]);
-            int founders_level = Convert.ToInt32(Settings.Default["founders_level"]);
-            bool prestigue_parts = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
+            int engineer_level = session.engineer_level;
+            int lunatics_level = session.lunatics_level;
+            int nomads_level = session.nomads_level;
+            int scavengers_level = session.scavengers_level;
+            int steppenwolfs_level = session.steppenwolfs_level;
+            int dawns_children_level = session.dawns_children_level;
+            int firestarts_level = session.firestarts_level;
+            int founders_level = session.founders_level;
+            bool prestigue_parts = session.include_prestigue_parts;
 
             this.dg_available_parts.AllowUserToAddRows = true;
             this.dg_selected_parts.AllowUserToAddRows = true;

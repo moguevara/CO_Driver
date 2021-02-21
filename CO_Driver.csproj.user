@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>publish\</PublishUrlHistory>
-    <InstallUrlHistory />
-    <SupportUrlHistory />
-    <UpdateUrlHistory />
+    <PublishUrlHistory>D:\VS\publish\|https://codriver.dept116.com/CODriverDownload/|publish\</PublishUrlHistory>
+    <InstallUrlHistory>https://codriver.dept116.com/CODriverDownload/|https://codriver.dept116.com/CODriverDownload/CO_Driver.exe/</InstallUrlHistory>
+    <SupportUrlHistory>https://codriver.dept116.com/</SupportUrlHistory>
+    <UpdateUrlHistory>https://codriver.dept116.com/CODriverDownload/</UpdateUrlHistory>
     <BootstrapperUrlHistory />
-    <ErrorReportUrlHistory />
+    <ErrorReportUrlHistory>https://codriver.dept116.com/</ErrorReportUrlHistory>
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DebugSecurityZoneURL>https://codriver.dept116.com/CODriverDownload/</DebugSecurityZoneURL>
   </PropertyGroup>
 </Project>

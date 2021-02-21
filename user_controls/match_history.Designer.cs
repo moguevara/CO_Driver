@@ -113,6 +113,7 @@
             this.dg_match_history_view.Margin = new System.Windows.Forms.Padding(0);
             this.dg_match_history_view.Name = "dg_match_history_view";
             this.dg_match_history_view.ReadOnly = true;
+            this.dg_match_history_view.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dg_match_history_view.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
@@ -142,9 +143,7 @@
             this.dg_match_history_view.Size = new System.Drawing.Size(1195, 536);
             this.dg_match_history_view.StandardTab = true;
             this.dg_match_history_view.TabIndex = 1;
-            this.dg_match_history_view.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_match_history_view_CellContentClick);
-            this.dg_match_history_view.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dg_match_history_view_CellFormatting);
-            this.dg_match_history_view.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dg_match_history_view_CellPainting);
+            this.dg_match_history_view.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_match_history_view_CellDoubleClick);
             // 
             // match_type
             // 

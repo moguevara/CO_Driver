@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
-using CO_Driver.Properties;
 using System.Globalization;
 
 namespace CO_Driver
@@ -60,6 +59,7 @@ namespace CO_Driver
         {
             public bool live_trace_data { get; set; }
             public bool in_match { get; set; }
+            public bool in_garage { get; set; }
             public string local_user { get; set; }
             public int local_user_uid { get; set; }
             public int current_event { get; set; }
@@ -220,21 +220,22 @@ namespace CO_Driver
         }
         #endregion
         #region session_managment
-        public void initialize_session_stats(SessionStats Current_session)
+        public void initialize_session_stats(SessionStats Current_session, log_file_managment.session_variables local_session_variables)
         {
             Current_session.live_trace_data = false;
             Current_session.in_match = false;
+            Current_session.in_garage = false;
             Current_session.current_match = new_match_data();
-            Current_session.local_user = Settings.Default["local_user_name"].ToString();
-            Current_session.local_user_uid = Convert.ToInt32(Settings.Default["local_user_uid"]);
+            Current_session.local_user = local_session_variables.local_user_name;
+            Current_session.local_user_uid = local_session_variables.local_user_uid;
             Current_session.current_event = 0;
             Current_session.garage_data = new GarageData { };
             Current_session.garage_data.garage_start = new DateTime { };
             Current_session.file_data = new FileData { };
-            Current_session.file_data.log_file_location = Settings.Default["log_file_location"].ToString();
-            Current_session.file_data.historic_file_location = Settings.Default["historic_file_location"].ToString();
-            Current_session.file_data.stream_overlay_output_location = Settings.Default["stream_file_location"].ToString();
-            Current_session.file_data.historic_file_session_list = load_historic_file_list();
+            Current_session.file_data.log_file_location = local_session_variables.log_file_location;
+            Current_session.file_data.historic_file_location = local_session_variables.historic_file_location;
+            Current_session.file_data.stream_overlay_output_location = local_session_variables.stream_file_location;
+            Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
             Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
@@ -259,10 +260,10 @@ namespace CO_Driver
             part_loader.load_event_schedule(Current_session);
         }
 
-        private List<LogSession> load_historic_file_list()
+        private List<LogSession> load_historic_file_list(string historic_file_location)
         {
             List<LogSession> temp_list = new List<LogSession> { };
-            FileInfo[] files = new DirectoryInfo(Settings.Default["historic_file_location"].ToString()).GetFiles("*.*", SearchOption.AllDirectories).Where(s => (s.Name.StartsWith("combat") || s.Name.StartsWith("game")) && s.Name.EndsWith("log")).OrderByDescending(p => p.LastWriteTime).ToArray();
+            FileInfo[] files = new DirectoryInfo(historic_file_location).GetFiles("*.*", SearchOption.AllDirectories).Where(s => (s.Name.StartsWith("combat") || s.Name.StartsWith("game")) && s.Name.EndsWith("log")).OrderByDescending(p => p.LastWriteTime).ToArray();
 
             foreach (FileInfo file in files)
             {
@@ -328,7 +329,7 @@ namespace CO_Driver
             if (line.Contains("| Score:"))
                 event_id = global_data.SCORE_EVENT;
             else
-            if (line.Contains("===== Gameplay '"))
+            if (line.Contains("| ===== Gameplay '"))
                 event_id = global_data.MATCH_START_EVENT;
             else
             if (line.Contains("| 	player"))
@@ -360,7 +361,8 @@ namespace CO_Driver
 
         public static void main_menu_event(string line, SessionStats Current_session)
         {
-            clear_in_game_stats(Current_session); 
+            clear_in_game_stats(Current_session);
+            Current_session.in_garage = false;
         }
 
         public static void test_drive_event(string line, SessionStats Current_session)
@@ -374,6 +376,7 @@ namespace CO_Driver
             }
 
             Current_session.garage_data.garage_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture).AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value));
+            Current_session.in_garage = true;
         }
         public static void match_start_event(string line, SessionStats Current_session)
         {
@@ -393,6 +396,7 @@ namespace CO_Driver
             Current_session.current_match.game_play_value = line_results.Groups["gameplay_type"].Value;
             Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
             Current_session.in_match = true;
+            Current_session.in_garage = false;
         }
 
         public static void clan_war_round_end_event(string line, SessionStats Current_session)
@@ -550,6 +554,9 @@ namespace CO_Driver
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_AssaultAllCannons"))
                 Current_session.current_match.match_type = global_data.CANNON_BRAWL_MATCH;
+
+            if (Current_session.current_match.game_play_value.Contains("Brawl_FieldBattle"))
+                Current_session.current_match.match_type = global_data.WINTER_MAYHAM_MATCH;
 
             //if (Current_session.current_match.match_type == global_data.UNDEFINED_MATCH)
             //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
@@ -754,7 +761,7 @@ namespace CO_Driver
             else
                 weapon_name = "Ramming";
 
-            if (!Current_session.in_match)
+            if (Current_session.in_garage)
             {
                 Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_match.match_end.AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value)), weapon = weapon_name, damage = damage, flags = flags };
                 return;
@@ -843,7 +850,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick: (?<nickname>.*),		Got:(?<score>.+?),		reason: (?<score_reason>.+?)");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick:(?<nickname>.*),		Got:(?<score>.+?),		reason: (?<score_reason>.+?)");
 
             if (line_results.Groups.Count < 2)
             {
@@ -905,6 +912,8 @@ namespace CO_Driver
                     return "Restricted 8v8";
                 case global_data.CANNON_BRAWL_MATCH:
                     return "Cannon Brawl";
+                case global_data.WINTER_MAYHAM_MATCH:
+                    return "Winter Mayham";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:

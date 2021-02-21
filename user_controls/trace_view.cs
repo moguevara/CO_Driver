@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading;
-using CO_Driver.Properties;
 using System.IO;
 
 namespace CO_Driver
@@ -17,6 +16,7 @@ namespace CO_Driver
     public partial class trace_view : UserControl
     {
         bool restart_background_worker = false;
+        private log_file_managment.session_variables local_session_variables = new log_file_managment.session_variables { };
 
         protected override void OnLoad(EventArgs e)
         {
@@ -24,9 +24,11 @@ namespace CO_Driver
             Disposed += OnDispose;
         }
 
-        public trace_view(string trace_type)
+        public trace_view(string trace_type, log_file_managment.session_variables session)
         {
             InitializeComponent();
+
+            local_session_variables = session;
 
             this.lbl_trace_name.Text = string.Format(@"{0}.log Trace", trace_type);
 
@@ -34,11 +36,11 @@ namespace CO_Driver
 
             try
             {
-                trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles(trace_type + "*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+                trace_file = new DirectoryInfo(session.log_file_location).GetFiles(trace_type + "*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
             }
             catch (Exception ex)
             {
-                this.lbl_current_file_name.Text = string.Format(@"File ""{0}.log"" not found at path  ""{1}"". Please check path in settings.", trace_type, Settings.Default["log_file_location"].ToString());
+                this.lbl_current_file_name.Text = string.Format(@"File ""{0}.log"" not found at path  ""{1}"". Please check path in settings.", trace_type, local_session_variables.log_file_location);
                 return;
             }
 
@@ -51,8 +53,9 @@ namespace CO_Driver
             if (bw_file_tracer.CancellationPending == true)
                 return;
 
+
             string trace_type = this.lbl_trace_name.Text.Split(' ').First().ToLower();
-            FileInfo trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo trace_file = new DirectoryInfo(local_session_variables.log_file_location).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
             AutoResetEvent wh = new AutoResetEvent(false);
             FileSystemWatcher fsw = new FileSystemWatcher(".");
@@ -87,7 +90,7 @@ namespace CO_Driver
                         }
                         if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
                         {
-                            FileInfo most_recent_trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+                            FileInfo most_recent_trace_file = new DirectoryInfo(local_session_variables.log_file_location).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
                             if (trace_file != most_recent_trace_file)
                             {
                                 bw_file_tracer.CancelAsync();
@@ -122,7 +125,7 @@ namespace CO_Driver
                 restart_background_worker = false;
 
                 string trace_type = this.lbl_trace_name.Text.Split(' ').First().ToLower();
-                FileInfo trace_file = new DirectoryInfo(Settings.Default["log_file_location"].ToString()).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+                FileInfo trace_file = new DirectoryInfo(local_session_variables.log_file_location).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
                 this.lbl_current_file_name.Text = string.Format(@"Tracing File ""{0}""", trace_file.FullName);
 
                 bw_file_tracer.RunWorkerAsync();

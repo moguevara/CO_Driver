@@ -445,7 +445,7 @@ namespace CO_Driver
             lb_total_assists.Text = total_assists.ToString();
             lb_total_drone_kills.Text = total_drone_kills.ToString();
             lb_total_kill_deaths.Text = string.Format(@"{0}", games_played > 0 ? Math.Round(((double)total_kills / (double)games_played), 1) : double.PositiveInfinity);
-            lb_total_kill_assist_death.Text = string.Format(@"{0}", games_played > 0 ? Math.Round((((double)total_kills + (double)games_played) / (double)total_deaths), 1) : double.PositiveInfinity);
+            lb_total_kill_assist_death.Text = string.Format(@"{0}", games_played > 0 ? Math.Round((((double)total_kills + (double)total_assists) / (double)games_played), 1) : double.PositiveInfinity);
             lb_total_medals.Text = total_medals.ToString();
             lb_total_mvp.Text = total_mvp.ToString();
             lb_mvp_percent.Text = string.Format(@"{0}%", total_rounds > 0 ? Math.Round(((((double)total_mvp) / (double)games_played) * 100), 2) : double.PositiveInfinity);
@@ -701,6 +701,11 @@ namespace CO_Driver
             movement_filter = global_data.MOVEMENT_FILTER_DEFAULT;
             module_filter = global_data.MODULE_FILTER_DEFAULT;
             populate_user_profile_screen();
+        }
+
+        private void lb_max_kills_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

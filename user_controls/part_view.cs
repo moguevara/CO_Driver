@@ -14,6 +14,7 @@ namespace CO_Driver
     public partial class part_view : UserControl
     {
         public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
+        public log_file_managment.session_variables session;
 
         private class unique_parts
         {
@@ -33,15 +34,15 @@ namespace CO_Driver
             List<unique_parts> part_list = new List<unique_parts> { };
             file_trace_managment ftm = new file_trace_managment { };
 
-            int engineer_level = Convert.ToInt32(Settings.Default["engineer_level"]);
-            int lunatics_level = Convert.ToInt32(Settings.Default["lunatics_level"]);
-            int nomads_level = Convert.ToInt32(Settings.Default["nomads_level"]);
-            int scavengers_level = Convert.ToInt32(Settings.Default["scavengers_level"]);
-            int steppenwolfs_level = Convert.ToInt32(Settings.Default["steppenwolfs_level"]);
-            int dawns_children_level = Convert.ToInt32(Settings.Default["dawns_children_level"]);
-            int firestarts_level = Convert.ToInt32(Settings.Default["firestarts_level"]);
-            int founders_level = Convert.ToInt32(Settings.Default["founders_level"]);
-            bool prestigue_parts = Convert.ToBoolean(Settings.Default["include_prestigue_parts"]);
+            int engineer_level = session.engineer_level;
+            int lunatics_level = session.lunatics_level;
+            int nomads_level = session.nomads_level;
+            int scavengers_level = session.scavengers_level;
+            int steppenwolfs_level = session.steppenwolfs_level;
+            int dawns_children_level = session.dawns_children_level;
+            int firestarts_level = session.firestarts_level;
+            int founders_level = session.founders_level;
+            bool prestigue_parts = session.include_prestigue_parts;
 
             for (int i = 0; i < master_part_list.Count(); i++)
             {

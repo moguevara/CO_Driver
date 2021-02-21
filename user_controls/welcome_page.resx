@@ -221,7 +221,6 @@
   </data>
   <data name="textBox1.Text" xml:space="preserve">
     <value>Currently supported features
-   -Fusion Calculator
    -Match History
    -Build Stats
    -Part Optimization
@@ -229,9 +228,11 @@
    -File Tracing
    -User Profile
    -Post Match Recap
+   -Fusion Calculator
+   -Live Test Drive Testing
 
 Please report bugs or discuss at. 
-   -https://discord.gg/xHNjCZUaPC
+   -https://discord.gg/kKcnVXu2Xe
 
 Please share feature requests.
 

@@ -447,6 +447,7 @@
             this.cmb_language_drop_down.Items.AddRange(new object[] {
             "English",
             "Español",
+            "Deutsche",
             "Pусский"});
             this.cmb_language_drop_down.Location = new System.Drawing.Point(293, 197);
             this.cmb_language_drop_down.MaxDropDownItems = 3;
@@ -589,6 +590,7 @@
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "user_settings";
             this.Size = new System.Drawing.Size(1169, 601);
+            this.Enter += new System.EventHandler(this.user_settings_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).EndInit();
