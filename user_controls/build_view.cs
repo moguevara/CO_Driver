@@ -65,7 +65,7 @@ namespace CO_Driver
                 if (group_filter == "Grouped" &&  match.match_data.local_player.party_id == 0)
                     continue;
 
-                if (map_filter != global_data.MAP_FILTER_DEFAULT && map_filter != match.match_data.map_name)
+                if (map_filter != global_data.MAP_FILTER_DEFAULT && map_filter != match.match_data.map_desc)
                     continue;
 
                 if (client_versions_filter != global_data.CLIENT_VERSION_FILTER_DEFAULT && client_versions_filter != match.match_data.client_version)
@@ -116,8 +116,8 @@ namespace CO_Driver
                 if ( match.match_data.local_player.party_id > 0 && !grouped.Contains("Grouped"))
                     grouped.Add("Grouped");
 
-                if (!maps.Contains(match.match_data.map_name))
-                    maps.Add((match.match_data.map_name));
+                if (!maps.Contains(match.match_data.map_desc))
+                    maps.Add((match.match_data.map_desc));
 
                 if ( match.match_data.local_player.power_score >= 0 &&  match.match_data.local_player.power_score <= 2499 && !power_scores.Contains("0-2499"))
                     power_scores.Add("0-2499");

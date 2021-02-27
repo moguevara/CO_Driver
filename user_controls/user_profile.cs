@@ -34,6 +34,7 @@ namespace CO_Driver
 
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public bool force_refresh = false;
         private string local_user;
         private int games_played;
@@ -329,15 +330,15 @@ namespace CO_Driver
                     if (stripe == "PvpMvpWin")
                         total_mvp++;
 
-                if (!total_map_data.ContainsKey(match.match_data.map_name))
+                if (!total_map_data.ContainsKey(match.match_data.map_desc))
                 {
-                    total_map_data.Add(match.match_data.map_name, new MapData { map_name = match.match_data.map_name, wins = match.match_data.game_result == "Win" ? 1 : 0, games = 1 });
+                    total_map_data.Add(match.match_data.map_desc, new MapData { map_name = match.match_data.map_desc, wins = match.match_data.game_result == "Win" ? 1 : 0, games = 1 });
                 }
                 else
                 {
-                    total_map_data[match.match_data.map_name].games = total_map_data[match.match_data.map_name].games + 1;
+                    total_map_data[match.match_data.map_desc].games = total_map_data[match.match_data.map_desc].games + 1;
                     if (match.match_data.game_result == "Win")
-                        total_map_data[match.match_data.map_name].wins = total_map_data[match.match_data.map_name].wins + 1;
+                        total_map_data[match.match_data.map_desc].wins = total_map_data[match.match_data.map_desc].wins + 1;
                 }
 
                 foreach (KeyValuePair<string, int> match_reward in match.match_data.match_rewards)
@@ -548,25 +549,25 @@ namespace CO_Driver
         private void gb_resources_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_map_data_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_victims_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_nemesis_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void initialize_user_profile()

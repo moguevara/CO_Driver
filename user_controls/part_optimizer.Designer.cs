@@ -94,6 +94,7 @@
             this.dg_available_parts.AllowUserToResizeColumns = false;
             this.dg_available_parts.AllowUserToResizeRows = false;
             this.dg_available_parts.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_available_parts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_available_parts.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_available_parts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
@@ -239,6 +240,7 @@
             this.dg_selected_parts.AllowUserToResizeColumns = false;
             this.dg_selected_parts.AllowUserToResizeRows = false;
             this.dg_selected_parts.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_selected_parts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_selected_parts.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_selected_parts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;

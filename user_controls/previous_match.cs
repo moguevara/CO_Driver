@@ -15,6 +15,7 @@ namespace CO_Driver
         public file_trace_managment.MatchData previous_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public bool show_last_match = true;
         private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
         private string blue_team = "";
@@ -39,6 +40,8 @@ namespace CO_Driver
             assign_teams();
             TimeSpan duration = match_data.match_end - match_data.match_start;
 
+            //MessageBox.Show(match_data.game_play_value + Environment.NewLine + match_data.map_name + Environment.NewLine + Environment.NewLine +  string.Join(",", match_data.match_attributes.Select(x => x.attribute)));
+
             if (match_data.game_result == "Win")
                 lb_game_result.Text = "Victory";
             else if (match_data.game_result == "Loss")
@@ -47,7 +50,7 @@ namespace CO_Driver
                 lb_game_result.Text = match_data.game_result;
 
             lb_match_type.Text = match_data.match_type_desc;
-            lb_map_name.Text = match_data.map_name;
+            lb_map_name.Text = match_data.map_desc;
             lb_build_name.Text = last_build_record.full_description;
             lb_duration.Text = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
             lb_kills.Text = match_data.local_player.stats.kills.ToString();
@@ -57,9 +60,9 @@ namespace CO_Driver
             lb_damage_rec.Text = Math.Round(match_data.local_player.stats.damage_taken,1).ToString();
             lb_score.Text = match_data.local_player.stats.score.ToString();
             lb_medals.Text = match_data.local_player.stripes.Count().ToString();
-            if (match_data.match_rewards.ContainsKey("expFactionTotal")) {
-                lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
-                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
+            if (match_data.match_rewards.ContainsKey("Fation XP")) {
+                lb_xp.Text = match_data.match_rewards["Fation XP"].ToString();
+                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
             }
             else
             {
@@ -249,7 +252,7 @@ namespace CO_Driver
                     row.Cells[0].Value = player.Key;
                     row.Cells[1].Value = player.Value.stats.kills;
                     row.Cells[2].Value = player.Value.stats.assists;
-                    row.Cells[3].Value = player.Value.stats.drone_kills;
+                    row.Cells[3].Value = player.Value.stats.deaths;
                     row.Cells[4].Value = Math.Round(player.Value.stats.damage, 1);
                     row.Cells[5].Value = Math.Round(player.Value.stats.damage_taken, 1);
                     row.Cells[6].Value = player.Value.stats.score;
@@ -261,7 +264,7 @@ namespace CO_Driver
                     row.Cells[0].Value = player.Key;
                     row.Cells[1].Value = player.Value.stats.kills;
                     row.Cells[2].Value = player.Value.stats.assists;
-                    row.Cells[3].Value = player.Value.stats.drone_kills;
+                    row.Cells[3].Value = player.Value.stats.deaths;
                     row.Cells[4].Value = Math.Round(player.Value.stats.damage, 1);
                     row.Cells[5].Value = Math.Round(player.Value.stats.damage_taken, 1);
                     row.Cells[6].Value = player.Value.stats.score;
@@ -337,31 +340,31 @@ namespace CO_Driver
         private void gp_damage_recieved_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gp_medals_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_red_team_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_blue_team_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_damage_dealt_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void draw_group_box(GroupBox box, Graphics g, Color textColor, Color borderColor)

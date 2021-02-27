@@ -51,9 +51,9 @@
             this.gfxlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.printCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +79,7 @@
             this.strp_main_menu_strip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.strp_main_menu_strip.Name = "strp_main_menu_strip";
             this.strp_main_menu_strip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 23);
+            this.strp_main_menu_strip.Size = new System.Drawing.Size(1195, 22);
             this.strp_main_menu_strip.TabIndex = 2;
             this.strp_main_menu_strip.Text = "menuStrip1";
             this.strp_main_menu_strip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -240,12 +240,19 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.menu_user_settings_click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(54, 18);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // main_page_panel
             // 
             this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_page_panel.Location = new System.Drawing.Point(0, 23);
+            this.main_page_panel.Location = new System.Drawing.Point(0, 22);
             this.main_page_panel.Name = "main_page_panel";
-            this.main_page_panel.Size = new System.Drawing.Size(1195, 600);
+            this.main_page_panel.Size = new System.Drawing.Size(1195, 601);
             this.main_page_panel.TabIndex = 3;
             // 
             // bw_file_feed
@@ -254,19 +261,10 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(54, 18);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // frm_main_page
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1195, 623);
             this.Controls.Add(this.main_page_panel);
             this.Controls.Add(this.strp_main_menu_strip);
@@ -275,12 +273,13 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.strp_main_menu_strip;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1211, 662);
             this.MinimumSize = new System.Drawing.Size(1211, 662);
             this.Name = "frm_main_page";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rot_Fish_Bandit Tool Suite v0.0.1.1";
-            this.TransparencyKey = System.Drawing.Color.Transparent;
             this.Load += new System.EventHandler(this.CO_Driver_load);
             this.strp_main_menu_strip.ResumeLayout(false);
             this.strp_main_menu_strip.PerformLayout();

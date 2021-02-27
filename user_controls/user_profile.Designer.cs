@@ -218,7 +218,7 @@
             // 
             this.cb_grouped.BackColor = System.Drawing.Color.Black;
             this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_grouped.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_grouped.ForeColor = System.Drawing.Color.Lime;
             this.cb_grouped.FormattingEnabled = true;
@@ -234,7 +234,7 @@
             // 
             this.cb_power_score.BackColor = System.Drawing.Color.Black;
             this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_power_score.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_power_score.ForeColor = System.Drawing.Color.Lime;
             this.cb_power_score.FormattingEnabled = true;
@@ -250,7 +250,7 @@
             // 
             this.cb_movement.BackColor = System.Drawing.Color.Black;
             this.cb_movement.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_movement.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_movement.ForeColor = System.Drawing.Color.Lime;
             this.cb_movement.FormattingEnabled = true;
@@ -266,7 +266,7 @@
             // 
             this.cb_weapons.BackColor = System.Drawing.Color.Black;
             this.cb_weapons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_weapons.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_weapons.ForeColor = System.Drawing.Color.Lime;
             this.cb_weapons.FormattingEnabled = true;
@@ -282,7 +282,7 @@
             // 
             this.cb_versions.BackColor = System.Drawing.Color.Black;
             this.cb_versions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_versions.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_versions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_versions.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_versions.ForeColor = System.Drawing.Color.Lime;
             this.cb_versions.FormattingEnabled = true;
@@ -314,6 +314,7 @@
             this.dg_resources.AllowUserToResizeColumns = false;
             this.dg_resources.AllowUserToResizeRows = false;
             this.dg_resources.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_resources.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_resources.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_resources.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_resources.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -414,6 +415,7 @@
             this.dg_map_data.AllowUserToResizeColumns = false;
             this.dg_map_data.AllowUserToResizeRows = false;
             this.dg_map_data.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_map_data.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_map_data.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_map_data.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_map_data.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -512,6 +514,7 @@
             this.dg_nemesis_list.AllowUserToResizeColumns = false;
             this.dg_nemesis_list.AllowUserToResizeRows = false;
             this.dg_nemesis_list.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_nemesis_list.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_nemesis_list.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_nemesis_list.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_nemesis_list.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -612,6 +615,7 @@
             this.dg_victim_list.AllowUserToResizeColumns = false;
             this.dg_victim_list.AllowUserToResizeRows = false;
             this.dg_victim_list.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_victim_list.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_victim_list.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_victim_list.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_victim_list.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -1915,7 +1919,7 @@
             // 
             this.cb_game_modes.BackColor = System.Drawing.Color.Black;
             this.cb_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_game_modes.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_game_modes.ForeColor = System.Drawing.Color.Lime;
             this.cb_game_modes.FormattingEnabled = true;
@@ -1931,7 +1935,7 @@
             // 
             this.cb_modules.BackColor = System.Drawing.Color.Black;
             this.cb_modules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_modules.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_modules.ForeColor = System.Drawing.Color.Lime;
             this.cb_modules.FormattingEnabled = true;

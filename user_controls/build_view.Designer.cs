@@ -72,6 +72,7 @@
             this.dg_build_view_grid.AllowUserToResizeColumns = false;
             this.dg_build_view_grid.AllowUserToResizeRows = false;
             this.dg_build_view_grid.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_build_view_grid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_build_view_grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_build_view_grid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_build_view_grid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -372,7 +373,7 @@
             // 
             this.cb_build_game_modes.BackColor = System.Drawing.Color.Black;
             this.cb_build_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_build_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_build_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_build_game_modes.ForeColor = System.Drawing.Color.Lime;
             this.cb_build_game_modes.FormattingEnabled = true;
             this.cb_build_game_modes.Location = new System.Drawing.Point(879, 65);
@@ -386,7 +387,7 @@
             // 
             this.cb_grouped.BackColor = System.Drawing.Color.Black;
             this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_grouped.ForeColor = System.Drawing.Color.Lime;
             this.cb_grouped.FormattingEnabled = true;
             this.cb_grouped.Location = new System.Drawing.Point(719, 65);
@@ -400,7 +401,7 @@
             // 
             this.cb_map.BackColor = System.Drawing.Color.Black;
             this.cb_map.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_map.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_map.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_map.ForeColor = System.Drawing.Color.Lime;
             this.cb_map.FormattingEnabled = true;
             this.cb_map.Location = new System.Drawing.Point(518, 65);
@@ -414,7 +415,7 @@
             // 
             this.cb_power_score.BackColor = System.Drawing.Color.Black;
             this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_power_score.ForeColor = System.Drawing.Color.Lime;
             this.cb_power_score.FormattingEnabled = true;
             this.cb_power_score.Location = new System.Drawing.Point(368, 65);
@@ -428,7 +429,7 @@
             // 
             this.cb_client_version.BackColor = System.Drawing.Color.Black;
             this.cb_client_version.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_client_version.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cb_client_version.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cb_client_version.ForeColor = System.Drawing.Color.Lime;
             this.cb_client_version.FormattingEnabled = true;
             this.cb_client_version.Location = new System.Drawing.Point(5, 65);

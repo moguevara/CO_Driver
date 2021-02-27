@@ -395,6 +395,144 @@ namespace CO_Driver
             };
         }
 
+        public static void load_ck_dictionary(file_trace_managment.SessionStats Current_session)
+        {
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_C1_Raider", "CarPart_Gun_Machinegun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_C1_China", "CarPart_Gun_Machinegun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_Frontal_C1_China", "CarPart_Gun_Machinegun_Frontal");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_Frontal_C1_Raider", "CarPart_Gun_Machinegun_Frontal");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_rare_C1_China", "CarPart_Gun_Machinegun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_SmartMachinegun_C2_China", "CarPart_Gun_SmartMachinegun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_epic_C2_China", "CarPart_Gun_Machinegun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_epic_C1_Raider", "CarPart_Gun_Machinegun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_epic_C1_China", "CarPart_Gun_Machinegun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Minigun_C1_China", "CarPart_Gun_Minigun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Minigun_C1_Raider", "CarPart_Gun_Minigun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_CannonMinigun_legend_C1_China", "CarPart_Gun_CannonMinigun_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_rare_C1_China", "CarPart_Gun_Shotgun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_epic_C1_Raider", "CarPart_Gun_Shotgun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_legend_C2_China", "CarPart_Gun_Shotgun_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Cannon_rare_C1_China", "CarPart_Gun_Cannon_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Cannon_epic_C1_China", "CarPart_Gun_Cannon_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_EX_C1_China", "CarPart_Gun_BigCannon_EX");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_EX_rare_C1_Raider", "CarPart_Gun_BigCannon_EX_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_EX_rare_C1_China", "CarPart_Gun_BigCannon_EX_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_rare_C1_China", "CarPart_Gun_BigCannon_Free_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_rare_C1_Raider", "CarPart_Gun_BigCannon_Free_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_EX_epic_C2_China", "CarPart_Gun_BigCannon_EX_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_EX_epic_C1_China", "CarPart_Gun_BigCannon_EX_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_epic_C1_China", "CarPart_Gun_BigCannon_Free_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_legend_C1_China", "CarPart_Gun_BigCannon_Free_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_rare_C1_Raider", "CarPart_AutoGuidedCourseGun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_rare_C1_China", "CarPart_AutoGuidedCourseGun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_rare_C2_China", "CarPart_AutoGuidedCourseGun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_GuidedMissile_Sniper_C2_China", "CarPart_Gun_GuidedMissile_Sniper");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_epic_C1_China", "CarPart_AutoGuidedCourseGun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_epic_C1_Raider", "CarPart_AutoGuidedCourseGun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_AutoGuidedCourseGun_epic_C2_China", "CarPart_AutoGuidedCourseGun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_HomingMissileLauncher_epic_C1_Raider", "CarPart_HomingMissileLauncher_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_HomingMissileLauncherBurstR_legend_C2_China", "CarPart_HomingMissileLauncherBurstR_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_GrenadeLauncher_Auto_C1_China", "CarPart_Gun_GrenadeLauncher_Auto");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_GrenadeLauncher_Shotgun_C2_China", "CarPart_Gun_GrenadeLauncher_Shotgun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_SniperCrossbow_C2_China", "CarPart_Gun_SniperCrossbow");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_SniperCrossbow_C2_SNG", "CarPart_Gun_SniperCrossbow");
+            Current_session.static_records.ck_dict.Add("CarPart_Drill_epic_C1_China", "CarPart_Drill_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Drill_epic_C1_Raider", "CarPart_Drill_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Drill_epic_C2_China", "CarPart_Drill_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_SpearExplosive_C1_China", "CarPart_SpearExplosive");
+            Current_session.static_records.ck_dict.Add("CarPart_Roundsaw_rare_C1_China", "CarPart_Roundsaw_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_LanceExplosive_C1_China", "CarPart_LanceExplosive");
+            Current_session.static_records.ck_dict.Add("CarPart_LanceExplosive_C2_China", "CarPart_LanceExplosive");
+            Current_session.static_records.ck_dict.Add("CarPart_ChainSaw_epic_C1_China", "CarPart_ChainSaw_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_ChainSaw_epic_C1_Raider", "CarPart_ChainSaw_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Harvester_legend_C1_China", "CarPart_Harvester_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Flamethrower_frontal_C1_Raider", "CarPart_Gun_Flamethrower_frontal");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Flamethrower_light_C1_China", "CarPart_Gun_Flamethrower_light");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Mortar_Revert_C2_China", "CarPart_Gun_Mortar_Revert");
+            Current_session.static_records.ck_dict.Add("CarPart_Booster_rare_C1_Raider", "CarPart_Booster_rare");
+            Current_session.static_records.ck_dict.Add("Chassis_Basic_C1_Raider", "Chassis_Basic");
+            Current_session.static_records.ck_dict.Add("Cabin_Tribal_C1_Raider", "Cabin_Tribal");
+            Current_session.static_records.ck_dict.Add("Chassis_Wyvern_C1_Raider", "Chassis_Wyvern");
+            Current_session.static_records.ck_dict.Add("Cabin_Moonwalker_C1_Raider", "Cabin_Moonwalker");
+            Current_session.static_records.ck_dict.Add("Chassis_Gazelle_C2_Raider", "Chassis_Gazelle");
+            Current_session.static_records.ck_dict.Add("Chassis_Kamaz_C1_Raider", "Chassis_Kamaz");
+            Current_session.static_records.ck_dict.Add("Chassis_Military_C1_Raider", "Chassis_Military");
+            Current_session.static_records.ck_dict.Add("Chassis_Maz_C1_Bundle", "Chassis_Maz");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelSmallChains_C1_Raider", "CarPart_WheelSmallChains");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelSmallChains_S_C1_Raider", "CarPart_WheelSmallChains_S");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelSmallSpiked_C1_Raider", "CarPart_WheelSmallSpiked");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelSmallSpiked_S_C1_Raider", "CarPart_WheelSmallSpiked_S");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Moonwalker_German", "CarPart_Wheel_Moonwalker");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Moonwalker_S_German", "CarPart_Wheel_Moonwalker_S");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMed_R_rare_C2_Raider", "CarPart_WheelMed_R_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMed_RS_rare_C2_Raider", "CarPart_WheelMed_RS_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_AviaSmall_C1_Raider", "CarPart_Wheel_AviaSmall");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_AviaSmall_S_C1_Raider", "CarPart_Wheel_AviaSmall_S");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Drag_C1_Raider", "CarPart_Wheel_Drag");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Drag_S_C1_Raider", "CarPart_Wheel_Drag_S");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Drag_C2_Raider", "CarPart_Wheel_Drag");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_Drag_S_C2_Raider", "CarPart_Wheel_Drag_S");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_SawWheel_C1_Raider", "CarPart_Wheel_SawWheel");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_SawWheel_S_C1_Raider", "CarPart_Wheel_SawWheel_S");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMilitary_C1_Raider", "CarPart_WheelMilitary");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMilitary_S_C1_Raider", "CarPart_WheelMilitary_S");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMilitary_C2_Raider", "CarPart_WheelMilitary");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelMilitary_S_C2_Raider", "CarPart_WheelMilitary_S");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelDouble_R_epic_C1_Raider", "CarPart_WheelDouble_R_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_WheelDouble_RS_epic_C1_Raider", "CarPart_WheelDouble_RS_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_C1_Raider", "CarPart_Wheel_MonsterTruck");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_S_C1_Raider", "CarPart_Wheel_MonsterTruck_S");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_C2_Raider", "CarPart_Wheel_MonsterTruck");
+            Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_S_C2_Raider", "CarPart_Wheel_MonsterTruck_S");
+        }
+
+        public static void load_map_dictionary(file_trace_managment.SessionStats Current_session)
+        {
+            Current_session.static_records.map_dict.Add("bridge", "Bridge");
+            Current_session.static_records.map_dict.Add("sand_valley", "Desert valley");
+            Current_session.static_records.map_dict.Add("downtown", "East quarter");
+            Current_session.static_records.map_dict.Add("factory", "Factory");
+            Current_session.static_records.map_dict.Add("rockcity_2bases", "Founders Canyon");
+            Current_session.static_records.map_dict.Add("tower", "Nameless tower");
+            Current_session.static_records.map_dict.Add("geopp", "Naukograd");
+            Current_session.static_records.map_dict.Add("powerplant", "Powerplant");
+            Current_session.static_records.map_dict.Add("abandoned_ship", "Sandy gulf");
+            Current_session.static_records.map_dict.Add("iron_way_center", @"""Control-17""station");
+            Current_session.static_records.map_dict.Add("chemical_plant", "Chemical plant");
+            Current_session.static_records.map_dict.Add("holes", "Ravagers foothold");
+            Current_session.static_records.map_dict.Add("rockcit", "Rock City");
+            Current_session.static_records.map_dict.Add("conflagration", "Ashen ring");
+            Current_session.static_records.map_dict.Add("arizona_silo", "Broken arrow");
+            Current_session.static_records.map_dict.Add("island", "Clean island");
+            Current_session.static_records.map_dict.Add("sand_crater", "Crater");
+            Current_session.static_records.map_dict.Add("building_yard3", "Sector EX");
+            Current_session.static_records.map_dict.Add("red_rocks_battle_royale", "Blood Rocks");
+            Current_session.static_records.map_dict.Add("arizona_castle", "Wrath of Khan");
+            Current_session.static_records.map_dict.Add("big_plato_race", "Rocky track");
+            Current_session.static_records.map_dict.Add("smallmap_race", "Industrial track");
+            Current_session.static_records.map_dict.Add("miners_way", "Cursed mines");
+            Current_session.static_records.map_dict.Add("cemetery_highway", "Dead Highway");
+            Current_session.static_records.map_dict.Add("iron_way", "Eastern Array");
+            Current_session.static_records.map_dict.Add("lost_coast", "Lost coast");
+            Current_session.static_records.map_dict.Add("port", "Terminal-45");
+            Current_session.static_records.map_dict.Add("shipyard_battle", "River lighthouse");
+            Current_session.static_records.map_dict.Add("fieldbattle", "Tank range");
+        }
+
+        public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)
+        {
+            Current_session.static_records.resource_dict.Add("expFactionTotal", "Fation XP");
+            Current_session.static_records.resource_dict.Add("expBaseFactionTotal", "Engineer XP");
+            Current_session.static_records.resource_dict.Add("Scrap_Common", "Scrap");
+            Current_session.static_records.resource_dict.Add("ClanMoney", "Uranium");
+            Current_session.static_records.resource_dict.Add("Platinum", "Copper");
+            Current_session.static_records.resource_dict.Add("Supply", "Coupons");
+            Current_session.static_records.resource_dict.Add("Scrap_Rare", "Wires"); 
+            Current_session.static_records.resource_dict.Add("Accumulators", "Batteries");
+            Current_session.static_records.resource_dict.Add("NewYearMoney", "Crackers");
+            Current_session.static_records.resource_dict.Add("Scrap_Epic", "Electronics");
+        }
+
 
         public static void load_event_schedule(file_trace_managment.SessionStats Current_session)
         {

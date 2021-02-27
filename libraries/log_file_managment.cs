@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace CO_Driver
 {
@@ -28,6 +29,17 @@ namespace CO_Driver
             public int firestarts_level { get; set; }
             public int founders_level { get; set; }
             public bool include_prestigue_parts { get; set; }
+            public bool save_captures { get; set; }
+            public Color fore_color { get; set; }
+            public Color back_color { get; set; }
+            public List<ui_theme> themes { get; set; }
+        }
+
+        public class ui_theme
+        {
+            public string name { get; set; }
+            public Color fore_ground { get; set; }
+            public Color back_ground { get; set; }
         }
 
         public session_variables new_session_variables()
@@ -49,50 +61,35 @@ namespace CO_Driver
                 dawns_children_level = 15,
                 firestarts_level = 15,
                 founders_level = 75,
-                include_prestigue_parts = true
+                save_captures = true,
+                back_color = Color.Black,
+                fore_color = Color.Lime,
+                include_prestigue_parts = true,
+                themes = populate_available_themes()
             };
         }
+        
+        public List<ui_theme> populate_available_themes()
+        {
+            List<ui_theme> themes = new List<ui_theme> { };
+            themes.Add(new ui_theme { name = "Terminal", fore_ground = Color.Lime, back_ground = Color.Black });
+            themes.Add(new ui_theme { name = "Static", fore_ground = Color.FromArgb(245,245,245), back_ground = Color.Black });
+            themes.Add(new ui_theme { name = "Blabadon", fore_ground = Color.FromArgb(235, 117, 55), back_ground = Color.FromArgb(29,35,40)});
+            themes.Add(new ui_theme { name = "Eris", fore_ground = Color.FromArgb(247, 247, 247), back_ground = Color.FromArgb(54, 57, 63) });
+            themes.Add(new ui_theme { name = "Isotope", fore_ground = Color.FromArgb(198, 245, 165), back_ground = Color.Black });
+            themes.Add(new ui_theme { name = "Mint Oreo", fore_ground = Color.FromArgb(154, 246, 189), back_ground = Color.FromArgb(31, 20, 11) });
+            themes.Add(new ui_theme { name = "S C R O L L", fore_ground = Color.FromArgb(171, 171, 171), back_ground = Color.FromArgb(25, 25, 25) });
+            themes.Add(new ui_theme { name = "Ravage", fore_ground = Color.FromArgb(245, 21, 118), back_ground = Color.FromArgb(12, 24, 14) });
+            themes.Add(new ui_theme { name = "Yakuza", fore_ground = Color.FromArgb(245, 106, 246), back_ground = Color.FromArgb(0, 16, 36) });
+            themes.Add(new ui_theme { name = "Foiu7dnfr", fore_ground = Color.FromArgb(246, 207, 70), back_ground = Color.FromArgb(18, 18, 18) });
+            themes.Add(new ui_theme { name = "Step on Wolf", fore_ground = Color.FromArgb(234, 240, 207), back_ground = Color.FromArgb(37, 49, 14) });
+            themes.Add(new ui_theme { name = "Don's Children", fore_ground = Color.FromArgb(36, 246, 236), back_ground = Color.FromArgb(31, 24, 6) });
+            themes.Add(new ui_theme { name = "Arson", fore_ground = Color.FromArgb(246, 125, 35), back_ground = Color.FromArgb(27, 10, 10) });
+            themes.Add(new ui_theme { name = "Trucker Cab Best Cab", fore_ground = Color.FromArgb(246, 195, 35), back_ground = Color.FromArgb(22, 20, 10) });
+            themes.Add(new ui_theme { name = "Nomadic", fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(33, 37, 31) });
 
-
-        //public void load_user_settings()
-        //{
-        //    session = new log_file_managment.session_variables { engineer_level = 30, lunatics_level = 15, dawns_children_level = 15, firestarts_level = 15, founders_level = 75, include_prestigue_parts = true, nomads_level = 15, scavengers_level = 15, steppenwolfs_level = 15 };
-
-        //    log_file_manager.find_log_file_path(session);
-        //    log_file_manager.find_historic_file_path(session);
-        //    log_file_manager.find_local_user_name(session);
-
-        //    this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found local user_name ""{0}""" + Environment.NewLine, session.local_user_name));
-        //    this.welcome_screen.tb_progress_tracking.AppendText("Loading parts for optimizer." + Environment.NewLine);
-
-        //    log_file_manager.copy_historic_files(session);
-
-        //    this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, session.historic_file_location));
-
-        //    log_file_manager.get_live_file_location(session);
-        //    log_file_manager.create_stream_file_location(session);
-
-        //    this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, session.live_file_location));
-        //}
-
-        //public void load_user_settings(session_variables session)
-        //{
-        //    session = new_session_variables();
-
-        //    session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
-        //    session.historic_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\historic_logs";
-        //    session.live_file_location = new DirectoryInfo(session.log_file_location).GetFiles("*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName;
-
-        //}
-
-
-        //public bool user_configuration_exists(session_variables session)
-        //{
-        //    if ()
-
-
-        //    return false;
-        //}
+            return themes;
+        }
 
         public void find_log_file_path(session_variables session)
         {

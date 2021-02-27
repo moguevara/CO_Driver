@@ -303,6 +303,7 @@
             this.dg_weapon_overview.AllowUserToResizeColumns = false;
             this.dg_weapon_overview.AllowUserToResizeRows = false;
             this.dg_weapon_overview.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_weapon_overview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_weapon_overview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_weapon_overview.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_weapon_overview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -577,6 +578,7 @@
             this.cmb_trial_type.BackColor = System.Drawing.Color.Black;
             this.cmb_trial_type.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmb_trial_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_trial_type.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_trial_type.ForeColor = System.Drawing.Color.Lime;
             this.cmb_trial_type.IntegralHeight = false;
             this.cmb_trial_type.Items.AddRange(new object[] {

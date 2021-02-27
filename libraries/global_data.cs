@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.24";
+        public static string CURRENT_VERSION = "0.1.0.38";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -30,6 +30,9 @@ namespace CO_Driver
         public const int UPDATE_PLAYER_EVENT = 16;
         public const int DATE_ASSIGNMENT_EVENT = 17;
         public const int ASSIGN_CLIENT_VERSION_EVENT = 18;
+        public const int SPAWN_PLAYER_EVENT = 19;
+        public const int ADD_MOB_EVENT = 20;
+        public const int GAME_PLAY_START_EVENT = 21;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
@@ -51,7 +54,15 @@ namespace CO_Driver
         public const int STANDARD_RESTRICTED_MATCH = 14;
         public const int CANNON_BRAWL_MATCH = 15;
         public const int WINTER_MAYHAM_MATCH = 16;
-        public const int UNDEFINED_MATCH = 17;
+        public const int FREE_FOR_ALL_MATCH = 17;
+        public const int SCORPION_MATCH = 18;
+        public const int BOAR_FIGHT_MATCH = 19;
+        public const int BIG_BAD_BURNERS_MATCH = 20;
+        public const int RACE_MATCH = 21;
+        public const int STORMS_WARNING_MATCH = 22;
+        public const int HALLOWEEN_MATCH = 23;
+        public const int ROCKET_LEAGUE_MATCH = 24;
+        public const int UNDEFINED_MATCH = 25;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 

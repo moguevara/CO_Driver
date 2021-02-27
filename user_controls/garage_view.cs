@@ -33,6 +33,7 @@ namespace CO_Driver
 
         public List<file_trace_managment.GarageDamageRecord> current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
         public List<List<file_trace_managment.GarageDamageRecord>> historic_damage_records = new List<List<file_trace_managment.GarageDamageRecord>> { };
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
 
         private DateTime trial_start_time = DateTime.MinValue;
 
@@ -125,8 +126,8 @@ namespace CO_Driver
             dg_weapon_overview.DataSource = weapon_table_source;
 
             current_total_series = new Series { };
-            current_total_series.LabelBackColor = Color.Black;
-            current_total_series.LabelForeColor = Color.Lime;
+            current_total_series.LabelBackColor = session.back_color;
+            current_total_series.LabelForeColor = session.fore_color;
             current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.AddXY(0, 0);
 
@@ -148,19 +149,19 @@ namespace CO_Driver
         private void gb_weapon_breakdown_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_live_data_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void gb_comparison_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, Color.Lime, Color.Lime);
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
         private void draw_group_box(GroupBox box, Graphics g, Color textColor, Color borderColor)
@@ -194,46 +195,46 @@ namespace CO_Driver
 
         public void initialize_live_feed()
         {
-            ch_live_feed.BackColor = Color.Black;
-            ch_live_feed.ForeColor = Color.Lime;
-            ch_live_feed.Legends[0].BackColor = Color.Black;
-            ch_live_feed.Legends[0].ForeColor = Color.Lime;
-            ch_live_feed.ChartAreas[0].BackColor = Color.Black;
+            ch_live_feed.BackColor = session.back_color;
+            ch_live_feed.ForeColor = session.fore_color;
+            ch_live_feed.Legends[0].BackColor = session.back_color;
+            ch_live_feed.Legends[0].ForeColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].BackColor = session.back_color;
             ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             ch_live_feed.ChartAreas[0].AxisX.Title = "Time (S)";
             ch_live_feed.ChartAreas[0].AxisX.Minimum = 0;
-            ch_live_feed.ChartAreas[0].AxisX.TitleForeColor = Color.Lime;
-            ch_live_feed.ChartAreas[0].AxisX.LineColor = Color.Lime;
-            ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Black;
-            ch_live_feed.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.Lime;
+            ch_live_feed.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisX.LineColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
+            ch_live_feed.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
             ch_live_feed.ChartAreas[0].AxisX.RoundAxisValues();
             ch_live_feed.ChartAreas[0].AxisX.IsMarginVisible = false;
             ch_live_feed.ChartAreas[0].AxisY.Title = "Damage";
-            ch_live_feed.ChartAreas[0].AxisY.TitleForeColor = Color.Lime;
-            ch_live_feed.ChartAreas[0].AxisY.LineColor = Color.Lime;
-            ch_live_feed.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Black;
-            ch_live_feed.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.Lime;
+            ch_live_feed.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisY.LineColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
+            ch_live_feed.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
             ch_live_feed.ChartAreas[0].AxisY.IsMarginVisible = false;
 
-            ch_compare.BackColor = Color.Black;
-            ch_compare.ForeColor = Color.Lime;
-            ch_compare.Legends[0].BackColor = Color.Black;
-            ch_compare.Legends[0].ForeColor = Color.Lime;
-            ch_compare.ChartAreas[0].BackColor = Color.Black;
+            ch_compare.BackColor = session.back_color;
+            ch_compare.ForeColor = session.fore_color;
+            ch_compare.Legends[0].BackColor = session.back_color;
+            ch_compare.Legends[0].ForeColor = session.fore_color;
+            ch_compare.ChartAreas[0].BackColor = session.back_color;
             ch_compare.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             ch_compare.ChartAreas[0].AxisX.Title = "Time (S)";
             ch_compare.ChartAreas[0].AxisX.Minimum = 0;
-            ch_compare.ChartAreas[0].AxisX.TitleForeColor = Color.Lime;
-            ch_compare.ChartAreas[0].AxisX.LineColor = Color.Lime;
-            ch_compare.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Black;
-            ch_compare.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.Lime;
+            ch_compare.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisX.LineColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
+            ch_compare.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
             ch_compare.ChartAreas[0].AxisX.RoundAxisValues();
             ch_compare.ChartAreas[0].AxisX.IsMarginVisible = false;
             ch_compare.ChartAreas[0].AxisY.Title = "Damage";
-            ch_compare.ChartAreas[0].AxisY.TitleForeColor = Color.Lime;
-            ch_compare.ChartAreas[0].AxisY.LineColor = Color.Lime;
-            ch_compare.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Black;
-            ch_compare.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.Lime;
+            ch_compare.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisY.LineColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
+            ch_compare.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
             ch_compare.ChartAreas[0].AxisY.IsMarginVisible = false;
 
             weapon_table_source.DataSource = weapon_rows;
@@ -293,9 +294,9 @@ namespace CO_Driver
             dg_weapon_overview.Columns["damage_per_second"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
             dg_weapon_overview.Columns["damage_per_second"].DefaultCellStyle.Format = "N1";
 
-            current_total_series.Color = Color.Lime;
-            current_total_series.LabelBackColor = Color.Black;
-            current_total_series.LabelForeColor = Color.Lime;
+            current_total_series.Color = session.fore_color;
+            current_total_series.LabelBackColor = session.back_color;
+            current_total_series.LabelForeColor = session.fore_color;
             current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.Clear();
             current_total_series.Points.AddXY(0, 0);
@@ -324,26 +325,26 @@ namespace CO_Driver
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
 
             ch_live_feed.Series[name].ToolTip = name;
-            ch_live_feed.Series[name].LabelBackColor = Color.Black;
-            ch_live_feed.Series[name].LabelForeColor = Color.Lime;
+            ch_live_feed.Series[name].LabelBackColor = session.back_color;
+            ch_live_feed.Series[name].LabelForeColor = session.fore_color;
             ch_live_feed.Series[name].Points.Clear();
 
         }
 
         private void add_vertical_annotation(Chart chart, Series series)
         {
-            VerticalLineAnnotation line_annotaion = new VerticalLineAnnotation();
-            line_annotaion.AllowMoving = true;
-            line_annotaion.IsInfinitive = true;
-            line_annotaion.AnchorDataPoint = series.Points[0];
-            line_annotaion.LineColor = Color.Lime;
-            line_annotaion.ForeColor = series.Color;
-            line_annotaion.ClipToChartArea = chart.ChartAreas[0].Name;
-            line_annotaion.AxisX = chart.ChartAreas[0].AxisX;
-            line_annotaion.LineWidth = 1;
-            line_annotaion.X = 0;
+            //VerticalLineAnnotation line_annotaion = new VerticalLineAnnotation();
+            //line_annotaion.AllowMoving = true;
+            //line_annotaion.IsInfinitive = true;
+            //line_annotaion.AnchorDataPoint = series.Points[0];
+            //line_annotaion.LineColor = session.fore_color;
+            //line_annotaion.ForeColor = series.Color;
+            //line_annotaion.ClipToChartArea = chart.ChartAreas[0].Name;
+            //line_annotaion.AxisX = chart.ChartAreas[0].AxisX;
+            //line_annotaion.LineWidth = 1;
+            //line_annotaion.X = 0;
 
-            chart.Annotations.Add(line_annotaion);
+            //chart.Annotations.Add(line_annotaion);
         }
 
         private void btn_save_user_settings_Click(object sender, EventArgs e)

@@ -24,6 +24,7 @@ namespace CO_Driver
 
         public log_file_managment log_file_manager = new log_file_managment();
         public file_trace_managment file_trace_manager = new file_trace_managment();
+        public theme theme_manager = new theme { };
         public welcome_page welcome_screen = new welcome_page();
         public user_profile user_profile_page = new user_profile();
         public match_history match_history_page = new match_history();
@@ -63,13 +64,19 @@ namespace CO_Driver
             avail_part_page.session = session;
             settings_page.session = session;
             about_page.session = session;
+            user_profile_page.session = session;
+            match_detail_page.session = session;
+            garage_page.session = session;
 
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
+            settings_page.reload_all_themes += new EventHandler(reload_theme);
 
             garage_page.initialize_live_feed();
             main_page_panel.Controls.Add(welcome_screen);
 
-            this.Text = string.Format(@"CO-Driver v{0}", get_current_version());
+            this.Text = string.Format(@"CO_Driver v{0}", get_current_version());
+
+            
 
             try
             {
@@ -79,6 +86,22 @@ namespace CO_Driver
             {
                 MessageBox.Show(@"Background worker failed:" + ex.Message + Environment.NewLine + ex.InnerException);
             }
+        }
+        private void reload_theme(object sender, EventArgs e)
+        {
+            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.apply_theme(welcome_screen, session);
+            theme_manager.apply_theme(user_profile_page, session);
+            theme_manager.apply_theme(match_history_page, session);
+            theme_manager.apply_theme(schedule_page, session);
+            theme_manager.apply_theme(build_page, session);
+            theme_manager.apply_theme(part_page, session);
+            theme_manager.apply_theme(avail_part_page, session);
+            theme_manager.apply_theme(match_detail_page, session);
+            theme_manager.apply_theme(garage_page, session);
+            theme_manager.apply_theme(fusion_page, session);
+            theme_manager.apply_theme(settings_page, session);
+            theme_manager.apply_theme(about_page, session);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -114,6 +137,7 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(settings_page);
+            
         }
 
         public void clear_main_page_panel()
@@ -130,6 +154,7 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(fusion_page);
+           
         }
 
         private void chatToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -145,30 +170,35 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Combat", session));
+            theme_manager.apply_theme(main_page_panel, session);
         }
 
         private void gamelogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Game", session));
+            theme_manager.apply_theme(main_page_panel, session);
         }
 
         private void chatlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Chat", session));
+            theme_manager.apply_theme(main_page_panel, session);
         }
 
         private void netlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Net", session));
+            theme_manager.apply_theme(main_page_panel, session);
         }
 
         private void gfxlogToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Gfx", session));
+            theme_manager.apply_theme(main_page_panel, session);
         }
         private void userProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -611,15 +641,21 @@ namespace CO_Driver
         {
             file_trace_managment.assign_current_combat_event(line, Current_session);
             //if (Current_session.live_trace_data == true)
-            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:"+ Current_session.live_trace_data.ToString() + Current_session.in_match.ToString() + line));
+            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
             switch (Current_session.current_event)
             {
                 case global_data.MATCH_START_EVENT:
                     add_last_match(Current_session);
                     file_trace_managment.match_start_event(line, Current_session);
                     break;
+                case global_data.GAME_PLAY_START_EVENT:
+                    file_trace_managment.gameplay_start_event(line, Current_session);
+                    break;
                 case global_data.LOAD_PLAYER_EVENT:
                     file_trace_managment.load_player_event(line, Current_session);
+                    break;
+                case global_data.SPAWN_PLAYER_EVENT:
+                    file_trace_managment.spawn_player_event(line, Current_session);
                     break;
                 case global_data.DAMAGE_EVENT:
                     file_trace_managment.damage_event(line, Current_session);
@@ -652,6 +688,9 @@ namespace CO_Driver
                     file_trace_managment.match_end_event(line, Current_session);
                     add_last_match(Current_session);
                     break;
+                case global_data.ADD_MOB_EVENT:
+                    file_trace_managment.add_mob_event(line, Current_session);
+                    break;
             }
         }
 
@@ -670,20 +709,23 @@ namespace CO_Driver
 
 
             System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp);
-            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         0),          new Point(0,         bmp.Height));
-            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         0),          new Point(bmp.Width, 0));
-            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(0,         bmp.Height), new Point(bmp.Width, bmp.Height));
-            gr.DrawLine(new Pen(Brushes.Lime, border_width * 2), new Point(bmp.Width, 0),          new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         0),          new Point(0,         bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         0),          new Point(bmp.Width, 0));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         bmp.Height), new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(bmp.Width, 0),          new Point(bmp.Width, bmp.Height));
 
             Clipboard.SetImage((Image)bmp);
 
-            try
+            if (session.save_captures)
             {
-                bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
+                }
+                catch (Exception ex)
+                {
 
+                }
             }
 
             bmp.Dispose();
@@ -734,7 +776,11 @@ namespace CO_Driver
 
             this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, session.live_file_location));
         }
-        
+
+        private void update_themes(object sender, EventArgs e)
+        {
+
+        }
 
         private void load_match_details(object sender, file_trace_managment.MatchRecord historic_match)
         {

@@ -36,7 +36,7 @@ namespace CO_Driver
                 row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
                 row.Cells[1].Value = match.match_data.match_start;
                 row.Cells[2].Value = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
-                row.Cells[3].Value = match.match_data.map_name;
+                row.Cells[3].Value = match.match_data.map_desc;
                 row.Cells[4].Value = match.match_data.local_player.build_hash;
                 row.Cells[5].Value = match.match_data.local_player.power_score;
                 row.Cells[6].Value = match.match_data.local_player.stats.score;
@@ -46,7 +46,7 @@ namespace CO_Driver
                 row.Cells[10].Value = Math.Round(match.match_data.local_player.stats.damage, 1);
                 row.Cells[11].Value = Math.Round(match.match_data.local_player.stats.damage_taken, 1);
                 row.Cells[12].Value = match.match_data.game_result;
-                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("exp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
+                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
 
                 dg_match_history_view.Rows.Add(row);
             }

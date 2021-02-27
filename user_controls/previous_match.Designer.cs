@@ -213,6 +213,7 @@
             this.dg_medals.AllowUserToResizeColumns = false;
             this.dg_medals.AllowUserToResizeRows = false;
             this.dg_medals.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_medals.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_medals.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_medals.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_medals.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -332,6 +333,7 @@
             this.dg_red_team.AllowUserToResizeColumns = false;
             this.dg_red_team.AllowUserToResizeRows = false;
             this.dg_red_team.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_red_team.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_red_team.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_red_team.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_red_team.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -403,40 +405,40 @@
             // 
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn5.HeaderText = "Player";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 120;
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 130;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 120;
+            this.dataGridViewTextBoxColumn5.Width = 130;
             // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn6.FillWeight = 20F;
             this.dataGridViewTextBoxColumn6.HeaderText = "K";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 20;
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 20;
+            this.dataGridViewTextBoxColumn6.Width = 30;
             // 
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn7.FillWeight = 56.06061F;
             this.dataGridViewTextBoxColumn7.HeaderText = "A";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 20;
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 20;
+            this.dataGridViewTextBoxColumn7.Width = 30;
             // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn8.FillWeight = 56.06061F;
             this.dataGridViewTextBoxColumn8.HeaderText = "D";
-            this.dataGridViewTextBoxColumn8.MinimumWidth = 20;
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 20;
+            this.dataGridViewTextBoxColumn8.Width = 30;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -489,6 +491,7 @@
             this.dg_blue_team.AllowUserToResizeColumns = false;
             this.dg_blue_team.AllowUserToResizeRows = false;
             this.dg_blue_team.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_blue_team.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_blue_team.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_blue_team.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_blue_team.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -560,40 +563,40 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column2.HeaderText = "Player";
-            this.Column2.MinimumWidth = 120;
+            this.Column2.MinimumWidth = 130;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
-            this.Column2.Width = 120;
+            this.Column2.Width = 130;
             // 
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column3.FillWeight = 20F;
             this.Column3.HeaderText = "K";
-            this.Column3.MinimumWidth = 20;
+            this.Column3.MinimumWidth = 30;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
-            this.Column3.Width = 20;
+            this.Column3.Width = 30;
             // 
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column4.FillWeight = 56.06061F;
             this.Column4.HeaderText = "A";
-            this.Column4.MinimumWidth = 20;
+            this.Column4.MinimumWidth = 30;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
-            this.Column4.Width = 20;
+            this.Column4.Width = 30;
             // 
             // Column8
             // 
             this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column8.FillWeight = 56.06061F;
             this.Column8.HeaderText = "D";
-            this.Column8.MinimumWidth = 20;
+            this.Column8.MinimumWidth = 30;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
-            this.Column8.Width = 20;
+            this.Column8.Width = 30;
             // 
             // Column6
             // 
@@ -663,6 +666,7 @@
             this.dg_damage_rec.AllowUserToResizeColumns = false;
             this.dg_damage_rec.AllowUserToResizeRows = false;
             this.dg_damage_rec.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_damage_rec.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_damage_rec.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_damage_rec.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_damage_rec.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -765,6 +769,7 @@
             this.dg_damage_dealt.AllowUserToResizeColumns = false;
             this.dg_damage_dealt.AllowUserToResizeRows = false;
             this.dg_damage_dealt.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_damage_dealt.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_damage_dealt.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_damage_dealt.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_damage_dealt.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;

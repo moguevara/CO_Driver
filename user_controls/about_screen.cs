@@ -24,7 +24,31 @@ namespace CO_Driver
             base.OnLoad(e);
 
             version_label.Text = string.Format(@"CO_Driver v{0}", global_data.CURRENT_VERSION);
-            //tb_thanks.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+        }
+
+        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.twitch.tv/rotfishbandit");
+        }
+
+        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://mail.google.com/mail/?view=cm&fs=1&to=codriverdept116@gmail.com");
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.patreon.com/CO_Driver");
+        }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/kKcnVXu2Xe");
+        }
+
+        private void ll_website_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://codriver.dept116.com/");
         }
     }
 }

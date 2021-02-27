@@ -70,6 +70,7 @@
             this.dg_match_history_view.AllowUserToResizeColumns = false;
             this.dg_match_history_view.AllowUserToResizeRows = false;
             this.dg_match_history_view.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_match_history_view.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_match_history_view.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_match_history_view.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_match_history_view.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;

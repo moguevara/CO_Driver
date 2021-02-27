@@ -63,6 +63,11 @@
             this.chk_twitch_mode = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_historic_log_location = new System.Windows.Forms.TextBox();
+            this.cmb_themes = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tb_theme_warning = new System.Windows.Forms.TextBox();
+            this.chk_save_screen_shots = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).BeginInit();
@@ -111,7 +116,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Lime;
-            this.label13.Location = new System.Drawing.Point(588, 115);
+            this.label13.Location = new System.Drawing.Point(637, 115);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(161, 14);
             this.label13.TabIndex = 12;
@@ -122,7 +127,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Lime;
-            this.label14.Location = new System.Drawing.Point(588, 145);
+            this.label14.Location = new System.Drawing.Point(637, 145);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(154, 14);
             this.label14.TabIndex = 13;
@@ -133,7 +138,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Lime;
-            this.label15.Location = new System.Drawing.Point(588, 175);
+            this.label15.Location = new System.Drawing.Point(637, 175);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(140, 14);
             this.label15.TabIndex = 14;
@@ -144,7 +149,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Lime;
-            this.label16.Location = new System.Drawing.Point(588, 205);
+            this.label16.Location = new System.Drawing.Point(637, 205);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(168, 14);
             this.label16.TabIndex = 15;
@@ -155,7 +160,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Lime;
-            this.label17.Location = new System.Drawing.Point(588, 235);
+            this.label17.Location = new System.Drawing.Point(637, 235);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(182, 14);
             this.label17.TabIndex = 16;
@@ -166,7 +171,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Lime;
-            this.label18.Location = new System.Drawing.Point(588, 265);
+            this.label18.Location = new System.Drawing.Point(637, 265);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(161, 14);
             this.label18.TabIndex = 17;
@@ -177,7 +182,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Lime;
-            this.label19.Location = new System.Drawing.Point(588, 295);
+            this.label19.Location = new System.Drawing.Point(637, 295);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(140, 14);
             this.label19.TabIndex = 18;
@@ -188,7 +193,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.Lime;
-            this.label20.Location = new System.Drawing.Point(588, 325);
+            this.label20.Location = new System.Drawing.Point(637, 325);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(112, 14);
             this.label20.TabIndex = 19;
@@ -199,7 +204,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Lime;
-            this.label21.Location = new System.Drawing.Point(588, 355);
+            this.label21.Location = new System.Drawing.Point(637, 355);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(154, 14);
             this.label21.TabIndex = 20;
@@ -210,7 +215,7 @@
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Lime;
-            this.label23.Location = new System.Drawing.Point(588, 85);
+            this.label23.Location = new System.Drawing.Point(637, 85);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(49, 14);
             this.label23.TabIndex = 22;
@@ -245,7 +250,7 @@
             this.num_engineer_level.BackColor = System.Drawing.Color.Black;
             this.num_engineer_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_engineer_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_engineer_level.Location = new System.Drawing.Point(894, 107);
+            this.num_engineer_level.Location = new System.Drawing.Point(943, 107);
             this.num_engineer_level.Maximum = new decimal(new int[] {
             30,
             0,
@@ -271,7 +276,7 @@
             this.num_lunatic_level.BackColor = System.Drawing.Color.Black;
             this.num_lunatic_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_lunatic_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_lunatic_level.Location = new System.Drawing.Point(894, 137);
+            this.num_lunatic_level.Location = new System.Drawing.Point(943, 137);
             this.num_lunatic_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -292,7 +297,7 @@
             this.num_nomad_level.BackColor = System.Drawing.Color.Black;
             this.num_nomad_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_nomad_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_nomad_level.Location = new System.Drawing.Point(894, 167);
+            this.num_nomad_level.Location = new System.Drawing.Point(943, 167);
             this.num_nomad_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -313,7 +318,7 @@
             this.num_scavenger_level.BackColor = System.Drawing.Color.Black;
             this.num_scavenger_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_scavenger_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_scavenger_level.Location = new System.Drawing.Point(894, 197);
+            this.num_scavenger_level.Location = new System.Drawing.Point(943, 197);
             this.num_scavenger_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -334,7 +339,7 @@
             this.num_steppenwolf_level.BackColor = System.Drawing.Color.Black;
             this.num_steppenwolf_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_steppenwolf_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_steppenwolf_level.Location = new System.Drawing.Point(894, 227);
+            this.num_steppenwolf_level.Location = new System.Drawing.Point(943, 227);
             this.num_steppenwolf_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -355,7 +360,7 @@
             this.num_dawns_children_level.BackColor = System.Drawing.Color.Black;
             this.num_dawns_children_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_dawns_children_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_dawns_children_level.Location = new System.Drawing.Point(894, 258);
+            this.num_dawns_children_level.Location = new System.Drawing.Point(943, 258);
             this.num_dawns_children_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -376,7 +381,7 @@
             this.num_firestarter_level.BackColor = System.Drawing.Color.Black;
             this.num_firestarter_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_firestarter_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_firestarter_level.Location = new System.Drawing.Point(894, 293);
+            this.num_firestarter_level.Location = new System.Drawing.Point(943, 293);
             this.num_firestarter_level.Maximum = new decimal(new int[] {
             15,
             0,
@@ -397,7 +402,7 @@
             this.num_founders_level.BackColor = System.Drawing.Color.Black;
             this.num_founders_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_founders_level.ForeColor = System.Drawing.Color.Lime;
-            this.num_founders_level.Location = new System.Drawing.Point(894, 323);
+            this.num_founders_level.Location = new System.Drawing.Point(943, 323);
             this.num_founders_level.Maximum = new decimal(new int[] {
             75,
             0,
@@ -421,7 +426,7 @@
             this.chk_prestigue_parts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_prestigue_parts.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_prestigue_parts.ForeColor = System.Drawing.Color.Lime;
-            this.chk_prestigue_parts.Location = new System.Drawing.Point(894, 358);
+            this.chk_prestigue_parts.Location = new System.Drawing.Point(943, 358);
             this.chk_prestigue_parts.Name = "chk_prestigue_parts";
             this.chk_prestigue_parts.Size = new System.Drawing.Size(12, 11);
             this.chk_prestigue_parts.TabIndex = 35;
@@ -442,6 +447,7 @@
             // 
             this.cmb_language_drop_down.BackColor = System.Drawing.Color.Black;
             this.cmb_language_drop_down.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_language_drop_down.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_language_drop_down.ForeColor = System.Drawing.Color.Lime;
             this.cmb_language_drop_down.IntegralHeight = false;
             this.cmb_language_drop_down.Items.AddRange(new object[] {
@@ -473,7 +479,7 @@
             // 
             this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_save_user_settings.Location = new System.Drawing.Point(928, 548);
+            this.btn_save_user_settings.Location = new System.Drawing.Point(977, 548);
             this.btn_save_user_settings.Name = "btn_save_user_settings";
             this.btn_save_user_settings.Size = new System.Drawing.Size(206, 34);
             this.btn_save_user_settings.TabIndex = 41;
@@ -485,7 +491,7 @@
             // 
             this.btn_default_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_default_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_default_user_settings.Location = new System.Drawing.Point(828, 548);
+            this.btn_default_user_settings.Location = new System.Drawing.Point(877, 548);
             this.btn_default_user_settings.Name = "btn_default_user_settings";
             this.btn_default_user_settings.Size = new System.Drawing.Size(94, 34);
             this.btn_default_user_settings.TabIndex = 42;
@@ -504,7 +510,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1169, 601);
+            this.label1.Size = new System.Drawing.Size(1195, 601);
             this.label1.TabIndex = 0;
             this.label1.Text = "USER SETTINGS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -548,11 +554,82 @@
             this.txt_historic_log_location.TabIndex = 40;
             this.txt_historic_log_location.WordWrap = false;
             // 
+            // cmb_themes
+            // 
+            this.cmb_themes.BackColor = System.Drawing.Color.Black;
+            this.cmb_themes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmb_themes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_themes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmb_themes.ForeColor = System.Drawing.Color.Lime;
+            this.cmb_themes.IntegralHeight = false;
+            this.cmb_themes.Location = new System.Drawing.Point(293, 235);
+            this.cmb_themes.MaxDropDownItems = 15;
+            this.cmb_themes.Name = "cmb_themes";
+            this.cmb_themes.Size = new System.Drawing.Size(242, 23);
+            this.cmb_themes.TabIndex = 45;
+            this.cmb_themes.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmb_themes_DrawItem);
+            this.cmb_themes.SelectedIndexChanged += new System.EventHandler(this.cmb_themes_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Lime;
+            this.label4.Location = new System.Drawing.Point(3, 235);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 14);
+            this.label4.TabIndex = 46;
+            this.label4.Text = "Theme";
+            // 
+            // tb_theme_warning
+            // 
+            this.tb_theme_warning.BackColor = System.Drawing.Color.Black;
+            this.tb_theme_warning.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_theme_warning.Font = new System.Drawing.Font("Consolas", 14.25F);
+            this.tb_theme_warning.ForeColor = System.Drawing.Color.Lime;
+            this.tb_theme_warning.Location = new System.Drawing.Point(6, 526);
+            this.tb_theme_warning.Multiline = true;
+            this.tb_theme_warning.Name = "tb_theme_warning";
+            this.tb_theme_warning.ReadOnly = true;
+            this.tb_theme_warning.Size = new System.Drawing.Size(743, 67);
+            this.tb_theme_warning.TabIndex = 47;
+            this.tb_theme_warning.TabStop = false;
+            // 
+            // chk_save_screen_shots
+            // 
+            this.chk_save_screen_shots.AutoSize = true;
+            this.chk_save_screen_shots.Checked = true;
+            this.chk_save_screen_shots.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_save_screen_shots.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_save_screen_shots.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_save_screen_shots.ForeColor = System.Drawing.Color.Lime;
+            this.chk_save_screen_shots.Location = new System.Drawing.Point(295, 269);
+            this.chk_save_screen_shots.Name = "chk_save_screen_shots";
+            this.chk_save_screen_shots.Size = new System.Drawing.Size(12, 11);
+            this.chk_save_screen_shots.TabIndex = 48;
+            this.chk_save_screen_shots.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Lime;
+            this.label6.Location = new System.Drawing.Point(3, 269);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(154, 14);
+            this.label6.TabIndex = 49;
+            this.label6.Text = "Save Screen Captures ";
+            // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.chk_save_screen_shots);
+            this.Controls.Add(this.tb_theme_warning);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cmb_themes);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.chk_twitch_mode);
             this.Controls.Add(this.btn_default_user_settings);
@@ -589,7 +666,7 @@
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "user_settings";
-            this.Size = new System.Drawing.Size(1169, 601);
+            this.Size = new System.Drawing.Size(1195, 601);
             this.Enter += new System.EventHandler(this.user_settings_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).EndInit();
@@ -640,5 +717,10 @@
         private System.Windows.Forms.CheckBox chk_twitch_mode;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txt_historic_log_location;
+        private System.Windows.Forms.ComboBox cmb_themes;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tb_theme_warning;
+        private System.Windows.Forms.CheckBox chk_save_screen_shots;
+        private System.Windows.Forms.Label label6;
     }
 }

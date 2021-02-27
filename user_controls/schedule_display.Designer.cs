@@ -64,6 +64,7 @@
             this.dg_build_view_grid.AllowUserToResizeColumns = false;
             this.dg_build_view_grid.AllowUserToResizeRows = false;
             this.dg_build_view_grid.BackgroundColor = System.Drawing.Color.Black;
+            this.dg_build_view_grid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_build_view_grid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_build_view_grid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;

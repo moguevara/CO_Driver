@@ -82,6 +82,7 @@
             // 
             this.tb_fusion_data.AllowUserToOrderColumns = true;
             this.tb_fusion_data.BackgroundColor = System.Drawing.Color.Black;
+            this.tb_fusion_data.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_fusion_data.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
