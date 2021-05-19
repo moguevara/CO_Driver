@@ -999,7 +999,7 @@
             this.lb_kg_title.TabIndex = 5;
             this.lb_kg_title.Text = "K/G";
             this.lb_kg_title.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(this.lb_kg_title, "Kill to death ratio.");
+            this.toolTip1.SetToolTip(this.lb_kg_title, "Kill per game ratio.");
             // 
             // lb_drone_kill_title
             // 
