@@ -41,7 +41,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.txt_local_user_input = new System.Windows.Forms.TextBox();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -68,6 +67,10 @@
             this.tb_theme_warning = new System.Windows.Forms.TextBox();
             this.chk_save_screen_shots = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.cmb_user_names = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chk_group_ram = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).BeginInit();
@@ -220,20 +223,6 @@
             this.label23.Size = new System.Drawing.Size(49, 14);
             this.label23.TabIndex = 22;
             this.label23.Text = "Levels";
-            // 
-            // txt_local_user_input
-            // 
-            this.txt_local_user_input.BackColor = System.Drawing.Color.Black;
-            this.txt_local_user_input.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_local_user_input.Enabled = false;
-            this.txt_local_user_input.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_local_user_input.ForeColor = System.Drawing.Color.Lime;
-            this.txt_local_user_input.Location = new System.Drawing.Point(295, 77);
-            this.txt_local_user_input.MaxLength = 32;
-            this.txt_local_user_input.Name = "txt_local_user_input";
-            this.txt_local_user_input.Size = new System.Drawing.Size(154, 22);
-            this.txt_local_user_input.TabIndex = 1;
-            this.txt_local_user_input.WordWrap = false;
             // 
             // directorySearcher1
             // 
@@ -452,11 +441,16 @@
             this.cmb_language_drop_down.IntegralHeight = false;
             this.cmb_language_drop_down.Items.AddRange(new object[] {
             "English",
+            "Pусский",
+            "Deutsch",
             "Español",
-            "Deutsche",
-            "Pусский"});
+            "Français",
+            "हिन्दी",
+            "Polski",
+            "한국어",
+            "Ελληνικά"});
             this.cmb_language_drop_down.Location = new System.Drawing.Point(293, 197);
-            this.cmb_language_drop_down.MaxDropDownItems = 3;
+            this.cmb_language_drop_down.MaxDropDownItems = 10;
             this.cmb_language_drop_down.Name = "cmb_language_drop_down";
             this.cmb_language_drop_down.Size = new System.Drawing.Size(242, 22);
             this.cmb_language_drop_down.TabIndex = 38;
@@ -491,9 +485,9 @@
             // 
             this.btn_default_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_default_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_default_user_settings.Location = new System.Drawing.Point(877, 548);
+            this.btn_default_user_settings.Location = new System.Drawing.Point(765, 548);
             this.btn_default_user_settings.Name = "btn_default_user_settings";
-            this.btn_default_user_settings.Size = new System.Drawing.Size(94, 34);
+            this.btn_default_user_settings.Size = new System.Drawing.Size(206, 34);
             this.btn_default_user_settings.TabIndex = 42;
             this.btn_default_user_settings.Text = "Default";
             this.btn_default_user_settings.UseVisualStyleBackColor = true;
@@ -563,7 +557,7 @@
             this.cmb_themes.ForeColor = System.Drawing.Color.Lime;
             this.cmb_themes.IntegralHeight = false;
             this.cmb_themes.Location = new System.Drawing.Point(293, 235);
-            this.cmb_themes.MaxDropDownItems = 15;
+            this.cmb_themes.MaxDropDownItems = 20;
             this.cmb_themes.Name = "cmb_themes";
             this.cmb_themes.Size = new System.Drawing.Size(242, 23);
             this.cmb_themes.TabIndex = 45;
@@ -620,11 +614,65 @@
             this.label6.TabIndex = 49;
             this.label6.Text = "Save Screen Captures ";
             // 
+            // cmb_user_names
+            // 
+            this.cmb_user_names.BackColor = System.Drawing.Color.Black;
+            this.cmb_user_names.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_user_names.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmb_user_names.ForeColor = System.Drawing.Color.Lime;
+            this.cmb_user_names.IntegralHeight = false;
+            this.cmb_user_names.Location = new System.Drawing.Point(293, 77);
+            this.cmb_user_names.MaxDropDownItems = 3;
+            this.cmb_user_names.Name = "cmb_user_names";
+            this.cmb_user_names.Size = new System.Drawing.Size(242, 22);
+            this.cmb_user_names.TabIndex = 50;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Lime;
+            this.label7.Location = new System.Drawing.Point(3, 295);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(210, 14);
+            this.label7.TabIndex = 51;
+            this.label7.Text = "Group Ram Damage into Ramming";
+            // 
+            // chk_group_ram
+            // 
+            this.chk_group_ram.AutoSize = true;
+            this.chk_group_ram.Checked = true;
+            this.chk_group_ram.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_group_ram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_group_ram.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_group_ram.ForeColor = System.Drawing.Color.Lime;
+            this.chk_group_ram.Location = new System.Drawing.Point(295, 297);
+            this.chk_group_ram.Name = "chk_group_ram";
+            this.chk_group_ram.Size = new System.Drawing.Size(12, 11);
+            this.chk_group_ram.TabIndex = 52;
+            this.chk_group_ram.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(553, 548);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(206, 34);
+            this.button1.TabIndex = 53;
+            this.button1.Text = "Recalculate Logs";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.recalculate_logs);
+            // 
             // user_settings
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.chk_group_ram);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.cmb_user_names);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chk_save_screen_shots);
             this.Controls.Add(this.tb_theme_warning);
@@ -647,7 +695,6 @@
             this.Controls.Add(this.num_nomad_level);
             this.Controls.Add(this.num_lunatic_level);
             this.Controls.Add(this.num_engineer_level);
-            this.Controls.Add(this.txt_local_user_input);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -665,6 +712,8 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "user_settings";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Enter += new System.EventHandler(this.user_settings_Enter);
@@ -695,7 +744,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox txt_local_user_input;
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -722,5 +770,9 @@
         private System.Windows.Forms.TextBox tb_theme_warning;
         private System.Windows.Forms.CheckBox chk_save_screen_shots;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmb_user_names;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chk_group_ram;
+        private System.Windows.Forms.Button button1;
     }
 }

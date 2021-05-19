@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Drawing;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace CO_Driver
 {
@@ -15,11 +17,17 @@ namespace CO_Driver
         {
             public string local_user_name { get; set; }
             public int local_user_uid { get; set; }
-            public string document_location { get; set; }
+            public string local_language { get; set; }
             public string log_file_location { get; set; }
+            public string co_driver_location { get; set; }
             public string historic_file_location { get; set; }
             public string stream_file_location { get; set; }
             public string live_file_location { get; set; }
+            public string config_file_location { get; set; }
+            public string data_file_location { get; set; }
+            public string screenshot_file_location { get; set; }
+            public string market_data_file_location { get; set; }
+            public string error_log_location { get; set; }
             public int engineer_level { get; set; }
             public int lunatics_level { get; set; }
             public int nomads_level { get; set; }
@@ -30,29 +38,34 @@ namespace CO_Driver
             public int founders_level { get; set; }
             public bool include_prestigue_parts { get; set; }
             public bool save_captures { get; set; }
+            public bool twitch_mode { get; set; }
+            public bool bundle_ram_mode { get; set; }
+            public string selected_theme { get; set; }
             public Color fore_color { get; set; }
             public Color back_color { get; set; }
-            public List<ui_theme> themes { get; set; }
-        }
-
-        public class ui_theme
-        {
-            public string name { get; set; }
-            public Color fore_ground { get; set; }
-            public Color back_ground { get; set; }
+            public string client_version { get; set; }
+            public List<string> parsed_logs { get; set; }
+            public Dictionary<string, int> valid_users { get; set; }
+            
         }
 
         public session_variables new_session_variables()
         {
             return new session_variables
             {
-                local_user_name = "test",
+                local_user_name = "",
                 local_user_uid = 0,
-                document_location = "",
+                local_language = "English",
                 log_file_location = "",
+                co_driver_location = "",
                 historic_file_location = "",
                 live_file_location = "",
                 stream_file_location = "",
+                config_file_location = "",
+                data_file_location = "",
+                screenshot_file_location = "",
+                market_data_file_location = "",
+                error_log_location = "",
                 engineer_level = 30,
                 lunatics_level = 15,
                 nomads_level = 15,
@@ -62,61 +75,300 @@ namespace CO_Driver
                 firestarts_level = 15,
                 founders_level = 75,
                 save_captures = true,
+                twitch_mode = false,
+                bundle_ram_mode = true,
+                selected_theme = "Terminal",
                 back_color = Color.Black,
                 fore_color = Color.Lime,
                 include_prestigue_parts = true,
-                themes = populate_available_themes()
+                client_version = global_data.CURRENT_VERSION,
+                parsed_logs = new List<string> { },
+                valid_users = new Dictionary<string, int> { }
             };
         }
-        
-        public List<ui_theme> populate_available_themes()
-        {
-            List<ui_theme> themes = new List<ui_theme> { };
-            themes.Add(new ui_theme { name = "Terminal", fore_ground = Color.Lime, back_ground = Color.Black });
-            themes.Add(new ui_theme { name = "Static", fore_ground = Color.FromArgb(245,245,245), back_ground = Color.Black });
-            themes.Add(new ui_theme { name = "Blabadon", fore_ground = Color.FromArgb(235, 117, 55), back_ground = Color.FromArgb(29,35,40)});
-            themes.Add(new ui_theme { name = "Eris", fore_ground = Color.FromArgb(247, 247, 247), back_ground = Color.FromArgb(54, 57, 63) });
-            themes.Add(new ui_theme { name = "Isotope", fore_ground = Color.FromArgb(198, 245, 165), back_ground = Color.Black });
-            themes.Add(new ui_theme { name = "Mint Oreo", fore_ground = Color.FromArgb(154, 246, 189), back_ground = Color.FromArgb(31, 20, 11) });
-            themes.Add(new ui_theme { name = "S C R O L L", fore_ground = Color.FromArgb(171, 171, 171), back_ground = Color.FromArgb(25, 25, 25) });
-            themes.Add(new ui_theme { name = "Ravage", fore_ground = Color.FromArgb(245, 21, 118), back_ground = Color.FromArgb(12, 24, 14) });
-            themes.Add(new ui_theme { name = "Yakuza", fore_ground = Color.FromArgb(245, 106, 246), back_ground = Color.FromArgb(0, 16, 36) });
-            themes.Add(new ui_theme { name = "Foiu7dnfr", fore_ground = Color.FromArgb(246, 207, 70), back_ground = Color.FromArgb(18, 18, 18) });
-            themes.Add(new ui_theme { name = "Step on Wolf", fore_ground = Color.FromArgb(234, 240, 207), back_ground = Color.FromArgb(37, 49, 14) });
-            themes.Add(new ui_theme { name = "Don's Children", fore_ground = Color.FromArgb(36, 246, 236), back_ground = Color.FromArgb(31, 24, 6) });
-            themes.Add(new ui_theme { name = "Arson", fore_ground = Color.FromArgb(246, 125, 35), back_ground = Color.FromArgb(27, 10, 10) });
-            themes.Add(new ui_theme { name = "Trucker Cab Best Cab", fore_ground = Color.FromArgb(246, 195, 35), back_ground = Color.FromArgb(22, 20, 10) });
-            themes.Add(new ui_theme { name = "Nomadic", fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(33, 37, 31) });
 
-            return themes;
+        public session_variables load_user_session()
+        {
+            session_variables session = new_session_variables();
+
+            create_sub_directories(session);
+            get_live_file_location(session);
+            copy_historic_files(session);
+            load_valid_user_list(session);
+
+            session = load_previous_settings(session);
+
+            create_sub_directories(session);
+            
+            if (!session.valid_users.ContainsKey(session.local_user_name))
+                find_local_user_name(session);
+
+            assign_user_theme(session);
+
+            save_session_config(session);
+            return session;
         }
 
-        public void find_log_file_path(session_variables session)
+        public void load_valid_user_list(session_variables session)
         {
-            string log_file_path = session.log_file_location;
-
-            if (!Directory.Exists(log_file_path))
+            session.valid_users = new Dictionary<string, int> { };
+            List<FileInfo> last_game_logs;
+            
+            try
             {
-                log_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
-                if (Directory.Exists(log_file_path))
+                last_game_logs = new DirectoryInfo(session.historic_file_location).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToList();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
+            foreach (FileInfo log in last_game_logs)
+            {
+                using (FileStream game_stream = File.OpenRead(log.FullName))
                 {
-                    session.log_file_location = log_file_path;
+                    using (StreamReader game_reader = new StreamReader(game_stream))
+                    {
+                        string game_line;
+
+                        game_line = game_reader.ReadLine();
+
+                        while (game_line != null)
+                        {
+                            while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
+                                game_line = game_reader.ReadLine();
+
+                            if (game_line.Contains(@"| TSConnectionManager: negotiation complete:"))
+                            {
+                                string local_player_name = Regex.Match(game_line, @", nickName '(.+?)',").Groups[1].Value.Replace(" ", "");
+
+                                if (session.valid_users.ContainsKey(local_player_name))
+                                    session.valid_users[local_player_name] += 1;
+                                else
+                                    session.valid_users.Add(local_player_name, 1);
+                            }
+
+                            if (game_line.Contains(@"| Steam initialized appId"))
+                            {
+                                string local_player_name = Regex.Match(game_line, @", userName '(.+?)'").Groups[1].Value.Replace(" ", "");
+                                if (session.valid_users.ContainsKey(local_player_name))
+                                    session.valid_users[local_player_name] += 1;
+                                //else
+                                //    session.valid_users.Add(local_player_name, 1);
+                            }
+
+                            game_line = game_reader.ReadLine();
+                        }
+                    }
                 }
             }
         }
-        public void find_historic_file_path(session_variables session)
+
+        public void save_session_config(session_variables session)
         {
-            string historic_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\historic_logs";
-
-            if (!Directory.Exists(historic_file_path))
+            if (!valid_user_session(session))
             {
-                Directory.CreateDirectory(historic_file_path);
+                //MessageBox.Show("Configuration invalid, aborting save.");
+                return;
             }
 
-            if (historic_file_path != session.historic_file_location)
+            using (StreamWriter file = File.CreateText(session.config_file_location + @"\config.json"))
             {
-                session.historic_file_location = historic_file_path;
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, session);
             }
+        }
+
+        public session_variables load_previous_settings(session_variables session)
+        {
+            if (!File.Exists(session.config_file_location + @"\config.json"))
+                return session;
+            
+            session_variables loaded_session = new_session_variables();
+
+            try
+            {
+                using (StreamReader file = File.OpenText(session.config_file_location + @"\config.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    loaded_session = (session_variables)serializer.Deserialize(file, typeof(session_variables));
+                    loaded_session.valid_users = session.valid_users;
+                    loaded_session.log_file_location = session.log_file_location;
+
+                    if (valid_user_session(loaded_session))
+                        return loaded_session;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return session;
+        }
+
+        public bool valid_user_session(session_variables session)
+        {
+            bool valid = true;
+
+            if (!session.valid_users.ContainsKey(session.local_user_name) && session.local_user_name != "")
+                valid = false;
+
+            if (!Directory.Exists(session.log_file_location))
+                valid = false;
+
+            if (!Directory.Exists(session.co_driver_location))
+                valid = false;
+
+            if (!Directory.Exists(session.historic_file_location))
+                valid = false;
+
+            if (!Directory.Exists(session.stream_file_location))
+                valid = false;
+
+            if (!Directory.Exists(session.screenshot_file_location))
+                valid = false;
+
+            if (!Directory.Exists(session.market_data_file_location))
+                valid = false;
+
+            if (!Directory.Exists(session.error_log_location))
+                valid = false;
+
+            if (session.engineer_level < 0 || session.engineer_level > 30)
+                valid = false;
+
+            if (session.lunatics_level < 0 || session.lunatics_level > 15)
+                valid = false;
+
+            if (session.nomads_level < 0 || session.nomads_level > 15)
+                valid = false;
+
+            if (session.scavengers_level < 0 || session.scavengers_level > 15)
+                valid = false;
+
+            if (session.steppenwolfs_level < 0 || session.steppenwolfs_level > 15)
+                valid = false;
+
+            if (session.dawns_children_level < 0 || session.dawns_children_level > 15)
+                valid = false;
+
+            if (session.firestarts_level < 0 || session.firestarts_level > 15)
+                valid = false;
+
+            if (session.founders_level < 0 || session.founders_level > 75)
+                valid = false;
+
+            //if (session.parsed_logs.Count() == 0)
+            //    valid = false;
+
+            if (session.client_version != global_data.CURRENT_VERSION)
+                valid = false;
+
+            if (session.local_language != "English" &&
+                session.local_language != "Français" &&
+                session.local_language != "Deutsch" &&
+                session.local_language != "Polski" &&
+                session.local_language != "Pусский" &&
+                session.local_language != "हिन्दी" &&
+                session.local_language != "한국어" &&
+                session.local_language != "Ελληνικά" &&
+                session.local_language != "Español")
+                valid = false;
+
+            return valid;
+        }
+
+        public void assign_user_theme(session_variables session)
+        {
+            bool valid_theme = false;
+
+            if (global_data.supporters.Contains(session.local_user_name))
+            {
+                foreach(theme.ui_theme theme in theme.themes)
+                {
+                    if (session.selected_theme == theme.name)
+                        valid_theme = true;
+                }
+            }
+            else
+            {
+                if (session.selected_theme == "Terminal" || session.selected_theme == "Static")
+                    valid_theme = true;
+            }
+
+            if (!valid_theme)
+            {
+                session.selected_theme = "Terminal";
+            }
+
+            foreach (theme.ui_theme theme in theme.themes)
+            {
+                if (session.selected_theme == theme.name)
+                {
+                    session.fore_color = theme.fore_ground;
+                    session.back_color = theme.back_ground;
+                }
+            }
+        }
+
+        public void create_sub_directories(session_variables session)
+        {
+            if (!Directory.Exists(session.log_file_location))
+                session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+
+            if (!Directory.Exists(session.co_driver_location))
+                session.co_driver_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver";
+
+            if (!Directory.Exists(session.historic_file_location))
+                session.historic_file_location = session.co_driver_location + @"\historic_logs";
+
+            if (!Directory.Exists(session.stream_file_location))
+                session.stream_file_location = session.co_driver_location + @"\stream_templates";
+
+            if (!Directory.Exists(session.screenshot_file_location))
+                session.screenshot_file_location = session.co_driver_location + @"\screenshots";
+
+            if (!Directory.Exists(session.market_data_file_location))
+                session.market_data_file_location = session.co_driver_location + @"\market_data";
+
+            if (!Directory.Exists(session.config_file_location))
+                session.config_file_location = session.co_driver_location + @"\config";
+
+            if (!Directory.Exists(session.data_file_location))
+                session.data_file_location = session.co_driver_location + @"\log_data";
+
+            if (!Directory.Exists(session.error_log_location))
+                session.error_log_location = session.co_driver_location + @"\error_logs";
+
+            if (!Directory.Exists(session.co_driver_location))
+                Directory.CreateDirectory(session.co_driver_location);
+
+            if (!Directory.Exists(session.historic_file_location))
+                Directory.CreateDirectory(session.historic_file_location);
+
+            if (!Directory.Exists(session.stream_file_location))
+                Directory.CreateDirectory(session.stream_file_location);
+
+            if (!Directory.Exists(session.screenshot_file_location))
+                Directory.CreateDirectory(session.screenshot_file_location);
+
+            if (!Directory.Exists(session.market_data_file_location))
+                Directory.CreateDirectory(session.market_data_file_location);
+
+            if (!Directory.Exists(session.config_file_location))
+                Directory.CreateDirectory(session.config_file_location);
+
+            if (!Directory.Exists(session.data_file_location))
+                Directory.CreateDirectory(session.data_file_location);
+
+            if (!Directory.Exists(session.error_log_location))
+                Directory.CreateDirectory(session.error_log_location);
+        }
+
+
+        public void find_session_file_path(session_variables session)
+        {
+            string configuration_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\config";
         }
 
         public void copy_historic_files(session_variables session)
@@ -175,76 +427,22 @@ namespace CO_Driver
             }
         }
 
-        public void create_stream_file_location(session_variables session)
-        {
-            string stream_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\stream_templates";
-
-            if (!Directory.Exists(stream_file_path))
-            {
-                Directory.CreateDirectory(stream_file_path);
-            }
-
-            if (stream_file_path != session.stream_file_location)
-            {
-                session.stream_file_location = stream_file_path;
-            }
-        }
-
         public void get_live_file_location(session_variables session)
         {
-            if (session.log_file_location.Length == 0)
-                return;
-
             session.live_file_location = new DirectoryInfo(session.log_file_location).GetFiles("*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName;
         }
 
         public void find_local_user_name(session_variables session)
         {
-            FileInfo last_game_log;
-            try
+            if (session.valid_users.Count() == 0)
             {
-                last_game_log = new DirectoryInfo(session.historic_file_location).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-            }
-            catch (Exception ex)
-            {
+                MessageBox.Show("No valid user names were detected. Please try restarting CO_Driver. If problem persists after restart please contact Rot_Fish_Bandit at https://discord.gg/kKcnVXu2Xe");
+                Application.Exit();
                 return;
             }
 
-            using (FileStream game_stream = File.OpenRead(last_game_log.FullName))
-            {
-                using (StreamReader game_reader = new StreamReader(game_stream))
-                {
-                    string game_line;
-                    bool found = false;
-
-                    game_line = game_reader.ReadLine();
-
-                    while (game_line != null && !found)
-                    {
-                        while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
-                            game_line = game_reader.ReadLine();
-
-                        if (game_line.Contains(@"| TSConnectionManager: negotiation complete:"))
-                        {
-                            string local_player_name = Regex.Match(game_line, @", nickName '(.+?)',").Groups[1].Value.Replace(" ", "");
-                            int local_player_uid = Int32.Parse(Regex.Match(game_line, @"complete: uid (.+?),").Groups[1].Value.Replace(" ", ""));
-                            session.local_user_name = local_player_name;
-                            session.local_user_uid = local_player_uid;
-                            found = true;
-                        }
-
-                        if (game_line.Contains(@"| Steam initialized appId")) /* QuickSkinner bug fix */
-                        {
-                            string local_player_name = Regex.Match(game_line, @", userName '(.+?)'").Groups[1].Value.Replace(" ", "");
-                            int local_player_uid = 0;
-                            session.local_user_name = local_player_name;
-                            session.local_user_uid = local_player_uid;
-                        }
-
-                        game_line = game_reader.ReadLine();
-                    }
-                }
-            }
+            session.local_user_name = session.valid_users.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            session.local_user_uid = 0;
         }
     }
 }

@@ -15,12 +15,22 @@ using System.Net;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace CO_Driver
 {
     public partial class frm_main_page : Form
     {
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations { get; set; } = new Dictionary<string, Dictionary<string, translate.Translation>> { };
+        public market.market_data crossoutdb_data = new market.market_data { };
+
+        public List<file_trace_managment.MatchRecord> match_history
+        {
+            get { return match_history.ToList(); }
+            set { match_history = value; }
+        }
 
         public log_file_managment log_file_manager = new log_file_managment();
         public file_trace_managment file_trace_manager = new file_trace_managment();
@@ -37,6 +47,8 @@ namespace CO_Driver
         public fusion_calculator fusion_page = new fusion_calculator();
         public user_settings settings_page = new user_settings();
         public about_screen about_page = new about_screen();
+        public meta_detail meta_detail_page = new meta_detail();
+        public revenue_review revenue_page = new revenue_review();
 
         public frm_main_page()
         {
@@ -47,11 +59,10 @@ namespace CO_Driver
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
-
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
 
-            load_user_settings();
+            session = log_file_manager.load_user_session();
 
             if (session.local_user_name == null)
             {
@@ -59,15 +70,16 @@ namespace CO_Driver
                 Application.Exit();
             }
 
-            welcome_screen.session = session;
-            part_page.session = session;
-            avail_part_page.session = session;
-            settings_page.session = session;
-            about_page.session = session;
-            user_profile_page.session = session;
-            match_detail_page.session = session;
-            garage_page.session = session;
+            ui_translate.load_ui_translate(ui_translations);
+            translate.populate_translations(session, translations);
 
+            reload_theme(this, EventArgs.Empty);
+
+            this.welcome_screen.tb_progress_tracking.AppendText("Loading market data from crossoutdb.com" + Environment.NewLine);
+            crossoutdb_data = market.populate_crossoutdb_data(session);
+
+            load_static_screen_data();
+            
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
             settings_page.reload_all_themes += new EventHandler(reload_theme);
 
@@ -76,7 +88,7 @@ namespace CO_Driver
 
             this.Text = string.Format(@"CO_Driver v{0}", get_current_version());
 
-            
+            print_control_names();
 
             try
             {
@@ -87,6 +99,142 @@ namespace CO_Driver
                 MessageBox.Show(@"Background worker failed:" + ex.Message + Environment.NewLine + ex.InnerException);
             }
         }
+
+        private void load_static_screen_data()
+        {
+            welcome_screen.session = session;
+            part_page.session = session;
+            avail_part_page.session = session;
+            settings_page.session = session;
+            about_page.session = session;
+            user_profile_page.session = session;
+            match_detail_page.session = session;
+            garage_page.session = session;
+            schedule_page.session = session;
+            match_history_page.session = session;
+            build_page.session = session;
+            meta_detail_page.session = session;
+            revenue_page.session = session;
+
+            welcome_screen.translations = translations;
+            part_page.translations = translations;
+            avail_part_page.translations = translations;
+            settings_page.translations = translations;
+            about_page.translations = translations;
+            user_profile_page.translations = translations;
+            match_detail_page.translations = translations;
+            garage_page.translations = translations;
+            schedule_page.translations = translations;
+            match_history_page.translations = translations;
+            meta_detail_page.translations = translations;
+            build_page.translations = translations;
+            revenue_page.translations = translations;
+
+            welcome_screen.ui_translations = ui_translations;
+            part_page.ui_translations = ui_translations;
+            avail_part_page.ui_translations = ui_translations;
+            settings_page.ui_translations = ui_translations;
+            about_page.ui_translations = ui_translations;
+            user_profile_page.ui_translations = ui_translations;
+            match_detail_page.ui_translations = ui_translations;
+            garage_page.ui_translations = ui_translations;
+            schedule_page.ui_translations = ui_translations;
+            match_history_page.ui_translations = ui_translations;
+            meta_detail_page.ui_translations = ui_translations;
+            build_page.ui_translations = ui_translations;
+            revenue_page.ui_translations = ui_translations;
+
+            revenue_page.crossoutdb_data = crossoutdb_data;
+        }
+
+        private void print_control_names()
+        {
+            translate_controls(strp_main_menu_strip);
+            translate_controls(main_page_panel);
+            translate_controls(welcome_screen);
+            translate_controls(user_profile_page);
+            translate_controls(match_history_page);
+            translate_controls(schedule_page);
+            translate_controls(build_page);
+            translate_controls(part_page);
+            translate_controls(avail_part_page);
+            translate_controls(match_detail_page);
+            translate_controls(garage_page);
+            translate_controls(fusion_page);
+            translate_controls(settings_page);
+            translate_controls(about_page);
+            translate_controls(meta_detail_page);
+            translate_controls(revenue_page);
+        }
+
+        private void translate_controls(Control current_control)
+        {
+            translate_text_elements(current_control);
+
+            foreach (Control ctrl in current_control.Controls)
+                translate_controls(ctrl);
+        }
+
+        private void translate_text_elements(Control ctrl)
+        {
+            if (ctrl.Text.Any(char.IsLetter))
+            {
+                ctrl.Text = ui_translate.translate(ctrl.Text, session, ui_translations);
+
+                
+
+                if (ctrl is Label)
+                    scale_font(ctrl);
+            }
+
+            if (ctrl is MenuStrip)
+                translate_menu_strip((MenuStrip)ctrl);
+
+            if (ctrl is TextBox)
+                translate_text_box((TextBox)ctrl);
+        }
+
+        private void translate_menu_strip(MenuStrip menu_strip)
+        {
+            foreach (ToolStripItem item in menu_strip.Items)
+                item.Text = ui_translate.translate(item.Text, session, ui_translations);
+        }
+
+        private void translate_text_box(TextBox text_box)
+        {
+            List<string> text_lines = new List<string> { };
+
+            foreach (string line in text_box.Lines)
+                text_lines.Add(ui_translate.translate(line, session, ui_translations));
+
+            text_box.Lines = text_lines.ToArray();
+        }
+
+        private void scale_font(Control lab)
+        {
+            SizeF extent = TextRenderer.MeasureText(lab.Text, lab.Font);
+
+            float hRatio = lab.Height / extent.Height;
+            float wRatio = lab.Width / extent.Width;
+            float ratio = (hRatio < wRatio) ? hRatio : wRatio;
+
+            if (ratio > 1)
+                return;
+
+            lab.Font = new Font(lab.Font.FontFamily, lab.Font.Size * ratio, lab.Font.Style);
+        }
+
+        private void append_combo_box_controls (string panel_name, ComboBox drop_down, StreamWriter sw)
+        {
+            MessageBox.Show("Found drop down " + drop_down.Name);
+            for (int i = 0; i < drop_down.Items.Count; i++)
+            {
+                string value = drop_down.GetItemText(drop_down.Items[i]);
+                if (value.Any(char.IsLetter))
+                    sw.WriteLine(string.Format("{0},{1},{2}", panel_name, drop_down.Name, value));
+            }
+        }
+
         private void reload_theme(object sender, EventArgs e)
         {
             theme_manager.apply_theme(main_page_panel, session);
@@ -102,6 +250,8 @@ namespace CO_Driver
             theme_manager.apply_theme(fusion_page, session);
             theme_manager.apply_theme(settings_page, session);
             theme_manager.apply_theme(about_page, session);
+            theme_manager.apply_theme(meta_detail_page, session);
+            theme_manager.apply_theme(revenue_page, session);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -222,10 +372,16 @@ namespace CO_Driver
             main_page_panel.Controls.Add(avail_part_page);
         }
 
-        private void matchAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buildReviewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(build_page);
+        }
+
+        private void stateOfTheMetaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(meta_detail_page);
         }
 
         private void previousMatchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -253,6 +409,12 @@ namespace CO_Driver
             main_page_panel.Controls.Add(garage_page);
         }
 
+        private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(revenue_page);
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
@@ -266,7 +428,8 @@ namespace CO_Driver
             file_trace_managment.SessionStats Current_session = new file_trace_managment.SessionStats { };
             file_trace_managment ftm = new file_trace_managment();
             ftm.initialize_session_stats(Current_session, session_variables);
-            process_historic_files(ftm, Current_session);
+            load_precomipled_data(ftm, Current_session, session_variables);
+            process_historic_files(ftm, Current_session, session_variables);
             populate_static_elements(Current_session);
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
@@ -334,7 +497,7 @@ namespace CO_Driver
             if (e.ProgressPercentage == global_data.TRACE_EVENT_FILE_COMPLETE)
             {
                 file_trace_managment.FileCompleteResponse response = (file_trace_managment.FileCompleteResponse)e.UserState;
-                this.welcome_screen.pb_welcome_file_load.Value = (int)(response.historic_percent_processed * 100);
+                this.welcome_screen.pb_welcome_file_load.Value = (int)(response.historic_percent_processed * 100) > 100 ? 100 : (int)(response.historic_percent_processed * 100);
                 this.welcome_screen.lb_load_status_text.Text = response.load_desc;
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(response.load_desc + Environment.NewLine));
             }
@@ -357,7 +520,14 @@ namespace CO_Driver
                 file_trace_managment.UserProfileResponse response = (file_trace_managment.UserProfileResponse)e.UserState;
                 user_profile_page.match_history = response.match_history;
                 user_profile_page.build_records = response.build_records;
+                meta_detail_page.match_history = response.match_history;
+                meta_detail_page.build_records = response.build_records;
+                revenue_page.match_history = response.match_history;
+                revenue_page.build_records = response.build_records;
+                match_detail_page.build_records = response.build_records;
                 user_profile_page.populate_user_profile_screen();
+                meta_detail_page.populate_meta_detail_screen();
+                revenue_page.populate_revenue_review_screen();
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
@@ -368,7 +538,6 @@ namespace CO_Driver
                 build_page.match_history = response;
                 match_history_page.refersh_history_table();
                 build_page.populate_build_record_table();
-                //match_detail_page.populate_match();
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
@@ -421,10 +590,54 @@ namespace CO_Driver
             }
         }
 
-        private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session)
+        private void load_precomipled_data(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session_variables)
+        {
+            if (!File.Exists(session.data_file_location + @"\match_history.json"))
+                return;
+
+            if (!File.Exists(session.data_file_location + @"\build_records.json"))
+                return;
+
+            if (session_variables.parsed_logs.Count() == 0)
+                return;
+
+            int file_count = Current_session.file_data.historic_file_session_list.Count();
+
+            try
+            {
+                using (StreamReader file = File.OpenText(session.data_file_location + @"\match_history.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    Current_session.match_history = (List<file_trace_managment.MatchRecord>)serializer.Deserialize(file, typeof(List<file_trace_managment.MatchRecord>));
+                }
+            }
+            catch (Exception ex)
+            {
+                Current_session.match_history = new List<file_trace_managment.MatchRecord> { };
+                return;
+            }
+
+            try
+            {
+                using (StreamReader file = File.OpenText(session.data_file_location + @"\build_records.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    Current_session.player_build_records = (Dictionary<string, file_trace_managment.BuildRecord>)serializer.Deserialize(file, typeof(Dictionary<string, file_trace_managment.BuildRecord>));
+                }
+            }
+            catch (Exception ex)
+            {
+                Current_session.match_history = new List<file_trace_managment.MatchRecord> { };
+                Current_session.player_build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+                return;
+            }
+
+            bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)session_variables.parsed_logs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.parsed_logs.Count())));
+        }
+
+        private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session_variables)
         {
             int file_count = Current_session.file_data.historic_file_session_list.Count();
-            int current_progress = 0;
 
             foreach (file_trace_managment.LogSession session in Current_session.file_data.historic_file_session_list)
             {
@@ -434,13 +647,19 @@ namespace CO_Driver
                 if (!File.Exists(session.game_log.FullName))
                     continue;
 
+                if (session_variables.parsed_logs.Contains(session.combat_log.FullName))
+                    continue;
+
+                if (session_variables.parsed_logs.Contains(session.game_log.FullName))
+                    continue;
+
                 Current_session.file_data.processing_combat_session_file = session.combat_log;
                 Current_session.file_data.processing_game_session_file = session.game_log;
                 Current_session.file_data.processing_combat_session_file_day = DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
-                bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)current_progress / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)current_progress * 100) / (double)file_count))));
+                bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)(session_variables.parsed_logs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.parsed_logs.Count() / 2) * 100) / (double)file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
                 using (FileStream combat_stream = File.OpenRead(session.combat_log.FullName))
@@ -491,8 +710,32 @@ namespace CO_Driver
                     }
                 }
 
-                current_progress++;
                 session.processed = true;
+                session_variables.parsed_logs.Add(session.combat_log.FullName);
+                session_variables.parsed_logs.Add(session.game_log.FullName);
+            }
+
+            log_file_manager.save_session_config(session_variables);
+            save_game_data(Current_session);
+        }
+
+        private void load_previous_game_data(file_trace_managment.SessionStats Current_session)
+        {
+
+        }
+
+        private void save_game_data(file_trace_managment.SessionStats Current_session)
+        {
+            using (StreamWriter file = File.CreateText(session.data_file_location + @"\match_history.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, Current_session.match_history);
+            }
+
+            using (StreamWriter file = File.CreateText(session.data_file_location + @"\build_records.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, Current_session.player_build_records);
             }
         }
 
@@ -625,12 +868,16 @@ namespace CO_Driver
         {
             case global_data.MATCH_REWARD_EVENT:
                 file_trace_managment.match_reward_event(line, Current_session);
-                add_last_match(Current_session);
+                if (Current_session.current_match.match_type_desc != "")
+                    add_last_match(Current_session);
                 break;
             case global_data.MATCH_PROPERTY_EVENT:
                 file_trace_managment.assign_match_property(line, Current_session);
                 break;
             case global_data.QUEST_EVENT:
+                break;
+            case global_data.LOOT_EVENT:
+                file_trace_managment.assign_loot_event(line, Current_session);
                 break;
             case global_data.ASSIGN_CLIENT_VERSION_EVENT:
                 file_trace_managment.assign_client_version_event(line, Current_session);
@@ -750,36 +997,11 @@ namespace CO_Driver
             populate_build_records(Current_session);
         }
 
+        
+
         public string get_current_version()
         {
             return global_data.CURRENT_VERSION;
-        }
-
-        public void load_user_settings()
-        {
-            session = log_file_manager.new_session_variables();
-
-            log_file_manager.find_log_file_path(session);
-            log_file_manager.find_historic_file_path(session);
-            this.welcome_screen.tb_progress_tracking.AppendText("Loading parts for optimizer." + Environment.NewLine);
-
-            log_file_manager.copy_historic_files(session);
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Copying local files to ""{0}""" + Environment.NewLine, session.historic_file_location));
-
-            log_file_manager.find_local_user_name(session);
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found local user_name ""{0}""" + Environment.NewLine, session.local_user_name));
-
-            
-
-            log_file_manager.get_live_file_location(session);
-            log_file_manager.create_stream_file_location(session);
-
-            this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Found live combat file to ""{0}""" + Environment.NewLine, session.live_file_location));
-        }
-
-        private void update_themes(object sender, EventArgs e)
-        {
-
         }
 
         private void load_match_details(object sender, file_trace_managment.MatchRecord historic_match)

@@ -45,8 +45,14 @@
             this.part_pass_through = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.part_bullet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.part_impact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chk_include_bumpers = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,12 +74,12 @@
             this.dg_available_parts.AllowUserToOrderColumns = true;
             this.dg_available_parts.AllowUserToResizeColumns = false;
             this.dg_available_parts.AllowUserToResizeRows = false;
-            this.dg_available_parts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dg_available_parts.BackgroundColor = System.Drawing.Color.Black;
             this.dg_available_parts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dg_available_parts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_available_parts.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_available_parts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
@@ -95,8 +101,12 @@
             this.part_pass_through,
             this.part_bullet,
             this.part_impact,
+            this.Column1,
             this.build_kills_deaths,
-            this.build_avg_damage});
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -105,7 +115,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dg_available_parts.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dg_available_parts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_available_parts.EnableHeadersVisualStyles = false;
             this.dg_available_parts.GridColor = System.Drawing.Color.Lime;
             this.dg_available_parts.Location = new System.Drawing.Point(0, 65);
@@ -146,46 +155,54 @@
             // 
             this.build_build_hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.build_build_hash.HeaderText = "Part Name";
-            this.build_build_hash.MinimumWidth = 120;
+            this.build_build_hash.MinimumWidth = 180;
             this.build_build_hash.Name = "build_build_hash";
             this.build_build_hash.ReadOnly = true;
-            this.build_build_hash.Width = 120;
+            this.build_build_hash.Width = 180;
             // 
             // part_quantity
             // 
+            this.part_quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_quantity.HeaderText = "#";
+            this.part_quantity.MinimumWidth = 30;
             this.part_quantity.Name = "part_quantity";
             this.part_quantity.ReadOnly = true;
+            this.part_quantity.Width = 30;
             // 
             // part_faction
             // 
+            this.part_faction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_faction.HeaderText = "Faction";
+            this.part_faction.MinimumWidth = 100;
             this.part_faction.Name = "part_faction";
             this.part_faction.ReadOnly = true;
             // 
             // part_level
             // 
+            this.part_level.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_level.HeaderText = "Level";
+            this.part_level.MinimumWidth = 60;
             this.part_level.Name = "part_level";
             this.part_level.ReadOnly = true;
+            this.part_level.Width = 60;
             // 
             // build_games
             // 
             this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.build_games.HeaderText = "Dura";
-            this.build_games.MinimumWidth = 60;
+            this.build_games.MinimumWidth = 50;
             this.build_games.Name = "build_games";
             this.build_games.ReadOnly = true;
-            this.build_games.Width = 60;
+            this.build_games.Width = 50;
             // 
             // part_hull
             // 
             this.part_hull.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.part_hull.HeaderText = "Hull";
-            this.part_hull.MinimumWidth = 60;
+            this.part_hull.HeaderText = "Cabin";
+            this.part_hull.MinimumWidth = 50;
             this.part_hull.Name = "part_hull";
             this.part_hull.ReadOnly = true;
-            this.part_hull.Width = 60;
+            this.part_hull.Width = 50;
             // 
             // build_kills
             // 
@@ -200,28 +217,45 @@
             // 
             this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.build_deaths.HeaderText = "PS";
-            this.build_deaths.MinimumWidth = 60;
+            this.build_deaths.MinimumWidth = 50;
             this.build_deaths.Name = "build_deaths";
             this.build_deaths.ReadOnly = true;
-            this.build_deaths.Width = 60;
+            this.build_deaths.Width = 50;
             // 
             // part_pass_through
             // 
+            this.part_pass_through.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_pass_through.HeaderText = "Pass Through %";
+            this.part_pass_through.MinimumWidth = 80;
             this.part_pass_through.Name = "part_pass_through";
             this.part_pass_through.ReadOnly = true;
+            this.part_pass_through.Width = 117;
             // 
             // part_bullet
             // 
+            this.part_bullet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_bullet.HeaderText = "Bullet Resistance";
+            this.part_bullet.MinimumWidth = 60;
             this.part_bullet.Name = "part_bullet";
             this.part_bullet.ReadOnly = true;
+            this.part_bullet.Width = 60;
             // 
             // part_impact
             // 
+            this.part_impact.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.part_impact.HeaderText = "Melee Resistance";
+            this.part_impact.MinimumWidth = 60;
             this.part_impact.Name = "part_impact";
             this.part_impact.ReadOnly = true;
+            this.part_impact.Width = 60;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "D/PS";
+            this.Column1.MinimumWidth = 60;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 60;
             // 
             // build_kills_deaths
             // 
@@ -232,27 +266,81 @@
             this.build_kills_deaths.ReadOnly = true;
             this.build_kills_deaths.Width = 60;
             // 
-            // build_avg_damage
+            // Column2
             // 
-            this.build_avg_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.build_avg_damage.HeaderText = "PS/M";
-            this.build_avg_damage.MinimumWidth = 60;
-            this.build_avg_damage.Name = "build_avg_damage";
-            this.build_avg_damage.ReadOnly = true;
-            this.build_avg_damage.Width = 60;
+            this.Column2.HeaderText = "M/PS";
+            this.Column2.MinimumWidth = 60;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 60;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "M/D";
+            this.Column3.MinimumWidth = 60;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 60;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "PS/D";
+            this.Column4.MinimumWidth = 60;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 60;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "PS/M";
+            this.Column5.MinimumWidth = 60;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 60;
+            // 
+            // chk_include_bumpers
+            // 
+            this.chk_include_bumpers.AutoSize = true;
+            this.chk_include_bumpers.Checked = true;
+            this.chk_include_bumpers.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_include_bumpers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_include_bumpers.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_include_bumpers.ForeColor = System.Drawing.Color.Lime;
+            this.chk_include_bumpers.Location = new System.Drawing.Point(1062, 50);
+            this.chk_include_bumpers.Name = "chk_include_bumpers";
+            this.chk_include_bumpers.Size = new System.Drawing.Size(12, 11);
+            this.chk_include_bumpers.TabIndex = 53;
+            this.chk_include_bumpers.UseVisualStyleBackColor = true;
+            this.chk_include_bumpers.CheckedChanged += new System.EventHandler(this.chk_include_bumpers_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.Lime;
+            this.label21.Location = new System.Drawing.Point(1080, 48);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(112, 14);
+            this.label21.TabIndex = 54;
+            this.label21.Text = "Include Bumpers";
             // 
             // part_view
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.chk_include_bumpers);
             this.Controls.Add(this.dg_available_parts);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "part_view";
             this.Size = new System.Drawing.Size(1195, 601);
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -271,7 +359,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn part_pass_through;
         private System.Windows.Forms.DataGridViewTextBoxColumn part_bullet;
         private System.Windows.Forms.DataGridViewTextBoxColumn part_impact;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_kills_deaths;
-        private System.Windows.Forms.DataGridViewTextBoxColumn build_avg_damage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.CheckBox chk_include_bumpers;
+        private System.Windows.Forms.Label label21;
     }
 }

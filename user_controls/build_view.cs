@@ -25,7 +25,10 @@ namespace CO_Driver
 
         public file_trace_managment.MatchHistoryResponse match_history = new file_trace_managment.MatchHistoryResponse { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         private Dictionary<string, BuildStats> build_stats = new Dictionary<string, BuildStats> { };
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         private string game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
         private string group_filter = global_data.GROUP_FILTER_DEFAULT;
         private string map_filter = global_data.MAP_FILTER_DEFAULT;
@@ -48,7 +51,8 @@ namespace CO_Driver
 
         private void populate_build_records()
         {
-
+            //translate.translate_string(map.Key,session, translations);
+            //ui_translate.translate(ctrl.Text, session, ui_translations);
 
             build_stats = new Dictionary<string, BuildStats> { };
 
@@ -65,7 +69,7 @@ namespace CO_Driver
                 if (group_filter == "Grouped" &&  match.match_data.local_player.party_id == 0)
                     continue;
 
-                if (map_filter != global_data.MAP_FILTER_DEFAULT && map_filter != match.match_data.map_desc)
+                if (map_filter != global_data.MAP_FILTER_DEFAULT && map_filter != translate.translate_string(match.match_data.map_name, session, translations))
                     continue;
 
                 if (client_versions_filter != global_data.CLIENT_VERSION_FILTER_DEFAULT && client_versions_filter != match.match_data.client_version)
@@ -116,8 +120,8 @@ namespace CO_Driver
                 if ( match.match_data.local_player.party_id > 0 && !grouped.Contains("Grouped"))
                     grouped.Add("Grouped");
 
-                if (!maps.Contains(match.match_data.map_desc))
-                    maps.Add((match.match_data.map_desc));
+                if (!maps.Contains(translate.translate_string(match.match_data.map_name, session, translations)))
+                    maps.Add(translate.translate_string(match.match_data.map_name, session, translations));
 
                 if ( match.match_data.local_player.power_score >= 0 &&  match.match_data.local_player.power_score <= 2499 && !power_scores.Contains("0-2499"))
                     power_scores.Add("0-2499");
@@ -276,14 +280,14 @@ namespace CO_Driver
 
                 this.tb_build_description.Text = build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].full_description;
                 this.tb_short_desc.Text = build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].short_description;
-                this.tb_cabin.Text = build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].cabin.description;
-                this.tb_modules.Text = build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].engine.description;
-                this.tb_weapons.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].weapons.Select(x => x.description));
-                this.tb_movement.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].movement.Select(x => x.description));
-                this.tb_modules.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].modules.Select(x => x.description));
-                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].engine.description);
-                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].explosives.Select(x => x.description));
-                this.tb_build_parts.Text = string.Join(",", build_records[dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].parts);
+                this.tb_cabin.Text = translate.translate_string(build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].cabin.name, session, translations);
+                this.tb_modules.Text = translate.translate_string(build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].engine.name, session, translations);
+                this.tb_weapons.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].weapons.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_movement.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].movement.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_modules.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].modules.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_modules.Text += string.Join(",", translate.translate_string(build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].engine.name, session, translations));
+                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].explosives.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_build_parts.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString()].parts.Select(x => translate.translate_string(x, session, translations)));
             }
 
             this.dg_build_view_grid.AllowUserToAddRows = false;
@@ -301,14 +305,14 @@ namespace CO_Driver
             {
                 this.tb_build_description.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].full_description;
                 this.tb_short_desc.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].short_description;
-                this.tb_cabin.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].cabin.description;
-                this.tb_modules.Text = build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].engine.description;
-                this.tb_weapons.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].weapons.Select(x => x.description));
-                this.tb_movement.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].movement.Select(x => x.description));
-                this.tb_modules.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].modules.Select(x => x.description));
-                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].engine.description);
-                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].explosives.Select(x => x.description));
-                this.tb_build_parts.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].parts);
+                this.tb_cabin.Text = translate.translate_string(build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].cabin.name, session, translations);
+                this.tb_modules.Text = translate.translate_string(build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].engine.name, session, translations);
+                this.tb_weapons.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].weapons.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_movement.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].movement.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_modules.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].modules.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_modules.Text += string.Join(",", translate.translate_string(build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].engine.name, session, translations));
+                this.tb_modules.Text += string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].explosives.Select(x => translate.translate_string(x.name, session, translations)));
+                this.tb_build_parts.Text = string.Join(",", build_records[this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString()].parts.Select(x => translate.translate_string(x, session, translations)));
             }
         }
 

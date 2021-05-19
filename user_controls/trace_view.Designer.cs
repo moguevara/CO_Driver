@@ -77,7 +77,7 @@
             this.tb_trace_output.Multiline = true;
             this.tb_trace_output.Name = "tb_trace_output";
             this.tb_trace_output.ReadOnly = true;
-            this.tb_trace_output.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_trace_output.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tb_trace_output.Size = new System.Drawing.Size(1195, 535);
             this.tb_trace_output.TabIndex = 0;
             this.tb_trace_output.WordWrap = false;
@@ -93,8 +93,7 @@
             // 
             // trace_view
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.lbl_current_file_name);
             this.Controls.Add(this.panel1);
@@ -102,6 +101,8 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "trace_view";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Leave += new System.EventHandler(this.trace_view_Leave);

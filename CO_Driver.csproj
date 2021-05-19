@@ -33,7 +33,7 @@
     <PublisherName>Dept116</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>80</ApplicationRevision>
+    <ApplicationRevision>105</ApplicationRevision>
     <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -112,7 +112,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="libraries\market.cs" />
     <Compile Include="libraries\theme.cs" />
+    <Compile Include="libraries\translate.cs" />
+    <Compile Include="libraries\ui_translate.cs" />
+    <Compile Include="user_controls\revenue_review.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\revenue_review.Designer.cs">
+      <DependentUpon>revenue_review.cs</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\about_screen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,6 +135,12 @@
       <DependentUpon>garage_view.cs</DependentUpon>
     </Compile>
     <Compile Include="libraries\part_loader.cs" />
+    <Compile Include="user_controls\meta_detail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\meta_detail.Designer.cs">
+      <DependentUpon>meta_detail.cs</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\previous_match.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -210,6 +225,9 @@
     <EmbeddedResource Include="user_controls\garage_view.resx">
       <DependentUpon>garage_view.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\meta_detail.resx">
+      <DependentUpon>meta_detail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="user_controls\part_optimizer.resx">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\previous_match.resx">
       <DependentUpon>previous_match.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\revenue_review.resx">
+      <DependentUpon>revenue_review.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\schedule_display.resx">
       <DependentUpon>schedule_display.cs</DependentUpon>

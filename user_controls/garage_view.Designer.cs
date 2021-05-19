@@ -662,6 +662,8 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "garage_view";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.garage_view_Load);

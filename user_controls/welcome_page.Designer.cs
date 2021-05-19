@@ -79,8 +79,7 @@
             // 
             // welcome_page
             // 
-            resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tb_progress_tracking);
             this.Controls.Add(this.textBox1);
@@ -88,6 +87,7 @@
             this.Controls.Add(this.pb_welcome_file_load);
             this.Controls.Add(this.lbl_welcome_main);
             this.DoubleBuffered = true;
+            resources.ApplyResources(this, "$this");
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "welcome_page";
             this.ResumeLayout(false);

@@ -16,6 +16,8 @@ namespace CO_Driver
     public partial class welcome_page : UserControl
     {
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
         public welcome_page()
         {

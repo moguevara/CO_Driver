@@ -141,6 +141,8 @@ namespace CO_Driver
             };
         }
 
+        
+
         public static Part new_part(string desc, int faction, int level, int hull, int part_dura, int mass, int power_score, double pass_through, double bullet_resist, double melee_resist)
         {
             return new Part
@@ -1820,5 +1822,7 @@ namespace CO_Driver
             Current_session.static_records.global_parts_list.Add(new_part("Small Platform", global_data.FOUNDERS_FACTION, 1, 27, 27, 72, 18, 0.0, 0, 0));
             Current_session.static_records.global_parts_list.Add(new_part("Small Platform", global_data.FOUNDERS_FACTION, 1, 27, 27, 72, 18, 0.0, 0, 0));
         }
+
+        
     }
 }

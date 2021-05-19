@@ -21,6 +21,34 @@ namespace CO_Driver
 {
     public class theme
     {
+        public class ui_theme
+        {
+            public string name { get; set; }
+            public Color fore_ground { get; set; }
+            public Color back_ground { get; set; }
+        }
+
+        public static List<ui_theme> themes = new List<ui_theme> {  new ui_theme { name = "Terminal",                    fore_ground = Color.Lime,                    back_ground = Color.Black },
+                                                                    new ui_theme { name = "Static",                      fore_ground = Color.FromArgb(245,245,245),   back_ground = Color.Black },
+                                                                    new ui_theme { name = "Blabadon",                    fore_ground = Color.FromArgb(235, 117, 55),  back_ground = Color.FromArgb(29,35,40)},
+                                                                    new ui_theme { name = "Eris",                        fore_ground = Color.FromArgb(247, 247, 247), back_ground = Color.FromArgb(54, 57, 63) },
+                                                                    new ui_theme { name = "Isotope",                     fore_ground = Color.FromArgb(198, 245, 165), back_ground = Color.Black },
+                                                                    new ui_theme { name = "Mint Oreo",                   fore_ground = Color.FromArgb(154, 246, 189), back_ground = Color.FromArgb(31, 20, 11) },
+                                                                    new ui_theme { name = "S C R O L L",                 fore_ground = Color.FromArgb(171, 171, 171), back_ground = Color.FromArgb(25, 25, 25) },
+                                                                    new ui_theme { name = "Ravage",                      fore_ground = Color.FromArgb(245, 21, 118),  back_ground = Color.FromArgb(12, 24, 14) },
+                                                                    new ui_theme { name = "Yakuza",                      fore_ground = Color.FromArgb(245, 106, 246), back_ground = Color.FromArgb(0, 16, 36) },
+                                                                    new ui_theme { name = "Foiu7dnfr",                   fore_ground = Color.FromArgb(246, 207, 70),  back_ground = Color.FromArgb(18, 18, 18) },
+                                                                    new ui_theme { name = "Step on Wolf",                fore_ground = Color.FromArgb(234, 240, 207), back_ground = Color.FromArgb(37, 49, 14) },
+                                                                    new ui_theme { name = "Don's Children",              fore_ground = Color.FromArgb(36, 246, 236),  back_ground = Color.FromArgb(31, 24, 6) },
+                                                                    new ui_theme { name = "Arson",                       fore_ground = Color.FromArgb(246, 125, 35),  back_ground = Color.FromArgb(27, 10, 10) },
+                                                                    new ui_theme { name = "Trucker Cab Best Cab",        fore_ground = Color.FromArgb(246, 195, 35),  back_ground = Color.FromArgb(22, 20, 10) },
+                                                                    new ui_theme { name = "It ain't easy being green",   fore_ground = Color.FromArgb(84, 211, 70),   back_ground = Color.FromArgb(22, 20, 10) },
+                                                                    new ui_theme { name = "Juicebox",                    fore_ground = Color.FromArgb(156, 151, 166), back_ground = Color.FromArgb(47, 40, 51) },
+                                                                    new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) },
+                                                                    new ui_theme { name = "Borland",                     fore_ground = Color.FromArgb(104, 124, 130), back_ground = Color.FromArgb(0, 0, 164) }
+                                                                 };
+
+
         public void apply_theme(Control user_control, log_file_managment.session_variables session)
         {
             for_each_control(user_control, session);
@@ -42,10 +70,17 @@ namespace CO_Driver
                 if (ctrl is LinkLabel)
                     style_link(((LinkLabel)ctrl), session);
 
+                if (ctrl is ProgressBar)
+                    style_progressbar(((ProgressBar)ctrl), session);
+
                 for_each_control(ctrl, session);
             }
             parent.ForeColor = session.fore_color;
             parent.BackColor = session.back_color;
+        }
+
+        private void style_progressbar(ProgressBar pb, log_file_managment.session_variables session)
+        {
         }
 
         private void style_link(LinkLabel link, log_file_managment.session_variables session)

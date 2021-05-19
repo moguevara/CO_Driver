@@ -17,6 +17,7 @@ namespace CO_Driver
         {
             public string weapon { get; set; }
             public double total { get; set; }
+            
         }
 
         private class WeaponRow
@@ -24,16 +25,22 @@ namespace CO_Driver
             public double percent { get; set; }
             public string weapon_name { get; set; }
             public double total_damage { get; set; }
+            public int hits { get; set; }
             public double burst_damage { get; set; }
-            public double reload_time { get; set; }
-            public double heat_up_time { get; set; }
-            public double cool_down_time { get; set; }
-            public double damage_per_second { get; set; }
+            public int bursts { get; set; }
+            public DateTime first_hit { get; set; }
+            public DateTime last_hit { get; set; }
+            public DateTime burst_start { get; set; }
+            public double burst_duration { get; set; }
+            public double reload_duration { get; set; }
+            public double dps { get; set; }
         }
 
         public List<file_trace_managment.GarageDamageRecord> current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
         public List<List<file_trace_managment.GarageDamageRecord>> historic_damage_records = new List<List<file_trace_managment.GarageDamageRecord>> { };
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
         private DateTime trial_start_time = DateTime.MinValue;
 
@@ -71,24 +78,64 @@ namespace CO_Driver
             else
                 total_body_damage += rec.damage;
 
+            //translate.translate_string(x.Key, session, translations)
+
             current_total_series.Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, total_damage);
 
-            if (weapon_totals.FirstOrDefault(x => x.weapon == rec.weapon) == null)
+            if (weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)) == null)
             {
                 initialize_series(rec);
-                ch_live_feed.Series[rec.weapon].Points.AddXY(0, 0);
-                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[rec.weapon]);
-                weapon_totals.Add(new WeaponTotals { weapon = rec.weapon, total = rec.damage });
+                ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)].Points.AddXY(0, 0);
+                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)]);
+                weapon_totals.Add(new WeaponTotals { weapon = translate.translate_string(rec.weapon, session, translations), total = rec.damage });
             }
             else
             {
-                weapon_totals.FirstOrDefault(x => x.weapon == rec.weapon).total += rec.damage;
+                weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)).total += rec.damage;
             }
 
-            if (weapon_rows.FirstOrDefault(x => x.weapon_name == rec.weapon) == null)
-                weapon_rows.Add(new WeaponRow { percent = 0, weapon_name = rec.weapon, total_damage = rec.damage, burst_damage = 0, cool_down_time = 0, damage_per_second = 0, heat_up_time = 0, reload_time = 0 });
+            if (weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations)) == null) {
+                weapon_rows.Add(new WeaponRow { 
+                                                percent = 0, 
+                                                weapon_name = translate.translate_string(rec.weapon, session, translations), 
+                                                total_damage = rec.damage, 
+                                                burst_damage = rec.damage, 
+                                                bursts = 1, 
+                                                hits = 1, 
+                                                first_hit = rec.time, 
+                                                last_hit = rec.time,
+                                                burst_start = rec.time, 
+                                                burst_duration = 0.0, 
+                                                reload_duration = 0.0 
+                                            });
+            }
             else
-                weapon_rows.FirstOrDefault(x => x.weapon_name == rec.weapon).total_damage += rec.damage;
+            {
+                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations));
+                weapon_rec.total_damage += rec.damage;
+
+                if (rec.time != weapon_rec.last_hit)
+                    weapon_rec.hits += 1;
+
+                if ((rec.time - weapon_rec.last_hit).TotalSeconds > 0.5)
+                {
+                    weapon_rec.bursts += 1;
+                    weapon_rec.burst_duration = (weapon_rec.last_hit - weapon_rec.burst_start).TotalSeconds;
+                    weapon_rec.reload_duration = (rec.time - weapon_rec.last_hit).TotalSeconds;
+
+                    weapon_rec.burst_start = rec.time;
+                    weapon_rec.burst_damage = rec.damage;
+                }
+                else
+                {
+                    weapon_rec.burst_damage += rec.damage;
+                }
+
+                weapon_rec.dps = weapon_rec.total_damage / (rec.time - weapon_rec.first_hit).TotalSeconds;
+                weapon_rec.last_hit = rec.time;
+            }
+
+
 
             double current_total = 0;
             for (int i = weapon_totals.Count() - 1; i >= 0; i--)
@@ -243,56 +290,77 @@ namespace CO_Driver
             dg_weapon_overview.Columns["percent"].DisplayIndex = 0;
             dg_weapon_overview.Columns["percent"].ToolTipText = "Percent of total damage";
             dg_weapon_overview.Columns["percent"].HeaderText = "%";
+            dg_weapon_overview.Columns["percent"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["percent"].Width = 60;
-            dg_weapon_overview.Columns["percent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
+            dg_weapon_overview.Columns["percent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["percent"].DefaultCellStyle.Format = "P1";
 
             dg_weapon_overview.Columns["weapon_name"].DisplayIndex = 1;
             dg_weapon_overview.Columns["weapon_name"].HeaderText = "Weapon Name";
+            dg_weapon_overview.Columns["weapon_name"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["weapon_name"].Width = 120;
-            dg_weapon_overview.Columns["weapon_name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
+            dg_weapon_overview.Columns["weapon_name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
 
             dg_weapon_overview.Columns["total_damage"].DisplayIndex = 2;
             dg_weapon_overview.Columns["total_damage"].ToolTipText = "Total damage to all targets after damage reduction.";
-            dg_weapon_overview.Columns["total_damage"].HeaderText = "DMG";
+            dg_weapon_overview.Columns["total_damage"].HeaderText = "Dmg";
+            dg_weapon_overview.Columns["total_damage"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["total_damage"].Width = 80;
-            dg_weapon_overview.Columns["percent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
+            dg_weapon_overview.Columns["total_damage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["total_damage"].DefaultCellStyle.Format = "N1";
 
-            dg_weapon_overview.Columns["burst_damage"].DisplayIndex = 3;
-            dg_weapon_overview.Columns["burst_damage"].ToolTipText = "Maximum damage in a single burst (3 second interval). Intended to simulate peak-and-poke playstyle.";
-            dg_weapon_overview.Columns["burst_damage"].HeaderText = "Burst DMG";
+            dg_weapon_overview.Columns["hits"].DisplayIndex = 3;
+            dg_weapon_overview.Columns["hits"].ToolTipText = "Total recorded hit count.";
+            dg_weapon_overview.Columns["hits"].HeaderText = "Hits";
+            dg_weapon_overview.Columns["hits"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["hits"].Width = 80;
+            dg_weapon_overview.Columns["hits"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["hits"].DefaultCellStyle.Format = "N0";
+
+            dg_weapon_overview.Columns["burst_damage"].DisplayIndex = 4;
+            dg_weapon_overview.Columns["burst_damage"].ToolTipText = "Damage from last burst";
+            dg_weapon_overview.Columns["burst_damage"].HeaderText = "Burst Dmg";
+            dg_weapon_overview.Columns["burst_damage"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["burst_damage"].Width = 80;
-            dg_weapon_overview.Columns["burst_damage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
+            dg_weapon_overview.Columns["burst_damage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["burst_damage"].DefaultCellStyle.Format = "N1";
 
-            dg_weapon_overview.Columns["reload_time"].DisplayIndex = 4;
-            dg_weapon_overview.Columns["reload_time"].ToolTipText = "Period between reloads.";
-            dg_weapon_overview.Columns["reload_time"].HeaderText = "Reload Time";
-            dg_weapon_overview.Columns["reload_time"].Width = 80;
-            dg_weapon_overview.Columns["reload_time"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
-            dg_weapon_overview.Columns["reload_time"].DefaultCellStyle.Format = "N1";
+            dg_weapon_overview.Columns["burst_duration"].DisplayIndex = 5;
+            dg_weapon_overview.Columns["burst_duration"].ToolTipText = "Duration of last burst.";
+            dg_weapon_overview.Columns["burst_duration"].HeaderText = "Dmg Duration";
+            dg_weapon_overview.Columns["burst_duration"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["burst_duration"].Width = 100;
+            dg_weapon_overview.Columns["burst_duration"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["burst_duration"].DefaultCellStyle.Format = "N2";
 
-            dg_weapon_overview.Columns["heat_up_time"].DisplayIndex = 5;
-            dg_weapon_overview.Columns["heat_up_time"].ToolTipText = "Duration of sustained fire before overheat.";
-            dg_weapon_overview.Columns["heat_up_time"].HeaderText = "Heat up time";
-            dg_weapon_overview.Columns["heat_up_time"].Width = 80;
-            dg_weapon_overview.Columns["percent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
-            dg_weapon_overview.Columns["heat_up_time"].DefaultCellStyle.Format = "N1";
+            dg_weapon_overview.Columns["bursts"].DisplayIndex = 6;
+            dg_weapon_overview.Columns["bursts"].ToolTipText = "Number of individual bursts";
+            dg_weapon_overview.Columns["bursts"].HeaderText = "Bursts";
+            dg_weapon_overview.Columns["bursts"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["bursts"].Width = 80;
+            dg_weapon_overview.Columns["bursts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["bursts"].DefaultCellStyle.Format = "N0";
 
-            dg_weapon_overview.Columns["cool_down_time"].DisplayIndex = 6;
-            dg_weapon_overview.Columns["cool_down_time"].ToolTipText = "Interval between end of sustained fire and begining of damage.";
-            dg_weapon_overview.Columns["cool_down_time"].HeaderText = "Cool Down Time";
-            dg_weapon_overview.Columns["cool_down_time"].Width = 80;
-            dg_weapon_overview.Columns["cool_down_time"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
-            dg_weapon_overview.Columns["cool_down_time"].DefaultCellStyle.Format = "N1";
+            dg_weapon_overview.Columns["reload_duration"].DisplayIndex = 7;
+            dg_weapon_overview.Columns["reload_duration"].ToolTipText = "Duration of last burst.";
+            dg_weapon_overview.Columns["reload_duration"].HeaderText = "Reload Time";
+            dg_weapon_overview.Columns["reload_duration"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["reload_duration"].Width = 100;
+            dg_weapon_overview.Columns["reload_duration"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["reload_duration"].DefaultCellStyle.Format = "N2";
 
-            dg_weapon_overview.Columns["damage_per_second"].DisplayIndex = 7;
-            dg_weapon_overview.Columns["damage_per_second"].ToolTipText = "Damage per second.";
-            dg_weapon_overview.Columns["damage_per_second"].HeaderText = "DPS";
-            dg_weapon_overview.Columns["damage_per_second"].Width = 60;
-            dg_weapon_overview.Columns["damage_per_second"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomLeft;
-            dg_weapon_overview.Columns["damage_per_second"].DefaultCellStyle.Format = "N1";
+            dg_weapon_overview.Columns["dps"].DisplayIndex = 8;
+            dg_weapon_overview.Columns["dps"].ToolTipText = "Damage per second.";
+            dg_weapon_overview.Columns["dps"].HeaderText = "DPS";
+            dg_weapon_overview.Columns["dps"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["dps"].Width = 110;
+            dg_weapon_overview.Columns["dps"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
+            dg_weapon_overview.Columns["dps"].DefaultCellStyle.Format = "N1";
+
+
+            dg_weapon_overview.Columns["first_hit"].Visible = false;
+            dg_weapon_overview.Columns["last_hit"].Visible = false;
+            dg_weapon_overview.Columns["burst_start"].Visible = false;
 
             current_total_series.Color = session.fore_color;
             current_total_series.LabelBackColor = session.back_color;
@@ -301,11 +369,11 @@ namespace CO_Driver
             current_total_series.Points.Clear();
             current_total_series.Points.AddXY(0, 0);
 
-            ch_live_feed.Series.Add(new Series("bullshit"));
-            ch_live_feed.Series["bullshit"].IsVisibleInLegend = false;
-            ch_live_feed.Series["bullshit"].ChartType = SeriesChartType.StepLine;
-            ch_live_feed.Series["bullshit"].Points.AddXY(0, 0);
-            ch_live_feed.Series["bullshit"].Points.AddXY(1, 1);
+            //ch_live_feed.Series.Add(new Series("bullshit"));
+            //ch_live_feed.Series["bullshit"].IsVisibleInLegend = false;
+            //ch_live_feed.Series["bullshit"].ChartType = SeriesChartType.StepLine;
+            //ch_live_feed.Series["bullshit"].Points.AddXY(0, 0);
+            //ch_live_feed.Series["bullshit"].Points.AddXY(1, 1);
 
 
             cmb_trial_type.SelectedItem = "Free Form";
@@ -314,7 +382,7 @@ namespace CO_Driver
 
         private void initialize_series(file_trace_managment.GarageDamageRecord rec)
         {
-            string name = rec.weapon;
+            string name = translate.translate_string(rec.weapon, session, translations);
 
             ch_live_feed.Series.Add(new Series(name));
             ch_live_feed.Series[name].LegendText = name;
@@ -333,18 +401,6 @@ namespace CO_Driver
 
         private void add_vertical_annotation(Chart chart, Series series)
         {
-            //VerticalLineAnnotation line_annotaion = new VerticalLineAnnotation();
-            //line_annotaion.AllowMoving = true;
-            //line_annotaion.IsInfinitive = true;
-            //line_annotaion.AnchorDataPoint = series.Points[0];
-            //line_annotaion.LineColor = session.fore_color;
-            //line_annotaion.ForeColor = series.Color;
-            //line_annotaion.ClipToChartArea = chart.ChartAreas[0].Name;
-            //line_annotaion.AxisX = chart.ChartAreas[0].AxisX;
-            //line_annotaion.LineWidth = 1;
-            //line_annotaion.X = 0;
-
-            //chart.Annotations.Add(line_annotaion);
         }
 
         private void btn_save_user_settings_Click(object sender, EventArgs e)

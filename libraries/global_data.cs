@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CO_Driver
 {
-    class global_data
+    public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.38";
+        public static string CURRENT_VERSION = "0.1.0.51";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -33,6 +33,8 @@ namespace CO_Driver
         public const int SPAWN_PLAYER_EVENT = 19;
         public const int ADD_MOB_EVENT = 20;
         public const int GAME_PLAY_START_EVENT = 21;
+        public const int LOOT_EVENT = 22;
+        public const int ADVENTURE_REWARD_EVENT = 23;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
@@ -62,7 +64,9 @@ namespace CO_Driver
         public const int STORMS_WARNING_MATCH = 22;
         public const int HALLOWEEN_MATCH = 23;
         public const int ROCKET_LEAGUE_MATCH = 24;
-        public const int UNDEFINED_MATCH = 25;
+        public const int DRONE_BATTLE_MATCH = 25;
+        public const int RACE_WHEELS_ONLY_MATCH = 26;
+        public const int UNDEFINED_MATCH = 27;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
@@ -110,7 +114,16 @@ namespace CO_Driver
         public const string WEAPONS_FILTER_DEFAULT = "All Weapons";
         public const string MOVEMENT_FILTER_DEFAULT = "All Movement";
         public const string MODULE_FILTER_DEFAULT = "All Modules";
+        public const string CABIN_FILTER_DEFAULT = "All Cabins";
 
         public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
+
+        public static List<string> supporters = new List<string> {  "Rot_Fish_Bandit",
+                                                                     "QuickSkinner",
+                                                                     "Perqq",
+                                                                     "MayhemMotors",
+                                                                     "blab_",
+                                                                     "QuantumCanine",
+                                                                     "bIorgus"};
     }
 }

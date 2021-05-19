@@ -35,6 +35,8 @@ namespace CO_Driver
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public bool force_refresh = false;
         private string local_user;
         private int games_played;
@@ -56,7 +58,7 @@ namespace CO_Driver
         private int max_score;
         private double max_damage_rec;
         private double max_damage_dealt;
-        private MaxKills max_kills;
+        private MaxKills max_kills = new MaxKills { max_kills = 0, count = 0 };
         private double player_index;
         private double bot_index;
         private Dictionary<string, int> total_resources;
@@ -64,13 +66,17 @@ namespace CO_Driver
         private Dictionary<string, Opponent> opponent_dict = new Dictionary<string, Opponent> { };
         private Dictionary<string, int> weapon_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> movement_usage = new Dictionary<string, int> { };
+        private Dictionary<string, int> cabin_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> module_usage = new Dictionary<string, int> { };
+        private DateTime min_date;
+        private DateTime max_date;
         private string game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
         private string group_filter = global_data.GROUP_FILTER_DEFAULT;
         private string power_score_filter = global_data.POWER_SCORE_FILTER_DEFAULT;
         private string client_versions_filter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
         private string weapons_filter = global_data.WEAPONS_FILTER_DEFAULT;
         private string movement_filter = global_data.MOVEMENT_FILTER_DEFAULT;
+        private string cabin_filter = global_data.CABIN_FILTER_DEFAULT;
         private string module_filter = global_data.MODULE_FILTER_DEFAULT;
         private List<string> game_modes = new List<string> { };
         private List<string> grouped = new List<string> { };
@@ -78,9 +84,13 @@ namespace CO_Driver
         private List<string> client_versions = new List<string> { };
         private List<string> weapons = new List<string> { };
         private List<string> movement_parts = new List<string> { };
+        private List<string> cabins = new List<string> { };
         private List<string> module_parts = new List<string> { };
         private string new_selection = "";
         private string previous_selection = "";
+
+        //translate.translate_string(map.Key,session, translations);
+        //ui_translate.translate(ctrl.Text, session, ui_translations);
 
         public user_profile()
         {
@@ -91,7 +101,8 @@ namespace CO_Driver
         {
             if (!force_refresh)
             {
-                new_selection = string.Format(@"{0},{1},{2},{3},{4},{5},{6}", game_mode_filter, group_filter, power_score_filter, client_versions_filter, weapons_filter, movement_filter, module_filter);
+                new_selection = string.Format(@"{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", 
+                    game_mode_filter, group_filter, power_score_filter, client_versions_filter, weapons_filter, movement_filter, module_filter, cabin_filter, dt_start_date.Value.ToString(), dt_end_date.Value.ToString());
 
                 if (new_selection == previous_selection)
                     return;
@@ -99,13 +110,25 @@ namespace CO_Driver
 
             force_refresh = false;
 
+
+
             previous_selection = new_selection;
 
             reset_filters();
             initialize_user_profile();
 
+
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
+                min_date = DateTime.MaxValue;
+                max_date = DateTime.MinValue;
+
+                if (match.match_data.match_start < min_date)
+                    min_date = match.match_data.match_start;
+
+                if (match.match_data.match_start > max_date)
+                    max_date = match.match_data.match_start;
+
                 if (game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && game_mode_filter != match.match_data.match_type_desc)
                     continue;
 
@@ -116,6 +139,12 @@ namespace CO_Driver
                     continue;
 
                 if (client_versions_filter != global_data.CLIENT_VERSION_FILTER_DEFAULT && client_versions_filter != match.match_data.client_version)
+                    continue;
+
+                if (dt_start_date.Value.Date != DateTime.Now.Date && match.match_data.match_start.Date < dt_start_date.Value.Date)
+                    continue;
+
+                if (dt_end_date.Value.Date != DateTime.Now.Date && match.match_data.match_start.Date > dt_end_date.Value.Date)
                     continue;
 
                 if (power_score_filter != global_data.POWER_SCORE_FILTER_DEFAULT)
@@ -150,33 +179,38 @@ namespace CO_Driver
                     if (power_score_filter == "13000+" && ( match.match_data.local_player.power_score < 13000 ||  match.match_data.local_player.power_score > 22000))
                         continue;
 
-                    if (power_score_filter == "Leviathian" &&  match.match_data.local_player.power_score < 22000)
+                    if (power_score_filter == "Leviathan" &&  match.match_data.local_player.power_score < 22000)
                         continue;
                 }
 
                 if (build_records.ContainsKey( match.match_data.local_player.build_hash))
                 {
-                    if (weapons_filter != global_data.WEAPONS_FILTER_DEFAULT && build_records[ match.match_data.local_player.build_hash].weapons.Select(x => x.description).Where(x => x == weapons_filter).Count() == 0)
+                    if (weapons_filter != global_data.WEAPONS_FILTER_DEFAULT && build_records[ match.match_data.local_player.build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == weapons_filter).Count() == 0)
                         continue;
-                }
-                else if (weapons_filter != global_data.WEAPONS_FILTER_DEFAULT)
-                    continue;
 
-                if (build_records.ContainsKey( match.match_data.local_player.build_hash))
-                {
-                    if (movement_filter != global_data.MOVEMENT_FILTER_DEFAULT && build_records[ match.match_data.local_player.build_hash].movement.Select(x => x.description).Where(x => x == movement_filter).Count() == 0)
+                    if (movement_filter != global_data.MOVEMENT_FILTER_DEFAULT && build_records[ match.match_data.local_player.build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == movement_filter).Count() == 0)
                         continue;
-                }
-                else if (movement_filter != global_data.MOVEMENT_FILTER_DEFAULT)
-                    continue;
 
-                if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                {
-                    if (module_filter != global_data.MODULE_FILTER_DEFAULT && build_records[match.match_data.local_player.build_hash].modules.Select(x => x.description).Where(x => x == module_filter).Count() == 0)
+                    if (cabin_filter != global_data.CABIN_FILTER_DEFAULT && translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations) != cabin_filter)
+                        continue;
+
+                    if (module_filter != global_data.MODULE_FILTER_DEFAULT && build_records[match.match_data.local_player.build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == module_filter).Count() == 0)
                         continue;
                 }
-                else if (module_filter != global_data.MODULE_FILTER_DEFAULT)
-                    continue;
+                else 
+                {
+                    if (weapons_filter != global_data.WEAPONS_FILTER_DEFAULT)
+                        continue;
+
+                    if (movement_filter != global_data.MOVEMENT_FILTER_DEFAULT)
+                        continue;
+
+                    if (cabin_filter != global_data.CABIN_FILTER_DEFAULT)
+                        continue;
+
+                    if (module_filter != global_data.MODULE_FILTER_DEFAULT)
+                        continue;
+                }
 
                 if (!game_modes.Contains(match.match_data.match_type_desc))
                     game_modes.Add((match.match_data.match_type_desc));
@@ -217,50 +251,62 @@ namespace CO_Driver
                 if ( match.match_data.local_player.power_score >= 13000 &&  match.match_data.local_player.power_score <= 22000 && !power_scores.Contains("13000+"))
                     power_scores.Add("13000+");
 
-                if ( match.match_data.local_player.power_score >= 22000 && !power_scores.Contains("Leviathian"))
-                    power_scores.Add("Leviathian");
+                if ( match.match_data.local_player.power_score >= 22000 && !power_scores.Contains("Leviathan"))
+                    power_scores.Add("Leviathan");
 
                 if (!client_versions.Contains(match.match_data.client_version))
                     client_versions.Add((match.match_data.client_version));
 
                 if (build_records.ContainsKey( match.match_data.local_player.build_hash))
                 {
+                    if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                    {
+                        if (!cabins.Contains(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                        {
+                            cabins.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations));
+                        }
+                        if (!cabin_usage.ContainsKey(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                            cabin_usage.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations), 1);
+                        else
+                            cabin_usage[translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name,session, translations)] += 1;
+                    }
+                    
                     foreach (part_loader.Weapon weapon in build_records[ match.match_data.local_player.build_hash].weapons)
                     {
-                        if (!weapons.Contains(weapon.description))
+                        if (!weapons.Contains(translate.translate_string(weapon.name, session, translations)))
                         {
-                            weapons.Add(weapon.description);
+                            weapons.Add(translate.translate_string(weapon.name,session, translations));
                         }
-                        if (!weapon_usage.ContainsKey(weapon.description))
-                            weapon_usage.Add(weapon.description, 1);
+                        if (!weapon_usage.ContainsKey(translate.translate_string(weapon.name, session, translations)))
+                            weapon_usage.Add(translate.translate_string(weapon.name,session, translations), 1);
                         else
-                            weapon_usage[weapon.description] += 1;
+                            weapon_usage[translate.translate_string(weapon.name, session, translations)] += 1;
                     }
 
                     foreach (part_loader.Movement movement in build_records[ match.match_data.local_player.build_hash].movement)
                     {
-                        if (!movement_parts.Contains(movement.description))
+                        if (!movement_parts.Contains(translate.translate_string(movement.name,session, translations)))
                         {
-                            movement_parts.Add(movement.description);
+                            movement_parts.Add(translate.translate_string(movement.name, session, translations));
                         }
 
-                        if (!movement_usage.ContainsKey(movement.description))
-                            movement_usage.Add(movement.description, 1);
+                        if (!movement_usage.ContainsKey(translate.translate_string(movement.name,session, translations)))
+                            movement_usage.Add(translate.translate_string(movement.name,session, translations), 1);
                         else
-                            movement_usage[movement.description] += 1;
+                            movement_usage[translate.translate_string(movement.name,session, translations)] += 1;
                     }
 
                     foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
                     {
-                        if (!module_parts.Contains(module.description))
+                        if (!module_parts.Contains(translate.translate_string(module.name, session, translations)))
                         {
-                            module_parts.Add(module.description);
+                            module_parts.Add(translate.translate_string(module.name,session, translations));
                         }
 
-                        if (!module_usage.ContainsKey(module.description))
-                            module_usage.Add(module.description, 1);
+                        if (!module_usage.ContainsKey(translate.translate_string(module.name,session, translations)))
+                            module_usage.Add(translate.translate_string(module.name,session,translations), 1);
                         else
-                            module_usage[module.description] += 1;
+                            module_usage[translate.translate_string(module.name,session,translations)] += 1;
                     }
                 }
 
@@ -308,7 +354,10 @@ namespace CO_Driver
                     max_kills.count += 1;
 
                 if ( match.match_data.local_player.stats.kills > max_kills.max_kills)
-                    max_kills = new MaxKills { max_kills =  match.match_data.local_player.stats.kills, count = 1 };
+                {
+                    max_kills.max_kills = match.match_data.local_player.stats.kills;
+                    max_kills.count = 1;
+                }
 
                 if (match.match_data.nemesis != "")
                 {
@@ -351,6 +400,7 @@ namespace CO_Driver
                         total_resources[match_reward.Key] += match_reward.Value;
                 }
             }
+
             populate_user_profile_screen_elements();
             populate_filters();
         }
@@ -363,6 +413,7 @@ namespace CO_Driver
             client_versions = new List<string> { };
             weapons = new List<string> { };
             movement_parts = new List<string> { };
+            cabins = new List<string> { };
             module_parts = new List<string> { };
 
             game_modes.Add(global_data.GAME_MODE_FILTER_DEFAULT);
@@ -371,7 +422,11 @@ namespace CO_Driver
             client_versions.Add(global_data.CLIENT_VERSION_FILTER_DEFAULT);
             weapons.Add(global_data.WEAPONS_FILTER_DEFAULT);
             movement_parts.Add(global_data.MOVEMENT_FILTER_DEFAULT);
+            cabins.Add(global_data.CABIN_FILTER_DEFAULT);
             module_parts.Add(global_data.MODULE_FILTER_DEFAULT);
+
+            //dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
+            //dt_end_date.Value = DateTime.Now;
         }
 
         private void populate_filters()
@@ -382,6 +437,7 @@ namespace CO_Driver
             cb_versions.Items.Clear();
             cb_weapons.Items.Clear();
             cb_movement.Items.Clear();
+            cb_cabins.Items.Clear();
             cb_modules.Items.Clear();
 
             game_modes = game_modes.OrderBy(x => x != global_data.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x).ToList();
@@ -389,6 +445,7 @@ namespace CO_Driver
             client_versions = client_versions.OrderBy(x => x != global_data.CLIENT_VERSION_FILTER_DEFAULT).ThenBy(x => x).ToList();
             weapons.OrderBy(x => x != global_data.WEAPONS_FILTER_DEFAULT).ThenBy(x => x).ToList();
             movement_parts.OrderBy(x => x != global_data.MOVEMENT_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            cabins.OrderBy(x => x != global_data.CABIN_FILTER_DEFAULT).ThenBy(x => x).ToList();
             module_parts.OrderBy(x => x != global_data.MODULE_FILTER_DEFAULT).ThenBy(x => x).ToList();
 
             if (power_scores.Contains("13000+"))
@@ -421,6 +478,9 @@ namespace CO_Driver
             foreach (string desc in movement_parts)
                 cb_movement.Items.Add(desc);
 
+            foreach (string desc in cabins)
+                cb_cabins.Items.Add(desc);
+
             foreach (string desc in module_parts)
                 cb_modules.Items.Add(desc);
 
@@ -430,6 +490,7 @@ namespace CO_Driver
             cb_versions.Text = client_versions_filter;
             cb_weapons.Text = weapons_filter;
             cb_movement.Text = movement_filter;
+            cb_cabins.Text = cabin_filter;
             cb_modules.Text = module_filter;
         }
 
@@ -485,7 +546,7 @@ namespace CO_Driver
             foreach (KeyValuePair<string, int> resource in total_resources.OrderByDescending(x => x.Value))
             {
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
-                row.Cells[0].Value = resource.Key;
+                row.Cells[0].Value = translate.translate_string(resource.Key,session,translations);
                 row.Cells[1].Value = (int)resource.Value;
                 dg_resources.Rows.Add(row);
             }
@@ -503,12 +564,11 @@ namespace CO_Driver
             {
                 if (first)
                 {
-                    lb_best_map.Text = map.Key;
+                    lb_best_map.Text = translate.translate_string(map.Key, session, translations);
                     first = false;
                 }
-
                 DataGridViewRow row = (DataGridViewRow)this.dg_map_data.Rows[0].Clone();
-                row.Cells[0].Value = map.Key;
+                row.Cells[0].Value = translate.translate_string(map.Key,session, translations);
                 row.Cells[1].Value = string.Format(@"{0}/{1}", map.Value.wins, map.Value.games - map.Value.wins);
                 dg_map_data.Rows.Add(row);
             }
@@ -595,9 +655,11 @@ namespace CO_Driver
             max_damage_rec = 0.0;
             max_damage_dealt = 0.0;
             movement_usage = new Dictionary<string, int> { };
+            cabin_usage = new Dictionary<string, int> { };
             weapon_usage = new Dictionary<string, int> { };
             module_usage = new Dictionary<string, int> { };
-            max_kills = new MaxKills { max_kills = 0, count = 0 };
+            max_kills.max_kills = 0;
+            max_kills.count = 0;
             total_resources = new Dictionary<string, int> { };
             total_map_data = new Dictionary<string, MapData> { };
             opponent_dict = new Dictionary<string, Opponent> { };
@@ -654,10 +716,12 @@ namespace CO_Driver
 
             populate_user_profile_screen();
         }
-
-        private void cb_sessions_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_cabins_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (this.cb_cabins.SelectedIndex >= 0)
+                cabin_filter = this.cb_cabins.Text;
 
+            populate_user_profile_screen();
         }
 
         private void cb_movement_SelectedIndexChanged(object sender, EventArgs e)
@@ -692,6 +756,22 @@ namespace CO_Driver
             populate_user_profile_screen();
         }
 
+        private void dt_start_date_ValueChanged(object sender, EventArgs e)
+        {
+            if (dt_end_date.Value < dt_start_date.Value)
+                dt_end_date.Value = dt_start_date.Value;
+
+            populate_user_profile_screen();
+        }
+
+        private void dt_end_date_ValueChanged(object sender, EventArgs e)
+        {
+            if (dt_start_date.Value > dt_end_date.Value)
+                dt_start_date.Value = dt_end_date.Value;
+
+            populate_user_profile_screen();
+        }
+
         private void btn_save_user_settings_Click(object sender, EventArgs e)
         {
             game_mode_filter = global_data.GAME_MODE_FILTER_DEFAULT;
@@ -701,6 +781,11 @@ namespace CO_Driver
             weapons_filter = global_data.WEAPONS_FILTER_DEFAULT;
             movement_filter = global_data.MOVEMENT_FILTER_DEFAULT;
             module_filter = global_data.MODULE_FILTER_DEFAULT;
+            cabin_filter = global_data.CABIN_FILTER_DEFAULT;
+
+            dt_start_date.Value = DateTime.Now;
+            dt_end_date.Value = DateTime.Now;
+
             populate_user_profile_screen();
         }
 
@@ -708,5 +793,6 @@ namespace CO_Driver
         {
 
         }
+
     }
 }

@@ -13,6 +13,9 @@ namespace CO_Driver
     public partial class schedule_display : UserControl
     {
         public List<part_loader.EventTime> event_times = new List<part_loader.EventTime> { };
+        public log_file_managment.session_variables session;
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
         public schedule_display()
         {
@@ -28,6 +31,11 @@ namespace CO_Driver
 
         private void schedule_display_Load(object sender, EventArgs e)
         {
+            foreach (DataGridViewColumn column in dg_build_view_grid.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             this.dg_build_view_grid.Rows.Clear();
             this.dg_build_view_grid.AllowUserToAddRows = true;
             this.lbl_schedule_display_text.Text = string.Format(@"Clan War Schedule {0}", TimeZoneInfo.Local.ToString());
@@ -45,12 +53,14 @@ namespace CO_Driver
                         DateTime start_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.start_time), TimeZoneInfo.Local);
                         DateTime end_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.end_time), TimeZoneInfo.Local);
 
-                        if (cell_time >= start_time_dt && cell_time < end_time_dt)
+                        if ((cell_time >= start_time_dt && cell_time < end_time_dt) || 
+                            (cell_time >= start_time_dt.AddDays(7) && cell_time < end_time_dt.AddDays(7)) ||
+                            (cell_time >= start_time_dt.AddDays(-7) && cell_time < end_time_dt.AddDays(-7)))
                         {
                             if (event_time.event_type == global_data.STANDARD_CW)
                                 row.Cells[j + 1].Value = "Standard CW";
                             else
-                                row.Cells[j + 1].Value = "Leviathian CW";
+                                row.Cells[j + 1].Value = "Leviathan CW";
                         }
                     }
                 }

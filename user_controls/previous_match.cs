@@ -15,7 +15,10 @@ namespace CO_Driver
         public file_trace_managment.MatchData previous_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
+        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public bool show_last_match = true;
         private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
         private string blue_team = "";
@@ -50,8 +53,11 @@ namespace CO_Driver
                 lb_game_result.Text = match_data.game_result;
 
             lb_match_type.Text = match_data.match_type_desc;
-            lb_map_name.Text = match_data.map_desc;
-            lb_build_name.Text = last_build_record.full_description;
+            lb_map_name.Text = translate.translate_string(match_data.map_name, session, translations);
+            if (build_records.ContainsKey(match_data.local_player.build_hash))
+                lb_build_name.Text = build_records[match_data.local_player.build_hash].full_description;
+            else
+                lb_build_name.Text = "";
             lb_duration.Text = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
             lb_kills.Text = match_data.local_player.stats.kills.ToString();
             lb_assists.Text = match_data.local_player.stats.assists.ToString();
@@ -60,9 +66,9 @@ namespace CO_Driver
             lb_damage_rec.Text = Math.Round(match_data.local_player.stats.damage_taken,1).ToString();
             lb_score.Text = match_data.local_player.stats.score.ToString();
             lb_medals.Text = match_data.local_player.stripes.Count().ToString();
-            if (match_data.match_rewards.ContainsKey("Fation XP")) {
-                lb_xp.Text = match_data.match_rewards["Fation XP"].ToString();
-                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
+            if (match_data.match_rewards.ContainsKey("expFactionTotal")) {
+                lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
+                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
             }
             else
             {
@@ -74,6 +80,7 @@ namespace CO_Driver
             lb_red_team.Text = red_team;
 
             populate_medals_table();
+            populate_score_table();
             populate_teams_tables();
             populate_damage_dealt();
             populate_damage_rec();
@@ -100,6 +107,7 @@ namespace CO_Driver
             dg_damage_rec.Rows.Clear();
             dg_damage_dealt.Rows.Clear();
             dg_medals.Rows.Clear();
+            dg_score.Rows.Clear();
             dg_blue_team.Rows.Clear();
             dg_red_team.Rows.Clear();
             
@@ -114,7 +122,9 @@ namespace CO_Driver
             string previous_attacker = "";
             bool first = true;
 
-            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.victim).ThenByDescending(x => x.damage).ToList())
+
+
+            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.attacker).ThenByDescending(x => x.damage).ToList())
             {
                 if (damage_record.victim != match_data.local_player.nickname)
                     continue;
@@ -140,7 +150,7 @@ namespace CO_Driver
 
                 row = (DataGridViewRow)this.dg_damage_rec.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = damage_record.weapon;
+                row.Cells[0].Value = translate.translate_string(damage_record.weapon, session, translations);
                 row.Cells[1].Value = Math.Round(damage_record.damage, 1);
                 dg_damage_rec.Rows.Add(row);
 
@@ -191,7 +201,7 @@ namespace CO_Driver
 
                 row = (DataGridViewRow)this.dg_damage_dealt.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = damage_record.weapon;
+                row.Cells[0].Value = translate.translate_string(damage_record.weapon, session, translations);
                 row.Cells[1].Value = Math.Round(damage_record.damage, 1);
                 dg_damage_dealt.Rows.Add(row);
 
@@ -214,10 +224,14 @@ namespace CO_Driver
             Dictionary<string, int> stripes = new Dictionary<string, int> { };
             foreach (string stripe in match_data.local_player.stripes.OrderBy(x => x))
             {
-                if (stripes.ContainsKey(stripe))
-                    stripes[stripe] += 1;
+                string strip_name = stripe;
+                if (strip_name.ToLower().StartsWith("pv"))
+                    strip_name = strip_name.Substring(3);
+
+                if (stripes.ContainsKey(strip_name))
+                    stripes[strip_name] += 1;
                 else
-                    stripes.Add(stripe, 1);
+                    stripes.Add(strip_name, 1);
             }
 
             foreach (KeyValuePair<string, int> stripe in stripes)
@@ -230,6 +244,29 @@ namespace CO_Driver
 
             dg_medals.AllowUserToAddRows = false;
             dg_medals.ClearSelection();
+            dg_medals.BringToFront();
+        }
+
+        private void populate_score_table()
+        {
+            if (match_data.local_player.scores == null)
+                return;
+
+            dg_score.AllowUserToAddRows = false;
+            dg_score.ClearSelection();
+            dg_score.Rows.Clear();
+            dg_score.AllowUserToAddRows = true;
+
+            foreach (file_trace_managment.Score score in match_data.local_player.scores)
+            {
+                DataGridViewRow row = (DataGridViewRow)this.dg_score.Rows[0].Clone();
+                row.Cells[0].Value = score.description;
+                row.Cells[1].Value = score.points;
+                dg_score.Rows.Add(row);
+            }
+
+            dg_score.AllowUserToAddRows = false;
+            dg_score.ClearSelection();
         }
 
         private void populate_teams_tables()
@@ -250,24 +287,26 @@ namespace CO_Driver
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_red_team.Rows[0].Clone();
                     row.Cells[0].Value = player.Key;
-                    row.Cells[1].Value = player.Value.stats.kills;
-                    row.Cells[2].Value = player.Value.stats.assists;
-                    row.Cells[3].Value = player.Value.stats.deaths;
-                    row.Cells[4].Value = Math.Round(player.Value.stats.damage, 1);
-                    row.Cells[5].Value = Math.Round(player.Value.stats.damage_taken, 1);
-                    row.Cells[6].Value = player.Value.stats.score;
+                    row.Cells[1].Value = player.Value.power_score;
+                    row.Cells[2].Value = player.Value.stats.kills;
+                    row.Cells[3].Value = player.Value.stats.assists;
+                    row.Cells[4].Value = player.Value.stats.deaths;
+                    row.Cells[5].Value = Math.Round(player.Value.stats.damage, 0);
+                    row.Cells[6].Value = Math.Round(player.Value.stats.damage_taken, 0);
+                    row.Cells[7].Value = player.Value.stats.score;
                     dg_red_team.Rows.Add(row);
                 }
                 else
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_blue_team.Rows[0].Clone();
                     row.Cells[0].Value = player.Key;
-                    row.Cells[1].Value = player.Value.stats.kills;
-                    row.Cells[2].Value = player.Value.stats.assists;
-                    row.Cells[3].Value = player.Value.stats.deaths;
-                    row.Cells[4].Value = Math.Round(player.Value.stats.damage, 1);
-                    row.Cells[5].Value = Math.Round(player.Value.stats.damage_taken, 1);
-                    row.Cells[6].Value = player.Value.stats.score;
+                    row.Cells[1].Value = player.Value.power_score;
+                    row.Cells[2].Value = player.Value.stats.kills;
+                    row.Cells[3].Value = player.Value.stats.assists;
+                    row.Cells[4].Value = player.Value.stats.deaths;
+                    row.Cells[5].Value = Math.Round(player.Value.stats.damage, 0);
+                    row.Cells[6].Value = Math.Round(player.Value.stats.damage_taken, 0);
+                    row.Cells[7].Value = player.Value.stats.score;
                     dg_blue_team.Rows.Add(row);
                 }
             }
@@ -276,8 +315,8 @@ namespace CO_Driver
             dg_red_team.AllowUserToAddRows = false;
             
 
-            dg_red_team.Sort(dg_red_team.Columns[6], ListSortDirection.Descending);
-            dg_blue_team.Sort(dg_blue_team.Columns[6], ListSortDirection.Descending);
+            dg_red_team.Sort(dg_red_team.Columns[7], ListSortDirection.Descending);
+            dg_blue_team.Sort(dg_blue_team.Columns[7], ListSortDirection.Descending);
 
             dg_blue_team.ClearSelection();
             dg_red_team.ClearSelection();
@@ -343,19 +382,7 @@ namespace CO_Driver
             draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
 
-        private void gp_medals_Paint(object sender, PaintEventArgs e)
-        {
-            GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
-        }
-
         private void gb_red_team_Paint(object sender, PaintEventArgs e)
-        {
-            GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
-        }
-
-        private void gb_blue_team_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
             draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
@@ -390,6 +417,30 @@ namespace CO_Driver
                 g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
                 g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
             }
+        }
+
+        private void gb_score_Paint_1(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+        }
+
+        private void gb_red_team_Paint_1(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+        }
+
+        private void gb_blue_team_Paint_1(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+        }
+
+        private void gp_medals_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
     }
 }

@@ -18,12 +18,14 @@ namespace CO_Driver
         public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
 
         public List<file_trace_managment.MatchRecord> history = new List<file_trace_managment.MatchRecord> { };
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         private BindingSource history_table_source = new BindingSource();
         public match_history()
         {
             InitializeComponent();
         }
-
         public void refersh_history_table()
         {
             dg_match_history_view.Rows.Clear();
@@ -36,7 +38,7 @@ namespace CO_Driver
                 row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
                 row.Cells[1].Value = match.match_data.match_start;
                 row.Cells[2].Value = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
-                row.Cells[3].Value = match.match_data.map_desc;
+                row.Cells[3].Value = translate.translate_string(match.match_data.map_desc, session, translations);
                 row.Cells[4].Value = match.match_data.local_player.build_hash;
                 row.Cells[5].Value = match.match_data.local_player.power_score;
                 row.Cells[6].Value = match.match_data.local_player.stats.score;
@@ -46,7 +48,7 @@ namespace CO_Driver
                 row.Cells[10].Value = Math.Round(match.match_data.local_player.stats.damage, 1);
                 row.Cells[11].Value = Math.Round(match.match_data.local_player.stats.damage_taken, 1);
                 row.Cells[12].Value = match.match_data.game_result;
-                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => x.Key + ":" + x.Value.ToString()));
+                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
 
                 dg_match_history_view.Rows.Add(row);
             }

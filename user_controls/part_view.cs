@@ -15,6 +15,8 @@ namespace CO_Driver
     {
         public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
         public log_file_managment.session_variables session;
+        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
         private class unique_parts
         {
@@ -65,6 +67,9 @@ namespace CO_Driver
                 //if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
                 //    continue;
 
+                if (!chk_include_bumpers.Checked && master_part_list[i].hull_durability == 0)
+                    continue;
+
                 if (part_list.Exists(x => x.part.description.Contains(master_part_list[i].description)))
                 {
                     part_list.Find(x => x.part.description.Contains(master_part_list[i].description)).part_count++;
@@ -89,11 +94,20 @@ namespace CO_Driver
                 row.Cells[8].Value = part.part.pass_through;
                 row.Cells[9].Value = part.part.bullet_resistance;
                 row.Cells[10].Value = part.part.melee_resistance;
-                row.Cells[11].Value = Math.Round((double)part.part.part_durability / (double)part.part.mass, 2);
-                row.Cells[12].Value = Math.Round((double)part.part.power_score / (double)part.part.mass, 2);
+                row.Cells[11].Value = Math.Round((double)part.part.part_durability / (double)part.part.power_score, 2);
+                row.Cells[12].Value = Math.Round((double)part.part.part_durability / (double)part.part.mass, 2);
+                row.Cells[13].Value = Math.Round((double)part.part.mass / (double)part.part.power_score, 2);
+                row.Cells[14].Value = Math.Round((double)part.part.mass / (double)part.part.part_durability, 2);
+                row.Cells[15].Value = Math.Round((double)part.part.power_score / (double)part.part.part_durability, 2);
+                row.Cells[16].Value = Math.Round((double)part.part.power_score / (double)part.part.mass, 2);
                 this.dg_available_parts.Rows.Add(row);
             }
             this.dg_available_parts.AllowUserToAddRows = false;
+        }
+
+        private void chk_include_bumpers_CheckedChanged(object sender, EventArgs e)
+        {
+            populate_parts_list();
         }
     }
 }

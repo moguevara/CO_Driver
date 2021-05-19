@@ -82,7 +82,7 @@
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1169, 65);
+            this.label1.Size = new System.Drawing.Size(1195, 65);
             this.label1.TabIndex = 1;
             this.label1.Text = "Manual Part Assembly";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -503,7 +503,7 @@
             this.chk_3_percent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_3_percent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_3_percent.ForeColor = System.Drawing.Color.Lime;
-            this.chk_3_percent.Location = new System.Drawing.Point(826, 546);
+            this.chk_3_percent.Location = new System.Drawing.Point(796, 546);
             this.chk_3_percent.Name = "chk_3_percent";
             this.chk_3_percent.Size = new System.Drawing.Size(12, 11);
             this.chk_3_percent.TabIndex = 28;
@@ -513,7 +513,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(844, 570);
+            this.label10.Location = new System.Drawing.Point(814, 570);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(182, 14);
             this.label10.TabIndex = 29;
@@ -525,7 +525,7 @@
             this.chk_10_percent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_10_percent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_10_percent.ForeColor = System.Drawing.Color.Lime;
-            this.chk_10_percent.Location = new System.Drawing.Point(826, 570);
+            this.chk_10_percent.Location = new System.Drawing.Point(796, 570);
             this.chk_10_percent.Name = "chk_10_percent";
             this.chk_10_percent.Size = new System.Drawing.Size(12, 11);
             this.chk_10_percent.TabIndex = 30;
@@ -535,7 +535,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(844, 543);
+            this.label12.Location = new System.Drawing.Point(814, 543);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(154, 14);
             this.label12.TabIndex = 31;
@@ -571,8 +571,10 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "part_optimizer";
-            this.Size = new System.Drawing.Size(1169, 601);
+            this.Size = new System.Drawing.Size(1195, 601);
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dg_selected_parts)).EndInit();
             this.ResumeLayout(false);

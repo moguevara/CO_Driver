@@ -17,6 +17,7 @@ namespace CO_Driver
     {
         bool restart_background_worker = false;
         private log_file_managment.session_variables local_session_variables = new log_file_managment.session_variables { };
+        public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
         protected override void OnLoad(EventArgs e)
         {

@@ -395,8 +395,7 @@
             // 
             // fusion_calculator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.btn_reset);
             this.Controls.Add(this.num_item_cost);
@@ -418,6 +417,8 @@
             this.Controls.Add(this.lable1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "fusion_calculator";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.fusion_calculator_Load);

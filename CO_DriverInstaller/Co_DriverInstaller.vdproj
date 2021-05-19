@@ -15,25 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_21DBBC8AF2034D3CA5A11B99E17C6F6E"
+        "MsmKey" = "8:_23DEB6DA07984779A05C6BBE303642E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2C841FB07987A3CC6746BEC2F5679300"
-        "OwnerKey" = "8:_CD300019CB2B42208868B2E55D7FD778"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2C841FB07987A3CC6746BEC2F5679300"
-        "OwnerKey" = "8:_A2C25BC784D98C0E57E4E69D010E1947"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A2C25BC784D98C0E57E4E69D010E1947"
+        "MsmKey" = "8:_44CE175A3D1048AAB03F2A1B3C5C47F4"
         "OwnerKey" = "8:_CD300019CB2B42208868B2E55D7FD778"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,25 +40,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D85A20BD21C80FF1008662808A556C74"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_CD300019CB2B42208868B2E55D7FD778"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A2C25BC784D98C0E57E4E69D010E1947"
+        "OwnerKey" = "8:_44CE175A3D1048AAB03F2A1B3C5C47F4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2C841FB07987A3CC6746BEC2F5679300"
+        "OwnerKey" = "8:_D85A20BD21C80FF1008662808A556C74"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -91,6 +73,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -107,6 +97,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -136,12 +142,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_21DBBC8AF2034D3CA5A11B99E17C6F6E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_23DEB6DA07984779A05C6BBE303642E0"
             {
-            "SourcePath" = "8:..\\RFB_Tool_Suite\\RotFish.ico"
+            "SourcePath" = "8:..\\RotFish.ico"
             "TargetName" = "8:RotFish.ico"
             "Tag" = "8:"
-            "Folder" = "8:_659EFC572198444983A34BC40AFEBCE7"
+            "Folder" = "8:_615E93B8E880485D9F7389B949FCA7AE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -156,51 +162,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2C841FB07987A3CC6746BEC2F5679300"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44CE175A3D1048AAB03F2A1B3C5C47F4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_2C841FB07987A3CC6746BEC2F5679300"
+                    "_44CE175A3D1048AAB03F2A1B3C5C47F4"
                     {
                     "Name" = "8:EntityFramework.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:EntityFramework.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_659EFC572198444983A34BC40AFEBCE7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2C25BC784D98C0E57E4E69D010E1947"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A2C25BC784D98C0E57E4E69D010E1947"
-                    {
-                    "Name" = "8:EntityFramework.SqlServer.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:EntityFramework.SqlServer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_659EFC572198444983A34BC40AFEBCE7"
@@ -334,7 +309,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:https://codriver.dept116.com/"
-        "ARPPRODUCTICON" = "8:_21DBBC8AF2034D3CA5A11B99E17C6F6E"
+        "ARPPRODUCTICON" = "8:_23DEB6DA07984779A05C6BBE303642E0"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -448,7 +423,7 @@
             "Target" = "8:_CD300019CB2B42208868B2E55D7FD778"
             "Folder" = "8:_81F0D1277D1E4534AA4CE1ABDEF2D151"
             "WorkingFolder" = "8:_659EFC572198444983A34BC40AFEBCE7"
-            "Icon" = "8:_21DBBC8AF2034D3CA5A11B99E17C6F6E"
+            "Icon" = "8:_23DEB6DA07984779A05C6BBE303642E0"
             "Feature" = "8:"
             }
         }
@@ -936,7 +911,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CD300019CB2B42208868B2E55D7FD778"
             {
-            "SourcePath" = "8:..\\RFB_Tool_Suite\\obj\\Release\\CO_Driver.exe"
+            "SourcePath" = "8:..\\obj\\Release\\CO_Driver.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_659EFC572198444983A34BC40AFEBCE7"

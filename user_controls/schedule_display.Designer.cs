@@ -53,7 +53,7 @@
             this.lbl_schedule_display_text.Location = new System.Drawing.Point(0, 0);
             this.lbl_schedule_display_text.Name = "lbl_schedule_display_text";
             this.lbl_schedule_display_text.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.lbl_schedule_display_text.Size = new System.Drawing.Size(1169, 48);
+            this.lbl_schedule_display_text.Size = new System.Drawing.Size(1195, 48);
             this.lbl_schedule_display_text.TabIndex = 0;
             this.lbl_schedule_display_text.Text = "Clan War Schedule (UTC)";
             this.lbl_schedule_display_text.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -127,7 +127,7 @@
             this.dg_build_view_grid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Lime;
             this.dg_build_view_grid.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_build_view_grid.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dg_build_view_grid.Size = new System.Drawing.Size(1169, 553);
+            this.dg_build_view_grid.Size = new System.Drawing.Size(1195, 553);
             this.dg_build_view_grid.StandardTab = true;
             this.dg_build_view_grid.TabIndex = 3;
             this.dg_build_view_grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dg_build_view_grid_CellFormatting);
@@ -137,6 +137,7 @@
             // 
             this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column8.HeaderText = "Time";
+            this.Column8.MinimumWidth = 59;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             this.Column8.Width = 59;
@@ -194,21 +195,23 @@
             // 
             this.time2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.time2.HeaderText = "Time";
+            this.time2.MinimumWidth = 59;
             this.time2.Name = "time2";
             this.time2.ReadOnly = true;
             this.time2.Width = 59;
             // 
             // schedule_display
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.dg_build_view_grid);
             this.Controls.Add(this.lbl_schedule_display_text);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
+            this.MaximumSize = new System.Drawing.Size(1195, 601);
+            this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "schedule_display";
-            this.Size = new System.Drawing.Size(1169, 601);
+            this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.schedule_display_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dg_build_view_grid)).EndInit();
             this.ResumeLayout(false);
