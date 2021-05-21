@@ -533,8 +533,6 @@ namespace CO_Driver
             Current_session.static_records.resource_dict.Add("Accumulators", "Batteries");
             Current_session.static_records.resource_dict.Add("NewYearMoney", "Crackers");
             Current_session.static_records.resource_dict.Add("Scrap_Epic", "Electronics");
-            Current_session.static_records.resource_dict.Add("Plastic", "Plastic");
-            Current_session.static_records.resource_dict.Add("GermanMoney", "Taler");
         }
 
 
@@ -564,14 +562,12 @@ namespace CO_Driver
             Current_session.static_records.global_reward_dict.Add("ClanMoney", new_reward("ClanMoney", "Uranium", "U"));
             Current_session.static_records.global_reward_dict.Add("Scrap_Common", new_reward("Scrap_Common", "Scrap", "S"));
             Current_session.static_records.global_reward_dict.Add("Scrap_Rare", new_reward("Scrap_Rare", "Wires", "W"));
-            Current_session.static_records.global_reward_dict.Add("Scrap_Epic", new_reward("Scrap_Epic", "Electronics", "B"));
-            Current_session.static_records.global_reward_dict.Add("Plastic", new_reward("Plastic", "Plastic", "P"));
+            Current_session.static_records.global_reward_dict.Add("Scrap_Epic", new_reward("Scrap_Epic", "Batteries", "B"));
             Current_session.static_records.global_reward_dict.Add("Accumulators", new_reward("Accumulators", "unknown", "unknown"));
             Current_session.static_records.global_reward_dict.Add("HalloweenMoney", new_reward("HalloweenMoney", "Tricky Treats", "TT"));
             Current_session.static_records.global_reward_dict.Add("Supply", new_reward("Supply", "unknown", "unknown"));
             Current_session.static_records.global_reward_dict.Add("Platinum", new_reward("Platinum", "unknown", "unknown"));
             Current_session.static_records.global_reward_dict.Add("NewYearMoney", new_reward("NewYearMoney", "Crackers", "Cr"));
-            Current_session.static_records.global_reward_dict.Add("GermanMoney", new_reward("GermanMoney", "Taler", "T"));
         }
 
         public static void populate_movement_list(file_trace_managment.SessionStats Current_session)

@@ -412,7 +412,6 @@
             this.gb_map_data.TabStop = false;
             this.gb_map_data.Text = "Map Win Rates";
             this.gb_map_data.Paint += new System.Windows.Forms.PaintEventHandler(this.gb_map_data_Paint);
-            this.toolTip1.SetToolTip(this.gb_map_data, "Map Win Rates (Win/Loss count)");
             // 
             // dg_map_data
             // 
@@ -1000,7 +999,7 @@
             this.lb_kg_title.TabIndex = 5;
             this.lb_kg_title.Text = "K/G";
             this.lb_kg_title.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(this.lb_kg_title, "Kill per game ratio.");
+            this.toolTip1.SetToolTip(this.lb_kg_title, "Kill to death ratio.");
             // 
             // lb_drone_kill_title
             // 
@@ -1923,7 +1922,7 @@
             this.lb_best_map_title.TabIndex = 0;
             this.lb_best_map_title.Text = "Best Map";
             this.lb_best_map_title.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(this.lb_best_map_title, "Map with your best win rate based on current selection.");
+            this.toolTip1.SetToolTip(this.lb_best_map_title, "Your best map based on current selection.");
             // 
             // cb_game_modes
             // 

@@ -2,10 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-# Visual Studio cache
-.vs/
-
-# Build artifacts
-packages/
-[Bb]in/
-[Oo]bj/
+/packages
+/obj/Debug
+/bin/Debug
+/.vs
