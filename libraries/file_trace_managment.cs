@@ -499,6 +499,8 @@ namespace CO_Driver
                 match_rewards.Add("Scrap_Rare", Int32.Parse(Regex.Match(line, @"Scrap_Rare (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Scrap_Epic"))
                 match_rewards.Add("Scrap_Epic", Int32.Parse(Regex.Match(line, @"Scrap_Epic (.+?),").Groups[1].Value.Replace(" ", "")));
+            if (line.Contains("Plastic"))
+                match_rewards.Add("Plastic", Int32.Parse(Regex.Match(line, @"Plastic (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("Accumulators"))
                 match_rewards.Add("Accumulators", Int32.Parse(Regex.Match(line, @"Accumulators (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("HalloweenMoney"))

@@ -560,7 +560,7 @@ namespace CO_Driver
 
             bool first = true;
 
-            foreach (KeyValuePair<string, MapData> map in total_map_data.OrderByDescending(x => x.Value.games).OrderByDescending(x => x.Value.wins))
+            foreach (KeyValuePair<string, MapData> map in total_map_data.OrderByDescending(x => x.Value.wins / x.Value.games).ThenByDescending(x => x.Value.wins))
             {
                 if (first)
                 {
