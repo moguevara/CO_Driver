@@ -534,6 +534,7 @@ namespace CO_Driver
             Current_session.static_records.resource_dict.Add("NewYearMoney", "Crackers");
             Current_session.static_records.resource_dict.Add("Scrap_Epic", "Electronics");
             Current_session.static_records.resource_dict.Add("Plastic", "Plastic");
+            Current_session.static_records.resource_dict.Add("GermanMoney", "Taler");
         }
 
 
@@ -570,6 +571,7 @@ namespace CO_Driver
             Current_session.static_records.global_reward_dict.Add("Supply", new_reward("Supply", "unknown", "unknown"));
             Current_session.static_records.global_reward_dict.Add("Platinum", new_reward("Platinum", "unknown", "unknown"));
             Current_session.static_records.global_reward_dict.Add("NewYearMoney", new_reward("NewYearMoney", "Crackers", "Cr"));
+            Current_session.static_records.global_reward_dict.Add("GermanMoney", new_reward("GermanMoney", "Taler", "T"));
         }
 
         public static void populate_movement_list(file_trace_managment.SessionStats Current_session)

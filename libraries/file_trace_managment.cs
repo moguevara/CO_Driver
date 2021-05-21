@@ -511,6 +511,8 @@ namespace CO_Driver
                 match_rewards.Add("Platinum", Int32.Parse(Regex.Match(line, @"Platinum (.+?),").Groups[1].Value.Replace(" ", "")));
             if (line.Contains("NewYearMoney"))
                 match_rewards.Add("NewYearMoney", Int32.Parse(Regex.Match(line, @"NewYearMoney (.+?),").Groups[1].Value.Replace(" ", "")));
+            if (line.Contains("GermanMoney"))
+                match_rewards.Add("GermanMoney", Int32.Parse(Regex.Match(line, @"GermanMoney (.+?),").Groups[1].Value.Replace(" ", "")));
 
             Current_session.current_match.match_rewards = match_rewards;
         }
