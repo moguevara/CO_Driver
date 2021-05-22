@@ -92,7 +92,7 @@ namespace CO_Driver
                         if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
                         {
                             FileInfo most_recent_trace_file = new DirectoryInfo(local_session_variables.log_file_location).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-                            if (trace_file != most_recent_trace_file)
+                            if (trace_file.FullName != most_recent_trace_file.FullName)
                             {
                                 bw_file_tracer.CancelAsync();
                                 restart_background_worker = true;
