@@ -99,9 +99,9 @@
             this.label3.ForeColor = System.Drawing.Color.Lime;
             this.label3.Location = new System.Drawing.Point(3, 115);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 14);
+            this.label3.Size = new System.Drawing.Size(196, 14);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Log Files Location";
+            this.label3.Text = "Crossout Log Files Location";
             // 
             // label5
             // 
@@ -110,9 +110,9 @@
             this.label5.ForeColor = System.Drawing.Color.Lime;
             this.label5.Location = new System.Drawing.Point(3, 143);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(175, 14);
+            this.label5.Size = new System.Drawing.Size(210, 14);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Historical File Location";
+            this.label5.Text = "Co_Driver Saved File Location";
             // 
             // label13
             // 
@@ -459,7 +459,6 @@
             // 
             this.txt_log_file_location.BackColor = System.Drawing.Color.Black;
             this.txt_log_file_location.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_log_file_location.Enabled = false;
             this.txt_log_file_location.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_log_file_location.ForeColor = System.Drawing.Color.Lime;
             this.txt_log_file_location.Location = new System.Drawing.Point(295, 107);

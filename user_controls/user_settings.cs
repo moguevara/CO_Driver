@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using System.Net;
 
 namespace CO_Driver
 {
@@ -61,6 +63,22 @@ namespace CO_Driver
         {
             bool prompt_restart = false;
 
+            if (!Directory.Exists(txt_log_file_location.Text))
+            {
+                MessageBox.Show("Target log file location invalid. Aborting save." + Environment.NewLine + Environment.NewLine + txt_log_file_location.Text);
+                session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+                txt_log_file_location.Text = session.log_file_location;
+                return;
+            }
+
+            if (!Directory.EnumerateFiles(txt_log_file_location.Text, "*.log", SearchOption.AllDirectories).Any())
+            {
+                MessageBox.Show("Target log file location does not contain any crossout log files. Aborting save." + Environment.NewLine + Environment.NewLine + txt_log_file_location.Text);
+                session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+                txt_log_file_location.Text = session.log_file_location;
+                return;
+            }
+
             if (session.local_user_name != cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString())
             {
                 DialogResult dialogResult = MessageBox.Show("Changing user name requires restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
@@ -94,6 +112,7 @@ namespace CO_Driver
             }
 
             session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
+            session.log_file_location = txt_log_file_location.Text;
             session.local_language = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
             session.engineer_level = Convert.ToInt32(num_engineer_level.Value);
             session.lunatics_level = Convert.ToInt32(num_lunatic_level.Value);
@@ -153,6 +172,7 @@ namespace CO_Driver
             log_file_manager.find_local_user_name(session);
             log_file_manager.get_live_file_location(session);
 
+            session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
             session.local_language = "English";
             session.engineer_level = 30;
             session.lunatics_level = 15;

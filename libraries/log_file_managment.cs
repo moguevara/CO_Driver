@@ -193,7 +193,7 @@ namespace CO_Driver
                     JsonSerializer serializer = new JsonSerializer();
                     loaded_session = (session_variables)serializer.Deserialize(file, typeof(session_variables));
                     loaded_session.valid_users = session.valid_users;
-                    loaded_session.log_file_location = session.log_file_location;
+                    //loaded_session.log_file_location = session.log_file_location;
 
                     if (valid_user_session(loaded_session))
                         return loaded_session;
