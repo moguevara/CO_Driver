@@ -66,6 +66,7 @@ namespace CO_Driver
             public string client_version { get; set; }
             public string client_language { get; set; }
             public bool bundle_damage_into_ramming { get; set; }
+            public DateTime queue_start_time { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -249,6 +250,7 @@ namespace CO_Driver
             Current_session.file_data.stream_overlay_output_location = local_session_variables.stream_file_location;
             Current_session.client_language = local_session_variables.local_language;
             Current_session.bundle_damage_into_ramming = local_session_variables.bundle_ram_mode;
+            Current_session.queue_start_time = DateTime.MinValue;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
@@ -316,11 +318,17 @@ namespace CO_Driver
         {
             int event_id = 0;
 
+            if (line.Contains("| StartMatchmaking:"))
+                event_id = global_data.QUEUE_START_EVENT;
+            else
             if (line.Substring(0,9) == "--- Date:")
                 event_id = global_data.DATE_ASSIGNMENT_EVENT;
             else
             if (line.Contains("expFactionTotal"))
                 event_id = global_data.MATCH_REWARD_EVENT;
+            else
+            if (line.Contains("| PlayButton disabled"))
+                event_id = global_data.QUEUE_END_EVENT;
             else
             if (line.Contains("\"queueTag\"") || line.Contains("\"minUR\"") || line.Contains("\"maxUR\"") || line.Contains("\"botlist\"") || line.Contains("\"custom_game\""))
                 event_id = global_data.MATCH_PROPERTY_EVENT;
@@ -441,6 +449,33 @@ namespace CO_Driver
             Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
             Current_session.in_match = true;
             Current_session.in_garage = false;
+        }
+
+        public static void queue_start_event(string line, SessionStats Current_session)
+        {
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})         \| StartMatchmaking: '(?<party_type>.+)', mission '(?<mission_type>.+)', region '(?<region>.+)'(?<parms>.*)$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            Current_session.queue_start_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+        }
+
+        public static void queue_end_event(string line, SessionStats Current_session)
+        {
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})         \| PlayButton disabled\((?<party_type>.+)\). Reason: (?<reason>.*)$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            Current_session.queue_start_time = DateTime.MinValue;
+
         }
 
         public static void gameplay_start_event(string line, SessionStats Current_session)

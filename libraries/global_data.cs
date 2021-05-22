@@ -35,6 +35,8 @@ namespace CO_Driver
         public const int GAME_PLAY_START_EVENT = 21;
         public const int LOOT_EVENT = 22;
         public const int ADVENTURE_REWARD_EVENT = 23;
+        public const int QUEUE_START_EVENT = 24;
+        public const int QUEUE_END_EVENT = 25;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;

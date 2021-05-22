@@ -866,6 +866,12 @@ namespace CO_Driver
         //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
         switch (Current_session.current_event)
         {
+            case global_data.QUEUE_START_EVENT:
+                file_trace_managment.queue_start_event(line, Current_session);
+                break;
+            case global_data.QUEUE_END_EVENT:
+                file_trace_managment.queue_end_event(line, Current_session);
+                break;
             case global_data.MATCH_REWARD_EVENT:
                 file_trace_managment.match_reward_event(line, Current_session);
                 if (Current_session.current_match.match_type_desc != "")
