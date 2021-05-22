@@ -461,28 +461,28 @@ namespace CO_Driver
             }
 
             foreach (string desc in game_modes)
-                cb_game_modes.Items.Add(desc);
+                cb_game_modes.Items.Add(desc ?? "");
 
             foreach (string desc in grouped)
-                cb_grouped.Items.Add(desc);
+                cb_grouped.Items.Add(desc ?? "");
 
             foreach (string desc in power_scores)
-                cb_power_score.Items.Add(desc);
+                cb_power_score.Items.Add(desc ?? "");
 
             foreach (string desc in client_versions)
-                cb_versions.Items.Add(desc);
+                cb_versions.Items.Add(desc ?? "");
 
             foreach (string desc in weapons)
-                cb_weapons.Items.Add(desc);
+                cb_weapons.Items.Add(desc ?? "");
 
             foreach (string desc in movement_parts)
-                cb_movement.Items.Add(desc);
+                cb_movement.Items.Add(desc ?? "");
 
             foreach (string desc in cabins)
-                cb_cabins.Items.Add(desc);
+                cb_cabins.Items.Add(desc ?? "");
 
             foreach (string desc in module_parts)
-                cb_modules.Items.Add(desc);
+                cb_modules.Items.Add(desc ?? "");
 
             cb_game_modes.Text = game_mode_filter;
             cb_grouped.Text = group_filter;

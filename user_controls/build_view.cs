@@ -211,19 +211,19 @@ namespace CO_Driver
             }
 
             foreach (string desc in game_modes)
-                cb_build_game_modes.Items.Add(desc);
+                cb_build_game_modes.Items.Add(desc ?? "");
 
             foreach (string desc in grouped)
-                cb_grouped.Items.Add(desc);
+                cb_grouped.Items.Add(desc ?? "");
 
             foreach (string desc in maps)
-                cb_map.Items.Add(desc);
+                cb_map.Items.Add(desc ?? "");
 
             foreach (string desc in power_scores)
-                cb_power_score.Items.Add(desc);
+                cb_power_score.Items.Add(desc ?? "");
 
             foreach (string desc in client_versions)
-                cb_client_version.Items.Add(desc);
+                cb_client_version.Items.Add(desc ?? "");
 
             cb_build_game_modes.Text = game_mode_filter;
             cb_grouped.Text = group_filter;
