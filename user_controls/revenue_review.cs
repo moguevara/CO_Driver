@@ -300,6 +300,8 @@ namespace CO_Driver
                 if (!chk_free_fuel.Checked)
                     fuel_cost = "";
 
+                TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
+
                 foreach (revenue_grouping group in master_groupings)
                 {
                     if (group.gamemode == match.match_data.match_type_desc &&
@@ -307,11 +309,12 @@ namespace CO_Driver
                        (chk_premium.Checked == false || group.premium == match.match_data.premium_reward.ToString()) &&
                        (chk_free_fuel.Checked == false || group.fuel_cost == match.match_data.fuel_cost.ToString()))
                     {
+                        
                         group_found = true;
-                        group.queue_time += match.match_data.queue_duration_seconds;
+                        group.queue_time += queue_time.TotalSeconds;
                         group.match_time += match.match_data.match_duration_seconds;
                         group.games += 1;
-                        group.duration += match.match_data.queue_duration_seconds;
+                        group.duration += queue_time.TotalSeconds;
                         group.duration += match.match_data.match_duration_seconds;
                         
                         foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
@@ -334,9 +337,9 @@ namespace CO_Driver
                         fuel_cost = fuel_cost,
                         premium = premium,
                         games = 1,
-                        queue_time = match.match_data.queue_duration_seconds,
+                        queue_time = queue_time.TotalSeconds,
                         match_time = match.match_data.match_duration_seconds,
-                        duration = match.match_data.queue_duration_seconds + match.match_data.match_duration_seconds,
+                        duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds,
                         match_rewards = match.match_data.match_rewards
                     });
                 }

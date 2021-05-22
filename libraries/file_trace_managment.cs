@@ -97,7 +97,6 @@ namespace CO_Driver
             public DateTime queue_start { get; set; }
             public DateTime queue_end { get; set; }
             public double match_duration_seconds { get; set; }
-            public double queue_duration_seconds { get; set; }
             public string nemesis { get; set; }
             public AssistTracking assist_tracking { get; set; }
             public List<string> victims { get; set; }
@@ -447,6 +446,10 @@ namespace CO_Driver
             Current_session.current_match.client_version = Current_session.client_version;
             Current_session.current_match.game_play_value = game_play;
             Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+
+            Current_session.current_match.queue_start = Current_session.queue_start_time;
+            Current_session.current_match.queue_end = Current_session.current_match.match_start;
+
             Current_session.in_match = true;
             Current_session.in_garage = false;
         }
@@ -1695,7 +1698,6 @@ namespace CO_Driver
                 queue_start = new DateTime { },
                 queue_end = new DateTime { },
                 match_duration_seconds = 0.0,
-                queue_duration_seconds = 0.0,
                 nemesis = "",
                 victims = new List<string> { },
                 assist_tracking = new AssistTracking { },
