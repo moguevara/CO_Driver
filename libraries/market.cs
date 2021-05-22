@@ -88,7 +88,7 @@ namespace CO_Driver{
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
             request.Method = "POST";
             request.ContentType = "application/json";
-            request.Timeout = 1000;
+            request.Timeout = 5000;
             using (Stream webStream = request.GetRequestStream())
             using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
             {
