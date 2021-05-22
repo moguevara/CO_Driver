@@ -562,7 +562,7 @@ namespace CO_Driver
 
             foreach (KeyValuePair<string, MapData> map in total_map_data
                 .OrderBy(x => (double)x.Value.games / (double)games_played < 0.005)
-                .ThenByDescending(x => x.Value.wins / x.Value.games)
+                .ThenByDescending(x => (double)x.Value.wins / (double)x.Value.games)
                 .ThenByDescending(x => x.Value.wins))
             {
                 if (first)
