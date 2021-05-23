@@ -61,9 +61,9 @@ namespace CO_Driver
             public string premium { get; set; }
             public string fuel_cost { get; set; }
             public int games { get; set; }
-            public double duration { get; set; }
-            public double queue_time { get; set; }
-            public double match_time { get; set; }
+            public double total_game_duration { get; set; }
+            public double total_queue_time { get; set; }
+            public double total_match_time { get; set; }
             public Dictionary<string, int> match_rewards { get; set; }
         }
 
@@ -311,11 +311,11 @@ namespace CO_Driver
                     {
                         
                         group_found = true;
-                        group.queue_time += queue_time.TotalSeconds;
-                        group.match_time += match.match_data.match_duration_seconds;
+                        group.total_queue_time += queue_time.TotalSeconds;
+                        group.total_match_time += match.match_data.match_duration_seconds;
                         group.games += 1;
-                        group.duration += queue_time.TotalSeconds;
-                        group.duration += match.match_data.match_duration_seconds;
+                        group.total_game_duration += queue_time.TotalSeconds;
+                        group.total_game_duration += match.match_data.match_duration_seconds;
                         
                         foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
                         {
@@ -337,9 +337,9 @@ namespace CO_Driver
                         fuel_cost = fuel_cost,
                         premium = premium,
                         games = 1,
-                        queue_time = queue_time.TotalSeconds,
-                        match_time = match.match_data.match_duration_seconds,
-                        duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds,
+                        total_queue_time = queue_time.TotalSeconds,
+                        total_match_time = match.match_data.match_duration_seconds,
+                        total_game_duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds,
                         match_rewards = match.match_data.match_rewards
                     });
                 }
@@ -458,10 +458,11 @@ namespace CO_Driver
 
             foreach (revenue_grouping group in master_groupings)
             {
-                TimeSpan t = TimeSpan.FromSeconds(group.duration);
-                TimeSpan t2 = TimeSpan.FromSeconds(group.queue_time);
-                TimeSpan t3 = TimeSpan.FromSeconds(group.match_time);
+                TimeSpan t = TimeSpan.FromSeconds(group.total_game_duration / (double)group.games);
+                TimeSpan t2 = TimeSpan.FromSeconds(group.total_queue_time / (double)group.games);
+                TimeSpan t3 = TimeSpan.FromSeconds(group.total_match_time / (double)group.games);
                 DataGridViewRow row = (DataGridViewRow)dg_revenue.Rows[0].Clone();
+                int default_row_height = row.Height;
                 row.Cells[0].Value = group.gamemode;
                 row.Cells[1].Value = group.game_result;
                 row.Cells[2].Value = group.premium;
@@ -473,7 +474,19 @@ namespace CO_Driver
                 
                 if (group.match_rewards.ContainsKey("expFactionTotal"))
                 {
-                    row.Cells[8].Value = string.Join(Environment.NewLine, group.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
+                    row.Cells[8].Value = "";
+
+                    bool first = true;
+
+                    foreach (KeyValuePair<string, int> reward in group.match_rewards)
+                    {
+                        if (reward.Key.ToLower().Contains("xp"))
+                            continue;
+
+                        row.Cells[8].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
+                        first = false;
+                    }
+
                     row.Cells[9].Value = group.match_rewards["expFactionTotal"];
                 }
                 else
@@ -613,23 +626,6 @@ namespace CO_Driver
         {
             force_refresh = true;
             populate_revenue_review_screen();
-        }
-
-        private void btn_average_best_Click(object sender, EventArgs e)
-        {
-            if (btn_mode.Text == "Average")
-                btn_mode.Text = "Total";
-            else
-            if (btn_mode.Text == "Total")
-                btn_mode.Text = "Best";
-            else
-            if (btn_mode.Text == "Best")
-                btn_mode.Text = "Worst";
-            else
-            if (btn_mode.Text == "Worst")
-                btn_mode.Text = "Average";
-            else
-                btn_mode.Text = "Average";
         }
     }
 }
