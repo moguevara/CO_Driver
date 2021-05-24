@@ -660,6 +660,8 @@ namespace CO_Driver
                 Current_session.previous_game_log_time = DateTime.MinValue;
                 Current_session.current_combat_log_day_offset = 0;
                 Current_session.current_game_log_day_offset = 0;
+                Current_session.in_match = false;
+                Current_session.in_garage = false;
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
@@ -757,6 +759,8 @@ namespace CO_Driver
             Current_session.previous_game_log_time = DateTime.MinValue;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
+            Current_session.in_match = false;
+            Current_session.in_garage = false;
 
             AutoResetEvent game_auto_reset = new AutoResetEvent(false);
             AutoResetEvent combat_auto_reset = new AutoResetEvent(false);

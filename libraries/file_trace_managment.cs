@@ -71,6 +71,7 @@ namespace CO_Driver
             public DateTime current_game_log_time { get; set; }
             public DateTime previous_combat_log_time { get; set; }
             public DateTime previous_game_log_time { get; set; }
+            public DateTime last_combat_log_time_in_match { get; set; }
             public int current_combat_log_day_offset { get; set; }
             public int current_game_log_day_offset { get; set; }
             public MatchData current_match { get; set; }
@@ -260,6 +261,7 @@ namespace CO_Driver
             Current_session.current_game_log_time = DateTime.MinValue;
             Current_session.previous_combat_log_time = DateTime.MinValue;
             Current_session.previous_game_log_time = DateTime.MinValue;
+            Current_session.last_combat_log_time_in_match = DateTime.MinValue;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
@@ -620,6 +622,10 @@ namespace CO_Driver
                         MessageBox.Show(string.Format(@"The following error has occured in time calculation{0}current timestamp:{1}{0}previous timestamp:{2}{0}", Environment.NewLine, log_time.ToString(), Current_session.previous_combat_log_time.ToString()));
                     }
                 }
+
+                if (Current_session.in_match)
+                    Current_session.last_combat_log_time_in_match = log_time;
+
                 Current_session.current_combat_log_time = log_time;
             }
             else
@@ -869,7 +875,7 @@ namespace CO_Driver
             }
             else
             {
-                Current_session.current_match.match_end = Current_session.previous_combat_log_time;
+                Current_session.current_match.match_end = Current_session.last_combat_log_time_in_match;
             }
 
             match_record.match_data = Current_session.current_match;
