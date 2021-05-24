@@ -29,7 +29,7 @@ namespace CO_Driver
         public void refersh_history_table()
         {
             dg_match_history_view.Rows.Clear();
-            dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
+            //dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
             dg_match_history_view.AllowUserToAddRows = true;
             foreach (file_trace_managment.MatchRecord match in history.ToList())
             {

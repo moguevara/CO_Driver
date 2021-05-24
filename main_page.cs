@@ -656,6 +656,10 @@ namespace CO_Driver
                 Current_session.file_data.processing_combat_session_file = session.combat_log;
                 Current_session.file_data.processing_game_session_file = session.game_log;
                 Current_session.file_data.processing_combat_session_file_day = DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+                Current_session.previous_combat_log_time = DateTime.MinValue;
+                Current_session.previous_game_log_time = DateTime.MinValue;
+                Current_session.current_combat_log_day_offset = 0;
+                Current_session.current_game_log_day_offset = 0;
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
@@ -749,6 +753,10 @@ namespace CO_Driver
             Current_session.file_data.processing_combat_session_file = combat_trace_file;
             Current_session.file_data.processing_game_session_file = game_trace_file;
             Current_session.file_data.processing_combat_session_file_day = combat_trace_file.CreationTime;
+            Current_session.previous_combat_log_time = DateTime.MinValue;
+            Current_session.previous_game_log_time = DateTime.MinValue;
+            Current_session.current_combat_log_day_offset = 0;
+            Current_session.current_game_log_day_offset = 0;
 
             AutoResetEvent game_auto_reset = new AutoResetEvent(false);
             AutoResetEvent combat_auto_reset = new AutoResetEvent(false);
@@ -864,6 +872,9 @@ namespace CO_Driver
         file_trace_managment.assign_current_game_event(line, Current_session);
         //if (Current_session.live_trace_data == true)
         //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
+
+        file_trace_managment.update_current_time("g", line, Current_session);
+
         switch (Current_session.current_event)
         {
             case global_data.QUEUE_START_EVENT:
@@ -889,12 +900,16 @@ namespace CO_Driver
                 file_trace_managment.assign_client_version_event(line, Current_session);
                 break;
         }
+       file_trace_managment.update_previous_time("g", line, Current_session);
     }
         void combat_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
         {
             file_trace_managment.assign_current_combat_event(line, Current_session);
             //if (Current_session.live_trace_data == true)
             //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
+
+            file_trace_managment.update_current_time("c", line, Current_session);
+
             switch (Current_session.current_event)
             {
                 case global_data.MATCH_START_EVENT:
@@ -945,6 +960,7 @@ namespace CO_Driver
                     file_trace_managment.add_mob_event(line, Current_session);
                     break;
             }
+            file_trace_managment.update_previous_time("c", line, Current_session);
         }
 
         private void capture_screen_shot()

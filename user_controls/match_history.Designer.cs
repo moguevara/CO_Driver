@@ -159,11 +159,11 @@
             // 
             this.match_round_start.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.match_round_start.HeaderText = "Start Time";
-            this.match_round_start.MinimumWidth = 10;
+            this.match_round_start.MinimumWidth = 160;
             this.match_round_start.Name = "match_round_start";
             this.match_round_start.ReadOnly = true;
             this.match_round_start.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_round_start.Width = 120;
+            this.match_round_start.Width = 160;
             // 
             // match_round_duration
             // 
@@ -214,28 +214,31 @@
             // 
             this.match_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.match_kills.HeaderText = "Kills";
+            this.match_kills.MinimumWidth = 60;
             this.match_kills.Name = "match_kills";
             this.match_kills.ReadOnly = true;
             this.match_kills.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_kills.Width = 66;
+            this.match_kills.Width = 60;
             // 
             // match_assists
             // 
             this.match_assists.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.match_assists.HeaderText = "Assists";
+            this.match_assists.MinimumWidth = 60;
             this.match_assists.Name = "match_assists";
             this.match_assists.ReadOnly = true;
             this.match_assists.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_assists.Width = 80;
+            this.match_assists.Width = 60;
             // 
             // match_drone_kills
             // 
             this.match_drone_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.match_drone_kills.HeaderText = "Drone Kills";
+            this.match_drone_kills.MinimumWidth = 60;
             this.match_drone_kills.Name = "match_drone_kills";
             this.match_drone_kills.ReadOnly = true;
             this.match_drone_kills.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_drone_kills.Width = 68;
+            this.match_drone_kills.Width = 60;
             // 
             // match_damage
             // 

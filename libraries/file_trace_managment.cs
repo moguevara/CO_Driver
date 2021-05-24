@@ -67,6 +67,12 @@ namespace CO_Driver
             public string client_language { get; set; }
             public bool bundle_damage_into_ramming { get; set; }
             public DateTime queue_start_time { get; set; }
+            public DateTime current_combat_log_time { get; set; }
+            public DateTime current_game_log_time { get; set; }
+            public DateTime previous_combat_log_time { get; set; }
+            public DateTime previous_game_log_time { get; set; }
+            public int current_combat_log_day_offset { get; set; }
+            public int current_game_log_day_offset { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -250,6 +256,12 @@ namespace CO_Driver
             Current_session.client_language = local_session_variables.local_language;
             Current_session.bundle_damage_into_ramming = local_session_variables.bundle_ram_mode;
             Current_session.queue_start_time = DateTime.MinValue;
+            Current_session.current_combat_log_time = DateTime.MinValue;
+            Current_session.current_game_log_time = DateTime.MinValue;
+            Current_session.previous_combat_log_time = DateTime.MinValue;
+            Current_session.previous_game_log_time = DateTime.MinValue;
+            Current_session.current_combat_log_day_offset = 0;
+            Current_session.current_game_log_day_offset = 0;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
@@ -411,7 +423,7 @@ namespace CO_Driver
 
         public static void test_drive_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\|");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\|");
 
             if (line_results.Groups.Count < 2)
             {
@@ -419,12 +431,12 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.garage_data.garage_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture).AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value));
+            Current_session.garage_data.garage_start = Current_session.current_combat_log_time;
             Current_session.in_garage = true;
         }
         public static void match_start_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| ====== starting level (?<match_counter>.+): 'levels/maps/(?<map_name>.+)' (?<gameplay_type>[^\s]+) ======$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| ====== starting level (?<match_counter>.+): 'levels/maps/(?<map_name>.+)' (?<gameplay_type>[^\s]+) ======$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -445,7 +457,8 @@ namespace CO_Driver
             Current_session.current_match.map_desc = map_name;
             Current_session.current_match.client_version = Current_session.client_version;
             Current_session.current_match.game_play_value = game_play;
-            Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            Current_session.current_match.match_start = Current_session.current_combat_log_time;
+            Current_session.current_match.match_end = Current_session.current_combat_log_time;
 
             Current_session.current_match.queue_start = Current_session.queue_start_time;
             Current_session.current_match.queue_end = Current_session.current_match.match_start;
@@ -454,9 +467,10 @@ namespace CO_Driver
             Current_session.in_garage = false;
         }
 
+        
         public static void queue_start_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})         \| StartMatchmaking: '(?<party_type>.+)', mission '(?<mission_type>.+)', region '(?<region>.+)'(?<parms>.*)$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| StartMatchmaking: '(?<party_type>.+)', mission '(?<mission_type>.+)', region '(?<region>.+)'(?<parms>.*)$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -464,12 +478,12 @@ namespace CO_Driver
                 return;
             }
 
-            Current_session.queue_start_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            Current_session.queue_start_time = Current_session.current_game_log_time;
         }
 
         public static void queue_end_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})         \| PlayButton disabled\((?<party_type>.+)\). Reason: (?<reason>.*)$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| PlayButton disabled\((?<party_type>.+)\). Reason: (?<reason>.*)$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -483,7 +497,7 @@ namespace CO_Driver
 
         public static void gameplay_start_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| ===== Gameplay '(?<gameplay_type>.+)' started, map '(?<map_name>.+)' ======$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| ===== Gameplay '(?<gameplay_type>.+)' started, map '(?<map_name>.+)' ======$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -495,7 +509,8 @@ namespace CO_Driver
             Current_session.current_match.map_desc = line_results.Groups["map_name"].Value;
             Current_session.current_match.client_version = Current_session.client_version;
             Current_session.current_match.game_play_value = line_results.Groups["gameplay_type"].Value;
-            Current_session.current_match.match_start = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.CurrentCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            //Current_session.current_match.match_start = Current_session.current_combat_log_time;
+
         }
 
         public static void clan_war_round_end_event(string line, SessionStats Current_session)
@@ -506,7 +521,7 @@ namespace CO_Driver
 
         public static void match_end_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| ===== Gameplay finish, reason: (?<gameplay_reason>.+), winner team (?<winning_team>[0-9]+), win reason: (?<win_reason>.+), battle time: (?<battle_time>.+?) sec =====$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| ===== Gameplay finish, reason: (?<gameplay_reason>.+), winner team (?<winning_team>[0-9]+), win reason: (?<win_reason>.+), battle time: (?<battle_time>.+?) sec =====$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -575,6 +590,98 @@ namespace CO_Driver
 
         }
 
+        public static void update_current_time(string log_type, string line, SessionStats Current_session)
+        {
+            DateTime log_time;
+            string hour = line.Substring(0, 2);
+            string minute = line.Substring(3, 2);
+            string second = line.Substring(6, 2);
+            string millisecond = line.Substring(9, 3);
+            
+            if (log_type == "c")
+            {
+                try
+                {
+                    log_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", Current_session.file_data.processing_combat_session_file_day.AddDays(Current_session.current_combat_log_day_offset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    return;
+                }
+
+                if (log_time < Current_session.previous_combat_log_time)
+                {
+                    Current_session.current_combat_log_day_offset += 1;
+                    log_time = log_time.AddDays(1.0);
+
+                    if (log_time < Current_session.previous_combat_log_time && Current_session.previous_combat_log_time != DateTime.MinValue)
+                    {
+                        MessageBox.Show(string.Format(@"The following error has occured in time calculation{0}current timestamp:{1}{0}previous timestamp:{2}{0}", Environment.NewLine, log_time.ToString(), Current_session.previous_combat_log_time.ToString()));
+                    }
+                }
+                Current_session.current_combat_log_time = log_time;
+            }
+            else
+            {
+                try
+                {
+                    log_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", Current_session.file_data.processing_combat_session_file_day.AddDays(Current_session.current_game_log_day_offset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                }
+                catch(Exception ex)
+                {
+                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    return;
+                }
+
+                
+                if (log_time < Current_session.previous_game_log_time)
+                {
+                    Current_session.current_game_log_day_offset += 1;
+                    log_time = log_time.AddDays(1.0);
+
+                    if (log_time < Current_session.previous_game_log_time && Current_session.previous_game_log_time != DateTime.MinValue)
+                    {
+                        MessageBox.Show(string.Format(@"The following error has occured in time calculation{0}current timestamp:{1}{0}previous timestamp:{2}{0}", Environment.NewLine, log_time.ToString(), Current_session.previous_game_log_time.ToString()));
+                    }
+                }
+                Current_session.current_game_log_time = log_time;
+            }
+        }
+
+        public static void update_previous_time(string log_type, string line, SessionStats Current_session)
+        {
+            string hour = line.Substring(0, 2);
+            string minute = line.Substring(3, 2);
+            string second = line.Substring(6, 2);
+            string millisecond = line.Substring(9, 3);
+
+            if (log_type == "c")
+            {
+                try
+                {
+                    Current_session.previous_combat_log_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", Current_session.file_data.processing_combat_session_file_day.AddDays(Current_session.current_combat_log_day_offset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    Current_session.previous_game_log_time = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", Current_session.file_data.processing_combat_session_file_day.AddDays(Current_session.current_game_log_day_offset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    return;
+                }
+            }
+        }
+
         public static void assign_adventure_reward_event(string line, SessionStats Current_session)
         {
         }
@@ -591,12 +698,6 @@ namespace CO_Driver
             
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
-
-            if (Current_session.current_match.match_start > Current_session.current_match.match_end)
-            {
-                Current_session.file_data.processing_combat_session_file_day = Current_session.file_data.processing_combat_session_file_day.AddDays(1.0);
-                Current_session.current_match.match_end = Current_session.current_match.match_end.AddDays(1.0);
-            }
 
             Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes);
             Current_session.pending_attributes = new List<MatchAttribute> { };
@@ -768,7 +869,7 @@ namespace CO_Driver
             }
             else
             {
-                Current_session.current_match.match_end = Current_session.current_match.match_end;
+                Current_session.current_match.match_end = Current_session.previous_combat_log_time;
             }
 
             match_record.match_data = Current_session.current_match;
@@ -858,7 +959,7 @@ namespace CO_Driver
 
         public static void load_player_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| 	player (?<player_id>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	player (?<player_id>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -913,7 +1014,7 @@ namespace CO_Driver
 
         public static void spawn_player_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Spawn player (?<spawn_order>[^\s]+) \[(?<nickname>.*)\], team (?<team>[^,]+), spawnCounter (?<spawn_counter>[^\s]+) , designHash: (?<build_hash>[^\.]+)\.$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Spawn player (?<spawn_order>[^\s]+) \[(?<nickname>.*)\], team (?<team>[^,]+), spawnCounter (?<spawn_counter>[^\s]+) , designHash: (?<build_hash>[^\.]+)\.$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -970,7 +1071,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Spawn mob. def '(?<mob_name>[^']+)'");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Spawn mob. def '(?<mob_name>[^']+)'");
 
             if (line_results.Groups.Count < 2)
             {
@@ -992,15 +1093,13 @@ namespace CO_Driver
 
         public static void stripe_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Stripe '(?<stripe>[^']+)' value increased by (?<increment>[^\s]+) for player (?<player_number>[^\s]+) \[(?<player_name>.*)\]");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Stripe '(?<stripe>[^']+)' value increased by (?<increment>[^\s]+) for player (?<player_number>[^\s]+) \[(?<player_name>.*)\]");
 
             if (line_results.Groups.Count < 2)
             {
                 MessageBox.Show(string.Format(@"Error with line {0}", line));
                 return;
             }
-
-            Current_session.current_match.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
             string stripe_desc = line_results.Groups["stripe"].Value;
             int stripe_increment = Int32.Parse(line_results.Groups["increment"].Value);
@@ -1014,21 +1113,20 @@ namespace CO_Driver
                 Current_session.current_match.player_records[player_name].stats.drone_kills += 1;
             }
             Current_session.current_match.player_records[player_name].stripes.Add(stripe_desc);
+
         }
         public static void damage_event(string line, SessionStats Current_session)
         {
             if (!Current_session.in_match && !Current_session.live_trace_data)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Damage\. Victim: (?<victim>[^,]+), attacker: (?<attacker>[^,]+), weapon '(?<weapon>[^']+)', damage: (?<damage>[^\s]+) (?<flags>.+)$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Damage\. Victim: (?<victim>[^,]+), attacker: (?<attacker>[^,]+), weapon '(?<weapon>[^']+)', damage: (?<damage>[^\s]+) (?<flags>.+)$");
 
             if (line_results.Groups.Count < 2)
             {
                 MessageBox.Show(string.Format(@"Error with line {0}", line));
                 return;
             }
-
-            Current_session.current_match.match_end = DateTime.ParseExact(string.Format("{0}{1}{2}{3}", Current_session.file_data.processing_combat_session_file_day.ToString("yyyyMMdd", CultureInfo.InvariantCulture), line_results.Groups["hour"].Value, line_results.Groups["minute"].Value, line_results.Groups["second"].Value), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
             string attacker = line_results.Groups["attacker"].Value.Replace(" ", "");
             string victim = line_results.Groups["victim"].Value.Replace(" ", "");
@@ -1062,7 +1160,7 @@ namespace CO_Driver
 
             if (Current_session.in_garage)
             {
-                Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_match.match_end.AddMilliseconds(Convert.ToDouble(line_results.Groups["milisecond"].Value)), weapon = weapon_name, damage = damage, flags = flags };
+                Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_match.match_end.AddMilliseconds(Convert.ToDouble(line_results.Groups["millisecond"].Value)), weapon = weapon_name, damage = damage, flags = flags };
                 return;
             }
 
@@ -1108,7 +1206,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Kill. Victim: (?<victim>.+) killer: (?<killer>.+)");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Kill. Victim: (?<victim>.+) killer: (?<killer>.+)");
 
             if (line_results.Groups.Count < 2)
             {
@@ -1147,7 +1245,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| 	 assist by (?<assistant>.+?)weapon: ");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	 assist by (?<assistant>.+?)weapon: ");
 
             if (line_results.Groups.Count < 2)
             {
@@ -1184,7 +1282,7 @@ namespace CO_Driver
             if (!Current_session.in_match)
                 return;
 
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<milisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick:(?<nickname>.*),		Got:(?<score>.+?),		reason: (?<score_reason>.*)");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Score:		player: (?<player_number>.+?),		nick:(?<nickname>.*),		Got:(?<score>.+?),		reason: (?<score_reason>.*)");
 
             if (line_results.Groups.Count < 2)
             {

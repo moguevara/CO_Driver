@@ -111,6 +111,17 @@ namespace CO_Driver
                 session.parsed_logs = new List<string> { };
             }
 
+            if (session.log_file_location != txt_log_file_location.Text)
+            {
+                DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+                prompt_restart = true;
+                session.parsed_logs = new List<string> { };
+            }
+
             session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
             session.log_file_location = txt_log_file_location.Text;
             session.local_language = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
@@ -192,6 +203,17 @@ namespace CO_Driver
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
+
+            if (session.log_file_location != txt_log_file_location.Text)
+            {
+                DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+                prompt_restart = true;
+                session.parsed_logs = new List<string> { };
+            }
 
             log_file_manager.save_session_config(session);
 

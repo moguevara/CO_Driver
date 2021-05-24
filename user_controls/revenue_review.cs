@@ -284,7 +284,17 @@ namespace CO_Driver
 
                 /* begin calc */
                 bool group_found = false;
-                
+                TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
+
+                if (queue_time.TotalSeconds < 0)
+                {
+                    //MessageBox.Show(string.Format(@"start {0}{1}end {2}{3}duration{4}", match.match_data.queue_start.ToString(), Environment.NewLine, match.match_data.queue_end.ToString(), Environment.NewLine, queue_time.TotalSeconds));
+                }
+
+                string game_mode = match.match_data.match_type_desc;
+
+
+
                 total_games += 1;
 
                 string match_result = match.match_data.game_result;
@@ -300,11 +310,11 @@ namespace CO_Driver
                 if (!chk_free_fuel.Checked)
                     fuel_cost = "";
 
-                TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
+                
 
                 foreach (revenue_grouping group in master_groupings)
                 {
-                    if (group.gamemode == match.match_data.match_type_desc &&
+                    if (group.gamemode == game_mode &&
                        (chk_game_result.Checked == false || group.game_result == match.match_data.game_result) &&
                        (chk_premium.Checked == false || group.premium == match.match_data.premium_reward.ToString()) &&
                        (chk_free_fuel.Checked == false || group.fuel_cost == match.match_data.fuel_cost.ToString()))
