@@ -286,6 +286,8 @@ namespace CO_Driver
                 bool group_found = false;
                 TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
 
+                //MessageBox.Show(string.Format(@"start {0}{1}end {2}{3}duration{4}", match.match_data.queue_start.ToString(), Environment.NewLine, match.match_data.queue_end.ToString(), Environment.NewLine, queue_time.TotalSeconds));
+
                 if (queue_time.TotalSeconds < 0)
                 {
                     //MessageBox.Show(string.Format(@"start {0}{1}end {2}{3}duration{4}", match.match_data.queue_start.ToString(), Environment.NewLine, match.match_data.queue_end.ToString(), Environment.NewLine, queue_time.TotalSeconds));
@@ -309,8 +311,6 @@ namespace CO_Driver
 
                 if (!chk_free_fuel.Checked)
                     fuel_cost = "";
-
-                
 
                 foreach (revenue_grouping group in master_groupings)
                 {

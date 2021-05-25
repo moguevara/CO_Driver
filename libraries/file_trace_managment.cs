@@ -74,6 +74,8 @@ namespace CO_Driver
             public DateTime last_combat_log_time_in_match { get; set; }
             public int current_combat_log_day_offset { get; set; }
             public int current_game_log_day_offset { get; set; }
+            public int previous_combat_event { get; set; }
+            public int previous_game_event { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -264,6 +266,8 @@ namespace CO_Driver
             Current_session.last_combat_log_time_in_match = DateTime.MinValue;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
+            Current_session.previous_combat_event = 0;
+            Current_session.previous_game_event = 0;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
@@ -333,6 +337,12 @@ namespace CO_Driver
 
             if (line.Contains("| StartMatchmaking:"))
                 event_id = global_data.QUEUE_START_EVENT;
+            else
+            if (line.Contains("| Matchmaker_NotifyQueueState:"))
+                event_id = global_data.QUEUE_UPDATE_EVENT;
+            else
+            if (line.Contains("| CL_MatchMaker::ConnectHandler:"))
+                event_id = global_data.CONNECTION_INIT_EVENT;
             else
             if (line.Substring(0,9) == "--- Date:")
                 event_id = global_data.DATE_ASSIGNMENT_EVENT;
@@ -463,38 +473,49 @@ namespace CO_Driver
             Current_session.current_match.match_end = Current_session.current_combat_log_time;
 
             Current_session.current_match.queue_start = Current_session.queue_start_time;
-            Current_session.current_match.queue_end = Current_session.current_match.match_start;
+            Current_session.current_match.queue_end = Current_session.current_combat_log_time;
+
+            if (Current_session.current_match.queue_start == DateTime.MinValue)
+                Current_session.current_match.queue_start = Current_session.current_combat_log_time;
+
+            if (Current_session.current_match.queue_end == DateTime.MinValue)
+                Current_session.current_match.queue_end = Current_session.current_combat_log_time;
+
+            if (Current_session.current_match.queue_start > Current_session.current_match.queue_end)
+            {
+                Current_session.current_match.queue_start = Current_session.current_combat_log_time;
+                Current_session.current_match.queue_end = Current_session.current_combat_log_time;
+            }
 
             Current_session.in_match = true;
             Current_session.in_garage = false;
         }
 
+        public static void connection_made_event(string line, SessionStats Current_session)
+        {
+            //Current_session.queue_end_time = Current_session.current_game_log_time;
+        }
         
         public static void queue_start_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| StartMatchmaking: '(?<party_type>.+)', mission '(?<mission_type>.+)', region '(?<region>.+)'(?<parms>.*)$");
-
-            if (line_results.Groups.Count < 2)
-            {
-                MessageBox.Show(string.Format(@"Error with line {0}", line));
-                return;
-            }
-
             Current_session.queue_start_time = Current_session.current_game_log_time;
+        }
+
+        public static void queue_update_event(string line, SessionStats Current_session)
+        {
+            if (line.Contains("true") && Current_session.queue_start_time == DateTime.MinValue)
+                Current_session.queue_start_time = Current_session.current_game_log_time;
+
+            if (line.Contains("true") && Current_session.previous_game_event != global_data.QUEUE_UPDATE_EVENT)
+                Current_session.queue_start_time = Current_session.current_game_log_time;
+
+            //if (line.Contains("false") && Current_session.queue_start_time != DateTime.MinValue)
+            //    Current_session.queue_start_time = DateTime.MinValue;
         }
 
         public static void queue_end_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| PlayButton disabled\((?<party_type>.+)\). Reason: (?<reason>.*)$");
-
-            if (line_results.Groups.Count < 2)
-            {
-                MessageBox.Show(string.Format(@"Error with line {0}", line));
-                return;
-            }
-
-            Current_session.queue_start_time = DateTime.MinValue;
-
+            //Current_session.queue_start_time = DateTime.MinValue;
         }
 
         public static void gameplay_start_event(string line, SessionStats Current_session)

@@ -872,40 +872,47 @@ namespace CO_Driver
             process_live_files(ftm, Current_session);
         }
         void game_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
-    {
-        file_trace_managment.assign_current_game_event(line, Current_session);
-        //if (Current_session.live_trace_data == true)
-        //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
-
-        file_trace_managment.update_current_time("g", line, Current_session);
-
-        switch (Current_session.current_event)
         {
-            case global_data.QUEUE_START_EVENT:
-                file_trace_managment.queue_start_event(line, Current_session);
-                break;
-            //case global_data.QUEUE_END_EVENT:
-            //    file_trace_managment.queue_end_event(line, Current_session);
-            //    break;
-            case global_data.MATCH_REWARD_EVENT:
-                file_trace_managment.match_reward_event(line, Current_session);
-                if (Current_session.current_match.match_type_desc != "")
-                    add_last_match(Current_session);
-                break;
-            case global_data.MATCH_PROPERTY_EVENT:
-                file_trace_managment.assign_match_property(line, Current_session);
-                break;
-            case global_data.QUEST_EVENT:
-                break;
-            case global_data.LOOT_EVENT:
-                file_trace_managment.assign_loot_event(line, Current_session);
-                break;
-            case global_data.ASSIGN_CLIENT_VERSION_EVENT:
-                file_trace_managment.assign_client_version_event(line, Current_session);
-                break;
+            file_trace_managment.assign_current_game_event(line, Current_session);
+            //if (Current_session.live_trace_data == true)
+            //    bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "g:"+line));
+
+            file_trace_managment.update_current_time("g", line, Current_session);
+
+            switch (Current_session.current_event)
+            {
+                case global_data.QUEUE_START_EVENT:
+                    file_trace_managment.queue_start_event(line, Current_session);
+                    break;
+                case global_data.QUEUE_UPDATE_EVENT:
+                    file_trace_managment.queue_update_event(line, Current_session);
+                    break;
+                case global_data.QUEUE_END_EVENT:
+                    file_trace_managment.queue_end_event(line, Current_session);
+                    break;
+                case global_data.CONNECTION_INIT_EVENT:
+                    file_trace_managment.connection_made_event(line, Current_session);
+                    break;
+                case global_data.MATCH_REWARD_EVENT:
+                    file_trace_managment.match_reward_event(line, Current_session);
+                    if (Current_session.current_match.match_type_desc != "")
+                        add_last_match(Current_session);
+                    break;
+                case global_data.MATCH_PROPERTY_EVENT:
+                    file_trace_managment.assign_match_property(line, Current_session);
+                    break;
+                case global_data.QUEST_EVENT:
+                    break;
+                case global_data.LOOT_EVENT:
+                    file_trace_managment.assign_loot_event(line, Current_session);
+                    break;
+                case global_data.ASSIGN_CLIENT_VERSION_EVENT:
+                    file_trace_managment.assign_client_version_event(line, Current_session);
+                    break;
+            }
+            file_trace_managment.update_previous_time("g", line, Current_session);
+            Current_session.previous_game_event = Current_session.current_event;
         }
-       file_trace_managment.update_previous_time("g", line, Current_session);
-    }
         void combat_log_event_handler(string line, file_trace_managment.SessionStats Current_session)
         {
             file_trace_managment.assign_current_combat_event(line, Current_session);
@@ -965,6 +972,7 @@ namespace CO_Driver
                     break;
             }
             file_trace_managment.update_previous_time("c", line, Current_session);
+            Current_session.previous_combat_event = Current_session.current_event;
         }
 
         private void capture_screen_shot()
