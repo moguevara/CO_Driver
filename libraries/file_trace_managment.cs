@@ -691,7 +691,7 @@ namespace CO_Driver
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
                 }
             }
@@ -703,7 +703,7 @@ namespace CO_Driver
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
                 }
             }

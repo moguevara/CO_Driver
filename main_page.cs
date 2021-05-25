@@ -681,12 +681,26 @@ namespace CO_Driver
 
                         while (combat_line != null || game_line != null)
                         {
-                            while (combat_line != null && combat_line.Length == 0)
+                            if (combat_line != null && combat_line.Length < 13)
+                            {
                                 combat_line = combat_reader.ReadLine();
-
-                            while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
+                            }
+                            else
+                            if (combat_line != null && combat_line[12] != '|')
+                            {
+                                combat_line = combat_reader.ReadLine();
+                            }
+                            else
+                            if (game_line != null && (game_line.Length < 22 || game_line.Substring(0, 9) == "--- Date:"))
+                            {
                                 game_line = game_reader.ReadLine();
-
+                            }
+                            else 
+                            if (game_line != null && game_line[21] != '|')
+                            {
+                                game_line = game_reader.ReadLine();
+                            }
+                            else
                             if (combat_line != null && game_line != null)
                             {
                                 if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
@@ -787,14 +801,24 @@ namespace CO_Driver
 
                 while (found_new_file == false)
                 {
-                    if (combat_line != null && combat_line.Length == 0)
+                    if (combat_line != null && combat_line.Length < 13)
                     {
                         combat_line = combat_reader.ReadLine();
                     }
                     else
-                    if (game_line != null && game_line.Length == 0)
+                    if (game_line != null && game_line.Length < 22)
                     {
                         game_line = game_reader.ReadLine();
+                    }
+                    else
+                    if (game_line != null && game_line[21] != '|')
+                    {
+                        game_line = game_reader.ReadLine();
+                    }
+                    else
+                    if (combat_line != null && combat_line[12] != '|')
+                    {
+                        combat_line = combat_reader.ReadLine();
                     }
                     else
                     if (game_line != null && game_line.Substring(0, 9) == "--- Date:")
