@@ -478,15 +478,13 @@ namespace CO_Driver
             if (Current_session.current_match.queue_start == DateTime.MinValue)
                 Current_session.current_match.queue_start = Current_session.current_combat_log_time;
 
-            if (Current_session.current_match.queue_end == DateTime.MinValue)
-                Current_session.current_match.queue_end = Current_session.current_combat_log_time;
-
             if (Current_session.current_match.queue_start > Current_session.current_match.queue_end)
             {
-                Current_session.current_match.queue_start = Current_session.current_combat_log_time;
-                Current_session.current_match.queue_end = Current_session.current_combat_log_time;
+                //MessageBox.Show(string.Format(@"start {0}{1}end {2}", Current_session.current_match.queue_start.ToString(), Environment.NewLine, Current_session.current_match.queue_end.ToString()));
+                Current_session.current_match.queue_start = Current_session.current_match.queue_end;
             }
 
+            Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = true;
             Current_session.in_garage = false;
         }
@@ -498,16 +496,17 @@ namespace CO_Driver
         
         public static void queue_start_event(string line, SessionStats Current_session)
         {
-            Current_session.queue_start_time = Current_session.current_game_log_time;
+            if (!Current_session.in_match)
+                Current_session.queue_start_time = Current_session.current_game_log_time;
         }
 
         public static void queue_update_event(string line, SessionStats Current_session)
         {
-            if (line.Contains("true") && Current_session.queue_start_time == DateTime.MinValue)
-                Current_session.queue_start_time = Current_session.current_game_log_time;
+            //if (line.Contains("true") && Current_session.queue_start_time == DateTime.MinValue)
+            //    Current_session.queue_start_time = Current_session.current_game_log_time;
 
-            if (line.Contains("true") && Current_session.previous_game_event != global_data.QUEUE_UPDATE_EVENT)
-                Current_session.queue_start_time = Current_session.current_game_log_time;
+            //if (line.Contains("true") && Current_session.previous_game_event != global_data.QUEUE_UPDATE_EVENT)
+            //    Current_session.queue_start_time = Current_session.current_game_log_time;
 
             //if (line.Contains("false") && Current_session.queue_start_time != DateTime.MinValue)
             //    Current_session.queue_start_time = DateTime.MinValue;
@@ -967,7 +966,6 @@ namespace CO_Driver
         //        if (Current_session.static_records.global_explosives_dict.ContainsKey(part) && local_build.explosives.Where(x => x.name == part).Count() == 0)
         //            local_build.explosives.Add(Current_session.static_records.global_explosives_dict[part]);
         //    }
-
         //    Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash] = local_build;
         //}
 
