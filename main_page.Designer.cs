@@ -39,6 +39,7 @@
             this.buildReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stateOfTheMetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matchHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revenueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +57,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.revenueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -145,6 +145,14 @@
             this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
             this.matchHistoryToolStripMenuItem.Text = "History";
             this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
+            // 
+            // revenueToolStripMenuItem
+            // 
+            this.revenueToolStripMenuItem.Enabled = false;
+            this.revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
+            this.revenueToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
+            this.revenueToolStripMenuItem.Text = "Revenue";
+            this.revenueToolStripMenuItem.Click += new System.EventHandler(this.revenueToolStripMenuItem_Click);
             // 
             // buildToolsToolStripMenuItem
             // 
@@ -282,13 +290,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // revenueToolStripMenuItem
-            // 
-            this.revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
-            this.revenueToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
-            this.revenueToolStripMenuItem.Text = "Revenue";
-            this.revenueToolStripMenuItem.Click += new System.EventHandler(this.revenueToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 

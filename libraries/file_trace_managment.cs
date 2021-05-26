@@ -478,11 +478,8 @@ namespace CO_Driver
             if (Current_session.current_match.queue_start == DateTime.MinValue)
                 Current_session.current_match.queue_start = Current_session.current_combat_log_time;
 
-            if (Current_session.current_match.queue_start > Current_session.current_match.queue_end)
-            {
-                //MessageBox.Show(string.Format(@"start {0}{1}end {2}", Current_session.current_match.queue_start.ToString(), Environment.NewLine, Current_session.current_match.queue_end.ToString()));
-                Current_session.current_match.queue_start = Current_session.current_match.queue_end;
-            }
+            if (Current_session.current_match.queue_start >= Current_session.current_match.queue_end)
+                Current_session.current_match.queue_end = Current_session.current_match.queue_start.AddSeconds(4); /* don't judge me bro */
 
             Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = true;

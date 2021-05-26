@@ -510,7 +510,7 @@ namespace CO_Driver
             }
 
             dg_revenue.AllowUserToAddRows = false;
-            dg_revenue.Sort(dg_revenue.Columns[11], ListSortDirection.Descending);
+            dg_revenue.Sort(dg_revenue.Columns[3], ListSortDirection.Descending);
         }
 
         private void initialize_user_profile()

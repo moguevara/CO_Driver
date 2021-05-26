@@ -210,7 +210,7 @@ namespace CO_Driver
 			ui_translations["Pусский"].Add(@"Total", @"Итого"); ui_translations["Deutsch"].Add(@"Total", @"Gesamt"); ui_translations["Español"].Add(@"Total", @"Total"); ui_translations["Français"].Add(@"Total", @"Le total"); ui_translations["हिन्दी"].Add(@"Total", @"संपूर्ण"); ui_translations["Polski"].Add(@"Total", @"Całość"); ui_translations["한국어"].Add(@"Total", @"합계"); ui_translations["Ελληνικά"].Add(@"Total", @"Σύνολο");
 			ui_translations["Pусский"].Add(@"8v8", @"8v8"); ui_translations["Deutsch"].Add(@"8v8", @"8v8"); ui_translations["Español"].Add(@"8v8", @"8v8"); ui_translations["Français"].Add(@"8v8", @"8v8"); ui_translations["हिन्दी"].Add(@"8v8", @"8v8"); ui_translations["Polski"].Add(@"8v8", @"8v8"); ui_translations["한국어"].Add(@"8v8", @"8대8"); ui_translations["Ελληνικά"].Add(@"8v8", @"8v8");
 			ui_translations["Pусский"].Add(@"CW", @"КВ"); ui_translations["Deutsch"].Add(@"CW", @"CW"); ui_translations["Español"].Add(@"CW", @"CW"); ui_translations["Français"].Add(@"CW", @"CW"); ui_translations["हिन्दी"].Add(@"CW", @"सीडब्ल्यू"); ui_translations["Polski"].Add(@"CW", @"WK"); ui_translations["한국어"].Add(@"CW", @"CW"); ui_translations["Ελληνικά"].Add(@"CW", @"CW");
-			ui_translations["Pусский"].Add(@"Levi CW", @"КВ на лёвах"); ui_translations["Deutsch"].Add(@"Levi CW", @"CW Levi"); ui_translations["Español"].Add(@"Levi CW", @"Levi CW"); ui_translations["Français"].Add(@"Levi CW", @"Levi CW"); ui_translations["हिन्दी"].Add(@"Levi CW", @"लेवी सीडब्ल्यू"); ui_translations["Polski"].Add(@"Levi CW", @"Lewi WK"); ui_translations["한국어"].Add(@"Levi CW", @"레비아탄 CW"); ui_translations["Ελληνικά"].Add(@"Levi CW", @"Levi CW");
+			ui_translations["Pусский"].Add(@"Levi CW", @"КВ на лёвах"); ui_translations["Deutsch"].Add(@"Levi CW", @"Levi CW"); ui_translations["Español"].Add(@"Levi CW", @"Levi CW"); ui_translations["Français"].Add(@"Levi CW", @"Levi CW"); ui_translations["हिन्दी"].Add(@"Levi CW", @"लेवी सीडब्ल्यू"); ui_translations["Polski"].Add(@"Levi CW", @"Lewi WK"); ui_translations["한국어"].Add(@"Levi CW", @"레비아탄 CW"); ui_translations["Ελληνικά"].Add(@"Levi CW", @"Levi CW");
 			ui_translations["Pусский"].Add(@"Battle Royale", @"Королевская битва"); ui_translations["Deutsch"].Add(@"Battle Royale", @"Battle Royale"); ui_translations["Español"].Add(@"Battle Royale", @"Battle Royale"); ui_translations["Français"].Add(@"Battle Royale", @"Battle Royale "); ui_translations["हिन्दी"].Add(@"Battle Royale", @"बैटल रॉयल"); ui_translations["Polski"].Add(@"Battle Royale", @"Battle Royale"); ui_translations["한국어"].Add(@"Battle Royale", @"배틀 로얄"); ui_translations["Ελληνικά"].Add(@"Battle Royale", @"Battle Royale");
 			ui_translations["Pусский"].Add(@"6v6", @"6v6"); ui_translations["Deutsch"].Add(@"6v6", @"6v6"); ui_translations["Español"].Add(@"6v6", @"6v6"); ui_translations["Français"].Add(@"6v6", @"6v6"); ui_translations["हिन्दी"].Add(@"6v6", @"6v6"); ui_translations["Polski"].Add(@"6v6", @"6v6"); ui_translations["한국어"].Add(@"6v6", @"6대6"); ui_translations["Ελληνικά"].Add(@"6v6", @"6v6");
 			ui_translations["Pусский"].Add(@"Easy Raid", @"Лёгкий рейд"); ui_translations["Deutsch"].Add(@"Easy Raid", @"einfache Raid"); ui_translations["Español"].Add(@"Easy Raid", @"Incursión Fácil"); ui_translations["Français"].Add(@"Easy Raid", @"Raid facile"); ui_translations["हिन्दी"].Add(@"Easy Raid", @"आसान छापे"); ui_translations["Polski"].Add(@"Easy Raid", @"Łatwy rajd"); ui_translations["한국어"].Add(@"Easy Raid", @"쉬운 레이드"); ui_translations["Ελληνικά"].Add(@"Easy Raid", @"Easy Raid");
@@ -299,17 +299,6 @@ namespace CO_Driver
 			ui_translations["Pусский"].Add(@"Objective", @"Выполнение задач"); ui_translations["Deutsch"].Add(@"Objective", @"Zielsetzung"); ui_translations["Español"].Add(@"Objective", @"Objetivo"); ui_translations["Français"].Add(@"Objective", @"Objectif"); ui_translations["हिन्दी"].Add(@"Objective", @"प्वाइंट पर कब्जा"); ui_translations["Polski"].Add(@"Objective", @"Cele"); ui_translations["한국어"].Add(@"Objective", @"목표 수행"); ui_translations["Ελληνικά"].Add(@"Objective", @"Σκοπός");
 			ui_translations["Pусский"].Add(@"Point Capture", @"Захват точки"); ui_translations["Deutsch"].Add(@"Point Capture", @"Punkt-Capture"); ui_translations["Español"].Add(@"Point Capture", @"Capturar"); ui_translations["Français"].Add(@"Point Capture", @"Capture de point"); ui_translations["हिन्दी"].Add(@"Point Capture", @"शील्ड"); ui_translations["Polski"].Add(@"Point Capture", @"Zajęcie pktu"); ui_translations["한국어"].Add(@"Point Capture", @"점령"); ui_translations["Ελληνικά"].Add(@"Point Capture", @"σημείο Capture");
 			ui_translations["Pусский"].Add(@"Shield", @"Щит"); ui_translations["Deutsch"].Add(@"Shield", @"Schild"); ui_translations["Español"].Add(@"Shield", @"Escudo"); ui_translations["Français"].Add(@"Shield", @"Bouclier"); ui_translations["हिन्दी"].Add(@"Shield", @""); ui_translations["Polski"].Add(@"Shield", @"Tarcza"); ui_translations["한국어"].Add(@"Shield", @"방어막"); ui_translations["Ελληνικά"].Add(@"Shield", @"Ασπίδα");
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -774,9 +774,10 @@ namespace CO_Driver
             Current_session.previous_game_log_time = DateTime.MinValue;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
+            Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = false;
             Current_session.in_garage = false;
-            Current_session.queue_start_time = DateTime.MinValue;
+            
 
             AutoResetEvent game_auto_reset = new AutoResetEvent(false);
             AutoResetEvent combat_auto_reset = new AutoResetEvent(false);
