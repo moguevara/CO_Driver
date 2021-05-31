@@ -97,6 +97,7 @@ namespace CO_Driver
             public string map_desc { get; set; }
             public int match_type { get; set; }
             public string match_type_desc { get; set; }
+            public string gameplay_desc { get; set; }
             public int winning_team { get; set; }
             public string game_result { get; set; }
             public string game_play_value { get; set; }
@@ -857,6 +858,7 @@ namespace CO_Driver
             //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
 
             Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
+            Current_session.current_match.gameplay_desc = Current_session.current_match.game_play_value;
         }
 
         private static void finalize_match_record(SessionStats Current_session)
@@ -1809,6 +1811,7 @@ namespace CO_Driver
                 map_desc = "",
                 match_type = global_data.UNDEFINED_MATCH,
                 match_type_desc = "",
+                gameplay_desc = "",
                 winning_team = -1,
                 game_result = "",
                 game_play_value = "",
