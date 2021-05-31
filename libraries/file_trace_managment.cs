@@ -1182,7 +1182,7 @@ namespace CO_Driver
 
             if (Current_session.in_garage)
             {
-                Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_match.match_end.AddMilliseconds(Convert.ToDouble(line_results.Groups["millisecond"].Value)), weapon = weapon_name, damage = damage, flags = flags };
+                Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_combat_log_time, weapon = weapon_name, damage = damage, flags = flags };
                 return;
             }
 

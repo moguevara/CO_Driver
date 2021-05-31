@@ -177,10 +177,11 @@
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "map";
+            this.Column1.HeaderText = "Map";
+            this.Column1.MinimumWidth = 130;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
-            this.Column1.Width = 120;
+            this.Column1.Width = 130;
             // 
             // match_build_used
             // 
@@ -264,10 +265,11 @@
             // 
             this.match_result.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.match_result.HeaderText = "Result";
+            this.match_result.MinimumWidth = 60;
             this.match_result.Name = "match_result";
             this.match_result.ReadOnly = true;
             this.match_result.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_result.Width = 73;
+            this.match_result.Width = 60;
             // 
             // match_reward
             // 
