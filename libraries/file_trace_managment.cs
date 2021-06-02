@@ -851,6 +851,9 @@ namespace CO_Driver
             if (Current_session.current_match.game_play_value.Contains("FreePlay"))
                 Current_session.current_match.match_type = global_data.BEDLAM_MATCH;
 
+            if (Current_session.current_match.game_play_value.Contains("Brawl_BDCrossout"))
+                Current_session.current_match.match_type = global_data.CROSSOUT_DAY_BRAWL_MATCH;
+
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
@@ -1430,6 +1433,8 @@ namespace CO_Driver
                     return "Witch Hunt";
                 case global_data.DRONE_BATTLE_MATCH:
                     return "Drone Battle";
+                case global_data.CROSSOUT_DAY_BRAWL_MATCH:
+                    return "Crossout Day Brawl";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:

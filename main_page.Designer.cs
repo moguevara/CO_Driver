@@ -148,7 +148,6 @@
             // 
             // revenueToolStripMenuItem
             // 
-            this.revenueToolStripMenuItem.Enabled = false;
             this.revenueToolStripMenuItem.Name = "revenueToolStripMenuItem";
             this.revenueToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
             this.revenueToolStripMenuItem.Text = "Revenue";

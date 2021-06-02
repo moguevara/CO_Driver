@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace CO_Driver
 {
@@ -45,14 +47,14 @@ namespace CO_Driver
         private string new_selection = "";
         private string previous_selection = "";
         private int total_games = 0;
-        private int total_wins = 0;
 
         private List<revenue_grouping> master_groupings = new List<revenue_grouping> { };
+        private List<market_values> master_values = new List<market_values> { };
+        private bool show_average = true;
         public revenue_review()
         {
             InitializeComponent();
         }
-
 
         private class revenue_grouping
         {
@@ -65,6 +67,52 @@ namespace CO_Driver
             public double total_queue_time { get; set; }
             public double total_match_time { get; set; }
             public Dictionary<string, int> match_rewards { get; set; }
+        }
+
+        private class market_values
+        {
+            public string resource { get; set; }
+            public int ammount { get; set; }
+            public double sell_price { get; set; }
+        }
+
+        public void find_market_values()
+        {
+            List<market_values> local_values = new List<market_values> { };
+
+            foreach (market.market_item item in crossoutdb_data.market_items)
+            {
+                Match line_results = Regex.Match(item.name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
+                bool found_value = false;
+
+                if (line_results.Groups.Count < 2)
+                    continue;
+
+                string resource_name = line_results.Groups["resource_name"].Value;
+                int resource_ammount = Int32.Parse(line_results.Groups["ammount"].Value);
+                double sell_price = item.sellPrice / 100;
+
+                foreach (market_values value in local_values)
+                {
+                    if (resource_name == value.resource)
+                    {
+                        found_value = true;
+                        if (resource_ammount * sell_price > value.ammount * value.sell_price)
+                        {
+                            value.ammount = resource_ammount;
+                            value.sell_price = sell_price;
+                        }
+                        break;
+                    }
+                }
+
+                if (!found_value)
+                {
+                    local_values.Add(new market_values { resource = resource_name, ammount = resource_ammount, sell_price = sell_price });
+                }
+            }
+
+            master_values = local_values;
         }
 
 
@@ -81,10 +129,13 @@ namespace CO_Driver
 
             force_refresh = false;
 
-            total_games = 0;
-            total_wins = 0;
-            master_groupings = new List<revenue_grouping> { };
+            find_market_values();
 
+            total_games = 0;
+
+            master_groupings = new List<revenue_grouping> { };
+            List<revenue_grouping> local_groupings = new List<revenue_grouping> { };
+            
             previous_selection = new_selection;
 
             reset_filters();
@@ -282,20 +333,24 @@ namespace CO_Driver
                     }
                 }
 
+                if (match.match_data.match_rewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
+                    continue;
+
                 /* begin calc */
                 bool group_found = false;
+                bool contains_fuel = false;
                 TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
-
-                //MessageBox.Show(string.Format(@"start {0}{1}end {2}{3}duration{4}", match.match_data.queue_start.ToString(), Environment.NewLine, match.match_data.queue_end.ToString(), Environment.NewLine, queue_time.TotalSeconds));
-
-                if (queue_time.TotalSeconds < 0)
-                {
-                    //MessageBox.Show(string.Format(@"start {0}{1}end {2}{3}duration{4}", match.match_data.queue_start.ToString(), Environment.NewLine, match.match_data.queue_end.ToString(), Environment.NewLine, queue_time.TotalSeconds));
-                }
 
                 string game_mode = match.match_data.match_type_desc;
 
+                if ((match.match_data.match_rewards.Where(x => x.Key == "Fuel").FirstOrDefault().Key != null))
+                    contains_fuel = true;
 
+                if (game_mode.Contains("Raid"))
+                    game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
+
+                if (game_mode.Contains("8v8"))
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp")).Select(x => translate.translate_string(x.Key, session, translations))));
 
                 total_games += 1;
 
@@ -306,17 +361,14 @@ namespace CO_Driver
                 if (!chk_game_result.Checked)
                     match_result = "";
 
-                if (!chk_premium.Checked)
-                    premium = "";
 
                 if (!chk_free_fuel.Checked)
                     fuel_cost = "";
 
-                foreach (revenue_grouping group in master_groupings)
+                foreach (revenue_grouping group in local_groupings)
                 {
                     if (group.gamemode == game_mode &&
                        (chk_game_result.Checked == false || group.game_result == match.match_data.game_result) &&
-                       (chk_premium.Checked == false || group.premium == match.match_data.premium_reward.ToString()) &&
                        (chk_free_fuel.Checked == false || group.fuel_cost == match.match_data.fuel_cost.ToString()))
                     {
                         
@@ -340,9 +392,9 @@ namespace CO_Driver
 
                 if (!group_found)
                 {
-                    master_groupings.Add(new revenue_grouping
+                    local_groupings.Add(new revenue_grouping
                     {
-                        gamemode = match.match_data.match_type_desc,
+                        gamemode = game_mode,
                         game_result = match_result,
                         fuel_cost = fuel_cost,
                         premium = premium,
@@ -355,7 +407,7 @@ namespace CO_Driver
                 }
             }
 
-            //lb_total_game.Text = total_games.ToString();
+            master_groupings = local_groupings;
 
             populate_revenue_review_screen_elements();
             populate_filters();
@@ -468,49 +520,76 @@ namespace CO_Driver
 
             foreach (revenue_grouping group in master_groupings)
             {
-                TimeSpan t = TimeSpan.FromSeconds(group.total_game_duration / (double)group.games);
                 TimeSpan t2 = TimeSpan.FromSeconds(group.total_queue_time / (double)group.games);
                 TimeSpan t3 = TimeSpan.FromSeconds(group.total_match_time / (double)group.games);
+                TimeSpan t4 = TimeSpan.FromSeconds(group.total_queue_time);
+                TimeSpan t5 = TimeSpan.FromSeconds(group.total_match_time);
                 DataGridViewRow row = (DataGridViewRow)dg_revenue.Rows[0].Clone();
                 int default_row_height = row.Height;
+                double coin_value = 0.0;
                 row.Cells[0].Value = group.gamemode;
                 row.Cells[1].Value = group.game_result;
-                row.Cells[2].Value = group.premium;
-                row.Cells[3].Value = group.games;
-                row.Cells[4].Value = string.Format("{0:D}m {1:D2}s", t.Minutes, t.Seconds);
-                row.Cells[5].Value = string.Format("{0:D}m {1:D2}s", t2.Minutes, t2.Seconds);
-                row.Cells[6].Value = string.Format("{0:D}m {1:D2}s", t3.Minutes, t3.Seconds);
-                row.Cells[7].Value = group.fuel_cost;
+                row.Cells[2].Value = group.games;
+
+                if (show_average)
+                {
+                    row.Cells[3].Value = string.Format("{0:D}m {1:D2}s", t2.Minutes, t2.Seconds);
+                    row.Cells[4].Value = string.Format("{0:D}m {1:D2}s", t3.Minutes, t3.Seconds);
+                }
+                else
+                {
+                    row.Cells[3].Value = string.Format("{0:D}h {1:D2}m", t4.Hours, t4.Minutes);
+                    row.Cells[4].Value = string.Format("{0:D}h {1:D2}m", t5.Hours, t5.Minutes);
+                }
                 
+                row.Cells[5].Value = group.fuel_cost;
+                row.Cells[6].Value = "";
+
                 if (group.match_rewards.ContainsKey("expFactionTotal"))
                 {
-                    row.Cells[8].Value = "";
-
                     bool first = true;
 
                     foreach (KeyValuePair<string, int> reward in group.match_rewards)
                     {
                         if (reward.Key.ToLower().Contains("xp"))
                             continue;
-
-                        row.Cells[8].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
+                        if (show_average)
+                        {
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
+                        }
+                        else
+                        {
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
+                        }
+                        
                         first = false;
-                    }
 
-                    row.Cells[9].Value = group.match_rewards["expFactionTotal"];
+                        foreach (market_values value in master_values)
+                        {
+                            if (translate.translate_string(reward.Key, session, translations) == value.resource)
+                            {
+                                
+                                coin_value += Math.Round(((double)reward.Value / (double)value.ammount) * value.sell_price,2);
+
+                            }
+                        }
+                    }
+                }
+                if (show_average)
+                {
+                    row.Cells[7].Value = Math.Round((double)coin_value / (double)group.games,2);
                 }
                 else
                 {
-                    row.Cells[8].Value = "";
-                    row.Cells[9].Value = 0;
+                    row.Cells[7].Value = coin_value;
                 }
-                row.Cells[10].Value = 0;
-                row.Cells[11].Value = 0.0;
+                
+                row.Cells[8].Value = Math.Round((double)coin_value / ((double)group.total_game_duration / 3600.0), 2);
                 dg_revenue.Rows.Add(row);
             }
 
             dg_revenue.AllowUserToAddRows = false;
-            dg_revenue.Sort(dg_revenue.Columns[3], ListSortDirection.Descending);
+            dg_revenue.Sort(dg_revenue.Columns[2], ListSortDirection.Descending);
         }
 
         private void initialize_user_profile()
@@ -531,7 +610,6 @@ namespace CO_Driver
             module_filter = global_data.MODULE_FILTER_DEFAULT;
             cabin_filter = global_data.CABIN_FILTER_DEFAULT;
 
-            chk_premium.Checked = true;
             chk_free_fuel.Checked = false;
 
             dt_start_date.Value = DateTime.Now;
@@ -634,6 +712,22 @@ namespace CO_Driver
 
         private void chk_free_fuel_CheckedChanged(object sender, EventArgs e)
         {
+            force_refresh = true;
+            populate_revenue_review_screen();
+        }
+
+        private void btn_total_avg_Click(object sender, EventArgs e)
+        {
+            if (btn_total_avg.Text == "Average")
+            {
+                btn_total_avg.Text = "Total";
+                show_average = false;
+            }
+            else
+            {
+                btn_total_avg.Text = "Average";
+                show_average = true;
+            }
             force_refresh = true;
             populate_revenue_review_screen();
         }

@@ -70,7 +70,8 @@ namespace CO_Driver
         public const int ROCKET_LEAGUE_MATCH = 24;
         public const int DRONE_BATTLE_MATCH = 25;
         public const int RACE_WHEELS_ONLY_MATCH = 26;
-        public const int UNDEFINED_MATCH = 27;
+        public const int CROSSOUT_DAY_BRAWL_MATCH = 27;
+        public const int UNDEFINED_MATCH = 28;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
