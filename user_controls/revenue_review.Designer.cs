@@ -45,6 +45,7 @@
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_total_avg = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.chk_game_result = new System.Windows.Forms.CheckBox();
@@ -67,7 +68,6 @@
             this.cb_grouped = new System.Windows.Forms.ComboBox();
             this.cb_game_modes = new System.Windows.Forms.ComboBox();
             this.lb_user_name = new System.Windows.Forms.Label();
-            this.btn_total_avg = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_revenue)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -157,10 +157,11 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_revenue.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dg_revenue.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
+            this.dg_revenue.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dg_revenue.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_revenue.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dg_revenue.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Lime;
+            this.dg_revenue.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 15);
             this.dg_revenue.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Lime;
             this.dg_revenue.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_revenue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -278,6 +279,18 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1183, 29);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // btn_total_avg
+            // 
+            this.btn_total_avg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_total_avg.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_total_avg.Location = new System.Drawing.Point(363, 3);
+            this.btn_total_avg.Name = "btn_total_avg";
+            this.btn_total_avg.Size = new System.Drawing.Size(206, 23);
+            this.btn_total_avg.TabIndex = 43;
+            this.btn_total_avg.Text = "Average";
+            this.btn_total_avg.UseVisualStyleBackColor = true;
+            this.btn_total_avg.Click += new System.EventHandler(this.btn_total_avg_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -584,18 +597,6 @@
             this.lb_user_name.TabIndex = 61;
             this.lb_user_name.Text = "Revenue Review";
             this.lb_user_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_total_avg
-            // 
-            this.btn_total_avg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_total_avg.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_total_avg.Location = new System.Drawing.Point(363, 3);
-            this.btn_total_avg.Name = "btn_total_avg";
-            this.btn_total_avg.Size = new System.Drawing.Size(206, 23);
-            this.btn_total_avg.TabIndex = 43;
-            this.btn_total_avg.Text = "Average";
-            this.btn_total_avg.UseVisualStyleBackColor = true;
-            this.btn_total_avg.Click += new System.EventHandler(this.btn_total_avg_Click);
             // 
             // revenue_review
             // 

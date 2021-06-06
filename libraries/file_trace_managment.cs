@@ -557,35 +557,14 @@ namespace CO_Driver
 
         public static void match_reward_event(string line, SessionStats Current_session)
         {
-
-            //TODO:MAKE THIS SUCK LESS
             Dictionary<string, int> match_rewards = new Dictionary<string, int> { };
-            if (line.Contains("expFactionTotal"))
-                match_rewards.Add("expFactionTotal", Int32.Parse(Regex.Match(line, @"expFactionTotal (.+?)$").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("expBaseFactionTotal"))
-                match_rewards.Add("expBaseFactionTotal", Int32.Parse(Regex.Match(line, @"expBaseFactionTotal (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("ClanMoney"))
-                match_rewards.Add("ClanMoney", Int32.Parse(Regex.Match(line, @"ClanMoney (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Scrap_Common"))
-                match_rewards.Add("Scrap_Common", Int32.Parse(Regex.Match(line, @"Scrap_Common (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Scrap_Rare"))
-                match_rewards.Add("Scrap_Rare", Int32.Parse(Regex.Match(line, @"Scrap_Rare (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Scrap_Epic"))
-                match_rewards.Add("Scrap_Epic", Int32.Parse(Regex.Match(line, @"Scrap_Epic (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Plastic"))
-                match_rewards.Add("Plastic", Int32.Parse(Regex.Match(line, @"Plastic (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Accumulators"))
-                match_rewards.Add("Accumulators", Int32.Parse(Regex.Match(line, @"Accumulators (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("HalloweenMoney"))
-                match_rewards.Add("HalloweenMoney", Int32.Parse(Regex.Match(line, @"HalloweenMoney (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Supply"))
-                match_rewards.Add("Supply", Int32.Parse(Regex.Match(line, @"Supply (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("Platinum"))
-                match_rewards.Add("Platinum", Int32.Parse(Regex.Match(line, @"Platinum (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("NewYearMoney"))
-                match_rewards.Add("NewYearMoney", Int32.Parse(Regex.Match(line, @"NewYearMoney (.+?),").Groups[1].Value.Replace(" ", "")));
-            if (line.Contains("GermanMoney"))
-                match_rewards.Add("GermanMoney", Int32.Parse(Regex.Match(line, @"GermanMoney (.+?),").Groups[1].Value.Replace(" ", "")));
+            string[] resources = line.Substring(23).Split(',');
+
+            foreach (string resource in resources)
+            {
+                Match line_results = Regex.Match(resource, @"(?<resource>[a-zA-Z].+) (?<ammount>.+)");
+                match_rewards.Add(line_results.Groups["resource"].Value.Replace(" ", ""), (int)Convert.ToDouble(line_results.Groups["ammount"].Value.Replace(" ", "")));
+            }
 
             Current_session.current_match.match_rewards = match_rewards;
         }

@@ -545,6 +545,9 @@ namespace CO_Driver
 
             foreach (KeyValuePair<string, int> resource in total_resources.OrderByDescending(x => x.Value))
             {
+                if (resource.Key.ToLower().Contains("xp") || resource.Key.ToLower().Contains("score"))
+                    continue;
+
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
                 row.Cells[0].Value = translate.translate_string(resource.Key,session,translations);
                 row.Cells[1].Value = (int)resource.Value;

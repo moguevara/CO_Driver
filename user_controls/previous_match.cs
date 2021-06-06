@@ -68,7 +68,7 @@ namespace CO_Driver
             lb_medals.Text = match_data.local_player.stripes.Count().ToString();
             if (match_data.match_rewards.ContainsKey("expFactionTotal")) {
                 lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
-                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false).Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
+                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
             }
             else
             {
