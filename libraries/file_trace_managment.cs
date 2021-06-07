@@ -578,7 +578,6 @@ namespace CO_Driver
                         Current_session.match_history.Last().match_data.match_rewards[resource_name] += ammount;
                     else
                         Current_session.match_history.Last().match_data.match_rewards.Add(resource_name, ammount);
-
                 }
             }
 
