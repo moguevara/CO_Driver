@@ -350,7 +350,7 @@ namespace CO_Driver
                     game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
 
                 if (game_mode.Contains("8v8"))
-                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp")).Select(x => translate.translate_string(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
 
                 if (match.match_data.match_type == global_data.EASY_RAID_MATCH)
                     fuel_ammount = 20;

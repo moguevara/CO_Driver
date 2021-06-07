@@ -484,6 +484,7 @@ namespace CO_Driver
             Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = true;
             Current_session.in_garage = false;
+            Current_session.current_match.match_rewards = new Dictionary<string, int> { };
         }
 
         public static void connection_made_event(string line, SessionStats Current_session)
@@ -556,16 +557,32 @@ namespace CO_Driver
 
         public static void match_reward_event(string line, SessionStats Current_session)
         {
-            Dictionary<string, int> match_rewards = new Dictionary<string, int> { };
             string[] resources = line.Substring(23).Split(',');
 
             foreach (string resource in resources)
             {
                 Match line_results = Regex.Match(resource, @"(?<resource>[a-zA-Z].+) (?<ammount>.+)");
-                match_rewards.Add(line_results.Groups["resource"].Value.Replace(" ", ""), (int)Convert.ToDouble(line_results.Groups["ammount"].Value.Replace(" ", "")));
+                string resource_name = line_results.Groups["resource"].Value.Replace(" ", "");
+                int ammount = (int)Convert.ToDouble(line_results.Groups["ammount"].Value.Replace(" ", ""));
+
+                if (Current_session.in_match)
+                {
+                    if (Current_session.current_match.match_rewards.ContainsKey(resource_name))
+                        Current_session.current_match.match_rewards[resource_name] += ammount;
+                    else
+                        Current_session.current_match.match_rewards.Add(resource_name, ammount);
+                }
+                else
+                {
+                    if (Current_session.match_history.Last().match_data.match_rewards.ContainsKey(resource_name))
+                        Current_session.match_history.Last().match_data.match_rewards[resource_name] += ammount;
+                    else
+                        Current_session.match_history.Last().match_data.match_rewards.Add(resource_name, ammount);
+
+                }
             }
 
-            Current_session.current_match.match_rewards = match_rewards;
+            
         }
 
         public static void assign_loot_event(string line, SessionStats Current_session)
