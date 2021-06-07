@@ -399,8 +399,24 @@ namespace CO_Driver
 
         private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //clear_main_page_panel();
+            //schedule_page.populate_schedule_display("cw");
+            //main_page_panel.Controls.Add(schedule_page);
+        }
+
+        private void clanWarScheduleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             clear_main_page_panel();
+            schedule_page.populate_schedule_display("cw");
             main_page_panel.Controls.Add(schedule_page);
+        }
+
+        private void brawlScheduleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            schedule_page.populate_schedule_display("brawl");
+            main_page_panel.Controls.Add(schedule_page);
+            
         }
 
         private void garageToolsToolStripMenuItem_Click(object sender, EventArgs e)

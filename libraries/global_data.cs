@@ -42,6 +42,15 @@ namespace CO_Driver
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;
+        public const int STORM_WARNING = 3;
+        public const int WHEEL_RACE = 4;
+        public const int FREE_FOR_ALL = 5;
+        public const int BIG_BLACK_SCORPION = 6;
+        public const int BATTLE_ROYALE = 7;
+        public const int STEEL_CHAMPIONSHIP = 8;
+        public const int HOVER_RACE = 9;
+        public const int HEAD_ON = 10;
+        public const int CANNON_FODDER = 11;
 
         public const int ALL_MATCHS = 0;
         public const int STANDARD_MATCH = 1;
@@ -124,11 +133,12 @@ namespace CO_Driver
         public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
 
         public static List<string> supporters = new List<string> {  "Rot_Fish_Bandit",
-                                                                     "QuickSkinner",
-                                                                     "Perqq",
-                                                                     "MayhemMotors",
-                                                                     "blab_",
-                                                                     "QuantumCanine",
-                                                                     "bIorgus"};
+                                                                    "QuickSkinner",
+                                                                    "Perqq",
+                                                                    "MayhemMotors",
+                                                                    "blab_",
+                                                                    "QuantumCanine",
+                                                                    "bIorgus",
+                                                                    "LordDrex"};
     }
 }

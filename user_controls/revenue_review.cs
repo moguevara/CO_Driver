@@ -134,7 +134,6 @@ namespace CO_Driver
             total_games = 0;
 
             master_groupings = new List<revenue_grouping> { };
-            List<revenue_grouping> local_groupings = new List<revenue_grouping> { };
             
             previous_selection = new_selection;
 
@@ -339,6 +338,7 @@ namespace CO_Driver
                 /* begin calc */
                 bool group_found = false;
                 bool contains_fuel = false;
+                int fuel_ammount = 0;
                 TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
 
                 string game_mode = match.match_data.match_type_desc;
@@ -352,24 +352,35 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp")).Select(x => translate.translate_string(x.Key, session, translations))));
 
+                if (match.match_data.match_type == global_data.EASY_RAID_MATCH)
+                    fuel_ammount = 20;
+                else
+                if (match.match_data.match_type == global_data.MED_RAID_MATCH)
+                    fuel_ammount = 40;
+                else
+                if (match.match_data.match_type == global_data.HARD_RAID_MATCH)
+                    fuel_ammount = 60;
+
+
                 total_games += 1;
 
                 string match_result = match.match_data.game_result;
                 string premium = match.match_data.premium_reward.ToString();
-                string fuel_cost = match.match_data.fuel_cost.ToString();
+                string fuel_cost = fuel_ammount.ToString();
 
                 if (!chk_game_result.Checked)
                     match_result = "";
 
-
                 if (!chk_free_fuel.Checked)
                     fuel_cost = "";
 
-                foreach (revenue_grouping group in local_groupings)
+
+
+                foreach (revenue_grouping group in master_groupings)
                 {
                     if (group.gamemode == game_mode &&
                        (chk_game_result.Checked == false || group.game_result == match.match_data.game_result) &&
-                       (chk_free_fuel.Checked == false || group.fuel_cost == match.match_data.fuel_cost.ToString()))
+                       (chk_free_fuel.Checked == false || group.fuel_cost == fuel_ammount.ToString()))
                     {
                         
                         group_found = true;
@@ -392,22 +403,29 @@ namespace CO_Driver
 
                 if (!group_found)
                 {
-                    local_groupings.Add(new revenue_grouping
+                    revenue_grouping new_group = new revenue_grouping { };
+                    new_group.gamemode = game_mode;
+                    new_group.game_result = match_result;
+                    new_group.fuel_cost = fuel_cost;
+                    new_group.premium = premium;
+                    new_group.games = 1;
+                    new_group.total_queue_time = queue_time.TotalSeconds;
+                    new_group.total_match_time = match.match_data.match_duration_seconds;
+                    new_group.total_game_duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds;
+                    new_group.match_rewards = new Dictionary<string, int> { };
+
+                    foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
                     {
-                        gamemode = game_mode,
-                        game_result = match_result,
-                        fuel_cost = fuel_cost,
-                        premium = premium,
-                        games = 1,
-                        total_queue_time = queue_time.TotalSeconds,
-                        total_match_time = match.match_data.match_duration_seconds,
-                        total_game_duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds,
-                        match_rewards = match.match_data.match_rewards
-                    });
+                        if (new_group.match_rewards.ContainsKey(reward.Key))
+                            new_group.match_rewards[reward.Key] += reward.Value;
+                        else
+                            new_group.match_rewards.Add(reward.Key, reward.Value);
+                    }
+
+                    master_groupings.Add(new_group);
                 }
             }
 
-            master_groupings = local_groupings;
 
             populate_revenue_review_screen_elements();
             populate_filters();
@@ -552,6 +570,8 @@ namespace CO_Driver
                     foreach (KeyValuePair<string, int> reward in group.match_rewards)
                     {
                         if (reward.Key.ToLower().Contains("xp"))
+                            continue;
+                        if (reward.Key.ToLower().Contains("score"))
                             continue;
                         if (show_average)
                         {

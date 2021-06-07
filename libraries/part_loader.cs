@@ -550,6 +550,24 @@ namespace CO_Driver
             Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Saturday,  new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
             Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Sunday,    new TimeSpan(0, 0, 0),  new TimeSpan(4, 0, 0)));
             Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Sunday,    new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
+
+            Current_session.static_records.global_event_times.Add(new_event(global_data.BIG_BLACK_SCORPION, DayOfWeek.Monday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.CANNON_FODDER, DayOfWeek.Monday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.BIG_BLACK_SCORPION, DayOfWeek.Monday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HEAD_ON, DayOfWeek.Tuesday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HOVER_RACE, DayOfWeek.Tuesday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.CANNON_FODDER, DayOfWeek.Tuesday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.WHEEL_RACE, DayOfWeek.Wednesday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HEAD_ON, DayOfWeek.Wednesday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HOVER_RACE, DayOfWeek.Wednesday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.CANNON_FODDER, DayOfWeek.Thursday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.WHEEL_RACE, DayOfWeek.Thursday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HEAD_ON, DayOfWeek.Thursday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.HOVER_RACE, DayOfWeek.Friday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.BIG_BLACK_SCORPION, DayOfWeek.Friday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.WHEEL_RACE, DayOfWeek.Friday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.BATTLE_ROYALE, DayOfWeek.Saturday, new TimeSpan(0, 0, 0), new TimeSpan(24, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.BATTLE_ROYALE, DayOfWeek.Sunday, new TimeSpan(0, 0, 0), new TimeSpan(24, 0, 0)));
         }
 
         public static void load_match_types(file_trace_managment.SessionStats Current_session)

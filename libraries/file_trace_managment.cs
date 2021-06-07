@@ -113,7 +113,6 @@ namespace CO_Driver
             public List<MatchAttribute> match_attributes { get; set; }
             public Dictionary<string, int> match_rewards { get; set; }
             public bool premium_reward { get; set; }
-            public int fuel_cost { get; set; }
             public Player local_player { get; set; }
             public List<DamageRecord> damage_record { get; set; }
             public Dictionary<string, Player> player_records { get; set; }
@@ -1811,7 +1810,6 @@ namespace CO_Driver
                 match_attributes = new List<MatchAttribute> { },
                 match_rewards = new Dictionary<string, int> { },
                 premium_reward = false,
-                fuel_cost = 0,
                 local_player = new_player(),
                 damage_record = new List<DamageRecord> { },
                 player_records = new Dictionary<string, Player> { }

@@ -57,6 +57,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
+            this.clanWarScheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brawlScheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -195,10 +197,13 @@
             // 
             // scheduleToolStripMenuItem
             // 
+            this.scheduleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clanWarScheduleToolStripMenuItem,
+            this.brawlScheduleToolStripMenuItem});
             this.scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
             this.scheduleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(138, 18);
-            this.scheduleToolStripMenuItem.Text = "Clan War Schedule";
+            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(75, 18);
+            this.scheduleToolStripMenuItem.Text = "Schedule";
             this.scheduleToolStripMenuItem.Click += new System.EventHandler(this.scheduleToolStripMenuItem_Click);
             // 
             // inMatchDataToolStripMenuItem
@@ -290,6 +295,20 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
+            // clanWarScheduleToolStripMenuItem
+            // 
+            this.clanWarScheduleToolStripMenuItem.Name = "clanWarScheduleToolStripMenuItem";
+            this.clanWarScheduleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.clanWarScheduleToolStripMenuItem.Text = "Clan War Schedule";
+            this.clanWarScheduleToolStripMenuItem.Click += new System.EventHandler(this.clanWarScheduleToolStripMenuItem_Click);
+            // 
+            // brawlScheduleToolStripMenuItem
+            // 
+            this.brawlScheduleToolStripMenuItem.Name = "brawlScheduleToolStripMenuItem";
+            this.brawlScheduleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.brawlScheduleToolStripMenuItem.Text = "Brawl Schedule";
+            this.brawlScheduleToolStripMenuItem.Click += new System.EventHandler(this.brawlScheduleToolStripMenuItem_Click);
+            // 
             // frm_main_page
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -343,6 +362,8 @@
         private System.Windows.Forms.ToolStripMenuItem stateOfTheMetaToolStripMenuItem;
         public System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem revenueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clanWarScheduleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem brawlScheduleToolStripMenuItem;
     }
 }
 

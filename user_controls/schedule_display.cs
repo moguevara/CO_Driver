@@ -27,9 +27,7 @@ namespace CO_Driver
 
         }
 
-
-
-        private void schedule_display_Load(object sender, EventArgs e)
+        public void populate_schedule_display(string type)
         {
             foreach (DataGridViewColumn column in dg_build_view_grid.Columns)
             {
@@ -38,7 +36,10 @@ namespace CO_Driver
 
             this.dg_build_view_grid.Rows.Clear();
             this.dg_build_view_grid.AllowUserToAddRows = true;
-            this.lbl_schedule_display_text.Text = string.Format(@"Clan War Schedule {0}", TimeZoneInfo.Local.ToString());
+            if (type == "cw")
+                this.lbl_schedule_display_text.Text = string.Format(@"Clan War Schedule {0}", TimeZoneInfo.Local.ToString());
+            else
+                this.lbl_schedule_display_text.Text = string.Format(@"Brawl Schedule {0}", TimeZoneInfo.Local.ToString());
 
             for (int i = 0; i < 24; i++)
             {
@@ -50,17 +51,59 @@ namespace CO_Driver
 
                     foreach (part_loader.EventTime event_time in event_times)
                     {
+                        if (type == "cw")
+                        {
+                            if (event_time.event_type != global_data.STANDARD_CW && event_time.event_type != global_data.LEVIATHIAN_CW)
+                                continue;
+                        }
+                        else
+                        {
+                            if (event_time.event_type == global_data.STANDARD_CW || event_time.event_type == global_data.LEVIATHIAN_CW)
+                                continue;
+                        }
+                        
                         DateTime start_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.start_time), TimeZoneInfo.Local);
                         DateTime end_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.end_time), TimeZoneInfo.Local);
 
-                        if ((cell_time >= start_time_dt && cell_time < end_time_dt) || 
+
+                        if ((cell_time >= start_time_dt && cell_time < end_time_dt) ||
                             (cell_time >= start_time_dt.AddDays(7) && cell_time < end_time_dt.AddDays(7)) ||
                             (cell_time >= start_time_dt.AddDays(-7) && cell_time < end_time_dt.AddDays(-7)))
                         {
                             if (event_time.event_type == global_data.STANDARD_CW)
                                 row.Cells[j + 1].Value = "Standard CW";
                             else
+                            if (event_time.event_type == global_data.LEVIATHIAN_CW)
                                 row.Cells[j + 1].Value = "Leviathan CW";
+                            else
+                            if (event_time.event_type == global_data.BIG_BLACK_SCORPION)
+                                row.Cells[j + 1].Value = "Big Black Scorpions";
+                            else
+                            if (event_time.event_type == global_data.STORM_WARNING)
+                                row.Cells[j + 1].Value = "Storm Warning";
+                            else
+                            if (event_time.event_type == global_data.WHEEL_RACE)
+                                row.Cells[j + 1].Value = "Race(Wheels)";
+                            else
+                            if (event_time.event_type == global_data.HOVER_RACE)
+                                row.Cells[j + 1].Value = "Race(Hovers)";
+                            else
+                            if (event_time.event_type == global_data.FREE_FOR_ALL)
+                                row.Cells[j + 1].Value = "Free For All";
+                            else
+                            if (event_time.event_type == global_data.BATTLE_ROYALE)
+                                row.Cells[j + 1].Value = "Battle Royale";
+                            else
+                            if (event_time.event_type == global_data.CANNON_FODDER)
+                                row.Cells[j + 1].Value = "Cannon Fodder";
+                            else
+                            if (event_time.event_type == global_data.HEAD_ON)
+                                row.Cells[j + 1].Value = "Head-On!";
+                            else
+                            if (event_time.event_type == global_data.STEEL_CHAMPIONSHIP)
+                                row.Cells[j + 1].Value = "Steel Championship";
+                            else
+                                row.Cells[j + 1].Value = "Undefined Brawl";
                         }
                     }
                 }
@@ -71,6 +114,12 @@ namespace CO_Driver
             this.dg_build_view_grid.Columns[1].DisplayIndex = 7;
 
             this.dg_build_view_grid.AllowUserToAddRows = false;
+        }
+
+
+        private void schedule_display_Load(object sender, EventArgs e)
+        {
+            
         }
 
         bool IsTheSameCellValue(int column, int row)
