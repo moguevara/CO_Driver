@@ -611,7 +611,10 @@ namespace CO_Driver
             string minute = line.Substring(3, 2);
             string second = line.Substring(6, 2);
             string millisecond = line.Substring(9, 3);
-            
+
+            if (Current_session.current_game_log_day_offset > Current_session.current_combat_log_day_offset && !Current_session.in_match)
+                Current_session.current_combat_log_day_offset = Current_session.current_game_log_day_offset;
+
             if (log_type == "c")
             {
                 try
@@ -620,7 +623,7 @@ namespace CO_Driver
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
                 }
 
@@ -648,7 +651,7 @@ namespace CO_Driver
                 }
                 catch(Exception ex)
                 {
-                    //MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
+                    MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
                 }
 

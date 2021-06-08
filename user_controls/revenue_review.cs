@@ -61,7 +61,7 @@ namespace CO_Driver
             public string gamemode { get; set; }
             public string game_result { get; set; }
             public string premium { get; set; }
-            public string fuel_cost { get; set; }
+            public int fuel_cost { get; set; }
             public int games { get; set; }
             public double total_game_duration { get; set; }
             public double total_queue_time { get; set; }
@@ -87,6 +87,7 @@ namespace CO_Driver
 
                 if (line_results.Groups.Count < 2)
                     continue;
+                
 
                 string resource_name = line_results.Groups["resource_name"].Value;
                 int resource_ammount = Int32.Parse(line_results.Groups["ammount"].Value);
@@ -366,27 +367,26 @@ namespace CO_Driver
 
                 string match_result = match.match_data.game_result;
                 string premium = match.match_data.premium_reward.ToString();
-                string fuel_cost = fuel_ammount.ToString();
 
                 if (!chk_game_result.Checked)
                     match_result = "";
 
-                if (!chk_free_fuel.Checked)
-                    fuel_cost = "";
+                if (chk_free_fuel.Checked)
+                    fuel_ammount = 0;
 
 
 
                 foreach (revenue_grouping group in master_groupings)
                 {
                     if (group.gamemode == game_mode &&
-                       (chk_game_result.Checked == false || group.game_result == match.match_data.game_result) &&
-                       (chk_free_fuel.Checked == false || group.fuel_cost == fuel_ammount.ToString()))
+                       (chk_game_result.Checked == false || group.game_result == match.match_data.game_result))
                     {
                         
                         group_found = true;
                         group.total_queue_time += queue_time.TotalSeconds;
                         group.total_match_time += match.match_data.match_duration_seconds;
                         group.games += 1;
+                        group.fuel_cost += fuel_ammount;
                         group.total_game_duration += queue_time.TotalSeconds;
                         group.total_game_duration += match.match_data.match_duration_seconds;
                         
@@ -406,7 +406,7 @@ namespace CO_Driver
                     revenue_grouping new_group = new revenue_grouping { };
                     new_group.gamemode = game_mode;
                     new_group.game_result = match_result;
-                    new_group.fuel_cost = fuel_cost;
+                    new_group.fuel_cost = fuel_ammount;
                     new_group.premium = premium;
                     new_group.games = 1;
                     new_group.total_queue_time = queue_time.TotalSeconds;
@@ -553,14 +553,26 @@ namespace CO_Driver
                 {
                     row.Cells[3].Value = string.Format("{0:D}m {1:D2}s", t2.Minutes, t2.Seconds);
                     row.Cells[4].Value = string.Format("{0:D}m {1:D2}s", t3.Minutes, t3.Seconds);
+                    row.Cells[5].Value = (group.fuel_cost / group.games).ToString();
                 }
                 else
                 {
-                    row.Cells[3].Value = string.Format("{0:D}h {1:D2}m", t4.Hours, t4.Minutes);
-                    row.Cells[4].Value = string.Format("{0:D}h {1:D2}m", t5.Hours, t5.Minutes);
+                    if (t4.Days == 0)
+                        row.Cells[3].Value = string.Format("{0:D}h {1:D2}m", t4.Hours, t4.Minutes);
+                    else
+                        row.Cells[3].Value = string.Format("{0:D}d {1:D2}h", t4.Days, t4.Hours);
+
+                    if (t5.Days == 0)
+                        row.Cells[4].Value = string.Format("{0:D}h {1:D2}m", t5.Hours, t5.Minutes);
+                    else
+                        row.Cells[4].Value = string.Format("{0:D}d {1:D2}h", t5.Days, t5.Hours);
+
+                    row.Cells[5].Value = group.fuel_cost.ToString();
                 }
-                
-                row.Cells[5].Value = group.fuel_cost;
+
+                if (chk_free_fuel.Checked)
+                    row.Cells[5].Value = "";
+
                 row.Cells[6].Value = "";
 
                 if (group.match_rewards.ContainsKey("expFactionTotal"))
@@ -588,12 +600,13 @@ namespace CO_Driver
                         {
                             if (translate.translate_string(reward.Key, session, translations) == value.resource)
                             {
-                                
-                                coin_value += Math.Round(((double)reward.Value / (double)value.ammount) * value.sell_price,2);
-
+                                coin_value += ((double)reward.Value / (double)value.ammount) * value.sell_price;
                             }
                         }
                     }
+
+                    if (!chk_free_fuel.Checked)
+                        coin_value -= ( (double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                 }
                 if (show_average)
                 {
@@ -601,7 +614,7 @@ namespace CO_Driver
                 }
                 else
                 {
-                    row.Cells[7].Value = coin_value;
+                    row.Cells[7].Value = Math.Round(coin_value, 2);
                 }
                 
                 row.Cells[8].Value = Math.Round((double)coin_value / ((double)group.total_game_duration / 3600.0), 2);

@@ -655,7 +655,7 @@ namespace CO_Driver
         {
             int file_count = Current_session.file_data.historic_file_session_list.Count();
 
-            foreach (file_trace_managment.LogSession session in Current_session.file_data.historic_file_session_list)
+            foreach (file_trace_managment.LogSession session in Current_session.file_data.historic_file_session_list.OrderBy(x => DateTime.ParseExact(x.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture)))
             {
                 if (!File.Exists(session.combat_log.FullName))
                     continue;
@@ -674,6 +674,8 @@ namespace CO_Driver
                 Current_session.file_data.processing_combat_session_file_day = DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
                 Current_session.previous_combat_log_time = DateTime.MinValue;
                 Current_session.previous_game_log_time = DateTime.MinValue;
+                Current_session.current_combat_log_time = DateTime.MinValue;
+                Current_session.current_game_log_time = DateTime.MinValue;
                 Current_session.current_combat_log_day_offset = 0;
                 Current_session.current_game_log_day_offset = 0;
                 Current_session.in_match = false;
@@ -708,11 +710,21 @@ namespace CO_Driver
                                 combat_line = combat_reader.ReadLine();
                             }
                             else
-                            if (game_line != null && (game_line.Length < 22 || game_line.Substring(0, 9) == "--- Date:"))
+                            if (game_line != null && game_line.Length < 22)
                             {
                                 game_line = game_reader.ReadLine();
                             }
-                            else 
+                            else
+                            if (game_line != null && game_line == string.Empty)
+                            {
+                                game_line = game_reader.ReadLine();
+                            }
+                            else
+                            if (game_line != null && game_line.StartsWith("--- Date:"))
+                            {
+                                game_line = game_reader.ReadLine();
+                            }
+                            else
                             if (game_line != null && game_line[21] != '|')
                             {
                                 game_line = game_reader.ReadLine();
@@ -720,6 +732,18 @@ namespace CO_Driver
                             else
                             if (combat_line != null && game_line != null)
                             {
+                                if (Current_session.current_combat_log_time > Current_session.current_game_log_time)
+                                {
+                                    game_log_event_handler(game_line, Current_session);
+                                    game_line = game_reader.ReadLine();
+                                }
+                                else 
+                                if (Current_session.current_combat_log_time < Current_session.current_game_log_time)
+                                {
+                                    combat_log_event_handler(combat_line, Current_session);
+                                    combat_line = combat_reader.ReadLine();
+                                }
+                                else
                                 if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
                                 {
                                     combat_log_event_handler(combat_line, Current_session);
@@ -788,6 +812,8 @@ namespace CO_Driver
             Current_session.file_data.processing_combat_session_file_day = combat_trace_file.CreationTime;
             Current_session.previous_combat_log_time = DateTime.MinValue;
             Current_session.previous_game_log_time = DateTime.MinValue;
+            Current_session.previous_game_log_time = DateTime.MinValue;
+            Current_session.current_combat_log_time = DateTime.MinValue;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
             Current_session.queue_start_time = DateTime.MinValue;
@@ -847,6 +873,18 @@ namespace CO_Driver
                     else
                     if (combat_line != null && game_line != null)
                     {
+                        if (Current_session.current_combat_log_time > Current_session.current_game_log_time)
+                        {
+                            game_log_event_handler(game_line, Current_session);
+                            game_line = game_reader.ReadLine();
+                        }
+                        else
+                                if (Current_session.current_combat_log_time < Current_session.current_game_log_time)
+                        {
+                            combat_log_event_handler(combat_line, Current_session);
+                            combat_line = combat_reader.ReadLine();
+                        }
+                        else
                         if (string.Compare(combat_line.Substring(0, 12), game_line.Substring(0, 12)) < 0)
                         {
                             combat_log_event_handler(combat_line, Current_session);
