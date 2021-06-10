@@ -143,12 +143,12 @@ namespace CO_Driver
             {
                 if (text == theme.name)
                 {
-                    if (global_data.supporters.Contains(session.local_user_name) || text == "Terminal" || text == "Static")
-                    {
+                    //if (global_data.supporters.Contains(session.local_user_name) || text == "Terminal" || text == "Static")
+                    //{
                         session.fore_color = theme.fore_ground;
                         session.back_color = theme.back_ground;
                         break;
-                    }
+                    //}
                 }
             }
 
@@ -282,16 +282,16 @@ namespace CO_Driver
         {
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
 
-            if (text == "Terminal" || text == "Static" || global_data.supporters.Contains(session.local_user_name))
-            {
+            //if (text == "Terminal" || text == "Static" || global_data.supporters.Contains(session.local_user_name))
+            //{
                 tb_theme_warning.Text = "";
-            }
-            else
-            {
-                tb_theme_warning.Text = "Themes are limited to supporters of CO_Driver." + Environment.NewLine +
-                                        "Please consider supporting CO_Driver to gain access to theme selection." + Environment.NewLine +
-                                        "This is the only restricted feature.";
-            }
+            //}
+            //else
+            //{
+            //    tb_theme_warning.Text = "Themes are limited to supporters of CO_Driver." + Environment.NewLine +
+            //                            "Please consider supporting CO_Driver to gain access to theme selection." + Environment.NewLine +
+            //                            "This is the only restricted feature.";
+            //}
 
             foreach (theme.ui_theme theme in theme.themes)
             {

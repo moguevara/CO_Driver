@@ -112,6 +112,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="libraries\filter.cs" />
     <Compile Include="libraries\market.cs" />
     <Compile Include="libraries\theme.cs" />
     <Compile Include="libraries\translate.cs" />

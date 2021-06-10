@@ -282,19 +282,19 @@ namespace CO_Driver
         {
             bool valid_theme = false;
 
-            if (global_data.supporters.Contains(session.local_user_name))
-            {
+            //if (global_data.supporters.Contains(session.local_user_name))
+            //{
                 foreach(theme.ui_theme theme in theme.themes)
                 {
                     if (session.selected_theme == theme.name)
                         valid_theme = true;
                 }
-            }
-            else
-            {
-                if (session.selected_theme == "Terminal" || session.selected_theme == "Static")
-                    valid_theme = true;
-            }
+            //}
+            //else
+            //{
+            //    if (session.selected_theme == "Terminal" || session.selected_theme == "Static")
+            //        valid_theme = true;
+            //}
 
             if (!valid_theme)
             {

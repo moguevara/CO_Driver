@@ -25,11 +25,11 @@ namespace CO_Driver
         public static string translate_string(string part, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             if (translations.ContainsKey(session.local_language))
-                if (translations[session.local_language].ContainsKey(part.ToLower()))
+                if (translations[session.local_language].ContainsKey((part ?? "").ToLower()))
                     return translations[session.local_language][part.ToLower()].name;
 
             if (translations.ContainsKey("English"))
-                if (translations["English"].ContainsKey(part.ToLower()))
+                if (translations["English"].ContainsKey((part ?? "").ToLower()))
                     return translations["English"][part.ToLower()].name;
 
             return part;

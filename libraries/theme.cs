@@ -44,8 +44,8 @@ namespace CO_Driver
                                                                     new ui_theme { name = "Trucker Cab Best Cab",        fore_ground = Color.FromArgb(246, 195, 35),  back_ground = Color.FromArgb(22, 20, 10) },
                                                                     new ui_theme { name = "It ain't easy being green",   fore_ground = Color.FromArgb(84, 211, 70),   back_ground = Color.FromArgb(22, 20, 10) },
                                                                     new ui_theme { name = "Juicebox",                    fore_ground = Color.FromArgb(156, 151, 166), back_ground = Color.FromArgb(47, 40, 51) },
-                                                                    new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) },
-                                                                    new ui_theme { name = "Borland",                     fore_ground = Color.FromArgb(104, 124, 130), back_ground = Color.FromArgb(0, 0, 164) }
+                                                                    new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) }
+                                                                    //new ui_theme { name = "Borland",                     fore_ground = Color.FromArgb(104, 124, 130), back_ground = Color.FromArgb(0, 0, 164) }
                                                                  };
 
 
