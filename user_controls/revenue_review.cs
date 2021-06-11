@@ -127,7 +127,7 @@ namespace CO_Driver
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
-                if (filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
                     continue;
 
                 if (match.match_data.match_rewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
@@ -409,11 +409,13 @@ namespace CO_Driver
 
         private void dt_start_date_ValueChanged(object sender, EventArgs e)
         {
+            filter_selections.start_date = dt_start_date.Value;
             populate_revenue_review_screen();
         }
 
         private void dt_end_date_ValueChanged(object sender, EventArgs e)
         {
+            filter_selections.end_date = dt_end_date.Value;
             populate_revenue_review_screen();
         }
 

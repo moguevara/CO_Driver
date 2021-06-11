@@ -90,8 +90,6 @@ namespace CO_Driver
             if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != match.match_data.match_type_desc)
                 return false;
 
-            
-
             if (filter.group_filter == "Solo" && match.match_data.local_player.party_id > 0)
                 return false;
 
@@ -216,6 +214,25 @@ namespace CO_Driver
 
             if (!filter.client_versions.Contains(match.match_data.client_version))
                 filter.client_versions.Add((match.match_data.client_version));
+
+            if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+            {
+                if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                    if (!filter.cabins.Contains(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                        filter.cabins.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations));
+
+                foreach (part_loader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
+                    if (!filter.weapons.Contains(translate.translate_string(weapon.name, session, translations)))
+                        filter.weapons.Add(translate.translate_string(weapon.name, session, translations));
+
+                foreach (part_loader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
+                    if (!filter.movement_parts.Contains(translate.translate_string(movement.name, session, translations)))
+                        filter.movement_parts.Add(translate.translate_string(movement.name, session, translations));
+
+                foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
+                    if (!filter.module_parts.Contains(translate.translate_string(module.name, session, translations)))
+                        filter.module_parts.Add(translate.translate_string(module.name, session, translations));
+            }
 
             return true;
         }

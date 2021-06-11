@@ -102,7 +102,7 @@ namespace CO_Driver
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
-                if (filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
                     continue;
 
                 if (build_records.ContainsKey(match.match_data.local_player.build_hash))
@@ -508,6 +508,8 @@ namespace CO_Driver
             if (dt_end_date.Value < dt_start_date.Value)
                 dt_end_date.Value = dt_start_date.Value;
 
+            filter_selections.start_date = dt_start_date.Value;
+
             populate_user_profile_screen();
         }
 
@@ -515,6 +517,8 @@ namespace CO_Driver
         {
             if (dt_start_date.Value > dt_end_date.Value)
                 dt_start_date.Value = dt_end_date.Value;
+
+            filter_selections.end_date = dt_end_date.Value;
 
             populate_user_profile_screen();
         }
