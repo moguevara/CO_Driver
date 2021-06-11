@@ -90,6 +90,8 @@ namespace CO_Driver
             if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != match.match_data.match_type_desc)
                 return false;
 
+            
+
             if (filter.group_filter == "Solo" && match.match_data.local_player.party_id > 0)
                 return false;
 
@@ -99,10 +101,10 @@ namespace CO_Driver
             if (filter.client_versions_filter != global_data.CLIENT_VERSION_FILTER_DEFAULT && filter.client_versions_filter != match.match_data.client_version)
                 return false;
 
-            if (filter.start_date != DateTime.Now.Date && match.match_data.match_start.Date < filter.start_date)
+            if (filter.start_date.Date != DateTime.Now.Date && match.match_data.match_start.Date < filter.start_date)
                 return false;
 
-            if (filter.end_date != DateTime.Now.Date && match.match_data.match_start.Date > filter.end_date)
+            if (filter.end_date.Date != DateTime.Now.Date && match.match_data.match_start.Date > filter.end_date)
                 return false;
 
             if (filter.power_score_filter != global_data.POWER_SCORE_FILTER_DEFAULT)
