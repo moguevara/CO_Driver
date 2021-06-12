@@ -62,6 +62,13 @@ namespace CO_Driver
         {
             List<market_values> local_values = new List<market_values> { };
 
+            if (crossoutdb_data.market_items == null || crossoutdb_data.market_items.Count() < 2)
+            {
+                master_values = local_values;
+                return;
+            }
+                
+
             foreach (market.market_item item in crossoutdb_data.market_items)
             {
                 Match line_results = Regex.Match(item.name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
