@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label1 = new System.Windows.Forms.Label();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dg_match_history_view = new System.Windows.Forms.DataGridView();
             this.match_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_round_start = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,20 +47,20 @@
             this.match_damage_taken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.match_reward = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lb_user_name = new System.Windows.Forms.Label();
+            this.dt_end_date = new System.Windows.Forms.DateTimePicker();
+            this.dt_start_date = new System.Windows.Forms.DateTimePicker();
+            this.cb_cabins = new System.Windows.Forms.ComboBox();
+            this.btn_save_user_settings = new System.Windows.Forms.Button();
+            this.cb_modules = new System.Windows.Forms.ComboBox();
+            this.cb_versions = new System.Windows.Forms.ComboBox();
+            this.cb_weapons = new System.Windows.Forms.ComboBox();
+            this.cb_movement = new System.Windows.Forms.ComboBox();
+            this.cb_power_score = new System.Windows.Forms.ComboBox();
+            this.cb_grouped = new System.Windows.Forms.ComboBox();
+            this.cb_game_modes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dg_match_history_view)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label1.Size = new System.Drawing.Size(1195, 65);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Match History";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dg_match_history_view
             // 
@@ -74,14 +73,14 @@
             this.dg_match_history_view.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_match_history_view.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_match_history_view.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_match_history_view.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
+            dataGridViewCellStyle41.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_match_history_view.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle41;
             this.dg_match_history_view.ColumnHeadersHeight = 32;
             this.dg_match_history_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_match_history_view.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -99,40 +98,39 @@
             this.match_damage_taken,
             this.match_result,
             this.match_reward});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_match_history_view.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dg_match_history_view.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
+            dataGridViewCellStyle42.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_match_history_view.DefaultCellStyle = dataGridViewCellStyle42;
             this.dg_match_history_view.EnableHeadersVisualStyles = false;
             this.dg_match_history_view.GridColor = System.Drawing.Color.Lime;
-            this.dg_match_history_view.Location = new System.Drawing.Point(0, 65);
+            this.dg_match_history_view.Location = new System.Drawing.Point(0, 56);
             this.dg_match_history_view.Margin = new System.Windows.Forms.Padding(0);
             this.dg_match_history_view.Name = "dg_match_history_view";
             this.dg_match_history_view.ReadOnly = true;
             this.dg_match_history_view.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dg_match_history_view.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_match_history_view.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
+            dataGridViewCellStyle43.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_match_history_view.RowHeadersDefaultCellStyle = dataGridViewCellStyle43;
             this.dg_match_history_view.RowHeadersVisible = false;
             this.dg_match_history_view.RowHeadersWidth = 10;
             this.dg_match_history_view.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_match_history_view.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomLeft;
+            dataGridViewCellStyle44.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_match_history_view.RowsDefaultCellStyle = dataGridViewCellStyle44;
             this.dg_match_history_view.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_match_history_view.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_match_history_view.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -141,7 +139,7 @@
             this.dg_match_history_view.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_match_history_view.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_match_history_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_match_history_view.Size = new System.Drawing.Size(1195, 536);
+            this.dg_match_history_view.Size = new System.Drawing.Size(1195, 545);
             this.dg_match_history_view.StandardTab = true;
             this.dg_match_history_view.TabIndex = 1;
             this.dg_match_history_view.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_match_history_view_CellDoubleClick);
@@ -280,12 +278,197 @@
             this.match_reward.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.match_reward.Width = 140;
             // 
+            // lb_user_name
+            // 
+            this.lb_user_name.Font = new System.Drawing.Font("Consolas", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_user_name.Location = new System.Drawing.Point(3, 0);
+            this.lb_user_name.Name = "lb_user_name";
+            this.lb_user_name.Size = new System.Drawing.Size(398, 53);
+            this.lb_user_name.TabIndex = 48;
+            this.lb_user_name.Text = "Match History";
+            this.lb_user_name.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // dt_end_date
+            // 
+            this.dt_end_date.CalendarForeColor = System.Drawing.Color.Lime;
+            this.dt_end_date.CalendarMonthBackground = System.Drawing.Color.Black;
+            this.dt_end_date.CalendarTitleBackColor = System.Drawing.Color.Black;
+            this.dt_end_date.CalendarTitleForeColor = System.Drawing.Color.Lime;
+            this.dt_end_date.CalendarTrailingForeColor = System.Drawing.Color.Lime;
+            this.dt_end_date.Checked = false;
+            this.dt_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dt_end_date.Location = new System.Drawing.Point(519, 31);
+            this.dt_end_date.Name = "dt_end_date";
+            this.dt_end_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_end_date.TabIndex = 69;
+            this.dt_end_date.ValueChanged += new System.EventHandler(this.dt_end_date_ValueChanged);
+            // 
+            // dt_start_date
+            // 
+            this.dt_start_date.CalendarForeColor = System.Drawing.Color.Lime;
+            this.dt_start_date.CalendarMonthBackground = System.Drawing.Color.Black;
+            this.dt_start_date.CalendarTitleBackColor = System.Drawing.Color.Black;
+            this.dt_start_date.CalendarTitleForeColor = System.Drawing.Color.Lime;
+            this.dt_start_date.CalendarTrailingForeColor = System.Drawing.Color.Lime;
+            this.dt_start_date.Checked = false;
+            this.dt_start_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dt_start_date.Location = new System.Drawing.Point(399, 31);
+            this.dt_start_date.Name = "dt_start_date";
+            this.dt_start_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_start_date.TabIndex = 68;
+            this.dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
+            this.dt_start_date.ValueChanged += new System.EventHandler(this.dt_start_date_ValueChanged);
+            // 
+            // cb_cabins
+            // 
+            this.cb_cabins.BackColor = System.Drawing.Color.Black;
+            this.cb_cabins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_cabins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_cabins.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_cabins.ForeColor = System.Drawing.Color.Lime;
+            this.cb_cabins.FormattingEnabled = true;
+            this.cb_cabins.Location = new System.Drawing.Point(639, 31);
+            this.cb_cabins.MaxDropDownItems = 32;
+            this.cb_cabins.Name = "cb_cabins";
+            this.cb_cabins.Size = new System.Drawing.Size(136, 22);
+            this.cb_cabins.TabIndex = 67;
+            this.cb_cabins.SelectedIndexChanged += new System.EventHandler(this.cb_cabins_SelectedIndexChanged);
+            // 
+            // btn_save_user_settings
+            // 
+            this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save_user_settings.Location = new System.Drawing.Point(1062, 3);
+            this.btn_save_user_settings.Name = "btn_save_user_settings";
+            this.btn_save_user_settings.Size = new System.Drawing.Size(130, 22);
+            this.btn_save_user_settings.TabIndex = 66;
+            this.btn_save_user_settings.Text = "Reset";
+            this.btn_save_user_settings.UseVisualStyleBackColor = true;
+            this.btn_save_user_settings.Click += new System.EventHandler(this.btn_save_user_settings_Click);
+            // 
+            // cb_modules
+            // 
+            this.cb_modules.BackColor = System.Drawing.Color.Black;
+            this.cb_modules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_modules.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_modules.ForeColor = System.Drawing.Color.Lime;
+            this.cb_modules.FormattingEnabled = true;
+            this.cb_modules.Location = new System.Drawing.Point(923, 31);
+            this.cb_modules.MaxDropDownItems = 32;
+            this.cb_modules.Name = "cb_modules";
+            this.cb_modules.Size = new System.Drawing.Size(109, 22);
+            this.cb_modules.TabIndex = 65;
+            this.cb_modules.SelectedIndexChanged += new System.EventHandler(this.cb_modules_SelectedIndexChanged);
+            // 
+            // cb_versions
+            // 
+            this.cb_versions.BackColor = System.Drawing.Color.Black;
+            this.cb_versions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_versions.DropDownWidth = 280;
+            this.cb_versions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_versions.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_versions.ForeColor = System.Drawing.Color.Lime;
+            this.cb_versions.FormattingEnabled = true;
+            this.cb_versions.Location = new System.Drawing.Point(399, 4);
+            this.cb_versions.MaxDropDownItems = 32;
+            this.cb_versions.Name = "cb_versions";
+            this.cb_versions.Size = new System.Drawing.Size(234, 22);
+            this.cb_versions.TabIndex = 64;
+            this.cb_versions.SelectedIndexChanged += new System.EventHandler(this.cb_versions_SelectedIndexChanged);
+            // 
+            // cb_weapons
+            // 
+            this.cb_weapons.BackColor = System.Drawing.Color.Black;
+            this.cb_weapons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_weapons.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_weapons.ForeColor = System.Drawing.Color.Lime;
+            this.cb_weapons.FormattingEnabled = true;
+            this.cb_weapons.Location = new System.Drawing.Point(781, 31);
+            this.cb_weapons.MaxDropDownItems = 32;
+            this.cb_weapons.Name = "cb_weapons";
+            this.cb_weapons.Size = new System.Drawing.Size(136, 22);
+            this.cb_weapons.TabIndex = 63;
+            this.cb_weapons.SelectedIndexChanged += new System.EventHandler(this.cb_weapons_SelectedIndexChanged);
+            // 
+            // cb_movement
+            // 
+            this.cb_movement.BackColor = System.Drawing.Color.Black;
+            this.cb_movement.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_movement.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_movement.ForeColor = System.Drawing.Color.Lime;
+            this.cb_movement.FormattingEnabled = true;
+            this.cb_movement.Location = new System.Drawing.Point(1038, 31);
+            this.cb_movement.MaxDropDownItems = 32;
+            this.cb_movement.Name = "cb_movement";
+            this.cb_movement.Size = new System.Drawing.Size(154, 22);
+            this.cb_movement.TabIndex = 62;
+            this.cb_movement.SelectedIndexChanged += new System.EventHandler(this.cb_movement_SelectedIndexChanged);
+            // 
+            // cb_power_score
+            // 
+            this.cb_power_score.BackColor = System.Drawing.Color.Black;
+            this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_power_score.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_power_score.ForeColor = System.Drawing.Color.Lime;
+            this.cb_power_score.FormattingEnabled = true;
+            this.cb_power_score.Location = new System.Drawing.Point(639, 3);
+            this.cb_power_score.MaxDropDownItems = 32;
+            this.cb_power_score.Name = "cb_power_score";
+            this.cb_power_score.Size = new System.Drawing.Size(141, 22);
+            this.cb_power_score.TabIndex = 61;
+            this.cb_power_score.SelectedIndexChanged += new System.EventHandler(this.cb_power_score_SelectedIndexChanged);
+            // 
+            // cb_grouped
+            // 
+            this.cb_grouped.BackColor = System.Drawing.Color.Black;
+            this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_grouped.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_grouped.ForeColor = System.Drawing.Color.Lime;
+            this.cb_grouped.FormattingEnabled = true;
+            this.cb_grouped.Location = new System.Drawing.Point(786, 3);
+            this.cb_grouped.MaxDropDownItems = 32;
+            this.cb_grouped.Name = "cb_grouped";
+            this.cb_grouped.Size = new System.Drawing.Size(131, 22);
+            this.cb_grouped.TabIndex = 60;
+            this.cb_grouped.SelectedIndexChanged += new System.EventHandler(this.cb_grouped_SelectedIndexChanged);
+            // 
+            // cb_game_modes
+            // 
+            this.cb_game_modes.BackColor = System.Drawing.Color.Black;
+            this.cb_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_game_modes.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_game_modes.ForeColor = System.Drawing.Color.Lime;
+            this.cb_game_modes.FormattingEnabled = true;
+            this.cb_game_modes.Location = new System.Drawing.Point(923, 4);
+            this.cb_game_modes.MaxDropDownItems = 32;
+            this.cb_game_modes.Name = "cb_game_modes";
+            this.cb_game_modes.Size = new System.Drawing.Size(133, 22);
+            this.cb_game_modes.TabIndex = 59;
+            this.cb_game_modes.SelectedIndexChanged += new System.EventHandler(this.cb_game_modes_SelectedIndexChanged);
+            // 
             // match_history
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.dt_end_date);
+            this.Controls.Add(this.dt_start_date);
+            this.Controls.Add(this.cb_cabins);
+            this.Controls.Add(this.btn_save_user_settings);
+            this.Controls.Add(this.cb_modules);
+            this.Controls.Add(this.cb_versions);
+            this.Controls.Add(this.cb_weapons);
+            this.Controls.Add(this.cb_movement);
+            this.Controls.Add(this.cb_power_score);
+            this.Controls.Add(this.cb_grouped);
+            this.Controls.Add(this.cb_game_modes);
+            this.Controls.Add(this.lb_user_name);
             this.Controls.Add(this.dg_match_history_view);
-            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
             this.MaximumSize = new System.Drawing.Size(1195, 601);
@@ -298,8 +481,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.DataGridView dg_match_history_view;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_type;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_round_start;
@@ -315,5 +496,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn match_damage_taken;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_result;
         private System.Windows.Forms.DataGridViewTextBoxColumn match_reward;
+        private System.Windows.Forms.Label lb_user_name;
+        private System.Windows.Forms.DateTimePicker dt_end_date;
+        private System.Windows.Forms.DateTimePicker dt_start_date;
+        private System.Windows.Forms.ComboBox cb_cabins;
+        private System.Windows.Forms.Button btn_save_user_settings;
+        private System.Windows.Forms.ComboBox cb_modules;
+        private System.Windows.Forms.ComboBox cb_versions;
+        private System.Windows.Forms.ComboBox cb_weapons;
+        private System.Windows.Forms.ComboBox cb_movement;
+        private System.Windows.Forms.ComboBox cb_power_score;
+        private System.Windows.Forms.ComboBox cb_grouped;
+        private System.Windows.Forms.ComboBox cb_game_modes;
     }
 }

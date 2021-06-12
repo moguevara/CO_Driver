@@ -541,6 +541,7 @@ namespace CO_Driver
                 revenue_page.match_history = response.match_history;
                 revenue_page.build_records = response.build_records;
                 match_detail_page.build_records = response.build_records;
+                match_history_page.build_records = response.build_records;
                 user_profile_page.populate_user_profile_screen();
                 meta_detail_page.populate_meta_detail_screen();
                 revenue_page.populate_revenue_review_screen();
