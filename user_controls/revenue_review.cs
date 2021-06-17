@@ -148,8 +148,18 @@ namespace CO_Driver
                 string game_mode = match.match_data.match_type_desc;
 
                 if (game_mode.Contains("Raid"))
-                    game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
+                {
+                    game_mode = string.Format(@"{0} ({1})", translate.translate_string(match.match_data.gameplay_desc, session, translations), string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => translate.translate_string(x.Key, session, translations))));
 
+                    if (game_mode.EndsWith("()"))
+                        game_mode.Substring(("()").Length);
+                }
+
+                if (match.match_data.gameplay_desc == "Pve_Leviathan")
+                {
+                    game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
+                }
+                
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
 

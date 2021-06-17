@@ -67,6 +67,9 @@ namespace CO_Driver
                 //if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
                 //    continue;
 
+                if ((int)num_min_dura.Value != 0 && master_part_list[i].part_durability < num_min_dura.Value)
+                    continue;
+
                 if (!chk_include_bumpers.Checked && master_part_list[i].hull_durability == 0)
                     continue;
 
@@ -106,6 +109,11 @@ namespace CO_Driver
         }
 
         private void chk_include_bumpers_CheckedChanged(object sender, EventArgs e)
+        {
+            populate_parts_list();
+        }
+
+        private void num_min_dura_ValueChanged(object sender, EventArgs e)
         {
             populate_parts_list();
         }

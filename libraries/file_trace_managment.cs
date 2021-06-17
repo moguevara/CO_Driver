@@ -558,6 +558,10 @@ namespace CO_Driver
         public static void match_reward_event(string line, SessionStats Current_session)
         {
             string[] resources = line.Substring(23).Split(',');
+            bool last_match_populated = false;
+
+            if (Current_session.match_history.LastOrDefault().match_data.match_rewards.Count() > 0)
+                last_match_populated = true;
 
             foreach (string resource in resources)
             {
@@ -574,10 +578,13 @@ namespace CO_Driver
                 }
                 else
                 {
-                    if (Current_session.match_history.Last().match_data.match_rewards.ContainsKey(resource_name))
-                        Current_session.match_history.Last().match_data.match_rewards[resource_name] += ammount;
-                    else
-                        Current_session.match_history.Last().match_data.match_rewards.Add(resource_name, ammount);
+                    if (Current_session.match_history.Count > 1 && !last_match_populated)
+                    {
+                        if (Current_session.match_history.LastOrDefault().match_data.match_rewards.ContainsKey(resource_name))
+                            Current_session.match_history.LastOrDefault().match_data.match_rewards[resource_name] += ammount;
+                        else
+                            Current_session.match_history.LastOrDefault().match_data.match_rewards.Add(resource_name, ammount);
+                    }
                 }
             }
 
@@ -777,7 +784,7 @@ namespace CO_Driver
             if (Current_session.current_match.game_play_value.Contains("Brawl_DroneBattle"))
                 Current_session.current_match.match_type = global_data.DRONE_BATTLE_MATCH;
 
-            if (Current_session.current_match.game_play_value.Contains("BestOf3") && highest_power_score > 22000)
+            if (Current_session.current_match.game_play_value.Contains("BestOf3") && highest_power_score > 23000)
                 Current_session.current_match.match_type = global_data.LEVIATHIAN_CW_MATCH;
 
             if (Current_session.current_match.map_name.Contains("red_rocks_battle_royale"))

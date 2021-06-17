@@ -58,6 +58,7 @@ namespace CO_Driver
         {
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);

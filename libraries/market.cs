@@ -108,7 +108,7 @@ namespace CO_Driver{
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + "Defaults will be used.");
+                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
             return market_items;
