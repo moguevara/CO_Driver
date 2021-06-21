@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.54";
+        public static string CURRENT_VERSION = "0.1.0.55";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -80,7 +80,8 @@ namespace CO_Driver
         public const int DRONE_BATTLE_MATCH = 25;
         public const int RACE_WHEELS_ONLY_MATCH = 26;
         public const int CROSSOUT_DAY_BRAWL_MATCH = 27;
-        public const int UNDEFINED_MATCH = 28;
+        public const int GOZU_MATCH = 28; /* thanks to seaofdogs */
+        public const int UNDEFINED_MATCH = 29;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 

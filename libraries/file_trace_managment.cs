@@ -560,6 +560,9 @@ namespace CO_Driver
             string[] resources = line.Substring(23).Split(',');
             bool last_match_populated = false;
 
+            if (Current_session.match_history.LastOrDefault() == null)
+                return;
+
             if (Current_session.match_history.LastOrDefault().match_data.match_rewards.Count() > 0)
                 last_match_populated = true;
 
@@ -857,6 +860,9 @@ namespace CO_Driver
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_BDCrossout"))
                 Current_session.current_match.match_type = global_data.CROSSOUT_DAY_BRAWL_MATCH;
+
+            if (Current_session.current_match.game_play_value.Contains("Pve_Foray"))
+                Current_session.current_match.match_type = global_data.GOZU_MATCH;
 
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
@@ -1439,6 +1445,8 @@ namespace CO_Driver
                     return "Drone Battle";
                 case global_data.CROSSOUT_DAY_BRAWL_MATCH:
                     return "Crossout Day Brawl";
+                case global_data.GOZU_MATCH:
+                    return "Gozu";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:
