@@ -379,7 +379,6 @@ namespace CO_Driver
             if (session.historic_file_location.Length == 0)
                 return;
 
-            bool first = true;
             FileInfo[] files;
 
             try
@@ -393,16 +392,32 @@ namespace CO_Driver
 
             foreach (FileInfo file in files)
             {
-                if (first)
+                if (file.CreationTime == files.Where(x => Path.GetFileNameWithoutExtension(x.Name) == Path.GetFileNameWithoutExtension(file.Name)).OrderByDescending(x => x.CreationTime).FirstOrDefault().CreationTime)
+                    continue;
+                    
+                String destination_file_name = string.Format("{0}{1}{2}{3}{4}{5}", session.historic_file_location, "\\", Path.GetFileNameWithoutExtension(file.Name), "_", file.CreationTime.ToString("yyyyMMddHHmmss"), ".log");
+                FileInfo existing_file;
+
+
+                if (!File.Exists(destination_file_name))
                 {
-                    first = false;
+                    File.Copy(file.FullName, destination_file_name);
+                    existing_file = file;
                 }
                 else
-                {
-                    String destination_file_name = string.Format("{0}{1}{2}{3}{4}{5}", session.historic_file_location, "\\", Path.GetFileNameWithoutExtension(file.Name), "_", file.CreationTime.ToString("yyyyMMddHHmmss"), ".log");
+                    existing_file = new FileInfo(destination_file_name);
 
-                    if (!File.Exists(destination_file_name))
+                if (file.Length != existing_file.Length)
+                {
+                    try
+                    {
+                        File.Delete(existing_file.FullName);
                         File.Copy(file.FullName, destination_file_name);
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show("An error has occurred while overriding corrupted log file");
+                    }
                 }
             }
             
