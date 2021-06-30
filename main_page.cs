@@ -984,6 +984,9 @@ namespace CO_Driver
                 case global_data.MATCH_PROPERTY_EVENT:
                     file_trace_managment.assign_match_property(line, Current_session);
                     break;
+                case global_data.ADVENTURE_REWARD_EVENT:
+                    file_trace_managment.assign_adventure_reward_event(line, Current_session);
+                    break;
                 case global_data.QUEST_EVENT:
                     break;
                 case global_data.LOOT_EVENT:

@@ -593,6 +593,41 @@ namespace CO_Driver
 
             
         }
+        public static void assign_adventure_reward_event(string line, SessionStats Current_session)
+        {
+            //17:20:21.300         | ExplorationReward. Platinum. base 5, bonus 2, total 7
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| ExplorationReward. (?<reward>.+)\. base (?<base_ammount>.+), bonus (?<bonus_ammount>.+), total (?<total_ammount>.+)$");
+            
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            if (Current_session.match_history.LastOrDefault() == null)
+                return;
+
+            string resource_name = line_results.Groups["reward"].Value.Replace(" ", "");
+            int ammount = (int)Convert.ToDouble(line_results.Groups["total_ammount"].Value.Replace(" ", ""));
+
+            if (Current_session.in_match)
+            {
+                if (Current_session.current_match.match_rewards.ContainsKey(resource_name))
+                    Current_session.current_match.match_rewards[resource_name] += ammount;
+                else
+                    Current_session.current_match.match_rewards.Add(resource_name, ammount);
+            }
+            else
+            {
+                //if (Current_session.match_history.Count > 1 && !last_match_populated)
+                //{
+                    if (Current_session.match_history.LastOrDefault().match_data.match_rewards.ContainsKey(resource_name))
+                        Current_session.match_history.LastOrDefault().match_data.match_rewards[resource_name] += ammount;
+                    else
+                        Current_session.match_history.LastOrDefault().match_data.match_rewards.Add(resource_name, ammount);
+                //}
+            }
+        }
 
         public static void assign_loot_event(string line, SessionStats Current_session)
         {
@@ -713,9 +748,7 @@ namespace CO_Driver
             }
         }
 
-        public static void assign_adventure_reward_event(string line, SessionStats Current_session)
-        {
-        }
+       
 
         private static void clear_in_game_stats(SessionStats Current_session)
         {
