@@ -85,7 +85,8 @@ namespace CO_Driver{
         {
             List<market_item> market_items = new List<market_item> { };
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v1/items?category=Resources");
             request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = 30000;
@@ -98,11 +99,14 @@ namespace CO_Driver{
             try
             {
                 WebResponse webResponse = request.GetResponse();
+
                 using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
                     market_items =  JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
+
+
                     return market_items;
                 }
             }
