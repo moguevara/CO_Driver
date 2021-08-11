@@ -79,10 +79,20 @@ namespace CO_Driver
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
-            public List<MatchAttribute> pending_attributes { get; set; }
+            public PendingMatchAttributes pending_attributes { get; set; }
+            
             public Dictionary<string, BuildRecord> player_build_records { get; set; }
             public List<MatchRecord> match_history { get; set; }
             public StaticRecordDB static_records { get; set; }
+        }
+
+        public class PendingMatchAttributes
+        {
+            public long server_guid { get; set; }
+            public long client_guid { get; set; }
+            public string server_ip { get; set; }
+            public string server_port { get; set; }
+            public List<MatchAttribute> attributes { get; set; }
         }
         public class MatchRecord
         {
@@ -91,14 +101,20 @@ namespace CO_Driver
             public MatchData match_data { get; set; }
         }
 
+
         public class MatchData
         {
             public string map_name { get; set; }
             public string map_desc { get; set; }
             public int match_type { get; set; }
+            public long server_guid { get; set; }
+            public long client_guid { get; set; }
+            public string server_ip { get; set; }
+            public string server_port { get; set; }
             public string match_type_desc { get; set; }
             public string gameplay_desc { get; set; }
             public int winning_team { get; set; }
+            public string win_reason { get; set; }
             public string game_result { get; set; }
             public string game_play_value { get; set; }
             public string client_version { get; set; }
@@ -107,17 +123,29 @@ namespace CO_Driver
             public DateTime queue_start { get; set; }
             public DateTime queue_end { get; set; }
             public double match_duration_seconds { get; set; }
-            public string nemesis { get; set; }
-            public AssistTracking assist_tracking { get; set; }
             public List<string> victims { get; set; }
             public List<MatchAttribute> match_attributes { get; set; }
             public Dictionary<string, int> match_rewards { get; set; }
             public bool premium_reward { get; set; }
             public Player local_player { get; set; }
+            public string nemesis { get; set; }
+            public AssistTracking assist_tracking { get; set; }
             public List<DamageRecord> damage_record { get; set; }
             public Dictionary<string, Player> player_records { get; set; }
-            
+            public List<RoundData> rounds { get; set; }            
         }
+
+        public class RoundData
+        {
+            public int winning_team { get; set; }
+            public string win_reason { get; set; }
+            public DateTime round_start { get; set; }
+            public DateTime round_end { get; set; }
+            public string nemesis { get; set; }
+            public Dictionary<string, Player> player_records { get; set; }
+
+        }
+
         public class AssistTracking
         {
             public string killer { get; set; }
@@ -159,6 +187,7 @@ namespace CO_Driver
             public List<Score> scores { get; set; }
             public List<string> stripes { get; set; }
         }
+
         public class Stats
         {
             public int kills { get; set; }
@@ -251,7 +280,7 @@ namespace CO_Driver
             Current_session.current_event = 0;
             Current_session.garage_data = new GarageData { };
             Current_session.garage_data.garage_start = new DateTime { };
-            Current_session.pending_attributes = new List<MatchAttribute> { };
+            Current_session.pending_attributes = new_pending_attributes();
             Current_session.file_data = new FileData { };
             Current_session.file_data.log_file_location = local_session_variables.log_file_location;
             Current_session.file_data.historic_file_location = local_session_variables.historic_file_location;
@@ -347,6 +376,9 @@ namespace CO_Driver
             if (line.Substring(0,9) == "--- Date:")
                 event_id = global_data.DATE_ASSIGNMENT_EVENT;
             else
+            if (line.Contains("server guid"))
+                event_id = global_data.GUID_ASSIGN_EVENT;
+            else
             if (line.Contains("expFactionTotal"))
                 event_id = global_data.MATCH_REWARD_EVENT;
             else
@@ -430,7 +462,7 @@ namespace CO_Driver
         {
             clear_in_game_stats(Current_session);
             Current_session.in_garage = false;
-            Current_session.pending_attributes = new List<MatchAttribute> { };
+            Current_session.pending_attributes = new_pending_attributes();
         }
 
         public static void test_drive_event(string line, SessionStats Current_session)
@@ -487,6 +519,37 @@ namespace CO_Driver
             Current_session.current_match.match_rewards = new Dictionary<string, int> { };
         }
 
+        public static void guid_assign_event(string line, SessionStats Current_session)
+        {
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: connected to (?<server_ip>.+)\|(?<server_port>.+), server guid '(?<server_guid>.+)', client guid '(?<client_guid>.+)', setting up session...$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            long server_guid = Convert.ToInt64(line_results.Groups["server_guid"].Value.Replace(" ", ""));
+            long client_guid = Convert.ToInt64(line_results.Groups["client_guid"].Value.Replace(" ", ""));
+            string server_ip = line_results.Groups["server_ip"].Value.Replace(" ", "");
+            string server_port = line_results.Groups["server_port"].Value.Replace(" ", "");
+
+            if (Current_session.in_match)
+            {
+                Current_session.current_match.server_guid = server_guid;
+                Current_session.current_match.client_guid = client_guid;
+                Current_session.current_match.server_ip = server_ip;
+                Current_session.current_match.server_port = server_port;
+            }
+            else
+            {
+                Current_session.pending_attributes.server_guid = server_guid;
+                Current_session.pending_attributes.client_guid = client_guid;
+                Current_session.pending_attributes.server_ip = server_ip;
+                Current_session.pending_attributes.server_port = server_port;
+            }
+        }
+
         public static void connection_made_event(string line, SessionStats Current_session)
         {
             //Current_session.queue_end_time = Current_session.current_game_log_time;
@@ -533,10 +596,38 @@ namespace CO_Driver
 
         }
 
+        //public class RoundData
+        //{
+        //    public int winning_team { get; set; }
+        //    public DateTime round_start { get; set; }
+        //    public DateTime round_end { get; set; }
+        //    public string nemesis { get; set; }
+        //    public Dictionary<string, Player> player_records { get; set; }
+        //}
+
         public static void clan_war_round_end_event(string line, SessionStats Current_session)
         {
+            //21:41:27.520| ===== Best Of N round 2 finish, reason: no_cars, winner team 2, win reason: MORE_CARS_LEFT, battle time: 190.2 sec =====
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| ===== Best Of N round (?<round_number>.+) finish, reason: (?<reason>.+), winner team (?<winning_team>.+), win reason: (?<win_reason>.+?), battle time: (?<battle_duration>.+?) sec =====$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
             foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
                 entry.Value.stats.rounds = entry.Value.stats.rounds + 1;
+
+            RoundData new_round = new_round_data();
+            new_round.winning_team = Int32.Parse(line_results.Groups["winning_team"].Value);
+            new_round.win_reason = line_results.Groups["win_reason"].Value.Replace(" ", "");
+            new_round.nemesis = Current_session.current_match.nemesis;
+
+            foreach (KeyValuePair<string, Player> player in Current_session.current_match.player_records)
+                new_round.player_records.Add(player.Key, player.Value);
+
+            Current_session.current_match.rounds.Add(new_round);
         }
 
         public static void match_end_event(string line, SessionStats Current_session)
@@ -551,6 +642,7 @@ namespace CO_Driver
 
             Current_session.current_match.winning_team = Int32.Parse(line_results.Groups["winning_team"].Value);
             Current_session.current_match.match_duration_seconds = Convert.ToDouble(line_results.Groups["battle_time"].Value);
+            Current_session.current_match.win_reason = line_results.Groups["win_reason"].Value.Replace(" ", "");
 
             clear_in_game_stats(Current_session);
         }
@@ -763,8 +855,12 @@ namespace CO_Driver
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
 
-            Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes);
-            Current_session.pending_attributes = new List<MatchAttribute> { };
+            Current_session.current_match.server_guid = Current_session.pending_attributes.server_guid;
+            Current_session.current_match.client_guid = Current_session.pending_attributes.client_guid;
+            Current_session.current_match.server_ip = Current_session.pending_attributes.server_ip;
+            Current_session.current_match.server_port = Current_session.pending_attributes.server_port;
+            Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes.attributes);
+            Current_session.pending_attributes = new_pending_attributes();
 
 
             assign_build_parts(Current_session);
@@ -1394,7 +1490,7 @@ namespace CO_Driver
             string attribute_value = line_results.Groups["attribute_value"].Value.Replace(" ", "");
 
             if (!Current_session.in_match)
-                Current_session.pending_attributes.Add(new_match_attribute(attribute_name, attribute_value));
+                Current_session.pending_attributes.attributes.Add(new_match_attribute(attribute_name, attribute_value));
             else
                 Current_session.current_match.match_attributes.Add(new_match_attribute(attribute_name, attribute_value));
         }
@@ -1843,6 +1939,24 @@ namespace CO_Driver
             };
         }
 
+        public static Stats sub_stats(Stats a, Stats b)
+        {
+            return new Stats
+            {
+                games = a.games - b.games,
+                rounds = a.rounds - b.rounds,
+                kills = a.kills - b.kills,
+                assists = a.assists - b.assists,
+                deaths = a.deaths - b.deaths,
+                drone_kills = a.drone_kills - b.drone_kills,
+                score = a.score - b.score,
+                damage = a.damage - b.damage,
+                damage_taken = a.damage_taken - b.damage_taken,
+                wins = a.wins - b.wins,
+                losses = a.losses + b.losses
+            };
+        }
+
         private static MatchRecord new_match_record()
         {
             return new MatchRecord
@@ -1861,8 +1975,14 @@ namespace CO_Driver
                 map_desc = "",
                 match_type = global_data.UNDEFINED_MATCH,
                 match_type_desc = "",
+                server_guid = 0,
+                client_guid = 0,
+                server_ip = "",
+                server_port = "",
                 gameplay_desc = "",
                 winning_team = -1,
+                win_reason = "",
+                nemesis = "",
                 game_result = "",
                 game_play_value = "",
                 client_version = "UNDEFINED_CLIENT_VERSION",
@@ -1871,14 +1991,27 @@ namespace CO_Driver
                 queue_start = new DateTime { },
                 queue_end = new DateTime { },
                 match_duration_seconds = 0.0,
-                nemesis = "",
                 victims = new List<string> { },
-                assist_tracking = new AssistTracking { },
                 match_attributes = new List<MatchAttribute> { },
                 match_rewards = new Dictionary<string, int> { },
                 premium_reward = false,
                 local_player = new_player(),
+                assist_tracking = new AssistTracking { },
                 damage_record = new List<DamageRecord> { },
+                player_records = new Dictionary<string, Player> { },
+                rounds = new List<RoundData> { }
+            };
+        }
+
+        public static RoundData new_round_data()
+        {
+            return new RoundData
+            {
+                winning_team = -1,
+                win_reason = "",
+                round_start = new DateTime { },
+                round_end = new DateTime { },
+                nemesis = "",
                 player_records = new Dictionary<string, Player> { }
             };
         }
@@ -1902,6 +2035,18 @@ namespace CO_Driver
             };
 
             return build;
+        }
+
+        public static PendingMatchAttributes new_pending_attributes()
+        {
+            return new PendingMatchAttributes
+            {
+                server_guid = 0,
+                client_guid = 0,
+                server_ip = "",
+                server_port = "",
+                attributes = new List<MatchAttribute> { }
+            };
         }
 
         public static MatchAttribute new_match_attribute(string attribute, string value)

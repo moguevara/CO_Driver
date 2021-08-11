@@ -973,6 +973,9 @@ namespace CO_Driver
                 case global_data.QUEUE_END_EVENT:
                     file_trace_managment.queue_end_event(line, Current_session);
                     break;
+                case global_data.GUID_ASSIGN_EVENT:
+                    file_trace_managment.guid_assign_event(line, Current_session);
+                    break;
                 case global_data.CONNECTION_INIT_EVENT:
                     file_trace_managment.connection_made_event(line, Current_session);
                     break;
