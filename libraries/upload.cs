@@ -52,18 +52,18 @@ namespace CO_Driver.libraries
             //new_round.players = match.match_data.player_records;
 
 
-            foreach (file_trace_managment.RoundData round in match.match_data.rounds)
-            {
-                new_round = new Crossout.AspWeb.Models.API.v2.RoundEntry { };
-                new_round.match_id = match.match_data.server_guid;
-                new_round.round_id = 0;
-                new_round.round_start = round.round_start.ToUniversalTime();
-                new_round.round_end = round.round_end.ToUniversalTime();
-                new_round.winning_team = round.winning_team;
-                new_round.players = new List<Crossout.AspWeb.Models.API.v2.PlayerEntry> { };
-                new_round.damage_records = new List<Crossout.AspWeb.Models.API.v2.DamageEntry> { };
-                rounds.Add(new_round);
-            }
+            //foreach (file_trace_managment.RoundData round in match.match_data.rounds)
+            //{
+            //    new_round = new Crossout.AspWeb.Models.API.v2.RoundEntry { };
+            //    new_round.match_id = match.match_data.server_guid;
+            //    new_round.round_id = 0;
+            //    new_round.round_start = round.round_start.ToUniversalTime();
+            //    new_round.round_end = round.round_end.ToUniversalTime();
+            //    new_round.winning_team = round.winning_team;
+            //    new_round.players = new List<Crossout.AspWeb.Models.API.v2.PlayerEntry> { };
+            //    new_round.damage_records = new List<Crossout.AspWeb.Models.API.v2.DamageEntry> { };
+            //    rounds.Add(new_round);
+            //}
 
             return rounds;
         }

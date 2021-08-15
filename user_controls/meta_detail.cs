@@ -34,7 +34,6 @@ namespace CO_Driver
 
 
         private List<master_meta_grouping> master_groupings = new List<master_meta_grouping> { };
-        private List<meta_grouping> match_stats = new List<meta_grouping> { };
 
         private class meta_grouping
         {
@@ -42,12 +41,17 @@ namespace CO_Driver
             public string cabin { get; set; }
             public string movement { get; set; }
             public string map { get; set; }
+            public int rounds { get; set; }
+            public int total_seen { get; set; }
             public file_trace_managment.Stats stats { get; set; }
         }
 
         private class master_meta_grouping
         {
             public int games { get; set; }
+            public int wins { get; set; }
+            public int rounds { get; set; }
+            public int total_seen { get; set; }
             public meta_grouping group { get; set; }
         }
 
@@ -71,8 +75,7 @@ namespace CO_Driver
             total_games = 0;
             total_wins = 0;
             master_groupings = new List<master_meta_grouping> { };
-            List<meta_grouping> groupings = new List<meta_grouping> { };
-
+            
             previous_selection = new_selection;
 
             filter.reset_filters(filter_selections);
@@ -87,127 +90,159 @@ namespace CO_Driver
                 /* begin calc */
 
                 total_games += 1;
-                match_stats = new List<meta_grouping> { };
-                
+                List<meta_grouping> match_level_grouping = new List<meta_grouping> { };
 
                 if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
                     total_wins += 1; /* enemy wins */
 
-                foreach (KeyValuePair<string, file_trace_managment.Player> player in match.match_data.player_records)
+                foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
                 {
-                    if (player.Value.team == match.match_data.local_player.team)
-                        continue;
+                    List<meta_grouping> round_level_grouping = new List<meta_grouping> { };
 
-                    if (!build_records.ContainsKey(player.Value.build_hash))
-                        continue;
-
-                    if (!chk_bot_filter.Checked && player.Value.bot == 1)
-                        continue;
-
-                    if (!chk_bot_filter.Checked && player.Value.power_score >= 22000)
-                        continue;
-
-                    groupings = new List<meta_grouping> { };
-                    file_trace_managment.BuildRecord build = build_records[player.Value.build_hash];
-
-                    if (chk_weapon_filter.Checked)
+                    foreach (file_trace_managment.Player player in round.players)
                     {
-                        foreach (part_loader.Weapon weapon in build.weapons)
-                        {
-                            meta_grouping new_group = new_grouping();
-                            new_group.weapon = translate.translate_string(weapon.name, session, translations);
-                            new_group.stats = player.Value.stats;
-                            groupings.Add(new_group);
-                        }
-                    }
+                        #region player_level
+                        if (player.team == match.match_data.local_player.team)
+                            continue;
 
-                    if (chk_movement_filter.Checked)
-                    {
-                        if (groupings == null || !groupings.Any())
+                        if (!build_records.ContainsKey(player.build_hash))
+                            continue;
+
+                        if (!chk_bot_filter.Checked && player.bot == 1)
+                            continue;
+
+                        if (!chk_bot_filter.Checked && player.power_score >= 22000)
+                            continue;
+
+                        if (!round.players.Any(x => x.nickname == player.nickname))
+                            continue;
+
+                        List<meta_grouping> player_level_grouping = new List<meta_grouping> { };
+                        file_trace_managment.BuildRecord build = build_records[round.players.First(x => x.nickname == player.nickname).build_hash];
+
+                        if (chk_weapon_filter.Checked)
                         {
-                            foreach (part_loader.Movement movement in build.movement)
+                            foreach (part_loader.Weapon weapon in build.weapons)
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.movement = translate.translate_string(movement.name, session, translations);
-                                new_group.stats = player.Value.stats;
-                                groupings.Add(new_group);
+                                new_group.weapon = translate.translate_string(weapon.name, session, translations);
+                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                player_level_grouping.Add(new_group);
                             }
                         }
-                        else
+
+                        if (chk_movement_filter.Checked)
                         {
-                            foreach (meta_grouping sub_group in groupings.ToList())
+                            if (player_level_grouping == null || !player_level_grouping.Any())
                             {
-                                for(int i = 0; i < build.movement.Count(); i++)
+                                foreach (part_loader.Movement movement in build.movement)
                                 {
-                                    if (i == 0)
+                                    meta_grouping new_group = new_grouping();
+                                    new_group.movement = translate.translate_string(movement.name, session, translations);
+                                    new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                    player_level_grouping.Add(new_group);
+                                }
+                            }
+                            else
+                            {
+                                foreach (meta_grouping sub_group in player_level_grouping.ToList())
+                                {
+                                    for (int i = 0; i < build.movement.Count(); i++)
                                     {
-                                        sub_group.movement = translate.translate_string(build.movement[i].name, session, translations);
-                                    }
-                                    else
-                                    {
-                                        meta_grouping new_group = new_grouping();
-                                        new_group.weapon = sub_group.weapon;
-                                        new_group.movement = translate.translate_string(build.movement[i].name, session, translations);
-                                        new_group.stats = player.Value.stats;
-                                        groupings.Add(new_group);
+                                        if (i == 0)
+                                        {
+                                            sub_group.movement = translate.translate_string(build.movement[i].name, session, translations);
+                                        }
+                                        else
+                                        {
+                                            meta_grouping new_group = new_grouping();
+                                            new_group.weapon = sub_group.weapon;
+                                            new_group.movement = translate.translate_string(build.movement[i].name, session, translations);
+                                            new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                            player_level_grouping.Add(new_group);
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    if (chk_cabin_filter.Checked)
-                    {
-                        if (groupings == null || !groupings.Any())
+                        if (chk_cabin_filter.Checked)
                         {
-                            meta_grouping new_group = new_grouping();
-                            new_group.cabin = translate.translate_string(build.cabin.name, session, translations);
-                            new_group.stats = player.Value.stats;
-                            groupings.Add(new_group);
+                            if (player_level_grouping == null || !player_level_grouping.Any())
+                            {
+                                meta_grouping new_group = new_grouping();
+                                new_group.cabin = translate.translate_string(build.cabin.name, session, translations);
+                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                player_level_grouping.Add(new_group);
+                            }
+                            else
+                            {
+                                foreach (meta_grouping sub_group in player_level_grouping)
+                                    sub_group.cabin = translate.translate_string(build.cabin.name, session, translations);
+                            }
                         }
-                        else
+
+
+                        if (chk_map_filter.Checked)
                         {
-                            foreach (meta_grouping sub_group in groupings)
-                                sub_group.cabin = translate.translate_string(build.cabin.name, session, translations);
+                            if (player_level_grouping == null || !player_level_grouping.Any())
+                            {
+                                meta_grouping new_group = new_grouping();
+                                new_group.map = translate.translate_string(match.match_data.map_name, session, translations);
+                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                player_level_grouping.Add(new_group);
+                            }
+                            else
+                            {
+                                foreach (meta_grouping sub_group in player_level_grouping)
+                                    sub_group.map = translate.translate_string(match.match_data.map_name, session, translations);
+                            }
                         }
-                    }
+                        #endregion
+                        foreach (meta_grouping sub_group in player_level_grouping)
+                        {
+                            bool found = false;
+                            for (int i = 0; i < round_level_grouping.Count(); i++)
+                            {
+                                if (round_level_grouping[i].cabin == sub_group.cabin &&
+                                    round_level_grouping[i].movement == sub_group.movement &&
+                                    round_level_grouping[i].weapon == sub_group.weapon &&
+                                    round_level_grouping[i].map == sub_group.map)
+                                {
+                                    found = true;
+                                    round_level_grouping[i].total_seen += 1;
+                                    round_level_grouping[i].stats = file_trace_managment.sum_stats(round_level_grouping[i].stats, round.players.First(x => x.nickname == player.nickname).stats);
+                                }
+                            }
+
+                            if (!found)
+                                round_level_grouping.Add(sub_group);
+                        }
                         
-
-                    if (chk_map_filter.Checked)
-                    {
-                        if (groupings == null || !groupings.Any())
-                        {
-                            meta_grouping new_group = new_grouping();
-                            new_group.map = translate.translate_string(match.match_data.map_name, session, translations);
-                            new_group.stats = player.Value.stats;
-                            groupings.Add(new_group);
-                        }
-                        else
-                        {
-                            foreach (meta_grouping sub_group in groupings)
-                                sub_group.map = translate.translate_string(match.match_data.map_name, session, translations);
-                        }
                     }
 
-                    foreach (meta_grouping sub_group in groupings)
+                    foreach (meta_grouping sub_group in round_level_grouping)
                     {
                         bool found = false;
-                        for (int i = 0; i < match_stats.Count(); i++)
+                        for (int i = 0; i < match_level_grouping.Count(); i++)
                         {
-                            if (match_stats[i].cabin == sub_group.cabin &&
-                                match_stats[i].movement == sub_group.movement &&
-                                match_stats[i].weapon == sub_group.weapon &&
-                                match_stats[i].map == sub_group.map)
+                            if (match_level_grouping[i].cabin == sub_group.cabin &&
+                                match_level_grouping[i].movement == sub_group.movement &&
+                                match_level_grouping[i].weapon == sub_group.weapon &&
+                                match_level_grouping[i].map == sub_group.map)
                             {
                                 found = true;
-                                match_stats[i].stats = file_trace_managment.sum_stats(match_stats[i].stats, player.Value.stats);
+                                match_level_grouping[i].rounds += 1;
+                                match_level_grouping[i].total_seen += sub_group.total_seen;
+
+                                match_level_grouping[i].stats = file_trace_managment.sum_stats(match_level_grouping[i].stats, sub_group.stats);
                             }
                         }
                         if (!found)
-                            match_stats.Add(sub_group);
+                            match_level_grouping.Add(sub_group);
                     }
                 }
-                foreach (meta_grouping sub_group in match_stats)
+                foreach (meta_grouping sub_group in match_level_grouping)
                 {
                     bool found = false;
                     for (int i = 0; i < master_groupings.Count(); i++)
@@ -219,11 +254,22 @@ namespace CO_Driver
                         {
                             found = true;
                             master_groupings[i].games += 1;
+                            master_groupings[i].rounds += sub_group.rounds;
+                            master_groupings[i].total_seen += sub_group.total_seen;
+                            if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
+                                master_groupings[i].wins += 1;
+
                             master_groupings[i].group.stats = file_trace_managment.sum_stats(master_groupings[i].group.stats, sub_group.stats);
                         }
                     }
                     if (!found)
-                        master_groupings.Add(new master_meta_grouping { games = 1, group = sub_group });
+                    {
+                        if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
+                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 1, rounds = sub_group.rounds,  group = sub_group });
+                        else
+                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 0, rounds = sub_group.rounds,  group = sub_group });
+                    }
+                        
                 }
 
             }
@@ -239,7 +285,7 @@ namespace CO_Driver
 
         private meta_grouping new_grouping()
         {
-            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "" };
+            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "", rounds = 1, total_seen = 1, stats = file_trace_managment.new_stats()};
         }
         private void populate_meta_detail_screen_elements()
         {
@@ -262,21 +308,24 @@ namespace CO_Driver
             foreach (master_meta_grouping group in master_groupings)
             {
                 DataGridViewRow row = (DataGridViewRow)dg_meta_detail_view.Rows[0].Clone();
+
+                MessageBox.Show(string.Format(@"weapons:{0} total_seen:{1} rounds:{2} games: {3}", group.group.weapon, (double)group.total_seen, (double)group.rounds, (double)group.games));
+
                 row.Cells[0].Value = group.group.weapon;
                 row.Cells[1].Value = group.group.cabin;
                 row.Cells[2].Value = group.group.movement;
                 row.Cells[3].Value = group.group.map;
                 row.Cells[4].Value = group.games;
                 row.Cells[5].Value = (double)group.games / (double)total_games;
-                row.Cells[6].Value = (double)group.group.stats.games / (double)group.games;
-                row.Cells[7].Value = (double)group.group.stats.kills / (double)group.group.stats.rounds;
-                row.Cells[8].Value = (double)group.group.stats.assists / (double)group.group.stats.rounds;
-                row.Cells[9].Value = (double)group.group.stats.deaths / (double)group.group.stats.rounds;
-                row.Cells[10].Value = (double)group.group.stats.damage / (double)group.group.stats.rounds;
-                row.Cells[11].Value = (double)group.group.stats.damage_taken / (double)group.group.stats.rounds;
-                row.Cells[12].Value = (double)group.group.stats.score / (double)group.group.stats.rounds;
-                row.Cells[13].Value = (double)group.group.stats.wins / (double)group.group.stats.games;
-                row.Cells[14].Value = (((double)group.group.stats.wins / (double)group.group.stats.games) - global_enemy_win_percent);
+                row.Cells[6].Value = (double)group.total_seen / (double)group.rounds;
+                row.Cells[7].Value = (double)group.group.stats.kills / (double)group.total_seen;
+                row.Cells[8].Value = (double)group.group.stats.assists / (double)group.total_seen;
+                row.Cells[9].Value = (double)group.group.stats.deaths / (double)group.total_seen;
+                row.Cells[10].Value = (double)group.group.stats.damage / (double)group.total_seen;
+                row.Cells[11].Value = (double)group.group.stats.damage_taken / (double)group.total_seen;
+                row.Cells[12].Value = (double)group.group.stats.score / (double)group.total_seen;
+                row.Cells[13].Value = (double)group.wins / (double)group.games;
+                row.Cells[14].Value = (((double)group.wins / (double)group.games) - global_enemy_win_percent);
                 dg_meta_detail_view.Rows.Add(row);
             }
 

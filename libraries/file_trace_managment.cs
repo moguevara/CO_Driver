@@ -76,11 +76,11 @@ namespace CO_Driver
             public int current_game_log_day_offset { get; set; }
             public int previous_combat_event { get; set; }
             public int previous_game_event { get; set; }
+            public bool ready_to_add_round { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
             public PendingMatchAttributes pending_attributes { get; set; }
-            
             public Dictionary<string, BuildRecord> player_build_records { get; set; }
             public List<MatchRecord> match_history { get; set; }
             public StaticRecordDB static_records { get; set; }
@@ -101,7 +101,6 @@ namespace CO_Driver
             public MatchData match_data { get; set; }
         }
 
-
         public class MatchData
         {
             public string map_name { get; set; }
@@ -117,6 +116,11 @@ namespace CO_Driver
             public string win_reason { get; set; }
             public string game_result { get; set; }
             public string game_play_value { get; set; }
+            public int round_winner { get; set; }
+            public string round_win_reason { get; set; }
+            public DateTime round_start_time { get; set; }
+            public DateTime round_end_time { get; set; }
+            public int round_count { get; set; }
             public string client_version { get; set; }
             public DateTime match_start { get; set; }
             public DateTime match_end { get; set; }
@@ -132,18 +136,17 @@ namespace CO_Driver
             public AssistTracking assist_tracking { get; set; }
             public List<DamageRecord> damage_record { get; set; }
             public Dictionary<string, Player> player_records { get; set; }
-            public List<RoundData> rounds { get; set; }            
+            public List<RoundRecord> round_records { get; set; }
         }
 
-        public class RoundData
+        public class RoundRecord
         {
+            public int round { get; set; }
             public int winning_team { get; set; }
             public string win_reason { get; set; }
             public DateTime round_start { get; set; }
             public DateTime round_end { get; set; }
-            public string nemesis { get; set; }
-            public Dictionary<string, Player> player_records { get; set; }
-
+            public List<Player> players { get; set; }
         }
 
         public class AssistTracking
@@ -179,6 +182,7 @@ namespace CO_Driver
             public string nickname { get; set; }
             public int uid { get; set; }
             public int party_id { get; set; }
+            public int round { get; set; }
             public string build_hash { get; set; }
             public int power_score { get; set; }
             public int bot { get; set; }
@@ -297,6 +301,7 @@ namespace CO_Driver
             Current_session.current_game_log_day_offset = 0;
             Current_session.previous_combat_event = 0;
             Current_session.previous_game_event = 0;
+            Current_session.ready_to_add_round = false;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
@@ -501,8 +506,11 @@ namespace CO_Driver
             Current_session.current_match.map_desc = map_name;
             Current_session.current_match.client_version = Current_session.client_version;
             Current_session.current_match.game_play_value = game_play;
+            
             Current_session.current_match.match_start = Current_session.current_combat_log_time;
             Current_session.current_match.match_end = Current_session.current_combat_log_time;
+            Current_session.current_match.round_start_time = Current_session.current_combat_log_time;
+            Current_session.current_match.round_end_time = Current_session.current_combat_log_time;
 
             Current_session.current_match.queue_start = Current_session.queue_start_time;
             Current_session.current_match.queue_end = Current_session.current_combat_log_time;
@@ -512,6 +520,8 @@ namespace CO_Driver
 
             if (Current_session.current_match.queue_start >= Current_session.current_match.queue_end)
                 Current_session.current_match.queue_end = Current_session.current_match.queue_start.AddSeconds(4); /* don't judge me bro */
+
+            add_round_record(Current_session);
 
             Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = true;
@@ -596,15 +606,6 @@ namespace CO_Driver
 
         }
 
-        //public class RoundData
-        //{
-        //    public int winning_team { get; set; }
-        //    public DateTime round_start { get; set; }
-        //    public DateTime round_end { get; set; }
-        //    public string nemesis { get; set; }
-        //    public Dictionary<string, Player> player_records { get; set; }
-        //}
-
         public static void clan_war_round_end_event(string line, SessionStats Current_session)
         {
             //21:41:27.520| ===== Best Of N round 2 finish, reason: no_cars, winner team 2, win reason: MORE_CARS_LEFT, battle time: 190.2 sec =====
@@ -615,19 +616,11 @@ namespace CO_Driver
                 MessageBox.Show(string.Format(@"Error with line {0}", line));
                 return;
             }
-
-            foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
-                entry.Value.stats.rounds = entry.Value.stats.rounds + 1;
-
-            RoundData new_round = new_round_data();
-            new_round.winning_team = Int32.Parse(line_results.Groups["winning_team"].Value);
-            new_round.win_reason = line_results.Groups["win_reason"].Value.Replace(" ", "");
-            new_round.nemesis = Current_session.current_match.nemesis;
-
-            foreach (KeyValuePair<string, Player> player in Current_session.current_match.player_records)
-                new_round.player_records.Add(player.Key, player.Value);
-
-            Current_session.current_match.rounds.Add(new_round);
+            Current_session.current_match.round_winner = Int32.Parse(line_results.Groups["winning_team"].Value);
+            Current_session.current_match.round_win_reason = line_results.Groups["win_reason"].Value.Replace(" ", "");
+            Current_session.current_match.round_end_time = Current_session.current_combat_log_time;
+            finalize_round_record(Current_session);
+            Current_session.ready_to_add_round = true;
         }
 
         public static void match_end_event(string line, SessionStats Current_session)
@@ -851,6 +844,7 @@ namespace CO_Driver
                 return;
 
             Current_session.in_match = false;
+            Current_session.ready_to_add_round = false;
             
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
@@ -861,11 +855,13 @@ namespace CO_Driver
             Current_session.current_match.server_port = Current_session.pending_attributes.server_port;
             Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes.attributes);
             Current_session.pending_attributes = new_pending_attributes();
+            Current_session.ready_to_add_round = false;
 
 
             assign_build_parts(Current_session);
             classify_match(Current_session);
             classify_local_user_build(Current_session);
+            finalize_round_record(Current_session);
 
             foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
             {
@@ -1043,6 +1039,46 @@ namespace CO_Driver
             Current_session.match_history.Add(match_record);
         }
 
+        public static void add_round_record(SessionStats Current_session)
+        {
+            RoundRecord round_record = new RoundRecord { };
+            round_record.players = new List<Player> { };
+            round_record.round = Current_session.current_match.round_records.Count() + 1;
+            Current_session.current_match.round_start_time = Current_session.current_combat_log_time;
+            Current_session.current_match.round_records.Add(round_record);
+            Current_session.ready_to_add_round = false;
+
+            //MessageBox.Show(string.Format(@"adding round {0}", Current_session.current_match.round_records.Count()));
+        }
+
+        public static void finalize_round_record(SessionStats Current_session)
+        {
+            Current_session.current_match.round_records.Last().winning_team = Current_session.current_match.winning_team;
+            Current_session.current_match.round_records.Last().win_reason = Current_session.current_match.round_win_reason;
+            Current_session.current_match.round_records.Last().round_start = Current_session.current_match.round_start_time;
+            Current_session.current_match.round_records.Last().round_end = Current_session.current_match.round_end_time;
+
+            foreach (KeyValuePair<string, Player> player in Current_session.current_match.player_records)
+            {
+                Player current_player = new_player();
+                current_player.nickname = player.Value.nickname;
+                current_player.uid = player.Value.uid;
+                current_player.bot = player.Value.bot;
+                current_player.party_id = player.Value.party_id;
+                current_player.build_hash = player.Value.build_hash;
+                current_player.power_score = player.Value.power_score;
+                current_player.team = player.Value.team;
+                current_player.stats = sum_stats(player.Value.stats, current_player.stats);
+                current_player.scores = new List<Score> { };
+                current_player.stripes = new List<string> { };
+
+                for (int i = 0; i < Current_session.current_match.round_records.Count(); i++)
+                    if (Current_session.current_match.round_records[i].players.Any(x => x.nickname == player.Key))
+                        current_player.stats = sub_stats(current_player.stats, Current_session.current_match.round_records[i].players.First(x => x.nickname == player.Key).stats);
+
+                Current_session.current_match.round_records.Last().players.Add(current_player);
+            }
+        }
         private static void assign_build_parts(SessionStats Current_session)
         {
             foreach (KeyValuePair<string, Player> player in Current_session.current_match.player_records)
@@ -1079,36 +1115,6 @@ namespace CO_Driver
                 Current_session.player_build_records[player.Value.build_hash] = local_build;
             }
         }
-
-        //private static void assign_local_user_build_parts(SessionStats Current_session)
-        //{
-        //    if (!Current_session.player_build_records.ContainsKey(Current_session.current_match.player_records[Current_session.local_user].build_hash))
-        //        MessageBox.Show("unable to find " + Current_session.current_match.player_records[Current_session.local_user].build_hash);
-
-        //    BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash];
-
-        //    foreach (string part in Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash].parts)
-        //    {
-        //        if (Current_session.static_records.global_cabin_dict.ContainsKey(part))
-        //            local_build.cabin = Current_session.static_records.global_cabin_dict[part];
-        //        else
-        //        if (Current_session.static_records.global_engine_dict.ContainsKey(part))
-        //            local_build.engine = Current_session.static_records.global_engine_dict[part];
-        //        else
-        //        if (Current_session.static_records.global_weapon_dict.ContainsKey(part) && local_build.weapons.Where(x => x.name == part).Count() == 0)
-        //            local_build.weapons.Add(Current_session.static_records.global_weapon_dict[part]);
-        //        else
-        //        if (Current_session.static_records.global_movement_dict.ContainsKey(part) && local_build.movement.Where(x => x.name == part).Count() == 0)
-        //            local_build.movement.Add(Current_session.static_records.global_movement_dict[part]);
-        //        else
-        //        if (Current_session.static_records.global_module_dict.ContainsKey(part) && local_build.modules.Where(x => x.name == part).Count() == 0)
-        //            local_build.modules.Add(Current_session.static_records.global_module_dict[part]);
-        //        else
-        //        if (Current_session.static_records.global_explosives_dict.ContainsKey(part) && local_build.explosives.Where(x => x.name == part).Count() == 0)
-        //            local_build.explosives.Add(Current_session.static_records.global_explosives_dict[part]);
-        //    }
-        //    Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash] = local_build;
-        //}
 
         public static void assign_client_version_event(string line, SessionStats Current_session)
         {
@@ -1176,6 +1182,9 @@ namespace CO_Driver
                 new_build.power_score = power_score;
                 Current_session.player_build_records.Add(build_hash, new_build);
             }
+
+            if (Current_session.ready_to_add_round == true)
+                add_round_record(Current_session);
         }
 
         public static void spawn_player_event(string line, SessionStats Current_session)
@@ -1230,6 +1239,8 @@ namespace CO_Driver
                 new_build.power_score = 0;
                 Current_session.player_build_records.Add(build_hash, new_build);
             }
+            if (Current_session.ready_to_add_round == true)
+                add_round_record(Current_session);
         }
 
         public static void add_mob_event(string line, SessionStats Current_session)
@@ -1336,21 +1347,25 @@ namespace CO_Driver
             if (!Current_session.current_match.player_records.ContainsKey(victim))
                 return;
 
-            foreach (DamageRecord record in Current_session.current_match.damage_record)
+            if (attacker == Current_session.local_user || victim == Current_session.local_user)
             {
-                if (attacker == record.attacker &&
-                    victim == record.victim &&
-                    weapon_name == record.weapon)
+                //MessageBox.Show(string.Format(@"Error with line {0}-{1}-{2}", attacker, victim, Current_session.local_user));
+                foreach (DamageRecord record in Current_session.current_match.damage_record)
                 {
-                    found_damage_record = true;
-                    record.damage += damage;
-                    break;
+                    if (attacker == record.attacker &&
+                        victim == record.victim &&
+                        weapon_name == record.weapon)
+                    {
+                        found_damage_record = true;
+                        record.damage += damage;
+                        break;
+                    }
                 }
+
+                if (!found_damage_record)
+                    Current_session.current_match.damage_record.Add(new DamageRecord { attacker = attacker, victim = victim, weapon = weapon_name, damage = damage });
             }
-
-            if (!found_damage_record)
-                Current_session.current_match.damage_record.Add(new DamageRecord { attacker = attacker, victim = victim, weapon = weapon_name, damage = damage });
-
+            
             if (attacker != victim)
             {
                 if (Current_session.player_build_records.ContainsKey(Current_session.current_match.player_records[attacker].build_hash))
@@ -1607,8 +1622,6 @@ namespace CO_Driver
                     return "Undefined";
             }
         }
-
-        
 
         private static void classify_local_user_build(SessionStats Current_session)
         {
@@ -1873,6 +1886,7 @@ namespace CO_Driver
                 uid = 0,
                 bot = 0,
                 party_id = 0,
+                round = 0,
                 build_hash = "",
                 power_score = 0,
                 team = 0,
@@ -1982,6 +1996,9 @@ namespace CO_Driver
                 gameplay_desc = "",
                 winning_team = -1,
                 win_reason = "",
+                round_winner = -1,
+                round_win_reason = "",
+                round_count = 1,
                 nemesis = "",
                 game_result = "",
                 game_play_value = "",
@@ -1999,20 +2016,7 @@ namespace CO_Driver
                 assist_tracking = new AssistTracking { },
                 damage_record = new List<DamageRecord> { },
                 player_records = new Dictionary<string, Player> { },
-                rounds = new List<RoundData> { }
-            };
-        }
-
-        public static RoundData new_round_data()
-        {
-            return new RoundData
-            {
-                winning_team = -1,
-                win_reason = "",
-                round_start = new DateTime { },
-                round_end = new DateTime { },
-                nemesis = "",
-                player_records = new Dictionary<string, Player> { }
+                round_records = new List<RoundRecord> { }
             };
         }
 

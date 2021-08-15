@@ -112,11 +112,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CrossoutMarket\Crossout.AspWeb\Models\API\v2\MatchEntry.cs">
-      <Link>libraries\MatchEntry.cs</Link>
-    </Compile>
     <Compile Include="libraries\filter.cs" />
     <Compile Include="libraries\market.cs" />
+    <Compile Include="libraries\MatchEntry.cs" />
     <Compile Include="libraries\theme.cs" />
     <Compile Include="libraries\translate.cs" />
     <Compile Include="libraries\ui_translate.cs" />
