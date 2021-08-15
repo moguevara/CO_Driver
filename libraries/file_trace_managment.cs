@@ -562,7 +562,6 @@ namespace CO_Driver
 
         public static void connection_made_event(string line, SessionStats Current_session)
         {
-            //Current_session.queue_end_time = Current_session.current_game_log_time;
         }
         
         public static void queue_start_event(string line, SessionStats Current_session)
@@ -573,19 +572,10 @@ namespace CO_Driver
 
         public static void queue_update_event(string line, SessionStats Current_session)
         {
-            //if (line.Contains("true") && Current_session.queue_start_time == DateTime.MinValue)
-            //    Current_session.queue_start_time = Current_session.current_game_log_time;
-
-            //if (line.Contains("true") && Current_session.previous_game_event != global_data.QUEUE_UPDATE_EVENT)
-            //    Current_session.queue_start_time = Current_session.current_game_log_time;
-
-            //if (line.Contains("false") && Current_session.queue_start_time != DateTime.MinValue)
-            //    Current_session.queue_start_time = DateTime.MinValue;
         }
 
         public static void queue_end_event(string line, SessionStats Current_session)
         {
-            //Current_session.queue_start_time = DateTime.MinValue;
         }
 
         public static void gameplay_start_event(string line, SessionStats Current_session)
