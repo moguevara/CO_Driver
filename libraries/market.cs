@@ -106,7 +106,6 @@ namespace CO_Driver{
                     string crossoutdb_json = responseReader.ReadToEnd();
                     market_items =  JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
 
-
                     return market_items;
                 }
             }

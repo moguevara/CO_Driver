@@ -20,11 +20,11 @@ namespace CO_Driver.libraries
                 if (match.match_data.server_guid == 0)
                     continue;
 
-
+                Crossout.AspWeb.Models.API.v2.MatchEntry match_upload = populate_match_entry(match);
             }
         }
 
-        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
+        private static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
         {
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
@@ -40,32 +40,78 @@ namespace CO_Driver.libraries
             match_entry.win_conidtion = 1; /*TODO*/
             match_entry.client_version = match.match_data.client_version;
             match_entry.game_server = match.match_data.server_ip;
-            match_entry.rounds = populate_round_entry(match);
+            match_entry.rounds = populate_round_entrys(match);
 
             return match_entry;
         }
 
-        public static List<Crossout.AspWeb.Models.API.v2.RoundEntry> populate_round_entry(file_trace_managment.MatchRecord match)
+        private static List<Crossout.AspWeb.Models.API.v2.RoundEntry> populate_round_entrys(file_trace_managment.MatchRecord match)
         {
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
             //new_round.players = match.match_data.player_records;
 
+            int i = 0;
+            foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+            {
+                new_round = new Crossout.AspWeb.Models.API.v2.RoundEntry { };
+                new_round.match_id = match.match_data.server_guid;
+                new_round.round_id = i;
+                new_round.round_start = round.round_start.ToUniversalTime();
+                new_round.round_end = round.round_end.ToUniversalTime();
+                new_round.winning_team = round.winning_team;
+                new_round.players = new List<Crossout.AspWeb.Models.API.v2.MatchPlayerEntry> { };
 
-            //foreach (file_trace_managment.RoundData round in match.match_data.rounds)
-            //{
-            //    new_round = new Crossout.AspWeb.Models.API.v2.RoundEntry { };
-            //    new_round.match_id = match.match_data.server_guid;
-            //    new_round.round_id = 0;
-            //    new_round.round_start = round.round_start.ToUniversalTime();
-            //    new_round.round_end = round.round_end.ToUniversalTime();
-            //    new_round.winning_team = round.winning_team;
-            //    new_round.players = new List<Crossout.AspWeb.Models.API.v2.PlayerEntry> { };
-            //    new_round.damage_records = new List<Crossout.AspWeb.Models.API.v2.DamageEntry> { };
-            //    rounds.Add(new_round);
-            //}
+                foreach (file_trace_managment.Player player in round.players)
+                {
+                    Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry { };
+                    new_player.match_id = match.match_data.server_guid;
+                    new_player.round_id = i;
+                    new_player.uid = player.uid;
+                    new_player.team = player.team;
+                    new_player.build_hash = player.build_hash;
+                    new_player.kills = player.stats.kills;
+                    new_player.assists = player.stats.assists;
+                    new_player.drone_kills = player.stats.drone_kills;
+                    new_player.score = player.stats.drone_kills;
+                    new_player.damage = player.stats.damage;
+                    new_player.damage_taken = player.stats.damage_taken;
+                }
+                rounds.Add(new_round);
+                i++;
+            }
 
             return rounds;
+        }
+
+        private static void upload_match_to_crossoutdb(Crossout.AspWeb.Models.API.v2.MatchEntry match)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v1/items?category=Resources");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Timeout = 30000;
+            using (Stream webStream = request.GetRequestStream())
+            using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
+            {
+                requestWriter.Write(@"{""object"":{""name"":""Name""}}");
+            }
+
+            try
+            {
+                WebResponse webResponse = request.GetResponse();
+
+                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
+                using (StreamReader responseReader = new StreamReader(webStream))
+                {
+                    string crossoutdb_json = responseReader.ReadToEnd();
+                    //market_items = JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+            }
         }
     }
 }

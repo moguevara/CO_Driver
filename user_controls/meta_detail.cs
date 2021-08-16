@@ -299,8 +299,8 @@ namespace CO_Driver
             dg_meta_detail_view.Columns[7].DefaultCellStyle.Format = "N2";
             dg_meta_detail_view.Columns[8].DefaultCellStyle.Format = "N2";
             dg_meta_detail_view.Columns[9].DefaultCellStyle.Format = "N2";
-            dg_meta_detail_view.Columns[10].DefaultCellStyle.Format = "N1";
-            dg_meta_detail_view.Columns[11].DefaultCellStyle.Format = "N1";
+            dg_meta_detail_view.Columns[10].DefaultCellStyle.Format = "N0";
+            dg_meta_detail_view.Columns[11].DefaultCellStyle.Format = "N0";
             dg_meta_detail_view.Columns[12].DefaultCellStyle.Format = "N0";
             dg_meta_detail_view.Columns[13].DefaultCellStyle.Format = "P2";
             dg_meta_detail_view.Columns[14].DefaultCellStyle.Format = "P2";
@@ -309,7 +309,7 @@ namespace CO_Driver
             {
                 DataGridViewRow row = (DataGridViewRow)dg_meta_detail_view.Rows[0].Clone();
 
-                MessageBox.Show(string.Format(@"weapons:{0} total_seen:{1} rounds:{2} games: {3}", group.group.weapon, (double)group.total_seen, (double)group.rounds, (double)group.games));
+                //MessageBox.Show(string.Format(@"weapons:{0} total_seen:{1} rounds:{2} games: {3}", group.group.weapon, (double)group.total_seen, (double)group.rounds, (double)group.games));
 
                 row.Cells[0].Value = group.group.weapon;
                 row.Cells[1].Value = group.group.cabin;

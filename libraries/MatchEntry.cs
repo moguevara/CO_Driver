@@ -29,12 +29,12 @@ namespace Crossout.AspWeb.Models.API.v2
         public DateTime round_start { get; set; }
         public DateTime round_end { get; set; }
         public int winning_team { get; set; }
-        public List<PlayerEntry> players { get; set; }
-        public List<DamageEntry> damage_records { get; set; }
+        public List<MatchPlayerEntry> players { get; set; }
     }
 
-    public class PlayerEntry
+    public class MatchPlayerEntry
     {
+        public long match_id { get; set; }
         public int round_id { get; set; }
         public int uid { get; set; }
         public int team { get; set; }
@@ -43,16 +43,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public int assists { get; set; }
         public int drone_kills { get; set; }
         public int score { get; set; }
-        public float damage { get; set; }
-        public float damage_recieved { get; set; }
-    }
-
-    public class DamageEntry
-    {
-        public int round_id { get; set; }
-        public int attacker_uid { get; set; }
-        public int victim_uid { get; set; }
-        public string weapon { get; set; }
-        public float damage { get; set; }
+        public double damage { get; set; }
+        public double damage_taken { get; set; }
     }
 }
