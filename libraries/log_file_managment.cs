@@ -36,6 +36,7 @@ namespace CO_Driver
             public int dawns_children_level { get; set; }
             public int firestarts_level { get; set; }
             public int founders_level { get; set; }
+            public bool upload_data { get; set; }
             public bool include_prestigue_parts { get; set; }
             public bool save_captures { get; set; }
             public bool twitch_mode { get; set; }
@@ -74,6 +75,7 @@ namespace CO_Driver
                 dawns_children_level = 15,
                 firestarts_level = 15,
                 founders_level = 75,
+                upload_data = false,
                 save_captures = true,
                 twitch_mode = false,
                 bundle_ram_mode = true,
@@ -284,7 +286,7 @@ namespace CO_Driver
 
             //if (global_data.supporters.Contains(session.local_user_name))
             //{
-                foreach(theme.ui_theme theme in theme.themes)
+                foreach(Theme.ui_theme theme in Theme.themes)
                 {
                     if (session.selected_theme == theme.name)
                         valid_theme = true;
@@ -301,7 +303,7 @@ namespace CO_Driver
                 session.selected_theme = "Terminal";
             }
 
-            foreach (theme.ui_theme theme in theme.themes)
+            foreach (Theme.ui_theme theme in Theme.themes)
             {
                 if (session.selected_theme == theme.name)
                 {
@@ -457,7 +459,6 @@ namespace CO_Driver
             }
 
             session.local_user_name = session.valid_users.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            session.local_user_uid = 0;
         }
     }
 }

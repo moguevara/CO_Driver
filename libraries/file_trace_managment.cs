@@ -280,7 +280,7 @@ namespace CO_Driver
             Current_session.in_garage = false;
             Current_session.current_match = new_match_data();
             Current_session.local_user = local_session_variables.local_user_name;
-            Current_session.local_user_uid = local_session_variables.local_user_uid;
+            Current_session.local_user_uid = 0;
             Current_session.current_event = 0;
             Current_session.garage_data = new GarageData { };
             Current_session.garage_data.garage_start = new DateTime { };
@@ -1146,6 +1146,9 @@ namespace CO_Driver
             int party_id = Int32.Parse(line_results.Groups["party_id"].Value);
             int team = Int32.Parse(line_results.Groups["team"].Value);
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
+
+            if (Current_session.local_user_uid == 0 && player_name == Current_session.local_user)
+                Current_session.local_user_uid = uid;
 
             if (Current_session.current_match.player_records.ContainsKey(player_name))
             {

@@ -23,8 +23,6 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
 
-
-
         public user_settings()
         {
             InitializeComponent();
@@ -37,7 +35,7 @@ namespace CO_Driver
             foreach (KeyValuePair<string, int> player in session.valid_users)
                 cmb_user_names.Items.Add(player.Key);
 
-            foreach (theme.ui_theme theme in theme.themes)
+            foreach (Theme.ui_theme theme in Theme.themes)
                 cmb_themes.Items.Add(theme.name);
 
             cmb_user_names.SelectedItem = session.local_user_name;
@@ -57,6 +55,7 @@ namespace CO_Driver
             chk_twitch_mode.Checked = session.twitch_mode;
             chk_group_ram.Checked = session.bundle_ram_mode;
             chk_save_screen_shots.Checked = session.save_captures;
+            chk_upload.Checked = session.upload_data;
         }
 
         private void save_user_settings(object sender, EventArgs e)
@@ -137,9 +136,10 @@ namespace CO_Driver
             session.twitch_mode = chk_twitch_mode.Checked;
             session.bundle_ram_mode = chk_group_ram.Checked;
             session.save_captures = chk_save_screen_shots.Checked;
+            session.upload_data = chk_upload.Checked;
 
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
-            foreach (theme.ui_theme theme in theme.themes)
+            foreach (Theme.ui_theme theme in Theme.themes)
             {
                 if (text == theme.name)
                 {
@@ -237,6 +237,7 @@ namespace CO_Driver
             chk_prestigue_parts.Checked = session.include_prestigue_parts;
             cmb_themes.SelectedItem = "Terminal";
             chk_save_screen_shots.Checked = session.save_captures;
+            chk_upload.Checked = session.upload_data;
             cmb_themes.SelectedIndex = 0;
             chk_twitch_mode.Checked = session.twitch_mode;
             chk_group_ram.Checked = session.bundle_ram_mode;
@@ -262,7 +263,7 @@ namespace CO_Driver
             if (e.Index > -1)
             {
                 string text = cmb_themes.Items[e.Index].ToString();
-                foreach (theme.ui_theme theme in theme.themes)
+                foreach (Theme.ui_theme theme in Theme.themes)
                 {
                     if (text == theme.name)
                     {
@@ -293,7 +294,7 @@ namespace CO_Driver
             //                            "This is the only restricted feature.";
             //}
 
-            foreach (theme.ui_theme theme in theme.themes)
+            foreach (Theme.ui_theme theme in Theme.themes)
             {
                 if (text == theme.name)
                 {

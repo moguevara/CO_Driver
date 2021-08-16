@@ -71,6 +71,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.chk_group_ram = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chk_upload = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).BeginInit();
@@ -663,11 +665,38 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.recalculate_logs);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Lime;
+            this.label11.Location = new System.Drawing.Point(3, 356);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(182, 14);
+            this.label11.TabIndex = 55;
+            this.label11.Text = "Upload data to CrossoutDB";
+            // 
+            // chk_upload
+            // 
+            this.chk_upload.AutoSize = true;
+            this.chk_upload.Checked = true;
+            this.chk_upload.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_upload.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_upload.ForeColor = System.Drawing.Color.Lime;
+            this.chk_upload.Location = new System.Drawing.Point(293, 358);
+            this.chk_upload.Name = "chk_upload";
+            this.chk_upload.Size = new System.Drawing.Size(12, 11);
+            this.chk_upload.TabIndex = 56;
+            this.chk_upload.UseVisualStyleBackColor = true;
+            // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.chk_upload);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chk_group_ram);
             this.Controls.Add(this.label7);
@@ -773,5 +802,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox chk_group_ram;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chk_upload;
     }
 }

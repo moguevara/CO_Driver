@@ -19,7 +19,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CO_Driver
 {
-    public class theme
+    public class Theme
     {
         public class ui_theme
         {

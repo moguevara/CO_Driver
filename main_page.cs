@@ -34,7 +34,8 @@ namespace CO_Driver
 
         public log_file_managment log_file_manager = new log_file_managment();
         public file_trace_managment file_trace_manager = new file_trace_managment();
-        public theme theme_manager = new theme { };
+        public Theme theme_manager = new Theme { };
+        public Upload uploader = new Upload { };
         public welcome_page welcome_screen = new welcome_page();
         public user_profile user_profile_page = new user_profile();
         public match_history match_history_page = new match_history();
@@ -451,6 +452,9 @@ namespace CO_Driver
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
+
+            Upload.upload_match_history(Current_session);
+
             System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
         }
