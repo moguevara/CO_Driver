@@ -16,17 +16,29 @@ namespace CO_Driver
         public static void upload_match_history(file_trace_managment.SessionStats Current_session)
         {
             List<long> previous_matchs = get_previously_uploaded_match_list(Current_session);
+            List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
 
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
-                if (match.match_data.server_guid == 0)
-                    continue;
-
                 if (previous_matchs.Contains(match.match_data.server_guid))
                     continue;
 
-                Crossout.AspWeb.Models.API.v2.MatchEntry match_upload = populate_match_entry(match);
+                if (match.match_data.server_guid == 0)
+                    continue;
+
+                if (!match.match_data.match_rewards.Any())
+                    continue;
+
+                if (match.match_data.winning_team == -1)
+                    continue;
+
+                upload_list.Add(populate_match_entry(match));
             }
+
+            MessageBox.Show(string.Format(@"uploading {0}", upload_list.Count));
+
+            if (upload_list.Any())
+                upload_match_list_to_crossoutdb(upload_list);
         }
 
         private static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
@@ -93,15 +105,12 @@ namespace CO_Driver
         {
             List<long> previous_matchs = new List<long> { };
 
-
 #if DEBUG
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
 #else
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
 #endif
-
-            MessageBox.Show("https://localhost:5001/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
 
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -121,7 +130,7 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    MessageBox.Show(crossoutdb_json);
+
                     List<string> previous_match_string = JsonConvert.DeserializeObject<List<string>>(crossoutdb_json);
                     foreach (string match in previous_match_string)
                         previous_matchs.Add(Convert.ToInt64(match));
@@ -129,14 +138,15 @@ namespace CO_Driver
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following problem occured when loading previous match list from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message);
+                //MessageBox.Show("The following problem occured when loading previous match list from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message);
             }
 
             return previous_matchs;
         }
 
-        private static void upload_match_to_crossoutdb(Crossout.AspWeb.Models.API.v2.MatchEntry match)
+        private static void upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
         {
+            return;
 
 #if DEBUG
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/GetCodUploadRecords?uid=");

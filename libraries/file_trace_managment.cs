@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -849,14 +850,19 @@ namespace CO_Driver
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
 
-            Current_session.current_match.server_guid = Current_session.pending_attributes.server_guid;
-            Current_session.current_match.client_guid = Current_session.pending_attributes.client_guid;
-            Current_session.current_match.server_ip = Current_session.pending_attributes.server_ip;
-            Current_session.current_match.server_port = Current_session.pending_attributes.server_port;
-            Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes.attributes);
+            if (Current_session.current_match.server_guid == 0 && Current_session.pending_attributes.server_guid != 0)
+            {
+                Current_session.current_match.server_guid = Current_session.pending_attributes.server_guid;
+                Current_session.current_match.client_guid = Current_session.pending_attributes.client_guid;
+                Current_session.current_match.server_ip = Current_session.pending_attributes.server_ip;
+                Current_session.current_match.server_port = Current_session.pending_attributes.server_port;
+            }
+            
+            if (!Current_session.current_match.match_attributes.Any() && Current_session.pending_attributes.attributes.Any())
+                Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes.attributes);
+
             Current_session.pending_attributes = new_pending_attributes();
             Current_session.ready_to_add_round = false;
-
 
             assign_build_parts(Current_session);
             classify_match(Current_session);
