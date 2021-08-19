@@ -114,7 +114,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(210, 14);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Co_Driver Saved File Location";
+            this.label5.Text = "CO_Driver Saved File Location";
             // 
             // label13
             // 

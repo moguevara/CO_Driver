@@ -106,14 +106,15 @@ namespace CO_Driver
             request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = 30000;
-            using (Stream webStream = request.GetRequestStream())
-            using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-            {
-                requestWriter.Write(@"{""object"":{""name"":""Name""}}");
-            }
-
+            
             try
             {
+                using (Stream webStream = request.GetRequestStream())
+                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
+                {
+                    requestWriter.Write(@"{""object"":{""name"":""Name""}}");
+                }
+
                 WebResponse webResponse = request.GetResponse();
 
                 using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)

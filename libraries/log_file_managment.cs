@@ -46,8 +46,8 @@ namespace CO_Driver
             public Color back_color { get; set; }
             public string client_version { get; set; }
             public List<string> parsed_logs { get; set; }
+            public Dictionary<string, int> uid_lookup { get; set; }
             public Dictionary<string, int> valid_users { get; set; }
-            
         }
 
         public session_variables new_session_variables()
@@ -85,6 +85,7 @@ namespace CO_Driver
                 include_prestigue_parts = true,
                 client_version = global_data.CURRENT_VERSION,
                 parsed_logs = new List<string> { },
+                uid_lookup = new Dictionary<string, int> { },
                 valid_users = new Dictionary<string, int> { }
             };
         }
@@ -102,8 +103,11 @@ namespace CO_Driver
 
             create_sub_directories(session);
             
-            if (!session.valid_users.ContainsKey(session.local_user_name))
+            if (!session.valid_users.ContainsKey(session.local_user_name) || !session.uid_lookup.ContainsKey(session.local_user_name))
                 find_local_user_name(session);
+
+            if (session.uid_lookup.ContainsKey(session.local_user_name))
+                session.local_user_uid = session.uid_lookup[session.local_user_name];
 
             assign_user_theme(session);
 
@@ -118,7 +122,7 @@ namespace CO_Driver
             
             try
             {
-                last_game_logs = new DirectoryInfo(session.historic_file_location).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToList();
+                last_game_logs = new DirectoryInfo(session.historic_file_location).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.Length).ToList();
             }
             catch (Exception ex)
             {
@@ -143,11 +147,15 @@ namespace CO_Driver
                             if (game_line.Contains(@"| TSConnectionManager: negotiation complete:"))
                             {
                                 string local_player_name = Regex.Match(game_line, @", nickName '(.+?)',").Groups[1].Value.Replace(" ", "");
+                                int uid = Convert.ToInt32(Regex.Match(game_line, @": uid (.+?), ").Groups[1].Value.Replace(" ", ""));
 
                                 if (session.valid_users.ContainsKey(local_player_name))
                                     session.valid_users[local_player_name] += 1;
                                 else
                                     session.valid_users.Add(local_player_name, 1);
+
+                                if (!session.uid_lookup.ContainsKey(local_player_name))
+                                    session.uid_lookup.Add(local_player_name, uid);
                             }
 
                             if (game_line.Contains(@"| Steam initialized appId"))
@@ -155,8 +163,6 @@ namespace CO_Driver
                                 string local_player_name = Regex.Match(game_line, @", userName '(.+?)'").Groups[1].Value.Replace(" ", "");
                                 if (session.valid_users.ContainsKey(local_player_name))
                                     session.valid_users[local_player_name] += 1;
-                                //else
-                                //    session.valid_users.Add(local_player_name, 1);
                             }
 
                             game_line = game_reader.ReadLine();
@@ -195,7 +201,6 @@ namespace CO_Driver
                     JsonSerializer serializer = new JsonSerializer();
                     loaded_session = (session_variables)serializer.Deserialize(file, typeof(session_variables));
                     loaded_session.valid_users = session.valid_users;
-                    //loaded_session.log_file_location = session.log_file_location;
 
                     if (valid_user_session(loaded_session))
                         return loaded_session;
@@ -284,19 +289,11 @@ namespace CO_Driver
         {
             bool valid_theme = false;
 
-            //if (global_data.supporters.Contains(session.local_user_name))
-            //{
-                foreach(Theme.ui_theme theme in Theme.themes)
-                {
-                    if (session.selected_theme == theme.name)
-                        valid_theme = true;
-                }
-            //}
-            //else
-            //{
-            //    if (session.selected_theme == "Terminal" || session.selected_theme == "Static")
-            //        valid_theme = true;
-            //}
+            foreach(Theme.ui_theme theme in Theme.themes)
+            {
+                if (session.selected_theme == theme.name)
+                    valid_theme = true;
+            }
 
             if (!valid_theme)
             {
