@@ -548,8 +548,9 @@ namespace CO_Driver
                 match_detail_page.build_records = response.build_records;
                 match_history_page.build_records = response.build_records;
                 user_profile_page.populate_user_profile_screen();
-                meta_detail_page.populate_meta_detail_screen();
                 revenue_page.populate_revenue_review_screen();
+                meta_detail_page.populate_meta_detail_screen();
+
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
@@ -559,7 +560,6 @@ namespace CO_Driver
                 match_history_page.history = response.match_history;
                 build_page.match_history = response;
                 match_history_page.refersh_history_table();
-                build_page.populate_build_record_table();
             }
             else
             if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
@@ -1118,7 +1118,14 @@ namespace CO_Driver
 
             bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
 
-            user_profile_page.force_refresh = true;
+            if (session.update_postmatch)
+            {
+                user_profile_page.force_refresh = true;
+                build_page.force_refresh = true;
+                match_history_page.force_refresh = true;
+                revenue_page.force_refresh = true;
+                meta_detail_page.force_refresh = true;
+            }
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);

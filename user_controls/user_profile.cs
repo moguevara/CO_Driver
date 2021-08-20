@@ -92,8 +92,6 @@ namespace CO_Driver
 
             force_refresh = false;
 
-
-
             previous_selection = new_selection;
 
             filter.reset_filters(filter_selections);

@@ -41,6 +41,7 @@ namespace CO_Driver
             public bool save_captures { get; set; }
             public bool twitch_mode { get; set; }
             public bool bundle_ram_mode { get; set; }
+            public bool update_postmatch { get; set; }
             public string selected_theme { get; set; }
             public Color fore_color { get; set; }
             public Color back_color { get; set; }
@@ -79,6 +80,7 @@ namespace CO_Driver
                 save_captures = true,
                 twitch_mode = false,
                 bundle_ram_mode = true,
+                update_postmatch = true,
                 selected_theme = "Terminal",
                 back_color = Color.Black,
                 fore_color = Color.Lime,

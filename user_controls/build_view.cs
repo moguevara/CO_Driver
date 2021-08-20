@@ -36,6 +36,7 @@ namespace CO_Driver
         private string client_versions_filter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
         private string new_selection = "";
         private string previous_selection = "";
+        public bool force_refresh = false;
 
         private List<string> game_modes = new List<string> { };
         private List<string> grouped = new List<string> { };
@@ -51,9 +52,6 @@ namespace CO_Driver
 
         private void populate_build_records()
         {
-            //translate.translate_string(map.Key,session, translations);
-            //ui_translate.translate(ctrl.Text, session, ui_translations);
-
             build_stats = new Dictionary<string, BuildStats> { };
 
             reset_filters();
@@ -236,8 +234,10 @@ namespace CO_Driver
         {
             new_selection = string.Format(@"{0},{1},{2},{3},{4}", game_mode_filter, group_filter, map_filter, power_score_filter, client_versions_filter);
 
-            if (new_selection == previous_selection)
+            if (!force_refresh && new_selection == previous_selection)
                 return;
+
+            force_refresh = false;
 
             previous_selection = new_selection;
 

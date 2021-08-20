@@ -73,6 +73,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.chk_upload = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.chk_update = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).BeginInit();
@@ -684,17 +686,44 @@
             this.chk_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_upload.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_upload.ForeColor = System.Drawing.Color.Lime;
-            this.chk_upload.Location = new System.Drawing.Point(293, 358);
+            this.chk_upload.Location = new System.Drawing.Point(295, 359);
             this.chk_upload.Name = "chk_upload";
             this.chk_upload.Size = new System.Drawing.Size(12, 11);
             this.chk_upload.TabIndex = 56;
             this.chk_upload.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Lime;
+            this.label8.Location = new System.Drawing.Point(3, 325);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(224, 14);
+            this.label8.TabIndex = 57;
+            this.label8.Text = "Update screens after each match";
+            // 
+            // chk_update
+            // 
+            this.chk_update.AutoSize = true;
+            this.chk_update.Checked = true;
+            this.chk_update.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_update.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_update.ForeColor = System.Drawing.Color.Lime;
+            this.chk_update.Location = new System.Drawing.Point(295, 327);
+            this.chk_update.Name = "chk_update";
+            this.chk_update.Size = new System.Drawing.Size(12, 11);
+            this.chk_update.TabIndex = 58;
+            this.chk_update.UseVisualStyleBackColor = true;
             // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.chk_update);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.chk_upload);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.button1);
@@ -804,5 +833,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chk_upload;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox chk_update;
     }
 }

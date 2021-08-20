@@ -56,6 +56,7 @@ namespace CO_Driver
             chk_group_ram.Checked = session.bundle_ram_mode;
             chk_save_screen_shots.Checked = session.save_captures;
             chk_upload.Checked = session.upload_data;
+            chk_update.Checked = session.update_postmatch;
         }
 
         private void save_user_settings(object sender, EventArgs e)
@@ -137,6 +138,7 @@ namespace CO_Driver
             session.bundle_ram_mode = chk_group_ram.Checked;
             session.save_captures = chk_save_screen_shots.Checked;
             session.upload_data = chk_upload.Checked;
+            session.update_postmatch = chk_update.Checked;
 
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
             foreach (Theme.ui_theme theme in Theme.themes)
@@ -238,6 +240,7 @@ namespace CO_Driver
             cmb_themes.SelectedItem = "Terminal";
             chk_save_screen_shots.Checked = session.save_captures;
             chk_upload.Checked = session.upload_data;
+            chk_update.Checked = session.update_postmatch;
             cmb_themes.SelectedIndex = 0;
             chk_twitch_mode.Checked = session.twitch_mode;
             chk_group_ram.Checked = session.bundle_ram_mode;

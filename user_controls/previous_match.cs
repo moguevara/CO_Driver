@@ -122,8 +122,6 @@ namespace CO_Driver
             string previous_attacker = "";
             bool first = true;
 
-
-
             foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.attacker).ThenByDescending(x => x.damage).ToList())
             {
                 if (damage_record.victim != match_data.local_player.nickname)
