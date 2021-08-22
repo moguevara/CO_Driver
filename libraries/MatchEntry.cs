@@ -7,9 +7,7 @@ namespace Crossout.AspWeb.Models.API.v2
     public class MatchEntry
     {
         public long match_id { get; set; }
-        public string status { get; set; }
         public int uploader_uid { get; set; }
-        public int validation_count { get; set; }
         public int match_type { get; set; }
         public DateTime match_start { get; set; }
         public DateTime match_end { get; set; }

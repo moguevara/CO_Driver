@@ -46,9 +46,7 @@ namespace CO_Driver
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
             match_entry.match_id = match.match_data.server_guid;
-            match_entry.status = "I";
             match_entry.uploader_uid = match.match_data.local_player.uid;
-            match_entry.validation_count = 1;
             match_entry.match_type = match.match_data.match_type;
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
