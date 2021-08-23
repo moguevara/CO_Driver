@@ -8,7 +8,7 @@ namespace Crossout.AspWeb.Models.API.v2
     {
         public long match_id { get; set; }
         public int uploader_uid { get; set; }
-        public int match_type { get; set; }
+        public string match_type { get; set; }
         public DateTime match_start { get; set; }
         public DateTime match_end { get; set; }
         public string map_name { get; set; }

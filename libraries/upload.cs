@@ -35,8 +35,6 @@ namespace CO_Driver
                 upload_list.Add(populate_match_entry(match));
             }
 
-            MessageBox.Show(string.Format(@"uploading {0}", upload_list.Count));
-
             if (upload_list.Any())
                 upload_match_list_to_crossoutdb(upload_list);
         }
@@ -47,13 +45,17 @@ namespace CO_Driver
 
             match_entry.match_id = match.match_data.server_guid;
             match_entry.uploader_uid = match.match_data.local_player.uid;
-            match_entry.match_type = match.match_data.match_type;
+            match_entry.match_type = match.match_data.match_type_desc;
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
             match_entry.map_name = match.match_data.map_name;
             match_entry.winning_team = match.match_data.winning_team;
             match_entry.win_conidtion = 1; /*TODO*/
-            match_entry.client_version = match.match_data.client_version;
+            match_entry.co_driver_version = global_data.CURRENT_VERSION;
+            if (match.match_data.client_version.Contains(" ")) 
+                match_entry.client_version = match.match_data.client_version.Split(' ')[0];
+            else
+                match_entry.client_version = match.match_data.client_version;
             match_entry.game_server = match.match_data.server_ip;
             match_entry.rounds = populate_round_entrys(match);
 
@@ -110,7 +112,7 @@ namespace CO_Driver
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
 #endif
 
-            request.Method = "POST";
+            request.Method = "GET";
             request.ContentType = "application/json";
             request.Timeout = 30000;
             
@@ -144,30 +146,31 @@ namespace CO_Driver
 
         private static void upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
         {
-            return;
-
-#if DEBUG
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/GetCodUploadRecords?uid=");
-#else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/GetCodUploadRecords?uid=" + Current_session.local_user_uid.ToString());
-#endif
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Timeout = 30000;
-            using (Stream webStream = request.GetRequestStream())
-            using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-            {
-                requestWriter.Write(@"{""object"":{""name"":""Name""}}");
-            }
-
             try
             {
+                string serialized_match_list = JsonConvert.SerializeObject(match_list);
+
+#if DEBUG
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_matchs");
+#else
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_matchs");
+#endif
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=UTF-8";
+                request.Timeout = 30000;
+                using (Stream webStream = request.GetRequestStream())
+                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
+                {
+                    requestWriter.Write(serialized_match_list);
+                }
+
                 WebResponse webResponse = request.GetResponse();
 
                 using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
+                    MessageBox.Show(crossoutdb_json);
                     //market_items = JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
                 }
             }
