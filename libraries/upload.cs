@@ -33,6 +33,12 @@ namespace CO_Driver
                     continue;
 
                 upload_list.Add(populate_match_entry(match));
+
+                if (upload_list.Count >= 50)
+                {
+                    upload_match_list_to_crossoutdb(upload_list);
+                    upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+                }
             }
 
             if (upload_list.Any())
@@ -81,6 +87,9 @@ namespace CO_Driver
 
                 foreach (file_trace_managment.Player player in round.players)
                 {
+                    if (player.bot == 1)
+                        continue;
+
                     Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry { };
                     new_player.match_id = match.match_data.server_guid;
                     new_player.round_id = i;
@@ -93,6 +102,7 @@ namespace CO_Driver
                     new_player.score = player.stats.drone_kills;
                     new_player.damage = player.stats.damage;
                     new_player.damage_taken = player.stats.damage_taken;
+                    new_round.players.Add(new_player);
                 }
                 rounds.Add(new_round);
                 i++;
@@ -112,7 +122,7 @@ namespace CO_Driver
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
 #endif
 
-            request.Method = "GET";
+            request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = 30000;
             
@@ -130,15 +140,16 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-
-                    List<string> previous_match_string = JsonConvert.DeserializeObject<List<string>>(crossoutdb_json);
-                    foreach (string match in previous_match_string)
-                        previous_matchs.Add(Convert.ToInt64(match));
+                    previous_matchs = JsonConvert.DeserializeObject<List<long>>(crossoutdb_json);
                 }
+            }
+            catch (TimeoutException ex)
+            {
+
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("The following problem occured when loading previous match list from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message);
+                MessageBox.Show("The following problem occured when loading previous match list from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message);
             }
 
             return previous_matchs;
@@ -157,7 +168,7 @@ namespace CO_Driver
 #endif
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=UTF-8";
-                request.Timeout = 30000;
+                request.Timeout = 100000;
                 using (Stream webStream = request.GetRequestStream())
                 using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
                 {
@@ -170,9 +181,11 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    MessageBox.Show(crossoutdb_json);
-                    //market_items = JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
                 }
+            }
+            catch (TimeoutException ex)
+            {
+
             }
             catch (Exception ex)
             {
