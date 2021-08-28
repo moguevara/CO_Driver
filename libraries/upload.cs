@@ -94,12 +94,14 @@ namespace CO_Driver
                     new_player.match_id = match.match_data.server_guid;
                     new_player.round_id = i;
                     new_player.uid = player.uid;
+                    new_player.nickname = player.nickname;
                     new_player.team = player.team;
                     new_player.build_hash = player.build_hash;
+                    new_player.power_score = player.power_score;
                     new_player.kills = player.stats.kills;
                     new_player.assists = player.stats.assists;
                     new_player.drone_kills = player.stats.drone_kills;
-                    new_player.score = player.stats.drone_kills;
+                    new_player.score = player.stats.score;
                     new_player.damage = player.stats.damage;
                     new_player.damage_taken = player.stats.damage_taken;
                     new_round.players.Add(new_player);
