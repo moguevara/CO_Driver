@@ -78,6 +78,7 @@ namespace CO_Driver
             public int previous_combat_event { get; set; }
             public int previous_game_event { get; set; }
             public bool ready_to_add_round { get; set; }
+            public bool ready_to_finalize_round { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -303,6 +304,7 @@ namespace CO_Driver
             Current_session.previous_combat_event = 0;
             Current_session.previous_game_event = 0;
             Current_session.ready_to_add_round = false;
+            Current_session.ready_to_finalize_round = false;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
@@ -845,7 +847,6 @@ namespace CO_Driver
                 return;
 
             Current_session.in_match = false;
-            Current_session.ready_to_add_round = false;
             
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user))
                 return;
@@ -862,12 +863,14 @@ namespace CO_Driver
                 Current_session.current_match.match_attributes.AddRange(Current_session.pending_attributes.attributes);
 
             Current_session.pending_attributes = new_pending_attributes();
-            Current_session.ready_to_add_round = false;
-
+           
             assign_build_parts(Current_session);
             classify_match(Current_session);
             classify_local_user_build(Current_session);
             finalize_round_record(Current_session);
+
+            Current_session.ready_to_add_round = false;
+            Current_session.ready_to_finalize_round = false;
 
             foreach (KeyValuePair<string, Player> entry in Current_session.current_match.player_records)
             {
@@ -1053,12 +1056,16 @@ namespace CO_Driver
             Current_session.current_match.round_start_time = Current_session.current_combat_log_time;
             Current_session.current_match.round_records.Add(round_record);
             Current_session.ready_to_add_round = false;
+            Current_session.ready_to_finalize_round = true;
 
             //MessageBox.Show(string.Format(@"adding round {0}", Current_session.current_match.round_records.Count()));
         }
 
         public static void finalize_round_record(SessionStats Current_session)
         {
+            if (!Current_session.ready_to_finalize_round)
+                return;
+
             Current_session.current_match.round_records.Last().winning_team = Current_session.current_match.winning_team;
             Current_session.current_match.round_records.Last().win_reason = Current_session.current_match.round_win_reason;
             Current_session.current_match.round_records.Last().round_start = Current_session.current_match.round_start_time;
@@ -1084,6 +1091,8 @@ namespace CO_Driver
 
                 Current_session.current_match.round_records.Last().players.Add(current_player);
             }
+
+            Current_session.ready_to_finalize_round = false;
         }
         private static void assign_build_parts(SessionStats Current_session)
         {

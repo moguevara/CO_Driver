@@ -36,7 +36,8 @@ namespace CO_Driver
 
                 if (upload_list.Count >= 50)
                 {
-                    upload_match_list_to_crossoutdb(upload_list);
+                    if (!upload_match_list_to_crossoutdb(upload_list))
+                        return;
                     upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
                 }
             }
@@ -157,7 +158,7 @@ namespace CO_Driver
             return previous_matchs;
         }
 
-        private static void upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
+        private static bool upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
         {
             try
             {
@@ -192,7 +193,10 @@ namespace CO_Driver
             catch (Exception ex)
             {
                 MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                return false;
             }
+
+            return true;
         }
     }
 }
