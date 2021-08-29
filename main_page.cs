@@ -50,6 +50,7 @@ namespace CO_Driver
         public about_screen about_page = new about_screen();
         public meta_detail meta_detail_page = new meta_detail();
         public revenue_review revenue_page = new revenue_review();
+        public upload_screen upload_page = new upload_screen();
 
         public frm_main_page()
         {
@@ -91,7 +92,7 @@ namespace CO_Driver
             this.Text = string.Format(@"CO_Driver v{0}", get_current_version());
 
             print_control_names();
-
+            
             try
             {
                 bw_file_feed.RunWorkerAsync(argument: session);
@@ -117,6 +118,7 @@ namespace CO_Driver
             build_page.session = session;
             meta_detail_page.session = session;
             revenue_page.session = session;
+            upload_page.session = session;
 
             welcome_screen.translations = translations;
             part_page.translations = translations;
@@ -131,6 +133,7 @@ namespace CO_Driver
             meta_detail_page.translations = translations;
             build_page.translations = translations;
             revenue_page.translations = translations;
+            upload_page.translations = translations;
 
             welcome_screen.ui_translations = ui_translations;
             part_page.ui_translations = ui_translations;
@@ -145,6 +148,7 @@ namespace CO_Driver
             meta_detail_page.ui_translations = ui_translations;
             build_page.ui_translations = ui_translations;
             revenue_page.ui_translations = ui_translations;
+            upload_page.ui_translations = ui_translations;
 
             revenue_page.crossoutdb_data = crossoutdb_data;
         }
@@ -167,6 +171,7 @@ namespace CO_Driver
             translate_controls(about_page);
             translate_controls(meta_detail_page);
             translate_controls(revenue_page);
+            translate_controls(upload_page);
         }
 
         private void translate_controls(Control current_control)
@@ -254,6 +259,7 @@ namespace CO_Driver
             theme_manager.apply_theme(about_page, session);
             theme_manager.apply_theme(meta_detail_page, session);
             theme_manager.apply_theme(revenue_page, session);
+            theme_manager.apply_theme(upload_page, session);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -307,6 +313,12 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(fusion_page);
            
+        }
+
+        private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(upload_page);
         }
 
         private void chatToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -449,11 +461,9 @@ namespace CO_Driver
             load_precomipled_data(ftm, Current_session, session_variables);
             process_historic_files(ftm, Current_session, session_variables);
             populate_static_elements(Current_session);
-            populate_user_profile(Current_session);
-            populate_match_history(Current_session);
-            populate_build_records(Current_session);
-
-            Upload.upload_match_history(Current_session);
+            //populate_user_profile(Current_session);
+            //populate_match_history(Current_session);
+            //populate_build_records(Current_session);
 
             System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
@@ -544,12 +554,16 @@ namespace CO_Driver
                 meta_detail_page.match_history = response.match_history;
                 meta_detail_page.build_records = response.build_records;
                 revenue_page.match_history = response.match_history;
+                upload_page.match_history = response.match_history;
                 revenue_page.build_records = response.build_records;
                 match_detail_page.build_records = response.build_records;
                 match_history_page.build_records = response.build_records;
+                upload_page.build_records = response.build_records;
                 user_profile_page.populate_user_profile_screen();
                 revenue_page.populate_revenue_review_screen();
                 meta_detail_page.populate_meta_detail_screen();
+                upload_page.populate_upload_screen();
+
 
             }
             else
@@ -784,11 +798,6 @@ namespace CO_Driver
 
             log_file_manager.save_session_config(session_variables);
             save_game_data(Current_session);
-        }
-
-        private void load_previous_game_data(file_trace_managment.SessionStats Current_session)
-        {
-
         }
 
         private void save_game_data(file_trace_managment.SessionStats Current_session)
@@ -1067,7 +1076,6 @@ namespace CO_Driver
             file_trace_managment.update_previous_time("c", line, Current_session);
             Current_session.previous_combat_event = Current_session.current_event;
         }
-
         private void capture_screen_shot()
         {
             string screenshot_directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + string.Format(@"\CO_Driver\screenshots");
@@ -1129,6 +1137,11 @@ namespace CO_Driver
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
+
+            if (session.upload_data && session.update_postmatch)
+            {
+                Upload.upload_match_history(Current_session);
+            }
         }
 
         
@@ -1147,6 +1160,6 @@ namespace CO_Driver
             main_page_panel.Controls.Add(match_detail_page);
         }
 
-        
+       
     }
 }

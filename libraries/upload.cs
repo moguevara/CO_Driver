@@ -15,7 +15,7 @@ namespace CO_Driver
     {
         public static void upload_match_history(file_trace_managment.SessionStats Current_session)
         {
-            List<long> previous_matchs = get_previously_uploaded_match_list(Current_session);
+            List<long> previous_matchs = get_previously_uploaded_match_list(Current_session.local_user_uid);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
 
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
@@ -36,7 +36,7 @@ namespace CO_Driver
 
                 if (upload_list.Count >= 50)
                 {
-                    if (!upload_match_list_to_crossoutdb(upload_list))
+                    if (upload_match_list_to_crossoutdb(upload_list) == -1)
                         return;
                     upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
                 }
@@ -46,7 +46,7 @@ namespace CO_Driver
                 upload_match_list_to_crossoutdb(upload_list);
         }
 
-        private static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
+        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
         {
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
@@ -69,7 +69,7 @@ namespace CO_Driver
             return match_entry;
         }
 
-        private static List<Crossout.AspWeb.Models.API.v2.RoundEntry> populate_round_entrys(file_trace_managment.MatchRecord match)
+        public static List<Crossout.AspWeb.Models.API.v2.RoundEntry> populate_round_entrys(file_trace_managment.MatchRecord match)
         {
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
@@ -114,15 +114,15 @@ namespace CO_Driver
             return rounds;
         }
 
-        private static List<long> get_previously_uploaded_match_list(file_trace_managment.SessionStats Current_session)
+        public static List<long> get_previously_uploaded_match_list(int local_user_id)
         {
             List<long> previous_matchs = new List<long> { };
 
 #if DEBUG
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + Current_session.local_user_uid.ToString());
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #endif
 
             request.Method = "POST";
@@ -158,8 +158,10 @@ namespace CO_Driver
             return previous_matchs;
         }
 
-        private static bool upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
+        public static int upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
         {
+            int match_count = -1;
+
             try
             {
                 string serialized_match_list = JsonConvert.SerializeObject(match_list);
@@ -184,7 +186,10 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
+                    return JsonConvert.DeserializeObject<int>(crossoutdb_json);
                 }
+
+
             }
             catch (TimeoutException ex)
             {
@@ -192,11 +197,10 @@ namespace CO_Driver
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
-                return false;
+                //MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
-            return true;
+            return match_count;
         }
     }
 }

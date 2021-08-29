@@ -204,6 +204,12 @@
     <Compile Include="user_controls\trace_view.Designer.cs">
       <DependentUpon>trace_view.cs</DependentUpon>
     </Compile>
+    <Compile Include="user_controls\upload_screen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\upload_screen.Designer.cs">
+      <DependentUpon>upload_screen.cs</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\user_profile.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -272,6 +278,9 @@
     </Compile>
     <EmbeddedResource Include="user_controls\trace_view.resx">
       <DependentUpon>trace_view.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\upload_screen.resx">
+      <DependentUpon>upload_screen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\user_profile.resx">
       <DependentUpon>user_profile.cs</DependentUpon>

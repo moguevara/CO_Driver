@@ -202,6 +202,7 @@ namespace CO_Driver
             session.save_captures = true;
             session.twitch_mode = false;
             session.bundle_ram_mode = true;
+            session.update_postmatch = false;
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);

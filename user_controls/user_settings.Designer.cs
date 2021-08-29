@@ -681,8 +681,6 @@
             // chk_upload
             // 
             this.chk_upload.AutoSize = true;
-            this.chk_upload.Checked = true;
-            this.chk_upload.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_upload.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_upload.ForeColor = System.Drawing.Color.Lime;
