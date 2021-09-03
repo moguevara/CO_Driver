@@ -22,7 +22,7 @@ namespace CO_Driver.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CO_Driver.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CO_Driver.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace CO_Driver.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace CO_Driver.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _32x32logo {
+        public static System.Drawing.Bitmap _32x32logo {
             get {
                 object obj = ResourceManager.GetObject("32x32logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,9 +73,19 @@ namespace CO_Driver.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap smooth_naim_fast {
+        public static System.Drawing.Bitmap codriver_transparent {
             get {
-                object obj = ResourceManager.GetObject("smooth_naim_fast", resourceCulture);
+                object obj = ResourceManager.GetObject("codriver_transparent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap codriver_transparent_initial {
+            get {
+                object obj = ResourceManager.GetObject("codriver_transparent_initial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

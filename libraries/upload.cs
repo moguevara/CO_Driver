@@ -73,7 +73,6 @@ namespace CO_Driver
         {
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
-            //new_round.players = match.match_data.player_records;
 
             int i = 0;
             foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
@@ -187,10 +186,7 @@ namespace CO_Driver
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
                     match_count = JsonConvert.DeserializeObject<int>(crossoutdb_json);
-                    MessageBox.Show(match_count.ToString());
                 }
-
-
             }
             catch (TimeoutException ex)
             {
@@ -198,7 +194,7 @@ namespace CO_Driver
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
             return match_count;

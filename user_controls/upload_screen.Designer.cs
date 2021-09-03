@@ -49,12 +49,12 @@
             this.lb_uploaded_matchs = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_upload_matchs = new System.Windows.Forms.Button();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_upload_progress = new System.Windows.Forms.TextBox();
             this.pb_upload = new System.Windows.Forms.PictureBox();
             this.bw_file_uploader = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -370,6 +370,19 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1189, 36);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(945, 30);
+            this.button1.TabIndex = 43;
+            this.button1.Text = "Upload";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btn_upload_matchs_Click);
+            // 
             // btn_upload_matchs
             // 
             this.btn_upload_matchs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -416,9 +429,6 @@
             // pb_upload
             // 
             this.pb_upload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pb_upload.ErrorImage = global::CO_Driver.Properties.Resources.smooth_naim_fast;
-            this.pb_upload.Image = global::CO_Driver.Properties.Resources.smooth_naim_fast;
-            this.pb_upload.InitialImage = global::CO_Driver.Properties.Resources.smooth_naim_fast;
             this.pb_upload.Location = new System.Drawing.Point(3, 3);
             this.pb_upload.Name = "pb_upload";
             this.pb_upload.Size = new System.Drawing.Size(1183, 96);
@@ -428,22 +438,11 @@
             // 
             // bw_file_uploader
             // 
+            this.bw_file_uploader.WorkerReportsProgress = true;
+            this.bw_file_uploader.WorkerSupportsCancellation = true;
             this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.upload_files);
             this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.report_upload_status);
             this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finished_uploading);
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(945, 30);
-            this.button1.TabIndex = 43;
-            this.button1.Text = "Upload";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btn_upload_matchs_Click);
             // 
             // upload_screen
             // 

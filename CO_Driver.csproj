@@ -119,6 +119,11 @@
     <Compile Include="libraries\translate.cs" />
     <Compile Include="libraries\ui_translate.cs" />
     <Compile Include="libraries\upload.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="user_controls\revenue_review.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -267,15 +272,10 @@
       <DependentUpon>match_history.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="user_controls\trace_view.resx">
       <DependentUpon>trace_view.cs</DependentUpon>
     </EmbeddedResource>
@@ -323,9 +323,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\8stepfast.gif" />
-    <Content Include="Resources\smooth_naim_fast.gif" />
-    <None Include="Resources\smooth_naim_fast1.gif" />
+    <None Include="Resources\codriver_transparent.gif" />
+    <None Include="Resources\codriver_transparent_initial.gif" />
     <Content Include="RotFish.ico" />
   </ItemGroup>
   <ItemGroup>
