@@ -79,8 +79,8 @@
             this.buildToolsToolStripMenuItem,
             this.scheduleToolStripMenuItem,
             this.inMatchDataToolStripMenuItem,
-            this.printCurrentWindowToolStripMenuItem,
             this.uploadToolStripMenuItem,
+            this.printCurrentWindowToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.strp_main_menu_strip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;

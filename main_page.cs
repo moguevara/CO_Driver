@@ -80,11 +80,13 @@ namespace CO_Driver
 
             this.welcome_screen.tb_progress_tracking.AppendText("Loading market data from crossoutdb.com" + Environment.NewLine);
             crossoutdb_data = market.populate_crossoutdb_data(session);
+            this.welcome_screen.tb_progress_tracking.AppendText("Loading previously stored log data (if any)." + Environment.NewLine);
 
             load_static_screen_data();
-            
+
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
             settings_page.reload_all_themes += new EventHandler(reload_theme);
+            settings_page.enable_uploads += new EventHandler(enable_upload);
 
             garage_page.initialize_live_feed();
             main_page_panel.Controls.Add(welcome_screen);
@@ -188,8 +190,6 @@ namespace CO_Driver
             {
                 ctrl.Text = ui_translate.translate(ctrl.Text, session, ui_translations);
 
-                
-
                 if (ctrl is Label)
                     scale_font(ctrl);
             }
@@ -240,6 +240,11 @@ namespace CO_Driver
                 if (value.Any(char.IsLetter))
                     sw.WriteLine(string.Format("{0},{1},{2}", panel_name, drop_down.Name, value));
             }
+        }
+
+        private void enable_upload(object sender, EventArgs e)
+        {
+            upload_page.populate_upload_screen();
         }
 
         private void reload_theme(object sender, EventArgs e)
@@ -563,6 +568,7 @@ namespace CO_Driver
                 revenue_page.populate_revenue_review_screen();
                 meta_detail_page.populate_meta_detail_screen();
                 upload_page.populate_upload_screen();
+                //upload_page.populate_upload_screen();
 
 
             }
@@ -1138,9 +1144,9 @@ namespace CO_Driver
             populate_match_history(Current_session);
             populate_build_records(Current_session);
 
-            if (session.upload_data && session.update_postmatch)
+            if (session.upload_data && session.update_postmatch && this.strp_main_menu_strip.Enabled == true)
             {
-                Upload.upload_match_history(Current_session);
+                //Upload.upload_match_history(Current_session);
             }
         }
 

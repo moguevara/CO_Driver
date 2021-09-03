@@ -17,8 +17,16 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
-        List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
-        List<long> previous_matchs = new List<long> { };
+        
+
+        private class bw_status_update
+        {
+            public int percent_upload { get; set; }
+            public int matchs_uploaded { get; set; }
+            public int builds_uploaded { get; set; }
+            public string text_update { get; set; }
+
+        }
 
         int valid_matchs = 0;
         int match_corruptions = 0;
@@ -40,6 +48,7 @@ namespace CO_Driver
             matchs_uploaded = 0;
             builds_uploaded = 0;
 
+            tb_upload_progress.Clear();
             tb_upload_progress.AppendText(string.Format("Preparing matchs for upload to Crossoutdb." + Environment.NewLine + Environment.NewLine));
 
             if (!session.upload_data)
@@ -53,8 +62,8 @@ namespace CO_Driver
                 return;
             }
 
-            upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
-            previous_matchs = Upload.get_previously_uploaded_match_list(session.local_user_uid);
+            List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+            List<long> previous_matchs = Upload.get_previously_uploaded_match_list(session.local_user_uid);
 
             matchs_uploaded = previous_matchs.Count;
 
@@ -62,6 +71,9 @@ namespace CO_Driver
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
+                if (previous_matchs.Contains(match.match_data.server_guid))
+                    continue;
+
                 if (match.match_data.server_guid == 0)
                 {
                     match_corruptions += 1;
@@ -105,24 +117,37 @@ namespace CO_Driver
 
         private void btn_upload_matchs_Click(object sender, EventArgs e)
         {
-            ready_to_upload = 0;
-            matchs_uploaded = 0;
-            builds_uploaded = 0;
+            if (bw_file_uploader.IsBusy)
+                return;
+
+            tb_upload_progress.AppendText(string.Format("Starting background worker upload." + Environment.NewLine));
             pb_upload_bar.Value = 0;
 
-            btn_upload_matchs.Enabled = false;
-            btn_upload_matchs.ForeColor = session.fore_color;
+            bw_file_uploader.RunWorkerAsync();
+        }
 
-            DateTime min_upload_date = DateTime.MaxValue;
-            DateTime max_upload_date = DateTime.MinValue;
+        private void upload_files(object sender, DoWorkEventArgs e)
+        {
+            if (bw_file_uploader.CancellationPending)
+                return;
+
+            bw_status_update status = new bw_status_update { };
 
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
-            matchs_uploaded = previous_matchs.Count;
+            List<long> previous_matchs = new List<long> { };
+            DateTime min_upload_date = DateTime.MaxValue;
+            DateTime max_upload_date = DateTime.MinValue;
+            int percent_upload = 0;
 
-            lb_uploaded_matchs.Text = matchs_uploaded.ToString();
+            upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+            previous_matchs = Upload.get_previously_uploaded_match_list(session.local_user_uid);
+            int previous_upload_count = previous_matchs.Count;
 
             foreach (file_trace_managment.MatchRecord match in match_history)
             {
+                if (bw_file_uploader.CancellationPending)
+                    return;
+
                 if (previous_matchs.Contains(match.match_data.server_guid))
                     continue;
 
@@ -145,35 +170,55 @@ namespace CO_Driver
 
                 if (upload_list.Count >= 50)
                 {
+                    status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date);
+                    status.percent_upload = percent_upload;
+                    status.matchs_uploaded = previous_upload_count;
+                    bw_file_uploader.ReportProgress(0, status);
+
+
                     int upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_list);
 
                     if (upload_matchs == -1)
+                    {
+                        bw_file_uploader.CancelAsync();
                         return;
+                    }
 
-                    lb_uploaded_matchs.Text = upload_matchs.ToString();
-                    tb_upload_progress.AppendText(string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date));
-                    pb_upload_bar.Value = 100 - (valid_matchs - upload_matchs);
+                    percent_upload = (int)(((double)upload_matchs / (double)valid_matchs) * 100);
 
                     min_upload_date = DateTime.MaxValue;
                     max_upload_date = DateTime.MinValue;
+                    previous_upload_count = upload_matchs;
                     upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+
+                    status.text_update = string.Format("Successful upload of {0} from {1} to {2}." + Environment.NewLine, upload_matchs - previous_upload_count, min_upload_date, max_upload_date);
+                    status.percent_upload = percent_upload;
+                    status.matchs_uploaded = upload_matchs;
+                    bw_file_uploader.ReportProgress(0, status);
                 }
             }
+        }
 
-            if (upload_list.Any())
-            {
-                int upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_list);
+        private void report_upload_status(object sender, ProgressChangedEventArgs e)
+        {
+            bw_status_update status = e.UserState as bw_status_update;
+            pb_upload_bar.Value = status.percent_upload;
+            lb_valid_matchs.Text = status.matchs_uploaded.ToString();
+            tb_upload_progress.AppendText(status.text_update);
+        }
 
-                if (upload_matchs != -1) 
-                {
-                    lb_uploaded_matchs.Text = upload_matchs.ToString();
-                    tb_upload_progress.AppendText(string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date));
-                }
-            }
-
-            pb_upload_bar.Value = 100;
+        private void finished_uploading(object sender, RunWorkerCompletedEventArgs e)
+        {
             tb_upload_progress.AppendText("Finished uploading.");
-            btn_upload_matchs.Enabled = true;
+            pb_upload_bar.Value = 100;
+        }
+
+        private void btn_upload_cancel_click(object sender, EventArgs e)
+        {
+            if (bw_file_uploader.IsBusy)
+                return;
+
+            bw_file_uploader.CancelAsync();
         }
     }
 }

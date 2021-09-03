@@ -69,5 +69,15 @@ namespace CO_Driver.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap smooth_naim_fast {
+            get {
+                object obj = ResourceManager.GetObject("smooth_naim_fast", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

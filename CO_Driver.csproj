@@ -323,6 +323,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\8stepfast.gif" />
+    <Content Include="Resources\smooth_naim_fast.gif" />
+    <None Include="Resources\smooth_naim_fast1.gif" />
     <Content Include="RotFish.ico" />
   </ItemGroup>
   <ItemGroup>

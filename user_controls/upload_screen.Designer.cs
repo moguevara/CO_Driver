@@ -31,6 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lb_upload_status_text = new System.Windows.Forms.Label();
+            this.pb_upload_bar = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -51,7 +52,9 @@
             this.btn_upload_matchs = new System.Windows.Forms.Button();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_upload_progress = new System.Windows.Forms.TextBox();
-            this.pb_upload_bar = new System.Windows.Forms.ProgressBar();
+            this.pb_upload = new System.Windows.Forms.PictureBox();
+            this.bw_file_uploader = new System.ComponentModel.BackgroundWorker();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -63,6 +66,7 @@
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_upload)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -109,8 +113,19 @@
             this.lb_upload_status_text.Name = "lb_upload_status_text";
             this.lb_upload_status_text.Size = new System.Drawing.Size(1183, 16);
             this.lb_upload_status_text.TabIndex = 3;
-            this.lb_upload_status_text.Text = "status text goes here";
             this.lb_upload_status_text.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // pb_upload_bar
+            // 
+            this.pb_upload_bar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pb_upload_bar.ForeColor = System.Drawing.Color.Lime;
+            this.pb_upload_bar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.pb_upload_bar.Location = new System.Drawing.Point(3, 19);
+            this.pb_upload_bar.MarqueeAnimationSpeed = 200;
+            this.pb_upload_bar.Name = "pb_upload_bar";
+            this.pb_upload_bar.Size = new System.Drawing.Size(1183, 34);
+            this.pb_upload_bar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pb_upload_bar.TabIndex = 4;
             // 
             // label2
             // 
@@ -345,6 +360,7 @@
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.button1, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.btn_upload_matchs, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 500);
@@ -363,15 +379,16 @@
             this.btn_upload_matchs.Name = "btn_upload_matchs";
             this.btn_upload_matchs.Size = new System.Drawing.Size(232, 30);
             this.btn_upload_matchs.TabIndex = 42;
-            this.btn_upload_matchs.Text = "Upload";
+            this.btn_upload_matchs.Text = "Cancel";
             this.btn_upload_matchs.UseVisualStyleBackColor = true;
-            this.btn_upload_matchs.Click += new System.EventHandler(this.btn_upload_matchs_Click);
+            this.btn_upload_matchs.Click += new System.EventHandler(this.btn_upload_cancel_click);
             // 
             // tableLayoutPanel11
             // 
             this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.Controls.Add(this.tb_upload_progress, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.pb_upload, 0, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 154);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
@@ -396,17 +413,37 @@
             this.tb_upload_progress.TabStop = false;
             this.tb_upload_progress.WordWrap = false;
             // 
-            // pb_upload_bar
+            // pb_upload
             // 
-            this.pb_upload_bar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pb_upload_bar.ForeColor = System.Drawing.Color.Lime;
-            this.pb_upload_bar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.pb_upload_bar.Location = new System.Drawing.Point(3, 19);
-            this.pb_upload_bar.MarqueeAnimationSpeed = 200;
-            this.pb_upload_bar.Name = "pb_upload_bar";
-            this.pb_upload_bar.Size = new System.Drawing.Size(1183, 34);
-            this.pb_upload_bar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.pb_upload_bar.TabIndex = 4;
+            this.pb_upload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pb_upload.ErrorImage = global::CO_Driver.Properties.Resources.smooth_naim_fast;
+            this.pb_upload.Image = global::CO_Driver.Properties.Resources.smooth_naim_fast;
+            this.pb_upload.InitialImage = global::CO_Driver.Properties.Resources.smooth_naim_fast;
+            this.pb_upload.Location = new System.Drawing.Point(3, 3);
+            this.pb_upload.Name = "pb_upload";
+            this.pb_upload.Size = new System.Drawing.Size(1183, 96);
+            this.pb_upload.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pb_upload.TabIndex = 6;
+            this.pb_upload.TabStop = false;
+            // 
+            // bw_file_uploader
+            // 
+            this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.upload_files);
+            this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.report_upload_status);
+            this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finished_uploading);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(945, 30);
+            this.button1.TabIndex = 43;
+            this.button1.Text = "Upload";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btn_upload_matchs_Click);
             // 
             // upload_screen
             // 
@@ -435,6 +472,7 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_upload)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -465,5 +503,8 @@
         private System.Windows.Forms.Label lb_uploaded_builds;
         private System.Windows.Forms.Label lb_uploaded_matchs;
         public System.Windows.Forms.ProgressBar pb_upload_bar;
+        private System.Windows.Forms.PictureBox pb_upload;
+        private System.ComponentModel.BackgroundWorker bw_file_uploader;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -186,7 +186,8 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    return JsonConvert.DeserializeObject<int>(crossoutdb_json);
+                    match_count = JsonConvert.DeserializeObject<int>(crossoutdb_json);
+                    MessageBox.Show(match_count.ToString());
                 }
 
 

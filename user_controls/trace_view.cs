@@ -54,7 +54,6 @@ namespace CO_Driver
             if (bw_file_tracer.CancellationPending == true)
                 return;
 
-
             string trace_type = this.lbl_trace_name.Text.Split(' ').First().ToLower();
             FileInfo trace_file = new DirectoryInfo(local_session_variables.log_file_location).GetFiles(trace_type, SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 

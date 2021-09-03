@@ -17,6 +17,7 @@ namespace CO_Driver
     public partial class user_settings : UserControl
     {
         public event EventHandler reload_all_themes;
+        public event EventHandler enable_uploads;
 
         log_file_managment log_file_manager = new log_file_managment();
         public log_file_managment.session_variables session;
@@ -62,6 +63,7 @@ namespace CO_Driver
         private void save_user_settings(object sender, EventArgs e)
         {
             bool prompt_restart = false;
+            bool upload_change = false;
 
             if (!Directory.Exists(txt_log_file_location.Text))
             {
@@ -122,6 +124,9 @@ namespace CO_Driver
                 session.parsed_logs = new List<string> { };
             }
 
+            if (session.upload_data != chk_upload.Checked)
+                upload_change = true;
+
             session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
             session.log_file_location = txt_log_file_location.Text;
             session.local_language = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
@@ -158,6 +163,9 @@ namespace CO_Driver
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
+
+            if (session.upload_data && upload_change)
+                enable_uploads(this, EventArgs.Empty);
 
             log_file_manager.save_session_config(session);
 
@@ -202,10 +210,14 @@ namespace CO_Driver
             session.save_captures = true;
             session.twitch_mode = false;
             session.bundle_ram_mode = true;
-            session.update_postmatch = false;
+            session.update_postmatch = true;
+            session.upload_data = false;
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
+
+            //if (session.upload_data && upload_change)
+            //    enable_uploads(this, EventArgs.Empty);
 
             if (session.log_file_location != txt_log_file_location.Text)
             {
