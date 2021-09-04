@@ -242,7 +242,7 @@ namespace CO_Driver
 
         private void finished_uploading(object sender, RunWorkerCompletedEventArgs e)
         {
-            tb_upload_progress.AppendText("Finished uploading.");
+            tb_upload_progress.AppendText("Finished uploading." + Environment.NewLine);
             pb_upload_bar.Value = 100;
             lb_ready_to_upload.Text = "0";
             lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, ready_to_upload);
