@@ -32,6 +32,7 @@ namespace CO_Driver
 
         int valid_matchs = 0;
         int match_corruptions = 0;
+        int invalid_uid = 0;
         int incomplete_matchs = 0;
         int ready_to_upload = 0;
         int matchs_uploaded = 0;
@@ -49,6 +50,7 @@ namespace CO_Driver
 
             valid_matchs = 0;
             match_corruptions = 0;
+            invalid_uid = 0;
             incomplete_matchs = 0;
             matchs_uploaded = 0;
             builds_uploaded = 0;
@@ -84,6 +86,13 @@ namespace CO_Driver
                     continue;
                 }
 
+                if (match.match_data.local_player.uid == 0)
+                {
+                    invalid_uid += 1;
+                    continue;
+                }
+
+
                 if (!match.match_data.match_rewards.Any())
                 {
                     match_corruptions += 1;
@@ -106,6 +115,7 @@ namespace CO_Driver
 
             tb_upload_progress.AppendText(string.Format("Found {0} total games." + Environment.NewLine, match_history.Count));
             tb_upload_progress.AppendText(string.Format("Found {0} games with game.log corruptions." + Environment.NewLine, match_corruptions));
+            tb_upload_progress.AppendText(string.Format("Found {0} games with incomplete uploader uid (including spectator matchs)." + Environment.NewLine, invalid_uid));
             tb_upload_progress.AppendText(string.Format("Found {0} incomplete games." + Environment.NewLine, incomplete_matchs));
             tb_upload_progress.AppendText(string.Format("Found {0} valid matchs for upload." + Environment.NewLine, valid_matchs));
             tb_upload_progress.AppendText(string.Format("Found {0} games ready to upload." + Environment.NewLine + Environment.NewLine, ready_to_upload));
@@ -158,6 +168,9 @@ namespace CO_Driver
                     continue;
 
                 if (match.match_data.server_guid == 0)
+                    continue;
+
+                if (match.match_data.local_player.uid == 0)
                     continue;
 
                 if (!match.match_data.match_rewards.Any())
@@ -231,6 +244,7 @@ namespace CO_Driver
         {
             tb_upload_progress.AppendText("Finished uploading.");
             pb_upload_bar.Value = 100;
+            lb_ready_to_upload.Text = "0";
             lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, ready_to_upload);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
