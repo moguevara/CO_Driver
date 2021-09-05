@@ -622,7 +622,8 @@ namespace CO_Driver
             Current_session.current_match.round_winner = Int32.Parse(line_results.Groups["winning_team"].Value);
             Current_session.current_match.round_win_reason = line_results.Groups["win_reason"].Value.Replace(" ", "");
             Current_session.current_match.round_end_time = Current_session.current_combat_log_time;
-            finalize_round_record(Current_session);
+            finalize_round_record(Current_session, Current_session.current_match.round_winner);
+            Current_session.current_match.round_start_time = Current_session.current_combat_log_time;
             Current_session.ready_to_add_round = true;
         }
 
@@ -867,7 +868,7 @@ namespace CO_Driver
             assign_build_parts(Current_session);
             classify_match(Current_session);
             classify_local_user_build(Current_session);
-            finalize_round_record(Current_session);
+            finalize_round_record(Current_session, Current_session.current_match.winning_team);
 
             Current_session.ready_to_add_round = false;
             Current_session.ready_to_finalize_round = false;
@@ -1061,15 +1062,15 @@ namespace CO_Driver
             //MessageBox.Show(string.Format(@"adding round {0}", Current_session.current_match.round_records.Count()));
         }
 
-        public static void finalize_round_record(SessionStats Current_session)
+        public static void finalize_round_record(SessionStats Current_session, int round_winner)
         {
             if (!Current_session.ready_to_finalize_round)
                 return;
 
-            Current_session.current_match.round_records.Last().winning_team = Current_session.current_match.winning_team;
+            Current_session.current_match.round_records.Last().winning_team = round_winner;
             Current_session.current_match.round_records.Last().win_reason = Current_session.current_match.round_win_reason;
             Current_session.current_match.round_records.Last().round_start = Current_session.current_match.round_start_time;
-            Current_session.current_match.round_records.Last().round_end = Current_session.current_match.round_end_time;
+            Current_session.current_match.round_records.Last().round_end = Current_session.current_combat_log_time;
 
             foreach (KeyValuePair<string, Player> player in Current_session.current_match.player_records)
             {
@@ -1162,6 +1163,9 @@ namespace CO_Driver
             int team = Int32.Parse(line_results.Groups["team"].Value);
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
 
+            if (uid == 0)
+                bot = 1;
+
             if (Current_session.current_match.player_records.ContainsKey(player_name))
             {
                 Current_session.current_match.player_records[player_name].uid = uid;
@@ -1216,7 +1220,6 @@ namespace CO_Driver
             string build_hash = line_results.Groups["build_hash"].Value;
             int team = Int32.Parse(line_results.Groups["team"].Value);
             int spawn_counter = Int32.Parse(line_results.Groups["spawn_counter"].Value);
-
 
             if (player_name == "" || player_name == null)
                 player_name = "Undefined Bot";

@@ -135,7 +135,7 @@ namespace CO_Driver
                 return;
 
             tb_upload_progress.AppendText(string.Format("Starting background worker to upload. Feel free to use other screens during upload." + Environment.NewLine));
-            pb_upload_bar.Value = 0;
+            pb_upload_bar.Value = (int)(((double)matchs_uploaded / (double)valid_matchs) * 100) > 100 ? 100 : (int)(((double)ready_to_upload / (double)valid_matchs) * 100);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent;
             pb_upload.Refresh();
 
@@ -226,15 +226,14 @@ namespace CO_Driver
             status.percent_upload = percent_upload;
             status.matchs_uploaded = upload_matchs;
             bw_file_uploader.ReportProgress(0, status);
-
-
         }
 
         private void report_upload_status(object sender, ProgressChangedEventArgs e)
         {
             bw_status_update status = e.UserState as bw_status_update;
             pb_upload_bar.Value = status.percent_upload > 100 ? 100 : status.percent_upload;
-            lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
+            if (status.matchs_uploaded > Convert.ToInt32(lb_uploaded_matchs.Text))
+                lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
             lb_ready_to_upload.Text = (valid_matchs - status.matchs_uploaded).ToString();
             tb_upload_progress.AppendText(status.text_update);
             lb_upload_status_text.Text = string.Format(status.text_update);
@@ -244,8 +243,7 @@ namespace CO_Driver
         {
             tb_upload_progress.AppendText("Finished uploading." + Environment.NewLine);
             pb_upload_bar.Value = 100;
-            lb_ready_to_upload.Text = "0";
-            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, ready_to_upload);
+            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
         }
@@ -256,7 +254,7 @@ namespace CO_Driver
                 return;
 
             bw_file_uploader.CancelAsync();
-            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, ready_to_upload);
+            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
         }

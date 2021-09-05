@@ -90,6 +90,9 @@ namespace CO_Driver
                     if (player.bot == 1)
                         continue;
 
+                    if (player.uid == 0)
+                        continue;
+
                     Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry { };
                     new_player.match_id = match.match_data.server_guid;
                     new_player.round_id = i;
