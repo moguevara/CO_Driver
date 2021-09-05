@@ -185,7 +185,7 @@ namespace CO_Driver
                 if (match.match_data.match_end > max_upload_date)
                     max_upload_date = match.match_data.match_end;
 
-                upload_list.Add(Upload.populate_match_entry(match));
+                upload_list.Add(Upload.populate_match_entry(match, translations));
 
                 if (upload_list.Count >= 50)
                 {

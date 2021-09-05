@@ -13,7 +13,7 @@ namespace CO_Driver
 {
     public class Upload
     {
-        public static void upload_match_history(file_trace_managment.SessionStats Current_session)
+        public static void upload_match_history(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             List<long> previous_matchs = get_previously_uploaded_match_list(Current_session.local_user_uid);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
@@ -32,7 +32,7 @@ namespace CO_Driver
                 if (match.match_data.winning_team == -1)
                     continue;
 
-                upload_list.Add(populate_match_entry(match));
+                upload_list.Add(populate_match_entry(match, translations));
 
                 if (upload_list.Count >= 50)
                 {
@@ -46,7 +46,7 @@ namespace CO_Driver
                 upload_match_list_to_crossoutdb(upload_list);
         }
 
-        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match)
+        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
@@ -56,6 +56,7 @@ namespace CO_Driver
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
             match_entry.map_name = match.match_data.map_name;
+            match_entry.map_display_name = translate.translate_string_english(match.match_data.map_desc, translations);
             match_entry.winning_team = match.match_data.winning_team;
             match_entry.win_conidtion = 1; /*TODO*/
             match_entry.co_driver_version = global_data.CURRENT_VERSION;

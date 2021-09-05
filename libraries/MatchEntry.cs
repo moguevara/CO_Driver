@@ -12,6 +12,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public DateTime match_start { get; set; }
         public DateTime match_end { get; set; }
         public string map_name { get; set; }
+        public string map_display_name { get; set; }
         public int winning_team { get; set; }
         public int win_conidtion { get; set; }
         public string client_version { get; set; }
