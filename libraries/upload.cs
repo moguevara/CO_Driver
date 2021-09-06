@@ -85,6 +85,7 @@ namespace CO_Driver
                 new_round.round_end = round.round_end.ToUniversalTime();
                 new_round.winning_team = round.winning_team;
                 new_round.players = new List<Crossout.AspWeb.Models.API.v2.MatchPlayerEntry> { };
+                new_round.damage_records = new List<Crossout.AspWeb.Models.API.v2.RoundDamageEntry> { };
 
                 foreach (file_trace_managment.Player player in round.players)
                 {
@@ -110,6 +111,22 @@ namespace CO_Driver
                     new_player.damage_taken = player.stats.damage_taken;
                     new_round.players.Add(new_player);
                 }
+
+                foreach (file_trace_managment.RoundDamageRecord damage_record in round.damage_records)
+                {
+                    if (!round.players.Any(x => x.nickname == damage_record.attacker))
+                        continue;
+
+                    if (round.players.Any(x => x.nickname == damage_record.attacker && x.uid == 0))
+                        continue;
+
+                    Crossout.AspWeb.Models.API.v2.RoundDamageEntry new_damage_record = new Crossout.AspWeb.Models.API.v2.RoundDamageEntry { };
+                    new_damage_record.uid = round.players.FirstOrDefault(x => x.nickname == damage_record.attacker).uid;
+                    new_damage_record.weapon = damage_record.weapon;
+                    new_damage_record.damage = damage_record.damage;
+                    new_round.damage_records.Add(new_damage_record);
+                }
+
                 rounds.Add(new_round);
                 i++;
             }

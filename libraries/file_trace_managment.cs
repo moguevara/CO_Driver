@@ -149,6 +149,8 @@ namespace CO_Driver
             public DateTime round_start { get; set; }
             public DateTime round_end { get; set; }
             public List<Player> players { get; set; }
+            public List<RoundDamageRecord> damage_records { get; set; }
+
         }
 
         public class AssistTracking
@@ -176,6 +178,13 @@ namespace CO_Driver
         {
             public string attacker { get; set; }
             public string victim { get; set; }
+            public string weapon { get; set; }
+            public double damage { get; set; }
+        }
+
+        public class RoundDamageRecord
+        {
+            public string attacker { get; set; }
             public string weapon { get; set; }
             public double damage { get; set; }
         }
@@ -1053,13 +1062,12 @@ namespace CO_Driver
         {
             RoundRecord round_record = new RoundRecord { };
             round_record.players = new List<Player> { };
+            round_record.damage_records = new List<RoundDamageRecord> { };
             round_record.round = Current_session.current_match.round_records.Count() + 1;
             Current_session.current_match.round_start_time = Current_session.current_combat_log_time;
             Current_session.current_match.round_records.Add(round_record);
             Current_session.ready_to_add_round = false;
             Current_session.ready_to_finalize_round = true;
-
-            //MessageBox.Show(string.Format(@"adding round {0}", Current_session.current_match.round_records.Count()));
         }
 
         public static void finalize_round_record(SessionStats Current_session, int round_winner)
@@ -1328,6 +1336,7 @@ namespace CO_Driver
             double damage = Convert.ToDouble(line_results.Groups["damage"].Value);
             string weapon = line_results.Groups["weapon"].Value;
             string weapon_name = "";
+            bool ram_damage = false;
             string flags = line_results.Groups["flags"].Value;
             bool found_damage_record = false;
 
@@ -1342,16 +1351,10 @@ namespace CO_Driver
             if (Current_session.static_records.ck_dict.ContainsKey(weapon))
                 weapon = Current_session.static_records.ck_dict[weapon].ToString();
 
-            if (Current_session.static_records.global_weapon_dict.ContainsKey(weapon))
-                weapon_name = weapon;
-            else
-            if (Current_session.static_records.global_explosives_dict.ContainsKey(weapon))
-                weapon_name = weapon;
-            else
-            if (!Current_session.bundle_damage_into_ramming)
-                weapon_name = weapon;
-            else
-                weapon_name = "Ramming";
+            weapon_name = weapon;
+
+            if (!Current_session.static_records.global_weapon_dict.ContainsKey(weapon) && !Current_session.static_records.global_explosives_dict.ContainsKey(weapon))
+                ram_damage = true;
 
             if (Current_session.in_garage)
             {
@@ -1365,14 +1368,14 @@ namespace CO_Driver
             if (!Current_session.current_match.player_records.ContainsKey(victim))
                 return;
 
+            if (ram_damage && Current_session.bundle_damage_into_ramming)
+                weapon_name = "Ramming";
+
             if (attacker == Current_session.local_user || victim == Current_session.local_user)
             {
-                //MessageBox.Show(string.Format(@"Error with line {0}-{1}-{2}", attacker, victim, Current_session.local_user));
                 foreach (DamageRecord record in Current_session.current_match.damage_record)
                 {
-                    if (attacker == record.attacker &&
-                        victim == record.victim &&
-                        weapon_name == record.weapon)
+                    if (attacker == record.attacker && victim == record.victim && weapon_name == record.weapon)
                     {
                         found_damage_record = true;
                         record.damage += damage;
@@ -1383,7 +1386,25 @@ namespace CO_Driver
                 if (!found_damage_record)
                     Current_session.current_match.damage_record.Add(new DamageRecord { attacker = attacker, victim = victim, weapon = weapon_name, damage = damage });
             }
-            
+
+            found_damage_record = false;
+
+            if (ram_damage)
+                weapon_name = "Ramming";
+
+            foreach (RoundDamageRecord record in Current_session.current_match.round_records.Last().damage_records)
+            {
+                if (attacker == record.attacker && weapon_name == record.weapon)
+                {
+                    found_damage_record = true;
+                    record.damage += damage;
+                    break;
+                }
+            }
+
+            if (!found_damage_record)
+                Current_session.current_match.round_records.Last().damage_records.Add(new RoundDamageRecord { attacker = attacker, weapon = weapon_name, damage = damage });
+
             if (attacker != victim)
             {
                 if (Current_session.player_build_records.ContainsKey(Current_session.current_match.player_records[attacker].build_hash))
