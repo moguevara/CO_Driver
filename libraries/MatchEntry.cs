@@ -19,6 +19,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public string co_driver_version { get; set; }
         public string game_server { get; set; }
         public List<RoundEntry> rounds { get; set; }
+        public List<ResourceEntry> resources { get; set; }
     }
 
     public class RoundEntry
@@ -47,11 +48,30 @@ namespace Crossout.AspWeb.Models.API.v2
         public int score { get; set; }
         public double damage { get; set; }
         public double damage_taken { get; set; }
+        public List<ScoreEntry> scores { get; set; }
+        public List<MedalEntry> medals { get; set; }
     }
     public class RoundDamageEntry
     {
         public int uid { get; set; }
         public string weapon { get; set; }
         public double damage { get; set; }
+    }
+
+    public class ResourceEntry
+    {
+        public string resource { get; set; }
+        public int amount { get; set; }
+    }
+
+    public class ScoreEntry
+    {
+        public string score_type { get; set; }
+        public int points { get; set; }
+    }
+    public class MedalEntry
+    {
+        public string medal { get; set; }
+        public int amount { get; set; }
     }
 }

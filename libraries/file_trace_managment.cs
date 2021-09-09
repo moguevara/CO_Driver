@@ -1091,8 +1091,8 @@ namespace CO_Driver
                 current_player.power_score = player.Value.power_score;
                 current_player.team = player.Value.team;
                 current_player.stats = sum_stats(player.Value.stats, current_player.stats);
-                current_player.scores = new List<Score> { };
-                current_player.stripes = new List<string> { };
+                current_player.scores = player.Value.scores;
+                current_player.stripes = player.Value.stripes;
 
                 for (int i = 0; i < Current_session.current_match.round_records.Count(); i++)
                     if (Current_session.current_match.round_records[i].players.Any(x => x.nickname == player.Key))

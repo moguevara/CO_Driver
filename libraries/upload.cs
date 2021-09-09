@@ -66,6 +66,10 @@ namespace CO_Driver
                 match_entry.client_version = match.match_data.client_version;
             match_entry.game_server = match.match_data.server_ip;
             match_entry.rounds = populate_round_entrys(match);
+            match_entry.resources = new List<Crossout.AspWeb.Models.API.v2.ResourceEntry> { };
+
+            foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score"))
+                match_entry.resources.Add(new Crossout.AspWeb.Models.API.v2.ResourceEntry { resource = reward.Key, amount = reward.Value });
 
             return match_entry;
         }
@@ -74,6 +78,8 @@ namespace CO_Driver
         {
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
+
+            Console.WriteLine("got here");
 
             int i = 0;
             foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
@@ -109,6 +115,22 @@ namespace CO_Driver
                     new_player.score = player.stats.score;
                     new_player.damage = player.stats.damage;
                     new_player.damage_taken = player.stats.damage_taken;
+                    
+                    new_player.scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { };
+                    new_player.medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { };
+
+                    foreach (file_trace_managment.Score score in player.scores)
+                        new_player.scores.Add(new Crossout.AspWeb.Models.API.v2.ScoreEntry { score_type = score.description, points = score.points });
+                        
+
+                    foreach (string stripe in player.stripes)
+                    {
+                        if (new_player.medals.Any(x => x.medal == stripe))
+                            new_player.medals.First(x => x.medal == stripe).amount += 1;
+                        else
+                            new_player.medals.Add(new Crossout.AspWeb.Models.API.v2.MedalEntry { medal = stripe, amount = 1 });
+                    }
+
                     new_round.players.Add(new_player);
                 }
 
