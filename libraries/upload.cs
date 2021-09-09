@@ -68,7 +68,7 @@ namespace CO_Driver
             match_entry.rounds = populate_round_entrys(match);
             match_entry.resources = new List<Crossout.AspWeb.Models.API.v2.ResourceEntry> { };
 
-            foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score"))
+            foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards.Where(x => x.Key != "score"))
                 match_entry.resources.Add(new Crossout.AspWeb.Models.API.v2.ResourceEntry { resource = reward.Key, amount = reward.Value });
 
             return match_entry;

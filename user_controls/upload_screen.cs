@@ -187,7 +187,7 @@ namespace CO_Driver
 
                 upload_list.Add(Upload.populate_match_entry(match, translations));
 
-                if (upload_list.Count >= 10)
+                if (upload_list.Count >= 1)
                 {
                     percent_upload = (int)(((double)(upload_matchs) / (double)valid_matchs) * 100);
                     status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date);
