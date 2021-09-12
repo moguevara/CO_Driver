@@ -108,6 +108,7 @@ namespace CO_Driver
                     new_player.uid = player.uid;
                     new_player.nickname = player.nickname;
                     new_player.team = player.team;
+                    new_player.group_id = player.party_id;
                     new_player.build_hash = player.build_hash;
                     new_player.power_score = player.power_score;
                     new_player.kills = player.stats.kills;
