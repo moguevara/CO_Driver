@@ -149,14 +149,16 @@ namespace CO_Driver
 
             bw_status_update status = new bw_status_update { };
 
-            List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { };
+            upload_entry.uploader_uid = session.local_user_uid;
+            upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+
             List<long> previous_matchs = new List<long> { };
             DateTime min_upload_date = DateTime.MaxValue;
             DateTime max_upload_date = DateTime.MinValue;
             int percent_upload = 0;
             int upload_matchs = 0;
 
-            upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             previous_matchs = Upload.get_previously_uploaded_match_list(session.local_user_uid);
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
@@ -185,17 +187,17 @@ namespace CO_Driver
                 if (match.match_data.match_end > max_upload_date)
                     max_upload_date = match.match_data.match_end;
 
-                upload_list.Add(Upload.populate_match_entry(match, translations));
+                upload_entry.match_list.Add(Upload.populate_match_entry(match, translations));
 
-                if (upload_list.Count >= 1)
+                if (upload_entry.match_list.Count >= 75)
                 {
                     percent_upload = (int)(((double)(upload_matchs) / (double)valid_matchs) * 100);
-                    status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date);
+                    status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
                     status.percent_upload = percent_upload;
                     status.matchs_uploaded = upload_matchs;
                     bw_file_uploader.ReportProgress(0, status);
 
-                    upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_list);
+                    upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_entry);
 
                     if (upload_matchs == -1)
                     {
@@ -205,15 +207,15 @@ namespace CO_Driver
 
                     min_upload_date = DateTime.MaxValue;
                     max_upload_date = DateTime.MinValue;
-                    upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+                    upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
                 }
             }
 
-            status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date);
+            status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
             bw_file_uploader.ReportProgress(0, status);
 
-            upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_list);
+            upload_matchs = Upload.upload_match_list_to_crossoutdb(upload_entry);
 
             if (upload_matchs == -1)
             {
@@ -222,7 +224,7 @@ namespace CO_Driver
             }
 
             percent_upload = (int)(((double)(valid_matchs - upload_matchs) / (double)valid_matchs) * 100);
-            status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_list.Count, min_upload_date, max_upload_date);
+            status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
             status.matchs_uploaded = upload_matchs;
             bw_file_uploader.ReportProgress(0, status);
@@ -232,8 +234,7 @@ namespace CO_Driver
         {
             bw_status_update status = e.UserState as bw_status_update;
             pb_upload_bar.Value = status.percent_upload > 100 ? 100 : status.percent_upload;
-            if (status.matchs_uploaded > Convert.ToInt32(lb_uploaded_matchs.Text))
-                lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
+            lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
             lb_ready_to_upload.Text = (valid_matchs - status.matchs_uploaded).ToString();
             tb_upload_progress.AppendText(status.text_update);
             lb_upload_status_text.Text = string.Format(status.text_update);

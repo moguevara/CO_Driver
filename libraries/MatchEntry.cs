@@ -4,10 +4,15 @@ using System.Text;
 
 namespace Crossout.AspWeb.Models.API.v2
 {
+    public class UploadEntry
+    {
+        public int uploader_uid { get; set; }
+        public List<MatchEntry> match_list { get; set; }
+    }
+
     public class MatchEntry
     {
         public long match_id { get; set; }
-        public int uploader_uid { get; set; }
         public string match_type { get; set; }
         public DateTime match_start { get; set; }
         public DateTime match_end { get; set; }

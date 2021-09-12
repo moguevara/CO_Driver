@@ -16,7 +16,9 @@ namespace CO_Driver
         public static void upload_match_history(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             List<long> previous_matchs = get_previously_uploaded_match_list(Current_session.local_user_uid);
-            List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { };
+            upload_entry.uploader_uid = Current_session.local_user_uid;
+            upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
 
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
@@ -32,18 +34,18 @@ namespace CO_Driver
                 if (match.match_data.winning_team == -1)
                     continue;
 
-                upload_list.Add(populate_match_entry(match, translations));
+                upload_entry.match_list.Add(populate_match_entry(match, translations));
 
-                if (upload_list.Count >= 50)
+                if (upload_entry.match_list.Count >= 75)
                 {
-                    if (upload_match_list_to_crossoutdb(upload_list) == -1)
+                    if (upload_match_list_to_crossoutdb(upload_entry) == -1)
                         return;
-                    upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+                    upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
                 }
             }
 
-            if (upload_list.Any())
-                upload_match_list_to_crossoutdb(upload_list);
+            if (upload_entry.match_list.Any())
+                upload_match_list_to_crossoutdb(upload_entry);
         }
 
         public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, translate.Translation>> translations)
@@ -51,7 +53,6 @@ namespace CO_Driver
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
             match_entry.match_id = match.match_data.server_guid;
-            match_entry.uploader_uid = match.match_data.local_player.uid;
             match_entry.match_type = match.match_data.match_type_desc;
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
@@ -200,13 +201,13 @@ namespace CO_Driver
             return previous_matchs;
         }
 
-        public static int upload_match_list_to_crossoutdb(List<Crossout.AspWeb.Models.API.v2.MatchEntry> match_list)
+        public static int upload_match_list_to_crossoutdb(Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry)
         {
             int match_count = -1;
 
             try
             {
-                string serialized_match_list = JsonConvert.SerializeObject(match_list);
+                string serialized_match_list = JsonConvert.SerializeObject(upload_entry);
 
 #if DEBUG
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_matchs");
