@@ -122,6 +122,8 @@ namespace CO_Driver
         public const int GARAGE_DAMAGE_EVENT = 9;
         public const int TEST_DRIVE_END_EVENT = 10;
 
+        public const int UPLOAD_LIST_SIZE = 75;
+
         public const string GAME_MODE_FILTER_DEFAULT = "All Game Modes";
         public const string GROUP_FILTER_DEFAULT = "Solo/Grouped";
         public const string MAP_FILTER_DEFAULT = "All Maps";

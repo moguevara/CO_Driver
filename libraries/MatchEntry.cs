@@ -4,10 +4,31 @@ using System.Text;
 
 namespace Crossout.AspWeb.Models.API.v2
 {
+    public class UploadReturn
+    {
+        public List<long> uploaded_matches { get; set; }
+        public List<BuildReturn> uploaded_builds { get; set; }
+    }
+
+    public class BuildReturn
+    {
+        public string build_hash { get; set; }
+        public int power_score { get; set; }
+        public int part_count { get; set; }
+    }
+
     public class UploadEntry
     {
         public int uploader_uid { get; set; }
         public List<MatchEntry> match_list { get; set; }
+        public List<BuildEntry> build_list { get; set; }
+    }
+
+    public class BuildEntry
+    {
+        public string build_hash { get; set; }
+        public int power_score { get; set; }
+        public List<string> parts { get; set; }
     }
 
     public class MatchEntry

@@ -15,14 +15,14 @@ namespace CO_Driver
     {
         public static void upload_match_history(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
-            List<long> previous_matchs = get_previously_uploaded_match_list(Current_session.local_user_uid);
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = get_previous_uploads(Current_session.local_user_uid);
             Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { };
             upload_entry.uploader_uid = Current_session.local_user_uid;
             upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
 
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
-                if (previous_matchs.Contains(match.match_data.server_guid))
+                if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
                     continue;
 
                 if (match.match_data.server_guid == 0)
@@ -38,14 +38,24 @@ namespace CO_Driver
 
                 if (upload_entry.match_list.Count >= 75)
                 {
-                    if (upload_match_list_to_crossoutdb(upload_entry) == -1)
-                        return;
+                    upload_to_crossoutdb(upload_entry);
                     upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
                 }
             }
 
             if (upload_entry.match_list.Any())
-                upload_match_list_to_crossoutdb(upload_entry);
+                upload_to_crossoutdb(upload_entry);
+        }
+
+        public static Crossout.AspWeb.Models.API.v2.BuildEntry populate_build_entry(file_trace_managment.BuildRecord build)
+        {
+            Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
+
+            build_entry.build_hash = build.build_hash;
+            build_entry.power_score = build.power_score;
+            build_entry.parts = build.parts;
+
+            return build_entry;
         }
 
         public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, translate.Translation>> translations)
@@ -158,9 +168,9 @@ namespace CO_Driver
             return rounds;
         }
 
-        public static List<long> get_previously_uploaded_match_list(int local_user_id)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn get_previous_uploads(int local_user_id)
         {
-            List<long> previous_matchs = new List<long> { };
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { };
 
 #if DEBUG
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
@@ -187,7 +197,7 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    previous_matchs = JsonConvert.DeserializeObject<List<long>>(crossoutdb_json);
+                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
             catch (TimeoutException ex)
@@ -199,21 +209,22 @@ namespace CO_Driver
                 MessageBox.Show("The following problem occured when loading previous match list from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message);
             }
 
-            return previous_matchs;
+            return upload_return;
         }
 
-        public static int upload_match_list_to_crossoutdb(Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry)
+
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn upload_to_crossoutdb(Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry)
         {
-            int match_count = -1;
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = new List<Crossout.AspWeb.Models.API.v2.BuildReturn> { } };
 
             try
             {
                 string serialized_match_list = JsonConvert.SerializeObject(upload_entry);
 
 #if DEBUG
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_matchs");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_match_and_build");
 #else
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_matchs");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_match_and_build");
 #endif
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=UTF-8";
@@ -230,19 +241,19 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    match_count = JsonConvert.DeserializeObject<int>(crossoutdb_json);
+                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
             catch (TimeoutException ex)
             {
-
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
-            return match_count;
+            return upload_return;
         }
     }
 }
