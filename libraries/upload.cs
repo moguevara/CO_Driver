@@ -230,7 +230,7 @@ namespace CO_Driver
                 using (Stream webStream = request.GetRequestStream())
                 using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
                 {
-                    requestWriter.WriteAsync(serialized_match_list);
+                    requestWriter.Write(serialized_match_list);
                 }
 
                 WebResponse webResponse = request.GetResponse();
