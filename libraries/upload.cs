@@ -134,7 +134,6 @@ namespace CO_Driver
                     foreach (file_trace_managment.Score score in player.scores)
                         new_player.scores.Add(new Crossout.AspWeb.Models.API.v2.ScoreEntry { score_type = score.description, points = score.points });
                         
-
                     foreach (string stripe in player.stripes)
                     {
                         if (new_player.medals.Any(x => x.medal == stripe))
@@ -170,7 +169,7 @@ namespace CO_Driver
 
         public static Crossout.AspWeb.Models.API.v2.UploadReturn get_previous_uploads(int local_user_id)
         {
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { };
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
 #if DEBUG
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
@@ -178,7 +177,6 @@ namespace CO_Driver
 #else
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #endif
-
             request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = 30000;
@@ -215,7 +213,7 @@ namespace CO_Driver
 
         public static Crossout.AspWeb.Models.API.v2.UploadReturn upload_to_crossoutdb(Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry)
         {
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = new List<Crossout.AspWeb.Models.API.v2.BuildReturn> { } };
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
             try
             {
@@ -232,7 +230,7 @@ namespace CO_Driver
                 using (Stream webStream = request.GetRequestStream())
                 using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
                 {
-                    requestWriter.Write(serialized_match_list);
+                    requestWriter.WriteAsync(serialized_match_list);
                 }
 
                 WebResponse webResponse = request.GetResponse();

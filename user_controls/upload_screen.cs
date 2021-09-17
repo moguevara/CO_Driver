@@ -75,10 +75,8 @@ namespace CO_Driver
 
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
-
             matchs_uploaded = upload_return.uploaded_matches.Count;
-
-            tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded matchs." + Environment.NewLine, matchs_uploaded));
+            builds_uploaded = upload_return.uploaded_builds;
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
@@ -127,21 +125,20 @@ namespace CO_Driver
                 }
 
                 valid_builds += 1;
-
-                if (upload_return.uploaded_builds.Any(x => x.build_hash == build.Value.build_hash && x.power_score == build.Value.power_score && x.part_count == build.Value.parts.Count))
-                    continue;
-
-                ready_to_upload_builds += 1;
             }
 
+            ready_to_upload_builds = valid_builds - builds_uploaded;
+
+            tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded matchs." + Environment.NewLine, matchs_uploaded));
+            tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded builds." + Environment.NewLine, builds_uploaded));
             tb_upload_progress.AppendText(string.Format("Found {0} total games." + Environment.NewLine, match_history.Count));
             tb_upload_progress.AppendText(string.Format("Found {0} games with game.log corruptions." + Environment.NewLine, match_corruptions));
             tb_upload_progress.AppendText(string.Format("Found {0} games with incomplete uploader uid (including spectator matches)." + Environment.NewLine, invalid_uid));
             tb_upload_progress.AppendText(string.Format("Found {0} incomplete games." + Environment.NewLine, incomplete_matchs));
             tb_upload_progress.AppendText(string.Format("Found {0} valid matchs for upload." + Environment.NewLine, valid_matchs));
-            tb_upload_progress.AppendText(string.Format("Found {0} games ready to upload." + Environment.NewLine + Environment.NewLine, ready_to_upload_matchs));
-            tb_upload_progress.AppendText(string.Format("Found {0} builds with incomplete properties." + Environment.NewLine + Environment.NewLine, invalid_builds));
-            tb_upload_progress.AppendText(string.Format("Found {0} valid builds for upload." + Environment.NewLine + Environment.NewLine, valid_builds));
+            tb_upload_progress.AppendText(string.Format("Found {0} games ready to upload." + Environment.NewLine, ready_to_upload_matchs));
+            tb_upload_progress.AppendText(string.Format("Found {0} builds with incomplete properties." + Environment.NewLine, invalid_builds));
+            tb_upload_progress.AppendText(string.Format("Found {0} valid builds for upload." + Environment.NewLine, valid_builds));
             tb_upload_progress.AppendText(string.Format("Found {0} builds ready to upload." + Environment.NewLine + Environment.NewLine, ready_to_upload_builds));
 
             lb_ready_to_upload.Text = ready_to_upload_matchs.ToString();
@@ -172,6 +169,7 @@ namespace CO_Driver
                 return;
 
             bw_status_update status = new bw_status_update { };
+            List<string> uploaded_builds = new List<string> { };
 
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
             Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
@@ -184,43 +182,10 @@ namespace CO_Driver
             DateTime max_upload_date = DateTime.MinValue;
             int percent_upload = 0;
 
-            foreach (KeyValuePair<string, file_trace_managment.BuildRecord> build in build_records)
-            {
-                if (bw_file_uploader.CancellationPending)
-                    return;
-
-                if (build.Value.parts.Count == 0)
-                    continue;
-
-                if (build.Value.power_score == 0)
-                    continue;
-
-                if (upload_return.uploaded_builds.Any(x => x.build_hash == build.Value.build_hash && x.power_score == build.Value.power_score && x.part_count == build.Value.parts.Count))
-                    continue;
-
-                upload_entry.build_list.Add(Upload.populate_build_entry(build.Value));
-
-                if (upload_entry.build_list.Count >= global_data.UPLOAD_LIST_SIZE)
-                {
-                    status.text_update = string.Format("Uploading {0} builds." + Environment.NewLine, upload_entry.build_list.Count);
-                    status.percent_upload = percent_upload;
-                    status.matchs_uploaded = upload_return.uploaded_matches.Count;
-                    status.builds_uploaded = upload_return.uploaded_builds.Count;
-                    bw_file_uploader.ReportProgress(0, status);
-                    upload_return = Upload.upload_to_crossoutdb(upload_entry);
-                    upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
-                }
-            }
-
-            status.text_update = string.Format("Uploading {0} builds." + Environment.NewLine, upload_entry.build_list.Count);
-            status.percent_upload = percent_upload;
-            status.matchs_uploaded = upload_return.uploaded_matches.Count;
-            status.builds_uploaded = upload_return.uploaded_builds.Count;
-            bw_file_uploader.ReportProgress(0, status);
             upload_return = Upload.upload_to_crossoutdb(upload_entry);
             upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (file_trace_managment.MatchRecord match in match_history)
             {
                 if (bw_file_uploader.CancellationPending)
                     return;
@@ -246,15 +211,39 @@ namespace CO_Driver
                 if (match.match_data.match_end > max_upload_date)
                     max_upload_date = match.match_data.match_end;
 
+                foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                {
+                    foreach (file_trace_managment.Player player in round.players)
+                    {
+                        if (bw_file_uploader.CancellationPending)
+                            return;
+
+                        if (!build_records.ContainsKey(player.build_hash))
+                            continue;
+
+                        if (build_records[player.build_hash].parts.Count == 0)
+                            continue;
+
+                        if (build_records[player.build_hash].power_score == 0)
+                            continue;
+
+                        if (uploaded_builds.Contains(player.build_hash))
+                            continue;
+
+                        uploaded_builds.Add(player.build_hash);
+                        upload_entry.build_list.Add(Upload.populate_build_entry(build_records[player.build_hash]));
+                    }
+                }
                 upload_entry.match_list.Add(Upload.populate_match_entry(match, translations));
 
                 if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
                 {
                     percent_upload = percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
-                    status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
+                    status.text_update =  string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
+                    status.text_update += string.Format("Uploading {0} builds." + Environment.NewLine, upload_entry.build_list.Count);
                     status.percent_upload = percent_upload;
                     status.matchs_uploaded = upload_return.uploaded_matches.Count;
-                    status.builds_uploaded = upload_return.uploaded_builds.Count;
+                    status.builds_uploaded = upload_return.uploaded_builds;
                     bw_file_uploader.ReportProgress(0, status);
 
                     upload_return = Upload.upload_to_crossoutdb(upload_entry);
@@ -267,7 +256,7 @@ namespace CO_Driver
             status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
             status.matchs_uploaded = upload_return.uploaded_matches.Count;
-            status.builds_uploaded = upload_return.uploaded_builds.Count;
+            status.builds_uploaded = upload_return.uploaded_builds;
             bw_file_uploader.ReportProgress(0, status);
 
             upload_return = Upload.upload_to_crossoutdb(upload_entry);
@@ -276,22 +265,24 @@ namespace CO_Driver
             status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
             status.matchs_uploaded = upload_return.uploaded_matches.Count;
-            status.builds_uploaded = upload_return.uploaded_builds.Count;
+            status.builds_uploaded = upload_return.uploaded_builds;
             bw_file_uploader.ReportProgress(0, status);
         }
 
 
         private int get_percent_upload(int uploaded_matches)
         {
-            return (int)(((double)(valid_matchs - uploaded_matches) / (double)valid_matchs) * 100);
+            return (int)(((double)(uploaded_matches) / (double)valid_matchs) * 100);
         }
 
         private void report_upload_status(object sender, ProgressChangedEventArgs e)
         {
             bw_status_update status = e.UserState as bw_status_update;
             pb_upload_bar.Value = status.percent_upload > 100 ? 100 : status.percent_upload;
-            lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
-            lb_uploaded_builds.Text = status.builds_uploaded.ToString();
+            if (status.matchs_uploaded > 0)
+                lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
+            if (status.builds_uploaded > 0)
+                lb_uploaded_builds.Text = status.builds_uploaded.ToString();
             lb_ready_to_upload.Text = (valid_matchs - status.matchs_uploaded).ToString();
             tb_upload_progress.AppendText(status.text_update);
             lb_upload_status_text.Text = string.Format(status.text_update);

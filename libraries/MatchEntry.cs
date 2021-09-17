@@ -7,14 +7,7 @@ namespace Crossout.AspWeb.Models.API.v2
     public class UploadReturn
     {
         public List<long> uploaded_matches { get; set; }
-        public List<BuildReturn> uploaded_builds { get; set; }
-    }
-
-    public class BuildReturn
-    {
-        public string build_hash { get; set; }
-        public int power_score { get; set; }
-        public int part_count { get; set; }
+        public int uploaded_builds { get; set; }
     }
 
     public class UploadEntry
