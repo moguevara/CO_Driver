@@ -124,6 +124,7 @@ namespace CO_Driver
                     new_player.kills = player.stats.kills;
                     new_player.assists = player.stats.assists;
                     new_player.drone_kills = player.stats.drone_kills;
+                    new_player.deaths = player.stats.deaths;
                     new_player.score = player.stats.score;
                     new_player.damage = player.stats.damage;
                     new_player.damage_taken = player.stats.damage_taken;

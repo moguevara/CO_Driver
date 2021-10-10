@@ -65,6 +65,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public int kills { get; set; }
         public int assists { get; set; }
         public int drone_kills { get; set; }
+        public int deaths { get; set; }
         public int score { get; set; }
         public double damage { get; set; }
         public double damage_taken { get; set; }
