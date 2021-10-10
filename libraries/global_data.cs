@@ -40,6 +40,7 @@ namespace CO_Driver
         public const int QUEUE_UPDATE_EVENT = 26;
         public const int CONNECTION_INIT_EVENT = 27;
         public const int GUID_ASSIGN_EVENT = 28;
+        public const int HOST_NAME_ASSIGN_EVENT = 29;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;

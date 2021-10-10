@@ -94,6 +94,7 @@ namespace CO_Driver
             public long client_guid { get; set; }
             public string server_ip { get; set; }
             public string server_port { get; set; }
+            public string host_name { get; set; }
             public List<MatchAttribute> attributes { get; set; }
         }
         public class MatchRecord
@@ -112,6 +113,7 @@ namespace CO_Driver
             public long client_guid { get; set; }
             public string server_ip { get; set; }
             public string server_port { get; set; }
+            public string host_name { get; set; }
             public string match_type_desc { get; set; }
             public string gameplay_desc { get; set; }
             public int winning_team { get; set; }
@@ -396,6 +398,9 @@ namespace CO_Driver
             if (line.Contains("server guid"))
                 event_id = global_data.GUID_ASSIGN_EVENT;
             else
+            if (line.Contains("connected to dedicated server."))
+                event_id = global_data.HOST_NAME_ASSIGN_EVENT;
+            else
             if (line.Contains("expFactionTotal"))
                 event_id = global_data.MATCH_REWARD_EVENT;
             else
@@ -569,6 +574,30 @@ namespace CO_Driver
                 Current_session.pending_attributes.client_guid = client_guid;
                 Current_session.pending_attributes.server_ip = server_ip;
                 Current_session.pending_attributes.server_port = server_port;
+            }
+        }
+
+        public static void dedicated_server_connect_event(string line, SessionStats Current_session)
+        {
+            //22:31:03.278         | client: connected to dedicated server. gsid: 446238260, hostname: 'wheel10lw-us.pxo'
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: connected to dedicated server. gsid: (?<gsid>.+), hostname: '(?<host_name>.+)'$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            long gsid = Convert.ToInt64(line_results.Groups["gsid"].Value.Replace(" ", ""));
+            string host_name = line_results.Groups["host_name"].Value.Replace(" ", "");
+
+            if (Current_session.in_match)
+            {
+                Current_session.current_match.host_name = host_name;
+            }
+            else
+            {
+                Current_session.pending_attributes.host_name = host_name;
             }
         }
 
@@ -867,6 +896,7 @@ namespace CO_Driver
                 Current_session.current_match.client_guid = Current_session.pending_attributes.client_guid;
                 Current_session.current_match.server_ip = Current_session.pending_attributes.server_ip;
                 Current_session.current_match.server_port = Current_session.pending_attributes.server_port;
+                Current_session.current_match.host_name = Current_session.pending_attributes.host_name;
             }
             
             if (!Current_session.current_match.match_attributes.Any() && Current_session.pending_attributes.attributes.Any())
@@ -2032,6 +2062,7 @@ namespace CO_Driver
                 client_guid = 0,
                 server_ip = "",
                 server_port = "",
+                host_name = "",
                 gameplay_desc = "",
                 winning_team = -1,
                 win_reason = "",
@@ -2046,6 +2077,8 @@ namespace CO_Driver
                 match_end = new DateTime { },
                 queue_start = new DateTime { },
                 queue_end = new DateTime { },
+                round_end_time = new DateTime { },
+                round_start_time = new DateTime { },
                 match_duration_seconds = 0.0,
                 victims = new List<string> { },
                 match_attributes = new List<MatchAttribute> { },
@@ -2088,6 +2121,7 @@ namespace CO_Driver
                 client_guid = 0,
                 server_ip = "",
                 server_port = "",
+                host_name = "",
                 attributes = new List<MatchAttribute> { }
             };
         }

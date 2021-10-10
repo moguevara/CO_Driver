@@ -75,7 +75,7 @@ namespace CO_Driver
                 match_entry.client_version = match.match_data.client_version.Split(' ')[0];
             else
                 match_entry.client_version = match.match_data.client_version;
-            match_entry.game_server = match.match_data.server_ip;
+            match_entry.host_name = match.match_data.host_name;
             match_entry.rounds = populate_round_entrys(match);
             match_entry.resources = new List<Crossout.AspWeb.Models.API.v2.ResourceEntry> { };
 

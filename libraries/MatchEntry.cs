@@ -36,7 +36,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public int win_conidtion { get; set; }
         public string client_version { get; set; }
         public string co_driver_version { get; set; }
-        public string game_server { get; set; }
+        public string host_name { get; set; }
         public List<RoundEntry> rounds { get; set; }
         public List<ResourceEntry> resources { get; set; }
     }
