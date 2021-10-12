@@ -109,6 +109,7 @@ namespace CO_Driver
             public string map_name { get; set; }
             public string map_desc { get; set; }
             public int match_type { get; set; }
+            public int match_classification { get; set; }
             public long server_guid { get; set; }
             public long client_guid { get; set; }
             public string server_ip { get; set; }
@@ -1043,6 +1044,8 @@ namespace CO_Driver
 
             //if (Current_session.current_match.match_type == global_data.UNDEFINED_MATCH)
             //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
+
+            //add classification
 
             Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
             Current_session.current_match.gameplay_desc = Current_session.current_match.game_play_value;
@@ -2057,6 +2060,7 @@ namespace CO_Driver
                 map_name = "",
                 map_desc = "",
                 match_type = global_data.UNDEFINED_MATCH,
+                match_classification = global_data.UNDEFINED_CLASSIFICATION,
                 match_type_desc = "",
                 server_guid = 0,
                 client_guid = 0,
