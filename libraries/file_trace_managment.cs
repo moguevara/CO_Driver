@@ -1042,13 +1042,52 @@ namespace CO_Driver
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
-            //if (Current_session.current_match.match_type == global_data.UNDEFINED_MATCH)
-            //    MessageBox.Show(string.Format(@"Unable to define match gameplay:{0} player_count:{1} map:{2}", Current_session.current_match.game_play_value, player_count, Current_session.current_match.map_name));
-
-            //add classification
-
             Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
             Current_session.current_match.gameplay_desc = Current_session.current_match.game_play_value;
+            set_match_classification(Current_session);
+        }
+
+        public static void set_match_classification(SessionStats Current_session)
+        {
+            Current_session.current_match.match_classification = global_data.UNDEFINED_CLASSIFICATION;
+
+            if (Current_session.current_match.match_type == global_data.STANDARD_MATCH            ||
+                Current_session.current_match.match_type == global_data.STANDARD_CW_MATCH         ||
+                Current_session.current_match.match_type == global_data.LEVIATHIAN_CW_MATCH       ||
+                Current_session.current_match.match_type == global_data.LEAGUE_6_v_6_MATCH        ||
+                Current_session.current_match.match_type == global_data.STANDARD_RESTRICTED_MATCH ||
+                Current_session.current_match.match_type == global_data.CANNON_BRAWL_MATCH)
+                Current_session.current_match.match_classification = global_data.PVP_CLASSIFICATION;
+
+            if (Current_session.current_match.match_type == global_data.EASY_RAID_MATCH           ||
+                Current_session.current_match.match_type == global_data.MED_RAID_MATCH            ||
+                Current_session.current_match.match_type == global_data.HARD_RAID_MATCH           ||
+                Current_session.current_match.match_type == global_data.ADVENTURE_MATCH           ||
+                Current_session.current_match.match_type == global_data.PRESENT_HEIST_MATCH       ||
+                Current_session.current_match.match_type == global_data.PATROL_MATCH              ||
+                Current_session.current_match.match_type == global_data.GOZU_MATCH)
+                Current_session.current_match.match_classification = global_data.PVE_CLASSIFICATION;
+
+            if (Current_session.current_match.match_type == global_data.BATTLE_ROYALE_MATCH       ||
+                Current_session.current_match.match_type == global_data.WINTER_MAYHAM_MATCH       ||
+                Current_session.current_match.match_type == global_data.FREE_FOR_ALL_MATCH        ||
+                Current_session.current_match.match_type == global_data.SCORPION_MATCH            ||
+                Current_session.current_match.match_type == global_data.BOAR_FIGHT_MATCH          ||
+                Current_session.current_match.match_type == global_data.BIG_BAD_BURNERS_MATCH     ||
+                Current_session.current_match.match_type == global_data.RACE_MATCH                ||
+                Current_session.current_match.match_type == global_data.STORMS_WARNING_MATCH      ||
+                Current_session.current_match.match_type == global_data.HALLOWEEN_MATCH           ||
+                Current_session.current_match.match_type == global_data.ROCKET_LEAGUE_MATCH       ||
+                Current_session.current_match.match_type == global_data.DRONE_BATTLE_MATCH        ||
+                Current_session.current_match.match_type == global_data.RACE_WHEELS_ONLY_MATCH    ||
+                Current_session.current_match.match_type == global_data.CROSSOUT_DAY_BRAWL_MATCH)
+                Current_session.current_match.match_classification = global_data.BRAWL_CLASSIFICATION;
+
+            if (Current_session.current_match.match_type == global_data.BEDLAM_MATCH)
+                Current_session.current_match.match_classification = global_data.FREE_PLAY_CLASSIFICATION;
+
+            if (Current_session.current_match.match_type == global_data.CUSTOM_MATCH)
+                Current_session.current_match.match_classification = global_data.CUSTOM_CLASSIFICATION;
         }
 
         private static void finalize_match_record(SessionStats Current_session)

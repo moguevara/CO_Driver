@@ -85,13 +85,14 @@ namespace CO_Driver
         public const int GOZU_MATCH = 28; /* thanks to seaofdogs */
         public const int UNDEFINED_MATCH = 29;
 
+        public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
+
         public const int UNDEFINED_CLASSIFICATION = 0;
         public const int PVP_CLASSIFICATION = 1;
         public const int PVE_CLASSIFICATION = 2;
         public const int BRAWL_CLASSIFICATION = 3;
-        public const int CUSTOM_CLASSIFICATION = 4;
-        
-        public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
+        public const int FREE_PLAY_CLASSIFICATION = 4;
+        public const int CUSTOM_CLASSIFICATION = 5;
 
         public const int UNDEFINED_FILE_TYPE = 0;
         public const int COMBAT_LOG_FILE = 1;

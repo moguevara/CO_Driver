@@ -64,6 +64,7 @@ namespace CO_Driver
 
             match_entry.match_id = match.match_data.server_guid;
             match_entry.match_type = match.match_data.match_type_desc;
+            match_entry.match_classification = match.match_data.match_classification;
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
             match_entry.map_name = match.match_data.map_name;
