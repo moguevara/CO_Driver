@@ -58,6 +58,7 @@ namespace Crossout.AspWeb.Models.API.v2
         public long match_id { get; set; }
         public int round_id { get; set; }
         public int uid { get; set; }
+        public int bot { get; set; }
         public string nickname { get; set; }
         public int team { get; set; }
         public int group_id { get; set; }
