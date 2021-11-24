@@ -91,8 +91,6 @@ namespace CO_Driver
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
 
-            Console.WriteLine("got here");
-
             int i = 0;
             foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
             {
