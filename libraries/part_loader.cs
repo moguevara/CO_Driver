@@ -487,6 +487,23 @@ namespace CO_Driver
             Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_C2_Raider", "CarPart_Wheel_MonsterTruck");
             Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_S_C2_Raider", "CarPart_Wheel_MonsterTruck_S");
             Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_T34_epic_Misc", "CarPart_Gun_BigCannon_Free_T34_epic");
+
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Syfy_FusionRifle_legend_bp7", "CarPart_Gun_SmartMachinegun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Syfy_FusionRifle_legend_bp7", "CarPart_Gun_Syfy_FusionRifle_legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_Preepic_bp6", "CarPart_Gun_Shotgun_Preepic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Minigun_Legend_bp6", "CarPart_Gun_Minigun_Legend");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_rare_C2_China", "CarPart_Gun_BigCannon_Free_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Cannon_epic_C2_China", "CarPart_Gun_Cannon_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Cannon_rare_C1_Raider", "CarPart_Gun_Cannon_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_GrenadeLauncher_Auto_C2_China", "CarPart_Gun_GrenadeLauncher_Auto");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_Frontal_C2_China", "CarPart_Gun_Machinegun_Frontal");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Machinegun_rare_C2_China", "CarPart_Gun_Machinegun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Minigun_C2_China", "CarPart_Gun_Minigun");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_epic_C2_China", "CarPart_Gun_Shotgun_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_Frontal_C2_China", "CarPart_Gun_Shotgun_Frontal");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_Shotgun_rare_C2_China", "CarPart_Gun_Shotgun_rare");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_SniperCrossbow_C2_China_Douyu", "CarPart_Gun_SniperCrossbow");
+            Current_session.static_records.ck_dict.Add("CarPart_HomingMissileLauncher_epic_C2_China", "CarPart_HomingMissileLauncher");
         }
 
         public static void load_map_dictionary(file_trace_managment.SessionStats Current_session)
@@ -520,6 +537,7 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("port", "Terminal-45");
             Current_session.static_records.map_dict.Add("shipyard_battle", "River lighthouse");
             Current_session.static_records.map_dict.Add("fieldbattle", "Tank range");
+            Current_session.static_records.map_dict.Add("sinto", "Sinto City");
         }
 
         public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)
@@ -646,6 +664,9 @@ namespace CO_Driver
 
             Current_session.static_records.global_movement_dict.Add("CarPart_Wheel_Raider_01_epic_S", new_movement("CarPart_Wheel_Raider_01_epic_S", "Buggy wheel ST", 360, global_data.EPIC_RARITY, 60, 2800, 0.35, 820, 800, 0.5, 0, 0, 0, 0, "auger")); /*incomplete*/
             Current_session.static_records.global_movement_dict.Add("CarPart_Wheel_Raider_01_epic", new_movement("CarPart_Wheel_Raider_01_epic", "Buggy wheel", 360, global_data.EPIC_RARITY, 60, 2800, 0.35, 820, 800, 0.5, 0, 0, 0, 0, "auger")); /*incomplete*/
+
+            Current_session.static_records.global_movement_dict.Add("CarPart_MotoWheel_S", new_movement("CarPart_MotoWheel_S", "Claw", 360, global_data.EPIC_RARITY, 60, 2800, 0.35, 820, 800, 0.5, 0, 0, 0, 0, "frontal wheel")); /*incomplete*/
+            Current_session.static_records.global_movement_dict.Add("CarPart_TankTrackBig_dow", new_movement("CarPart_TankTrackBig_dow", "Tank track", 1000, global_data.EPIC_RARITY, 45, 6000, 0.45, 1600, 1800, 0.5, 0.25, 0.25, 0, 0, "heavy track"));
         }
 
         public static void populate_explosive_list(file_trace_managment.SessionStats Current_session)
@@ -660,6 +681,8 @@ namespace CO_Driver
             Current_session.static_records.global_explosives_dict.Add("CarPart_PowerGiver_legend", new_explosive("CarPart_PowerGiver_legend", "Apollo IV", global_data.LEGENDARY_RARITY, -4, 363, 1152, 1600, 350.01, "generator"));
             Current_session.static_records.global_explosives_dict.Add("CarPart_Barrel", new_explosive("CarPart_Barrel", "Fuel barrel", global_data.COMMON_RARITY, 0, 56, 80, 65, 195.51, "fuel tank"));
             Current_session.static_records.global_explosives_dict.Add("CarPart_ModuleTank_rare", new_explosive("CarPart_ModuleTank_rare", "Fuel tank", global_data.RARE_RARITY, 0, 140, 200, 115, 392.24, "fuel tank"));
+
+            Current_session.static_records.global_explosives_dict.Add("CarPart_PowerGiver_epic2", new_explosive("CarPart_PowerGiver_epic2", "Bootstrap", global_data.EPIC_RARITY, -3, 36, 144, 870, 446.21, "generator"));
         }
 
         public static void populate_engine_list(file_trace_managment.SessionStats Current_session)
@@ -706,6 +729,8 @@ namespace CO_Driver
 
             Current_session.static_records.global_module_dict.Add("CarPart_Cooldown_Accelerator_preepic", new_module("CarPart_Cooldown_Accelerator_preepic", "KA-1 Discharger", global_data.EPIC_RARITY, 1, 115, 96, 275, "support")); /* incomplete */
             Current_session.static_records.global_module_dict.Add("CarPart_Cooldown_Accelerator_epic", new_module("CarPart_Cooldown_Accelerator_epic", "KA-2 Flywheel", global_data.EPIC_RARITY, 1, 115, 96, 275, "support")); /* incomplete */
+
+            Current_session.static_records.global_module_dict.Add("CarPart_Resist_Fslot_epic", new_module("CarPart_Resist_Fslot_epic", "Averter", global_data.EPIC_RARITY, 3, 112, 80, 1200, "defence"));/* incomplete */
         }
 
         public static void populate_cabin_list(file_trace_managment.SessionStats Current_session)
@@ -754,8 +779,11 @@ namespace CO_Driver
             Current_session.static_records.global_cabin_dict.Add("Cabin_Military_cab4", new_cabin("Cabin_Military_cab4", "Cohort", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_CyberEast_Cab2", new_cabin("Cabin_CyberEast_Cab2", "Yokozuna", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin")); /* incomplete */
 
-            Current_session.static_records.global_cabin_dict.Add("CarPart_Zubilo_Trunk", new_cabin("CarPart_Zubilo_Trunk", "Aggressor", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
+            Current_session.static_records.global_cabin_dict.Add("Cabin_Raider_Cab1", new_cabin("Cabin_Raider_Cab1", "Aggressor", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
             Current_session.static_records.global_cabin_dict.Add("Cabin_Junk_Cab1", new_cabin("Cabin_Junk_Cab1", "Machinist", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin")); /* incomplete */
+
+            Current_session.static_records.global_cabin_dict.Add("Cabin_CyberEast_Cab3", new_cabin("Cabin_CyberEast_Cab3", "Deadman", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
+            Current_session.static_records.global_cabin_dict.Add("Cabin_Engineers_Cab1_Fslot", new_cabin("Cabin_Engineers_Cab1_Fslot", "Master", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
         }
 
         public static void populate_weapon_list(file_trace_managment.SessionStats Current_session)
@@ -882,6 +910,12 @@ namespace CO_Driver
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Frontal_legend", new_weapon("CarPart_Gun_Machinegun_Frontal_legend", "Vindicator", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver")); /*incomplete*/
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_CannonLong_legend", new_weapon("CarPart_Gun_CannonLong_legend", "Stillwind", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver")); /*incomplete*/
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_GrenadeLauncher_Burst", new_weapon("CarPart_Gun_GrenadeLauncher_Burst", "Yongwang", global_data.EPIC_RARITY, 4, 20, 200, 160, 1100, "revolver")); /*incomplete*/
+
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Plasma_Drill_legendary", new_weapon("CarPart_Gun_Plasma_Drill_legendary", "Destructor", global_data.LEGENDARY_RARITY, 4, 20, 200, 160, 1100, "reloading laser")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_MiddleRangeShotgun_legend", new_weapon("CarPart_Gun_MiddleRangeShotgun_legend", "Parser", global_data.LEGENDARY_RARITY, 4, 20, 200, 160, 1100, "reloading shotgun")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Frontal_Preepic", new_weapon("CarPart_Gun_Machinegun_Frontal_Preepic", "M-25 Guardian", global_data.SPECIAL_RARITY, 4, 20, 200, 160, 1100, "frontal machine gun")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Missile_3xSpiral_Legend", new_weapon("CarPart_Gun_Missile_3xSpiral_Legend", "Waltz", global_data.LEGENDARY_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage_relic", new_weapon("CarPart_Gun_ShotGun_Garbage_relic", "Jormungandr", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "reloading shotgun")); /*incomplete*/
         }
 
         public static void populate_global_parts_list(file_trace_managment.SessionStats Current_session)
