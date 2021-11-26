@@ -72,7 +72,7 @@
             this.chk_group_ram = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.chk_upload = new System.Windows.Forms.CheckBox();
+            this.chk_upload_post_match = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.chk_update = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
@@ -674,21 +674,21 @@
             this.label11.ForeColor = System.Drawing.Color.Lime;
             this.label11.Location = new System.Drawing.Point(3, 356);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(182, 14);
+            this.label11.Size = new System.Drawing.Size(266, 14);
             this.label11.TabIndex = 55;
-            this.label11.Text = "Upload data to CrossoutDB";
+            this.label11.Text = "Upload to CrossoutDB after each match";
             // 
-            // chk_upload
+            // chk_upload_post_match
             // 
-            this.chk_upload.AutoSize = true;
-            this.chk_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chk_upload.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_upload.ForeColor = System.Drawing.Color.Lime;
-            this.chk_upload.Location = new System.Drawing.Point(295, 359);
-            this.chk_upload.Name = "chk_upload";
-            this.chk_upload.Size = new System.Drawing.Size(12, 11);
-            this.chk_upload.TabIndex = 56;
-            this.chk_upload.UseVisualStyleBackColor = true;
+            this.chk_upload_post_match.AutoSize = true;
+            this.chk_upload_post_match.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_upload_post_match.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_upload_post_match.ForeColor = System.Drawing.Color.Lime;
+            this.chk_upload_post_match.Location = new System.Drawing.Point(295, 359);
+            this.chk_upload_post_match.Name = "chk_upload_post_match";
+            this.chk_upload_post_match.Size = new System.Drawing.Size(12, 11);
+            this.chk_upload_post_match.TabIndex = 56;
+            this.chk_upload_post_match.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -722,7 +722,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.chk_update);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.chk_upload);
+            this.Controls.Add(this.chk_upload_post_match);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chk_group_ram);
@@ -830,7 +830,7 @@
         private System.Windows.Forms.CheckBox chk_group_ram;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox chk_upload;
+        private System.Windows.Forms.CheckBox chk_upload_post_match;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chk_update;
     }

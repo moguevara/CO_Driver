@@ -62,16 +62,16 @@ namespace CO_Driver
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
 
-            if (!session.upload_data)
-            {
-                lb_ready_to_upload.Text = ready_to_upload_matchs.ToString();
-                lb_uploaded_matchs.Text = matchs_uploaded.ToString();
-                lb_uploaded_builds.Text = builds_uploaded.ToString();
-                lb_valid_matchs.Text = valid_matchs.ToString();
-                tb_upload_progress.AppendText(string.Format("Uploading to crossoutdb.com has been disabled. Please enable in settings." + Environment.NewLine + Environment.NewLine));
-                pb_upload_bar.Value = 100;
-                return;
-            }
+            //if (!session.upload_data)
+            //{
+            //    lb_ready_to_upload.Text = ready_to_upload_matchs.ToString();
+            //    lb_uploaded_matchs.Text = matchs_uploaded.ToString();
+            //    lb_uploaded_builds.Text = builds_uploaded.ToString();
+            //    lb_valid_matchs.Text = valid_matchs.ToString();
+            //    tb_upload_progress.AppendText(string.Format("Uploading to crossoutdb.com has been disabled. Please enable in settings." + Environment.NewLine + Environment.NewLine));
+            //    pb_upload_bar.Value = 100;
+            //    return;
+            //}
 
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };

@@ -56,7 +56,7 @@ namespace CO_Driver
             chk_twitch_mode.Checked = session.twitch_mode;
             chk_group_ram.Checked = session.bundle_ram_mode;
             chk_save_screen_shots.Checked = session.save_captures;
-            chk_upload.Checked = session.upload_data;
+            chk_upload_post_match.Checked = session.upload_data;
             chk_update.Checked = session.update_postmatch;
         }
 
@@ -124,7 +124,7 @@ namespace CO_Driver
                 session.parsed_logs = new List<string> { };
             }
 
-            if (session.upload_data != chk_upload.Checked)
+            if (session.upload_data != chk_upload_post_match.Checked)
                 upload_change = true;
 
             session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
@@ -142,7 +142,7 @@ namespace CO_Driver
             session.twitch_mode = chk_twitch_mode.Checked;
             session.bundle_ram_mode = chk_group_ram.Checked;
             session.save_captures = chk_save_screen_shots.Checked;
-            session.upload_data = chk_upload.Checked;
+            session.upload_data = chk_upload_post_match.Checked;
             session.update_postmatch = chk_update.Checked;
 
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
@@ -252,7 +252,7 @@ namespace CO_Driver
             chk_prestigue_parts.Checked = session.include_prestigue_parts;
             cmb_themes.SelectedItem = "Terminal";
             chk_save_screen_shots.Checked = session.save_captures;
-            chk_upload.Checked = session.upload_data;
+            chk_upload_post_match.Checked = session.upload_data;
             chk_update.Checked = session.update_postmatch;
             cmb_themes.SelectedIndex = 0;
             chk_twitch_mode.Checked = session.twitch_mode;

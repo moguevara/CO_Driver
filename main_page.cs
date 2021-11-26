@@ -1147,7 +1147,7 @@ namespace CO_Driver
             populate_match_history(Current_session);
             populate_build_records(Current_session);
 
-            if (session.upload_data && session.update_postmatch && this.strp_main_menu_strip.Enabled == true)
+            if (session.upload_data && this.strp_main_menu_strip.Enabled == true)
             {
                 //Upload.upload_match_history(Current_session);
             }

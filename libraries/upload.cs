@@ -193,9 +193,12 @@ namespace CO_Driver
                     upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
-            catch (TimeoutException ex)
+            catch (WebException ex)
             {
-
+                //if (ex.Status != WebExceptionStatus.Timeout)
+                //{
+                //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine);
+                //}
             }
             catch (Exception ex)
             {
@@ -237,9 +240,12 @@ namespace CO_Driver
                     upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
-            catch (TimeoutException ex)
+            catch (WebException ex)
             {
-                
+                //if (ex.Status != WebExceptionStatus.Timeout)
+                //{
+                //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                //}
             }
             catch (Exception ex)
             {
