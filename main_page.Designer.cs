@@ -54,12 +54,12 @@
             this.chatlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.netlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gfxlogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -239,37 +239,44 @@
             // viewTraceToolStripMenuItem
             // 
             this.viewTraceToolStripMenuItem.Name = "viewTraceToolStripMenuItem";
-            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewTraceToolStripMenuItem.Text = "combat.log";
             this.viewTraceToolStripMenuItem.Click += new System.EventHandler(this.viewTraceToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem1
             // 
             this.gamelogToolStripMenuItem1.Name = "gamelogToolStripMenuItem1";
-            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gamelogToolStripMenuItem1.Text = "game.log";
             this.gamelogToolStripMenuItem1.Click += new System.EventHandler(this.gamelogToolStripMenuItem1_Click);
             // 
             // chatlogToolStripMenuItem1
             // 
             this.chatlogToolStripMenuItem1.Name = "chatlogToolStripMenuItem1";
-            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.chatlogToolStripMenuItem1.Text = "chat.log";
             this.chatlogToolStripMenuItem1.Click += new System.EventHandler(this.chatlogToolStripMenuItem1_Click);
             // 
             // netlogToolStripMenuItem1
             // 
             this.netlogToolStripMenuItem1.Name = "netlogToolStripMenuItem1";
-            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.netlogToolStripMenuItem1.Text = "net.log";
             this.netlogToolStripMenuItem1.Click += new System.EventHandler(this.netlogToolStripMenuItem1_Click);
             // 
             // gfxlogToolStripMenuItem1
             // 
             this.gfxlogToolStripMenuItem1.Name = "gfxlogToolStripMenuItem1";
-            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gfxlogToolStripMenuItem1.Text = "gfx.log";
             this.gfxlogToolStripMenuItem1.Click += new System.EventHandler(this.gfxlogToolStripMenuItem1_Click);
+            // 
+            // uploadToolStripMenuItem
+            // 
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(61, 18);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
             // 
             // printCurrentWindowToolStripMenuItem
             // 
@@ -310,13 +317,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // uploadToolStripMenuItem
-            // 
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(61, 18);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 

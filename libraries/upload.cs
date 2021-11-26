@@ -170,7 +170,7 @@ namespace CO_Driver
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #endif
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -220,7 +220,7 @@ namespace CO_Driver
 #if DEBUG
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_match_and_build");
 #else
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v2/co_driver/upload_match_and_build");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build");
 #endif
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=UTF-8";

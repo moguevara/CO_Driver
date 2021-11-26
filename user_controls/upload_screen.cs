@@ -307,5 +307,10 @@ namespace CO_Driver
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+        }
     }
 }
