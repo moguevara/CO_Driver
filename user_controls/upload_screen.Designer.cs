@@ -49,7 +49,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
-            this.btn_upload_matchs = new System.Windows.Forms.Button();
+            this.btn_view_profile = new System.Windows.Forms.Button();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_upload_progress = new System.Windows.Forms.TextBox();
             this.pb_upload = new System.Windows.Forms.PictureBox();
@@ -57,6 +57,7 @@
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn_cancel_upload = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -348,11 +349,13 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.btn_cancel_upload, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btn_upload_matchs, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btn_view_profile, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 500);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -368,24 +371,24 @@
             this.button1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(945, 30);
+            this.button1.Size = new System.Drawing.Size(707, 30);
             this.button1.TabIndex = 43;
             this.button1.Text = "Upload";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btn_upload_matchs_Click);
             // 
-            // btn_upload_matchs
+            // btn_view_profile
             // 
-            this.btn_upload_matchs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_upload_matchs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_upload_matchs.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_upload_matchs.Location = new System.Drawing.Point(954, 3);
-            this.btn_upload_matchs.Name = "btn_upload_matchs";
-            this.btn_upload_matchs.Size = new System.Drawing.Size(232, 30);
-            this.btn_upload_matchs.TabIndex = 42;
-            this.btn_upload_matchs.Text = "Cancel";
-            this.btn_upload_matchs.UseVisualStyleBackColor = true;
-            this.btn_upload_matchs.Click += new System.EventHandler(this.btn_upload_cancel_click);
+            this.btn_view_profile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_view_profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_view_profile.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_view_profile.Location = new System.Drawing.Point(953, 3);
+            this.btn_view_profile.Name = "btn_view_profile";
+            this.btn_view_profile.Size = new System.Drawing.Size(233, 30);
+            this.btn_view_profile.TabIndex = 42;
+            this.btn_view_profile.Text = "View Profile";
+            this.btn_view_profile.UseVisualStyleBackColor = true;
+            this.btn_view_profile.Click += new System.EventHandler(this.btn_view_profile_Click);
             // 
             // tableLayoutPanel11
             // 
@@ -474,9 +477,22 @@
             this.label2.Size = new System.Drawing.Size(1183, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Upload to crossoutdb is still in beta. Data uploaded is not guaranteed to persist" +
-    ". Click here to access profile.";
+    ". Click \"View Profile\" to access profile.";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btn_cancel_upload
+            // 
+            this.btn_cancel_upload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_cancel_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancel_upload.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancel_upload.Location = new System.Drawing.Point(716, 3);
+            this.btn_cancel_upload.Name = "btn_cancel_upload";
+            this.btn_cancel_upload.Size = new System.Drawing.Size(231, 30);
+            this.btn_cancel_upload.TabIndex = 44;
+            this.btn_cancel_upload.Text = "Cancel";
+            this.btn_cancel_upload.UseVisualStyleBackColor = true;
+            this.btn_cancel_upload.Click += new System.EventHandler(this.btn_upload_cancel_click);
             // 
             // upload_screen
             // 
@@ -528,7 +544,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btn_upload_matchs;
+        private System.Windows.Forms.Button btn_view_profile;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         public System.Windows.Forms.TextBox tb_upload_progress;
         private System.Windows.Forms.Label lb_ready_to_upload;
@@ -542,5 +558,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_cancel_upload;
     }
 }

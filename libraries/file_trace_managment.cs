@@ -1039,6 +1039,15 @@ namespace CO_Driver
             if (Current_session.current_match.game_play_value.Contains("Pve_Foray"))
                 Current_session.current_match.match_type = global_data.GOZU_MATCH;
 
+            if (Current_session.current_match.game_play_value.Contains("Brawl_Flag"))
+                Current_session.current_match.match_type = global_data.WITCH_HUNT_MATCH;
+
+            if (Current_session.current_match.game_play_value.Contains("Bomb_Planting"))
+                Current_session.current_match.match_type = global_data.BOMB_PLANT_MATCH;
+
+            if (Current_session.current_match.game_play_value.Contains("Brawl_ZombieEscape"))
+                Current_session.current_match.match_type = global_data.OPERATION_RED_LIGHT_MATCH;
+
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
@@ -1080,6 +1089,9 @@ namespace CO_Driver
                 Current_session.current_match.match_type == global_data.ROCKET_LEAGUE_MATCH       ||
                 Current_session.current_match.match_type == global_data.DRONE_BATTLE_MATCH        ||
                 Current_session.current_match.match_type == global_data.RACE_WHEELS_ONLY_MATCH    ||
+                Current_session.current_match.match_type == global_data.OPERATION_RED_LIGHT_MATCH ||
+                Current_session.current_match.match_type == global_data.WITCH_HUNT_MATCH          ||
+                Current_session.current_match.match_type == global_data.BOMB_PLANT_MATCH          ||
                 Current_session.current_match.match_type == global_data.CROSSOUT_DAY_BRAWL_MATCH)
                 Current_session.current_match.match_classification = global_data.BRAWL_CLASSIFICATION;
 
@@ -1702,6 +1714,12 @@ namespace CO_Driver
                     return "Crossout Day Brawl";
                 case global_data.GOZU_MATCH:
                     return "Gozu";
+                case global_data.WITCH_HUNT_MATCH:
+                    return "Witch Hunt";
+                case global_data.BOMB_PLANT_MATCH:
+                    return "Sabotage";
+                case global_data.OPERATION_RED_LIGHT_MATCH:
+                    return "Operation Red Light";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:

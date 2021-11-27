@@ -58,7 +58,7 @@ namespace CO_Driver
             builds_uploaded = 0;
 
             tb_upload_progress.Clear();
-            tb_upload_progress.AppendText(string.Format("Preparing matchs for upload to Crossoutdb." + Environment.NewLine + Environment.NewLine));
+            tb_upload_progress.AppendText(string.Format("Preparing matches for upload to Crossoutdb." + Environment.NewLine + Environment.NewLine));
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
 
@@ -129,13 +129,13 @@ namespace CO_Driver
 
             ready_to_upload_builds = valid_builds - builds_uploaded;
 
-            tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded matchs." + Environment.NewLine, matchs_uploaded));
+            tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded matches." + Environment.NewLine, matchs_uploaded));
             tb_upload_progress.AppendText(string.Format("Found {0} previously uploaded builds." + Environment.NewLine, builds_uploaded));
             tb_upload_progress.AppendText(string.Format("Found {0} total games." + Environment.NewLine, match_history.Count));
             tb_upload_progress.AppendText(string.Format("Found {0} games with game.log corruptions." + Environment.NewLine, match_corruptions));
             tb_upload_progress.AppendText(string.Format("Found {0} games with incomplete uploader uid (including spectator matches)." + Environment.NewLine, invalid_uid));
             tb_upload_progress.AppendText(string.Format("Found {0} incomplete games." + Environment.NewLine, incomplete_matchs));
-            tb_upload_progress.AppendText(string.Format("Found {0} valid matchs for upload." + Environment.NewLine, valid_matchs));
+            tb_upload_progress.AppendText(string.Format("Found {0} valid matches for upload." + Environment.NewLine, valid_matchs));
             tb_upload_progress.AppendText(string.Format("Found {0} games ready to upload." + Environment.NewLine, ready_to_upload_matchs));
             tb_upload_progress.AppendText(string.Format("Found {0} builds with incomplete properties." + Environment.NewLine, invalid_builds));
             tb_upload_progress.AppendText(string.Format("Found {0} valid builds for upload." + Environment.NewLine, valid_builds));
@@ -147,7 +147,7 @@ namespace CO_Driver
             lb_valid_matchs.Text = valid_matchs.ToString();
             pb_upload_bar.Value = 100;
 
-            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, ready_to_upload_matchs);
+            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matches, Press <Upload> when ready" + Environment.NewLine, ready_to_upload_matchs);
         }
 
         private void btn_upload_matchs_Click(object sender, EventArgs e)
@@ -239,7 +239,7 @@ namespace CO_Driver
                 if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
                 {
                     percent_upload = percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
-                    status.text_update =  string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
+                    status.text_update =  string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
                     status.text_update += string.Format("Uploading {0} builds." + Environment.NewLine, upload_entry.build_list.Count);
                     status.percent_upload = percent_upload;
                     status.matchs_uploaded = upload_return.uploaded_matches.Count;
@@ -253,7 +253,7 @@ namespace CO_Driver
                 }
             }
 
-            status.text_update = string.Format("Uploading {0} matchs from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
+            status.text_update = string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
             status.matchs_uploaded = upload_return.uploaded_matches.Count;
             status.builds_uploaded = upload_return.uploaded_builds;
@@ -292,7 +292,7 @@ namespace CO_Driver
         {
             tb_upload_progress.AppendText("Finished uploading." + Environment.NewLine);
             pb_upload_bar.Value = 100;
-            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
+            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matches, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
         }
@@ -303,12 +303,17 @@ namespace CO_Driver
                 return;
 
             bw_file_uploader.CancelAsync();
-            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matchs, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
+            lb_upload_status_text.Text = string.Format("Standing by to upload {0} matches, Press <Upload> when ready" + Environment.NewLine, lb_ready_to_upload.Text);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+        }
+
+        private void btn_view_profile_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
         }
