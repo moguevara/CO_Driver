@@ -155,8 +155,15 @@ namespace CO_Driver
             if (bw_file_uploader.IsBusy)
                 return;
 
+            int percent_uploaded = (int)(((double)matchs_uploaded / (double)valid_matchs) * 100) > 100 ? 100 : (int)(((double)ready_to_upload_matchs / (double)valid_matchs) * 100);
+            if (percent_uploaded > 100)
+                percent_uploaded = 100;
+
+            if (percent_uploaded < 0)
+                percent_uploaded = 0;
+
             tb_upload_progress.AppendText(string.Format("Starting background worker to upload. Feel free to use other screens during upload." + Environment.NewLine));
-            pb_upload_bar.Value = (int)(((double)matchs_uploaded / (double)valid_matchs) * 100) > 100 ? 100 : (int)(((double)ready_to_upload_matchs / (double)valid_matchs) * 100);
+            pb_upload_bar.Value = percent_uploaded;
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent;
             pb_upload.Refresh();
 
@@ -278,7 +285,16 @@ namespace CO_Driver
         private void report_upload_status(object sender, ProgressChangedEventArgs e)
         {
             bw_status_update status = e.UserState as bw_status_update;
-            pb_upload_bar.Value = status.percent_upload > 100 ? 100 : status.percent_upload;
+
+            int percent_uploaded = status.percent_upload;
+
+            if (percent_uploaded > 100)
+                percent_uploaded = 100;
+
+            if (percent_uploaded < 0)
+                percent_uploaded = 0;
+
+            pb_upload_bar.Value = percent_uploaded;
             if (status.matchs_uploaded > 0)
                 lb_uploaded_matchs.Text = status.matchs_uploaded.ToString();
             if (status.builds_uploaded > 0)
