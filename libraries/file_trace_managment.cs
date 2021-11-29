@@ -1051,6 +1051,9 @@ namespace CO_Driver
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
+            if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("NoobPvp")) != null)
+                Current_session.current_match.match_type = global_data.TEST_SERVER_MATCH;
+
             Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
             Current_session.current_match.gameplay_desc = Current_session.current_match.game_play_value;
             set_match_classification(Current_session);
@@ -1098,7 +1101,8 @@ namespace CO_Driver
             if (Current_session.current_match.match_type == global_data.BEDLAM_MATCH)
                 Current_session.current_match.match_classification = global_data.FREE_PLAY_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.CUSTOM_MATCH)
+            if (Current_session.current_match.match_type == global_data.CUSTOM_MATCH ||
+                Current_session.current_match.match_type == global_data.TEST_SERVER_MATCH)
                 Current_session.current_match.match_classification = global_data.CUSTOM_CLASSIFICATION;
         }
 
@@ -1680,6 +1684,8 @@ namespace CO_Driver
                     return "Hard Raid";
                 case global_data.CUSTOM_MATCH:
                     return "Custom Game";
+                case global_data.TEST_SERVER_MATCH:
+                    return "Test Server";
                 case global_data.BEDLAM_MATCH:
                     return "Bedlam";
                 case global_data.PRESENT_HEIST_MATCH:

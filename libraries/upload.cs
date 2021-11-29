@@ -34,6 +34,12 @@ namespace CO_Driver
                 if (match.match_data.winning_team == -1)
                     continue;
 
+                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                    continue;
+
+                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                    continue;
+
                 upload_entry.match_list.Add(populate_match_entry(match, translations));
 
                 if (upload_entry.match_list.Count >= 75)

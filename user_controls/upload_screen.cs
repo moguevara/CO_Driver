@@ -155,7 +155,7 @@ namespace CO_Driver
             if (bw_file_uploader.IsBusy)
                 return;
 
-            int percent_uploaded = (int)(((double)matchs_uploaded / (double)valid_matchs) * 100) > 100 ? 100 : (int)(((double)ready_to_upload_matchs / (double)valid_matchs) * 100);
+            int percent_uploaded = (int)(((double)matchs_uploaded / (double)valid_matchs) * 100);
             if (percent_uploaded > 100)
                 percent_uploaded = 100;
 
