@@ -212,6 +212,12 @@ namespace CO_Driver
                 if (match.match_data.winning_team == -1)
                     continue;
 
+                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                    continue;
+
+                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                    continue;
+
                 if (match.match_data.match_start < min_upload_date)
                     min_upload_date = match.match_data.match_start;
 

@@ -1142,6 +1142,7 @@ namespace CO_Driver
                 match_history_page.force_refresh = true;
                 revenue_page.force_refresh = true;
                 meta_detail_page.force_refresh = true;
+                Upload.upload_match_history(Current_session, translations);
             }
             populate_user_profile(Current_session);
             populate_match_history(Current_session);

@@ -28,6 +28,9 @@ namespace CO_Driver
                 if (match.match_data.server_guid == 0)
                     continue;
 
+                if (match.match_data.local_player.uid == 0)
+                    continue;
+
                 if (!match.match_data.match_rewards.Any())
                     continue;
 
@@ -42,7 +45,7 @@ namespace CO_Driver
 
                 upload_entry.match_list.Add(populate_match_entry(match, translations));
 
-                if (upload_entry.match_list.Count >= 75)
+                if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
                 {
                     upload_to_crossoutdb(upload_entry);
                     upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
