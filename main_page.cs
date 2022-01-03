@@ -418,9 +418,7 @@ namespace CO_Driver
 
         private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //clear_main_page_panel();
-            //schedule_page.populate_schedule_display("cw");
-            //main_page_panel.Controls.Add(schedule_page);
+
         }
 
         private void clanWarScheduleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -568,9 +566,8 @@ namespace CO_Driver
                 revenue_page.populate_revenue_review_screen();
                 meta_detail_page.populate_meta_detail_screen();
                 upload_page.populate_upload_screen();
-                //upload_page.populate_upload_screen();
-
-
+                if (session.upload_data)
+                    upload_page.btn_upload_matchs_Click(this, EventArgs.Empty);
             }
             else
             if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
@@ -591,6 +588,7 @@ namespace CO_Driver
                 match_detail_page.last_build_record = response.last_build;
                 match_detail_page.populate_match();
                 
+
             }
             else 
             if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
@@ -1142,19 +1140,11 @@ namespace CO_Driver
                 match_history_page.force_refresh = true;
                 revenue_page.force_refresh = true;
                 meta_detail_page.force_refresh = true;
-                Upload.upload_match_history(Current_session, translations);
             }
             populate_user_profile(Current_session);
             populate_match_history(Current_session);
             populate_build_records(Current_session);
-
-            if (session.upload_data && this.strp_main_menu_strip.Enabled == true)
-            {
-                //Upload.upload_match_history(Current_session);
-            }
         }
-
-        
 
         public string get_current_version()
         {

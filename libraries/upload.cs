@@ -13,48 +13,48 @@ namespace CO_Driver
 {
     public class Upload
     {
-        public static void upload_match_history(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
-        {
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = get_previous_uploads(Current_session.local_user_uid);
-            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { };
-            upload_entry.uploader_uid = Current_session.local_user_uid;
-            upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+        //public static void upload_match_history(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        //{
+        //    Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = get_previous_uploads(Current_session.local_user_uid);
+        //    Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { };
+        //    upload_entry.uploader_uid = Current_session.local_user_uid;
+        //    upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
 
-            foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
-            {
-                if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
-                    continue;
+        //    foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
+        //    {
+        //        if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
+        //            continue;
 
-                if (match.match_data.server_guid == 0)
-                    continue;
+        //        if (match.match_data.server_guid == 0)
+        //            continue;
 
-                if (match.match_data.local_player.uid == 0)
-                    continue;
+        //        if (match.match_data.local_player.uid == 0)
+        //            continue;
 
-                if (!match.match_data.match_rewards.Any())
-                    continue;
+        //        if (!match.match_data.match_rewards.Any())
+        //            continue;
 
-                if (match.match_data.winning_team == -1)
-                    continue;
+        //        if (match.match_data.winning_team == -1)
+        //            continue;
 
-                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
-                    continue;
+        //        if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+        //            continue;
 
-                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
-                    continue;
+        //        if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+        //            continue;
 
-                upload_entry.match_list.Add(populate_match_entry(match, translations));
+        //        upload_entry.match_list.Add(populate_match_entry(match, translations));
 
-                if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
-                {
-                    upload_to_crossoutdb(upload_entry);
-                    upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
-                }
-            }
+        //        if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
+        //        {
+        //            upload_to_crossoutdb(upload_entry);
+        //            upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
+        //        }
+        //    }
 
-            if (upload_entry.match_list.Any())
-                upload_to_crossoutdb(upload_entry);
-        }
+        //    if (upload_entry.match_list.Any())
+        //        upload_to_crossoutdb(upload_entry);
+        //}
 
         public static Crossout.AspWeb.Models.API.v2.BuildEntry populate_build_entry(file_trace_managment.BuildRecord build)
         {

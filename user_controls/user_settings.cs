@@ -150,12 +150,9 @@ namespace CO_Driver
             {
                 if (text == theme.name)
                 {
-                    //if (global_data.supporters.Contains(session.local_user_name) || text == "Terminal" || text == "Static")
-                    //{
-                        session.fore_color = theme.fore_ground;
-                        session.back_color = theme.back_ground;
-                        break;
-                    //}
+                    session.fore_color = theme.fore_ground;
+                    session.back_color = theme.back_ground;
+                    break;
                 }
             }
 
@@ -215,9 +212,6 @@ namespace CO_Driver
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
-
-            //if (session.upload_data && upload_change)
-            //    enable_uploads(this, EventArgs.Empty);
 
             if (session.log_file_location != txt_log_file_location.Text)
             {

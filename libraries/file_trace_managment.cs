@@ -1230,7 +1230,7 @@ namespace CO_Driver
 
         public static void assign_client_version_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"\| // Build: Crossout x64 (?<client_version>.+)$");
+            Match line_results = Regex.Match(line, @"\| // Build: Crossout x(?<bit>[0-9]{2}) (?<client_version>.+)$");
 
             if (line_results.Groups.Count < 2)
             {
