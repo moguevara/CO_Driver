@@ -520,7 +520,7 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("iron_way_center", @"""Control-17""station");
             Current_session.static_records.map_dict.Add("chemical_plant", "Chemical plant");
             Current_session.static_records.map_dict.Add("holes", "Ravagers foothold");
-            Current_session.static_records.map_dict.Add("rockcit", "Rock City");
+            Current_session.static_records.map_dict.Add("rockcity", "Rock City");
             Current_session.static_records.map_dict.Add("conflagration", "Ashen ring");
             Current_session.static_records.map_dict.Add("arizona_silo", "Broken arrow");
             Current_session.static_records.map_dict.Add("island", "Clean island");
@@ -552,6 +552,7 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("pve_canyons", "Death canyon");
             Current_session.static_records.map_dict.Add("refinery", "Refinery");
             Current_session.static_records.map_dict.Add("refinery_newyear", "Refinery");
+            Current_session.static_records.map_dict.Add("riverport", "Ship graveyard");
         }
 
         public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)
