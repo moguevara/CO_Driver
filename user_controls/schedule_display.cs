@@ -51,6 +51,7 @@ namespace CO_Driver
 
                     foreach (part_loader.EventTime event_time in event_times)
                     {
+                        int k = 0;
                         if (type == "cw")
                         {
                             if (event_time.event_type != global_data.STANDARD_CW && event_time.event_type != global_data.LEVIATHIAN_CW)
@@ -105,6 +106,7 @@ namespace CO_Driver
                             else
                                 row.Cells[j + 1].Value = "Undefined Brawl";
                         }
+                        k++;
                     }
                 }
                 row.Cells[8].Value = DateTime.Today.AddHours(i).ToString("HH:mm");

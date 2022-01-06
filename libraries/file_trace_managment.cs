@@ -1441,7 +1441,9 @@ namespace CO_Driver
 
             weapon_name = weapon;
 
-            if (!Current_session.static_records.global_weapon_dict.ContainsKey(weapon) && !Current_session.static_records.global_explosives_dict.ContainsKey(weapon))
+            if (!Current_session.static_records.global_weapon_dict.ContainsKey(weapon) && 
+                !Current_session.static_records.global_explosives_dict.ContainsKey(weapon) &&
+                weapon != "Cabin_Tribal_Hog")
                 ram_damage = true;
 
             if (Current_session.in_garage)

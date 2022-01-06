@@ -1159,7 +1159,5 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(match_detail_page);
         }
-
-       
     }
 }

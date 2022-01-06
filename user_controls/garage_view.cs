@@ -262,6 +262,7 @@ namespace CO_Driver
             ch_live_feed.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
             ch_live_feed.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
             ch_live_feed.ChartAreas[0].AxisY.IsMarginVisible = false;
+            ch_live_feed.Palette = ChartColorPalette.BrightPastel;
 
             ch_compare.BackColor = session.back_color;
             ch_compare.ForeColor = session.fore_color;
@@ -283,6 +284,7 @@ namespace CO_Driver
             ch_compare.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
             ch_compare.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
             ch_compare.ChartAreas[0].AxisY.IsMarginVisible = false;
+            ch_compare.Palette = ChartColorPalette.BrightPastel;
 
             weapon_table_source.DataSource = weapon_rows;
             dg_weapon_overview.DataSource = weapon_table_source;
