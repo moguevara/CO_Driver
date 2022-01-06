@@ -1045,6 +1045,9 @@ namespace CO_Driver
             if (Current_session.current_match.game_play_value.Contains("Bomb_Planting"))
                 Current_session.current_match.match_type = global_data.BOMB_PLANT_MATCH;
 
+            if (Current_session.current_match.game_play_value.Contains("Brawl_Crush"))
+                Current_session.current_match.match_type = global_data.BOARS_MATCH;
+
             if (Current_session.current_match.game_play_value.Contains("Brawl_ZombieEscape"))
                 Current_session.current_match.match_type = global_data.OPERATION_RED_LIGHT_MATCH;
 
@@ -1726,6 +1729,8 @@ namespace CO_Driver
                     return "Witch Hunt";
                 case global_data.BOMB_PLANT_MATCH:
                     return "Sabotage";
+                case global_data.BOARS_MATCH:
+                    return "Boars";
                 case global_data.OPERATION_RED_LIGHT_MATCH:
                     return "Operation Red Light";
                 case global_data.UNDEFINED_MATCH:

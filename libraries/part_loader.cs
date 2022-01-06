@@ -525,8 +525,13 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("arizona_silo", "Broken arrow");
             Current_session.static_records.map_dict.Add("island", "Clean island");
             Current_session.static_records.map_dict.Add("sand_crater", "Crater");
+            Current_session.static_records.map_dict.Add("building_yard", "Sector EX");
+            Current_session.static_records.map_dict.Add("building_yard2", "Sector EX night");
             Current_session.static_records.map_dict.Add("building_yard3", "Sector EX");
+            Current_session.static_records.map_dict.Add("building_yard_newyear", "Winter Sector EX");
+            Current_session.static_records.map_dict.Add("building_yard_halloween", "Sector EX");
             Current_session.static_records.map_dict.Add("red_rocks_battle_royale", "Blood Rocks");
+            Current_session.static_records.map_dict.Add("red_rocks_territory", "Blood Rocks");
             Current_session.static_records.map_dict.Add("arizona_castle", "Wrath of Khan");
             Current_session.static_records.map_dict.Add("big_plato_race", "Rocky track");
             Current_session.static_records.map_dict.Add("smallmap_race", "Industrial track");
@@ -535,9 +540,18 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("iron_way", "Eastern Array");
             Current_session.static_records.map_dict.Add("lost_coast", "Lost coast");
             Current_session.static_records.map_dict.Add("port", "Terminal-45");
+            Current_session.static_records.map_dict.Add("port_newyear", "Terminal-45");
             Current_session.static_records.map_dict.Add("shipyard_battle", "River lighthouse");
             Current_session.static_records.map_dict.Add("fieldbattle", "Tank range");
             Current_session.static_records.map_dict.Add("sinto", "Sinto City");
+            Current_session.static_records.map_dict.Add("mountain_serpantin", "Serpentine");
+            Current_session.static_records.map_dict.Add("castle", "Fortress");
+            Current_session.static_records.map_dict.Add("cemetery_highway_newyear", "Winter Highway");
+            Current_session.static_records.map_dict.Add("experimental_map", "Test map");
+            Current_session.static_records.map_dict.Add("frenzied_track", "Two Turrets");
+            Current_session.static_records.map_dict.Add("pve_canyons", "Death canyon");
+            Current_session.static_records.map_dict.Add("refinery", "Refinery");
+            Current_session.static_records.map_dict.Add("refinery_newyear", "Refinery");
         }
 
         public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)

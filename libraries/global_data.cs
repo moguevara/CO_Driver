@@ -87,7 +87,8 @@ namespace CO_Driver
         public const int WITCH_HUNT_MATCH = 30;
         public const int BOMB_PLANT_MATCH = 31;
         public const int TEST_SERVER_MATCH = 32;
-        public const int UNDEFINED_MATCH = 33;
+        public const int BOARS_MATCH = 33;
+        public const int UNDEFINED_MATCH = 34;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
