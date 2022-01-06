@@ -731,6 +731,7 @@ namespace CO_Driver
             Current_session.static_records.global_module_dict.Add("CarPart_Cooldown_Accelerator_epic", new_module("CarPart_Cooldown_Accelerator_epic", "KA-2 Flywheel", global_data.EPIC_RARITY, 1, 115, 96, 275, "support")); /* incomplete */
 
             Current_session.static_records.global_module_dict.Add("CarPart_Resist_Fslot_epic", new_module("CarPart_Resist_Fslot_epic", "Averter", global_data.EPIC_RARITY, 3, 112, 80, 1200, "defence"));/* incomplete */
+            Current_session.static_records.global_module_dict.Add("CarPart_Interceptor", new_module("CarPart_Interceptor", "Interceptor", global_data.EPIC_RARITY, 3, 112, 80, 1200, "defence"));/* incomplete */
         }
 
         public static void populate_cabin_list(file_trace_managment.SessionStats Current_session)
@@ -916,6 +917,8 @@ namespace CO_Driver
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Machinegun_Frontal_Preepic", new_weapon("CarPart_Gun_Machinegun_Frontal_Preepic", "M-25 Guardian", global_data.SPECIAL_RARITY, 4, 20, 200, 160, 1100, "frontal machine gun")); /*incomplete*/
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Missile_3xSpiral_Legend", new_weapon("CarPart_Gun_Missile_3xSpiral_Legend", "Waltz", global_data.LEGENDARY_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage_relic", new_weapon("CarPart_Gun_ShotGun_Garbage_relic", "Jormungandr", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "reloading shotgun")); /*incomplete*/
+
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_MissileLauncherPlasma_epic", new_weapon("CarPart_Gun_MissileLauncherPlasma_epic", "Yokai", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
         }
 
         public static void populate_global_parts_list(file_trace_managment.SessionStats Current_session)

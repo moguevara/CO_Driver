@@ -117,7 +117,7 @@ namespace CO_Driver
                 translations["Français"].Add("smallmap_race", new Translation { name = "Piste industrielle", description = "" });
                 translations["Français"].Add("decorationdust", new Translation { name = "Fournitures de construction", description = "" });
                 translations["Français"].Add("footballmoney", new Translation { name = "Insignes « Badges Championnat d'Acier »", description = "" });
-                translations["Français"].Add("carpart_gun_missile_3x_front_epic", new Translation { name = "Tourbillon", description = "" });
+                translations["Français"].Add("carpart_gun_missile_3x_front_epic", new Translation { name = "Snowfall", description = "" });
                 translations["Français"].Add("carpart_hologram_ny2021", new Translation { name = "Traîneau XXII", description = "" });
                 translations["Français"].Add("carpart_spinning_wheel_cover_manhole_01", new Translation { name = "Trappe en fonte", description = "" });
                 translations["Français"].Add("cabin_cybereast_cab1", new Translation { name = "Jannabi", description = "" });
@@ -1152,6 +1152,24 @@ namespace CO_Driver
                 translations["Français"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "Coin droit de tout-terrain", description = "" });
                 translations["Français"].Add("brawl_zombie_escape", new Translation { name = "Opération \"Lumière rouge\"", description = "" });
                 translations["Français"].Add("zombie_escape", new Translation { name = "Route Cendrée", description = "" });
+                translations["Français"].Add("carpart_ps5_gift", new Translation { name = "Toupie", description = "" });
+                translations["Français"].Add("carpart_xbox_gift", new Translation { name = "Boîte de givre", description = "" });
+                translations["Français"].Add("carpart_cybereast_neon_2_04", new Translation { name = "Lampe rouge courte", description = "" });
+                translations["Français"].Add("carpart_cybereast_neon_4_04", new Translation { name = "Lampe rouge", description = "" });
+                translations["Français"].Add("carpart_cybereast_neon_6_04", new Translation { name = "Longue lampe rouge", description = "" });
+                translations["Français"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "Yokai", description = "" });
+                translations["Français"].Add("carpart_interceptor", new Translation { name = "Intercepteur", description = "" });
+                translations["Français"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "Patte gauche", description = "" });
+                translations["Français"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "Patte droite", description = "" });
+                translations["Français"].Add("carpart_wheel_hologram_01", new Translation { name = "Cache traces", description = "" });
+                translations["Français"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "La neige qui tombe", description = "" });
+                translations["Français"].Add("carpart_hologram_hny22_01", new Translation { name = "Nouvel an 2022", description = "" });
+                translations["Français"].Add("carpart_hologram_marmokpromo", new Translation { name = "Marmok", description = "" });
+                translations["Français"].Add("carpart_nyear_makeup_light_2", new Translation { name = "Lampes courtes de fées", description = "" });
+                translations["Français"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Feux de fée", description = "" });
+                translations["Français"].Add("carpart_nyear_makeup_light_6", new Translation { name = "Lampes longues de fées", description = "" });
+                translations["Français"].Add("pve_foraytime", new Translation { name = "Opération “Secret santa”", description = "" });
+                translations["Français"].Add("newyear_foray", new Translation { name = "Village de montagne", description = "" });
             }
             if (session.local_language == "Deutsch")
             {
@@ -2259,6 +2277,24 @@ namespace CO_Driver
                 translations["Deutsch"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "Rechte Offroader-Ecke", description = "" });
                 translations["Deutsch"].Add("brawl_zombie_escape", new Translation { name = "Operation \"Rotes Licht\"", description = "" });
                 translations["Deutsch"].Add("zombie_escape", new Translation { name = "Aschestraße", description = "" });
+                translations["Deutsch"].Add("carpart_ps5_gift", new Translation { name = "Windrädchen", description = "" });
+                translations["Deutsch"].Add("carpart_xbox_gift", new Translation { name = "Gefrierbox", description = "" });
+                translations["Deutsch"].Add("carpart_cybereast_neon_2_04", new Translation { name = "Kurze rote Lampe", description = "" });
+                translations["Deutsch"].Add("carpart_cybereast_neon_4_04", new Translation { name = "Rote Lampe", description = "" });
+                translations["Deutsch"].Add("carpart_cybereast_neon_6_04", new Translation { name = "Lange rote Lampe", description = "" });
+                translations["Deutsch"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "Yokai", description = "" });
+                translations["Deutsch"].Add("carpart_interceptor", new Translation { name = "Unterbrecher", description = "" });
+                translations["Deutsch"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "Linke Pfote", description = "" });
+                translations["Deutsch"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "Rechte Pfote", description = "" });
+                translations["Deutsch"].Add("carpart_wheel_hologram_01", new Translation { name = "Verdeckte Spuren", description = "" });
+                translations["Deutsch"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "Schneefall", description = "" });
+                translations["Deutsch"].Add("carpart_hologram_hny22_01", new Translation { name = "Neujahr 2022", description = "" });
+                translations["Deutsch"].Add("carpart_hologram_marmokpromo", new Translation { name = "Marmok", description = "" });
+                translations["Deutsch"].Add("carpart_nyear_makeup_light_2", new Translation { name = "Kurze Lichterketten", description = "" });
+                translations["Deutsch"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Lichterketten", description = "" });
+                translations["Deutsch"].Add("carpart_nyear_makeup_light_6", new Translation { name = "Lange Lichterketten", description = "" });
+                translations["Deutsch"].Add("pve_foraytime", new Translation { name = "Operation “Wichteln”", description = "" });
+                translations["Deutsch"].Add("newyear_foray", new Translation { name = "Bergdorf", description = "" });
             }
             if (session.local_language == "Polskie")
             {
@@ -3166,6 +3202,9 @@ namespace CO_Driver
                 translations["Polskie"].Add("bombplanting", new Translation { name = "Sabotaż", description = "" });
                 translations["Polskie"].Add("factory_bombplant", new Translation { name = "Fabryka", description = "" });
                 translations["Polskie"].Add("cabin_engineers_cab1_fslot", new Translation { name = "Rzemieślnik", description = "" });
+                translations["Polskie"].Add("carpart_ps5_gift", new Translation { name = "Wiatrak", description = "" });
+                translations["Polskie"].Add("carpart_interceptor", new Translation { name = "Myśliwiec", description = "" });
+                translations["Polskie"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Światełka", description = "" });
             }
             if (session.local_language == "Pусский")
             {
@@ -4273,6 +4312,24 @@ namespace CO_Driver
                 translations["Pусский"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "Угол внедорожника правый", description = "" });
                 translations["Pусский"].Add("brawl_zombie_escape", new Translation { name = "Операция «Красный свет»", description = "" });
                 translations["Pусский"].Add("zombie_escape", new Translation { name = "Дорога пепла", description = "" });
+                translations["Pусский"].Add("carpart_ps5_gift", new Translation { name = "Вертушка", description = "" });
+                translations["Pусский"].Add("carpart_xbox_gift", new Translation { name = "Холодная коробка", description = "" });
+                translations["Pусский"].Add("carpart_cybereast_neon_2_04", new Translation { name = "Короткая красная лампа", description = "" });
+                translations["Pусский"].Add("carpart_cybereast_neon_4_04", new Translation { name = "Красная лампа", description = "" });
+                translations["Pусский"].Add("carpart_cybereast_neon_6_04", new Translation { name = "Длинная красная лампа", description = "" });
+                translations["Pусский"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "Ёкай", description = "" });
+                translations["Pусский"].Add("carpart_interceptor", new Translation { name = "Перехватчик", description = "" });
+                translations["Pусский"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "Левая лапа", description = "" });
+                translations["Pусский"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "Правая лапа", description = "" });
+                translations["Pусский"].Add("carpart_wheel_hologram_01", new Translation { name = "Заметающая следы", description = "" });
+                translations["Pусский"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "Снегопад", description = "" });
+                translations["Pусский"].Add("carpart_hologram_hny22_01", new Translation { name = "Новый год 2022", description = "" });
+                translations["Pусский"].Add("carpart_hologram_marmokpromo", new Translation { name = "Мармок", description = "" });
+                translations["Pусский"].Add("carpart_nyear_makeup_light_2", new Translation { name = "Короткая гирлянда", description = "" });
+                translations["Pусский"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Гирлянда", description = "" });
+                translations["Pусский"].Add("carpart_nyear_makeup_light_6", new Translation { name = "Длинная гирлянда", description = "" });
+                translations["Pусский"].Add("pve_foraytime", new Translation { name = "Операция «Тайный санта»", description = "" });
+                translations["Pусский"].Add("newyear_foray", new Translation { name = "Горная деревушка", description = "" });
             }
             if (session.local_language == "Español")
             {
@@ -5380,6 +5437,24 @@ namespace CO_Driver
                 translations["Español"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "Esquina derecha de todoterreno", description = "" });
                 translations["Español"].Add("brawl_zombie_escape", new Translation { name = "Operación \"Luz roja\"", description = "" });
                 translations["Español"].Add("zombie_escape", new Translation { name = "Camino de cenizas", description = "" });
+                translations["Español"].Add("carpart_ps5_gift", new Translation { name = "Molinillo de viento", description = "" });
+                translations["Español"].Add("carpart_xbox_gift", new Translation { name = "Nevera", description = "" });
+                translations["Español"].Add("carpart_cybereast_neon_2_04", new Translation { name = "Luz de neón roja pequeña", description = "" });
+                translations["Español"].Add("carpart_cybereast_neon_4_04", new Translation { name = "Luz de neón roja", description = "" });
+                translations["Español"].Add("carpart_cybereast_neon_6_04", new Translation { name = "Luz de neón roja grande", description = "" });
+                translations["Español"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "Yokai", description = "" });
+                translations["Español"].Add("carpart_interceptor", new Translation { name = "Interceptor", description = "" });
+                translations["Español"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "Pata izquierda", description = "" });
+                translations["Español"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "Pata derecha", description = "" });
+                translations["Español"].Add("carpart_wheel_hologram_01", new Translation { name = "Cubriendo el rastro", description = "" });
+                translations["Español"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "Nevada", description = "" });
+                translations["Español"].Add("carpart_hologram_hny22_01", new Translation { name = "Año Nuevo 2022", description = "" });
+                translations["Español"].Add("carpart_hologram_marmokpromo", new Translation { name = "Marmok", description = "" });
+                translations["Español"].Add("carpart_nyear_makeup_light_2", new Translation { name = "Guirnalda de luces pequeña", description = "" });
+                translations["Español"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Guirnalda de luces", description = "" });
+                translations["Español"].Add("carpart_nyear_makeup_light_6", new Translation { name = "Guirnalda de luces grande", description = "" });
+                translations["Español"].Add("pve_foraytime", new Translation { name = "Operación \"Papá Noel secreto\"", description = "" });
+                translations["Español"].Add("newyear_foray", new Translation { name = "Pueblo de montaña", description = "" });
             }
             if (session.local_language == "한국어")
             {
@@ -6481,6 +6556,28 @@ namespace CO_Driver
                 translations["한국어"].Add("carpart_structure_engineers_bumper_01", new Translation { name = "개척자의 범퍼", description = "" });
                 translations["한국어"].Add("carpart_structure_engineers_corner_1x1x3_l", new Translation { name = "왼쪽 버기 코너", description = "" });
                 translations["한국어"].Add("carpart_structure_engineers_corner_1x1x3_r", new Translation { name = "오른쪽 버기 코너", description = "" });
+                translations["한국어"].Add("carpart_ps5_gift", new Translation { name = "핀휠", description = "" });
+                translations["한국어"].Add("carpart_xbox_gift", new Translation { name = "서리 여우", description = "" });
+                translations["한국어"].Add("carpart_cybereast_neon_2_04", new Translation { name = "짧은 레드 램프", description = "" });
+                translations["한국어"].Add("carpart_cybereast_neon_4_04", new Translation { name = "레드 램프", description = "" });
+                translations["한국어"].Add("carpart_cybereast_neon_6_04", new Translation { name = "긴 레드 램프", description = "" });
+                translations["한국어"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "요카이", description = "" });
+                translations["한국어"].Add("carpart_interceptor", new Translation { name = "인터셉터", description = "" });
+                translations["한국어"].Add("carpart_resist_fslot_epic", new Translation { name = "어버터", description = "" });
+                translations["한국어"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "레프트 포", description = "" });
+                translations["한국어"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "라이트 포", description = "" });
+                translations["한국어"].Add("carpart_structure_engineers_truckcap_01", new Translation { name = "오프로더 사이드", description = "" });
+                translations["한국어"].Add("carpart_structure_engineers_truckcap_02_l", new Translation { name = "왼쪽 오프로드 코너", description = "" });
+                translations["한국어"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "오른쪽 오프로드 코너", description = "" });
+                translations["한국어"].Add("carpart_wheel_hologram_01", new Translation { name = "커버링 트레일", description = "" });
+                translations["한국어"].Add("brawl_zombie_escape", new Translation { name = "\"레드 라이트\" 작전", description = "" });
+                translations["한국어"].Add("zombie_escape", new Translation { name = "애쉬 로드", description = "" });
+                translations["한국어"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "폴링 스노우", description = "" });
+                translations["한국어"].Add("carpart_hologram_hny22_01", new Translation { name = "2022년 새해", description = "" });
+                translations["한국어"].Add("carpart_nyear_makeup_light_2", new Translation { name = "짧은 꼬마전구", description = "" });
+                translations["한국어"].Add("carpart_nyear_makeup_light_4", new Translation { name = "꼬마전구", description = "" });
+                translations["한국어"].Add("carpart_nyear_makeup_light_6", new Translation { name = "긴 꼬마전구", description = "" });
+                translations["한국어"].Add("newyear_foray", new Translation { name = "산악 마을", description = "" });
             }
             else
             {
@@ -7588,6 +7685,24 @@ namespace CO_Driver
                 translations["English"].Add("carpart_structure_engineers_truckcap_02_r", new Translation { name = "Right offroader corner", description = "" });
                 translations["English"].Add("brawl_zombie_escape", new Translation { name = "Operation “Red light”", description = "" });
                 translations["English"].Add("zombie_escape", new Translation { name = "Ashen road", description = "" });
+                translations["English"].Add("carpart_ps5_gift", new Translation { name = "Pinwheel", description = "" });
+                translations["English"].Add("carpart_xbox_gift", new Translation { name = "Frost box", description = "" });
+                translations["English"].Add("carpart_cybereast_neon_2_04", new Translation { name = "Short red lamp", description = "" });
+                translations["English"].Add("carpart_cybereast_neon_4_04", new Translation { name = "Red lamp", description = "" });
+                translations["English"].Add("carpart_cybereast_neon_6_04", new Translation { name = "Long red lamp", description = "" });
+                translations["English"].Add("carpart_gun_missilelauncherplasma_epic", new Translation { name = "Yokai", description = "" });
+                translations["English"].Add("carpart_interceptor", new Translation { name = "Interceptor", description = "" });
+                translations["English"].Add("carpart_structure_cybereast_fender_04_l", new Translation { name = "Left paw", description = "" });
+                translations["English"].Add("carpart_structure_cybereast_fender_04_r", new Translation { name = "Right paw", description = "" });
+                translations["English"].Add("carpart_wheel_hologram_01", new Translation { name = "Covering trails", description = "" });
+                translations["English"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "Snowing", description = "" });
+                translations["English"].Add("carpart_hologram_hny22_01", new Translation { name = "New year 2022", description = "" });
+                translations["English"].Add("carpart_hologram_marmokpromo", new Translation { name = "Marmok", description = "" });
+                translations["English"].Add("carpart_nyear_makeup_light_2", new Translation { name = "Short fairy lights", description = "" });
+                translations["English"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Fairy lights", description = "" });
+                translations["English"].Add("carpart_nyear_makeup_light_6", new Translation { name = "Long fairy lights", description = "" });
+                translations["English"].Add("pve_foraytime", new Translation { name = "Operation “Secret santa”", description = "" });
+                translations["English"].Add("newyear_foray", new Translation { name = "Mountain village", description = "" });
             }
         }
     }
