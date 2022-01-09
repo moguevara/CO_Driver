@@ -12,6 +12,9 @@ namespace CO_Driver
 {
     public partial class previous_match : UserControl
     {
+        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
+        public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+
         public file_trace_managment.MatchData previous_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
@@ -436,6 +439,32 @@ namespace CO_Driver
         }
 
         private void gp_medals_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+        }
+
+        private void load_next_match(object sender, EventArgs e)
+        {
+            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
+
+            if (next_match == null)
+                return;
+
+            load_selected_match(this, next_match);
+        }
+
+        private void load_previous_match(object sender, EventArgs e)
+        {
+            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+
+            if (previous_match == null)
+                return;
+
+            load_selected_match(this, previous_match);
+        }
+
+        private void gp_damage_recieved_Paint_1(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
             draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);

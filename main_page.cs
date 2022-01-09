@@ -85,6 +85,9 @@ namespace CO_Driver
             load_static_screen_data();
 
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
+            match_detail_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
+
+
             settings_page.reload_all_themes += new EventHandler(reload_theme);
             settings_page.enable_uploads += new EventHandler(enable_upload);
 
@@ -558,6 +561,7 @@ namespace CO_Driver
                 meta_detail_page.build_records = response.build_records;
                 revenue_page.match_history = response.match_history;
                 upload_page.match_history = response.match_history;
+                match_detail_page.match_history = response.match_history;
                 revenue_page.build_records = response.build_records;
                 match_detail_page.build_records = response.build_records;
                 match_history_page.build_records = response.build_records;
@@ -990,8 +994,20 @@ namespace CO_Driver
                 case global_data.QUEUE_END_EVENT:
                     file_trace_managment.queue_end_event(line, Current_session);
                     break;
+                case global_data.GAME_PLAYER_LOAD_EVENT:
+                    file_trace_managment.load_player_from_game_log(line, Current_session);
+                    break;
+                case global_data.PLAYER_LEAVE_EVENT:
+                    file_trace_managment.player_leave_event(line, Current_session);
+                    break;
                 case global_data.GUID_ASSIGN_EVENT:
                     file_trace_managment.guid_assign_event(line, Current_session);
+                    break;
+                case global_data.ADD_OR_UPDATE_PLAYER_EVENT:
+                    file_trace_managment.add_or_update_player_from_game_log(line, Current_session);
+                    break;
+                case global_data.GAME_PLAYER_SPAWN_EVENT:
+                    file_trace_managment.spawn_player_from_game_log(line, Current_session);
                     break;
                 case global_data.HOST_NAME_ASSIGN_EVENT:
                     file_trace_managment.dedicated_server_connect_event(line, Current_session);

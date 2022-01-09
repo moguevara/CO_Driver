@@ -15,6 +15,8 @@ namespace CO_Driver
 {
     public partial class meta_detail : UserControl
     {
+        public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };

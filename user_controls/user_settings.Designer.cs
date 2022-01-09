@@ -213,9 +213,9 @@
             this.label21.ForeColor = System.Drawing.Color.Lime;
             this.label21.Location = new System.Drawing.Point(637, 355);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(154, 14);
+            this.label21.Size = new System.Drawing.Size(147, 14);
             this.label21.TabIndex = 20;
-            this.label21.Text = "Prestigue/Pack Parts?";
+            this.label21.Text = "Prestige/Pack Parts?";
             // 
             // label23
             // 

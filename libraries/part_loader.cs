@@ -553,6 +553,7 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("refinery", "Refinery");
             Current_session.static_records.map_dict.Add("refinery_newyear", "Refinery");
             Current_session.static_records.map_dict.Add("riverport", "Ship graveyard");
+            Current_session.static_records.map_dict.Add("newyear_foray", "Mountain village");
         }
 
         public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)

@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.60";
+        public static string CURRENT_VERSION = "0.1.0.61";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -26,21 +26,23 @@ namespace CO_Driver
         public const int MATCH_PROPERTY_EVENT = 12;
         public const int MATCH_REWARD_EVENT = 13;
         public const int QUEST_EVENT = 14;
-        public const int ADD_PLAYER_EVENT = 15;
-        public const int UPDATE_PLAYER_EVENT = 16;
-        public const int DATE_ASSIGNMENT_EVENT = 17;
-        public const int ASSIGN_CLIENT_VERSION_EVENT = 18;
-        public const int SPAWN_PLAYER_EVENT = 19;
-        public const int ADD_MOB_EVENT = 20;
-        public const int GAME_PLAY_START_EVENT = 21;
-        public const int LOOT_EVENT = 22;
-        public const int ADVENTURE_REWARD_EVENT = 23;
-        public const int QUEUE_START_EVENT = 24;
-        public const int QUEUE_END_EVENT = 25;
-        public const int QUEUE_UPDATE_EVENT = 26;
-        public const int CONNECTION_INIT_EVENT = 27;
-        public const int GUID_ASSIGN_EVENT = 28;
-        public const int HOST_NAME_ASSIGN_EVENT = 29;
+        public const int ADD_OR_UPDATE_PLAYER_EVENT = 15;
+        public const int DATE_ASSIGNMENT_EVENT = 16;
+        public const int ASSIGN_CLIENT_VERSION_EVENT = 17;
+        public const int SPAWN_PLAYER_EVENT = 18;
+        public const int ADD_MOB_EVENT = 19;
+        public const int GAME_PLAY_START_EVENT = 20;
+        public const int LOOT_EVENT = 21;
+        public const int ADVENTURE_REWARD_EVENT = 22;
+        public const int QUEUE_START_EVENT = 23;
+        public const int QUEUE_END_EVENT = 24;
+        public const int QUEUE_UPDATE_EVENT = 25;
+        public const int CONNECTION_INIT_EVENT = 26;
+        public const int GUID_ASSIGN_EVENT = 27;
+        public const int HOST_NAME_ASSIGN_EVENT = 28;
+        public const int GAME_PLAYER_SPAWN_EVENT = 29;
+        public const int GAME_PLAYER_LOAD_EVENT = 30;
+        public const int PLAYER_LEAVE_EVENT = 31;
 
         public const int STANDARD_CW = 1;
         public const int LEVIATHIAN_CW = 2;

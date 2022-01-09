@@ -196,6 +196,7 @@ namespace CO_Driver
             public string nickname { get; set; }
             public int uid { get; set; }
             public int party_id { get; set; }
+            public int spawn_position { get; set; }
             public int round { get; set; }
             public string build_hash { get; set; }
             public int power_score { get; set; }
@@ -411,11 +412,17 @@ namespace CO_Driver
             if (line.Contains("\"queueTag\"") || line.Contains("\"minUR\"") || line.Contains("\"maxUR\"") || line.Contains("\"botlist\"") || line.Contains("\"custom_game\""))
                 event_id = global_data.MATCH_PROPERTY_EVENT;
             else
-            if (line.Contains("| client: ADD_PLAYER"))
-                event_id = global_data.ADD_PLAYER_EVENT;
+            if (line.Contains("| client:") && line.Contains("_PLAYER "))
+                event_id = global_data.ADD_OR_UPDATE_PLAYER_EVENT;
             else
-            if (line.Contains("| client: UPDATE_PLAYER"))
-                event_id = global_data.UPDATE_PLAYER_EVENT;
+            if (line.Contains("| Combat: Spawn player "))
+                event_id = global_data.GAME_PLAYER_SPAWN_EVENT;
+            else
+            if (line.Contains("| Combat: 	player "))
+                event_id = global_data.GAME_PLAYER_LOAD_EVENT;
+            else
+            if (line.Contains("| client: player "))
+                event_id = global_data.PLAYER_LEAVE_EVENT;
             else
             if (line.Contains("         | // Build:"))
                 event_id = global_data.ASSIGN_CLIENT_VERSION_EVENT;
@@ -1246,7 +1253,7 @@ namespace CO_Driver
 
         public static void load_player_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	player (?<player_id>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -1255,6 +1262,7 @@ namespace CO_Driver
             }
 
             string player_name = line_results.Groups["nickname"].Value.Replace(" ", "");
+            int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value);
             string build_hash = line_results.Groups["build_hash"].Value;
             int uid = Int32.Parse(line_results.Groups["uid"].Value);
             int bot = Int32.Parse(line_results.Groups["bot"].Value);
@@ -1268,6 +1276,7 @@ namespace CO_Driver
             if (Current_session.current_match.player_records.ContainsKey(player_name))
             {
                 Current_session.current_match.player_records[player_name].uid = uid;
+                Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
                 Current_session.current_match.player_records[player_name].bot = bot;
                 Current_session.current_match.player_records[player_name].party_id = party_id;
                 Current_session.current_match.player_records[player_name].power_score = power_score;
@@ -1277,6 +1286,7 @@ namespace CO_Driver
             {
                 Player current_player = new_player();
                 current_player.nickname = player_name;
+                current_player.spawn_position = spawn_position;
                 current_player.uid = uid;
                 current_player.bot = bot;
                 current_player.party_id = party_id;
@@ -1307,7 +1317,7 @@ namespace CO_Driver
 
         public static void spawn_player_event(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Spawn player (?<spawn_order>[^\s]+) \[(?<nickname>.*)\], team (?<team>[^,]+), spawnCounter (?<spawn_counter>[^\s]+) , designHash: (?<build_hash>[^\.]+)\.$");
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| Spawn player (?<spawn_position>[^\s]+) \[(?<nickname>.*)\], team (?<team>[^,]+), spawnCounter (?<spawn_counter>[^\s]+) , designHash: (?<build_hash>[^\.]+)\.$");
 
             if (line_results.Groups.Count < 2)
             {
@@ -1318,24 +1328,29 @@ namespace CO_Driver
             string player_name = line_results.Groups["nickname"].Value.Replace(" ", "");
             string build_hash = line_results.Groups["build_hash"].Value;
             int team = Int32.Parse(line_results.Groups["team"].Value);
-            int spawn_counter = Int32.Parse(line_results.Groups["spawn_counter"].Value);
+            int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
 
             if (player_name == "" || player_name == null)
-                player_name = "Undefined Bot";
+                return;
+
+            if (team == 0)
+                return;
 
             if (Current_session.current_match.player_records.ContainsKey(player_name))
             {
                 Current_session.current_match.player_records[player_name].build_hash = build_hash;
                 Current_session.current_match.player_records[player_name].team = team;
+                Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
 
-                if (Current_session.player_build_records.ContainsKey(build_hash))
-                    Current_session.current_match.player_records[player_name].power_score = Current_session.player_build_records[build_hash].power_score;
+                //if (Current_session.player_build_records.ContainsKey(build_hash))
+                //    Current_session.current_match.player_records[player_name].power_score = Current_session.player_build_records[build_hash].power_score;
             }
             else
             {
                 Player current_player = new_player();
                 current_player.nickname = player_name;
                 current_player.build_hash = build_hash;
+                current_player.spawn_position = spawn_position;
                 current_player.team = team;
                 
                 if (Current_session.player_build_records.ContainsKey(build_hash))
@@ -1346,18 +1361,192 @@ namespace CO_Driver
                 Current_session.current_match.player_records.Add(player_name, current_player);
             }
 
-            if (player_name == "Undefined Bot")
-                Current_session.current_match.player_records[player_name].bot = 1;
+            if (!Current_session.player_build_records.ContainsKey(build_hash))
+            {
+                BuildRecord new_build = new_build_record();
+                new_build.build_hash = build_hash;
+                Current_session.player_build_records.Add(build_hash, new_build);
+            }
+
+            if (Current_session.ready_to_add_round == true)
+                add_round_record(Current_session);
+        }
+
+        public static void add_or_update_player_from_game_log(string line, SessionStats Current_session)
+        {
+            //| client: ADD_PLAYER  0   SmokinJoker420, uid 02097231 status   ACTIVE team 2
+            //| client: UPDATE_PLAYER  4   BLU SKY3S@live, uid 10813925 status   ACTIVE team 1
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: (?<add_or_update>[^\s]+) [\s]{0,1}(?<spawn_position>[^\s]+) (?<nickname>[^,]+), uid (?<uid>[^\s]+) status (?<status>.*) team (?<team>.*)$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            string status = line_results.Groups["status"].Value.Replace(" ", "");
+            string player_name = line_results.Groups["nickname"].Value.Replace(" ", "");
+            int uid = Int32.Parse(line_results.Groups["uid"].Value);
+            int spawn_position =  spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
+            int team = Int32.Parse(line_results.Groups["team"].Value);
+
+            if (status != "ACTIVE")
+                return;
+
+            if (team == 0)
+                return;
+
+            if (Current_session.current_match.player_records.ContainsKey(player_name))
+            {
+                Current_session.current_match.player_records[player_name].team = team;
+                Current_session.current_match.player_records[player_name].uid = uid;
+                Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
+
+                if (uid == 0)
+                    Current_session.current_match.player_records[player_name].bot = 1;
+            }
+            else
+            {
+                Player current_player = new_player();
+                current_player.nickname = player_name;
+                current_player.uid = uid;
+                current_player.spawn_position = spawn_position;
+                current_player.team = team;
+
+                if (uid == 0)
+                    current_player.bot = 1;
+
+                Current_session.current_match.player_records.Add(player_name, current_player);
+            }
+        }
+        public static void spawn_player_from_game_log(string line, SessionStats Current_session)
+        {
+            //21:41:20.059         | Combat: Spawn player 1 [Charlie9204], team 1, spawnCounter 1 , designHash: 2bc161f.
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| Combat: Spawn player (?<spawn_position>[^\s]+) \[(?<nickname>.*)\], team (?<team>[^,]+), spawnCounter (?<spawn_counter>[^\s]+) , designHash: (?<build_hash>[^\.]+)\.$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            string player_name = line_results.Groups["nickname"].Value.Replace(" ", "");
+            int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
+            int team = Int32.Parse(line_results.Groups["team"].Value);
+            string build_hash = line_results.Groups["build_hash"].Value;
+
+            if (team == 0)
+                return;
+
+            if (Current_session.current_match.player_records.ContainsKey(player_name))
+            {
+                Current_session.current_match.player_records[player_name].team = team;
+                Current_session.current_match.player_records[player_name].build_hash = build_hash;
+                Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
+
+                //if (Current_session.player_build_records.ContainsKey(build_hash))
+                //    Current_session.current_match.player_records[player_name].power_score = Current_session.player_build_records[build_hash].power_score;
+            }
 
             if (!Current_session.player_build_records.ContainsKey(build_hash))
             {
                 BuildRecord new_build = new_build_record();
                 new_build.build_hash = build_hash;
-                new_build.power_score = 0;
                 Current_session.player_build_records.Add(build_hash, new_build);
             }
-            if (Current_session.ready_to_add_round == true)
-                add_round_record(Current_session);
+        }
+
+        public static void load_player_from_game_log(string line, SessionStats Current_session)
+        {
+            //08:14:48.699         | Combat: 	player  0, uid 09495729, party 00000000, nickname: Stiiin              , team: 2, bot: 0, ur: 8884, mmHash: 6e064b74
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| Combat: 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            string player_name = line_results.Groups["nickname"].Value.Replace(" ", "");
+            string build_hash = line_results.Groups["build_hash"].Value;
+            int uid = Int32.Parse(line_results.Groups["uid"].Value);
+            int bot = Int32.Parse(line_results.Groups["bot"].Value);
+            int party_id = Int32.Parse(line_results.Groups["party_id"].Value);
+            int team = Int32.Parse(line_results.Groups["team"].Value);
+            int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
+            int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
+
+            if (uid == 0)
+                bot = 1;
+
+            if (Current_session.current_match.player_records.ContainsKey(player_name))
+            {
+                Current_session.current_match.player_records[player_name].uid = uid;
+                Current_session.current_match.player_records[player_name].build_hash = build_hash;
+                Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
+                Current_session.current_match.player_records[player_name].bot = bot;
+                Current_session.current_match.player_records[player_name].party_id = party_id;
+                Current_session.current_match.player_records[player_name].power_score = power_score;
+                Current_session.current_match.player_records[player_name].team = team;
+            }
+            else
+            {
+                Player current_player = new_player();
+                current_player.nickname = player_name;
+                current_player.spawn_position = spawn_position;
+                current_player.build_hash = build_hash;
+                current_player.uid = uid;
+                current_player.bot = bot;
+                current_player.party_id = party_id;
+                current_player.power_score = power_score;
+                current_player.team = team;
+                Current_session.current_match.player_records.Add(player_name, current_player);
+            }
+
+            if (Current_session.current_match.player_records[player_name].build_hash == "")
+                Current_session.current_match.player_records[player_name].build_hash = build_hash;
+
+            if (Current_session.player_build_records.ContainsKey(build_hash))
+            {
+                if (power_score > Current_session.player_build_records[build_hash].power_score)
+                    Current_session.player_build_records[build_hash].power_score = power_score;
+            }
+            else
+            {
+                BuildRecord new_build = new_build_record();
+                new_build.build_hash = build_hash;
+                new_build.power_score = power_score;
+                Current_session.player_build_records.Add(build_hash, new_build);
+            }
+        }
+
+        public static void player_leave_event(string line, SessionStats Current_session)
+        {
+            Match line_results = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: player (?<spawn_position>[^\s]+) leave game$");
+
+            if (line_results.Groups.Count < 2)
+            {
+                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                return;
+            }
+
+            int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
+
+            string player_name = Current_session.current_match.player_records.FirstOrDefault(x => x.Value.spawn_position == spawn_position).Key;
+
+            if (player_name == null) /* observer in custom game left */
+                return;
+
+            if (Current_session.current_match.player_records.ContainsKey(player_name))
+            {
+                if (Current_session.current_match.player_records[player_name].power_score == 0 &&
+                    Current_session.current_match.player_records[player_name].stats.damage == 0 &&
+                    Current_session.current_match.player_records[player_name].stats.damage_taken == 0)
+                {
+                    Current_session.current_match.player_records.Remove(player_name);
+                }
+                    
+            }
         }
 
         public static void add_mob_event(string line, SessionStats Current_session)
@@ -1769,8 +1958,12 @@ namespace CO_Driver
         {
             string long_description = "";
             string short_description = "";
-            BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash];
 
+            if (Current_session.current_match.player_records[Current_session.local_user].build_hash == "")
+                return;
+
+            BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user].build_hash];
+            
             //CABIN NAMING
             if (local_build.cabin.description.Length > 0)
             {
@@ -2028,6 +2221,7 @@ namespace CO_Driver
                 uid = 0,
                 bot = 0,
                 party_id = 0,
+                spawn_position = -1,
                 round = 0,
                 build_hash = "",
                 power_score = 0,
