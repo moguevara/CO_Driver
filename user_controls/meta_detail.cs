@@ -460,9 +460,5 @@ namespace CO_Driver
             populate_meta_detail_screen();
         }
 
-        private void lb_user_name_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

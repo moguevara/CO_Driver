@@ -536,5 +536,26 @@ namespace CO_Driver
 
         }
 
+        private void nemesis_lookup(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string player = dg_nemesis_list.Rows[e.RowIndex].Cells[0].Value.ToString();
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
+
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
+
+        private void victim_lookup(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string player = dg_victim_list.Rows[e.RowIndex].Cells[0].Value.ToString();
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
+
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
     }
 }

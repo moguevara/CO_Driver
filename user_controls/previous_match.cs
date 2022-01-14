@@ -469,5 +469,33 @@ namespace CO_Driver
             GroupBox box = sender as GroupBox;
             draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
         }
+
+        private void groupBox1_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+        }
+
+        private void lookup_blue_player(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string player = dg_blue_team.Rows[e.RowIndex].Cells[0].Value.ToString();
+            int uid = match_data.player_records.FirstOrDefault(x => x.Key == player).Value.uid;
+
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
+
+        private void lookup_red_player(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string player = dg_red_team.Rows[e.RowIndex].Cells[0].Value.ToString();
+            int uid = match_data.player_records.FirstOrDefault(x => x.Key == player).Value.uid;
+
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
     }
 }
