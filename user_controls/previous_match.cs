@@ -55,6 +55,10 @@ namespace CO_Driver
             else 
                 lb_game_result.Text = match_data.game_result;
 
+#if DEBUG
+            lb_game_result.Text = match_data.server_guid.ToString();
+#endif
+
             lb_match_type.Text = match_data.match_type_desc;
             lb_map_name.Text = translate.translate_string(match_data.map_name, session, translations);
             if (build_records.ContainsKey(match_data.local_player.build_hash))
@@ -446,22 +450,12 @@ namespace CO_Driver
 
         private void load_next_match(object sender, EventArgs e)
         {
-            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
-
-            if (next_match == null)
-                return;
-
-            load_selected_match(this, next_match);
+            
         }
 
         private void load_previous_match(object sender, EventArgs e)
         {
-            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
-
-            if (previous_match == null)
-                return;
-
-            load_selected_match(this, previous_match);
+            
         }
 
         private void gp_damage_recieved_Paint_1(object sender, PaintEventArgs e)
@@ -496,6 +490,46 @@ namespace CO_Driver
             int uid = match_data.player_records.FirstOrDefault(x => x.Key == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
+
+        public void btn_last_MouseClick(object sender, MouseEventArgs e)
+        {
+            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
+
+            if (previous_match == null)
+                return;
+
+            load_selected_match(this, previous_match);
+        }
+
+        private void btn_previous_Click(object sender, EventArgs e)
+        {
+            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+
+            if (previous_match == null)
+                return;
+
+            load_selected_match(this, previous_match);
+        }
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
+
+            if (next_match == null)
+                return;
+
+            load_selected_match(this, next_match);
+        }
+
+        private void btn_first_Click(object sender, EventArgs e)
+        {
+            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+
+            if (next_match == null)
+                return;
+
+            load_selected_match(this, next_match);
         }
     }
 }

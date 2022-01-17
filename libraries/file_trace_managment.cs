@@ -1443,9 +1443,6 @@ namespace CO_Driver
                 Current_session.current_match.player_records[player_name].team = team;
                 Current_session.current_match.player_records[player_name].build_hash = build_hash;
                 Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
-
-                //if (Current_session.player_build_records.ContainsKey(build_hash))
-                //    Current_session.current_match.player_records[player_name].power_score = Current_session.player_build_records[build_hash].power_score;
             }
 
             if (!Current_session.player_build_records.ContainsKey(build_hash))
@@ -1482,7 +1479,10 @@ namespace CO_Driver
             if (Current_session.current_match.player_records.ContainsKey(player_name))
             {
                 Current_session.current_match.player_records[player_name].uid = uid;
-                Current_session.current_match.player_records[player_name].build_hash = build_hash;
+
+                if (Current_session.current_match.player_records[player_name].build_hash == "")
+                    Current_session.current_match.player_records[player_name].build_hash = build_hash;
+
                 Current_session.current_match.player_records[player_name].spawn_position = spawn_position;
                 Current_session.current_match.player_records[player_name].bot = bot;
                 Current_session.current_match.player_records[player_name].party_id = party_id;

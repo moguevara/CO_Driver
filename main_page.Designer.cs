@@ -239,35 +239,35 @@
             // viewTraceToolStripMenuItem
             // 
             this.viewTraceToolStripMenuItem.Name = "viewTraceToolStripMenuItem";
-            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewTraceToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.viewTraceToolStripMenuItem.Text = "combat.log";
             this.viewTraceToolStripMenuItem.Click += new System.EventHandler(this.viewTraceToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem1
             // 
             this.gamelogToolStripMenuItem1.Name = "gamelogToolStripMenuItem1";
-            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.gamelogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.gamelogToolStripMenuItem1.Text = "game.log";
             this.gamelogToolStripMenuItem1.Click += new System.EventHandler(this.gamelogToolStripMenuItem1_Click);
             // 
             // chatlogToolStripMenuItem1
             // 
             this.chatlogToolStripMenuItem1.Name = "chatlogToolStripMenuItem1";
-            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.chatlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.chatlogToolStripMenuItem1.Text = "chat.log";
             this.chatlogToolStripMenuItem1.Click += new System.EventHandler(this.chatlogToolStripMenuItem1_Click);
             // 
             // netlogToolStripMenuItem1
             // 
             this.netlogToolStripMenuItem1.Name = "netlogToolStripMenuItem1";
-            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.netlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.netlogToolStripMenuItem1.Text = "net.log";
             this.netlogToolStripMenuItem1.Click += new System.EventHandler(this.netlogToolStripMenuItem1_Click);
             // 
             // gfxlogToolStripMenuItem1
             // 
             this.gfxlogToolStripMenuItem1.Name = "gfxlogToolStripMenuItem1";
-            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.gfxlogToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.gfxlogToolStripMenuItem1.Text = "gfx.log";
             this.gfxlogToolStripMenuItem1.Click += new System.EventHandler(this.gfxlogToolStripMenuItem1_Click);
             // 

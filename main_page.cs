@@ -408,10 +408,13 @@ namespace CO_Driver
 
         private void previousMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            file_trace_managment.MatchRecord previous_match = match_detail_page.match_history.OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+
+            if (previous_match == null)
+                return;
+
+            load_match_details(this, previous_match);
             match_detail_page.show_last_match = true;
-            match_detail_page.populate_match();
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(match_detail_page);
         }
 
         private void printCurrentWindowToolStripMenuItem_Click(object sender, EventArgs e)

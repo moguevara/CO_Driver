@@ -80,9 +80,16 @@ namespace CO_Driver
                     invalid_uid += 1;
                     continue;
                 }
+
                 if (!match.match_data.match_rewards.Any())
                 {
                     match_corruptions += 1;
+                    continue;
+                }
+
+                if (match.match_data.player_records.Any(x => x.Value.uid == 0 && x.Value.bot == 0))
+                {
+                    incomplete_matchs += 1;
                     continue;
                 }
 
@@ -197,6 +204,9 @@ namespace CO_Driver
                     continue;
 
                 if (match.match_data.local_player.uid == 0)
+                    continue;
+
+                if (match.match_data.player_records.Any(x => x.Value.uid == 0 && x.Value.bot == 0))
                     continue;
 
                 if (!match.match_data.match_rewards.Any())
