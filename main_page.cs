@@ -328,50 +328,7 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(upload_page);
         }
-
-        private void chatToolsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void inMatchDataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void viewTraceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Combat", session));
-            theme_manager.apply_theme(main_page_panel, session);
-        }
-
-        private void gamelogToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Game", session));
-            theme_manager.apply_theme(main_page_panel, session);
-        }
-
-        private void chatlogToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Chat", session));
-            theme_manager.apply_theme(main_page_panel, session);
-        }
-
-        private void netlogToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Net", session));
-            theme_manager.apply_theme(main_page_panel, session);
-        }
-
-        private void gfxlogToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(new trace_view("Gfx", session));
-            theme_manager.apply_theme(main_page_panel, session);
-        }
+        
         private void userProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
@@ -394,18 +351,6 @@ namespace CO_Driver
             main_page_panel.Controls.Add(avail_part_page);
         }
 
-        private void buildReviewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(build_page);
-        }
-
-        private void stateOfTheMetaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(meta_detail_page);
-        }
-
         private void previousMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             file_trace_managment.MatchRecord previous_match = match_detail_page.match_history.OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
@@ -420,38 +365,6 @@ namespace CO_Driver
         private void printCurrentWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             capture_screen_shot();
-        }
-
-        private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clanWarScheduleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            schedule_page.populate_schedule_display("cw");
-            main_page_panel.Controls.Add(schedule_page);
-        }
-
-        private void brawlScheduleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            schedule_page.populate_schedule_display("brawl");
-            main_page_panel.Controls.Add(schedule_page);
-            
-        }
-
-        private void garageToolsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(garage_page);
-        }
-
-        private void revenueToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            clear_main_page_panel();
-            main_page_panel.Controls.Add(revenue_page);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1177,6 +1090,84 @@ namespace CO_Driver
             match_detail_page.populate_match();
             clear_main_page_panel();
             main_page_panel.Controls.Add(match_detail_page);
+        }
+
+        private void buildToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void liveGarageChartingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(garage_page);
+        }
+
+        private void stateOfYourMetaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(meta_detail_page);
+        }
+
+        private void revenueAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(revenue_page);
+        }
+
+        private void clanWarScheduleToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            schedule_page.populate_schedule_display("cw");
+            main_page_panel.Controls.Add(schedule_page);
+        }
+
+        private void brawlScheduleToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            schedule_page.populate_schedule_display("brawl");
+            main_page_panel.Controls.Add(schedule_page);
+        }
+
+        private void combatlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Combat", session));
+            theme_manager.apply_theme(main_page_panel, session);
+        }
+
+        private void gamelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Game", session));
+            theme_manager.apply_theme(main_page_panel, session);
+        }
+
+        private void chatlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Chat", session));
+            theme_manager.apply_theme(main_page_panel, session);
+        }
+
+        private void netlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Net", session));
+            theme_manager.apply_theme(main_page_panel, session);
+        }
+
+        private void gfxlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(new trace_view("Gfx", session));
+            theme_manager.apply_theme(main_page_panel, session);
+        }
+
+        private void buildReviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(build_page);
         }
     }
 }

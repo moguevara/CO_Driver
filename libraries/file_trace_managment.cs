@@ -1858,8 +1858,6 @@ namespace CO_Driver
         {
             switch (match_type)
             {
-                case global_data.ALL_MATCHS:
-                    return "Total";
                 case global_data.STANDARD_MATCH:
                     return "8v8";
                 case global_data.STANDARD_CW_MATCH:

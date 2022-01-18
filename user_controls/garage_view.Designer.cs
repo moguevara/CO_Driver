@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_live_data = new System.Windows.Forms.GroupBox();
@@ -43,10 +43,6 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_comparison = new System.Windows.Forms.GroupBox();
             this.ch_compare = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_reset = new System.Windows.Forms.Button();
-            this.btn_export = new System.Windows.Forms.Button();
-            this.btn_save_user_settings = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_weapon_breakdown = new System.Windows.Forms.GroupBox();
             this.dg_weapon_overview = new System.Windows.Forms.DataGridView();
@@ -62,7 +58,6 @@
             this.lb_body_damage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.cmb_trial_type = new System.Windows.Forms.ComboBox();
@@ -70,6 +65,12 @@
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.lb_trial_desc = new System.Windows.Forms.Label();
+            this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_reset = new System.Windows.Forms.Button();
+            this.btn_save_user_settings = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.gb_live_data.SuspendLayout();
@@ -77,7 +78,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.gb_comparison.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ch_compare)).BeginInit();
-            this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.gb_weapon_breakdown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_weapon_overview)).BeginInit();
@@ -91,6 +91,8 @@
             this.tableLayoutPanel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_trial_threshold)).BeginInit();
             this.tableLayoutPanel14.SuspendLayout();
+            this.tableLayoutPanel15.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -143,16 +145,16 @@
             // ch_live_feed
             // 
             this.ch_live_feed.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.ch_live_feed.ChartAreas.Add(chartArea1);
+            chartArea5.Name = "ChartArea1";
+            this.ch_live_feed.ChartAreas.Add(chartArea5);
             this.ch_live_feed.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.AutoFitMinFontSize = 5;
-            legend1.Font = new System.Drawing.Font("Consolas", 8F);
-            legend1.IsTextAutoFit = false;
-            legend1.MaximumAutoSize = 20F;
-            legend1.Name = "Legend1";
-            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_live_feed.Legends.Add(legend1);
+            legend5.AutoFitMinFontSize = 5;
+            legend5.Font = new System.Drawing.Font("Consolas", 8F);
+            legend5.IsTextAutoFit = false;
+            legend5.MaximumAutoSize = 20F;
+            legend5.Name = "Legend1";
+            legend5.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_live_feed.Legends.Add(legend5);
             this.ch_live_feed.Location = new System.Drawing.Point(3, 19);
             this.ch_live_feed.Name = "ch_live_feed";
             this.ch_live_feed.Size = new System.Drawing.Size(641, 327);
@@ -187,84 +189,29 @@
             this.gb_comparison.Size = new System.Drawing.Size(524, 290);
             this.gb_comparison.TabIndex = 29;
             this.gb_comparison.TabStop = false;
-            this.gb_comparison.Text = "Trial Comparison";
+            this.gb_comparison.Text = "Comparison";
             this.gb_comparison.Paint += new System.Windows.Forms.PaintEventHandler(this.gb_comparison_Paint);
             // 
             // ch_compare
             // 
             this.ch_compare.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea2.Name = "ChartArea1";
-            this.ch_compare.ChartAreas.Add(chartArea2);
+            chartArea6.Name = "ChartArea1";
+            this.ch_compare.ChartAreas.Add(chartArea6);
             this.ch_compare.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.AutoFitMinFontSize = 5;
-            legend2.Font = new System.Drawing.Font("Consolas", 8F);
-            legend2.IsTextAutoFit = false;
-            legend2.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
-            legend2.MaximumAutoSize = 20F;
-            legend2.Name = "Legend1";
-            legend2.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
-            legend2.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_compare.Legends.Add(legend2);
+            legend6.AutoFitMinFontSize = 5;
+            legend6.Font = new System.Drawing.Font("Consolas", 8F);
+            legend6.IsTextAutoFit = false;
+            legend6.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
+            legend6.MaximumAutoSize = 20F;
+            legend6.Name = "Legend1";
+            legend6.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
+            legend6.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_compare.Legends.Add(legend6);
             this.ch_compare.Location = new System.Drawing.Point(3, 19);
             this.ch_compare.Name = "ch_compare";
             this.ch_compare.Size = new System.Drawing.Size(518, 268);
             this.ch_compare.TabIndex = 1;
             this.ch_compare.Text = "chart1";
-            // 
-            // tableLayoutPanel11
-            // 
-            this.tableLayoutPanel11.ColumnCount = 3;
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel11.Controls.Add(this.btn_reset, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.btn_export, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.btn_save_user_settings, 0, 0);
-            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 299);
-            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 1;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(524, 47);
-            this.tableLayoutPanel11.TabIndex = 30;
-            // 
-            // btn_reset
-            // 
-            this.btn_reset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_reset.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reset.Location = new System.Drawing.Point(351, 3);
-            this.btn_reset.Name = "btn_reset";
-            this.btn_reset.Size = new System.Drawing.Size(170, 41);
-            this.btn_reset.TabIndex = 44;
-            this.btn_reset.Text = "Reset Comparison";
-            this.btn_reset.UseVisualStyleBackColor = true;
-            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
-            // 
-            // btn_export
-            // 
-            this.btn_export.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_export.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_export.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_export.Location = new System.Drawing.Point(177, 3);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(168, 41);
-            this.btn_export.TabIndex = 43;
-            this.btn_export.Text = "Export Trials";
-            this.btn_export.UseVisualStyleBackColor = true;
-            // 
-            // btn_save_user_settings
-            // 
-            this.btn_save_user_settings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_save_user_settings.Location = new System.Drawing.Point(3, 3);
-            this.btn_save_user_settings.Name = "btn_save_user_settings";
-            this.btn_save_user_settings.Size = new System.Drawing.Size(168, 41);
-            this.btn_save_user_settings.TabIndex = 42;
-            this.btn_save_user_settings.Text = "Add Trial";
-            this.btn_save_user_settings.UseVisualStyleBackColor = true;
-            this.btn_save_user_settings.Click += new System.EventHandler(this.btn_save_user_settings_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -294,7 +241,7 @@
             this.gb_weapon_breakdown.Size = new System.Drawing.Size(827, 180);
             this.gb_weapon_breakdown.TabIndex = 31;
             this.gb_weapon_breakdown.TabStop = false;
-            this.gb_weapon_breakdown.Text = "Weapon Breakdown";
+            this.gb_weapon_breakdown.Text = "Current Test\'s Weapon Breakdown";
             this.gb_weapon_breakdown.Paint += new System.Windows.Forms.PaintEventHandler(this.gb_weapon_breakdown_Paint);
             // 
             // dg_weapon_overview
@@ -307,25 +254,25 @@
             this.dg_weapon_overview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_weapon_overview.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_weapon_overview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dg_weapon_overview.ColumnHeadersHeight = 20;
             this.dg_weapon_overview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_weapon_overview.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle10;
             this.dg_weapon_overview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_weapon_overview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_weapon_overview.EnableHeadersVisualStyles = false;
@@ -335,22 +282,22 @@
             this.dg_weapon_overview.Name = "dg_weapon_overview";
             this.dg_weapon_overview.ReadOnly = true;
             this.dg_weapon_overview.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dg_weapon_overview.RowHeadersWidth = 10;
             this.dg_weapon_overview.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -520,8 +467,8 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel12, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel15, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -530,18 +477,6 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1189, 42);
             this.tableLayoutPanel3.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(588, 42);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Test Drive Trials";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel12
             // 
@@ -655,6 +590,84 @@
             this.lb_trial_desc.Text = "Seconds";
             this.lb_trial_desc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel15
+            // 
+            this.tableLayoutPanel15.ColumnCount = 1;
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel15.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel15.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel15.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel15.Name = "tableLayoutPanel15";
+            this.tableLayoutPanel15.RowCount = 2;
+            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(588, 36);
+            this.tableLayoutPanel15.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(582, 25);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Garage Weapon Tester";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(582, 11);
+            this.label5.TabIndex = 60;
+            this.label5.Text = "(Capture weapon metrics live as you test in garage)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Controls.Add(this.btn_reset, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.btn_save_user_settings, 0, 0);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 299);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 1;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(524, 47);
+            this.tableLayoutPanel11.TabIndex = 30;
+            // 
+            // btn_reset
+            // 
+            this.btn_reset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_reset.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reset.Location = new System.Drawing.Point(265, 3);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.Size = new System.Drawing.Size(256, 41);
+            this.btn_reset.TabIndex = 47;
+            this.btn_reset.Text = "Clear Comparison";
+            this.btn_reset.UseVisualStyleBackColor = true;
+            // 
+            // btn_save_user_settings
+            // 
+            this.btn_save_user_settings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save_user_settings.Location = new System.Drawing.Point(3, 3);
+            this.btn_save_user_settings.Name = "btn_save_user_settings";
+            this.btn_save_user_settings.Size = new System.Drawing.Size(256, 41);
+            this.btn_save_user_settings.TabIndex = 46;
+            this.btn_save_user_settings.Text = "Add Trial to Comparison";
+            this.btn_save_user_settings.UseVisualStyleBackColor = true;
+            // 
             // garage_view
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -674,7 +687,6 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.gb_comparison.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ch_compare)).EndInit();
-            this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.gb_weapon_breakdown.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dg_weapon_overview)).EndInit();
@@ -687,12 +699,14 @@
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.num_trial_threshold)).EndInit();
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tableLayoutPanel14.PerformLayout();
+            this.tableLayoutPanel15.ResumeLayout(false);
+            this.tableLayoutPanel15.PerformLayout();
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -704,7 +718,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gb_live_data;
         private System.Windows.Forms.GroupBox gb_comparison;
         private System.Windows.Forms.GroupBox gb_weapon_breakdown;
@@ -719,10 +732,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.Label lb_body_damage;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Button btn_export;
-        private System.Windows.Forms.Button btn_save_user_settings;
         private System.Windows.Forms.DataVisualization.Charting.Chart ch_live_feed;
         public System.Windows.Forms.DataGridView dg_weapon_overview;
         private System.Windows.Forms.DataVisualization.Charting.Chart ch_compare;
@@ -733,5 +742,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lb_trial_desc;
         private System.Windows.Forms.ComboBox cmb_trial_type;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button btn_reset;
+        private System.Windows.Forms.Button btn_save_user_settings;
     }
 }
