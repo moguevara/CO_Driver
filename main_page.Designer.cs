@@ -35,30 +35,30 @@
             this.userProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousMatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matchHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.liveGarageChartingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stateOfYourMetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revenueAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partOptimizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.clanWarScheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.brawlScheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileTracesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.combatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gamelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.netlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gfxlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.scheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileTracesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clanWarScheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.brawlScheduleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.combatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gamelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.netlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gfxlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.analysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stateOfYourMetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.revenueAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.liveGarageChartingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buildReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +114,45 @@
             this.matchHistoryToolStripMenuItem.Text = "Match History";
             this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
             // 
+            // analysisToolStripMenuItem
+            // 
+            this.analysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.liveGarageChartingToolStripMenuItem,
+            this.buildReviewToolStripMenuItem,
+            this.stateOfYourMetaToolStripMenuItem,
+            this.revenueAnalysisToolStripMenuItem});
+            this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
+            this.analysisToolStripMenuItem.Size = new System.Drawing.Size(110, 18);
+            this.analysisToolStripMenuItem.Text = "Analysis Menu";
+            // 
+            // liveGarageChartingToolStripMenuItem
+            // 
+            this.liveGarageChartingToolStripMenuItem.Name = "liveGarageChartingToolStripMenuItem";
+            this.liveGarageChartingToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.liveGarageChartingToolStripMenuItem.Text = "Garage Weapon Tester";
+            this.liveGarageChartingToolStripMenuItem.Click += new System.EventHandler(this.liveGarageChartingToolStripMenuItem_Click);
+            // 
+            // buildReviewToolStripMenuItem
+            // 
+            this.buildReviewToolStripMenuItem.Name = "buildReviewToolStripMenuItem";
+            this.buildReviewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.buildReviewToolStripMenuItem.Text = "Build Performance Review";
+            this.buildReviewToolStripMenuItem.Click += new System.EventHandler(this.buildReviewToolStripMenuItem_Click);
+            // 
+            // stateOfYourMetaToolStripMenuItem
+            // 
+            this.stateOfYourMetaToolStripMenuItem.Name = "stateOfYourMetaToolStripMenuItem";
+            this.stateOfYourMetaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.stateOfYourMetaToolStripMenuItem.Text = "Personal Meta Review";
+            this.stateOfYourMetaToolStripMenuItem.Click += new System.EventHandler(this.stateOfYourMetaToolStripMenuItem_Click);
+            // 
+            // revenueAnalysisToolStripMenuItem
+            // 
+            this.revenueAnalysisToolStripMenuItem.Name = "revenueAnalysisToolStripMenuItem";
+            this.revenueAnalysisToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.revenueAnalysisToolStripMenuItem.Text = "Revenue Analysis";
+            this.revenueAnalysisToolStripMenuItem.Click += new System.EventHandler(this.revenueAnalysisToolStripMenuItem_Click);
+            // 
             // buildToolsToolStripMenuItem
             // 
             this.buildToolsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
@@ -125,8 +164,8 @@
             this.fileTracesToolStripMenuItem});
             this.buildToolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buildToolsToolStripMenuItem.Name = "buildToolsToolStripMenuItem";
-            this.buildToolsToolStripMenuItem.Size = new System.Drawing.Size(54, 18);
-            this.buildToolsToolStripMenuItem.Text = "Tools";
+            this.buildToolsToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
+            this.buildToolsToolStripMenuItem.Text = "Tools Menu";
             this.buildToolsToolStripMenuItem.Click += new System.EventHandler(this.buildToolsToolStripMenuItem_Click);
             // 
             // fusionTrackerToolStripMenuItem
@@ -149,6 +188,76 @@
             this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.partOptimizationToolStripMenuItem.Text = "Manual Part Selection";
             this.partOptimizationToolStripMenuItem.Click += new System.EventHandler(this.partOptimizationToolStripMenuItem_Click);
+            // 
+            // scheduleToolStripMenuItem1
+            // 
+            this.scheduleToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clanWarScheduleToolStripMenuItem1,
+            this.brawlScheduleToolStripMenuItem1});
+            this.scheduleToolStripMenuItem1.Name = "scheduleToolStripMenuItem1";
+            this.scheduleToolStripMenuItem1.Size = new System.Drawing.Size(221, 22);
+            this.scheduleToolStripMenuItem1.Text = "Schedule";
+            // 
+            // clanWarScheduleToolStripMenuItem1
+            // 
+            this.clanWarScheduleToolStripMenuItem1.Name = "clanWarScheduleToolStripMenuItem1";
+            this.clanWarScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.clanWarScheduleToolStripMenuItem1.Text = "Clan War Schedule";
+            this.clanWarScheduleToolStripMenuItem1.Click += new System.EventHandler(this.clanWarScheduleToolStripMenuItem1_Click);
+            // 
+            // brawlScheduleToolStripMenuItem1
+            // 
+            this.brawlScheduleToolStripMenuItem1.Name = "brawlScheduleToolStripMenuItem1";
+            this.brawlScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.brawlScheduleToolStripMenuItem1.Text = "Brawl Schedule";
+            this.brawlScheduleToolStripMenuItem1.Click += new System.EventHandler(this.brawlScheduleToolStripMenuItem1_Click);
+            // 
+            // fileTracesToolStripMenuItem
+            // 
+            this.fileTracesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.combatlogToolStripMenuItem,
+            this.gamelogToolStripMenuItem,
+            this.chatlogToolStripMenuItem,
+            this.netlogToolStripMenuItem,
+            this.gfxlogToolStripMenuItem});
+            this.fileTracesToolStripMenuItem.Name = "fileTracesToolStripMenuItem";
+            this.fileTracesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.fileTracesToolStripMenuItem.Text = "File Traces";
+            // 
+            // combatlogToolStripMenuItem
+            // 
+            this.combatlogToolStripMenuItem.Name = "combatlogToolStripMenuItem";
+            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.combatlogToolStripMenuItem.Text = "combat.log";
+            this.combatlogToolStripMenuItem.Click += new System.EventHandler(this.combatlogToolStripMenuItem_Click);
+            // 
+            // gamelogToolStripMenuItem
+            // 
+            this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
+            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem.Text = "game.log";
+            this.gamelogToolStripMenuItem.Click += new System.EventHandler(this.gamelogToolStripMenuItem_Click);
+            // 
+            // chatlogToolStripMenuItem
+            // 
+            this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
+            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem.Text = "chat.log";
+            this.chatlogToolStripMenuItem.Click += new System.EventHandler(this.chatlogToolStripMenuItem_Click);
+            // 
+            // netlogToolStripMenuItem
+            // 
+            this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
+            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem.Text = "net.log";
+            this.netlogToolStripMenuItem.Click += new System.EventHandler(this.netlogToolStripMenuItem_Click);
+            // 
+            // gfxlogToolStripMenuItem
+            // 
+            this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
+            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem.Text = "gfx.log";
+            this.gfxlogToolStripMenuItem.Click += new System.EventHandler(this.gfxlogToolStripMenuItem_Click);
             // 
             // uploadToolStripMenuItem
             // 
@@ -196,115 +305,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // scheduleToolStripMenuItem1
-            // 
-            this.scheduleToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clanWarScheduleToolStripMenuItem1,
-            this.brawlScheduleToolStripMenuItem1});
-            this.scheduleToolStripMenuItem1.Name = "scheduleToolStripMenuItem1";
-            this.scheduleToolStripMenuItem1.Size = new System.Drawing.Size(221, 22);
-            this.scheduleToolStripMenuItem1.Text = "Schedule";
-            // 
-            // fileTracesToolStripMenuItem
-            // 
-            this.fileTracesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.combatlogToolStripMenuItem,
-            this.gamelogToolStripMenuItem,
-            this.chatlogToolStripMenuItem,
-            this.netlogToolStripMenuItem,
-            this.gfxlogToolStripMenuItem});
-            this.fileTracesToolStripMenuItem.Name = "fileTracesToolStripMenuItem";
-            this.fileTracesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.fileTracesToolStripMenuItem.Text = "File Traces";
-            // 
-            // clanWarScheduleToolStripMenuItem1
-            // 
-            this.clanWarScheduleToolStripMenuItem1.Name = "clanWarScheduleToolStripMenuItem1";
-            this.clanWarScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
-            this.clanWarScheduleToolStripMenuItem1.Text = "Clan War Schedule";
-            this.clanWarScheduleToolStripMenuItem1.Click += new System.EventHandler(this.clanWarScheduleToolStripMenuItem1_Click);
-            // 
-            // brawlScheduleToolStripMenuItem1
-            // 
-            this.brawlScheduleToolStripMenuItem1.Name = "brawlScheduleToolStripMenuItem1";
-            this.brawlScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
-            this.brawlScheduleToolStripMenuItem1.Text = "Brawl Schedule";
-            this.brawlScheduleToolStripMenuItem1.Click += new System.EventHandler(this.brawlScheduleToolStripMenuItem1_Click);
-            // 
-            // combatlogToolStripMenuItem
-            // 
-            this.combatlogToolStripMenuItem.Name = "combatlogToolStripMenuItem";
-            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.combatlogToolStripMenuItem.Text = "combat.log";
-            this.combatlogToolStripMenuItem.Click += new System.EventHandler(this.combatlogToolStripMenuItem_Click);
-            // 
-            // gamelogToolStripMenuItem
-            // 
-            this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
-            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.gamelogToolStripMenuItem.Text = "game.log";
-            this.gamelogToolStripMenuItem.Click += new System.EventHandler(this.gamelogToolStripMenuItem_Click);
-            // 
-            // chatlogToolStripMenuItem
-            // 
-            this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
-            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.chatlogToolStripMenuItem.Text = "chat.log";
-            this.chatlogToolStripMenuItem.Click += new System.EventHandler(this.chatlogToolStripMenuItem_Click);
-            // 
-            // netlogToolStripMenuItem
-            // 
-            this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
-            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.netlogToolStripMenuItem.Text = "net.log";
-            this.netlogToolStripMenuItem.Click += new System.EventHandler(this.netlogToolStripMenuItem_Click);
-            // 
-            // gfxlogToolStripMenuItem
-            // 
-            this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
-            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.gfxlogToolStripMenuItem.Text = "gfx.log";
-            this.gfxlogToolStripMenuItem.Click += new System.EventHandler(this.gfxlogToolStripMenuItem_Click);
-            // 
-            // analysisToolStripMenuItem
-            // 
-            this.analysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.liveGarageChartingToolStripMenuItem,
-            this.buildReviewToolStripMenuItem,
-            this.stateOfYourMetaToolStripMenuItem,
-            this.revenueAnalysisToolStripMenuItem});
-            this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
-            this.analysisToolStripMenuItem.Size = new System.Drawing.Size(75, 18);
-            this.analysisToolStripMenuItem.Text = "Analysis";
-            // 
-            // stateOfYourMetaToolStripMenuItem
-            // 
-            this.stateOfYourMetaToolStripMenuItem.Name = "stateOfYourMetaToolStripMenuItem";
-            this.stateOfYourMetaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.stateOfYourMetaToolStripMenuItem.Text = "Personal Meta Review";
-            this.stateOfYourMetaToolStripMenuItem.Click += new System.EventHandler(this.stateOfYourMetaToolStripMenuItem_Click);
-            // 
-            // revenueAnalysisToolStripMenuItem
-            // 
-            this.revenueAnalysisToolStripMenuItem.Name = "revenueAnalysisToolStripMenuItem";
-            this.revenueAnalysisToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.revenueAnalysisToolStripMenuItem.Text = "Revenue Analysis";
-            this.revenueAnalysisToolStripMenuItem.Click += new System.EventHandler(this.revenueAnalysisToolStripMenuItem_Click);
-            // 
-            // liveGarageChartingToolStripMenuItem
-            // 
-            this.liveGarageChartingToolStripMenuItem.Name = "liveGarageChartingToolStripMenuItem";
-            this.liveGarageChartingToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.liveGarageChartingToolStripMenuItem.Text = "Garage Weapon Tester";
-            this.liveGarageChartingToolStripMenuItem.Click += new System.EventHandler(this.liveGarageChartingToolStripMenuItem_Click);
-            // 
-            // buildReviewToolStripMenuItem
-            // 
-            this.buildReviewToolStripMenuItem.Name = "buildReviewToolStripMenuItem";
-            this.buildReviewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.buildReviewToolStripMenuItem.Text = "Build Performance Review";
-            this.buildReviewToolStripMenuItem.Click += new System.EventHandler(this.buildReviewToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 
