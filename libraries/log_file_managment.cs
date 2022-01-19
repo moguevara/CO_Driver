@@ -219,6 +219,9 @@ namespace CO_Driver
         {
             bool valid = true;
 
+            //if (session.client_version != global_data.CURRENT_VERSION)
+            //    valid = false;
+
             if (!session.valid_users.ContainsKey(session.local_user_name) && session.local_user_name != "")
                 valid = false;
 
@@ -265,12 +268,6 @@ namespace CO_Driver
                 valid = false;
 
             if (session.founders_level < 0 || session.founders_level > 75)
-                valid = false;
-
-            //if (session.parsed_logs.Count() == 0)
-            //    valid = false;
-
-            if (session.client_version != global_data.CURRENT_VERSION)
                 valid = false;
 
             if (session.local_language != "English" &&
@@ -365,8 +362,7 @@ namespace CO_Driver
             if (!Directory.Exists(session.error_log_location))
                 Directory.CreateDirectory(session.error_log_location);
         }
-
-
+        
         public void find_session_file_path(session_variables session)
         {
             string configuration_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\config";

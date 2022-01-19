@@ -530,12 +530,10 @@ namespace CO_Driver
 
             populate_user_profile_screen();
         }
-
         private void lb_max_kills_Click(object sender, EventArgs e)
         {
 
         }
-
         private void nemesis_lookup(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -556,6 +554,11 @@ namespace CO_Driver
             int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
+
+        private void lb_user_name_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
         }
     }
 }

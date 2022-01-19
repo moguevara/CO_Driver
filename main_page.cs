@@ -87,7 +87,6 @@ namespace CO_Driver
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
             match_detail_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
 
-
             settings_page.reload_all_themes += new EventHandler(reload_theme);
             settings_page.enable_uploads += new EventHandler(enable_upload);
 
@@ -270,30 +269,6 @@ namespace CO_Driver
             theme_manager.apply_theme(upload_page, session);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_user_profile_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
@@ -320,7 +295,6 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(fusion_page);
-           
         }
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -561,6 +535,14 @@ namespace CO_Driver
             if (session_variables.parsed_logs.Count() == 0)
                 return;
 
+            if (session_variables.client_version != global_data.CURRENT_VERSION)
+            {
+                session_variables.client_version = global_data.CURRENT_VERSION;
+                session_variables.parsed_logs = new List<string> { };
+                log_file_manager.save_session_config(session_variables);
+                return;
+            }
+            
             int file_count = Current_session.file_data.historic_file_session_list.Count();
 
             try

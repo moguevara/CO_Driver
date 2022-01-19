@@ -90,9 +90,6 @@ namespace CO_Driver
             if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != "PvP" && filter.game_mode_filter != "PvE" && filter.game_mode_filter != "Brawl" && filter.game_mode_filter != match.match_data.match_type_desc)
                 return false;
 
-            //if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != match.match_data.match_type_desc)
-            //    return false;
-
             if (filter.game_mode_filter == "PvP" && match.match_data.match_classification != global_data.PVP_CLASSIFICATION)
                 return false;
 
@@ -184,6 +181,15 @@ namespace CO_Driver
 
             if (!filter.game_modes.Contains(match.match_data.match_type_desc))
                 filter.game_modes.Add((match.match_data.match_type_desc));
+
+            if (!filter.game_modes.Contains("PvP") && match.match_data.match_classification == global_data.PVP_CLASSIFICATION)
+                filter.game_modes.Add("PvP");
+
+            if (!filter.game_modes.Contains("PvE") && match.match_data.match_classification == global_data.PVE_CLASSIFICATION)
+                filter.game_modes.Add("PvE");
+
+            if (!filter.game_modes.Contains("Brawl") && match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+                filter.game_modes.Add("Brawl");
 
             if (match.match_data.match_classification == global_data.PVP_CLASSIFICATION && !filter.game_modes.Contains("PvP"))
                 filter.game_modes.Add("PvP");
@@ -344,11 +350,6 @@ namespace CO_Driver
             filter.movement_parts.Add(global_data.MOVEMENT_FILTER_DEFAULT);
             filter.cabins.Add(global_data.CABIN_FILTER_DEFAULT);
             filter.module_parts.Add(global_data.MODULE_FILTER_DEFAULT);
-
-            filter.game_modes.Add("PvP");
-            filter.game_modes.Add("PvE");
-            filter.game_modes.Add("Brawl");
         }
-
     }
 }
