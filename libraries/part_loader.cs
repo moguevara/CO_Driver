@@ -759,7 +759,7 @@ namespace CO_Driver
             Current_session.static_records.global_cabin_dict.Add("Cabin_InnateMelee", new_cabin("Cabin_InnateMelee", "Cerberus", global_data.EPIC_RARITY, 12, 100, 8500, 4000, 850, 285, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Moby_935", new_cabin("Cabin_Moby_935", "Cockpit", global_data.EPIC_RARITY, 12, 105, 7700, 3700, 450, 245, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Halloween2020_Cab", new_cabin("Cabin_Halloween2020_Cab", "Dusk", global_data.EPIC_RARITY, 12, 100, 8600, 4200, 850, 280, 1800, "light cabin"));
-            Current_session.static_records.global_cabin_dict.Add("CarPart_Chainsaw_dble_epic", new_cabin("CarPart_Chainsaw_dble_epic", "Harpy", global_data.EPIC_RARITY, 12, 100, 8500, 4500, 1000, 295, 1800, "light cabin"));
+            Current_session.static_records.global_cabin_dict.Add("Cabin_Volcano", new_cabin("Cabin_Volcano", "Harpy", global_data.EPIC_RARITY, 12, 100, 8500, 4500, 1000, 295, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_DronSpawn", new_cabin("Cabin_DronSpawn", "Werewolf", global_data.EPIC_RARITY, 12, 100, 8000, 4000, 600, 250, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Tribal_cab2", new_cabin("Cabin_Tribal_cab2", "Griffon", global_data.LEGENDARY_RARITY, 12, 100, 9000, 4800, 700, 314, 2400, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Chassis_Small", new_cabin("Chassis_Small", "Guerilla", global_data.BASE_RARITY, 7, 65, 6000, 3000, 360, 250, 160, "medium cabin"));

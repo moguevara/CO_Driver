@@ -405,20 +405,6 @@ namespace CO_Driver
         {
         }
 
-        private void btn_save_user_settings_Click(object sender, EventArgs e)
-        {
-            if (!ch_compare.Series.Contains(current_total_series))
-            {
-                current_total_series.LegendText = ch_compare.Series.Count().ToString() + ":" + weapon_totals.OrderByDescending(x => x.total).Select(x => x.weapon).FirstOrDefault();
-                ch_compare.Series.Add(current_total_series);
-            }
-        }
-
-        private void btn_reset_Click(object sender, EventArgs e)
-        {
-            ch_compare.Series.Clear();
-        }
-
         private void num_trial_threshold_ValueChanged(object sender, EventArgs e)
         {
             if (cmb_trial_type.SelectedItem.ToString() == "Time Trial")
@@ -478,6 +464,20 @@ namespace CO_Driver
         {
 
             //ch_live_feed.Update();
+        }
+
+        private void btn_save_user_settings_Click_1(object sender, EventArgs e)
+        {
+            if (!ch_compare.Series.Contains(current_total_series))
+            {
+                current_total_series.LegendText = ch_compare.Series.Count().ToString() + ":" + weapon_totals.OrderByDescending(x => x.total).Select(x => x.weapon).FirstOrDefault();
+                ch_compare.Series.Add(current_total_series);
+            }
+        }
+
+        private void btn_reset_Click_1(object sender, EventArgs e)
+        {
+            ch_compare.Series.Clear();
         }
     }
 }

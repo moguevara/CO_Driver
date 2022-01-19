@@ -87,7 +87,19 @@ namespace CO_Driver
         public static bool check_filters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> build_records,
                                   log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
-            if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != match.match_data.match_type_desc)
+            if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != "PvP" && filter.game_mode_filter != "PvE" && filter.game_mode_filter != "Brawl" && filter.game_mode_filter != match.match_data.match_type_desc)
+                return false;
+
+            //if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != match.match_data.match_type_desc)
+            //    return false;
+
+            if (filter.game_mode_filter == "PvP" && match.match_data.match_classification != global_data.PVP_CLASSIFICATION)
+                return false;
+
+            if (filter.game_mode_filter == "PvE" && match.match_data.match_classification != global_data.PVE_CLASSIFICATION)
+                return false;
+
+            if (filter.game_mode_filter == "Brawl" && match.match_data.match_classification != global_data.BRAWL_CLASSIFICATION)
                 return false;
 
             if (filter.group_filter == "Solo" && match.match_data.local_player.party_id > 0)
@@ -173,6 +185,15 @@ namespace CO_Driver
             if (!filter.game_modes.Contains(match.match_data.match_type_desc))
                 filter.game_modes.Add((match.match_data.match_type_desc));
 
+            if (match.match_data.match_classification == global_data.PVP_CLASSIFICATION && !filter.game_modes.Contains("PvP"))
+                filter.game_modes.Add("PvP");
+
+            if (match.match_data.match_classification == global_data.PVE_CLASSIFICATION && !filter.game_modes.Contains("PvE"))
+                filter.game_modes.Add("PvE");
+
+            if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION && !filter.game_modes.Contains("Brawl"))
+                filter.game_modes.Add("Brawl");
+
             if (match.match_data.local_player.party_id == 0 && !filter.grouped.Contains("Solo"))
                 filter.grouped.Add("Solo");
 
@@ -250,13 +271,13 @@ namespace CO_Driver
             cb_cabins.Items.Clear();
             cb_modules.Items.Clear();
 
-            filter.game_modes = filter.game_modes.OrderBy(x => x != global_data.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.game_modes = filter.game_modes.OrderBy(x => x != global_data.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x != "PvP").ThenBy(x => x != "PvE").ThenBy(x => x != "Brawl").ThenBy(x => x).ToList();
             filter.power_scores = filter.power_scores.OrderBy(x => x != global_data.POWER_SCORE_FILTER_DEFAULT).ThenBy(x => x).ToList();
             filter.client_versions = filter.client_versions.OrderBy(x => x != global_data.CLIENT_VERSION_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.weapons.OrderBy(x => x != global_data.WEAPONS_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.movement_parts.OrderBy(x => x != global_data.MOVEMENT_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.cabins.OrderBy(x => x != global_data.CABIN_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.module_parts.OrderBy(x => x != global_data.MODULE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.weapons = filter.weapons.OrderBy(x => x != global_data.WEAPONS_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.movement_parts = filter.movement_parts.OrderBy(x => x != global_data.MOVEMENT_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.cabins = filter.cabins.OrderBy(x => x != global_data.CABIN_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.module_parts = filter.module_parts.OrderBy(x => x != global_data.MODULE_FILTER_DEFAULT).ThenBy(x => x).ToList();
 
             if (filter.power_scores.Contains("13000+"))
             {
@@ -323,6 +344,10 @@ namespace CO_Driver
             filter.movement_parts.Add(global_data.MOVEMENT_FILTER_DEFAULT);
             filter.cabins.Add(global_data.CABIN_FILTER_DEFAULT);
             filter.module_parts.Add(global_data.MODULE_FILTER_DEFAULT);
+
+            filter.game_modes.Add("PvP");
+            filter.game_modes.Add("PvE");
+            filter.game_modes.Add("Brawl");
         }
 
     }
