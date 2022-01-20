@@ -999,6 +999,9 @@ namespace CO_Driver
                 }
             }
 
+            if (Current_session.current_match.game_play_value.Contains("Pve_Leviathan"))
+                Current_session.current_match.match_type = global_data.INVASION_MATCH;
+
             if ((Current_session.current_match.game_play_value.Contains("Conquer") ||
                  Current_session.current_match.game_play_value.Contains("Domination") ||
                  Current_session.current_match.game_play_value.Contains("Assault")) && player_count == 12)
@@ -1087,6 +1090,7 @@ namespace CO_Driver
                 Current_session.current_match.match_type == global_data.ADVENTURE_MATCH           ||
                 Current_session.current_match.match_type == global_data.PRESENT_HEIST_MATCH       ||
                 Current_session.current_match.match_type == global_data.PATROL_MATCH              ||
+                Current_session.current_match.match_type == global_data.INVASION_MATCH            ||
                 Current_session.current_match.match_type == global_data.GOZU_MATCH)
                 Current_session.current_match.match_classification = global_data.PVE_CLASSIFICATION;
 
@@ -1920,6 +1924,8 @@ namespace CO_Driver
                     return "Boars";
                 case global_data.OPERATION_RED_LIGHT_MATCH:
                     return "Operation Red Light";
+                case global_data.INVASION_MATCH:
+                    return "Invasion";
                 case global_data.UNDEFINED_MATCH:
                     return "Undefined";
                 default:

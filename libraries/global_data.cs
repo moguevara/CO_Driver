@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.64";
+        public static string CURRENT_VERSION = "0.1.0.65";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -90,6 +90,7 @@ namespace CO_Driver
         public const int BOMB_PLANT_MATCH = 31;
         public const int TEST_SERVER_MATCH = 32;
         public const int BOARS_MATCH = 33;
+        public const int INVASION_MATCH = 34;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
