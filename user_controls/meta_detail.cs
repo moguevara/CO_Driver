@@ -460,5 +460,9 @@ namespace CO_Driver
             populate_meta_detail_screen();
         }
 
+        private void meta_detail_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

@@ -504,5 +504,10 @@ namespace CO_Driver
 
             populate_revenue_review_screen();
         }
+
+        private void revenue_review_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

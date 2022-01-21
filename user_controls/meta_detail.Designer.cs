@@ -46,21 +46,6 @@
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dg_meta_detail_view = new System.Windows.Forms.DataGridView();
-            this.match_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -90,6 +75,21 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.lb_global_percentage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.match_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dg_meta_detail_view)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -119,6 +119,7 @@
             // 
             // cb_game_modes
             // 
+            this.cb_game_modes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_game_modes.BackColor = System.Drawing.Color.Black;
             this.cb_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -128,12 +129,13 @@
             this.cb_game_modes.Location = new System.Drawing.Point(923, 4);
             this.cb_game_modes.MaxDropDownItems = 32;
             this.cb_game_modes.Name = "cb_game_modes";
-            this.cb_game_modes.Size = new System.Drawing.Size(133, 22);
+            this.cb_game_modes.Size = new System.Drawing.Size(133, 26);
             this.cb_game_modes.TabIndex = 48;
             this.cb_game_modes.SelectedIndexChanged += new System.EventHandler(this.cb_game_modes_SelectedIndexChanged);
             // 
             // cb_grouped
             // 
+            this.cb_grouped.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_grouped.BackColor = System.Drawing.Color.Black;
             this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -143,12 +145,13 @@
             this.cb_grouped.Location = new System.Drawing.Point(786, 3);
             this.cb_grouped.MaxDropDownItems = 32;
             this.cb_grouped.Name = "cb_grouped";
-            this.cb_grouped.Size = new System.Drawing.Size(131, 22);
+            this.cb_grouped.Size = new System.Drawing.Size(131, 26);
             this.cb_grouped.TabIndex = 49;
             this.cb_grouped.SelectedIndexChanged += new System.EventHandler(this.cb_grouped_SelectedIndexChanged);
             // 
             // cb_power_score
             // 
+            this.cb_power_score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_power_score.BackColor = System.Drawing.Color.Black;
             this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -158,12 +161,13 @@
             this.cb_power_score.Location = new System.Drawing.Point(639, 3);
             this.cb_power_score.MaxDropDownItems = 32;
             this.cb_power_score.Name = "cb_power_score";
-            this.cb_power_score.Size = new System.Drawing.Size(141, 22);
+            this.cb_power_score.Size = new System.Drawing.Size(141, 26);
             this.cb_power_score.TabIndex = 50;
             this.cb_power_score.SelectedIndexChanged += new System.EventHandler(this.cb_power_score_SelectedIndexChanged);
             // 
             // cb_movement
             // 
+            this.cb_movement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_movement.BackColor = System.Drawing.Color.Black;
             this.cb_movement.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -173,12 +177,13 @@
             this.cb_movement.Location = new System.Drawing.Point(1038, 31);
             this.cb_movement.MaxDropDownItems = 32;
             this.cb_movement.Name = "cb_movement";
-            this.cb_movement.Size = new System.Drawing.Size(154, 22);
+            this.cb_movement.Size = new System.Drawing.Size(154, 26);
             this.cb_movement.TabIndex = 51;
             this.cb_movement.SelectedIndexChanged += new System.EventHandler(this.cb_movement_SelectedIndexChanged);
             // 
             // cb_weapons
             // 
+            this.cb_weapons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_weapons.BackColor = System.Drawing.Color.Black;
             this.cb_weapons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -188,12 +193,13 @@
             this.cb_weapons.Location = new System.Drawing.Point(781, 31);
             this.cb_weapons.MaxDropDownItems = 32;
             this.cb_weapons.Name = "cb_weapons";
-            this.cb_weapons.Size = new System.Drawing.Size(136, 22);
+            this.cb_weapons.Size = new System.Drawing.Size(136, 26);
             this.cb_weapons.TabIndex = 52;
             this.cb_weapons.SelectedIndexChanged += new System.EventHandler(this.cb_weapons_SelectedIndexChanged);
             // 
             // cb_versions
             // 
+            this.cb_versions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_versions.BackColor = System.Drawing.Color.Black;
             this.cb_versions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_versions.DropDownWidth = 280;
@@ -204,12 +210,13 @@
             this.cb_versions.Location = new System.Drawing.Point(399, 4);
             this.cb_versions.MaxDropDownItems = 32;
             this.cb_versions.Name = "cb_versions";
-            this.cb_versions.Size = new System.Drawing.Size(234, 22);
+            this.cb_versions.Size = new System.Drawing.Size(234, 26);
             this.cb_versions.TabIndex = 53;
             this.cb_versions.SelectedIndexChanged += new System.EventHandler(this.cb_versions_SelectedIndexChanged);
             // 
             // cb_modules
             // 
+            this.cb_modules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_modules.BackColor = System.Drawing.Color.Black;
             this.cb_modules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -219,12 +226,13 @@
             this.cb_modules.Location = new System.Drawing.Point(923, 31);
             this.cb_modules.MaxDropDownItems = 32;
             this.cb_modules.Name = "cb_modules";
-            this.cb_modules.Size = new System.Drawing.Size(109, 22);
+            this.cb_modules.Size = new System.Drawing.Size(109, 26);
             this.cb_modules.TabIndex = 54;
             this.cb_modules.SelectedIndexChanged += new System.EventHandler(this.cb_modules_SelectedIndexChanged);
             // 
             // btn_save_user_settings
             // 
+            this.btn_save_user_settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save_user_settings.Location = new System.Drawing.Point(1062, 3);
@@ -237,6 +245,7 @@
             // 
             // cb_cabins
             // 
+            this.cb_cabins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_cabins.BackColor = System.Drawing.Color.Black;
             this.cb_cabins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_cabins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -246,12 +255,13 @@
             this.cb_cabins.Location = new System.Drawing.Point(639, 31);
             this.cb_cabins.MaxDropDownItems = 32;
             this.cb_cabins.Name = "cb_cabins";
-            this.cb_cabins.Size = new System.Drawing.Size(136, 22);
+            this.cb_cabins.Size = new System.Drawing.Size(136, 26);
             this.cb_cabins.TabIndex = 56;
             this.cb_cabins.SelectedIndexChanged += new System.EventHandler(this.cb_cabins_SelectedIndexChanged);
             // 
             // dt_start_date
             // 
+            this.dt_start_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_start_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_start_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_start_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -261,13 +271,14 @@
             this.dt_start_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_start_date.Location = new System.Drawing.Point(399, 31);
             this.dt_start_date.Name = "dt_start_date";
-            this.dt_start_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_start_date.Size = new System.Drawing.Size(114, 25);
             this.dt_start_date.TabIndex = 57;
             this.dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
             this.dt_start_date.ValueChanged += new System.EventHandler(this.dt_start_date_ValueChanged);
             // 
             // dt_end_date
             // 
+            this.dt_end_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_end_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_end_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_end_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -277,7 +288,7 @@
             this.dt_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_end_date.Location = new System.Drawing.Point(519, 31);
             this.dt_end_date.Name = "dt_end_date";
-            this.dt_end_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_end_date.Size = new System.Drawing.Size(114, 25);
             this.dt_end_date.TabIndex = 58;
             this.dt_end_date.ValueChanged += new System.EventHandler(this.dt_end_date_ValueChanged);
             // 
@@ -373,147 +384,15 @@
             this.dg_meta_detail_view.StandardTab = true;
             this.dg_meta_detail_view.TabIndex = 2;
             // 
-            // match_type
-            // 
-            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.match_type.HeaderText = "Weapon";
-            this.match_type.MinimumWidth = 110;
-            this.match_type.Name = "match_type";
-            this.match_type.ReadOnly = true;
-            this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_type.Width = 110;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "Cabin";
-            this.Column1.MinimumWidth = 60;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.HeaderText = "Movement";
-            this.Column2.MinimumWidth = 120;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 120;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column3.HeaderText = "Map";
-            this.Column3.MinimumWidth = 110;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 110;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column4.HeaderText = "Games";
-            this.Column4.MinimumWidth = 50;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 50;
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column5.HeaderText = "% Games With";
-            this.Column5.MinimumWidth = 70;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 70;
-            // 
-            // Column14
-            // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column14.HeaderText = "Avg Per Round";
-            this.Column14.MinimumWidth = 70;
-            this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
-            this.Column14.Width = 70;
-            // 
-            // Column6
-            // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column6.HeaderText = "Avg Kills";
-            this.Column6.MinimumWidth = 60;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 60;
-            // 
-            // Column7
-            // 
-            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column7.HeaderText = "Avg Assists";
-            this.Column7.MinimumWidth = 60;
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 60;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column9.HeaderText = "Average Deaths";
-            this.Column9.MinimumWidth = 60;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 60;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column10.HeaderText = "Average Damage";
-            this.Column10.MinimumWidth = 80;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 80;
-            // 
-            // Column11
-            // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column11.HeaderText = "Average Dmg Rec";
-            this.Column11.MinimumWidth = 80;
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 80;
-            // 
-            // Column12
-            // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column12.HeaderText = "Avg Score";
-            this.Column12.MinimumWidth = 60;
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 60;
-            // 
-            // Column13
-            // 
-            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column13.HeaderText = "Enemy Win Rate";
-            this.Column13.MinimumWidth = 77;
-            this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
-            this.Column13.Width = 77;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Effect";
-            this.Column8.MinimumWidth = 80;
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 80;
-            // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.dg_meta_detail_view, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 59);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -678,9 +557,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label7.Location = new System.Drawing.Point(127, 0);
+            this.label7.Location = new System.Drawing.Point(120, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 26);
+            this.label7.Size = new System.Drawing.Size(56, 26);
             this.label7.TabIndex = 0;
             this.label7.Text = "Cabins";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -931,6 +810,128 @@
             this.label4.Text = "Enemy Win Percentage";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // match_type
+            // 
+            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.match_type.HeaderText = "Weapon";
+            this.match_type.MinimumWidth = 110;
+            this.match_type.Name = "match_type";
+            this.match_type.ReadOnly = true;
+            this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Cabin";
+            this.Column1.MinimumWidth = 125;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "Movement";
+            this.Column2.MinimumWidth = 120;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Map";
+            this.Column3.MinimumWidth = 110;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column4.HeaderText = "Games";
+            this.Column4.MinimumWidth = 50;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column5.HeaderText = "% Games With";
+            this.Column5.MinimumWidth = 70;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column14.HeaderText = "Avg Per Round";
+            this.Column14.MinimumWidth = 70;
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column6.HeaderText = "Avg Kills";
+            this.Column6.MinimumWidth = 60;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column7.HeaderText = "Avg Assists";
+            this.Column7.MinimumWidth = 60;
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column9.HeaderText = "Average Deaths";
+            this.Column9.MinimumWidth = 60;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column10.HeaderText = "Average Damage";
+            this.Column10.MinimumWidth = 80;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column11.HeaderText = "Average Dmg Rec";
+            this.Column11.MinimumWidth = 80;
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column12.HeaderText = "Avg Score";
+            this.Column12.MinimumWidth = 60;
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column13.HeaderText = "Enemy Win Rate";
+            this.Column13.MinimumWidth = 77;
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            this.Column13.Width = 77;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Effect";
+            this.Column8.MinimumWidth = 80;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 80;
+            // 
             // meta_detail
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -953,6 +954,7 @@
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "meta_detail";
             this.Size = new System.Drawing.Size(1195, 601);
+            this.Load += new System.EventHandler(this.meta_detail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dg_meta_detail_view)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
