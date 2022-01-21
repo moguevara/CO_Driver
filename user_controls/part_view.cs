@@ -117,5 +117,10 @@ namespace CO_Driver
         {
             populate_parts_list();
         }
+
+        private void part_view_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }
