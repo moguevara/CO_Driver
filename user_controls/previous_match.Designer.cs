@@ -56,38 +56,16 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dg_medals = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb_score = new System.Windows.Forms.GroupBox();
             this.dg_score = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_red_team = new System.Windows.Forms.GroupBox();
             this.dg_red_team = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb_blue_team = new System.Windows.Forms.GroupBox();
             this.dg_blue_team = new System.Windows.Forms.DataGridView();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_damage_dealt = new System.Windows.Forms.GroupBox();
             this.dg_damage_dealt = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -136,13 +114,35 @@
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.gp_damage_recieved = new System.Windows.Forms.GroupBox();
             this.dg_damage_rec = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_first = new System.Windows.Forms.Button();
             this.btn_last = new System.Windows.Forms.Button();
             this.btn_previous = new System.Windows.Forms.Button();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -184,11 +184,13 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -266,7 +268,7 @@
             this.dg_medals.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_medals.EnableHeadersVisualStyles = false;
             this.dg_medals.GridColor = System.Drawing.Color.Lime;
-            this.dg_medals.Location = new System.Drawing.Point(3, 19);
+            this.dg_medals.Location = new System.Drawing.Point(3, 23);
             this.dg_medals.Margin = new System.Windows.Forms.Padding(0);
             this.dg_medals.Name = "dg_medals";
             this.dg_medals.ReadOnly = true;
@@ -295,28 +297,9 @@
             this.dg_medals.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_medals.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_medals.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_medals.Size = new System.Drawing.Size(209, 207);
+            this.dg_medals.Size = new System.Drawing.Size(209, 203);
             this.dg_medals.StandardTab = true;
             this.dg_medals.TabIndex = 40;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn3.FillWeight = 172.5888F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Reason";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 170;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 170;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.FillWeight = 27.41116F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Ammount";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 40;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // gb_score
             // 
@@ -370,7 +353,7 @@
             this.dg_score.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_score.EnableHeadersVisualStyles = false;
             this.dg_score.GridColor = System.Drawing.Color.Lime;
-            this.dg_score.Location = new System.Drawing.Point(3, 19);
+            this.dg_score.Location = new System.Drawing.Point(3, 23);
             this.dg_score.Margin = new System.Windows.Forms.Padding(0);
             this.dg_score.Name = "dg_score";
             this.dg_score.ReadOnly = true;
@@ -399,27 +382,9 @@
             this.dg_score.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_score.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_score.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_score.Size = new System.Drawing.Size(148, 207);
+            this.dg_score.Size = new System.Drawing.Size(148, 203);
             this.dg_score.StandardTab = true;
             this.dg_score.TabIndex = 40;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn14.FillWeight = 172.5888F;
-            this.dataGridViewTextBoxColumn14.HeaderText = "Reason";
-            this.dataGridViewTextBoxColumn14.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn15.FillWeight = 27.41116F;
-            this.dataGridViewTextBoxColumn15.HeaderText = "Ammount";
-            this.dataGridViewTextBoxColumn15.MinimumWidth = 40;
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
             // 
             // tableLayoutPanel3
             // 
@@ -494,7 +459,7 @@
             this.dg_red_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_red_team.EnableHeadersVisualStyles = false;
             this.dg_red_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_red_team.Location = new System.Drawing.Point(3, 19);
+            this.dg_red_team.Location = new System.Drawing.Point(3, 23);
             this.dg_red_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_red_team.Name = "dg_red_team";
             this.dg_red_team.ReadOnly = true;
@@ -523,87 +488,10 @@
             this.dg_red_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_red_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_red_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_red_team.Size = new System.Drawing.Size(389, 201);
+            this.dg_red_team.Size = new System.Drawing.Size(389, 197);
             this.dg_red_team.StandardTab = true;
             this.dg_red_team.TabIndex = 39;
             this.dg_red_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_red_player);
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Player";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 125;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 125;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "PS";
-            this.Column5.MinimumWidth = 45;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn6.FillWeight = 20F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "K";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 25;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 25;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn7.FillWeight = 56.06061F;
-            this.dataGridViewTextBoxColumn7.HeaderText = "A";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 25;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 25;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn8.FillWeight = 56.06061F;
-            this.dataGridViewTextBoxColumn8.HeaderText = "D";
-            this.dataGridViewTextBoxColumn8.MinimumWidth = 25;
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 25;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn9.FillWeight = 56.06061F;
-            this.dataGridViewTextBoxColumn9.HeaderText = "DMG";
-            this.dataGridViewTextBoxColumn9.MinimumWidth = 45;
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn10.FillWeight = 56.06061F;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Rec";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 45;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn11.FillWeight = 56.06061F;
-            this.dataGridViewTextBoxColumn11.HeaderText = "Score";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 45;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 45;
             // 
             // gb_blue_team
             // 
@@ -662,7 +550,7 @@
             this.dg_blue_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_blue_team.EnableHeadersVisualStyles = false;
             this.dg_blue_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_blue_team.Location = new System.Drawing.Point(3, 19);
+            this.dg_blue_team.Location = new System.Drawing.Point(3, 23);
             this.dg_blue_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_blue_team.Name = "dg_blue_team";
             this.dg_blue_team.ReadOnly = true;
@@ -691,87 +579,10 @@
             this.dg_blue_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_blue_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_blue_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_blue_team.Size = new System.Drawing.Size(389, 201);
+            this.dg_blue_team.Size = new System.Drawing.Size(389, 197);
             this.dg_blue_team.StandardTab = true;
             this.dg_blue_team.TabIndex = 38;
             this.dg_blue_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_blue_player);
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.HeaderText = "Player";
-            this.Column2.MinimumWidth = 125;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 125;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "PS";
-            this.Column11.MinimumWidth = 45;
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 45;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column3.FillWeight = 20F;
-            this.Column3.HeaderText = "K";
-            this.Column3.MinimumWidth = 25;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 25;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column4.FillWeight = 56.06061F;
-            this.Column4.HeaderText = "A";
-            this.Column4.MinimumWidth = 25;
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 25;
-            // 
-            // Column8
-            // 
-            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column8.FillWeight = 56.06061F;
-            this.Column8.HeaderText = "D";
-            this.Column8.MinimumWidth = 25;
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 25;
-            // 
-            // Column6
-            // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column6.FillWeight = 56.06061F;
-            this.Column6.HeaderText = "DMG";
-            this.Column6.MinimumWidth = 45;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 45;
-            // 
-            // Column7
-            // 
-            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column7.FillWeight = 56.06061F;
-            this.Column7.HeaderText = "Rec";
-            this.Column7.MinimumWidth = 45;
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 45;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column9.FillWeight = 56.06061F;
-            this.Column9.HeaderText = "Score";
-            this.Column9.MinimumWidth = 45;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 45;
             // 
             // tableLayoutPanel4
             // 
@@ -842,7 +653,7 @@
             this.dg_damage_dealt.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_dealt.EnableHeadersVisualStyles = false;
             this.dg_damage_dealt.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 19);
+            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 23);
             this.dg_damage_dealt.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_dealt.Name = "dg_damage_dealt";
             this.dg_damage_dealt.ReadOnly = true;
@@ -871,27 +682,9 @@
             this.dg_damage_dealt.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_dealt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_dealt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 326);
+            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 322);
             this.dg_damage_dealt.StandardTab = true;
             this.dg_damage_dealt.TabIndex = 38;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "Player";
-            this.Column1.MinimumWidth = 135;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 135;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column10.HeaderText = "DMG";
-            this.Column10.MinimumWidth = 80;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 80;
             // 
             // tableLayoutPanel5
             // 
@@ -1577,7 +1370,7 @@
             this.dg_damage_rec.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_rec.EnableHeadersVisualStyles = false;
             this.dg_damage_rec.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_rec.Location = new System.Drawing.Point(3, 19);
+            this.dg_damage_rec.Location = new System.Drawing.Point(3, 23);
             this.dg_damage_rec.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_rec.Name = "dg_damage_rec";
             this.dg_damage_rec.ReadOnly = true;
@@ -1606,27 +1399,9 @@
             this.dg_damage_rec.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_rec.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_rec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_rec.Size = new System.Drawing.Size(221, 286);
+            this.dg_damage_rec.Size = new System.Drawing.Size(221, 282);
             this.dg_damage_rec.StandardTab = true;
             this.dg_damage_rec.TabIndex = 39;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Player";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 135;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 135;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn2.HeaderText = "DMG";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 80;
             // 
             // tableLayoutPanel12
             // 
@@ -1649,6 +1424,7 @@
             // 
             // btn_next
             // 
+            this.btn_next.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_next.Location = new System.Drawing.Point(115, 3);
@@ -1661,6 +1437,7 @@
             // 
             // btn_first
             // 
+            this.btn_first.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_first.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_first.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_first.Location = new System.Drawing.Point(189, 3);
@@ -1673,6 +1450,7 @@
             // 
             // btn_last
             // 
+            this.btn_last.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_last.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_last.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_last.Location = new System.Drawing.Point(3, 3);
@@ -1685,6 +1463,7 @@
             // 
             // btn_previous
             // 
+            this.btn_previous.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_previous.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_previous.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_previous.Location = new System.Drawing.Point(41, 3);
@@ -1695,6 +1474,214 @@
             this.btn_previous.UseVisualStyleBackColor = true;
             this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
             // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "Player";
+            this.Column2.MinimumWidth = 125;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column11.HeaderText = "PS";
+            this.Column11.MinimumWidth = 45;
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.FillWeight = 20F;
+            this.Column3.HeaderText = "K";
+            this.Column3.MinimumWidth = 25;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column4.FillWeight = 56.06061F;
+            this.Column4.HeaderText = "A";
+            this.Column4.MinimumWidth = 25;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column8.FillWeight = 56.06061F;
+            this.Column8.HeaderText = "D";
+            this.Column8.MinimumWidth = 25;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column6.FillWeight = 56.06061F;
+            this.Column6.HeaderText = "DMG";
+            this.Column6.MinimumWidth = 45;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column7.FillWeight = 56.06061F;
+            this.Column7.HeaderText = "Rec";
+            this.Column7.MinimumWidth = 45;
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column9.FillWeight = 56.06061F;
+            this.Column9.HeaderText = "Score";
+            this.Column9.MinimumWidth = 45;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Player";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column5.HeaderText = "PS";
+            this.Column5.MinimumWidth = 45;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.FillWeight = 20F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "K";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 25;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn7.FillWeight = 56.06061F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "A";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 25;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn8.FillWeight = 56.06061F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "D";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 25;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn9.FillWeight = 56.06061F;
+            this.dataGridViewTextBoxColumn9.HeaderText = "DMG";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 45;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn10.FillWeight = 56.06061F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Rec";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 45;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn11.FillWeight = 56.06061F;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Score";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 45;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn14.FillWeight = 172.5888F;
+            this.dataGridViewTextBoxColumn14.HeaderText = "Reason";
+            this.dataGridViewTextBoxColumn14.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn15.FillWeight = 27.41116F;
+            this.dataGridViewTextBoxColumn15.HeaderText = "Ammount";
+            this.dataGridViewTextBoxColumn15.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.FillWeight = 172.5888F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Reason";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 170;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.FillWeight = 27.41116F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Ammount";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Player";
+            this.Column1.MinimumWidth = 135;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column10.HeaderText = "DMG";
+            this.Column10.MinimumWidth = 80;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Player";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 135;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "DMG";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
             // previous_match
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1702,10 +1689,10 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
-            this.MaximumSize = new System.Drawing.Size(1195, 601);
             this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "previous_match";
             this.Size = new System.Drawing.Size(1195, 601);
+            this.Load += new System.EventHandler(this.previous_match_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -1811,26 +1798,24 @@
         private System.Windows.Forms.Label lb_xp;
         private System.Windows.Forms.Label lb_match_type;
         private System.Windows.Forms.Label lb_map_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.GroupBox gb_score;
         public System.Windows.Forms.DataGridView dg_score;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox gb_red_team;
         public System.Windows.Forms.DataGridView dg_red_team;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.GroupBox gb_blue_team;
         public System.Windows.Forms.DataGridView dg_blue_team;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.GroupBox gp_damage_recieved;
+        public System.Windows.Forms.DataGridView dg_damage_rec;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.DataGridView dg_medals;
+        private System.Windows.Forms.Button btn_next;
+        private System.Windows.Forms.Button btn_first;
+        private System.Windows.Forms.Button btn_last;
+        private System.Windows.Forms.Button btn_previous;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -1839,19 +1824,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.GroupBox gp_damage_recieved;
-        public System.Windows.Forms.DataGridView dg_damage_rec;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
-        private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.DataGridView dg_medals;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.Button btn_next;
-        private System.Windows.Forms.Button btn_first;
-        private System.Windows.Forms.Button btn_last;
-        private System.Windows.Forms.Button btn_previous;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

@@ -43,8 +43,8 @@
             // 
             // pb_welcome_file_load
             // 
-            this.pb_welcome_file_load.ForeColor = System.Drawing.Color.Lime;
             resources.ApplyResources(this.pb_welcome_file_load, "pb_welcome_file_load");
+            this.pb_welcome_file_load.ForeColor = System.Drawing.Color.Lime;
             this.pb_welcome_file_load.MarqueeAnimationSpeed = 200;
             this.pb_welcome_file_load.Name = "pb_welcome_file_load";
             this.pb_welcome_file_load.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -52,16 +52,16 @@
             // lb_load_status_text
             // 
             this.lb_load_status_text.AllowDrop = true;
+            resources.ApplyResources(this.lb_load_status_text, "lb_load_status_text");
             this.lb_load_status_text.BackColor = System.Drawing.Color.Transparent;
             this.lb_load_status_text.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            resources.ApplyResources(this.lb_load_status_text, "lb_load_status_text");
             this.lb_load_status_text.Name = "lb_load_status_text";
             // 
             // textBox1
             // 
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.BackColor = System.Drawing.Color.Black;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.ForeColor = System.Drawing.Color.Lime;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -69,10 +69,10 @@
             // 
             // tb_progress_tracking
             // 
+            resources.ApplyResources(this.tb_progress_tracking, "tb_progress_tracking");
             this.tb_progress_tracking.BackColor = System.Drawing.Color.Black;
             this.tb_progress_tracking.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_progress_tracking.ForeColor = System.Drawing.Color.Lime;
-            resources.ApplyResources(this.tb_progress_tracking, "tb_progress_tracking");
             this.tb_progress_tracking.Name = "tb_progress_tracking";
             this.tb_progress_tracking.ReadOnly = true;
             this.tb_progress_tracking.TabStop = false;
