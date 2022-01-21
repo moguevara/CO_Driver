@@ -48,16 +48,16 @@
             this.lb_uploaded_matchs = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_cancel_upload = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_view_profile = new System.Windows.Forms.Button();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_upload_progress = new System.Windows.Forms.TextBox();
             this.pb_upload = new System.Windows.Forms.PictureBox();
-            this.bw_file_uploader = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btn_cancel_upload = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bw_file_uploader = new System.ComponentModel.BackgroundWorker();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -364,6 +364,19 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1189, 36);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
+            // btn_cancel_upload
+            // 
+            this.btn_cancel_upload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_cancel_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancel_upload.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancel_upload.Location = new System.Drawing.Point(716, 3);
+            this.btn_cancel_upload.Name = "btn_cancel_upload";
+            this.btn_cancel_upload.Size = new System.Drawing.Size(231, 30);
+            this.btn_cancel_upload.TabIndex = 44;
+            this.btn_cancel_upload.Text = "Cancel";
+            this.btn_cancel_upload.UseVisualStyleBackColor = true;
+            this.btn_cancel_upload.Click += new System.EventHandler(this.btn_upload_cancel_click);
+            // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -430,14 +443,6 @@
             this.pb_upload.TabIndex = 6;
             this.pb_upload.TabStop = false;
             // 
-            // bw_file_uploader
-            // 
-            this.bw_file_uploader.WorkerReportsProgress = true;
-            this.bw_file_uploader.WorkerSupportsCancellation = true;
-            this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.upload_files);
-            this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.report_upload_status);
-            this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finished_uploading);
-            // 
             // tableLayoutPanel12
             // 
             this.tableLayoutPanel12.ColumnCount = 1;
@@ -452,19 +457,6 @@
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel12.Size = new System.Drawing.Size(1189, 54);
             this.tableLayoutPanel12.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1183, 37);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Crossout DB Upload (BETA)";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -481,18 +473,26 @@
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // btn_cancel_upload
+            // label1
             // 
-            this.btn_cancel_upload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_cancel_upload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancel_upload.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cancel_upload.Location = new System.Drawing.Point(716, 3);
-            this.btn_cancel_upload.Name = "btn_cancel_upload";
-            this.btn_cancel_upload.Size = new System.Drawing.Size(231, 30);
-            this.btn_cancel_upload.TabIndex = 44;
-            this.btn_cancel_upload.Text = "Cancel";
-            this.btn_cancel_upload.UseVisualStyleBackColor = true;
-            this.btn_cancel_upload.Click += new System.EventHandler(this.btn_upload_cancel_click);
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1183, 37);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Crossout DB Upload (BETA)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bw_file_uploader
+            // 
+            this.bw_file_uploader.WorkerReportsProgress = true;
+            this.bw_file_uploader.WorkerSupportsCancellation = true;
+            this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.upload_files);
+            this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.report_upload_status);
+            this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finished_uploading);
             // 
             // upload_screen
             // 
@@ -503,6 +503,7 @@
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "upload_screen";
             this.Size = new System.Drawing.Size(1195, 601);
+            this.Load += new System.EventHandler(this.upload_screen_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

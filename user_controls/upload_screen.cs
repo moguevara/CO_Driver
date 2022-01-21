@@ -342,5 +342,10 @@ namespace CO_Driver
         {
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
         }
+
+        private void upload_screen_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }
