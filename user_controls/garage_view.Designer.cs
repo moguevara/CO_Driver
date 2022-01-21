@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_live_data = new System.Windows.Forms.GroupBox();
@@ -97,12 +97,14 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
@@ -145,19 +147,19 @@
             // ch_live_feed
             // 
             this.ch_live_feed.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea3.Name = "ChartArea1";
-            this.ch_live_feed.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.ch_live_feed.ChartAreas.Add(chartArea1);
             this.ch_live_feed.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.AutoFitMinFontSize = 5;
-            legend3.Font = new System.Drawing.Font("Consolas", 8F);
-            legend3.IsTextAutoFit = false;
-            legend3.MaximumAutoSize = 20F;
-            legend3.Name = "Legend1";
-            legend3.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_live_feed.Legends.Add(legend3);
-            this.ch_live_feed.Location = new System.Drawing.Point(3, 19);
+            legend1.AutoFitMinFontSize = 5;
+            legend1.Font = new System.Drawing.Font("Consolas", 8F);
+            legend1.IsTextAutoFit = false;
+            legend1.MaximumAutoSize = 20F;
+            legend1.Name = "Legend1";
+            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_live_feed.Legends.Add(legend1);
+            this.ch_live_feed.Location = new System.Drawing.Point(3, 23);
             this.ch_live_feed.Name = "ch_live_feed";
-            this.ch_live_feed.Size = new System.Drawing.Size(641, 327);
+            this.ch_live_feed.Size = new System.Drawing.Size(641, 323);
             this.ch_live_feed.TabIndex = 0;
             this.ch_live_feed.Text = "chart1";
             this.ch_live_feed.AnnotationPositionChanging += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.AnnotationPositionChangingEventArgs>(this.ch_live_feed_AnnotationPositionChanging);
@@ -195,21 +197,21 @@
             // ch_compare
             // 
             this.ch_compare.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea4.Name = "ChartArea1";
-            this.ch_compare.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.ch_compare.ChartAreas.Add(chartArea2);
             this.ch_compare.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.AutoFitMinFontSize = 5;
-            legend4.Font = new System.Drawing.Font("Consolas", 8F);
-            legend4.IsTextAutoFit = false;
-            legend4.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
-            legend4.MaximumAutoSize = 20F;
-            legend4.Name = "Legend1";
-            legend4.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
-            legend4.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_compare.Legends.Add(legend4);
-            this.ch_compare.Location = new System.Drawing.Point(3, 19);
+            legend2.AutoFitMinFontSize = 5;
+            legend2.Font = new System.Drawing.Font("Consolas", 8F);
+            legend2.IsTextAutoFit = false;
+            legend2.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
+            legend2.MaximumAutoSize = 20F;
+            legend2.Name = "Legend1";
+            legend2.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
+            legend2.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_compare.Legends.Add(legend2);
+            this.ch_compare.Location = new System.Drawing.Point(3, 23);
             this.ch_compare.Name = "ch_compare";
-            this.ch_compare.Size = new System.Drawing.Size(518, 268);
+            this.ch_compare.Size = new System.Drawing.Size(518, 264);
             this.ch_compare.TabIndex = 1;
             this.ch_compare.Text = "chart1";
             // 
@@ -296,50 +298,50 @@
             this.dg_weapon_overview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_weapon_overview.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_weapon_overview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dg_weapon_overview.ColumnHeadersHeight = 20;
             this.dg_weapon_overview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_weapon_overview.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle2;
             this.dg_weapon_overview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_weapon_overview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_weapon_overview.EnableHeadersVisualStyles = false;
             this.dg_weapon_overview.GridColor = System.Drawing.Color.Lime;
-            this.dg_weapon_overview.Location = new System.Drawing.Point(3, 19);
+            this.dg_weapon_overview.Location = new System.Drawing.Point(3, 23);
             this.dg_weapon_overview.Margin = new System.Windows.Forms.Padding(0);
             this.dg_weapon_overview.Name = "dg_weapon_overview";
             this.dg_weapon_overview.ReadOnly = true;
             this.dg_weapon_overview.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dg_weapon_overview.RowHeadersWidth = 10;
             this.dg_weapon_overview.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -348,7 +350,7 @@
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_weapon_overview.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_weapon_overview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_weapon_overview.Size = new System.Drawing.Size(821, 158);
+            this.dg_weapon_overview.Size = new System.Drawing.Size(821, 154);
             this.dg_weapon_overview.StandardTab = true;
             this.dg_weapon_overview.TabIndex = 3;
             // 
@@ -565,7 +567,7 @@
             this.cmb_trial_type.Location = new System.Drawing.Point(3, 3);
             this.cmb_trial_type.MaxDropDownItems = 3;
             this.cmb_trial_type.Name = "cmb_trial_type";
-            this.cmb_trial_type.Size = new System.Drawing.Size(237, 22);
+            this.cmb_trial_type.Size = new System.Drawing.Size(237, 26);
             this.cmb_trial_type.TabIndex = 39;
             this.cmb_trial_type.SelectedIndexChanged += new System.EventHandler(this.cmb_trial_type_SelectedIndexChanged);
             // 
@@ -582,7 +584,7 @@
             0,
             0});
             this.num_trial_threshold.Name = "num_trial_threshold";
-            this.num_trial_threshold.Size = new System.Drawing.Size(157, 22);
+            this.num_trial_threshold.Size = new System.Drawing.Size(157, 25);
             this.num_trial_threshold.TabIndex = 28;
             this.num_trial_threshold.ThousandsSeparator = true;
             this.num_trial_threshold.Value = new decimal(new int[] {
@@ -677,7 +679,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
-            this.MaximumSize = new System.Drawing.Size(1195, 601);
             this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "garage_view";
             this.Size = new System.Drawing.Size(1195, 601);

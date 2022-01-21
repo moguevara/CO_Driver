@@ -90,6 +90,7 @@
             resources.ApplyResources(this, "$this");
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "welcome_page";
+            this.Load += new System.EventHandler(this.welcome_page_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
