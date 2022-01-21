@@ -52,5 +52,10 @@ namespace CO_Driver
         {
             System.Diagnostics.Process.Start("https://codriver.dept116.com/");
         }
+
+        private void about_screen_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }
