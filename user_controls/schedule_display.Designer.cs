@@ -57,6 +57,7 @@
             this.lbl_schedule_display_text.TabIndex = 0;
             this.lbl_schedule_display_text.Text = "Clan War Schedule (UTC)";
             this.lbl_schedule_display_text.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbl_schedule_display_text.Click += new System.EventHandler(this.lbl_schedule_display_text_Click);
             // 
             // dg_build_view_grid
             // 
@@ -132,20 +133,22 @@
             this.dg_build_view_grid.TabIndex = 3;
             this.dg_build_view_grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dg_build_view_grid_CellFormatting);
             this.dg_build_view_grid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dg_build_view_grid_CellPainting);
+            this.dg_build_view_grid.Resize += new System.EventHandler(this.dg_build_view_grid_Resize);
             // 
             // Column8
             // 
-            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column8.HeaderText = "Time";
-            this.Column8.MinimumWidth = 59;
+            this.Column8.MinimumWidth = 70;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
-            this.Column8.Width = 59;
+            this.Column8.Width = 70;
             // 
             // Column7
             // 
             this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column7.HeaderText = "Sunday";
+            this.Column7.MinimumWidth = 30;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
@@ -153,6 +156,7 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Monday";
+            this.Column1.MinimumWidth = 30;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
@@ -160,6 +164,7 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "Tuesday";
+            this.Column2.MinimumWidth = 30;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
@@ -167,6 +172,7 @@
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column3.HeaderText = "Wednesday";
+            this.Column3.MinimumWidth = 30;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
@@ -174,6 +180,7 @@
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column4.HeaderText = "Thursday";
+            this.Column4.MinimumWidth = 30;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
@@ -181,6 +188,7 @@
             // 
             this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column5.HeaderText = "Friday";
+            this.Column5.MinimumWidth = 30;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             // 
@@ -188,17 +196,18 @@
             // 
             this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column6.HeaderText = "Saturday";
+            this.Column6.MinimumWidth = 30;
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             // 
             // time2
             // 
-            this.time2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.time2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.time2.HeaderText = "Time";
-            this.time2.MinimumWidth = 59;
+            this.time2.MinimumWidth = 70;
             this.time2.Name = "time2";
             this.time2.ReadOnly = true;
-            this.time2.Width = 59;
+            this.time2.Width = 70;
             // 
             // schedule_display
             // 
@@ -208,7 +217,6 @@
             this.Controls.Add(this.lbl_schedule_display_text);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
-            this.MaximumSize = new System.Drawing.Size(1195, 601);
             this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "schedule_display";
             this.Size = new System.Drawing.Size(1195, 601);

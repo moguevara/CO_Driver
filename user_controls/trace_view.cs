@@ -137,5 +137,10 @@ namespace CO_Driver
             bw_file_tracer.CancelAsync();
             this.tb_trace_output.Clear();
         }
+
+        private void trace_view_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

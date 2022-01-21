@@ -238,6 +238,7 @@ namespace CO_Driver
 
         private void garage_view_Load(object sender, EventArgs e)
         {
+            this.Dock = DockStyle.Fill;
         }
 
         public void initialize_live_feed()

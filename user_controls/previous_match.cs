@@ -531,5 +531,10 @@ namespace CO_Driver
 
             load_selected_match(this, next_match);
         }
+
+        private void previous_match_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

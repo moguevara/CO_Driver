@@ -109,6 +109,8 @@
             // 
             // lb_user_name
             // 
+            this.lb_user_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_user_name.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_user_name.Location = new System.Drawing.Point(-5, 0);
             this.lb_user_name.Name = "lb_user_name";
@@ -119,6 +121,7 @@
             // 
             // cb_game_modes
             // 
+            this.cb_game_modes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_game_modes.BackColor = System.Drawing.Color.Black;
             this.cb_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -134,6 +137,7 @@
             // 
             // cb_grouped
             // 
+            this.cb_grouped.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_grouped.BackColor = System.Drawing.Color.Black;
             this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -149,6 +153,7 @@
             // 
             // cb_power_score
             // 
+            this.cb_power_score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_power_score.BackColor = System.Drawing.Color.Black;
             this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -164,6 +169,7 @@
             // 
             // cb_movement
             // 
+            this.cb_movement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_movement.BackColor = System.Drawing.Color.Black;
             this.cb_movement.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -179,6 +185,7 @@
             // 
             // cb_weapons
             // 
+            this.cb_weapons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_weapons.BackColor = System.Drawing.Color.Black;
             this.cb_weapons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -194,6 +201,7 @@
             // 
             // cb_versions
             // 
+            this.cb_versions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_versions.BackColor = System.Drawing.Color.Black;
             this.cb_versions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_versions.DropDownWidth = 280;
@@ -210,6 +218,7 @@
             // 
             // cb_modules
             // 
+            this.cb_modules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_modules.BackColor = System.Drawing.Color.Black;
             this.cb_modules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -225,6 +234,7 @@
             // 
             // btn_save_user_settings
             // 
+            this.btn_save_user_settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_save_user_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_save_user_settings.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save_user_settings.Location = new System.Drawing.Point(1062, 3);
@@ -237,6 +247,7 @@
             // 
             // cb_cabins
             // 
+            this.cb_cabins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_cabins.BackColor = System.Drawing.Color.Black;
             this.cb_cabins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_cabins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -252,6 +263,7 @@
             // 
             // dt_start_date
             // 
+            this.dt_start_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_start_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_start_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_start_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -268,6 +280,7 @@
             // 
             // dt_end_date
             // 
+            this.dt_end_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_end_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_end_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_end_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -283,6 +296,8 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(-2, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(395, 13);
@@ -375,120 +390,108 @@
             // 
             // match_type
             // 
-            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.match_type.HeaderText = "Weapon";
             this.match_type.MinimumWidth = 110;
             this.match_type.Name = "match_type";
             this.match_type.ReadOnly = true;
             this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.match_type.Width = 110;
             // 
             // Column1
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Cabin";
-            this.Column1.MinimumWidth = 60;
+            this.Column1.MinimumWidth = 125;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "Movement";
             this.Column2.MinimumWidth = 120;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
-            this.Column2.Width = 120;
             // 
             // Column3
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column3.HeaderText = "Map";
             this.Column3.MinimumWidth = 110;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
-            this.Column3.Width = 110;
             // 
             // Column4
             // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column4.HeaderText = "Games";
             this.Column4.MinimumWidth = 50;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
-            this.Column4.Width = 50;
             // 
             // Column5
             // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column5.HeaderText = "% Games With";
             this.Column5.MinimumWidth = 70;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
-            this.Column5.Width = 70;
             // 
             // Column14
             // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column14.HeaderText = "Avg Per Round";
             this.Column14.MinimumWidth = 70;
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
-            this.Column14.Width = 70;
             // 
             // Column6
             // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column6.HeaderText = "Avg Kills";
             this.Column6.MinimumWidth = 60;
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
-            this.Column6.Width = 60;
             // 
             // Column7
             // 
-            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column7.HeaderText = "Avg Assists";
             this.Column7.MinimumWidth = 60;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
-            this.Column7.Width = 60;
             // 
             // Column9
             // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column9.HeaderText = "Average Deaths";
             this.Column9.MinimumWidth = 60;
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
-            this.Column9.Width = 60;
             // 
             // Column10
             // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column10.HeaderText = "Average Damage";
             this.Column10.MinimumWidth = 80;
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
-            this.Column10.Width = 80;
             // 
             // Column11
             // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column11.HeaderText = "Average Dmg Rec";
             this.Column11.MinimumWidth = 80;
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
-            this.Column11.Width = 80;
             // 
             // Column12
             // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column12.HeaderText = "Avg Score";
             this.Column12.MinimumWidth = 60;
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
-            this.Column12.Width = 60;
             // 
             // Column13
             // 
@@ -509,11 +512,13 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.dg_meta_detail_view, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 59);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -953,6 +958,7 @@
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "meta_detail";
             this.Size = new System.Drawing.Size(1195, 601);
+            this.Load += new System.EventHandler(this.meta_detail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dg_meta_detail_view)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

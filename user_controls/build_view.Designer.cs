@@ -149,6 +149,9 @@
             this.dg_build_view_grid.AllowUserToOrderColumns = true;
             this.dg_build_view_grid.AllowUserToResizeColumns = false;
             this.dg_build_view_grid.AllowUserToResizeRows = false;
+            this.dg_build_view_grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_build_view_grid.BackgroundColor = System.Drawing.Color.Black;
             this.dg_build_view_grid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_build_view_grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -294,6 +297,7 @@
             // 
             // dt_end_date
             // 
+            this.dt_end_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_end_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_end_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_end_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -309,6 +313,7 @@
             // 
             // dt_start_date
             // 
+            this.dt_start_date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dt_start_date.CalendarForeColor = System.Drawing.Color.Lime;
             this.dt_start_date.CalendarMonthBackground = System.Drawing.Color.Black;
             this.dt_start_date.CalendarTitleBackColor = System.Drawing.Color.Black;
@@ -325,6 +330,7 @@
             // 
             // cb_cabins
             // 
+            this.cb_cabins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_cabins.BackColor = System.Drawing.Color.Black;
             this.cb_cabins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_cabins.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -340,6 +346,7 @@
             // 
             // btn_reset
             // 
+            this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_reset.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_reset.Location = new System.Drawing.Point(1062, 3);
@@ -352,6 +359,7 @@
             // 
             // cb_modules
             // 
+            this.cb_modules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_modules.BackColor = System.Drawing.Color.Black;
             this.cb_modules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_modules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -367,6 +375,7 @@
             // 
             // cb_versions
             // 
+            this.cb_versions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_versions.BackColor = System.Drawing.Color.Black;
             this.cb_versions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_versions.DropDownWidth = 280;
@@ -383,6 +392,7 @@
             // 
             // cb_weapons
             // 
+            this.cb_weapons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_weapons.BackColor = System.Drawing.Color.Black;
             this.cb_weapons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_weapons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -398,6 +408,7 @@
             // 
             // cb_movement
             // 
+            this.cb_movement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_movement.BackColor = System.Drawing.Color.Black;
             this.cb_movement.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_movement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -413,6 +424,7 @@
             // 
             // cb_power_score
             // 
+            this.cb_power_score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_power_score.BackColor = System.Drawing.Color.Black;
             this.cb_power_score.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_power_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -428,6 +440,7 @@
             // 
             // cb_grouped
             // 
+            this.cb_grouped.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_grouped.BackColor = System.Drawing.Color.Black;
             this.cb_grouped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_grouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -443,6 +456,7 @@
             // 
             // cb_game_modes
             // 
+            this.cb_game_modes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_game_modes.BackColor = System.Drawing.Color.Black;
             this.cb_game_modes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_game_modes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -458,6 +472,9 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -930,6 +947,7 @@
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn4.FillWeight = 172.5888F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Weapon";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 170;
@@ -1035,6 +1053,7 @@
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn3.FillWeight = 172.5888F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Weapon";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Width = 170;
@@ -1140,6 +1159,7 @@
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn1.FillWeight = 172.5888F;
             this.dataGridViewTextBoxColumn1.HeaderText = "Weapon";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 170;
@@ -1333,6 +1353,8 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Location = new System.Drawing.Point(0, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(395, 13);
@@ -1342,6 +1364,8 @@
             // 
             // lb_user_name
             // 
+            this.lb_user_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_user_name.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_user_name.Location = new System.Drawing.Point(-3, 0);
             this.lb_user_name.Name = "lb_user_name";
@@ -1372,7 +1396,6 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Lime;
-            this.MaximumSize = new System.Drawing.Size(1195, 601);
             this.MinimumSize = new System.Drawing.Size(1195, 601);
             this.Name = "build_view";
             this.Size = new System.Drawing.Size(1195, 601);

@@ -327,5 +327,10 @@ namespace CO_Driver
             log_file_manager.save_session_config(session);
             Application.Restart();
         }
+
+        private void user_settings_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

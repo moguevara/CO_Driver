@@ -186,5 +186,10 @@ namespace CO_Driver
                 resistance_modifier = resistance_modifier - 0.1;
             refresh_avail_parts();
         }
+
+        private void part_optimizer_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }

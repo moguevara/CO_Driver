@@ -59,6 +59,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
+            this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +78,7 @@
             this.buildToolsToolStripMenuItem,
             this.uploadToolStripMenuItem,
             this.printCurrentWindowToolStripMenuItem,
+            this.fullscreenToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.strp_main_menu_strip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
@@ -293,11 +295,8 @@
             // 
             // main_page_panel
             // 
-            this.main_page_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.main_page_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_page_panel.Location = new System.Drawing.Point(0, 22);
-            this.main_page_panel.MaximumSize = new System.Drawing.Size(1195, 601);
             this.main_page_panel.MinimumSize = new System.Drawing.Size(1195, 601);
             this.main_page_panel.Name = "main_page_panel";
             this.main_page_panel.Size = new System.Drawing.Size(1195, 601);
@@ -309,6 +308,13 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
+            // fullscreenToolStripMenuItem
+            // 
+            this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
+            this.fullscreenToolStripMenuItem.Text = "Fullscreen";
+            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click);
+            // 
             // frm_main_page
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -317,12 +323,9 @@
             this.Controls.Add(this.main_page_panel);
             this.Controls.Add(this.strp_main_menu_strip);
             this.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.strp_main_menu_strip;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1211, 662);
             this.MinimumSize = new System.Drawing.Size(1211, 662);
             this.Name = "frm_main_page";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -364,6 +367,7 @@
         private System.Windows.Forms.ToolStripMenuItem gfxlogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem liveGarageChartingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buildReviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fullscreenToolStripMenuItem;
     }
 }
 

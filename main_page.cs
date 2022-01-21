@@ -1151,5 +1151,20 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(build_page);
         }
+
+        private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.Sizable)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.Bounds = Screen.PrimaryScreen.Bounds;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            }
+        }
     }
 }

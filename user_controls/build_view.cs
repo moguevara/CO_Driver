@@ -265,6 +265,7 @@ namespace CO_Driver
 
         private void build_view_Load(object sender, EventArgs e)
         {
+            this.Dock = DockStyle.Fill;
         }
 
         private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
