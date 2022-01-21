@@ -65,7 +65,6 @@ namespace CO_Driver
                         DateTime start_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.start_time), TimeZoneInfo.Local);
                         DateTime end_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.end_time), TimeZoneInfo.Local);
 
-
                         if ((cell_time >= start_time_dt && cell_time < end_time_dt) ||
                             (cell_time >= start_time_dt.AddDays(7) && cell_time < end_time_dt.AddDays(7)) ||
                             (cell_time >= start_time_dt.AddDays(-7) && cell_time < end_time_dt.AddDays(-7)))
@@ -114,12 +113,14 @@ namespace CO_Driver
             this.dg_build_view_grid.Columns[1].DisplayIndex = 7;
 
             this.dg_build_view_grid.AllowUserToAddRows = false;
+
+            //sizeDGV(dg_build_view_grid);
         }
 
 
         private void schedule_display_Load(object sender, EventArgs e)
         {
-            
+            this.Dock = DockStyle.Fill;
         }
 
         bool IsTheSameCellValue(int column, int row)
@@ -192,6 +193,26 @@ namespace CO_Driver
                 e.FormattingApplied = true;
 
             }
+        }
+
+        void sizeDGV(DataGridView dgv)
+        {
+            DataGridViewElementStates states = DataGridViewElementStates.None;
+            dgv.ScrollBars = ScrollBars.None;
+            var totalHeight = dgv.Rows.GetRowsHeight(states) + dgv.ColumnHeadersHeight;
+            totalHeight += dgv.Rows.Count * 4;
+            var totalWidth = dgv.Columns.GetColumnsWidth(states) + dgv.RowHeadersWidth;
+            dgv.ClientSize = new Size(totalWidth, totalHeight);
+        }
+
+        private void lbl_schedule_display_text_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dg_build_view_grid_Resize(object sender, EventArgs e)
+        {
+            //sizeDGV(dg_build_view_grid);
         }
     }
 }
