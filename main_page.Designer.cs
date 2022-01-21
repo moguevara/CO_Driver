@@ -313,7 +313,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1195, 606);
+            this.ClientSize = new System.Drawing.Size(1195, 623);
             this.Controls.Add(this.main_page_panel);
             this.Controls.Add(this.strp_main_menu_strip);
             this.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -322,8 +322,8 @@
             this.MainMenuStrip = this.strp_main_menu_strip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1211, 645);
-            this.MinimumSize = new System.Drawing.Size(1211, 645);
+            this.MaximumSize = new System.Drawing.Size(1211, 662);
+            this.MinimumSize = new System.Drawing.Size(1211, 662);
             this.Name = "frm_main_page";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rot_Fish_Bandit Tool Suite v0.0.1.1";
