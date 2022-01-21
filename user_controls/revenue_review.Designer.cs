@@ -34,6 +34,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dg_revenue = new System.Windows.Forms.DataGridView();
+            this.match_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_total_avg = new System.Windows.Forms.Button();
@@ -74,15 +83,6 @@
             this.cb_grouped = new System.Windows.Forms.ComboBox();
             this.cb_game_modes = new System.Windows.Forms.ComboBox();
             this.lb_user_name = new System.Windows.Forms.Label();
-            this.match_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_revenue)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -192,6 +192,79 @@
             this.dg_revenue.Size = new System.Drawing.Size(1195, 450);
             this.dg_revenue.StandardTab = true;
             this.dg_revenue.TabIndex = 2;
+            // 
+            // match_type
+            // 
+            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.match_type.HeaderText = "Game Mode";
+            this.match_type.MinimumWidth = 230;
+            this.match_type.Name = "match_type";
+            this.match_type.ReadOnly = true;
+            this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Game Result";
+            this.Column1.MinimumWidth = 130;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "Games";
+            this.Column2.MinimumWidth = 60;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column5.HeaderText = "Queue Time";
+            this.Column5.MinimumWidth = 110;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column14.HeaderText = "Match Time";
+            this.Column14.MinimumWidth = 110;
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column8.HeaderText = "Fuel Cost";
+            this.Column8.MinimumWidth = 110;
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column6.HeaderText = "Match Rewards";
+            this.Column6.MinimumWidth = 180;
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column9.HeaderText = "Coins";
+            this.Column9.MinimumWidth = 120;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column10.HeaderText = "C/hr";
+            this.Column10.MinimumWidth = 120;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
             // 
             // tableLayoutPanel2
             // 
@@ -581,6 +654,8 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(0, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(395, 13);
@@ -600,7 +675,7 @@
             this.dt_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_end_date.Location = new System.Drawing.Point(521, 31);
             this.dt_end_date.Name = "dt_end_date";
-            this.dt_end_date.Size = new System.Drawing.Size(114, 25);
+            this.dt_end_date.Size = new System.Drawing.Size(114, 22);
             this.dt_end_date.TabIndex = 72;
             this.dt_end_date.ValueChanged += new System.EventHandler(this.dt_end_date_ValueChanged_1);
             // 
@@ -616,7 +691,7 @@
             this.dt_start_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_start_date.Location = new System.Drawing.Point(401, 31);
             this.dt_start_date.Name = "dt_start_date";
-            this.dt_start_date.Size = new System.Drawing.Size(114, 25);
+            this.dt_start_date.Size = new System.Drawing.Size(114, 22);
             this.dt_start_date.TabIndex = 71;
             this.dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
             this.dt_start_date.ValueChanged += new System.EventHandler(this.dt_start_date_ValueChanged_1);
@@ -633,7 +708,7 @@
             this.cb_cabins.Location = new System.Drawing.Point(641, 31);
             this.cb_cabins.MaxDropDownItems = 32;
             this.cb_cabins.Name = "cb_cabins";
-            this.cb_cabins.Size = new System.Drawing.Size(136, 26);
+            this.cb_cabins.Size = new System.Drawing.Size(136, 22);
             this.cb_cabins.TabIndex = 70;
             this.cb_cabins.SelectedIndexChanged += new System.EventHandler(this.cb_cabins_SelectedIndexChanged_1);
             // 
@@ -662,7 +737,7 @@
             this.cb_modules.Location = new System.Drawing.Point(925, 31);
             this.cb_modules.MaxDropDownItems = 32;
             this.cb_modules.Name = "cb_modules";
-            this.cb_modules.Size = new System.Drawing.Size(109, 26);
+            this.cb_modules.Size = new System.Drawing.Size(109, 22);
             this.cb_modules.TabIndex = 68;
             this.cb_modules.SelectedIndexChanged += new System.EventHandler(this.cb_modules_SelectedIndexChanged_1);
             // 
@@ -679,7 +754,7 @@
             this.cb_versions.Location = new System.Drawing.Point(401, 4);
             this.cb_versions.MaxDropDownItems = 32;
             this.cb_versions.Name = "cb_versions";
-            this.cb_versions.Size = new System.Drawing.Size(234, 26);
+            this.cb_versions.Size = new System.Drawing.Size(234, 22);
             this.cb_versions.TabIndex = 67;
             this.cb_versions.SelectedIndexChanged += new System.EventHandler(this.cb_versions_SelectedIndexChanged_1);
             // 
@@ -695,7 +770,7 @@
             this.cb_weapons.Location = new System.Drawing.Point(783, 31);
             this.cb_weapons.MaxDropDownItems = 32;
             this.cb_weapons.Name = "cb_weapons";
-            this.cb_weapons.Size = new System.Drawing.Size(136, 26);
+            this.cb_weapons.Size = new System.Drawing.Size(136, 22);
             this.cb_weapons.TabIndex = 66;
             this.cb_weapons.SelectedIndexChanged += new System.EventHandler(this.cb_weapons_SelectedIndexChanged_1);
             // 
@@ -711,7 +786,7 @@
             this.cb_movement.Location = new System.Drawing.Point(1040, 31);
             this.cb_movement.MaxDropDownItems = 32;
             this.cb_movement.Name = "cb_movement";
-            this.cb_movement.Size = new System.Drawing.Size(154, 26);
+            this.cb_movement.Size = new System.Drawing.Size(154, 22);
             this.cb_movement.TabIndex = 65;
             this.cb_movement.SelectedIndexChanged += new System.EventHandler(this.cb_movement_SelectedIndexChanged_1);
             // 
@@ -727,7 +802,7 @@
             this.cb_power_score.Location = new System.Drawing.Point(641, 3);
             this.cb_power_score.MaxDropDownItems = 32;
             this.cb_power_score.Name = "cb_power_score";
-            this.cb_power_score.Size = new System.Drawing.Size(141, 26);
+            this.cb_power_score.Size = new System.Drawing.Size(141, 22);
             this.cb_power_score.TabIndex = 64;
             this.cb_power_score.SelectedIndexChanged += new System.EventHandler(this.cb_power_score_SelectedIndexChanged_1);
             // 
@@ -743,7 +818,7 @@
             this.cb_grouped.Location = new System.Drawing.Point(788, 3);
             this.cb_grouped.MaxDropDownItems = 32;
             this.cb_grouped.Name = "cb_grouped";
-            this.cb_grouped.Size = new System.Drawing.Size(131, 26);
+            this.cb_grouped.Size = new System.Drawing.Size(131, 22);
             this.cb_grouped.TabIndex = 63;
             this.cb_grouped.SelectedIndexChanged += new System.EventHandler(this.cb_grouped_SelectedIndexChanged_1);
             // 
@@ -759,12 +834,14 @@
             this.cb_game_modes.Location = new System.Drawing.Point(925, 4);
             this.cb_game_modes.MaxDropDownItems = 32;
             this.cb_game_modes.Name = "cb_game_modes";
-            this.cb_game_modes.Size = new System.Drawing.Size(133, 26);
+            this.cb_game_modes.Size = new System.Drawing.Size(133, 22);
             this.cb_game_modes.TabIndex = 62;
             this.cb_game_modes.SelectedIndexChanged += new System.EventHandler(this.cb_game_modes_SelectedIndexChanged_1);
             // 
             // lb_user_name
             // 
+            this.lb_user_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_user_name.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_user_name.Location = new System.Drawing.Point(-3, 0);
             this.lb_user_name.Name = "lb_user_name";
@@ -772,79 +849,6 @@
             this.lb_user_name.TabIndex = 61;
             this.lb_user_name.Text = "Revenue Review";
             this.lb_user_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // match_type
-            // 
-            this.match_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.match_type.HeaderText = "Game Mode";
-            this.match_type.MinimumWidth = 230;
-            this.match_type.Name = "match_type";
-            this.match_type.ReadOnly = true;
-            this.match_type.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Game Result";
-            this.Column1.MinimumWidth = 130;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.HeaderText = "Games";
-            this.Column2.MinimumWidth = 60;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column5.HeaderText = "Queue Time";
-            this.Column5.MinimumWidth = 110;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column14
-            // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column14.HeaderText = "Match Time";
-            this.Column14.MinimumWidth = 110;
-            this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column8.HeaderText = "Fuel Cost";
-            this.Column8.MinimumWidth = 110;
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column6.HeaderText = "Match Rewards";
-            this.Column6.MinimumWidth = 180;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column9.HeaderText = "Coins";
-            this.Column9.MinimumWidth = 120;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column10.HeaderText = "C/hr";
-            this.Column10.MinimumWidth = 120;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
             // 
             // revenue_review
             // 

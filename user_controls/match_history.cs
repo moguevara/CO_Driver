@@ -184,5 +184,10 @@ namespace CO_Driver
 
             refersh_history_table();
         }
+
+        private void match_history_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
     }
 }
