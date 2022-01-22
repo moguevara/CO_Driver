@@ -35,6 +35,7 @@ namespace CO_Driver
         private Dictionary<string, int> cabin_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> module_usage = new Dictionary<string, int> { };
         private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        public Resize resize = new Resize { };
         private string new_selection = "";
         private string previous_selection = "";
 
@@ -266,6 +267,7 @@ namespace CO_Driver
         private void build_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -387,6 +389,11 @@ namespace CO_Driver
         {
             filter_selections.start_date = dt_start_date.Value;
             populate_build_record_table();
+        }
+
+        private void build_view_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

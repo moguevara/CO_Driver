@@ -75,6 +75,8 @@
             this.chk_upload_post_match = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.chk_update = new System.Windows.Forms.CheckBox();
+            this.cmb_fullscreen_monitor = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).BeginInit();
@@ -92,7 +94,7 @@
             this.label2.ForeColor = System.Drawing.Color.Lime;
             this.label2.Location = new System.Drawing.Point(3, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 18);
+            this.label2.Size = new System.Drawing.Size(119, 14);
             this.label2.TabIndex = 1;
             this.label2.Text = "In Game Username";
             // 
@@ -103,7 +105,7 @@
             this.label3.ForeColor = System.Drawing.Color.Lime;
             this.label3.Location = new System.Drawing.Point(3, 115);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(224, 18);
+            this.label3.Size = new System.Drawing.Size(196, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "Crossout Log Files Location";
             // 
@@ -114,7 +116,7 @@
             this.label5.ForeColor = System.Drawing.Color.Lime;
             this.label5.Location = new System.Drawing.Point(3, 143);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(240, 18);
+            this.label5.Size = new System.Drawing.Size(210, 14);
             this.label5.TabIndex = 4;
             this.label5.Text = "CO_Driver Saved File Location";
             // 
@@ -126,7 +128,7 @@
             this.label13.ForeColor = System.Drawing.Color.Lime;
             this.label13.Location = new System.Drawing.Point(637, 115);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(184, 18);
+            this.label13.Size = new System.Drawing.Size(161, 14);
             this.label13.TabIndex = 12;
             this.label13.Text = "Engineers Level (1-30)";
             // 
@@ -138,7 +140,7 @@
             this.label14.ForeColor = System.Drawing.Color.Lime;
             this.label14.Location = new System.Drawing.Point(637, 145);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(176, 18);
+            this.label14.Size = new System.Drawing.Size(154, 14);
             this.label14.TabIndex = 13;
             this.label14.Text = "Lunatics Level (0-15)";
             // 
@@ -150,7 +152,7 @@
             this.label15.ForeColor = System.Drawing.Color.Lime;
             this.label15.Location = new System.Drawing.Point(637, 175);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(160, 18);
+            this.label15.Size = new System.Drawing.Size(140, 14);
             this.label15.TabIndex = 14;
             this.label15.Text = "Nomads Level (0-15)";
             // 
@@ -162,7 +164,7 @@
             this.label16.ForeColor = System.Drawing.Color.Lime;
             this.label16.Location = new System.Drawing.Point(637, 205);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(192, 18);
+            this.label16.Size = new System.Drawing.Size(168, 14);
             this.label16.TabIndex = 15;
             this.label16.Text = "Scavengers Level (0-15)";
             // 
@@ -174,7 +176,7 @@
             this.label17.ForeColor = System.Drawing.Color.Lime;
             this.label17.Location = new System.Drawing.Point(637, 235);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(208, 18);
+            this.label17.Size = new System.Drawing.Size(182, 14);
             this.label17.TabIndex = 16;
             this.label17.Text = "Steppenwolfs Level (0-15)";
             // 
@@ -186,7 +188,7 @@
             this.label18.ForeColor = System.Drawing.Color.Lime;
             this.label18.Location = new System.Drawing.Point(637, 265);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(184, 18);
+            this.label18.Size = new System.Drawing.Size(161, 14);
             this.label18.TabIndex = 17;
             this.label18.Text = "Dawn\'s Children (0-15)";
             // 
@@ -198,7 +200,7 @@
             this.label19.ForeColor = System.Drawing.Color.Lime;
             this.label19.Location = new System.Drawing.Point(637, 295);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(160, 18);
+            this.label19.Size = new System.Drawing.Size(140, 14);
             this.label19.TabIndex = 18;
             this.label19.Text = "Firestarters (0-15)";
             // 
@@ -210,7 +212,7 @@
             this.label20.ForeColor = System.Drawing.Color.Lime;
             this.label20.Location = new System.Drawing.Point(637, 325);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(128, 18);
+            this.label20.Size = new System.Drawing.Size(112, 14);
             this.label20.TabIndex = 19;
             this.label20.Text = "Founders (0-75)";
             // 
@@ -222,7 +224,7 @@
             this.label21.ForeColor = System.Drawing.Color.Lime;
             this.label21.Location = new System.Drawing.Point(637, 355);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(168, 18);
+            this.label21.Size = new System.Drawing.Size(147, 14);
             this.label21.TabIndex = 20;
             this.label21.Text = "Prestige/Pack Parts?";
             // 
@@ -234,7 +236,7 @@
             this.label23.ForeColor = System.Drawing.Color.Lime;
             this.label23.Location = new System.Drawing.Point(637, 85);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(56, 18);
+            this.label23.Size = new System.Drawing.Size(49, 14);
             this.label23.TabIndex = 22;
             this.label23.Text = "Levels";
             // 
@@ -266,7 +268,7 @@
             0,
             0});
             this.num_engineer_level.Name = "num_engineer_level";
-            this.num_engineer_level.Size = new System.Drawing.Size(240, 25);
+            this.num_engineer_level.Size = new System.Drawing.Size(240, 22);
             this.num_engineer_level.TabIndex = 27;
             this.num_engineer_level.ThousandsSeparator = true;
             this.num_engineer_level.Value = new decimal(new int[] {
@@ -288,7 +290,7 @@
             0,
             0});
             this.num_lunatic_level.Name = "num_lunatic_level";
-            this.num_lunatic_level.Size = new System.Drawing.Size(240, 25);
+            this.num_lunatic_level.Size = new System.Drawing.Size(240, 22);
             this.num_lunatic_level.TabIndex = 28;
             this.num_lunatic_level.ThousandsSeparator = true;
             this.num_lunatic_level.Value = new decimal(new int[] {
@@ -310,7 +312,7 @@
             0,
             0});
             this.num_nomad_level.Name = "num_nomad_level";
-            this.num_nomad_level.Size = new System.Drawing.Size(240, 25);
+            this.num_nomad_level.Size = new System.Drawing.Size(240, 22);
             this.num_nomad_level.TabIndex = 29;
             this.num_nomad_level.ThousandsSeparator = true;
             this.num_nomad_level.Value = new decimal(new int[] {
@@ -332,7 +334,7 @@
             0,
             0});
             this.num_scavenger_level.Name = "num_scavenger_level";
-            this.num_scavenger_level.Size = new System.Drawing.Size(240, 25);
+            this.num_scavenger_level.Size = new System.Drawing.Size(240, 22);
             this.num_scavenger_level.TabIndex = 30;
             this.num_scavenger_level.ThousandsSeparator = true;
             this.num_scavenger_level.Value = new decimal(new int[] {
@@ -354,7 +356,7 @@
             0,
             0});
             this.num_steppenwolf_level.Name = "num_steppenwolf_level";
-            this.num_steppenwolf_level.Size = new System.Drawing.Size(240, 25);
+            this.num_steppenwolf_level.Size = new System.Drawing.Size(240, 22);
             this.num_steppenwolf_level.TabIndex = 31;
             this.num_steppenwolf_level.ThousandsSeparator = true;
             this.num_steppenwolf_level.Value = new decimal(new int[] {
@@ -376,7 +378,7 @@
             0,
             0});
             this.num_dawns_children_level.Name = "num_dawns_children_level";
-            this.num_dawns_children_level.Size = new System.Drawing.Size(240, 25);
+            this.num_dawns_children_level.Size = new System.Drawing.Size(240, 22);
             this.num_dawns_children_level.TabIndex = 32;
             this.num_dawns_children_level.ThousandsSeparator = true;
             this.num_dawns_children_level.Value = new decimal(new int[] {
@@ -398,7 +400,7 @@
             0,
             0});
             this.num_firestarter_level.Name = "num_firestarter_level";
-            this.num_firestarter_level.Size = new System.Drawing.Size(240, 25);
+            this.num_firestarter_level.Size = new System.Drawing.Size(240, 22);
             this.num_firestarter_level.TabIndex = 33;
             this.num_firestarter_level.ThousandsSeparator = true;
             this.num_firestarter_level.Value = new decimal(new int[] {
@@ -420,7 +422,7 @@
             0,
             0});
             this.num_founders_level.Name = "num_founders_level";
-            this.num_founders_level.Size = new System.Drawing.Size(240, 25);
+            this.num_founders_level.Size = new System.Drawing.Size(240, 22);
             this.num_founders_level.TabIndex = 34;
             this.num_founders_level.ThousandsSeparator = true;
             this.num_founders_level.Value = new decimal(new int[] {
@@ -438,9 +440,9 @@
             this.chk_prestigue_parts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_prestigue_parts.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_prestigue_parts.ForeColor = System.Drawing.Color.Lime;
-            this.chk_prestigue_parts.Location = new System.Drawing.Point(943, 358);
+            this.chk_prestigue_parts.Location = new System.Drawing.Point(945, 358);
             this.chk_prestigue_parts.Name = "chk_prestigue_parts";
-            this.chk_prestigue_parts.Size = new System.Drawing.Size(14, 13);
+            this.chk_prestigue_parts.Size = new System.Drawing.Size(12, 11);
             this.chk_prestigue_parts.TabIndex = 35;
             this.chk_prestigue_parts.UseVisualStyleBackColor = true;
             // 
@@ -449,9 +451,9 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Lime;
-            this.label9.Location = new System.Drawing.Point(3, 205);
+            this.label9.Location = new System.Drawing.Point(3, 244);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 18);
+            this.label9.Size = new System.Drawing.Size(63, 14);
             this.label9.TabIndex = 37;
             this.label9.Text = "Language";
             // 
@@ -472,10 +474,10 @@
             "Polski",
             "한국어",
             "Ελληνικά"});
-            this.cmb_language_drop_down.Location = new System.Drawing.Point(293, 197);
+            this.cmb_language_drop_down.Location = new System.Drawing.Point(293, 236);
             this.cmb_language_drop_down.MaxDropDownItems = 10;
             this.cmb_language_drop_down.Name = "cmb_language_drop_down";
-            this.cmb_language_drop_down.Size = new System.Drawing.Size(242, 26);
+            this.cmb_language_drop_down.Size = new System.Drawing.Size(242, 22);
             this.cmb_language_drop_down.TabIndex = 38;
             // 
             // txt_log_file_location
@@ -487,7 +489,7 @@
             this.txt_log_file_location.Location = new System.Drawing.Point(295, 107);
             this.txt_log_file_location.MaxLength = 256;
             this.txt_log_file_location.Name = "txt_log_file_location";
-            this.txt_log_file_location.Size = new System.Drawing.Size(240, 25);
+            this.txt_log_file_location.Size = new System.Drawing.Size(240, 22);
             this.txt_log_file_location.TabIndex = 39;
             this.txt_log_file_location.WordWrap = false;
             // 
@@ -541,7 +543,7 @@
             this.chk_twitch_mode.ForeColor = System.Drawing.Color.Lime;
             this.chk_twitch_mode.Location = new System.Drawing.Point(295, 171);
             this.chk_twitch_mode.Name = "chk_twitch_mode";
-            this.chk_twitch_mode.Size = new System.Drawing.Size(14, 13);
+            this.chk_twitch_mode.Size = new System.Drawing.Size(12, 11);
             this.chk_twitch_mode.TabIndex = 43;
             this.chk_twitch_mode.UseVisualStyleBackColor = true;
             this.chk_twitch_mode.CheckedChanged += new System.EventHandler(this.chk_twitch_mode_CheckedChanged);
@@ -553,7 +555,7 @@
             this.label10.ForeColor = System.Drawing.Color.Lime;
             this.label10.Location = new System.Drawing.Point(2, 175);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(200, 18);
+            this.label10.Size = new System.Drawing.Size(175, 14);
             this.label10.TabIndex = 44;
             this.label10.Text = "Twitch/YT Streaming Mode";
             this.label10.Click += new System.EventHandler(this.label10_Click);
@@ -568,7 +570,7 @@
             this.txt_historic_log_location.Location = new System.Drawing.Point(295, 135);
             this.txt_historic_log_location.MaxLength = 256;
             this.txt_historic_log_location.Name = "txt_historic_log_location";
-            this.txt_historic_log_location.Size = new System.Drawing.Size(240, 25);
+            this.txt_historic_log_location.Size = new System.Drawing.Size(240, 22);
             this.txt_historic_log_location.TabIndex = 40;
             this.txt_historic_log_location.WordWrap = false;
             // 
@@ -580,10 +582,10 @@
             this.cmb_themes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmb_themes.ForeColor = System.Drawing.Color.Lime;
             this.cmb_themes.IntegralHeight = false;
-            this.cmb_themes.Location = new System.Drawing.Point(293, 235);
+            this.cmb_themes.Location = new System.Drawing.Point(293, 274);
             this.cmb_themes.MaxDropDownItems = 20;
             this.cmb_themes.Name = "cmb_themes";
-            this.cmb_themes.Size = new System.Drawing.Size(242, 26);
+            this.cmb_themes.Size = new System.Drawing.Size(242, 23);
             this.cmb_themes.TabIndex = 45;
             this.cmb_themes.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmb_themes_DrawItem);
             this.cmb_themes.SelectedIndexChanged += new System.EventHandler(this.cmb_themes_SelectedIndexChanged);
@@ -593,9 +595,9 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Lime;
-            this.label4.Location = new System.Drawing.Point(3, 235);
+            this.label4.Location = new System.Drawing.Point(3, 274);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 18);
+            this.label4.Size = new System.Drawing.Size(42, 14);
             this.label4.TabIndex = 46;
             this.label4.Text = "Theme";
             // 
@@ -621,9 +623,9 @@
             this.chk_save_screen_shots.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_save_screen_shots.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_save_screen_shots.ForeColor = System.Drawing.Color.Lime;
-            this.chk_save_screen_shots.Location = new System.Drawing.Point(295, 269);
+            this.chk_save_screen_shots.Location = new System.Drawing.Point(295, 308);
             this.chk_save_screen_shots.Name = "chk_save_screen_shots";
-            this.chk_save_screen_shots.Size = new System.Drawing.Size(14, 13);
+            this.chk_save_screen_shots.Size = new System.Drawing.Size(12, 11);
             this.chk_save_screen_shots.TabIndex = 48;
             this.chk_save_screen_shots.UseVisualStyleBackColor = true;
             // 
@@ -632,9 +634,9 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Lime;
-            this.label6.Location = new System.Drawing.Point(3, 269);
+            this.label6.Location = new System.Drawing.Point(3, 308);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(176, 18);
+            this.label6.Size = new System.Drawing.Size(154, 14);
             this.label6.TabIndex = 49;
             this.label6.Text = "Save Screen Captures ";
             // 
@@ -645,10 +647,10 @@
             this.cmb_user_names.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_user_names.ForeColor = System.Drawing.Color.Lime;
             this.cmb_user_names.IntegralHeight = false;
-            this.cmb_user_names.Location = new System.Drawing.Point(293, 77);
+            this.cmb_user_names.Location = new System.Drawing.Point(295, 77);
             this.cmb_user_names.MaxDropDownItems = 3;
             this.cmb_user_names.Name = "cmb_user_names";
-            this.cmb_user_names.Size = new System.Drawing.Size(242, 26);
+            this.cmb_user_names.Size = new System.Drawing.Size(242, 22);
             this.cmb_user_names.TabIndex = 50;
             // 
             // label7
@@ -656,9 +658,9 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Lime;
-            this.label7.Location = new System.Drawing.Point(3, 295);
+            this.label7.Location = new System.Drawing.Point(3, 334);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(240, 18);
+            this.label7.Size = new System.Drawing.Size(210, 14);
             this.label7.TabIndex = 51;
             this.label7.Text = "Group Ram Damage into Ramming";
             // 
@@ -670,9 +672,9 @@
             this.chk_group_ram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_group_ram.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_group_ram.ForeColor = System.Drawing.Color.Lime;
-            this.chk_group_ram.Location = new System.Drawing.Point(295, 297);
+            this.chk_group_ram.Location = new System.Drawing.Point(295, 336);
             this.chk_group_ram.Name = "chk_group_ram";
-            this.chk_group_ram.Size = new System.Drawing.Size(14, 13);
+            this.chk_group_ram.Size = new System.Drawing.Size(12, 11);
             this.chk_group_ram.TabIndex = 52;
             this.chk_group_ram.UseVisualStyleBackColor = true;
             // 
@@ -694,9 +696,9 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Lime;
-            this.label11.Location = new System.Drawing.Point(3, 356);
+            this.label11.Location = new System.Drawing.Point(3, 395);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(304, 18);
+            this.label11.Size = new System.Drawing.Size(266, 14);
             this.label11.TabIndex = 55;
             this.label11.Text = "Upload to CrossoutDB after each match";
             // 
@@ -706,9 +708,9 @@
             this.chk_upload_post_match.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_upload_post_match.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_upload_post_match.ForeColor = System.Drawing.Color.Lime;
-            this.chk_upload_post_match.Location = new System.Drawing.Point(295, 359);
+            this.chk_upload_post_match.Location = new System.Drawing.Point(295, 398);
             this.chk_upload_post_match.Name = "chk_upload_post_match";
-            this.chk_upload_post_match.Size = new System.Drawing.Size(14, 13);
+            this.chk_upload_post_match.Size = new System.Drawing.Size(12, 11);
             this.chk_upload_post_match.TabIndex = 56;
             this.chk_upload_post_match.UseVisualStyleBackColor = true;
             // 
@@ -717,9 +719,9 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Lime;
-            this.label8.Location = new System.Drawing.Point(3, 325);
+            this.label8.Location = new System.Drawing.Point(3, 364);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(256, 18);
+            this.label8.Size = new System.Drawing.Size(224, 14);
             this.label8.TabIndex = 57;
             this.label8.Text = "Update screens after each match";
             // 
@@ -731,17 +733,43 @@
             this.chk_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_update.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_update.ForeColor = System.Drawing.Color.Lime;
-            this.chk_update.Location = new System.Drawing.Point(295, 327);
+            this.chk_update.Location = new System.Drawing.Point(295, 366);
             this.chk_update.Name = "chk_update";
-            this.chk_update.Size = new System.Drawing.Size(14, 13);
+            this.chk_update.Size = new System.Drawing.Size(12, 11);
             this.chk_update.TabIndex = 58;
             this.chk_update.UseVisualStyleBackColor = true;
+            // 
+            // cmb_fullscreen_monitor
+            // 
+            this.cmb_fullscreen_monitor.BackColor = System.Drawing.Color.Black;
+            this.cmb_fullscreen_monitor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_fullscreen_monitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmb_fullscreen_monitor.ForeColor = System.Drawing.Color.Lime;
+            this.cmb_fullscreen_monitor.IntegralHeight = false;
+            this.cmb_fullscreen_monitor.Location = new System.Drawing.Point(293, 197);
+            this.cmb_fullscreen_monitor.MaxDropDownItems = 10;
+            this.cmb_fullscreen_monitor.Name = "cmb_fullscreen_monitor";
+            this.cmb_fullscreen_monitor.Size = new System.Drawing.Size(242, 22);
+            this.cmb_fullscreen_monitor.TabIndex = 60;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Lime;
+            this.label12.Location = new System.Drawing.Point(3, 205);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(133, 14);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "Fullscreen Monitor";
             // 
             // user_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.cmb_fullscreen_monitor);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.chk_update);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.chk_upload_post_match);
@@ -794,6 +822,7 @@
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.user_settings_Load);
             this.Enter += new System.EventHandler(this.user_settings_Enter);
+            this.Resize += new System.EventHandler(this.user_settings_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.num_engineer_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_lunatic_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_nomad_level)).EndInit();
@@ -855,5 +884,7 @@
         private System.Windows.Forms.CheckBox chk_upload_post_match;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chk_update;
+        private System.Windows.Forms.ComboBox cmb_fullscreen_monitor;
+        private System.Windows.Forms.Label label12;
     }
 }

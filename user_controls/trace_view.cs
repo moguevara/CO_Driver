@@ -18,6 +18,7 @@ namespace CO_Driver
         bool restart_background_worker = false;
         private log_file_managment.session_variables local_session_variables = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         protected override void OnLoad(EventArgs e)
         {
@@ -141,6 +142,12 @@ namespace CO_Driver
         private void trace_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void trace_view_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

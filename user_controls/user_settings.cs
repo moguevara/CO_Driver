@@ -23,6 +23,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session;
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         public user_settings()
         {
@@ -39,10 +40,15 @@ namespace CO_Driver
             foreach (Theme.ui_theme theme in Theme.themes)
                 cmb_themes.Items.Add(theme.name);
 
+            foreach (Screen device in Screen.AllScreens)
+                cmb_fullscreen_monitor.Items.Add(string.Format(@"{0}", device.DeviceName));
+
             cmb_user_names.SelectedItem = session.local_user_name;
             txt_log_file_location.Text = session.log_file_location;
             txt_historic_log_location.Text = session.historic_file_location;
             cmb_language_drop_down.SelectedItem = session.local_language;
+            //cmb_fullscreen_monitor.SelectedItem = session.primary_display;
+            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.primary_display);
             cmb_themes.SelectedItem = session.selected_theme;
             num_engineer_level.Value = session.engineer_level;
             num_lunatic_level.Value = session.lunatics_level;
@@ -130,6 +136,7 @@ namespace CO_Driver
             session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
             session.log_file_location = txt_log_file_location.Text;
             session.local_language = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
+            session.primary_display = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == cmb_fullscreen_monitor.Items[cmb_fullscreen_monitor.SelectedIndex].ToString()).DeviceName;
             session.engineer_level = Convert.ToInt32(num_engineer_level.Value);
             session.lunatics_level = Convert.ToInt32(num_lunatic_level.Value);
             session.nomads_level = Convert.ToInt32(num_nomad_level.Value);
@@ -192,6 +199,7 @@ namespace CO_Driver
 
             session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
             session.local_language = "English";
+            session.primary_display = Screen.PrimaryScreen.DeviceName;
             session.engineer_level = 30;
             session.lunatics_level = 15;
             session.nomads_level = 15;
@@ -235,6 +243,7 @@ namespace CO_Driver
             txt_log_file_location.Text = session.log_file_location;
             txt_historic_log_location.Text = session.historic_file_location;
             cmb_language_drop_down.SelectedItem = session.local_language;
+            cmb_fullscreen_monitor.SelectedItem = session.primary_display;
             num_engineer_level.Value = session.engineer_level;
             num_lunatic_level.Value = session.lunatics_level;
             num_nomad_level.Value = session.nomads_level;
@@ -249,6 +258,7 @@ namespace CO_Driver
             chk_upload_post_match.Checked = session.upload_data;
             chk_update.Checked = session.update_postmatch;
             cmb_themes.SelectedIndex = 0;
+            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.primary_display);
             chk_twitch_mode.Checked = session.twitch_mode;
             chk_group_ram.Checked = session.bundle_ram_mode;
         }
@@ -331,6 +341,12 @@ namespace CO_Driver
         private void user_settings_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void user_settings_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

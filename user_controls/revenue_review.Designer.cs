@@ -873,6 +873,7 @@
             this.Name = "revenue_review";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.revenue_review_Load);
+            this.Resize += new System.EventHandler(this.revenue_review_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dg_revenue)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);

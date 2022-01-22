@@ -112,6 +112,7 @@
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.trace_view_Load);
             this.Leave += new System.EventHandler(this.trace_view_Leave);
+            this.Resize += new System.EventHandler(this.trace_view_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

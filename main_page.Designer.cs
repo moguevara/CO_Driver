@@ -55,11 +55,11 @@
             this.gfxlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,28 +93,33 @@
             // 
             // userProfileToolStripMenuItem
             // 
+            this.userProfileToolStripMenuItem.AutoToolTip = true;
             this.userProfileToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.userProfileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.userProfileToolStripMenuItem.Name = "userProfileToolStripMenuItem";
-            this.userProfileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
+            this.userProfileToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.userProfileToolStripMenuItem.Size = new System.Drawing.Size(68, 18);
             this.userProfileToolStripMenuItem.Text = "Profile";
+            this.userProfileToolStripMenuItem.ToolTipText = "F1 - Summary statistics.";
             this.userProfileToolStripMenuItem.Click += new System.EventHandler(this.userProfileToolStripMenuItem_Click);
             // 
             // previousMatchToolStripMenuItem
             // 
             this.previousMatchToolStripMenuItem.Name = "previousMatchToolStripMenuItem";
-            this.previousMatchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M)));
+            this.previousMatchToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.previousMatchToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
             this.previousMatchToolStripMenuItem.Text = "Last Match";
+            this.previousMatchToolStripMenuItem.ToolTipText = "F2 - Recap of your last match. Updates automatically at the end of every match.";
             this.previousMatchToolStripMenuItem.Click += new System.EventHandler(this.previousMatchToolStripMenuItem_Click);
             // 
             // matchHistoryToolStripMenuItem
             // 
             this.matchHistoryToolStripMenuItem.Name = "matchHistoryToolStripMenuItem";
-            this.matchHistoryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+            this.matchHistoryToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.matchHistoryToolStripMenuItem.Size = new System.Drawing.Size(110, 18);
             this.matchHistoryToolStripMenuItem.Text = "Match History";
+            this.matchHistoryToolStripMenuItem.ToolTipText = "F3 - Display match history of recorded games, double click on any match to inspec" +
+    "t.";
             this.matchHistoryToolStripMenuItem.Click += new System.EventHandler(this.matchHistoryToolStripMenuItem_Click);
             // 
             // analysisToolStripMenuItem
@@ -131,29 +136,39 @@
             // liveGarageChartingToolStripMenuItem
             // 
             this.liveGarageChartingToolStripMenuItem.Name = "liveGarageChartingToolStripMenuItem";
-            this.liveGarageChartingToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.liveGarageChartingToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.liveGarageChartingToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.liveGarageChartingToolStripMenuItem.Text = "Garage Weapon Tester";
+            this.liveGarageChartingToolStripMenuItem.ToolTipText = "F4 - Compare weapons with live graphing while in garage. Start dealing damage in " +
+    "garage to start recording.";
             this.liveGarageChartingToolStripMenuItem.Click += new System.EventHandler(this.liveGarageChartingToolStripMenuItem_Click);
             // 
             // buildReviewToolStripMenuItem
             // 
             this.buildReviewToolStripMenuItem.Name = "buildReviewToolStripMenuItem";
-            this.buildReviewToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.buildReviewToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.buildReviewToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.buildReviewToolStripMenuItem.Text = "Build Performance Review";
+            this.buildReviewToolStripMenuItem.ToolTipText = "F5 - Feedback on specific builds grouped by their unique hash value. ";
             this.buildReviewToolStripMenuItem.Click += new System.EventHandler(this.buildReviewToolStripMenuItem_Click);
             // 
             // stateOfYourMetaToolStripMenuItem
             // 
             this.stateOfYourMetaToolStripMenuItem.Name = "stateOfYourMetaToolStripMenuItem";
-            this.stateOfYourMetaToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.stateOfYourMetaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.stateOfYourMetaToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.stateOfYourMetaToolStripMenuItem.Text = "Personal Meta Review";
+            this.stateOfYourMetaToolStripMenuItem.ToolTipText = "F6 - Enemy perfomance grouped by build attributes. Find what\'s common and what\'s " +
+    "effective.";
             this.stateOfYourMetaToolStripMenuItem.Click += new System.EventHandler(this.stateOfYourMetaToolStripMenuItem_Click);
             // 
             // revenueAnalysisToolStripMenuItem
             // 
             this.revenueAnalysisToolStripMenuItem.Name = "revenueAnalysisToolStripMenuItem";
-            this.revenueAnalysisToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.revenueAnalysisToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.revenueAnalysisToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.revenueAnalysisToolStripMenuItem.Text = "Revenue Analysis";
+            this.revenueAnalysisToolStripMenuItem.ToolTipText = "F7 - Revenue breakdown by game mode. See what builds are your most profitable.";
             this.revenueAnalysisToolStripMenuItem.Click += new System.EventHandler(this.revenueAnalysisToolStripMenuItem_Click);
             // 
             // buildToolsToolStripMenuItem
@@ -174,22 +189,28 @@
             // fusionTrackerToolStripMenuItem
             // 
             this.fusionTrackerToolStripMenuItem.Name = "fusionTrackerToolStripMenuItem";
-            this.fusionTrackerToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.fusionTrackerToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.fusionTrackerToolStripMenuItem.Text = "Fusion Calculator";
+            this.fusionTrackerToolStripMenuItem.ToolTipText = "Calculate fusion success chance for specific target results.";
             this.fusionTrackerToolStripMenuItem.Click += new System.EventHandler(this.menu_fusion_calculator);
             // 
             // partViewToolStripMenuItem
             // 
             this.partViewToolStripMenuItem.Name = "partViewToolStripMenuItem";
-            this.partViewToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.partViewToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.partViewToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.partViewToolStripMenuItem.Text = "View Available Parts";
+            this.partViewToolStripMenuItem.ToolTipText = "F8 - Compare availible parts. Set level in settings to view a specific list of it" +
+    "ems you have access to.";
             this.partViewToolStripMenuItem.Click += new System.EventHandler(this.partViewToolStripMenuItem_Click);
             // 
             // partOptimizationToolStripMenuItem
             // 
             this.partOptimizationToolStripMenuItem.Name = "partOptimizationToolStripMenuItem";
-            this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.partOptimizationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.partOptimizationToolStripMenuItem.Text = "Manual Part Selection";
+            this.partOptimizationToolStripMenuItem.ToolTipText = "Theory craft your own builds with a list of owned parts. Set level in settings to" +
+    " see appropriate availible parts.";
             this.partOptimizationToolStripMenuItem.Click += new System.EventHandler(this.partOptimizationToolStripMenuItem_Click);
             // 
             // scheduleToolStripMenuItem1
@@ -198,7 +219,7 @@
             this.clanWarScheduleToolStripMenuItem1,
             this.brawlScheduleToolStripMenuItem1});
             this.scheduleToolStripMenuItem1.Name = "scheduleToolStripMenuItem1";
-            this.scheduleToolStripMenuItem1.Size = new System.Drawing.Size(221, 22);
+            this.scheduleToolStripMenuItem1.Size = new System.Drawing.Size(235, 22);
             this.scheduleToolStripMenuItem1.Text = "Schedule";
             // 
             // clanWarScheduleToolStripMenuItem1
@@ -206,6 +227,7 @@
             this.clanWarScheduleToolStripMenuItem1.Name = "clanWarScheduleToolStripMenuItem1";
             this.clanWarScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.clanWarScheduleToolStripMenuItem1.Text = "Clan War Schedule";
+            this.clanWarScheduleToolStripMenuItem1.ToolTipText = "See the clan war schedule for your time zone.";
             this.clanWarScheduleToolStripMenuItem1.Click += new System.EventHandler(this.clanWarScheduleToolStripMenuItem1_Click);
             // 
             // brawlScheduleToolStripMenuItem1
@@ -213,6 +235,7 @@
             this.brawlScheduleToolStripMenuItem1.Name = "brawlScheduleToolStripMenuItem1";
             this.brawlScheduleToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.brawlScheduleToolStripMenuItem1.Text = "Brawl Schedule";
+            this.brawlScheduleToolStripMenuItem1.ToolTipText = "See the brawl schedule for your time zone.";
             this.brawlScheduleToolStripMenuItem1.Click += new System.EventHandler(this.brawlScheduleToolStripMenuItem1_Click);
             // 
             // fileTracesToolStripMenuItem
@@ -224,66 +247,82 @@
             this.netlogToolStripMenuItem,
             this.gfxlogToolStripMenuItem});
             this.fileTracesToolStripMenuItem.Name = "fileTracesToolStripMenuItem";
-            this.fileTracesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.fileTracesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.fileTracesToolStripMenuItem.Text = "File Traces";
+            this.fileTracesToolStripMenuItem.ToolTipText = "Watch the live log file feed that CO_Driver uses to build statistics.";
             // 
             // combatlogToolStripMenuItem
             // 
             this.combatlogToolStripMenuItem.Name = "combatlogToolStripMenuItem";
-            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.combatlogToolStripMenuItem.Text = "combat.log";
             this.combatlogToolStripMenuItem.Click += new System.EventHandler(this.combatlogToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem
             // 
             this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
-            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gamelogToolStripMenuItem.Text = "game.log";
             this.gamelogToolStripMenuItem.Click += new System.EventHandler(this.gamelogToolStripMenuItem_Click);
             // 
             // chatlogToolStripMenuItem
             // 
             this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
-            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.chatlogToolStripMenuItem.Text = "chat.log";
             this.chatlogToolStripMenuItem.Click += new System.EventHandler(this.chatlogToolStripMenuItem_Click);
             // 
             // netlogToolStripMenuItem
             // 
             this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
-            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.netlogToolStripMenuItem.Text = "net.log";
             this.netlogToolStripMenuItem.Click += new System.EventHandler(this.netlogToolStripMenuItem_Click);
             // 
             // gfxlogToolStripMenuItem
             // 
             this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
-            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gfxlogToolStripMenuItem.Text = "gfx.log";
             this.gfxlogToolStripMenuItem.Click += new System.EventHandler(this.gfxlogToolStripMenuItem_Click);
             // 
             // uploadToolStripMenuItem
             // 
             this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.uploadToolStripMenuItem.Size = new System.Drawing.Size(159, 18);
             this.uploadToolStripMenuItem.Text = "Upload to CrossoutDB";
+            this.uploadToolStripMenuItem.ToolTipText = "F9 - Upload match data to CrossoutDB.com. Click \"view profile\" to see your online" +
+    " summary.";
             this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
             // 
             // printCurrentWindowToolStripMenuItem
             // 
             this.printCurrentWindowToolStripMenuItem.Name = "printCurrentWindowToolStripMenuItem";
-            this.printCurrentWindowToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
+            this.printCurrentWindowToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
             this.printCurrentWindowToolStripMenuItem.Size = new System.Drawing.Size(117, 18);
             this.printCurrentWindowToolStripMenuItem.Text = "Capture Window";
+            this.printCurrentWindowToolStripMenuItem.ToolTipText = "F10 - Copy current screen to clipboard. ";
             this.printCurrentWindowToolStripMenuItem.Click += new System.EventHandler(this.printCurrentWindowToolStripMenuItem_Click);
+            // 
+            // fullscreenToolStripMenuItem
+            // 
+            this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
+            this.fullscreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
+            this.fullscreenToolStripMenuItem.Text = "Fullscreen";
+            this.fullscreenToolStripMenuItem.ToolTipText = "F11";
+            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(75, 18);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.ToolTipText = "F12";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.menu_user_settings_click);
             // 
             // aboutToolStripMenuItem
@@ -291,6 +330,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(54, 18);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.ToolTipText = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // main_page_panel
@@ -307,13 +347,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // fullscreenToolStripMenuItem
-            // 
-            this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(89, 18);
-            this.fullscreenToolStripMenuItem.Text = "Fullscreen";
-            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 

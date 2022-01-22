@@ -32,7 +32,6 @@
             this.lbl_welcome_main = new System.Windows.Forms.Label();
             this.pb_welcome_file_load = new System.Windows.Forms.ProgressBar();
             this.lb_load_status_text = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tb_progress_tracking = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -57,16 +56,6 @@
             this.lb_load_status_text.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lb_load_status_text.Name = "lb_load_status_text";
             // 
-            // textBox1
-            // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.BackColor = System.Drawing.Color.Black;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.ForeColor = System.Drawing.Color.Lime;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.TabStop = false;
-            // 
             // tb_progress_tracking
             // 
             resources.ApplyResources(this.tb_progress_tracking, "tb_progress_tracking");
@@ -82,7 +71,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.tb_progress_tracking);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lb_load_status_text);
             this.Controls.Add(this.pb_welcome_file_load);
             this.Controls.Add(this.lbl_welcome_main);
@@ -91,6 +79,7 @@
             this.ForeColor = System.Drawing.Color.Lime;
             this.Name = "welcome_page";
             this.Load += new System.EventHandler(this.welcome_page_Load);
+            this.Resize += new System.EventHandler(this.welcome_page_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,7 +90,6 @@
         private System.Windows.Forms.Label lbl_welcome_main;
         public System.Windows.Forms.ProgressBar pb_welcome_file_load;
         public System.Windows.Forms.Label lb_load_status_text;
-        private System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.TextBox tb_progress_tracking;
     }
 }

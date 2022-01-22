@@ -28,18 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dg_available_parts = new System.Windows.Forms.DataGridView();
+            this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.part_hull = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.dg_selected_parts = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lb_total_parts = new System.Windows.Forms.Label();
@@ -60,17 +71,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.chk_10_percent = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.part_hull = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_kills = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_kills_deaths = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.build_avg_damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dg_selected_parts)).BeginInit();
             this.SuspendLayout();
@@ -99,14 +99,14 @@
             this.dg_available_parts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_available_parts.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_available_parts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_available_parts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_available_parts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dg_available_parts.ColumnHeadersHeight = 20;
             this.dg_available_parts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_available_parts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -117,14 +117,14 @@
             this.build_deaths,
             this.build_kills_deaths,
             this.build_avg_damage});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_available_parts.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_available_parts.DefaultCellStyle = dataGridViewCellStyle2;
             this.dg_available_parts.EnableHeadersVisualStyles = false;
             this.dg_available_parts.GridColor = System.Drawing.Color.Lime;
             this.dg_available_parts.Location = new System.Drawing.Point(5, 85);
@@ -132,24 +132,24 @@
             this.dg_available_parts.Name = "dg_available_parts";
             this.dg_available_parts.ReadOnly = true;
             this.dg_available_parts.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_available_parts.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_available_parts.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dg_available_parts.RowHeadersVisible = false;
             this.dg_available_parts.RowHeadersWidth = 10;
             this.dg_available_parts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_available_parts.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_available_parts.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dg_available_parts.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_available_parts.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_available_parts.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -162,13 +162,69 @@
             this.dg_available_parts.TabIndex = 3;
             this.dg_available_parts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_available_parts_CellClick);
             // 
+            // build_build_hash
+            // 
+            this.build_build_hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_build_hash.HeaderText = "Part Name";
+            this.build_build_hash.MinimumWidth = 120;
+            this.build_build_hash.Name = "build_build_hash";
+            this.build_build_hash.ReadOnly = true;
+            // 
+            // build_games
+            // 
+            this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_games.HeaderText = "Dura";
+            this.build_games.MinimumWidth = 60;
+            this.build_games.Name = "build_games";
+            this.build_games.ReadOnly = true;
+            // 
+            // part_hull
+            // 
+            this.part_hull.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.part_hull.HeaderText = "Hull";
+            this.part_hull.MinimumWidth = 60;
+            this.part_hull.Name = "part_hull";
+            this.part_hull.ReadOnly = true;
+            // 
+            // build_kills
+            // 
+            this.build_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_kills.HeaderText = "Mass";
+            this.build_kills.MinimumWidth = 60;
+            this.build_kills.Name = "build_kills";
+            this.build_kills.ReadOnly = true;
+            // 
+            // build_deaths
+            // 
+            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_deaths.HeaderText = "PS";
+            this.build_deaths.MinimumWidth = 60;
+            this.build_deaths.Name = "build_deaths";
+            this.build_deaths.ReadOnly = true;
+            // 
+            // build_kills_deaths
+            // 
+            this.build_kills_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_kills_deaths.HeaderText = "D/M";
+            this.build_kills_deaths.MinimumWidth = 60;
+            this.build_kills_deaths.Name = "build_kills_deaths";
+            this.build_kills_deaths.ReadOnly = true;
+            // 
+            // build_avg_damage
+            // 
+            this.build_avg_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.build_avg_damage.HeaderText = "PS/M";
+            this.build_avg_damage.MinimumWidth = 60;
+            this.build_avg_damage.Name = "build_avg_damage";
+            this.build_avg_damage.ReadOnly = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(5, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(160, 18);
+            this.label2.Size = new System.Drawing.Size(140, 14);
             this.label2.TabIndex = 4;
             this.label2.Text = "Available Inventory";
             // 
@@ -184,14 +240,14 @@
             this.dg_selected_parts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_selected_parts.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_selected_parts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_selected_parts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_selected_parts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dg_selected_parts.ColumnHeadersHeight = 20;
             this.dg_selected_parts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_selected_parts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -199,14 +255,14 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_selected_parts.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_selected_parts.DefaultCellStyle = dataGridViewCellStyle6;
             this.dg_selected_parts.EnableHeadersVisualStyles = false;
             this.dg_selected_parts.GridColor = System.Drawing.Color.Lime;
             this.dg_selected_parts.Location = new System.Drawing.Point(826, 85);
@@ -214,24 +270,24 @@
             this.dg_selected_parts.Name = "dg_selected_parts";
             this.dg_selected_parts.ReadOnly = true;
             this.dg_selected_parts.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_selected_parts.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_selected_parts.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dg_selected_parts.RowHeadersVisible = false;
             this.dg_selected_parts.RowHeadersWidth = 10;
             this.dg_selected_parts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_selected_parts.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_selected_parts.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dg_selected_parts.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_selected_parts.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_selected_parts.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -244,6 +300,38 @@
             this.dg_selected_parts.TabIndex = 5;
             this.dg_selected_parts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_selected_parts_CellClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Part Name";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 120;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Dura";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Mass";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.HeaderText = "PS";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -251,7 +339,7 @@
             this.label3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(814, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 18);
+            this.label3.Size = new System.Drawing.Size(98, 14);
             this.label3.TabIndex = 6;
             this.label3.Text = "Current Build";
             // 
@@ -439,9 +527,9 @@
             this.chk_3_percent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_3_percent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_3_percent.ForeColor = System.Drawing.Color.Lime;
-            this.chk_3_percent.Location = new System.Drawing.Point(796, 546);
+            this.chk_3_percent.Location = new System.Drawing.Point(798, 548);
             this.chk_3_percent.Name = "chk_3_percent";
-            this.chk_3_percent.Size = new System.Drawing.Size(14, 13);
+            this.chk_3_percent.Size = new System.Drawing.Size(12, 11);
             this.chk_3_percent.TabIndex = 28;
             this.chk_3_percent.UseVisualStyleBackColor = true;
             this.chk_3_percent.CheckedChanged += new System.EventHandler(this.check_3_percent_CheckedChanged);
@@ -452,7 +540,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(814, 570);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(208, 18);
+            this.label10.Size = new System.Drawing.Size(182, 14);
             this.label10.TabIndex = 29;
             this.label10.Text = "10% cab resistance fusion";
             // 
@@ -463,9 +551,9 @@
             this.chk_10_percent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_10_percent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_10_percent.ForeColor = System.Drawing.Color.Lime;
-            this.chk_10_percent.Location = new System.Drawing.Point(796, 570);
+            this.chk_10_percent.Location = new System.Drawing.Point(798, 572);
             this.chk_10_percent.Name = "chk_10_percent";
-            this.chk_10_percent.Size = new System.Drawing.Size(14, 13);
+            this.chk_10_percent.Size = new System.Drawing.Size(12, 11);
             this.chk_10_percent.TabIndex = 30;
             this.chk_10_percent.UseVisualStyleBackColor = true;
             this.chk_10_percent.CheckedChanged += new System.EventHandler(this.chk_10_percent_CheckedChanged);
@@ -476,97 +564,9 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(814, 543);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(176, 18);
+            this.label12.Size = new System.Drawing.Size(154, 14);
             this.label12.TabIndex = 31;
             this.label12.Text = "3% MJ/Hans resistance";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Part Name";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 120;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Dura";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 60;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Mass";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 60;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn5.HeaderText = "PS";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 60;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // build_build_hash
-            // 
-            this.build_build_hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_build_hash.HeaderText = "Part Name";
-            this.build_build_hash.MinimumWidth = 120;
-            this.build_build_hash.Name = "build_build_hash";
-            this.build_build_hash.ReadOnly = true;
-            // 
-            // build_games
-            // 
-            this.build_games.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_games.HeaderText = "Dura";
-            this.build_games.MinimumWidth = 60;
-            this.build_games.Name = "build_games";
-            this.build_games.ReadOnly = true;
-            // 
-            // part_hull
-            // 
-            this.part_hull.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.part_hull.HeaderText = "Hull";
-            this.part_hull.MinimumWidth = 60;
-            this.part_hull.Name = "part_hull";
-            this.part_hull.ReadOnly = true;
-            // 
-            // build_kills
-            // 
-            this.build_kills.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_kills.HeaderText = "Mass";
-            this.build_kills.MinimumWidth = 60;
-            this.build_kills.Name = "build_kills";
-            this.build_kills.ReadOnly = true;
-            // 
-            // build_deaths
-            // 
-            this.build_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_deaths.HeaderText = "PS";
-            this.build_deaths.MinimumWidth = 60;
-            this.build_deaths.Name = "build_deaths";
-            this.build_deaths.ReadOnly = true;
-            // 
-            // build_kills_deaths
-            // 
-            this.build_kills_deaths.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_kills_deaths.HeaderText = "D/M";
-            this.build_kills_deaths.MinimumWidth = 60;
-            this.build_kills_deaths.Name = "build_kills_deaths";
-            this.build_kills_deaths.ReadOnly = true;
-            // 
-            // build_avg_damage
-            // 
-            this.build_avg_damage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.build_avg_damage.HeaderText = "PS/M";
-            this.build_avg_damage.MinimumWidth = 60;
-            this.build_avg_damage.Name = "build_avg_damage";
-            this.build_avg_damage.ReadOnly = true;
             // 
             // part_optimizer
             // 
@@ -602,6 +602,7 @@
             this.Name = "part_optimizer";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.part_optimizer_Load);
+            this.Resize += new System.EventHandler(this.part_optimizer_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dg_selected_parts)).EndInit();
             this.ResumeLayout(false);

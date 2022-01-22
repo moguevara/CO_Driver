@@ -17,6 +17,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session;
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         private class unique_parts
         {
@@ -121,6 +122,12 @@ namespace CO_Driver
         private void part_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void part_view_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

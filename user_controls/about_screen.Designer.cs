@@ -179,13 +179,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1171, 35);
             this.label1.TabIndex = 0;
-            this.label1.Text = "CO_Driver is a free Crossout analytical omni-tool based on live log file parsing." +
-    "";
+            this.label1.Text = resources.GetString("label1.Text");
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel6
@@ -367,6 +366,7 @@
             this.Name = "about_screen";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.about_screen_Load);
+            this.Resize += new System.EventHandler(this.about_screen_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

@@ -221,6 +221,7 @@
             this.Name = "schedule_display";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.schedule_display_Load);
+            this.Resize += new System.EventHandler(this.schedule_display_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dg_build_view_grid)).EndInit();
             this.ResumeLayout(false);
 

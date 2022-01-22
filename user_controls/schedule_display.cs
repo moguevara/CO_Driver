@@ -16,6 +16,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session;
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         public schedule_display()
         {
@@ -121,6 +122,7 @@ namespace CO_Driver
         private void schedule_display_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         bool IsTheSameCellValue(int column, int row)
@@ -213,6 +215,11 @@ namespace CO_Driver
         private void dg_build_view_grid_Resize(object sender, EventArgs e)
         {
             //sizeDGV(dg_build_view_grid);
+        }
+
+        private void schedule_display_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

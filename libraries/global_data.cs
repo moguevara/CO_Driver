@@ -139,6 +139,9 @@ namespace CO_Driver
 
         public const int UPLOAD_LIST_SIZE = 75;
 
+        public const int INITIAL_SCREEN_HEIGHT = 601;
+        public const int INITIAL_SCREEN_WIDTH = 1195;
+
         public const string GAME_MODE_FILTER_DEFAULT = "All Game Modes";
         public const string GROUP_FILTER_DEFAULT = "Solo/Grouped";
         public const string MAP_FILTER_DEFAULT = "All Maps";

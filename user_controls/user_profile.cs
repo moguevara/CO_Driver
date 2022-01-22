@@ -37,6 +37,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
         public bool force_refresh = false;
         private string local_user;
         private int games_played;
@@ -437,6 +438,7 @@ namespace CO_Driver
         private void user_profile_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         private void lb_max_kills_Click(object sender, EventArgs e)
@@ -537,11 +539,6 @@ namespace CO_Driver
             populate_user_profile_screen();
         }
 
-        private void lb_user_name_Click_1(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
-        }
-
         private void dg_nemesis_list_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -562,6 +559,16 @@ namespace CO_Driver
             int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
+        }
+
+        private void lb_user_name_DoubleClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
+        }
+
+        private void user_profile_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

@@ -1693,6 +1693,7 @@
             this.Name = "previous_match";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.previous_match_Load);
+            this.Resize += new System.EventHandler(this.previous_match_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

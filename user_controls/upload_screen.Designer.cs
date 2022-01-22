@@ -504,6 +504,7 @@
             this.Name = "upload_screen";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.upload_screen_Load);
+            this.Resize += new System.EventHandler(this.upload_screen_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

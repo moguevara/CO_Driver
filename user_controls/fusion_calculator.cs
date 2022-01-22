@@ -18,6 +18,7 @@ namespace CO_Driver
 
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
         public Dictionary<int, int> Distribution { get; set; }
 
         public fusion_calculator()
@@ -44,6 +45,7 @@ namespace CO_Driver
         private void fusion_calculator_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -152,6 +154,11 @@ namespace CO_Driver
             this.num_handling_max.Value = 3;
 
             calculate_probabilities();
+        }
+
+        private void fusion_calculator_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

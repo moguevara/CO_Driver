@@ -959,6 +959,7 @@
             this.Name = "meta_detail";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.meta_detail_Load);
+            this.Resize += new System.EventHandler(this.meta_detail_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dg_meta_detail_view)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

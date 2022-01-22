@@ -46,6 +46,7 @@ namespace CO_Driver
             public Color fore_color { get; set; }
             public Color back_color { get; set; }
             public string client_version { get; set; }
+            public string primary_display { get; set; }
             public List<string> parsed_logs { get; set; }
             public Dictionary<string, int> uid_lookup { get; set; }
             public Dictionary<string, int> valid_users { get; set; }
@@ -86,6 +87,7 @@ namespace CO_Driver
                 fore_color = Color.Lime,
                 include_prestigue_parts = true,
                 client_version = global_data.CURRENT_VERSION,
+                primary_display = Screen.PrimaryScreen.DeviceName,
                 parsed_logs = new List<string> { },
                 uid_lookup = new Dictionary<string, int> { },
                 valid_users = new Dictionary<string, int> { }
@@ -203,6 +205,9 @@ namespace CO_Driver
                     JsonSerializer serializer = new JsonSerializer();
                     loaded_session = (session_variables)serializer.Deserialize(file, typeof(session_variables));
                     loaded_session.valid_users = session.valid_users;
+
+                    if (!Screen.AllScreens.Any(x => x.DeviceName == loaded_session.primary_display))
+                        loaded_session.primary_display = session.primary_display;
 
                     if (valid_user_session(loaded_session))
                         return loaded_session;

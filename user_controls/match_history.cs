@@ -24,6 +24,7 @@ namespace CO_Driver
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         private BindingSource history_table_source = new BindingSource();
         private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        public Resize resize = new Resize { };
         public bool force_refresh = false;
         private string new_selection = "";
         private string previous_selection = "";
@@ -188,6 +189,12 @@ namespace CO_Driver
         private void match_history_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void match_history_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

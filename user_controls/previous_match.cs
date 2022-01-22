@@ -22,6 +22,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
         public bool show_last_match = true;
         private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
         private string blue_team = "";
@@ -535,6 +536,12 @@ namespace CO_Driver
         private void previous_match_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void previous_match_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

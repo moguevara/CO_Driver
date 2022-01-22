@@ -52,6 +52,9 @@ namespace CO_Driver
         public revenue_review revenue_page = new revenue_review();
         public upload_screen upload_page = new upload_screen();
 
+        public Size Initial_screen_size = new Size { };
+        public Resize resize = new Resize { };
+
         public frm_main_page()
         {
             InitializeComponent();
@@ -77,6 +80,8 @@ namespace CO_Driver
             translate.populate_translations(session, translations);
 
             reload_theme(this, EventArgs.Empty);
+            Initial_screen_size = this.Size;
+            strp_main_menu_strip.ShowItemToolTips = true;
 
             this.welcome_screen.tb_progress_tracking.AppendText("Loading market data from crossoutdb.com" + Environment.NewLine);
             crossoutdb_data = market.populate_crossoutdb_data(session);
@@ -1158,11 +1163,12 @@ namespace CO_Driver
             {
                 this.WindowState = FormWindowState.Normal;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                this.Bounds = Screen.PrimaryScreen.Bounds;
+                this.Bounds = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == session.primary_display).Bounds;
             }
             else
             {
                 this.WindowState = FormWindowState.Normal;
+                this.Size = Initial_screen_size;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             }
         }

@@ -18,6 +18,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         public welcome_page()
         {
@@ -39,21 +40,17 @@ namespace CO_Driver
         public string get_current_version()
         {
             return global_data.CURRENT_VERSION;
-            //if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
-            //{
-            //    Version ver = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion;
-            //    return string.Format("{0}.{1}.{2}.{3}", ver.Major, ver.Minor, ver.Build, ver.Revision, Assembly.GetEntryAssembly().GetName().Name);
-            //}
-            //else
-            //{
-            //    var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            //    return string.Format("{0}.{1}.{2}.{3}", ver.Major, ver.Minor, ver.Build, ver.Revision, Assembly.GetEntryAssembly().GetName().Name);
-            //}
         }
 
         private void welcome_page_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void welcome_page_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

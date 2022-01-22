@@ -41,6 +41,7 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
+        public Resize resize = new Resize { };
 
         private DateTime trial_start_time = DateTime.MinValue;
 
@@ -239,6 +240,7 @@ namespace CO_Driver
         private void garage_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         public void initialize_live_feed()
@@ -488,6 +490,11 @@ namespace CO_Driver
         private void btn_reset_Click_1(object sender, EventArgs e)
         {
             ch_compare.Series.Clear();
+        }
+
+        private void garage_view_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

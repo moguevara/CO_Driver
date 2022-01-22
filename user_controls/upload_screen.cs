@@ -19,7 +19,8 @@ namespace CO_Driver
         public log_file_managment.session_variables session = new log_file_managment.session_variables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
-        
+        public Resize resize = new Resize { };
+
         private class bw_status_update
         {
             public int percent_upload { get; set; }
@@ -346,6 +347,12 @@ namespace CO_Driver
         private void upload_screen_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
+        }
+
+        private void upload_screen_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }
