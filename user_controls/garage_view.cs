@@ -294,21 +294,24 @@ namespace CO_Driver
             dg_weapon_overview.Columns["percent"].ToolTipText = "Percent of total damage";
             dg_weapon_overview.Columns["percent"].HeaderText = "%";
             dg_weapon_overview.Columns["percent"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["percent"].Width = 60;
+            dg_weapon_overview.Columns["percent"].MinimumWidth = 60;
+            dg_weapon_overview.Columns["percent"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["percent"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["percent"].DefaultCellStyle.Format = "P1";
 
             dg_weapon_overview.Columns["weapon_name"].DisplayIndex = 1;
             dg_weapon_overview.Columns["weapon_name"].HeaderText = "Weapon Name";
             dg_weapon_overview.Columns["weapon_name"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["weapon_name"].Width = 120;
+            dg_weapon_overview.Columns["weapon_name"].MinimumWidth = 120;
+            dg_weapon_overview.Columns["weapon_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["weapon_name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
 
             dg_weapon_overview.Columns["total_damage"].DisplayIndex = 2;
             dg_weapon_overview.Columns["total_damage"].ToolTipText = "Total damage to all targets after damage reduction.";
             dg_weapon_overview.Columns["total_damage"].HeaderText = "Dmg";
             dg_weapon_overview.Columns["total_damage"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["total_damage"].Width = 80;
+            dg_weapon_overview.Columns["total_damage"].MinimumWidth = 80;
+            dg_weapon_overview.Columns["total_damage"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["total_damage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["total_damage"].DefaultCellStyle.Format = "N1";
 
@@ -316,7 +319,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["hits"].ToolTipText = "Total recorded hit count.";
             dg_weapon_overview.Columns["hits"].HeaderText = "Hits";
             dg_weapon_overview.Columns["hits"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["hits"].Width = 80;
+            dg_weapon_overview.Columns["hits"].MinimumWidth = 80;
+            dg_weapon_overview.Columns["hits"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["hits"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["hits"].DefaultCellStyle.Format = "N0";
 
@@ -324,7 +328,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["burst_damage"].ToolTipText = "Damage from last burst";
             dg_weapon_overview.Columns["burst_damage"].HeaderText = "Burst Dmg";
             dg_weapon_overview.Columns["burst_damage"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["burst_damage"].Width = 80;
+            dg_weapon_overview.Columns["burst_damage"].MinimumWidth = 80;
+            dg_weapon_overview.Columns["burst_damage"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["burst_damage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["burst_damage"].DefaultCellStyle.Format = "N1";
 
@@ -332,7 +337,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["burst_duration"].ToolTipText = "Duration of last burst.";
             dg_weapon_overview.Columns["burst_duration"].HeaderText = "Dmg Duration";
             dg_weapon_overview.Columns["burst_duration"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["burst_duration"].Width = 100;
+            dg_weapon_overview.Columns["burst_duration"].MinimumWidth = 100;
+            dg_weapon_overview.Columns["burst_duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["burst_duration"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["burst_duration"].DefaultCellStyle.Format = "N2";
 
@@ -340,7 +346,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["bursts"].ToolTipText = "Number of individual bursts";
             dg_weapon_overview.Columns["bursts"].HeaderText = "Bursts";
             dg_weapon_overview.Columns["bursts"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["bursts"].Width = 80;
+            dg_weapon_overview.Columns["bursts"].MinimumWidth = 80;
+            dg_weapon_overview.Columns["bursts"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["bursts"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["bursts"].DefaultCellStyle.Format = "N0";
 
@@ -348,7 +355,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["reload_duration"].ToolTipText = "Duration of last burst.";
             dg_weapon_overview.Columns["reload_duration"].HeaderText = "Reload Time";
             dg_weapon_overview.Columns["reload_duration"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["reload_duration"].Width = 100;
+            dg_weapon_overview.Columns["reload_duration"].MinimumWidth = 100;
+            dg_weapon_overview.Columns["reload_duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["reload_duration"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["reload_duration"].DefaultCellStyle.Format = "N2";
 
@@ -356,7 +364,8 @@ namespace CO_Driver
             dg_weapon_overview.Columns["dps"].ToolTipText = "Damage per second.";
             dg_weapon_overview.Columns["dps"].HeaderText = "DPS";
             dg_weapon_overview.Columns["dps"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomRight;
-            dg_weapon_overview.Columns["dps"].Width = 110;
+            dg_weapon_overview.Columns["dps"].MinimumWidth = 110;
+            dg_weapon_overview.Columns["dps"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dg_weapon_overview.Columns["dps"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight;
             dg_weapon_overview.Columns["dps"].DefaultCellStyle.Format = "N1";
 

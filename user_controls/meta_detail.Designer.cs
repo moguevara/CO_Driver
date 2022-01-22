@@ -584,7 +584,7 @@
             this.label2.Size = new System.Drawing.Size(224, 31);
             this.label2.TabIndex = 0;
             this.label2.Text = "Include Breakdown for";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel10
             // 

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_live_data = new System.Windows.Forms.GroupBox();
@@ -147,16 +147,16 @@
             // ch_live_feed
             // 
             this.ch_live_feed.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.ch_live_feed.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.ch_live_feed.ChartAreas.Add(chartArea3);
             this.ch_live_feed.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.AutoFitMinFontSize = 5;
-            legend1.Font = new System.Drawing.Font("Consolas", 8F);
-            legend1.IsTextAutoFit = false;
-            legend1.MaximumAutoSize = 20F;
-            legend1.Name = "Legend1";
-            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_live_feed.Legends.Add(legend1);
+            legend3.AutoFitMinFontSize = 5;
+            legend3.Font = new System.Drawing.Font("Consolas", 8F);
+            legend3.IsTextAutoFit = false;
+            legend3.MaximumAutoSize = 20F;
+            legend3.Name = "Legend1";
+            legend3.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_live_feed.Legends.Add(legend3);
             this.ch_live_feed.Location = new System.Drawing.Point(3, 19);
             this.ch_live_feed.Name = "ch_live_feed";
             this.ch_live_feed.Size = new System.Drawing.Size(641, 327);
@@ -197,18 +197,18 @@
             // ch_compare
             // 
             this.ch_compare.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea2.Name = "ChartArea1";
-            this.ch_compare.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartArea1";
+            this.ch_compare.ChartAreas.Add(chartArea4);
             this.ch_compare.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.AutoFitMinFontSize = 5;
-            legend2.Font = new System.Drawing.Font("Consolas", 8F);
-            legend2.IsTextAutoFit = false;
-            legend2.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
-            legend2.MaximumAutoSize = 20F;
-            legend2.Name = "Legend1";
-            legend2.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
-            legend2.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_compare.Legends.Add(legend2);
+            legend4.AutoFitMinFontSize = 5;
+            legend4.Font = new System.Drawing.Font("Consolas", 8F);
+            legend4.IsTextAutoFit = false;
+            legend4.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
+            legend4.MaximumAutoSize = 20F;
+            legend4.Name = "Legend1";
+            legend4.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
+            legend4.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_compare.Legends.Add(legend4);
             this.ch_compare.Location = new System.Drawing.Point(3, 19);
             this.ch_compare.Name = "ch_compare";
             this.ch_compare.Size = new System.Drawing.Size(518, 268);
@@ -298,25 +298,25 @@
             this.dg_weapon_overview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dg_weapon_overview.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dg_weapon_overview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dg_weapon_overview.ColumnHeadersHeight = 20;
             this.dg_weapon_overview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_weapon_overview.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_weapon_overview.DefaultCellStyle = dataGridViewCellStyle6;
             this.dg_weapon_overview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_weapon_overview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_weapon_overview.EnableHeadersVisualStyles = false;
@@ -326,22 +326,22 @@
             this.dg_weapon_overview.Name = "dg_weapon_overview";
             this.dg_weapon_overview.ReadOnly = true;
             this.dg_weapon_overview.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_weapon_overview.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dg_weapon_overview.RowHeadersWidth = 10;
             this.dg_weapon_overview.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            this.dg_weapon_overview.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Black;
             this.dg_weapon_overview.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -396,7 +396,7 @@
             this.lb_total_damage.Size = new System.Drawing.Size(338, 42);
             this.lb_total_damage.TabIndex = 1;
             this.lb_total_damage.Text = "0";
-            this.lb_total_damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_total_damage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
@@ -408,7 +408,7 @@
             this.label2.Size = new System.Drawing.Size(338, 42);
             this.label2.TabIndex = 0;
             this.label2.Text = "Total Damage";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tableLayoutPanel8
             // 
@@ -452,7 +452,7 @@
             this.lb_hull_damage.Size = new System.Drawing.Size(160, 39);
             this.lb_hull_damage.TabIndex = 2;
             this.lb_hull_damage.Text = "0";
-            this.lb_hull_damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_hull_damage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label3
             // 
@@ -464,7 +464,7 @@
             this.label3.Size = new System.Drawing.Size(160, 39);
             this.label3.TabIndex = 0;
             this.label3.Text = "Cabin";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tableLayoutPanel10
             // 
@@ -492,7 +492,7 @@
             this.lb_body_damage.Size = new System.Drawing.Size(160, 39);
             this.lb_body_damage.TabIndex = 2;
             this.lb_body_damage.Text = "0";
-            this.lb_body_damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_body_damage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label4
             // 
@@ -504,7 +504,7 @@
             this.label4.Size = new System.Drawing.Size(160, 39);
             this.label4.TabIndex = 1;
             this.label4.Text = "Body";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tableLayoutPanel3
             // 
@@ -554,8 +554,9 @@
             // 
             // cmb_trial_type
             // 
+            this.cmb_trial_type.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_trial_type.BackColor = System.Drawing.Color.Black;
-            this.cmb_trial_type.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmb_trial_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_trial_type.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_trial_type.ForeColor = System.Drawing.Color.Lime;
@@ -573,9 +574,10 @@
             // 
             // num_trial_threshold
             // 
+            this.num_trial_threshold.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.num_trial_threshold.BackColor = System.Drawing.Color.Black;
             this.num_trial_threshold.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.num_trial_threshold.Dock = System.Windows.Forms.DockStyle.Fill;
             this.num_trial_threshold.ForeColor = System.Drawing.Color.Lime;
             this.num_trial_threshold.Location = new System.Drawing.Point(246, 3);
             this.num_trial_threshold.Maximum = new decimal(new int[] {
@@ -612,7 +614,8 @@
             // 
             // button1
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(88, 3);
@@ -626,10 +629,10 @@
             // lb_trial_desc
             // 
             this.lb_trial_desc.AutoSize = true;
-            this.lb_trial_desc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_trial_desc.Location = new System.Drawing.Point(3, 0);
             this.lb_trial_desc.Name = "lb_trial_desc";
-            this.lb_trial_desc.Size = new System.Drawing.Size(79, 30);
+            this.lb_trial_desc.Padding = new System.Windows.Forms.Padding(0, 7, 0, 0);
+            this.lb_trial_desc.Size = new System.Drawing.Size(56, 21);
             this.lb_trial_desc.TabIndex = 0;
             this.lb_trial_desc.Text = "Seconds";
             this.lb_trial_desc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -651,26 +654,28 @@
             // 
             // label5
             // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 25);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(582, 11);
             this.label5.TabIndex = 60;
             this.label5.Text = "(Capture weapon metrics live as you test in garage)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(582, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Garage Weapon Tester";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // garage_view
             // 

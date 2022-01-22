@@ -436,40 +436,32 @@ namespace CO_Driver
 
         private void user_profile_Load(object sender, EventArgs e)
         {
+            this.Dock = DockStyle.Fill;
         }
 
-        private void cb_game_modes_SelectedIndexChanged(object sender, EventArgs e)
+        private void lb_max_kills_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cb_game_modes_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.cb_game_modes.SelectedIndex >= 0)
                 filter_selections.game_mode_filter = this.cb_game_modes.Text;
             populate_user_profile_screen();
         }
 
-        private void cb_power_score_SelectedIndexChanged(object sender, EventArgs e)
+        private void btn_save_user_settings_Click_1(object sender, EventArgs e)
         {
+            filter.reset_filter_selections(filter_selections);
 
-            if (this.cb_power_score.SelectedIndex >= 0)
-                filter_selections.power_score_filter = this.cb_power_score.Text;
+            dt_start_date.Value = DateTime.Now;
+            dt_end_date.Value = DateTime.Now;
 
             populate_user_profile_screen();
         }
 
-        private void cb_grouped_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cb_grouped.SelectedIndex >= 0)
-                filter_selections.group_filter = this.cb_grouped.Text;
-
-            populate_user_profile_screen();
-        }
-        private void cb_cabins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cb_cabins.SelectedIndex >= 0)
-                filter_selections.cabin_filter = this.cb_cabins.Text;
-
-            populate_user_profile_screen();
-        }
-
-        private void cb_movement_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_movement_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.cb_movement.SelectedIndex >= 0)
                 filter_selections.movement_filter = this.cb_movement.Text;
@@ -477,23 +469,7 @@ namespace CO_Driver
             populate_user_profile_screen();
         }
 
-        private void cb_weapons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cb_weapons.SelectedIndex >= 0)
-                filter_selections.weapons_filter = this.cb_weapons.Text;
-
-            populate_user_profile_screen();
-        }
-
-        private void cb_versions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cb_versions.SelectedIndex >= 0)
-                filter_selections.client_versions_filter = this.cb_versions.Text;
-
-            populate_user_profile_screen();
-        }
-
-        private void cb_modules_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_modules_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.cb_modules.SelectedIndex >= 0)
                 filter_selections.module_filter = this.cb_modules.Text;
@@ -501,17 +477,23 @@ namespace CO_Driver
             populate_user_profile_screen();
         }
 
-        private void dt_start_date_ValueChanged(object sender, EventArgs e)
+        private void cb_weapons_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (dt_end_date.Value < dt_start_date.Value)
-                dt_end_date.Value = dt_start_date.Value;
-
-            filter_selections.start_date = dt_start_date.Value;
+            if (this.cb_weapons.SelectedIndex >= 0)
+                filter_selections.weapons_filter = this.cb_weapons.Text;
 
             populate_user_profile_screen();
         }
 
-        private void dt_end_date_ValueChanged(object sender, EventArgs e)
+        private void cb_cabins_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (this.cb_cabins.SelectedIndex >= 0)
+                filter_selections.cabin_filter = this.cb_cabins.Text;
+
+            populate_user_profile_screen();
+        }
+
+        private void dt_end_date_ValueChanged_1(object sender, EventArgs e)
         {
             if (dt_start_date.Value > dt_end_date.Value)
                 dt_start_date.Value = dt_end_date.Value;
@@ -521,20 +503,46 @@ namespace CO_Driver
             populate_user_profile_screen();
         }
 
-        private void btn_save_user_settings_Click(object sender, EventArgs e)
+        private void dt_start_date_ValueChanged_1(object sender, EventArgs e)
         {
-            filter.reset_filter_selections(filter_selections);
+            if (dt_end_date.Value < dt_start_date.Value)
+                dt_end_date.Value = dt_start_date.Value;
 
-            dt_start_date.Value = DateTime.Now;
-            dt_end_date.Value = DateTime.Now;
+            filter_selections.start_date = dt_start_date.Value;
 
             populate_user_profile_screen();
         }
-        private void lb_max_kills_Click(object sender, EventArgs e)
-        {
 
+        private void cb_versions_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (this.cb_versions.SelectedIndex >= 0)
+                filter_selections.client_versions_filter = this.cb_versions.Text;
+
+            populate_user_profile_screen();
         }
-        private void nemesis_lookup(object sender, DataGridViewCellEventArgs e)
+
+        private void cb_power_score_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (this.cb_power_score.SelectedIndex >= 0)
+                filter_selections.power_score_filter = this.cb_power_score.Text;
+
+            populate_user_profile_screen();
+        }
+
+        private void cb_grouped_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (this.cb_grouped.SelectedIndex >= 0)
+                filter_selections.group_filter = this.cb_grouped.Text;
+
+            populate_user_profile_screen();
+        }
+
+        private void lb_user_name_Click_1(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
+        }
+
+        private void dg_nemesis_list_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
@@ -545,7 +553,7 @@ namespace CO_Driver
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
 
-        private void victim_lookup(object sender, DataGridViewCellEventArgs e)
+        private void dg_victim_list_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
@@ -554,11 +562,6 @@ namespace CO_Driver
             int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
-        }
-
-        private void lb_user_name_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
         }
     }
 }

@@ -60,6 +60,8 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb_score = new System.Windows.Forms.GroupBox();
             this.dg_score = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.gb_red_team = new System.Windows.Forms.GroupBox();
             this.dg_red_team = new System.Windows.Forms.DataGridView();
@@ -141,8 +143,6 @@
             this.btn_first = new System.Windows.Forms.Button();
             this.btn_last = new System.Windows.Forms.Button();
             this.btn_previous = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -403,6 +403,24 @@
             this.dg_score.Size = new System.Drawing.Size(148, 207);
             this.dg_score.StandardTab = true;
             this.dg_score.TabIndex = 40;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn14.FillWeight = 159.3908F;
+            this.dataGridViewTextBoxColumn14.HeaderText = "Reason";
+            this.dataGridViewTextBoxColumn14.MinimumWidth = 120;
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn15.FillWeight = 40.60913F;
+            this.dataGridViewTextBoxColumn15.HeaderText = "Ammount";
+            this.dataGridViewTextBoxColumn15.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
             // 
             // tableLayoutPanel3
             // 
@@ -1154,7 +1172,7 @@
             this.lb_damage_rec.Size = new System.Drawing.Size(215, 22);
             this.lb_damage_rec.TabIndex = 3;
             this.lb_damage_rec.Text = "0";
-            this.lb_damage_rec.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_damage_rec.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label5
             // 
@@ -1194,7 +1212,7 @@
             this.lb_damage_dealt.Size = new System.Drawing.Size(215, 22);
             this.lb_damage_dealt.TabIndex = 2;
             this.lb_damage_dealt.Text = "0";
-            this.lb_damage_dealt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_damage_dealt.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label4
             // 
@@ -1249,7 +1267,7 @@
             this.lb_score.Size = new System.Drawing.Size(217, 30);
             this.lb_score.TabIndex = 3;
             this.lb_score.Text = "0";
-            this.lb_score.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_score.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label9
             // 
@@ -1475,7 +1493,7 @@
             this.lb_resources.Size = new System.Drawing.Size(339, 16);
             this.lb_resources.TabIndex = 1;
             this.lb_resources.Text = "scrap goes here";
-            this.lb_resources.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_resources.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tableLayoutPanel11
             // 
@@ -1663,24 +1681,6 @@
             this.btn_previous.Text = "<";
             this.btn_previous.UseVisualStyleBackColor = true;
             this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn14.FillWeight = 159.3908F;
-            this.dataGridViewTextBoxColumn14.HeaderText = "Reason";
-            this.dataGridViewTextBoxColumn14.MinimumWidth = 120;
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn15.FillWeight = 40.60913F;
-            this.dataGridViewTextBoxColumn15.HeaderText = "Ammount";
-            this.dataGridViewTextBoxColumn15.MinimumWidth = 40;
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
             // 
             // previous_match
             // 
