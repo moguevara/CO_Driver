@@ -222,7 +222,6 @@ namespace CO_Driver
             }
             catch (Exception ex)
             {
-                MessageBox.Show("AN ERROR HAS OCCURED WITH LOADING SETTINGS");
             }
             return session;
         }
