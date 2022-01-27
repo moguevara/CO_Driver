@@ -194,13 +194,15 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1195, 601);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.5F));
@@ -208,8 +210,8 @@
             this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.gb_score, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 363);
+            this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(0, 250);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -218,14 +220,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dg_medals);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.groupBox1.Location = new System.Drawing.Point(971, 3);
+            this.groupBox1.Location = new System.Drawing.Point(971, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(215, 229);
+            this.groupBox1.Size = new System.Drawing.Size(215, 225);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Medal Breakdown";
@@ -268,7 +271,7 @@
             this.dg_medals.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_medals.EnableHeadersVisualStyles = false;
             this.dg_medals.GridColor = System.Drawing.Color.Lime;
-            this.dg_medals.Location = new System.Drawing.Point(3, 19);
+            this.dg_medals.Location = new System.Drawing.Point(3, 23);
             this.dg_medals.Margin = new System.Windows.Forms.Padding(0);
             this.dg_medals.Name = "dg_medals";
             this.dg_medals.ReadOnly = true;
@@ -297,7 +300,7 @@
             this.dg_medals.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_medals.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_medals.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_medals.Size = new System.Drawing.Size(209, 207);
+            this.dg_medals.Size = new System.Drawing.Size(209, 199);
             this.dg_medals.StandardTab = true;
             this.dg_medals.TabIndex = 40;
             // 
@@ -321,14 +324,15 @@
             // 
             // gb_score
             // 
+            this.gb_score.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gb_score.Controls.Add(this.dg_score);
-            this.gb_score.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gb_score.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_score.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.gb_score.Location = new System.Drawing.Point(811, 3);
+            this.gb_score.Location = new System.Drawing.Point(811, 7);
             this.gb_score.Name = "gb_score";
-            this.gb_score.Size = new System.Drawing.Size(154, 229);
+            this.gb_score.Size = new System.Drawing.Size(154, 225);
             this.gb_score.TabIndex = 31;
             this.gb_score.TabStop = false;
             this.gb_score.Text = "Score Breakdown";
@@ -371,7 +375,7 @@
             this.dg_score.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_score.EnableHeadersVisualStyles = false;
             this.dg_score.GridColor = System.Drawing.Color.Lime;
-            this.dg_score.Location = new System.Drawing.Point(3, 19);
+            this.dg_score.Location = new System.Drawing.Point(3, 23);
             this.dg_score.Margin = new System.Windows.Forms.Padding(0);
             this.dg_score.Name = "dg_score";
             this.dg_score.ReadOnly = true;
@@ -400,7 +404,7 @@
             this.dg_score.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_score.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_score.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_score.Size = new System.Drawing.Size(148, 207);
+            this.dg_score.Size = new System.Drawing.Size(148, 199);
             this.dg_score.StandardTab = true;
             this.dg_score.TabIndex = 40;
             // 
@@ -440,8 +444,9 @@
             // 
             // gb_red_team
             // 
+            this.gb_red_team.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gb_red_team.Controls.Add(this.dg_red_team);
-            this.gb_red_team.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_red_team.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gb_red_team.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_red_team.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -495,7 +500,7 @@
             this.dg_red_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_red_team.EnableHeadersVisualStyles = false;
             this.dg_red_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_red_team.Location = new System.Drawing.Point(3, 19);
+            this.dg_red_team.Location = new System.Drawing.Point(3, 23);
             this.dg_red_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_red_team.Name = "dg_red_team";
             this.dg_red_team.ReadOnly = true;
@@ -524,7 +529,7 @@
             this.dg_red_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_red_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_red_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_red_team.Size = new System.Drawing.Size(389, 201);
+            this.dg_red_team.Size = new System.Drawing.Size(389, 197);
             this.dg_red_team.StandardTab = true;
             this.dg_red_team.TabIndex = 39;
             this.dg_red_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_red_player);
@@ -601,8 +606,9 @@
             // 
             // gb_blue_team
             // 
+            this.gb_blue_team.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gb_blue_team.Controls.Add(this.dg_blue_team);
-            this.gb_blue_team.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_blue_team.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gb_blue_team.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_blue_team.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -656,7 +662,7 @@
             this.dg_blue_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_blue_team.EnableHeadersVisualStyles = false;
             this.dg_blue_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_blue_team.Location = new System.Drawing.Point(3, 19);
+            this.dg_blue_team.Location = new System.Drawing.Point(3, 23);
             this.dg_blue_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_blue_team.Name = "dg_blue_team";
             this.dg_blue_team.ReadOnly = true;
@@ -685,7 +691,7 @@
             this.dg_blue_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_blue_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_blue_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_blue_team.Size = new System.Drawing.Size(389, 201);
+            this.dg_blue_team.Size = new System.Drawing.Size(389, 197);
             this.dg_blue_team.StandardTab = true;
             this.dg_blue_team.TabIndex = 38;
             this.dg_blue_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_blue_player);
@@ -774,7 +780,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1189, 354);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1189, 345);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // gb_damage_dealt
@@ -786,7 +792,7 @@
             this.gb_damage_dealt.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.gb_damage_dealt.Location = new System.Drawing.Point(3, 3);
             this.gb_damage_dealt.Name = "gb_damage_dealt";
-            this.gb_damage_dealt.Size = new System.Drawing.Size(231, 348);
+            this.gb_damage_dealt.Size = new System.Drawing.Size(231, 339);
             this.gb_damage_dealt.TabIndex = 28;
             this.gb_damage_dealt.TabStop = false;
             this.gb_damage_dealt.Text = "Damage Dealt";
@@ -829,7 +835,7 @@
             this.dg_damage_dealt.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_dealt.EnableHeadersVisualStyles = false;
             this.dg_damage_dealt.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 19);
+            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 23);
             this.dg_damage_dealt.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_dealt.Name = "dg_damage_dealt";
             this.dg_damage_dealt.ReadOnly = true;
@@ -858,7 +864,7 @@
             this.dg_damage_dealt.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_dealt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_dealt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 326);
+            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 313);
             this.dg_damage_dealt.StandardTab = true;
             this.dg_damage_dealt.TabIndex = 38;
             // 
@@ -895,7 +901,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(707, 348);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(707, 339);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel8
@@ -910,7 +916,7 @@
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(701, 91);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(701, 88);
             this.tableLayoutPanel8.TabIndex = 0;
             // 
             // tableLayoutPanel9
@@ -923,11 +929,11 @@
             this.tableLayoutPanel9.Controls.Add(this.lb_blue_team, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.lb_red_team, 2, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 57);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 55);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(695, 31);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(695, 30);
             this.tableLayoutPanel9.TabIndex = 0;
             // 
             // label3
@@ -937,7 +943,7 @@
             this.label3.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(315, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 31);
+            this.label3.Size = new System.Drawing.Size(63, 30);
             this.label3.TabIndex = 0;
             this.label3.Text = "VS";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -948,7 +954,7 @@
             this.lb_blue_team.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_blue_team.Location = new System.Drawing.Point(3, 0);
             this.lb_blue_team.Name = "lb_blue_team";
-            this.lb_blue_team.Size = new System.Drawing.Size(306, 31);
+            this.lb_blue_team.Size = new System.Drawing.Size(306, 30);
             this.lb_blue_team.TabIndex = 1;
             this.lb_blue_team.Text = "Blue Team";
             this.lb_blue_team.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -959,7 +965,7 @@
             this.lb_red_team.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_red_team.Location = new System.Drawing.Point(384, 0);
             this.lb_red_team.Name = "lb_red_team";
-            this.lb_red_team.Size = new System.Drawing.Size(308, 31);
+            this.lb_red_team.Size = new System.Drawing.Size(308, 30);
             this.lb_red_team.TabIndex = 2;
             this.lb_red_team.Text = "Red Team";
             this.lb_red_team.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -971,7 +977,7 @@
             this.lb_game_result.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_game_result.Location = new System.Drawing.Point(3, 0);
             this.lb_game_result.Name = "lb_game_result";
-            this.lb_game_result.Size = new System.Drawing.Size(695, 54);
+            this.lb_game_result.Size = new System.Drawing.Size(695, 52);
             this.lb_game_result.TabIndex = 1;
             this.lb_game_result.Text = "Game Result";
             this.lb_game_result.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -986,11 +992,11 @@
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel14, 1, 0);
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel15, 2, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 197);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 191);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(701, 105);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(701, 102);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // tableLayoutPanel13
@@ -1007,7 +1013,7 @@
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(227, 99);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(227, 96);
             this.tableLayoutPanel13.TabIndex = 0;
             // 
             // tableLayoutPanel20
@@ -1018,12 +1024,12 @@
             this.tableLayoutPanel20.Controls.Add(this.lb_drone_kills, 0, 0);
             this.tableLayoutPanel20.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel20.Location = new System.Drawing.Point(3, 69);
+            this.tableLayoutPanel20.Location = new System.Drawing.Point(3, 67);
             this.tableLayoutPanel20.Name = "tableLayoutPanel20";
             this.tableLayoutPanel20.RowCount = 1;
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(221, 27);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(221, 26);
             this.tableLayoutPanel20.TabIndex = 2;
             // 
             // lb_drone_kills
@@ -1033,7 +1039,7 @@
             this.lb_drone_kills.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_drone_kills.Location = new System.Drawing.Point(113, 0);
             this.lb_drone_kills.Name = "lb_drone_kills";
-            this.lb_drone_kills.Size = new System.Drawing.Size(105, 27);
+            this.lb_drone_kills.Size = new System.Drawing.Size(105, 26);
             this.lb_drone_kills.TabIndex = 2;
             this.lb_drone_kills.Text = "0";
             this.lb_drone_kills.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1045,7 +1051,7 @@
             this.label8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 27);
+            this.label8.Size = new System.Drawing.Size(104, 26);
             this.label8.TabIndex = 1;
             this.label8.Text = "Drone Kills";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1058,12 +1064,12 @@
             this.tableLayoutPanel19.Controls.Add(this.lb_assists, 0, 0);
             this.tableLayoutPanel19.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel19.Location = new System.Drawing.Point(3, 36);
+            this.tableLayoutPanel19.Location = new System.Drawing.Point(3, 35);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel19.Size = new System.Drawing.Size(221, 27);
+            this.tableLayoutPanel19.Size = new System.Drawing.Size(221, 26);
             this.tableLayoutPanel19.TabIndex = 1;
             // 
             // lb_assists
@@ -1073,7 +1079,7 @@
             this.lb_assists.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_assists.Location = new System.Drawing.Point(113, 0);
             this.lb_assists.Name = "lb_assists";
-            this.lb_assists.Size = new System.Drawing.Size(105, 27);
+            this.lb_assists.Size = new System.Drawing.Size(105, 26);
             this.lb_assists.TabIndex = 2;
             this.lb_assists.Text = "0";
             this.lb_assists.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1085,7 +1091,7 @@
             this.label7.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 27);
+            this.label7.Size = new System.Drawing.Size(104, 26);
             this.label7.TabIndex = 1;
             this.label7.Text = "Assists";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1103,7 +1109,7 @@
             this.tableLayoutPanel18.RowCount = 1;
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel18.Size = new System.Drawing.Size(221, 27);
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(221, 26);
             this.tableLayoutPanel18.TabIndex = 0;
             // 
             // label6
@@ -1113,7 +1119,7 @@
             this.label6.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 27);
+            this.label6.Size = new System.Drawing.Size(104, 26);
             this.label6.TabIndex = 0;
             this.label6.Text = "Kills";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1125,7 +1131,7 @@
             this.lb_kills.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_kills.Location = new System.Drawing.Point(113, 0);
             this.lb_kills.Name = "lb_kills";
-            this.lb_kills.Size = new System.Drawing.Size(105, 27);
+            this.lb_kills.Size = new System.Drawing.Size(105, 26);
             this.lb_kills.TabIndex = 1;
             this.lb_kills.Text = "0";
             this.lb_kills.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1143,7 +1149,7 @@
             this.tableLayoutPanel14.RowCount = 2;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(227, 99);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(227, 96);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // tableLayoutPanel17
@@ -1154,12 +1160,12 @@
             this.tableLayoutPanel17.Controls.Add(this.lb_damage_rec, 0, 1);
             this.tableLayoutPanel17.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 52);
+            this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 51);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
             this.tableLayoutPanel17.RowCount = 2;
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel17.Size = new System.Drawing.Size(221, 44);
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(221, 42);
             this.tableLayoutPanel17.TabIndex = 1;
             // 
             // lb_damage_rec
@@ -1167,9 +1173,9 @@
             this.lb_damage_rec.AutoSize = true;
             this.lb_damage_rec.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_damage_rec.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_damage_rec.Location = new System.Drawing.Point(3, 22);
+            this.lb_damage_rec.Location = new System.Drawing.Point(3, 21);
             this.lb_damage_rec.Name = "lb_damage_rec";
-            this.lb_damage_rec.Size = new System.Drawing.Size(215, 22);
+            this.lb_damage_rec.Size = new System.Drawing.Size(215, 21);
             this.lb_damage_rec.TabIndex = 3;
             this.lb_damage_rec.Text = "0";
             this.lb_damage_rec.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1181,7 +1187,7 @@
             this.label5.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(215, 22);
+            this.label5.Size = new System.Drawing.Size(215, 21);
             this.label5.TabIndex = 1;
             this.label5.Text = "Damage Recieved";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1199,7 +1205,7 @@
             this.tableLayoutPanel16.RowCount = 2;
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(221, 43);
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(221, 42);
             this.tableLayoutPanel16.TabIndex = 0;
             // 
             // lb_damage_dealt
@@ -1209,7 +1215,7 @@
             this.lb_damage_dealt.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_damage_dealt.Location = new System.Drawing.Point(3, 21);
             this.lb_damage_dealt.Name = "lb_damage_dealt";
-            this.lb_damage_dealt.Size = new System.Drawing.Size(215, 22);
+            this.lb_damage_dealt.Size = new System.Drawing.Size(215, 21);
             this.lb_damage_dealt.TabIndex = 2;
             this.lb_damage_dealt.Text = "0";
             this.lb_damage_dealt.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1238,7 +1244,7 @@
             this.tableLayoutPanel15.RowCount = 2;
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(229, 99);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(229, 96);
             this.tableLayoutPanel15.TabIndex = 2;
             // 
             // tableLayoutPanel21
@@ -1254,7 +1260,7 @@
             this.tableLayoutPanel21.RowCount = 2;
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(223, 60);
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(223, 58);
             this.tableLayoutPanel21.TabIndex = 0;
             // 
             // lb_score
@@ -1262,9 +1268,9 @@
             this.lb_score.AutoSize = true;
             this.lb_score.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_score.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_score.Location = new System.Drawing.Point(3, 30);
+            this.lb_score.Location = new System.Drawing.Point(3, 29);
             this.lb_score.Name = "lb_score";
-            this.lb_score.Size = new System.Drawing.Size(217, 30);
+            this.lb_score.Size = new System.Drawing.Size(217, 29);
             this.lb_score.TabIndex = 3;
             this.lb_score.Text = "0";
             this.lb_score.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1276,7 +1282,7 @@
             this.label9.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(217, 30);
+            this.label9.Size = new System.Drawing.Size(217, 29);
             this.label9.TabIndex = 0;
             this.label9.Text = "Score";
             this.label9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1289,12 +1295,12 @@
             this.tableLayoutPanel22.Controls.Add(this.lb_medals, 1, 0);
             this.tableLayoutPanel22.Controls.Add(this.label10, 0, 0);
             this.tableLayoutPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel22.Location = new System.Drawing.Point(3, 69);
+            this.tableLayoutPanel22.Location = new System.Drawing.Point(3, 67);
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(223, 27);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(223, 26);
             this.tableLayoutPanel22.TabIndex = 1;
             // 
             // lb_medals
@@ -1304,7 +1310,7 @@
             this.lb_medals.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_medals.Location = new System.Drawing.Point(114, 0);
             this.lb_medals.Name = "lb_medals";
-            this.lb_medals.Size = new System.Drawing.Size(106, 27);
+            this.lb_medals.Size = new System.Drawing.Size(106, 26);
             this.lb_medals.TabIndex = 2;
             this.lb_medals.Text = "0";
             this.lb_medals.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1316,7 +1322,7 @@
             this.label10.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(3, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(105, 27);
+            this.label10.Size = new System.Drawing.Size(105, 26);
             this.label10.TabIndex = 0;
             this.label10.Text = "Medals";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1328,12 +1334,12 @@
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.lb_build_name, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 100);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 97);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(701, 91);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(701, 88);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // tableLayoutPanel7
@@ -1350,7 +1356,7 @@
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(695, 57);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(695, 55);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // lb_duration
@@ -1360,7 +1366,7 @@
             this.lb_duration.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_duration.Location = new System.Drawing.Point(234, 0);
             this.lb_duration.Name = "lb_duration";
-            this.lb_duration.Size = new System.Drawing.Size(225, 57);
+            this.lb_duration.Size = new System.Drawing.Size(225, 55);
             this.lb_duration.TabIndex = 2;
             this.lb_duration.Text = "Duration";
             this.lb_duration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1372,7 +1378,7 @@
             this.lb_match_type.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_match_type.Location = new System.Drawing.Point(3, 0);
             this.lb_match_type.Name = "lb_match_type";
-            this.lb_match_type.Size = new System.Drawing.Size(225, 57);
+            this.lb_match_type.Size = new System.Drawing.Size(225, 55);
             this.lb_match_type.TabIndex = 3;
             this.lb_match_type.Text = "match type";
             this.lb_match_type.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1384,7 +1390,7 @@
             this.lb_map_name.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_map_name.Location = new System.Drawing.Point(465, 0);
             this.lb_map_name.Name = "lb_map_name";
-            this.lb_map_name.Size = new System.Drawing.Size(227, 57);
+            this.lb_map_name.Size = new System.Drawing.Size(227, 55);
             this.lb_map_name.TabIndex = 4;
             this.lb_map_name.Text = "map name";
             this.lb_map_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1394,9 +1400,9 @@
             this.lb_build_name.AutoSize = true;
             this.lb_build_name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_build_name.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_build_name.Location = new System.Drawing.Point(3, 63);
+            this.lb_build_name.Location = new System.Drawing.Point(3, 61);
             this.lb_build_name.Name = "lb_build_name";
-            this.lb_build_name.Size = new System.Drawing.Size(695, 28);
+            this.lb_build_name.Size = new System.Drawing.Size(695, 27);
             this.lb_build_name.TabIndex = 1;
             this.lb_build_name.Text = "Build";
             this.lb_build_name.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1409,7 +1415,7 @@
             this.tableLayoutPanel24.Controls.Add(this.tableLayoutPanel25, 0, 0);
             this.tableLayoutPanel24.Controls.Add(this.tableLayoutPanel26, 1, 0);
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel24.Location = new System.Drawing.Point(3, 308);
+            this.tableLayoutPanel24.Location = new System.Drawing.Point(3, 299);
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
             this.tableLayoutPanel24.RowCount = 1;
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1507,7 +1513,7 @@
             this.tableLayoutPanel11.RowCount = 2;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(233, 348);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(233, 339);
             this.tableLayoutPanel11.TabIndex = 29;
             // 
             // gp_damage_recieved
@@ -1517,9 +1523,9 @@
             this.gp_damage_recieved.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gp_damage_recieved.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gp_damage_recieved.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.gp_damage_recieved.Location = new System.Drawing.Point(3, 37);
+            this.gp_damage_recieved.Location = new System.Drawing.Point(3, 36);
             this.gp_damage_recieved.Name = "gp_damage_recieved";
-            this.gp_damage_recieved.Size = new System.Drawing.Size(227, 308);
+            this.gp_damage_recieved.Size = new System.Drawing.Size(227, 300);
             this.gp_damage_recieved.TabIndex = 30;
             this.gp_damage_recieved.TabStop = false;
             this.gp_damage_recieved.Text = "Damage Recieved";
@@ -1562,7 +1568,7 @@
             this.dg_damage_rec.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_rec.EnableHeadersVisualStyles = false;
             this.dg_damage_rec.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_rec.Location = new System.Drawing.Point(3, 19);
+            this.dg_damage_rec.Location = new System.Drawing.Point(3, 23);
             this.dg_damage_rec.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_rec.Name = "dg_damage_rec";
             this.dg_damage_rec.ReadOnly = true;
@@ -1591,7 +1597,7 @@
             this.dg_damage_rec.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_rec.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_rec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_rec.Size = new System.Drawing.Size(221, 286);
+            this.dg_damage_rec.Size = new System.Drawing.Size(221, 274);
             this.dg_damage_rec.StandardTab = true;
             this.dg_damage_rec.TabIndex = 39;
             // 
@@ -1627,7 +1633,7 @@
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(227, 28);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(227, 27);
             this.tableLayoutPanel12.TabIndex = 31;
             // 
             // btn_next
@@ -1637,7 +1643,7 @@
             this.btn_next.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_next.Location = new System.Drawing.Point(115, 3);
             this.btn_next.Name = "btn_next";
-            this.btn_next.Size = new System.Drawing.Size(68, 22);
+            this.btn_next.Size = new System.Drawing.Size(68, 21);
             this.btn_next.TabIndex = 47;
             this.btn_next.Text = ">";
             this.btn_next.UseVisualStyleBackColor = true;
@@ -1650,7 +1656,7 @@
             this.btn_first.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_first.Location = new System.Drawing.Point(189, 3);
             this.btn_first.Name = "btn_first";
-            this.btn_first.Size = new System.Drawing.Size(35, 22);
+            this.btn_first.Size = new System.Drawing.Size(35, 21);
             this.btn_first.TabIndex = 46;
             this.btn_first.Text = ">>";
             this.btn_first.UseVisualStyleBackColor = true;
@@ -1663,7 +1669,7 @@
             this.btn_last.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_last.Location = new System.Drawing.Point(3, 3);
             this.btn_last.Name = "btn_last";
-            this.btn_last.Size = new System.Drawing.Size(32, 22);
+            this.btn_last.Size = new System.Drawing.Size(32, 21);
             this.btn_last.TabIndex = 45;
             this.btn_last.Text = "<<";
             this.btn_last.UseVisualStyleBackColor = true;
@@ -1676,7 +1682,7 @@
             this.btn_previous.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_previous.Location = new System.Drawing.Point(41, 3);
             this.btn_previous.Name = "btn_previous";
-            this.btn_previous.Size = new System.Drawing.Size(68, 22);
+            this.btn_previous.Size = new System.Drawing.Size(68, 21);
             this.btn_previous.TabIndex = 44;
             this.btn_previous.Text = "<";
             this.btn_previous.UseVisualStyleBackColor = true;

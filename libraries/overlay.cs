@@ -41,8 +41,6 @@ namespace CO_Driver
             if (session.twitch_mode != true)
                 return;
 
-            
-
             foreach (overlay_action action in JsonConvert.DeserializeObject<List<overlay.overlay_action>>(session.action_configuration))
             {
                 if (action.draw_conditions.Contains(condition))
