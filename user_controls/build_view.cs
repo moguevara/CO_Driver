@@ -126,8 +126,12 @@ namespace CO_Driver
 
             this.dg_build_view_grid.Sort(this.dg_build_view_grid.Columns[2], ListSortDirection.Descending);
 
-            string build_hash = this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString();
-            if (rows_populated > 0 && build_records.ContainsKey(build_hash))
+            string build_hash = "";
+
+            if (rows_populated > 0)
+                build_hash = this.dg_build_view_grid.Rows[0].Cells[0].Value.ToString();
+
+            if (rows_populated > 0 && build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
             {
                 this.lb_build_desc.Text = build_records[build_hash].full_description;
                 this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.name, session, translations);
@@ -203,64 +207,85 @@ namespace CO_Driver
             {
                 string build_hash = this.dg_build_view_grid.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                this.lb_build_desc.Text = build_records[build_hash].full_description;
-                this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.name, session, translations);
-                this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
-                this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
-                this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
-                this.lb_assists.Text = build_stats[build_hash].stats.assists.ToString();
-                this.lb_deaths.Text = build_stats[build_hash].stats.deaths.ToString();
-                this.lb_kda.Text = (((double)build_stats[build_hash].stats.kills + (double)build_stats[build_hash].stats.assists) / (double)build_stats[build_hash].stats.games).ToString("N2");
-                this.lb_damage.Text = (build_stats[build_hash].stats.damage / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_damage_rec.Text = (build_stats[build_hash].stats.damage_taken / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_score.Text = ((double)build_stats[build_hash].stats.score / (double)build_stats[build_hash].stats.games).ToString("N0");
-                this.lb_parts.Text = string.Join(", ", build_records[build_hash].parts.Select(x => translate.translate_string(x, session, translations)));
-
-                dg_movement_list.Rows.Clear();
-                dg_movement_list.AllowUserToAddRows = true;
-
-                foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)))
+                if (build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
                 {
-                    DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
-                    row.Cells[0].Value = part;
-                    dg_movement_list.Rows.Add(row);
+                    this.lb_build_desc.Text = build_records[build_hash].full_description;
+                    this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.name, session, translations);
+                    this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
+                    this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
+                    this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
+                    this.lb_assists.Text = build_stats[build_hash].stats.assists.ToString();
+                    this.lb_deaths.Text = build_stats[build_hash].stats.deaths.ToString();
+                    this.lb_kda.Text = (((double)build_stats[build_hash].stats.kills + (double)build_stats[build_hash].stats.assists) / (double)build_stats[build_hash].stats.games).ToString("N2");
+                    this.lb_damage.Text = (build_stats[build_hash].stats.damage / (double)build_stats[build_hash].stats.games).ToString("N1");
+                    this.lb_damage_rec.Text = (build_stats[build_hash].stats.damage_taken / (double)build_stats[build_hash].stats.games).ToString("N1");
+                    this.lb_score.Text = ((double)build_stats[build_hash].stats.score / (double)build_stats[build_hash].stats.games).ToString("N0");
+                    this.lb_parts.Text = string.Join(", ", build_records[build_hash].parts.Select(x => translate.translate_string(x, session, translations)));
+
+                    dg_movement_list.Rows.Clear();
+                    dg_movement_list.AllowUserToAddRows = true;
+
+                    foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)))
+                    {
+                        DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
+                        row.Cells[0].Value = part;
+                        dg_movement_list.Rows.Add(row);
+                    }
+
+                    dg_movement_list.AllowUserToAddRows = false;
+                    dg_movement_list.ClearSelection();
+
+                    dg_weapon_list.Rows.Clear();
+                    dg_weapon_list.AllowUserToAddRows = true;
+
+                    foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)))
+                    {
+                        DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
+                        row.Cells[0].Value = part;
+                        dg_weapon_list.Rows.Add(row);
+                    }
+
+                    dg_weapon_list.AllowUserToAddRows = false;
+                    dg_weapon_list.ClearSelection();
+
+                    dg_module_list.Rows.Clear();
+                    dg_module_list.AllowUserToAddRows = true;
+
+                    foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.name, session, translations)))
+                    {
+                        DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
+                        row.Cells[0].Value = part;
+                        dg_module_list.Rows.Add(row);
+                    }
+
+                    foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.name, session, translations)))
+                    {
+                        DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
+                        row.Cells[0].Value = part;
+                        dg_module_list.Rows.Add(row);
+                    }
+
+                    dg_module_list.AllowUserToAddRows = false;
+                    dg_module_list.ClearSelection();
                 }
-
-                dg_movement_list.AllowUserToAddRows = false;
-                dg_movement_list.ClearSelection();
-
-                dg_weapon_list.Rows.Clear();
-                dg_weapon_list.AllowUserToAddRows = true;
-
-                foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)))
+                else
                 {
-                    DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
-                    row.Cells[0].Value = part;
-                    dg_weapon_list.Rows.Add(row);
+                    this.lb_build_desc.Text = "";
+                    this.lb_cabin.Text = "";
+                    this.dg_module_list.Rows.Clear();
+                    this.dg_movement_list.Rows.Clear();
+                    this.dg_weapon_list.Rows.Clear();
+                    this.lb_game_count.Text = "";
+                    this.lb_win_rate.Text = "";
+                    this.lb_kills.Text = "";
+                    this.lb_assists.Text = "";
+                    this.lb_deaths.Text = "";
+                    this.lb_kda.Text = "";
+                    this.lb_damage.Text = "";
+                    this.lb_damage_rec.Text = "";
+                    this.lb_score.Text = "";
+                    this.lb_parts.Text = "";
                 }
-
-                dg_weapon_list.AllowUserToAddRows = false;
-                dg_weapon_list.ClearSelection();
-
-                dg_module_list.Rows.Clear();
-                dg_module_list.AllowUserToAddRows = true;
-
-                foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.name, session, translations)))
-                {
-                    DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
-                    row.Cells[0].Value = part;
-                    dg_module_list.Rows.Add(row);
-                }
-
-                foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.name, session, translations)))
-                {
-                    DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
-                    row.Cells[0].Value = part;
-                    dg_module_list.Rows.Add(row);
-                }
-
-                dg_module_list.AllowUserToAddRows = false;
-                dg_module_list.ClearSelection();
             }
         }
 
@@ -268,36 +293,6 @@ namespace CO_Driver
         {
             this.Dock = DockStyle.Fill;
             resize.record_initial_sizes(this);
-        }
-
-        private void dg_build_view_grid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                return;
-
-            if (this.dg_build_view_grid.SelectedCells.Count == 0)
-                return;
-
-            //List<int> selected_rows = new List<int> { };
-            //List<int> selected_columns = new List<int> { };
-
-            //foreach (DataGridViewCell cell in this.dg_build_view_grid.SelectedCells)
-            //{
-            //    if (!selected_rows.Contains(cell.RowIndex))
-            //        selected_rows.Add(cell.RowIndex);
-            //    if (!selected_columns.Contains(cell.ColumnIndex))
-            //        selected_columns.Add(cell.ColumnIndex);
-            //}
-
-            //if (selected_rows.Contains(e.RowIndex))
-            //    e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.Single;
-            //else
-            //    e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
-
-            //if (selected_columns.Contains(e.ColumnIndex))
-            //    e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.Single;
-            //else
-            //    e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
         }
 
         private void dg_build_view_grid_SelectionChanged(object sender, EventArgs e)

@@ -91,6 +91,7 @@ namespace CO_Driver
         public const int TEST_SERVER_MATCH = 32;
         public const int BOARS_MATCH = 33;
         public const int INVASION_MATCH = 34;
+        public const int COPPER_PATROL_MATCH = 35;
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 

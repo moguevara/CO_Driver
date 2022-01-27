@@ -220,7 +220,6 @@
             this.dg_build_view_grid.StandardTab = true;
             this.dg_build_view_grid.TabIndex = 2;
             this.dg_build_view_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_build_view_grid_CellClick);
-            this.dg_build_view_grid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dg_build_view_grid_CellPainting);
             this.dg_build_view_grid.SelectionChanged += new System.EventHandler(this.dg_build_view_grid_SelectionChanged);
             // 
             // build_build_hash

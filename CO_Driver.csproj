@@ -115,7 +115,8 @@
     <Compile Include="libraries\filter.cs" />
     <Compile Include="libraries\market.cs" />
     <Compile Include="libraries\MatchEntry.cs" />
-    <Compile Include="libraries\Resize.cs" />
+    <Compile Include="libraries\overlay.cs" />
+    <Compile Include="libraries\resize.cs" />
     <Compile Include="libraries\theme.cs" />
     <Compile Include="libraries\translate.cs" />
     <Compile Include="libraries\ui_translate.cs" />

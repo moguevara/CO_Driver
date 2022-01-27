@@ -40,6 +40,8 @@ namespace CO_Driver
             public bool include_prestigue_parts { get; set; }
             public bool save_captures { get; set; }
             public bool twitch_mode { get; set; }
+            public bool endorse_co_driver { get; set; }
+            public string action_configuration { get; set; }
             public bool bundle_ram_mode { get; set; }
             public bool update_postmatch { get; set; }
             public string selected_theme { get; set; }
@@ -80,6 +82,8 @@ namespace CO_Driver
                 upload_data = false,
                 save_captures = true,
                 twitch_mode = false,
+                endorse_co_driver = true,
+                action_configuration = overlay.default_overlay_setup(),
                 bundle_ram_mode = true,
                 update_postmatch = true,
                 selected_theme = "Terminal",
@@ -209,13 +213,16 @@ namespace CO_Driver
                     if (!Screen.AllScreens.Any(x => x.DeviceName == loaded_session.primary_display))
                         loaded_session.primary_display = session.primary_display;
 
+                    if (String.IsNullOrEmpty(loaded_session.action_configuration))
+                        loaded_session.action_configuration = overlay.default_overlay_setup();
+
                     if (valid_user_session(loaded_session))
                         return loaded_session;
                 }
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("AN ERROR HAS OCCURED WITH LOADING SETTINGS");
             }
             return session;
         }
