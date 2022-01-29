@@ -35,12 +35,16 @@ namespace CO_Driver
         {
             public bool endorse_co_driver { get; set; }
             public double overview_time_range { get; set; }
-            public int damage_update_delay { get; set; }
+            public double damage_update_delay { get; set; }
             public bool show_stats { get; set; }
             public bool show_revenue { get; set; }
             public int nemeisis_count { get; set; }
             public bool show_nemesis { get; set; }
             public bool show_victims { get; set; }
+            public bool in_game_kad { get; set; }
+            public bool in_game_dmg { get; set; }
+            public bool in_game_victims { get; set; }
+            public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
         }
         private class Opponent
@@ -72,15 +76,19 @@ namespace CO_Driver
                                                                      overview_time_range = 7.0,
                                                                      show_stats = true,
                                                                      nemeisis_count = 5,
-                                                                     damage_update_delay = 1,
+                                                                     damage_update_delay = 1.0,
                                                                      show_revenue = true,
                                                                      show_nemesis = true,
                                                                      show_victims = true,
+                                                                     in_game_kad = true,
+                                                                     in_game_dmg = true,
+                                                                     in_game_killer = true,
+                                                                     in_game_victims = true,
                                                                      toggle_to_last_gamemode = true
                                                                     });
         }
 
-        public void resolve_overlay_action(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, int condition)
+        public static void resolve_overlay_action(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, int condition)
         {
             if (session.twitch_mode != true)
                 return;
@@ -134,7 +142,7 @@ namespace CO_Driver
             }
         }
 
-        public void draw_stat_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
+        public static void draw_stat_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
             List<String> lines = new List<String> { };
 
@@ -153,7 +161,7 @@ namespace CO_Driver
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\gamemode_statistics_card.txt", lines);
         }
 
-        public void draw_team_preview_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
+        public static void draw_team_preview_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
             List<String> blue_lines = new List<String> { };
             List<String> red_lines = new List<String> { };
@@ -172,9 +180,9 @@ namespace CO_Driver
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\red_team_squads.txt", red_lines);
         }
 
-        
 
-        public void draw_damage_record_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
+
+        public static void draw_damage_record_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
             List<String> lines = new List<String> { };
 
@@ -187,7 +195,7 @@ namespace CO_Driver
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\gamemode_statistics_card.txt", lines);
         }
 
-        public void draw_match_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
+        public static void draw_match_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
             List<String> lines = new List<String> { };
 
@@ -199,7 +207,7 @@ namespace CO_Driver
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\last_match_recap.txt", lines);
         }
 
-        public void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
+        public static void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
             if (Current_session.last_damage_draw < Current_session.last_damage_draw.AddSeconds(Current_session.twitch_settings.damage_update_delay * -1))
                 return;
@@ -279,7 +287,7 @@ namespace CO_Driver
             return lines;
         }
 
-        public List<String> assign_current_match(file_trace_managment.SessionStats Current_session)
+        public static List<String> assign_current_match(file_trace_managment.SessionStats Current_session)
         {
             List<String> lines = new List<String> { };
 
@@ -287,33 +295,58 @@ namespace CO_Driver
                 return lines;
 
             file_trace_managment.MatchData current_match = Current_session.current_match;
-            Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
-
+            
             if (current_match == null)
                 return lines;
 
-            lines.Add(string.Format(@"{0,12} {1:N1}", "Total", current_match.local_player.stats.damage));
-
-            foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record)
+            if (Current_session.twitch_settings.in_game_kad)
             {
-                if (damage_breakdown.ContainsKey(record.weapon))
-                    damage_breakdown[record.weapon] += record.damage;
-                else
-                    damage_breakdown.Add(record.weapon, record.damage);
+                lines.Add(string.Format(@"{0,16} {1:N0}", "Kills", current_match.local_player.stats.kills));
+                lines.Add(string.Format(@"{0,16} {1:N0}", "Assists", current_match.local_player.stats.assists));
+                lines.Add(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.local_player.stats.deaths));
+                lines.Add(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.local_player.stats.drone_kills));
+                lines.Add(string.Format(@"{0,16} {1:N0}", "Score", current_match.local_player.stats.score));
             }
 
-            if (damage_breakdown.Count > 0)
+            if (Current_session.twitch_settings.in_game_dmg)
             {
-                foreach (KeyValuePair<string, double> record in damage_breakdown)
+                Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
+                lines.Add(string.Format(@"{0,16} {1:N1}", "Total", current_match.local_player.stats.damage));
+
+                foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record)
                 {
-                    lines.Add(string.Format(@"{0,12} {1:N1}", record.Key, record.Value));
+                    if (damage_breakdown.ContainsKey(record.weapon))
+                        damage_breakdown[record.weapon] += record.damage;
+                    else
+                        damage_breakdown.Add(record.weapon, record.damage);
                 }
+
+                if (damage_breakdown.Count > 0)
+                {
+                    foreach (KeyValuePair<string, double> record in damage_breakdown)
+                    {
+                        lines.Add(string.Format(@"{0,16} {1:N1}", record.Key, record.Value));
+                    }
+                }
+            }
+
+            if (Current_session.twitch_settings.in_game_victims && current_match.victims.Count > 0)
+            {
+                lines.Add("Victims");
+
+                foreach(string victim in current_match.victims)
+                    lines.Add(string.Format(@"{0,16}", victim));
+            }
+
+            if (Current_session.twitch_settings.in_game_killer && current_match.nemesis != "")
+            {
+                lines.Add(string.Format(@"{0,16} {1}", "Killed by", current_match.nemesis));
             }
 
             return lines;
         }
 
-        public List<String> assign_post_match(file_trace_managment.SessionStats Current_session)
+        public static List<String> assign_post_match(file_trace_managment.SessionStats Current_session)
         {
             List<String> lines = new List<String> { };
             file_trace_managment.MatchRecord last_match = Current_session.match_history.LastOrDefault();

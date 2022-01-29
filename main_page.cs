@@ -960,13 +960,16 @@ namespace CO_Driver
                     break;
                 case global_data.LOAD_PLAYER_EVENT:
                     file_trace_managment.load_player_event(line, Current_session);
+                    overlay.resolve_overlay_action(Current_session, session, overlay.PLAYER_LOAD_CONDITION);
                     break;
                 case global_data.SPAWN_PLAYER_EVENT:
                     file_trace_managment.spawn_player_event(line, Current_session);
+                    overlay.resolve_overlay_action(Current_session, session, overlay.PLAYER_LOAD_CONDITION);
                     break;
                 case global_data.DAMAGE_EVENT:
                     file_trace_managment.damage_event(line, Current_session);
                     update_garage_view(Current_session);
+                    overlay.resolve_overlay_action(Current_session, session, overlay.DAMAGE_CONDITION);
                     break;
                 case global_data.STRIPE_EVENT:
                     file_trace_managment.stripe_event(line, Current_session);
