@@ -42,6 +42,12 @@ namespace CO_Driver
             public bool show_victims { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
         }
+        private class Opponent
+        {
+            public string nickname;
+            public int killed;
+            public int been_killed;
+        }
 
         public static List<string> solo_queue_names = new List<string> { "A worthy collection of players.",
                                                                         "The elite of solo queue.",
@@ -137,6 +143,9 @@ namespace CO_Driver
 
                 if (Current_session.twitch_settings.show_revenue)
                     lines.AddRange(assign_revenue(Current_session));
+
+                if (Current_session.twitch_settings.show_nemesis || Current_session.twitch_settings.show_victims)
+                    lines.AddRange(assign_nemesis_victim(Current_session));
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\gamemode_statistics_card.txt", lines);
@@ -182,8 +191,7 @@ namespace CO_Driver
 
             if (draw)
             {
-                lines.Add(string.Format(@"Match Recap"));
-                lines.Add(string.Format(@"----------------------"));
+                lines.AddRange(assign_post_match(Current_session));
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\last_match_recap.txt", lines);
@@ -262,6 +270,108 @@ namespace CO_Driver
                 lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Dmg", stats.damage / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Score", stats.score / (double)stats.rounds));
+            }
+
+            return lines;
+        }
+
+        public static List<String> assign_post_match(file_trace_managment.SessionStats Current_session)
+        {
+            List<String> lines = new List<String> { };
+            file_trace_managment.MatchRecord last_match = Current_session.match_history.LastOrDefault();
+            Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
+
+            if (last_match == null)
+                return lines;
+
+            lines.Add(string.Format(@"Last Match"));
+            lines.Add(string.Format(@"{0} {1} at {2}", last_match.match_data.match_type_desc, last_match.match_data.game_result, last_match.match_data.match_start.ToString("g")));
+            lines.Add(string.Format(@"{0,12} {1}", "Kills", last_match.match_data.local_player.stats.kills));
+            lines.Add(string.Format(@"{0,12} {1}", "Assists", last_match.match_data.local_player.stats.assists));
+            lines.Add(string.Format(@"{0,12} {1}", "Deaths", last_match.match_data.local_player.stats.deaths));
+            lines.Add(string.Format(@"{0,12} {1}", "Drone Kills", last_match.match_data.local_player.stats.drone_kills));
+            lines.Add(string.Format(@"{0,12} {1}", "Damage", last_match.match_data.local_player.stats.damage));
+            lines.Add(string.Format(@"{0,12} {1}", "Damage Taken", last_match.match_data.local_player.stats.damage_taken));
+
+            if (last_match.match_data.damage_record.Any(x => x.attacker == last_match.match_data.local_player.nickname))
+            {
+                lines.Add("");
+                lines.Add("Weapon Breakdown");
+
+                foreach (file_trace_managment.DamageRecord record in last_match.match_data.damage_record.Where(x => x.attacker == last_match.match_data.local_player.nickname))
+                {
+                    if (damage_breakdown.ContainsKey(record.weapon))
+                        damage_breakdown[record.weapon] += record.damage;
+                    else
+                        damage_breakdown.Add(record.weapon, record.damage);
+                }
+
+                if (damage_breakdown.Count > 0)
+                {
+                    foreach (KeyValuePair<string, double> record in damage_breakdown)
+                    {
+                        lines.Add(string.Format(@"{0,12} {1:N1}", record.Key, record.Value));
+                    }
+                }
+            }
+
+            return lines;
+        }
+
+        public static List<String> assign_nemesis_victim(file_trace_managment.SessionStats Current_session)
+        {
+            List<String> lines = new List<String> { };
+            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
+            Dictionary<string, Opponent> opponent_dict = new Dictionary<string, Opponent> { };
+            int count;
+
+            foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
+            {
+                if (match.match_data.match_start < time_cutoff)
+                    continue;
+
+                if (match.match_data.match_classification != global_data.CUSTOM_CLASSIFICATION)
+                    continue;
+
+                if (match.match_data.nemesis != "")
+                {
+                    if (!opponent_dict.ContainsKey(match.match_data.nemesis))
+                        opponent_dict.Add(match.match_data.nemesis, new Opponent { nickname = match.match_data.nemesis, been_killed = 1, killed = 0 });
+                    else
+                        opponent_dict[match.match_data.nemesis].been_killed += 1;
+                }
+
+                foreach (string victim in match.match_data.victims)
+                {
+                    if (!opponent_dict.ContainsKey(victim))
+                        opponent_dict.Add(victim, new Opponent { nickname = victim, been_killed = 0, killed = 1 });
+                    else
+                        opponent_dict[victim].killed += 1;
+                }
+            }
+
+            if (Current_session.twitch_settings.show_nemesis)
+            {
+                count = 0;
+                foreach (KeyValuePair<string, Opponent> nemesis in opponent_dict.OrderByDescending(x => x.Value.killed).ThenByDescending(x => x.Value.been_killed))
+                {
+                    if (count >= Current_session.twitch_settings.nemeisis_count)
+                        break;
+
+                    lines.Add(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed));
+                }
+            }
+
+            if (Current_session.twitch_settings.show_victims)
+            {
+                count = 0;
+                foreach (KeyValuePair<string, Opponent> nemesis in opponent_dict.OrderByDescending(x => x.Value.been_killed).ThenByDescending(x => x.Value.killed))
+                {
+                    if (count >= Current_session.twitch_settings.nemeisis_count)
+                        break;
+
+                    lines.Add(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed));
+                }
             }
 
             return lines;
