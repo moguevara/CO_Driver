@@ -35,6 +35,7 @@ namespace CO_Driver
         {
             public bool endorse_co_driver { get; set; }
             public double overview_time_range { get; set; }
+            public int damage_update_delay { get; set; }
             public bool show_stats { get; set; }
             public bool show_revenue { get; set; }
             public int nemeisis_count { get; set; }
@@ -71,6 +72,7 @@ namespace CO_Driver
                                                                      overview_time_range = 7.0,
                                                                      show_stats = true,
                                                                      nemeisis_count = 5,
+                                                                     damage_update_delay = 1,
                                                                      show_revenue = true,
                                                                      show_nemesis = true,
                                                                      show_victims = true,
@@ -199,12 +201,14 @@ namespace CO_Driver
 
         public void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
+            if (Current_session.last_damage_draw < Current_session.last_damage_draw.AddSeconds(Current_session.twitch_settings.damage_update_delay * -1))
+                return;
+
             List<String> lines = new List<String> { };
 
             if (draw)
             {
-                lines.Add(string.Format(@"In Game Feed"));
-                lines.Add(string.Format(@"----------------------"));
+                lines.AddRange(assign_current_match(Current_session));
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\in_game_report.txt", lines);
@@ -275,7 +279,41 @@ namespace CO_Driver
             return lines;
         }
 
-        public static List<String> assign_post_match(file_trace_managment.SessionStats Current_session)
+        public List<String> assign_current_match(file_trace_managment.SessionStats Current_session)
+        {
+            List<String> lines = new List<String> { };
+
+            if (!Current_session.in_match)
+                return lines;
+
+            file_trace_managment.MatchData current_match = Current_session.current_match;
+            Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
+
+            if (current_match == null)
+                return lines;
+
+            lines.Add(string.Format(@"{0,12} {1:N1}", "Total", current_match.local_player.stats.damage));
+
+            foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record)
+            {
+                if (damage_breakdown.ContainsKey(record.weapon))
+                    damage_breakdown[record.weapon] += record.damage;
+                else
+                    damage_breakdown.Add(record.weapon, record.damage);
+            }
+
+            if (damage_breakdown.Count > 0)
+            {
+                foreach (KeyValuePair<string, double> record in damage_breakdown)
+                {
+                    lines.Add(string.Format(@"{0,12} {1:N1}", record.Key, record.Value));
+                }
+            }
+
+            return lines;
+        }
+
+        public List<String> assign_post_match(file_trace_managment.SessionStats Current_session)
         {
             List<String> lines = new List<String> { };
             file_trace_managment.MatchRecord last_match = Current_session.match_history.LastOrDefault();

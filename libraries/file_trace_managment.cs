@@ -74,6 +74,7 @@ namespace CO_Driver
             public DateTime previous_combat_log_time { get; set; }
             public DateTime previous_game_log_time { get; set; }
             public DateTime last_combat_log_time_in_match { get; set; }
+            public DateTime last_damage_draw { get; set; }
             public int current_combat_log_day_offset { get; set; }
             public int current_game_log_day_offset { get; set; }
             public int previous_combat_event { get; set; }
@@ -315,6 +316,7 @@ namespace CO_Driver
             Current_session.previous_combat_log_time = DateTime.MinValue;
             Current_session.previous_game_log_time = DateTime.MinValue;
             Current_session.last_combat_log_time_in_match = DateTime.MinValue;
+            Current_session.last_damage_draw = DateTime.Now;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
             Current_session.previous_combat_event = 0;
