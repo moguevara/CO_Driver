@@ -24,7 +24,6 @@ namespace CO_Driver
         public const int MATCH_RECAP_OVERLAY = 4;
         public const int GARAGE_DAMAGE_OVERLAY = 5;
 
-
         public class overlay_action
         {
             public int overlay { get; set; }
@@ -41,6 +40,12 @@ namespace CO_Driver
             public bool show_victims { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
         }
+
+        public static List<string> solo_queue_names = new List<string> { "A worthy collection of players.",
+                                                                        "The elite of solo queue.",
+                                                                        "Crossout's finest.",
+                                                                        "Crossout's best and brightest.",
+                                                                        "Worthy opponents"};
 
         public static string default_overlay_setup()
         {
@@ -137,12 +142,19 @@ namespace CO_Driver
 
             if (draw)
             {
+                string blue_team = "";
+                string red_team = "";
 
+                assign_teams(Current_session.current_match, ref blue_team, ref red_team);
+                blue_lines.Add(blue_team);
+                red_lines.Add(red_team);
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\blue_team_squads.txt", blue_lines);
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\red_team_squads.txt", red_lines);
         }
+
+        
 
         public void draw_damage_record_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, bool draw)
         {
@@ -181,6 +193,54 @@ namespace CO_Driver
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\in_game_report.txt", lines);
+        }
+        public static void assign_teams(file_trace_managment.MatchData match, ref string blue_team, ref string red_team)
+        {
+            blue_team = "";
+            Random random_number = new Random();
+
+            if (match.match_classification == global_data.PVE_CLASSIFICATION)
+                red_team = "A bunch of robots.";
+            else
+            if (match.match_classification == global_data.FREE_PLAY_CLASSIFICATION)
+                red_team = "The elite of Bedlam.";
+            else
+                red_team = solo_queue_names[random_number.Next(solo_queue_names.Count())];
+
+            Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
+            Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
+
+            blue_teams.Add(match.local_player.party_id, new List<string> { match.local_player.nickname });
+
+            foreach (KeyValuePair<string, file_trace_managment.Player> player in match.player_records.ToList())
+            {
+                if (player.Value.party_id == 0 || player.Value.nickname == match.local_player.nickname)
+                    continue;
+
+                if (player.Value.team != match.local_player.team)
+                {
+                    if (!red_teams.ContainsKey(player.Value.party_id))
+                        red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    else
+                        red_teams[player.Value.party_id].Add(player.Value.nickname);
+                }
+                else
+                {
+                    if (!blue_teams.ContainsKey(player.Value.party_id))
+                        blue_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    else
+                        blue_teams[player.Value.party_id].Add(player.Value.nickname);
+                }
+            }
+
+            foreach (KeyValuePair<int, List<string>> team in blue_teams)
+                blue_team += string.Format("({0})", string.Join(",", team.Value));
+
+            if (red_teams.Count > 0)
+                red_team = "";
+
+            foreach (KeyValuePair<int, List<string>> team in red_teams)
+                red_team += string.Format("({0})", string.Join(",", team.Value));
         }
 
     }
