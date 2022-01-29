@@ -10,14 +10,6 @@ namespace CO_Driver
 {
     public class overlay
     {
-        public const int MATCH_END_CONDITION = 1;
-        public const int MAIN_MENU_CONDITION = 2;
-        public const int GARAGE_START_CONDITION = 3;
-        public const int PLAYER_LOAD_CONDITION = 4;
-        public const int DAMAGE_CONDITION = 5;
-        public const int DAMAGE_REC_CONDITION = 6;
-        public const int SCORE_CONDITION = 7;
-
         public const int STAT_CARD_OVERLAY = 1;
         public const int TEAM_PREVIEW_OVERLAY = 2;
         public const int IN_MATCH_OVERLAY = 3;
@@ -62,11 +54,11 @@ namespace CO_Driver
 
         public static string default_overlay_setup()
         {
-            return JsonConvert.SerializeObject(new List<overlay_action> { new overlay_action { overlay = STAT_CARD_OVERLAY, draw_conditions = new List<int> { MATCH_END_CONDITION }, clear_conditions = new List<int> { MAIN_MENU_CONDITION } },
-                                                                          new overlay_action { overlay = TEAM_PREVIEW_OVERLAY, draw_conditions = new List<int> { PLAYER_LOAD_CONDITION }, clear_conditions = new List<int> { MAIN_MENU_CONDITION } },
-                                                                          new overlay_action { overlay = GARAGE_DAMAGE_OVERLAY, draw_conditions = new List<int> { GARAGE_START_CONDITION, DAMAGE_CONDITION }, clear_conditions = new List<int> { MAIN_MENU_CONDITION } },
-                                                                          new overlay_action { overlay = MATCH_RECAP_OVERLAY, draw_conditions = new List<int> { GARAGE_START_CONDITION }, clear_conditions = new List<int> { MAIN_MENU_CONDITION } },
-                                                                          new overlay_action { overlay = MATCH_RECAP_OVERLAY, draw_conditions = new List<int> { GARAGE_START_CONDITION }, clear_conditions = new List<int> { MAIN_MENU_CONDITION } }
+            return JsonConvert.SerializeObject(new List<overlay_action> { new overlay_action { overlay = STAT_CARD_OVERLAY, draw_conditions = new List<int> { global_data.MATCH_END_EVENT }, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
+                                                                          new overlay_action { overlay = TEAM_PREVIEW_OVERLAY, draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT }, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
+                                                                          new overlay_action { overlay = GARAGE_DAMAGE_OVERLAY, draw_conditions = new List<int> { global_data.GARAGE_DAMAGE_EVENT}, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
+                                                                          new overlay_action { overlay = MATCH_RECAP_OVERLAY, draw_conditions = new List<int> { global_data.MATCH_END_EVENT }, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
+                                                                          new overlay_action { overlay = IN_MATCH_OVERLAY, draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT,global_data.SCORE_EVENT,global_data.STRIPE_EVENT}, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } }
                                                                         });
         }
 
@@ -102,6 +94,9 @@ namespace CO_Driver
                 {
                     switch (condition)
                     {
+                        case IN_MATCH_OVERLAY:
+                            draw_in_game_recap_card(Current_session, session, true);
+                            break;
                         case STAT_CARD_OVERLAY:
                             draw_stat_card(Current_session, session, true);
                             break;
@@ -123,6 +118,9 @@ namespace CO_Driver
                 {
                     switch (condition)
                     {
+                        case IN_MATCH_OVERLAY:
+                            draw_in_game_recap_card(Current_session, session, true);
+                            break;
                         case STAT_CARD_OVERLAY:
                             draw_stat_card(Current_session, session, false);
                             break;
