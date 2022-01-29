@@ -35,7 +35,9 @@ namespace CO_Driver
         {
             public bool endorse_co_driver { get; set; }
             public double overview_time_range { get; set; }
+            public bool show_stats { get; set; }
             public bool show_revenue { get; set; }
+            public int nemeisis_count { get; set; }
             public bool show_nemesis { get; set; }
             public bool show_victims { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
@@ -61,6 +63,8 @@ namespace CO_Driver
         {
             return JsonConvert.SerializeObject(new twitch_settings { endorse_co_driver = false,
                                                                      overview_time_range = 7.0,
+                                                                     show_stats = true,
+                                                                     nemeisis_count = 5,
                                                                      show_revenue = true,
                                                                      show_nemesis = true,
                                                                      show_victims = true,
@@ -128,8 +132,11 @@ namespace CO_Driver
 
             if (draw)
             {
-                lines.Add(string.Format(@"Garage Feed"));
-                lines.Add(string.Format(@"----------------------"));
+                if (Current_session.twitch_settings.show_stats)
+                    lines.AddRange(assign_stats(Current_session, Current_session.match_history.FirstOrDefault().match_data.gameplay_desc));
+
+                if (Current_session.twitch_settings.show_revenue)
+                    lines.AddRange(assign_revenue(Current_session));
             }
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\gamemode_statistics_card.txt", lines);
@@ -194,6 +201,72 @@ namespace CO_Driver
 
             File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\in_game_report.txt", lines);
         }
+
+        public static List<String> assign_revenue(file_trace_managment.SessionStats Current_session)
+        {
+            List<String> lines = new List<String> { };
+            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
+            Dictionary<string, int> rewards = new Dictionary<string, int> { };
+            
+
+            foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
+            {
+                if (match.match_data.match_start < time_cutoff)
+                    continue;
+
+                if (match.match_data.match_rewards.Count() == 0)
+                    continue;
+
+                foreach (KeyValuePair<string, int> value in match.match_data.match_rewards)
+                {
+                    if (rewards.ContainsKey(value.Key))
+                        rewards[value.Key] += value.Value;
+                    else
+                        rewards.Add(value.Key, value.Value);
+                }
+            }
+
+            foreach (KeyValuePair<string, int> value in rewards.OrderByDescending(x => x.Value))
+            {
+                lines.Add(string.Format(@"{0,15} {1}", value.Key, value.Value));
+            }
+
+            return lines;
+        }
+
+        public static List<String> assign_stats(file_trace_managment.SessionStats Current_session, string game_mode)
+        {
+            List<String> lines = new List<String> { };
+            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
+            file_trace_managment.Stats stats = file_trace_managment.new_stats();
+
+
+            foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
+            {
+                if (match.match_data.match_start < time_cutoff)
+                    continue;
+
+                if (match.match_data.match_type_desc != game_mode)
+                    continue;
+
+                stats = file_trace_managment.sum_stats(stats, match.match_data.local_player.stats);
+            }
+
+            if (stats.games > 0)
+            {
+                lines.Add(string.Format(@"{0,3} Day Stats for {1}", Current_session.twitch_settings.overview_time_range, game_mode));
+                lines.Add(string.Format(@"{0,16} {1}", "Games", stats.games));
+                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} ({3:P1})", "W/L (%)", stats.wins, stats.losses, (double)stats.wins / (double)stats.losses));
+                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} ({3:P1})", "K/D (%)", stats.kills, stats.deaths, (double)stats.kills / (double)stats.deaths));
+                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} ({3:P1})", "K/G (%)", stats.kills, stats.games, (double)stats.kills / (double)stats.games));
+                lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Dmg", stats.damage / (double)stats.rounds));
+                lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds));
+                lines.Add(string.Format(@"{0,16} {1:N1}", "Avg Score", stats.score / (double)stats.rounds));
+            }
+
+            return lines;
+        }
+
         public static void assign_teams(file_trace_managment.MatchData match, ref string blue_team, ref string red_team)
         {
             blue_team = "";
