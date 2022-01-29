@@ -324,8 +324,6 @@ namespace CO_Driver
             Current_session.ready_to_add_round = false;
             Current_session.ready_to_finalize_round = false;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
-            Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(local_session_variables.action_configuration);
-            Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(local_session_variables.twitch_settings);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
             Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
@@ -341,6 +339,24 @@ namespace CO_Driver
             Current_session.static_records.resource_dict = new Dictionary<string, string> { };
             Current_session.static_records.ck_dict = new Dictionary<string, string> { };
             Current_session.match_history = new List<MatchRecord> { };
+
+            try
+            {
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(local_session_variables.action_configuration);
+            }
+            catch (Exception ex)
+            {
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(overlay.default_overlay_setup());
+            }
+
+            try
+            {
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(local_session_variables.twitch_settings);
+            }
+            catch (Exception ex)
+            {
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(overlay.default_twitch_settings());
+            }
 
             part_loader.populate_global_parts_list(Current_session);
             part_loader.populate_weapon_list(Current_session);

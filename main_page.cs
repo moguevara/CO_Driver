@@ -1000,7 +1000,7 @@ namespace CO_Driver
                     break;
             }
             file_trace_managment.update_previous_time("c", line, Current_session);
-            overlay.resolve_overlay_action(Current_session, session, Current_session.current_event);
+            overlay.resolve_overlay_action(Current_session, session, translations, Current_session.current_event);
             Current_session.previous_combat_event = Current_session.current_event;
         }
         private void capture_screen_shot()
