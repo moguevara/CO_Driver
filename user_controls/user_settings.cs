@@ -108,6 +108,16 @@ namespace CO_Driver
                 prompt_restart = true;
             }
 
+            if (session.twitch_mode != chk_twitch_mode.Checked)
+            {
+                DialogResult dialogResult = MessageBox.Show("Supporting Twitch overlays requires restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+                prompt_restart = true;
+            }
+
             if (session.bundle_ram_mode != chk_group_ram.Checked)
             {
                 DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);

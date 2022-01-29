@@ -557,7 +557,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(175, 14);
             this.label10.TabIndex = 44;
-            this.label10.Text = "Twitch/YT Streaming Mode";
+            this.label10.Text = "Generate Stream Overlays";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // txt_historic_log_location
