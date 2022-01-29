@@ -80,6 +80,8 @@ namespace CO_Driver
             public int previous_game_event { get; set; }
             public bool ready_to_add_round { get; set; }
             public bool ready_to_finalize_round { get; set; }
+            public List<overlay.overlay_action> overlay_actions { get; set; }
+            public overlay.twitch_settings twitch_settings { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -320,6 +322,8 @@ namespace CO_Driver
             Current_session.ready_to_add_round = false;
             Current_session.ready_to_finalize_round = false;
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
+            Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(local_session_variables.action_configuration);
+            Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(local_session_variables.twitch_settings);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
             Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
