@@ -27,11 +27,7 @@ namespace CO_Driver
         private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
         private string blue_team = "";
         private string red_team = "";
-        private List<string> solo_queue_names = new List<string> { "A worthy collection of players.", 
-                                                                   "The elite of solo queue.", 
-                                                                   "Crossout's finest.",
-                                                                   "Crossout's best and brightest.",
-                                                                   "Worthy opponents"};
+        
         public previous_match()
         {
             InitializeComponent();
@@ -330,56 +326,7 @@ namespace CO_Driver
 
         private void assign_teams()
         {
-            blue_team = "";
-            Random random_number = new Random();
-
-            if (match_data.match_type == global_data.EASY_RAID_MATCH ||
-                match_data.match_type == global_data.MED_RAID_MATCH ||
-                match_data.match_type == global_data.HARD_RAID_MATCH ||
-                match_data.match_type == global_data.ADVENTURE_MATCH ||
-                match_data.match_type == global_data.PRESENT_HEIST_MATCH ||
-                match_data.match_type == global_data.PATROL_MATCH)
-                red_team = "A bunch of robots.";
-            else
-            if (match_data.match_type == global_data.BEDLAM_MATCH)
-                red_team = "The elite of Bedlam.";
-            else
-                red_team = solo_queue_names[random_number.Next(solo_queue_names.Count())];
-
-            Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
-            Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
-
-            blue_teams.Add(match_data.local_player.party_id, new List<string> { match_data.local_player.nickname });
-
-            foreach (KeyValuePair<string, file_trace_managment.Player> player in match_data.player_records.ToList())
-            {
-                if (player.Value.party_id == 0 || player.Value.nickname == match_data.local_player.nickname)
-                    continue;
-
-                if (player.Value.team != match_data.local_player.team)
-                {
-                    if (!red_teams.ContainsKey(player.Value.party_id))
-                        red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
-                    else
-                        red_teams[player.Value.party_id].Add(player.Value.nickname);
-                }
-                else
-                {
-                    if (!blue_teams.ContainsKey(player.Value.party_id))
-                        blue_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
-                    else
-                        blue_teams[player.Value.party_id].Add(player.Value.nickname);
-                }
-            }
-
-            foreach (KeyValuePair<int, List<string>> team in blue_teams)
-                blue_team += string.Format("({0})", string.Join(",", team.Value));
-
-            if (red_teams.Count > 0)
-                red_team = "";
-
-            foreach (KeyValuePair<int, List<string>> team in red_teams)
-                red_team += string.Format("({0})", string.Join(",", team.Value));
+            overlay.assign_teams(match_data, ref blue_team, ref red_team);
         }
 
         private void gp_damage_recieved_Paint(object sender, PaintEventArgs e)

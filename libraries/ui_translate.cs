@@ -35,8 +35,6 @@ namespace CO_Driver
 			ui_translations.Add("Ελληνικά", new Dictionary<string, string> { });
 
 
-
-
 			ui_translations["Pусский"].Add(@"Profile", @"Профиль"); ui_translations["Deutsch"].Add(@"Profile", @"Profil"); ui_translations["Español"].Add(@"Profile", @"Perfil"); ui_translations["Français"].Add(@"Profile", @"Profil"); ui_translations["हिन्दी"].Add(@"Profile", @"प्रोफ़ाइल"); ui_translations["Polski"].Add(@"Profile", @"Profil"); ui_translations["한국어"].Add(@"Profile", @"프로필"); ui_translations["Ελληνικά"].Add(@"Profile", @"Προφίλ");
 			ui_translations["Pусский"].Add(@"Test Drive Analysis", @"Тест-драйв"); ui_translations["Deutsch"].Add(@"Test Drive Analysis", @"Testfahrt-Analyse"); ui_translations["Español"].Add(@"Test Drive Analysis", @"Area de Pruebas"); ui_translations["Français"].Add(@"Test Drive Analysis", @"Analyse Test Drive"); ui_translations["हिन्दी"].Add(@"Test Drive Analysis", @"टेस्ट ड्राइव विश्लेषण"); ui_translations["Polski"].Add(@"Test Drive Analysis", @"Analiza jazdy testowej"); ui_translations["한국어"].Add(@"Test Drive Analysis", @"시험 운전 분석"); ui_translations["Ελληνικά"].Add(@"Test Drive Analysis", @"Ανάλυση Ζημιάς");
 			ui_translations["Pусский"].Add(@"Match Recap", @"Итоги боя"); ui_translations["Deutsch"].Add(@"Match Recap", @"Gefecht-Zusammenfassung"); ui_translations["Español"].Add(@"Match Recap", @"Partida Anterior"); ui_translations["Français"].Add(@"Match Recap", @"Récap. match"); ui_translations["हिन्दी"].Add(@"Match Recap", @"मैच संक्षिप्त"); ui_translations["Polski"].Add(@"Match Recap", @"Wynik meczu"); ui_translations["한국어"].Add(@"Match Recap", @"매칭 요약"); ui_translations["Ελληνικά"].Add(@"Match Recap", @"Τελευταίο Παιχνίδι");

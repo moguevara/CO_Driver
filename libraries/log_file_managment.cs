@@ -42,6 +42,7 @@ namespace CO_Driver
             public bool twitch_mode { get; set; }
             public bool endorse_co_driver { get; set; }
             public string action_configuration { get; set; }
+            public string twitch_settings { get; set; }
             public bool bundle_ram_mode { get; set; }
             public bool update_postmatch { get; set; }
             public string selected_theme { get; set; }
@@ -84,6 +85,7 @@ namespace CO_Driver
                 twitch_mode = false,
                 endorse_co_driver = true,
                 action_configuration = overlay.default_overlay_setup(),
+                twitch_settings = overlay.default_twitch_settings(),
                 bundle_ram_mode = true,
                 update_postmatch = true,
                 selected_theme = "Terminal",
@@ -216,6 +218,9 @@ namespace CO_Driver
                     if (String.IsNullOrEmpty(loaded_session.action_configuration))
                         loaded_session.action_configuration = overlay.default_overlay_setup();
 
+                    if (String.IsNullOrEmpty(loaded_session.twitch_settings))
+                        loaded_session.twitch_settings = overlay.default_twitch_settings();
+
                     if (valid_user_session(loaded_session))
                         return loaded_session;
                 }
@@ -331,8 +336,7 @@ namespace CO_Driver
             if (!Directory.Exists(session.historic_file_location))
                 session.historic_file_location = session.co_driver_location + @"\historic_logs";
 
-            if (!Directory.Exists(session.stream_file_location))
-                session.stream_file_location = session.co_driver_location + @"\stream_templates";
+            session.stream_file_location = session.co_driver_location + @"\twitch_overlays";
 
             if (!Directory.Exists(session.screenshot_file_location))
                 session.screenshot_file_location = session.co_driver_location + @"\screenshots";

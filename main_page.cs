@@ -985,10 +985,12 @@ namespace CO_Driver
                     break;
                 case global_data.MAIN_MENU_EVENT:
                     file_trace_managment.main_menu_event(line, Current_session);
+                    //bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
                     add_last_match(Current_session);
                     break;
                 case global_data.TEST_DRIVE_EVENT:
                     file_trace_managment.test_drive_event(line, Current_session);
+                    //bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
                     clear_current_test_drive_data();
                     break;
                 case global_data.MATCH_END_EVENT:
@@ -999,6 +1001,7 @@ namespace CO_Driver
                     file_trace_managment.add_mob_event(line, Current_session);
                     break;
             }
+            overlay.resolve_overlay_action(Current_session, session, translations);
             file_trace_managment.update_previous_time("c", line, Current_session);
             Current_session.previous_combat_event = Current_session.current_event;
         }

@@ -74,12 +74,15 @@ namespace CO_Driver
             public DateTime previous_combat_log_time { get; set; }
             public DateTime previous_game_log_time { get; set; }
             public DateTime last_combat_log_time_in_match { get; set; }
+            public DateTime last_damage_draw { get; set; }
             public int current_combat_log_day_offset { get; set; }
             public int current_game_log_day_offset { get; set; }
             public int previous_combat_event { get; set; }
             public int previous_game_event { get; set; }
             public bool ready_to_add_round { get; set; }
             public bool ready_to_finalize_round { get; set; }
+            public List<overlay.overlay_action> overlay_actions { get; set; }
+            public overlay.twitch_settings twitch_settings { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -313,6 +316,7 @@ namespace CO_Driver
             Current_session.previous_combat_log_time = DateTime.MinValue;
             Current_session.previous_game_log_time = DateTime.MinValue;
             Current_session.last_combat_log_time_in_match = DateTime.MinValue;
+            Current_session.last_damage_draw = DateTime.Now;
             Current_session.current_combat_log_day_offset = 0;
             Current_session.current_game_log_day_offset = 0;
             Current_session.previous_combat_event = 0;
@@ -335,6 +339,24 @@ namespace CO_Driver
             Current_session.static_records.resource_dict = new Dictionary<string, string> { };
             Current_session.static_records.ck_dict = new Dictionary<string, string> { };
             Current_session.match_history = new List<MatchRecord> { };
+
+            try
+            {
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(local_session_variables.action_configuration);
+            }
+            catch (Exception ex)
+            {
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<overlay.overlay_action>>(overlay.default_overlay_setup());
+            }
+
+            try
+            {
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(local_session_variables.twitch_settings);
+            }
+            catch (Exception ex)
+            {
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<overlay.twitch_settings>(overlay.default_twitch_settings());
+            }
 
             part_loader.populate_global_parts_list(Current_session);
             part_loader.populate_weapon_list(Current_session);
@@ -486,7 +508,7 @@ namespace CO_Driver
             if (line.Contains("| Spawn mob. def '"))
                 event_id = global_data.ADD_MOB_EVENT;
 
-                Current_session.current_event = event_id;
+            Current_session.current_event = event_id;
         }
 
         public static void main_menu_event(string line, SessionStats Current_session)
