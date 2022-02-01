@@ -336,8 +336,7 @@ namespace CO_Driver
             if (!Directory.Exists(session.historic_file_location))
                 session.historic_file_location = session.co_driver_location + @"\historic_logs";
 
-            if (!Directory.Exists(session.stream_file_location))
-                session.stream_file_location = session.co_driver_location + @"\stream_templates";
+            session.stream_file_location = session.co_driver_location + @"\twitch_overlays";
 
             if (!Directory.Exists(session.screenshot_file_location))
                 session.screenshot_file_location = session.co_driver_location + @"\screenshots";
