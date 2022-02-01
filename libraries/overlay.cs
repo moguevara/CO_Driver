@@ -13,7 +13,6 @@ namespace CO_Driver
         public const int STAT_CARD_OVERLAY = 1;
         public const int TEAM_PREVIEW_OVERLAY = 2;
         public const int IN_MATCH_OVERLAY = 3;
-        public const int MATCH_RECAP_OVERLAY = 4;
 
         public const string line_break      = "-----------------------------------";
         public const string line_break_long = "-----------------------------------";
@@ -37,6 +36,7 @@ namespace CO_Driver
             public bool show_victims { get; set; }
             public bool in_game_kad { get; set; }
             public bool in_game_dmg { get; set; }
+            public bool in_game_score { get; set; }
             public bool in_game_victims { get; set; }
             public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
@@ -57,8 +57,7 @@ namespace CO_Driver
         {
             return JsonConvert.SerializeObject(new List<overlay_action> { new overlay_action { overlay = STAT_CARD_OVERLAY,    draw_conditions = new List<int> { global_data.TEST_DRIVE_EVENT }, clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT } },
                                                                           new overlay_action { overlay = TEAM_PREVIEW_OVERLAY, draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT }, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
-                                                                          new overlay_action { overlay = MATCH_RECAP_OVERLAY,  draw_conditions = new List<int> { global_data.MAIN_MENU_EVENT }, clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT, global_data.MATCH_START_EVENT } },
-                                                                          new overlay_action { overlay = IN_MATCH_OVERLAY,     draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT,global_data.STRIPE_EVENT}, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } }
+                                                                          new overlay_action { overlay = IN_MATCH_OVERLAY,     draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT}, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } }
                                                                         });
         }
 
@@ -74,6 +73,7 @@ namespace CO_Driver
                                                                      show_victims = true,
                                                                      in_game_kad = true,
                                                                      in_game_dmg = true,
+                                                                     in_game_score = true,
                                                                      in_game_killer = true,
                                                                      in_game_victims = true,
                                                                      toggle_to_last_gamemode = true
@@ -87,17 +87,6 @@ namespace CO_Driver
 
             if (Current_session.live_trace_data != true)
                 return;
-
-            //if (!Current_session.overlay_actions.Any(x => x.draw_conditions.Contains(condition) || x.clear_conditions.Contains(condition)))
-            //    return;
-
-            //if (condition == global_data.DAMAGE_EVENT && Current_session.last_damage_draw < DateTime.Now.AddSeconds(Current_session.twitch_settings.damage_update_delay * -1))
-            //    return;
-
-            //if (condition == global_data.DAMAGE_EVENT)
-            //    Current_session.last_damage_draw = DateTime.Now;
-
-            File.WriteAllText(Current_session.file_data.stream_overlay_output_location + @"\debug.txt", Current_session.current_event.ToString());
 
             foreach (overlay_action action in Current_session.overlay_actions)
             {
@@ -120,9 +109,6 @@ namespace CO_Driver
                         break;
                     case TEAM_PREVIEW_OVERLAY:
                         draw_team_preview_card(Current_session, session, translation, draw);
-                        break;
-                    case MATCH_RECAP_OVERLAY:
-                        draw_match_recap_card(Current_session, session, translation, draw);
                         break;
                     default:
                         break;
@@ -162,17 +148,20 @@ namespace CO_Driver
                 Random random_number = new Random();
                 file_trace_managment.MatchData current_match = Current_session.current_match;
 
+                if (!current_match.player_records.ContainsKey(Current_session.local_user))
+                    return;
+
                 Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
                 Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
 
-                blue_teams.Add(current_match.local_player.party_id, new List<string> { current_match.local_player.nickname });
+                blue_teams.Add(current_match.player_records[Current_session.local_user].party_id, new List<string> { current_match.player_records[Current_session.local_user].nickname });
 
                 foreach (KeyValuePair<string, file_trace_managment.Player> player in current_match.player_records.ToList())
                 {
-                    if (player.Value.party_id == 0 || player.Value.nickname == current_match.local_player.nickname)
+                    if (player.Value.party_id == 0 || player.Value.nickname == current_match.player_records[Current_session.local_user].nickname)
                         continue;
 
-                    if (player.Value.team != current_match.local_player.team)
+                    if (player.Value.team != current_match.player_records[Current_session.local_user].team)
                     {
                         if (!red_teams.ContainsKey(player.Value.party_id))
                             red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
@@ -202,23 +191,6 @@ namespace CO_Driver
                 File.WriteAllText(Current_session.file_data.stream_overlay_output_location + @"\blue_team_squads.txt", String.Empty);
                 File.WriteAllText(Current_session.file_data.stream_overlay_output_location + @"\red_team_squads.txt", String.Empty);
             }
-        }
-
-        public static void draw_match_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
-        {
-            if (draw)
-            {
-                List<String> lines = new List<String> { };
-
-                lines.AddRange(assign_post_match(Current_session, session, translation));
-
-                File.WriteAllLines(Current_session.file_data.stream_overlay_output_location + @"\last_match_recap.txt", lines);
-            }
-            else
-            {
-                File.WriteAllText(Current_session.file_data.stream_overlay_output_location + @"\last_match_recap.txt", String.Empty);
-            }
-
         }
 
         public static void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
@@ -297,9 +269,9 @@ namespace CO_Driver
                 lines.Add(string.Format(@"{0,3} Day Stats for {1}", Current_session.twitch_settings.overview_time_range, game_mode));
                 lines.Add(line_break);
                 lines.Add(string.Format(@"{0,16} {1,8}", "Games", stats.games));
-                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} {3:P1}", "W/L %", stats.wins, stats.losses, (double)stats.wins / (double)stats.games));
-                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} {3:N1}", "K/D  ", stats.kills, stats.deaths, (double)stats.kills / (double)stats.deaths));
-                lines.Add(string.Format(@"{0,16} {1,4}/{2,-4} {3:N1}", "K/G  ", stats.kills, stats.games, (double)stats.kills / (double)stats.games));
+                lines.Add(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.wins / (double)stats.games));
+                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.kills / (double)stats.deaths));
+                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.kills / (double)stats.games));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.damage / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.score / (double)stats.rounds));
@@ -325,7 +297,7 @@ namespace CO_Driver
 
             if (Current_session.twitch_settings.in_game_kad)
             {
-                lines.Add("Stats");
+                lines.Add(string.Format(@"Current match on {0}", translate.translate_string(current_match.map_name, session, translation)));
                 lines.Add(line_break);
                 lines.Add(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[Current_session.local_user].stats.kills));
                 lines.Add(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[Current_session.local_user].stats.assists));
@@ -337,24 +309,53 @@ namespace CO_Driver
             if (Current_session.twitch_settings.in_game_dmg)
             {
                 Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
-                lines.Add("");
-                lines.Add("Damage Breakdown");
-                lines.Add(line_break);
-                lines.Add(string.Format(@"{0,16} {1:N1}", "Total", current_match.local_player.stats.damage));
 
-                foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record)
+                if (current_match.player_records[Current_session.local_user].stats.damage > 0)
                 {
-                    if (damage_breakdown.ContainsKey(record.weapon))
-                        damage_breakdown[record.weapon] += record.damage;
-                    else
-                        damage_breakdown.Add(record.weapon, record.damage);
+                    lines.Add("");
+                    lines.Add("Damage Breakdown");
+                    lines.Add(line_break);
+                    lines.Add(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage));
+
+                    foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.attacker == Current_session.local_user))
+                    {
+                        if (damage_breakdown.ContainsKey(record.weapon))
+                            damage_breakdown[record.weapon] += record.damage;
+                        else
+                            damage_breakdown.Add(record.weapon, record.damage);
+                    }
+
+                    if (damage_breakdown.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, double> record in damage_breakdown)
+                        {
+                            lines.Add(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
+                        }
+                    }
                 }
 
-                if (damage_breakdown.Count > 0)
+                if (current_match.player_records[Current_session.local_user].stats.damage_taken > 0)
                 {
-                    foreach (KeyValuePair<string, double> record in damage_breakdown)
+                    damage_breakdown = new Dictionary<string, double> { };
+                    lines.Add("");
+                    lines.Add("Damage Recieved Breakdown");
+                    lines.Add(line_break);
+                    lines.Add(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage_taken));
+
+                    foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.victim == Current_session.local_user))
                     {
-                        lines.Add(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
+                        if (damage_breakdown.ContainsKey(record.weapon))
+                            damage_breakdown[record.weapon] += record.damage;
+                        else
+                            damage_breakdown.Add(record.weapon, record.damage);
+                    }
+
+                    if (damage_breakdown.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, double> record in damage_breakdown)
+                        {
+                            lines.Add(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
+                        }
                     }
                 }
             }
@@ -366,55 +367,20 @@ namespace CO_Driver
                 lines.Add(line_break);
                 foreach (string victim in current_match.victims)
                     lines.Add(string.Format(@"{0,16}", victim));
+
+                if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count == 1)
+                    lines.Add(string.Format(@"{0,16}", "Bot"));
+                if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count > 1)
+                    lines.Add(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count));
+
             }
 
             if (Current_session.twitch_settings.in_game_killer && current_match.nemesis != "")
             {
-                lines.Add(string.Format(@"{0,16} {1}", "Killed by", current_match.nemesis));
-            }
-
-            return lines;
-        }
-
-        public static List<String> assign_post_match(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation)
-        {
-            List<String> lines = new List<String> { };
-            file_trace_managment.MatchRecord last_match = Current_session.match_history.LastOrDefault();
-            Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
-
-            if (last_match == null)
-                return lines;
-
-            lines.Add(string.Format(@"Last Match {0} {1} at {2}", last_match.match_data.match_type_desc, last_match.match_data.game_result, last_match.match_data.match_start.ToString("g")));
-            lines.Add(line_break);
-            lines.Add(string.Format(@"{0,12} {1}", "Kills", last_match.match_data.local_player.stats.kills));
-            lines.Add(string.Format(@"{0,12} {1}", "Assists", last_match.match_data.local_player.stats.assists));
-            lines.Add(string.Format(@"{0,12} {1}", "Deaths", last_match.match_data.local_player.stats.deaths));
-            lines.Add(string.Format(@"{0,12} {1}", "Drone Kills", last_match.match_data.local_player.stats.drone_kills));
-            lines.Add(string.Format(@"{0,12} {1:N1}", "Damage", last_match.match_data.local_player.stats.damage));
-            lines.Add(string.Format(@"{0,12} {1:N1}", "Damage Taken", last_match.match_data.local_player.stats.damage_taken));
-
-            if (last_match.match_data.damage_record.Any(x => x.attacker == last_match.match_data.local_player.nickname))
-            {
                 lines.Add("");
-                lines.Add("Weapon Breakdown");
+                lines.Add("Killed by");
                 lines.Add(line_break);
-
-                foreach (file_trace_managment.DamageRecord record in last_match.match_data.damage_record.Where(x => x.attacker == last_match.match_data.local_player.nickname))
-                {
-                    if (damage_breakdown.ContainsKey(record.weapon))
-                        damage_breakdown[record.weapon] += record.damage;
-                    else
-                        damage_breakdown.Add(record.weapon, record.damage);
-                }
-
-                if (damage_breakdown.Count > 0)
-                {
-                    foreach (KeyValuePair<string, double> record in damage_breakdown)
-                    {
-                        lines.Add(string.Format(@"{0,22} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
-                    }
-                }
+                lines.Add(string.Format(@"{0,16}", current_match.nemesis));
             }
 
             return lines;

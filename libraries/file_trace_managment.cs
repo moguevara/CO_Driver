@@ -508,7 +508,7 @@ namespace CO_Driver
             if (line.Contains("| Spawn mob. def '"))
                 event_id = global_data.ADD_MOB_EVENT;
 
-                Current_session.current_event = event_id;
+            Current_session.current_event = event_id;
         }
 
         public static void main_menu_event(string line, SessionStats Current_session)
