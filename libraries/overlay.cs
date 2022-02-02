@@ -28,6 +28,8 @@ namespace CO_Driver
         {
             public bool endorse_co_driver { get; set; }
             public double overview_time_range { get; set; }
+            public double default_time_range { get; set; }
+            public bool toggle_overview_time_ranges { get; set; }
             public double damage_update_delay { get; set; }
             public bool show_stats { get; set; }
             public bool show_revenue { get; set; }
@@ -40,6 +42,7 @@ namespace CO_Driver
             public bool in_game_victims { get; set; }
             public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
+            public string manual_gamemode { get; set; }
         }
         private class Opponent
         {
@@ -57,7 +60,7 @@ namespace CO_Driver
         {
             return JsonConvert.SerializeObject(new List<overlay_action> { new overlay_action { overlay = STAT_CARD_OVERLAY,    draw_conditions = new List<int> { global_data.TEST_DRIVE_EVENT }, clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT } },
                                                                           new overlay_action { overlay = TEAM_PREVIEW_OVERLAY, draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT }, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } },
-                                                                          new overlay_action { overlay = IN_MATCH_OVERLAY,     draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT}, clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } }
+                                                                          new overlay_action { overlay = IN_MATCH_OVERLAY,     draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT}, clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT } }
                                                                         });
         }
 
@@ -65,6 +68,8 @@ namespace CO_Driver
         {
             return JsonConvert.SerializeObject(new twitch_settings { endorse_co_driver = false,
                                                                      overview_time_range = 7.0,
+                                                                     default_time_range  = 7.0,
+                                                                     toggle_overview_time_ranges = true,
                                                                      show_stats = true,
                                                                      nemeisis_count = 5,
                                                                      damage_update_delay = 1.0,
@@ -76,8 +81,9 @@ namespace CO_Driver
                                                                      in_game_score = true,
                                                                      in_game_killer = true,
                                                                      in_game_victims = true,
-                                                                     toggle_to_last_gamemode = true
-                                                                    });
+                                                                     toggle_to_last_gamemode = true,
+                                                                     manual_gamemode = '8v8'
+                                                                    });;
         }
 
         public static void resolve_overlay_action(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation)
@@ -249,9 +255,29 @@ namespace CO_Driver
         public static List<String> assign_stats(file_trace_managment.SessionStats Current_session, Dictionary<string, Dictionary<string, translate.Translation>> translation, string game_mode)
         {
             List<String> lines = new List<String> { };
-            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
+
             file_trace_managment.Stats stats = file_trace_managment.new_stats();
 
+            if (Current_session.twitch_settings.toggle_overview_time_ranges)
+            {
+                if (Current_session.twitch_settings.overview_time_range == 7.0)
+                    Current_session.twitch_settings.overview_time_range = 31.0;
+                else
+                if (Current_session.twitch_settings.overview_time_range == 31.0)
+                    Current_session.twitch_settings.overview_time_range = 365.0;
+                else
+                if (Current_session.twitch_settings.overview_time_range == 365.0)
+                    Current_session.twitch_settings.overview_time_range = 1.0;
+                else
+                if (Current_session.twitch_settings.overview_time_range == 1.0)
+                    Current_session.twitch_settings.overview_time_range = 7.0;
+            }
+            else
+            {
+                Current_session.twitch_settings.overview_time_range = Current_session.twitch_settings.default_time_range;
+            }
+
+            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
 
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
@@ -270,8 +296,8 @@ namespace CO_Driver
                 lines.Add(line_break);
                 lines.Add(string.Format(@"{0,16} {1,8}", "Games", stats.games));
                 lines.Add(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.wins / (double)stats.games));
-                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.kills / (double)stats.deaths));
-                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.kills / (double)stats.games));
+                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.deaths), (double)stats.kills / (double)stats.deaths));
+                lines.Add(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.games), (double)stats.kills / (double)stats.games));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.damage / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds));
                 lines.Add(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.score / (double)stats.rounds));
@@ -453,11 +479,58 @@ namespace CO_Driver
             return lines;
         }
 
+        public static List<String> endorse_co_driver()
+        {
+            return new List<String> { "" };
+        }
+
         public static void assign_teams(file_trace_managment.MatchData match, ref string blue_team, ref string red_team)
         {
             blue_team = "";
-            red_team = "";
-            
+            Random random_number = new Random();
+
+            if (match.match_classification == global_data.PVE_CLASSIFICATION)
+                red_team = "A bunch of robots.";
+            else
+            if (match.match_classification == global_data.FREE_PLAY_CLASSIFICATION)
+                red_team = "The elite of Bedlam.";
+            else
+                red_team = solo_queue_names[random_number.Next(solo_queue_names.Count())];
+
+            Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
+            Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
+
+            blue_teams.Add(match.local_player.party_id, new List<string> { match.local_player.nickname });
+
+            foreach (KeyValuePair<string, file_trace_managment.Player> player in match.player_records.ToList())
+            {
+                if (player.Value.party_id == 0 || player.Value.nickname == match.local_player.nickname)
+                    continue;
+
+                if (player.Value.team != match.local_player.team)
+                {
+                    if (!red_teams.ContainsKey(player.Value.party_id))
+                        red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    else
+                        red_teams[player.Value.party_id].Add(player.Value.nickname);
+                }
+                else
+                {
+                    if (!blue_teams.ContainsKey(player.Value.party_id))
+                        blue_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    else
+                        blue_teams[player.Value.party_id].Add(player.Value.nickname);
+                }
+            }
+
+            foreach (KeyValuePair<int, List<string>> team in blue_teams)
+                blue_team += string.Format("({0})", string.Join(",", team.Value));
+
+            if (red_teams.Count > 0)
+                red_team = "";
+
+            foreach (KeyValuePair<int, List<string>> team in red_teams)
+                red_team += string.Format("({0})", string.Join(",", team.Value));
         }
 
     }
