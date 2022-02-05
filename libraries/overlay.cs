@@ -84,7 +84,7 @@ namespace CO_Driver
                 lines.Clear();
             }
 
-            public void AddLine(String line)
+            public void AddLine(String line, String htmlClass)
             {
                 switch (format)
                 {
@@ -92,11 +92,10 @@ namespace CO_Driver
                         lines.Add(line);
                         break;
                     case Overlay_Format.html:
-                        //TODO
-
+                        lines.Add(string.Format("<p class = \"{1}\">{0}</p>", line, htmlClass));
                         break;
                     case Overlay_Format.md:
-                        lines.Add(line + '\\');
+                        lines.Add(line + '\\');// we neeed \ at the end of the line for a line break
                         break;
                 }
             }
@@ -109,8 +108,7 @@ namespace CO_Driver
                         lines.Add("-----------------------------------");
                         break;
                     case Overlay_Format.html:
-                        //TODO
-
+                        lines.Add("<hr>");
                         break;
                     case Overlay_Format.md:
                         lines.Add("---");
@@ -126,8 +124,7 @@ namespace CO_Driver
                         lines.Add("");
                         break;
                     case Overlay_Format.html:
-                        //TODO
-
+                        lines.Add("<br>");
                         break;
                     case Overlay_Format.md:
                         lines.Add("\\");
@@ -135,7 +132,7 @@ namespace CO_Driver
                 }
             }
 
-            public void AddHeader(String line)
+            public void AddHeader(String line, String htmlClass)
             {
                 switch (format)
                 {
@@ -143,8 +140,7 @@ namespace CO_Driver
                         lines.Add(line);
                         break;
                     case Overlay_Format.html:
-                        //TODO
-
+                        lines.Add(string.Format("<h3 class = \"{1}\">{0}</h3>", line, htmlClass));
                         break;
                     case Overlay_Format.md:
                         lines.Add("###"+line);
@@ -154,35 +150,35 @@ namespace CO_Driver
 
             public void WriteToFile(String path)
             {
+                List<String> result = new List<String>();
                 switch (format)
                 {
                     case Overlay_Format.txt:
                         path = path + ".txt";
-                        if (lines.Count > 0)
-                        {
-                            File.WriteAllLines(path, lines);
-                        }
-                        else
-                        {
-                            File.WriteAllText(path, String.Empty);
-                        }
+                        result = lines;
                         break;
                     case Overlay_Format.md:
                         path = path + ".md";
-                        if (lines.Count > 0)
-                        {
-                            File.WriteAllLines(path, lines);
-                        }
-                        else
-                        {
-                            File.WriteAllText(path, String.Empty);
-                        }
+                        result = lines;
                         break;
                     case Overlay_Format.html:
-                        //TODO
-                        path = path + ".html";
+                        result.Add("<!DOCTYPE html><html>");
+                        result.Add("<head><link rel=\"stylesheet\" href=\""+path+".css\"></head>");//TODO separate config for css file paths for users?
+                        result.Add("<body>");
+                        result.AddRange(lines);
+                        result.Add("</body></html>");
 
+                        path = path + ".html";
                         break;
+                }
+
+                if (result.Count > 0)
+                {
+                    File.WriteAllLines(path, result);
+                }
+                else
+                {
+                    File.WriteAllText(path, String.Empty);
                 }
 
             }
@@ -331,10 +327,10 @@ namespace CO_Driver
 
                 //TODO separate methods for css purposes
                 foreach (KeyValuePair<int, List<string>> team in blue_teams)
-                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)));
+                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)),"player blue_player");
 
                 foreach (KeyValuePair<int, List<string>> team in red_teams)
-                    writerRed.AddLine(string.Format("{0}", string.Join(",", team.Value)));
+                    writerRed.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player red_player");
 
             }
             writerBlue.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\blue_team_squads");
@@ -375,12 +371,12 @@ namespace CO_Driver
             if (rewards.Count > 0)
             {
                 writer.addEmptyRow();
-                writer.AddHeader("Resource Breakdown");
+                writer.AddHeader("Resource Breakdown", "resource_breakdown");
                 writer.AddHorizontalRow();
 
                 foreach (KeyValuePair<string, int> value in rewards.OrderByDescending(x => x.Value))
                 {
-                    writer.AddLine(string.Format(@"{0,16} {1}", translate.translate_string(value.Key, session, translation), value.Value));
+                    writer.AddLine(string.Format(@"{0,16} {1}", translate.translate_string(value.Key, session, translation), value.Value), "resource_breakdown reward");
                 }
             }
         }
@@ -423,15 +419,15 @@ namespace CO_Driver
 
             if (stats.games > 0)
             {
-                writer.AddHeader(string.Format(@"{0,3} Day Stats for {1}", Current_session.twitch_settings.overview_time_range, game_mode));
+                writer.AddHeader(string.Format(@"{0,3} Day Stats for {1}", Current_session.twitch_settings.overview_time_range, game_mode), "day_stats");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16} {1,8}", "Games", stats.games));
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.wins / (double)stats.games));
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.deaths), (double)stats.kills / (double)stats.deaths));
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.games), (double)stats.kills / (double)stats.games));
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.damage / (double)stats.rounds));
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds));
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.score / (double)stats.rounds));
+                writer.AddLine(string.Format(@"{0,16} {1,8}", "Games", stats.games), "day_stats games");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.wins / (double)stats.games), "day_stats win_lose_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.deaths), (double)stats.kills / (double)stats.deaths), "day_stats kill_death_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.games), (double)stats.kills / (double)stats.games), "day_stats kill_game_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.damage / (double)stats.rounds), "day_stats avg_dmg");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds), "day_stats avg_dmg_rec");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.score / (double)stats.rounds), "day_stats avg_score");
             }
         }
 
@@ -451,13 +447,13 @@ namespace CO_Driver
 
             if (Current_session.twitch_settings.in_game_kad)
             {
-                writer.AddHeader(string.Format(@"Current match on {0}", translate.translate_string(current_match.map_name, session, translation)));
+                writer.AddHeader(string.Format(@"Current match on {0}", translate.translate_string(current_match.map_name, session, translation)), "current_match");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[Current_session.local_user].stats.kills));
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[Current_session.local_user].stats.assists));
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.player_records[Current_session.local_user].stats.deaths));
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.player_records[Current_session.local_user].stats.drone_kills));
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.player_records[Current_session.local_user].stats.score));
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[Current_session.local_user].stats.kills), "current_match kills");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[Current_session.local_user].stats.assists), "current_match assists");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.player_records[Current_session.local_user].stats.deaths), "current_match deaths");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.player_records[Current_session.local_user].stats.drone_kills), "current_match drone_kils");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.player_records[Current_session.local_user].stats.score), "current_match score");
             }
 
             if (Current_session.twitch_settings.in_game_dmg)
@@ -467,9 +463,9 @@ namespace CO_Driver
                 if (current_match.player_records[Current_session.local_user].stats.damage > 0)
                 {
                     writer.addEmptyRow();
-                    writer.AddHeader("Damage Breakdown");
+                    writer.AddHeader("Damage Breakdown", "damage_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage));
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage), "damage_breakdown total");
 
                     foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.attacker == Current_session.local_user))
                     {
@@ -483,7 +479,7 @@ namespace CO_Driver
                     {
                         foreach (KeyValuePair<string, double> record in damage_breakdown)
                         {
-                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
+                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value), "damage_breakdown weapon");
                         }
                     }
                 }
@@ -492,9 +488,9 @@ namespace CO_Driver
                 {
                     damage_breakdown = new Dictionary<string, double> { };
                     writer.addEmptyRow();
-                    writer.AddHeader("Damage Recieved Breakdown");
+                    writer.AddHeader("Damage Recieved Breakdown", "damage_recieved_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage_taken));
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage_taken), "damage_recieved_breakdown total");
 
                     foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.victim == Current_session.local_user))
                     {
@@ -508,7 +504,7 @@ namespace CO_Driver
                     {
                         foreach (KeyValuePair<string, double> record in damage_breakdown)
                         {
-                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value));
+                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value), "damage_recieved_breakdown weapon");
                         }
                     }
                 }
@@ -517,24 +513,24 @@ namespace CO_Driver
             if (Current_session.twitch_settings.in_game_victims && current_match.victims.Count > 0)
             {
                 writer.addEmptyRow();
-                writer.AddHeader("Victims");
+                writer.AddHeader("Victims", "victims");
                 writer.AddHorizontalRow();
                 foreach (string victim in current_match.victims)
-                    writer.AddLine(string.Format(@"{0,16}", victim));
+                    writer.AddLine(string.Format(@"{0,16}", victim), "victims name");
 
                 if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count == 1)
-                    writer.AddLine(string.Format(@"{0,16}", "Bot"));
-                if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count > 1)
-                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count));
+                    writer.AddLine(string.Format(@"{0,16}", "Bot"), "victims bot");
+                else if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count > 1)
+                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count), "victims bot");
 
             }
 
             if (Current_session.twitch_settings.in_game_killer && current_match.nemesis != "")
             {
                 writer.addEmptyRow();
-                writer.AddHeader("Killed by");
+                writer.AddHeader("Killed by", "killed_by");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16}", current_match.nemesis));
+                writer.AddLine(string.Format(@"{0,16}", current_match.nemesis), "killed_by name");
             }
         }
 
@@ -573,14 +569,14 @@ namespace CO_Driver
             {
                 count = 0;
                 writer.addEmptyRow();
-                writer.AddHeader(string.Format(@"Top {0} Nemesis", Current_session.twitch_settings.nemeisis_count));
+                writer.AddHeader(string.Format(@"Top {0} Nemesis", Current_session.twitch_settings.nemeisis_count), "top_nemesis");
                 writer.AddHorizontalRow();
                 foreach (KeyValuePair<string, Opponent> nemesis in opponent_dict.OrderByDescending(x => x.Value.killed).ThenByDescending(x => x.Value.been_killed))
                 {
                     if (count >= Current_session.twitch_settings.nemeisis_count)
                         break;
 
-                    writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed));
+                    writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed), "top_nemesis entry"); //TODO add formatted input option for writer with divs for each entry
                     count += 1;
                 }
             }
@@ -589,14 +585,14 @@ namespace CO_Driver
             {
                 count = 0;
                 writer.addEmptyRow();
-                writer.AddHeader(string.Format(@"Top {0} Victims", Current_session.twitch_settings.nemeisis_count));
+                writer.AddHeader(string.Format(@"Top {0} Victims", Current_session.twitch_settings.nemeisis_count), "top_victims");
                 writer.AddHorizontalRow();
                 foreach (KeyValuePair<string, Opponent> nemesis in opponent_dict.OrderByDescending(x => x.Value.been_killed).ThenByDescending(x => x.Value.killed))
                 {
                     if (count >= Current_session.twitch_settings.nemeisis_count)
                         break;
 
-                    writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed));
+                    writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.killed, nemesis.Value.been_killed), "top_victims entry");
                     count += 1;
                 }
             }
