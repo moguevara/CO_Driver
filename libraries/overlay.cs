@@ -163,7 +163,7 @@ namespace CO_Driver
                         break;
                     case Overlay_Format.html:
                         result.Add("<!DOCTYPE html><html>");
-                        result.Add("<head><link rel=\"stylesheet\" href=\""+path+".css\"></head>");//TODO separate config for css file paths for users?
+                        result.Add("<head><meta http-equiv=\"refresh\" content=\"1\"><link rel=\"stylesheet\" href=\""+path+".css\"></head>");//TODO separate config for css file paths for users?
                         result.Add("<body>");
                         result.AddRange(lines);
                         result.Add("</body></html>");
