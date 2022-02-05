@@ -13,7 +13,7 @@ namespace CO_Driver
     public partial class fusion_calculator : UserControl
     {
 
-        static int Attempt_depth = 200000;
+        static int Attempt_depth = 100000;
         static int Fusion_depth = 20;
 
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
@@ -93,16 +93,20 @@ namespace CO_Driver
                     fusion_b = rnd.Next(1, Convert.ToInt32(num_power_max.Value) + 1);
                     fusion_c = rnd.Next(1, Convert.ToInt32(num_handling_max.Value) + 1);
 
-                    if (remaining_stabilizers > 0  && (stabilized_a || stabilized_b || stabilized_c))
-                    {
+                    if (stabilized_a && remaining_stabilizers > 0)
                         remaining_stabilizers -= 1;
-                    }
                     else
-                    {
                         stabilized_a = false;
+
+                    if (stabilized_b && remaining_stabilizers > 0)
+                        remaining_stabilizers -= 1;
+                    else
                         stabilized_b = false;
+
+                    if (stabilized_c && remaining_stabilizers > 0)
+                        remaining_stabilizers -= 1;
+                    else
                         stabilized_c = false;
-                    }
 
                     if (Convert.ToInt32(num_reliabilty_target.Value) > 0 && !stabilized_a)
                     {
@@ -110,7 +114,7 @@ namespace CO_Driver
                         {
                             success = false;
                         }
-                        else if(remaining_stabilizers > 0)
+                        else if (remaining_stabilizers > 0)
                         {
                             stabilized_a = true;
                         }
