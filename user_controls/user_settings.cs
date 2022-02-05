@@ -227,8 +227,8 @@ namespace CO_Driver
             session.bundle_ram_mode = true;
             session.update_postmatch = true;
             session.upload_data = false;
-            session.action_configuration = overlay.default_overlay_setup();
-            session.twitch_settings = overlay.default_twitch_settings();
+            session.action_configuration = Overlay.default_overlay_setup();
+            session.twitch_settings = Overlay.default_twitch_settings();
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);

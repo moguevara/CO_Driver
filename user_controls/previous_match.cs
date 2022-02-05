@@ -326,7 +326,7 @@ namespace CO_Driver
 
         private void assign_teams()
         {
-            overlay.assign_teams(match_data, ref blue_team, ref red_team);
+            Overlay.assign_teams(match_data, ref blue_team, ref red_team);
         }
 
         private void gp_damage_recieved_Paint(object sender, PaintEventArgs e)

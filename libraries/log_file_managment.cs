@@ -84,8 +84,8 @@ namespace CO_Driver
                 save_captures = true,
                 twitch_mode = false,
                 endorse_co_driver = true,
-                action_configuration = overlay.default_overlay_setup(),
-                twitch_settings = overlay.default_twitch_settings(),
+                action_configuration = Overlay.default_overlay_setup(),
+                twitch_settings = Overlay.default_twitch_settings(),
                 bundle_ram_mode = true,
                 update_postmatch = true,
                 selected_theme = "Terminal",
@@ -216,10 +216,10 @@ namespace CO_Driver
                         loaded_session.primary_display = session.primary_display;
 
                     if (String.IsNullOrEmpty(loaded_session.action_configuration))
-                        loaded_session.action_configuration = overlay.default_overlay_setup();
+                        loaded_session.action_configuration = Overlay.default_overlay_setup();
 
                     if (String.IsNullOrEmpty(loaded_session.twitch_settings))
-                        loaded_session.twitch_settings = overlay.default_twitch_settings();
+                        loaded_session.twitch_settings = Overlay.default_twitch_settings();
 
                     if (valid_user_session(loaded_session))
                         return loaded_session;

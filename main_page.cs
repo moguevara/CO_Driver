@@ -1001,7 +1001,7 @@ namespace CO_Driver
                     file_trace_managment.add_mob_event(line, Current_session);
                     break;
             }
-            overlay.resolve_overlay_action(Current_session, session, translations);
+            Overlay.resolve_overlay_action(Current_session, session, translations);
             file_trace_managment.update_previous_time("c", line, Current_session);
             Current_session.previous_combat_event = Current_session.current_event;
         }
