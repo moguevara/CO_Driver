@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lable1 = new System.Windows.Forms.Label();
             this.tb_fusion_data = new System.Windows.Forms.DataGridView();
             this.fusion_attempts = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +56,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.num_item_cost = new System.Windows.Forms.NumericUpDown();
             this.btn_reset = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.num_stabilizer_count = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.tb_fusion_data)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_reliabilty_target)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_power_target)).BeginInit();
@@ -64,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_power_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_handling_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_item_cost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_stabilizer_count)).BeginInit();
             this.SuspendLayout();
             // 
             // lable1
@@ -87,14 +90,14 @@
             this.tb_fusion_data.BackgroundColor = System.Drawing.Color.Black;
             this.tb_fusion_data.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_fusion_data.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_fusion_data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_fusion_data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.tb_fusion_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tb_fusion_data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fusion_attempts,
@@ -103,35 +106,35 @@
             this.event_part_cost,
             this.standard_part_count,
             this.standard_part_cost});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tb_fusion_data.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tb_fusion_data.DefaultCellStyle = dataGridViewCellStyle6;
             this.tb_fusion_data.EnableHeadersVisualStyles = false;
             this.tb_fusion_data.GridColor = System.Drawing.Color.Lime;
             this.tb_fusion_data.Location = new System.Drawing.Point(504, 68);
             this.tb_fusion_data.Name = "tb_fusion_data";
             this.tb_fusion_data.ReadOnly = true;
             this.tb_fusion_data.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tb_fusion_data.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tb_fusion_data.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.tb_fusion_data.RowHeadersWidth = 51;
             this.tb_fusion_data.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Lime;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.tb_fusion_data.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Lime;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.tb_fusion_data.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.tb_fusion_data.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_fusion_data.Size = new System.Drawing.Size(675, 515);
             this.tb_fusion_data.TabIndex = 1;
@@ -365,7 +368,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 308);
+            this.label1.Location = new System.Drawing.Point(13, 366);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 14);
             this.label1.TabIndex = 15;
@@ -375,7 +378,7 @@
             // 
             this.num_item_cost.BackColor = System.Drawing.Color.Black;
             this.num_item_cost.ForeColor = System.Drawing.Color.Lime;
-            this.num_item_cost.Location = new System.Drawing.Point(58, 333);
+            this.num_item_cost.Location = new System.Drawing.Point(58, 391);
             this.num_item_cost.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -410,10 +413,36 @@
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 291);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(119, 14);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Stabilizer Count";
+            // 
+            // num_stabilizer_count
+            // 
+            this.num_stabilizer_count.BackColor = System.Drawing.Color.Black;
+            this.num_stabilizer_count.ForeColor = System.Drawing.Color.Lime;
+            this.num_stabilizer_count.Location = new System.Drawing.Point(58, 320);
+            this.num_stabilizer_count.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.num_stabilizer_count.Name = "num_stabilizer_count";
+            this.num_stabilizer_count.Size = new System.Drawing.Size(39, 22);
+            this.num_stabilizer_count.TabIndex = 19;
+            this.num_stabilizer_count.ValueChanged += new System.EventHandler(this.calculator_changed);
+            // 
             // fusion_calculator
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.num_stabilizer_count);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.btn_reset);
             this.Controls.Add(this.num_item_cost);
             this.Controls.Add(this.label1);
@@ -447,6 +476,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_power_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_handling_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_item_cost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_stabilizer_count)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,5 +508,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn event_part_cost;
         private System.Windows.Forms.DataGridViewTextBoxColumn standard_part_count;
         private System.Windows.Forms.DataGridViewTextBoxColumn standard_part_cost;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown num_stabilizer_count;
     }
 }

@@ -13,7 +13,7 @@ namespace CO_Driver
     public partial class fusion_calculator : UserControl
     {
 
-        static int Attempt_depth = 100000;
+        static int Attempt_depth = 200000;
         static int Fusion_depth = 20;
 
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
@@ -38,6 +38,7 @@ namespace CO_Driver
             num_power_max.Value = 3;
             num_handling_target.Value = 1;
             num_handling_max.Value = 3;
+            num_stabilizer_count.Value = 0;
             
             calculate_probabilities();
         }
@@ -63,6 +64,10 @@ namespace CO_Driver
             int fusion_a;
             int fusion_b;
             int fusion_c;
+            int remaining_stabilizers;
+            bool stabilized_a;
+            bool stabilized_b;
+            bool stabilized_c;
             bool success;
             int iterations;
             Random rnd = new Random();
@@ -74,29 +79,67 @@ namespace CO_Driver
             for (int i = 0; i < Attempt_depth; i++)
             {
                 iterations = 0;
+                remaining_stabilizers = Convert.ToInt32(num_stabilizer_count.Value);
+                stabilized_a = false;
+                stabilized_b = false;
+                stabilized_c = false;
 
                 for (int j = 0; j < Fusion_depth; j++)
                 {
                     success = true;
+                    iterations++;
 
                     fusion_a = rnd.Next(1, Convert.ToInt32(num_reliability_max.Value) + 1);
                     fusion_b = rnd.Next(1, Convert.ToInt32(num_power_max.Value) + 1);
                     fusion_c = rnd.Next(1, Convert.ToInt32(num_handling_max.Value) + 1);
 
-                    iterations++;
+                    if (remaining_stabilizers > 0  && (stabilized_a || stabilized_b || stabilized_c))
+                    {
+                        remaining_stabilizers -= 1;
+                    }
+                    else
+                    {
+                        stabilized_a = false;
+                        stabilized_b = false;
+                        stabilized_c = false;
+                    }
 
-                    if (Convert.ToInt32(num_reliabilty_target.Value) > 0)
+                    if (Convert.ToInt32(num_reliabilty_target.Value) > 0 && !stabilized_a)
+                    {
                         if (Convert.ToInt32(num_reliabilty_target.Value) < fusion_a)
+                        {
                             success = false;
-
-                    if (Convert.ToInt32(num_power_target.Value) > 0)
+                        }
+                        else if(remaining_stabilizers > 0)
+                        {
+                            stabilized_a = true;
+                        }
+                    }
+                    
+                    if (Convert.ToInt32(num_power_target.Value) > 0 && !stabilized_b)
+                    {
                         if (Convert.ToInt32(num_power_target.Value) < fusion_b)
+                        {
                             success = false;
-
-                    if (Convert.ToInt32(num_handling_target.Value) > 0)
+                        }
+                        else if (remaining_stabilizers > 0)
+                        {
+                            stabilized_b = true;
+                        }
+                    }
+                    
+                    if (Convert.ToInt32(num_handling_target.Value) > 0 && !stabilized_c)
+                    {
                         if (Convert.ToInt32(num_handling_target.Value) < fusion_c)
+                        {
                             success = false;
-
+                        }
+                        else if (remaining_stabilizers > 0)
+                        {
+                            stabilized_c = true;
+                        }
+                    }
+                    
                     if (success)
                     {
                         if (Distribution.ContainsKey(iterations))
