@@ -52,7 +52,7 @@ namespace CO_Driver
         public revenue_review revenue_page = new revenue_review();
         public upload_screen upload_page = new upload_screen();
 
-        public DiscordRpcManager discordRpc = new DiscordRpcManager();
+        public DiscordRpcManager discordRpc = new DiscordRpcManager(true);//TODO use config i guess?
 
         public Size Initial_screen_size = new Size { };
         public Resize resize = new Resize { };
