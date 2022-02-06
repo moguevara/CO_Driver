@@ -11,8 +11,9 @@ namespace CO_Driver
     public class DiscordRpcManager
     {
         public DiscordRpcClient client { get; set; }
+        public bool Enabled { get; set; }
 
-        public DiscordRpcManager()
+        public DiscordRpcManager(bool enabled)
         {
 			client = new DiscordRpcClient("939795639120842762");
 
@@ -30,8 +31,9 @@ namespace CO_Driver
 			//Connect to the RPC
 			client.Initialize();
 
-			//Set the rich presence
-			//Call this as many times as you want and anywhere in your code.
+            this.Enabled = enabled;
+            if (!enabled) return;
+
 			client.SetPresence(new RichPresence()
 			{
 				Details = "Playing Crossout"
@@ -40,27 +42,22 @@ namespace CO_Driver
 
 		public void hangleEvent(file_trace_managment.SessionStats current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
+            if (!Enabled) return;
             RichPresence presence = new RichPresence();
             presence.Details = "Playing Crossout";
+            presence.Assets = new Assets()
+            {
+                LargeImageKey = "xo_logo",
+                SmallImageKey = "cod_logo"
+            };
 
             if (current_session.in_garage)
             {
-                if(current_session.queue_start_time != DateTime.MinValue)
+                presence.State = "In garage";
+                presence.Timestamps = new Timestamps()
                 {
-                    presence.State = "Waiting in queue";
-                    presence.Timestamps = new Timestamps()
-                    {
-                        Start = current_session.queue_start_time
-                    };
-                }
-                else
-                {
-                    presence.State = "In garage";
-                    presence.Timestamps = new Timestamps()
-                    {
-                        Start = current_session.garage_data.garage_start //always current time?
-                    };
-                }
+                    Start = current_session.garage_data.garage_start.ToUniversalTime()
+                };
             }
             else if(current_session.in_match)
             {
@@ -80,11 +77,20 @@ namespace CO_Driver
                 if(current_session.current_match.match_start!=DateTime.MinValue)
                     presence.Timestamps = new Timestamps()
                     {
-                        Start = current_session.current_match.match_start
+                        Start = current_session.current_match.match_start.ToUniversalTime()
                     };
             }
             else
             {
+                if (current_session.queue_start_time != DateTime.MinValue)
+                {
+                    presence.State = "Waiting in queue";
+                    presence.Timestamps = new Timestamps()
+                    {
+                        Start = current_session.queue_start_time.ToUniversalTime()
+                    };
+                }
+
                 //not in match nor in garage
             }
             client.SetPresence(presence);
