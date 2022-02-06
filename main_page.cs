@@ -52,6 +52,8 @@ namespace CO_Driver
         public revenue_review revenue_page = new revenue_review();
         public upload_screen upload_page = new upload_screen();
 
+        public DiscordRpcManager discordRpc = new DiscordRpcManager();
+
         public Size Initial_screen_size = new Size { };
         public Resize resize = new Resize { };
 
@@ -1002,6 +1004,7 @@ namespace CO_Driver
                     break;
             }
             Overlay.resolve_overlay_action(Current_session, session, translations);
+            discordRpc.hangleEvent(Current_session, session, translations);
             file_trace_managment.update_previous_time("c", line, Current_session);
             Current_session.previous_combat_event = Current_session.current_event;
         }

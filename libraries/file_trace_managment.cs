@@ -146,6 +146,41 @@ namespace CO_Driver
             public List<DamageRecord> damage_record { get; set; }
             public Dictionary<string, Player> player_records { get; set; }
             public List<RoundRecord> round_records { get; set; }
+
+            public List<Player> getPartyByPlayer(int playerId)
+            {
+                List<Player> players = new List<Player>();
+                int partyId = 0;
+                foreach(Player p in player_records.Values)
+                {
+                    if (p.uid == playerId)
+                    {
+                        partyId = p.party_id;
+                        break;
+                    }
+                }
+                if (partyId == 0) return players;
+
+                foreach(Player p in player_records.Values)
+                {
+                    if (p.party_id == partyId)
+                        players.Add(p);
+                }
+                return players;
+            }
+
+            public List<Player> getPartyById(int partyId)
+            {
+                List<Player> players = new List<Player>();
+                if (partyId == 0) return players;
+
+                foreach (Player p in player_records.Values)
+                {
+                    if (p.party_id == partyId)
+                        players.Add(p);
+                }
+                return players;
+            }
         }
 
         public class RoundRecord
@@ -571,7 +606,7 @@ namespace CO_Driver
 
             add_round_record(Current_session);
 
-            Current_session.queue_start_time = DateTime.MinValue;
+            Current_session.queue_start_time = DateTime.MinValue; //why not null instead
             Current_session.in_match = true;
             Current_session.in_garage = false;
             Current_session.current_match.match_rewards = new Dictionary<string, int> { };
