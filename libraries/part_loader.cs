@@ -761,6 +761,7 @@ namespace CO_Driver
             Current_session.static_records.global_cabin_dict.Add("Cabin_Halloween2020_Cab", new_cabin("Cabin_Halloween2020_Cab", "Dusk", global_data.EPIC_RARITY, 12, 100, 8600, 4200, 850, 280, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Volcano", new_cabin("Cabin_Volcano", "Harpy", global_data.EPIC_RARITY, 12, 100, 8500, 4500, 1000, 295, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_DronSpawn", new_cabin("Cabin_DronSpawn", "Werewolf", global_data.EPIC_RARITY, 12, 100, 8000, 4000, 600, 250, 1800, "light cabin"));
+            Current_session.static_records.global_cabin_dict.Add("Cabin_Tribal_Hog", new_cabin("Cabin_Tribal_Hog", "Tusk", global_data.EPIC_RARITY, 12, 100, 8000, 4000, 600, 250, 1800, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Tribal_cab2", new_cabin("Cabin_Tribal_cab2", "Griffon", global_data.LEGENDARY_RARITY, 12, 100, 9000, 4800, 700, 314, 2400, "light cabin"));
             Current_session.static_records.global_cabin_dict.Add("Chassis_Small", new_cabin("Chassis_Small", "Guerilla", global_data.BASE_RARITY, 7, 65, 6000, 3000, 360, 250, 160, "medium cabin"));
             Current_session.static_records.global_cabin_dict.Add("Chassis_FordPickup", new_cabin("Chassis_FordPickup", "Huntsman", global_data.COMMON_RARITY, 8, 75, 7000, 3000, 700, 275, 250, "medium cabin"));
@@ -801,6 +802,7 @@ namespace CO_Driver
 
             Current_session.static_records.global_cabin_dict.Add("Cabin_CyberEast_Cab3", new_cabin("Cabin_CyberEast_Cab3", "Deadman", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
             Current_session.static_records.global_cabin_dict.Add("Cabin_Engineers_Cab1_Fslot", new_cabin("Cabin_Engineers_Cab1_Fslot", "Master", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
+            Current_session.static_records.global_cabin_dict.Add("Cabin_CDAveraging", new_cabin("Cabin_CDAveraging", "Hadron", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "light cabin")); /* incomplete */
         }
 
         public static void populate_weapon_list(file_trace_managment.SessionStats Current_session)
@@ -935,6 +937,10 @@ namespace CO_Driver
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_ShotGun_Garbage_relic", new_weapon("CarPart_Gun_ShotGun_Garbage_relic", "Jormungandr", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "reloading shotgun")); /*incomplete*/
 
             Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_MissileLauncherPlasma_epic", new_weapon("CarPart_Gun_MissileLauncherPlasma_epic", "Yokai", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_HomingMissileLauncherSupport_epic", new_weapon("CarPart_HomingMissileLauncherSupport_epic", "Trombone", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_SawLauncher", new_weapon("CarPart_Gun_SawLauncher", "Ripper", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_Lcannon_Preepic", new_weapon("CarPart_Gun_Lcannon_Preepic", "AC62 Therm", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
+            Current_session.static_records.global_weapon_dict.Add("CarPart_Gun_DroneLauncher_Legend", new_weapon("CarPart_Gun_DroneLauncher_Legend", "SD-15 Vulture", global_data.RELIC_RARITY, 4, 20, 200, 160, 1100, "unguided rocket")); /*incomplete*/
         }
 
         public static void populate_global_parts_list(file_trace_managment.SessionStats Current_session)
