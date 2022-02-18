@@ -43,8 +43,7 @@ namespace CO_Driver
             public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
             public string manual_gamemode { get; set; }
-
-
+            
             [System.ComponentModel.DefaultValue(OverlayWriter.Overlay_Format.txt)]
             public OverlayWriter.Overlay_Format overlay_format { get; set; }
         }

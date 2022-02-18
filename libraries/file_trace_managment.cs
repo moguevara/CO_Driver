@@ -998,6 +998,8 @@ namespace CO_Driver
             if (Current_session.current_match.map_name.Contains("red_rocks_battle_royale"))
                 Current_session.current_match.match_type = global_data.BATTLE_ROYALE_MATCH;
 
+            
+
             if (Current_session.current_match.game_play_value.Contains("Pve_Greatescape"))
                 Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
 
@@ -1084,6 +1086,12 @@ namespace CO_Driver
             if (Current_session.current_match.game_play_value.Contains("Brawl_ZombieEscape"))
                 Current_session.current_match.match_type = global_data.OPERATION_RED_LIGHT_MATCH;
 
+            if (Current_session.current_match.game_play_value.Contains("Brawl_Arena"))
+                Current_session.current_match.match_type = global_data.ARENA_CASUAL_MATCH;
+
+            if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("QBrawl_Arena_Casual")) != null)
+                Current_session.current_match.match_type = global_data.ARENA_CASUAL_MATCH;
+
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
                 Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
 
@@ -1102,6 +1110,8 @@ namespace CO_Driver
             if (Current_session.current_match.match_type == global_data.STANDARD_MATCH            ||
                 Current_session.current_match.match_type == global_data.STANDARD_CW_MATCH         ||
                 Current_session.current_match.match_type == global_data.LEVIATHIAN_CW_MATCH       ||
+                Current_session.current_match.match_type == global_data.ARENA_RANKED_MATCH        ||
+                Current_session.current_match.match_type == global_data.ARENA_CASUAL_MATCH        ||
                 Current_session.current_match.match_type == global_data.LEAGUE_6_v_6_MATCH        ||
                 Current_session.current_match.match_type == global_data.STANDARD_RESTRICTED_MATCH ||
                 Current_session.current_match.match_type == global_data.CANNON_BRAWL_MATCH)
@@ -1841,7 +1851,7 @@ namespace CO_Driver
 
         public static void assign_match_property(string line, SessionStats Current_session)
         {
-            Match line_results = Regex.Match(line, @"""(?<attribute_name>.+?)"": (?<attribute_value>.+?)");
+            Match line_results = Regex.Match(line, @"""(?<attribute_name>.+?)"": (?<attribute_value>.*?)");
 
             if (line_results.Groups.Count < 2)
             {
@@ -1895,6 +1905,10 @@ namespace CO_Driver
                     return "Battle Royale";
                 case global_data.LEAGUE_6_v_6_MATCH:
                     return "6v6";
+                case global_data.ARENA_CASUAL_MATCH:
+                    return "Arena (Casual)";
+                case global_data.ARENA_RANKED_MATCH:
+                    return "Arena (Ranked)";
                 case global_data.EASY_RAID_MATCH:
                     return "Easy Raid";
                 case global_data.MED_RAID_MATCH:

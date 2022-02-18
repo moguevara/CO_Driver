@@ -294,6 +294,8 @@ namespace CO_Driver
                 session.local_language != "हिन्दी" &&
                 session.local_language != "한국어" &&
                 session.local_language != "Ελληνικά" &&
+                session.local_language != "简体中文" &&
+                session.local_language != "繁體中文" &&
                 session.local_language != "Español")
                 valid = false;
 

@@ -473,7 +473,9 @@
             "हिन्दी",
             "Polski",
             "한국어",
-            "Ελληνικά"});
+            "Ελληνικά",
+            "简体中文",
+            "繁體中文"});
             this.cmb_language_drop_down.Location = new System.Drawing.Point(293, 236);
             this.cmb_language_drop_down.MaxDropDownItems = 10;
             this.cmb_language_drop_down.Name = "cmb_language_drop_down";
