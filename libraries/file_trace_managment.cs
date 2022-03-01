@@ -906,8 +906,6 @@ namespace CO_Driver
             }
         }
 
-       
-
         private static void clear_in_game_stats(SessionStats Current_session)
         {
             if (!Current_session.in_match)

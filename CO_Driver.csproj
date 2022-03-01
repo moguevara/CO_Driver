@@ -65,16 +65,17 @@
     <ApplicationIcon>RotFish.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4BA4D0E198539909E5365A87D6CB6CF19F5C014B</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5B46FCEB0860772AB95E0C2EE9B8B02D5D3E0023</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>codriver.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
