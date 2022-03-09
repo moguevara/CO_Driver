@@ -33,7 +33,7 @@
     <PublisherName>Dept116</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>135</ApplicationRevision>
+    <ApplicationRevision>137</ApplicationRevision>
     <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -126,6 +126,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="user_controls\comparison_screen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\comparison_screen.Designer.cs">
+      <DependentUpon>comparison_screen.cs</DependentUpon>
     </Compile>
     <Compile Include="user_controls\revenue_review.cs">
       <SubType>UserControl</SubType>
@@ -238,6 +244,9 @@
     </Compile>
     <EmbeddedResource Include="user_controls\about_screen.resx">
       <DependentUpon>about_screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\comparison_screen.resx">
+      <DependentUpon>comparison_screen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\garage_view.resx">
       <DependentUpon>garage_view.cs</DependentUpon>

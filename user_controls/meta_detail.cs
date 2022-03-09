@@ -24,10 +24,6 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
-        private Dictionary<string, int> weapon_usage = new Dictionary<string, int> { };
-        private Dictionary<string, int> movement_usage = new Dictionary<string, int> { };
-        private Dictionary<string, int> cabin_usage = new Dictionary<string, int> { };
-        private Dictionary<string, int> module_usage = new Dictionary<string, int> { };
         private filter.FilterSelections filter_selections = filter.new_filter_selection();
         private string new_selection = "";
         private string previous_selection = "";

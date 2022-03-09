@@ -1085,9 +1085,9 @@ namespace CO_Driver
                 Current_session.current_match.match_type = global_data.OPERATION_RED_LIGHT_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_Arena"))
-                Current_session.current_match.match_type = global_data.ARENA_CASUAL_MATCH;
+                Current_session.current_match.match_type = global_data.ARENA_RANKED_MATCH;
 
-            if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("QBrawl_Arena_Casual")) != null)
+            if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.value.Contains("QBrawl_Arena_Casual")) != null)
                 Current_session.current_match.match_type = global_data.ARENA_CASUAL_MATCH;
 
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
