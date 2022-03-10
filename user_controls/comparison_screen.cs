@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CO_Driver.user_controls
+namespace CO_Driver
 {
     public partial class comparison_screen : UserControl
     {
@@ -22,8 +22,13 @@ namespace CO_Driver.user_controls
         private filter.FilterSelections filter_selections = filter.new_filter_selection();
         private string new_selection = "";
         private string previous_selection = "";
-        private string current_x_axis = "Weapon";
-        private string current_y_axis = "Win Rate";
+        private grouping_category current_x_axis = null;
+        private grouping_category current_y_axis = null;
+        private int current_result_limit = 0;
+        private int current_min_sample_size = 0;
+
+        private List<string> result_limit_groups = new List<string> { "All", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
+        private List<string> min_sample_size_groups = new List<string> { "0", "5", "10", "15", "20", "25", "50", "75", "100", "150", "200", "250", "300"};
 
         private List<grouping_category> x_axis_groups = new List<grouping_category> { new grouping_category { name = "Day", min = 0, max = int.MaxValue, max_display = 7 },
                                                                                       new grouping_category { name = "Week", min = 0, max = int.MaxValue, max_display = 12 },
@@ -95,6 +100,57 @@ namespace CO_Driver.user_controls
         public comparison_screen()
         {
             InitializeComponent();
+        }
+
+        private void comparison_screen_Load(object sender, EventArgs e)
+        {
+            cbXaxis.Items.Clear();
+            cbYaxis.Items.Clear();
+            cbReturnLimit.Items.Clear();
+            cbMinSampleSize.Items.Clear();
+
+            foreach (grouping_category group in x_axis_groups)
+                cbXaxis.Items.Add(group.name);
+
+            foreach (grouping_category group in y_axis_groups)
+                cbYaxis.Items.Add(group.name);
+
+            foreach (string group in result_limit_groups)
+                cbReturnLimit.Items.Add(group);
+
+            foreach (string group in min_sample_size_groups)
+                cbMinSampleSize.Items.Add(group);
+
+
+            current_x_axis = x_axis_groups.FirstOrDefault();
+            current_y_axis = y_axis_groups.FirstOrDefault();
+            current_result_limit = 0;
+            current_min_sample_size = 0;
+
+            cbXaxis.Text = current_x_axis.name;
+            cbYaxis.Text = current_y_axis.name;
+            cbReturnLimit.Text = "All";
+            cbMinSampleSize.Text = "15";
+        }
+
+        private void cbYaxis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbXaxis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbReturnLimit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbMinSampleSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -41,6 +41,7 @@ namespace CO_Driver
         public match_history match_history_page = new match_history();
         public schedule_display schedule_page = new schedule_display();
         public build_view build_page = new build_view();
+        public comparison_screen comparison_page = new comparison_screen();
         public part_optimizer part_page = new part_optimizer();
         public part_view avail_part_page = new part_view();
         public previous_match match_detail_page = new previous_match();
@@ -125,6 +126,7 @@ namespace CO_Driver
             schedule_page.session = session;
             match_history_page.session = session;
             build_page.session = session;
+            comparison_page.session = session;
             meta_detail_page.session = session;
             revenue_page.session = session;
             upload_page.session = session;
@@ -141,6 +143,7 @@ namespace CO_Driver
             match_history_page.translations = translations;
             meta_detail_page.translations = translations;
             build_page.translations = translations;
+            comparison_page.translations = translations;
             revenue_page.translations = translations;
             upload_page.translations = translations;
 
@@ -156,6 +159,7 @@ namespace CO_Driver
             match_history_page.ui_translations = ui_translations;
             meta_detail_page.ui_translations = ui_translations;
             build_page.ui_translations = ui_translations;
+            comparison_page.ui_translations = ui_translations;
             revenue_page.ui_translations = ui_translations;
             upload_page.ui_translations = ui_translations;
 
@@ -171,6 +175,7 @@ namespace CO_Driver
             translate_controls(match_history_page);
             translate_controls(schedule_page);
             translate_controls(build_page);
+            translate_controls(comparison_page);
             translate_controls(part_page);
             translate_controls(avail_part_page);
             translate_controls(match_detail_page);
@@ -262,6 +267,7 @@ namespace CO_Driver
             theme_manager.apply_theme(match_history_page, session);
             theme_manager.apply_theme(schedule_page, session);
             theme_manager.apply_theme(build_page, session);
+            theme_manager.apply_theme(comparison_page, session);
             theme_manager.apply_theme(part_page, session);
             theme_manager.apply_theme(avail_part_page, session);
             theme_manager.apply_theme(match_detail_page, session);
@@ -1160,6 +1166,12 @@ namespace CO_Driver
             main_page_panel.Controls.Add(build_page);
         }
 
+        private void performanceComparisonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(comparison_page);
+        }
+
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.Sizable)
@@ -1175,5 +1187,7 @@ namespace CO_Driver
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             }
         }
+
+        
     }
 }
