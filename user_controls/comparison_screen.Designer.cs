@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.dt_start_date = new System.Windows.Forms.DateTimePicker();
@@ -269,16 +269,16 @@
             // ch_comparison
             // 
             this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea7.Name = "ChartArea1";
-            this.ch_comparison.ChartAreas.Add(chartArea7);
+            chartArea1.Name = "ChartArea1";
+            this.ch_comparison.ChartAreas.Add(chartArea1);
             this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend7.AutoFitMinFontSize = 5;
-            legend7.Font = new System.Drawing.Font("Consolas", 8F);
-            legend7.IsTextAutoFit = false;
-            legend7.MaximumAutoSize = 20F;
-            legend7.Name = "Legend1";
-            legend7.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_comparison.Legends.Add(legend7);
+            legend1.AutoFitMinFontSize = 5;
+            legend1.Font = new System.Drawing.Font("Consolas", 8F);
+            legend1.IsTextAutoFit = false;
+            legend1.MaximumAutoSize = 20F;
+            legend1.Name = "Legend1";
+            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_comparison.Legends.Add(legend1);
             this.ch_comparison.Location = new System.Drawing.Point(3, 84);
             this.ch_comparison.Name = "ch_comparison";
             this.ch_comparison.Size = new System.Drawing.Size(1189, 455);
