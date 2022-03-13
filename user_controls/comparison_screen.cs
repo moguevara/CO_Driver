@@ -27,6 +27,7 @@ namespace CO_Driver
         private metric_category current_y_axis = null;
         private int current_result_limit = 0;
         private int current_min_sample_size = 0;
+        private string mode = "Total";
         private List<chart_element> chart_series = new List<chart_element> { };
 
         private List<string> result_limit_groups = new List<string> { "All", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
@@ -76,7 +77,7 @@ namespace CO_Driver
                                                                                       new grouping_category { id = (int)grouping.MONTH, name = "Month", min = 0, max = int.MaxValue, max_display = 12 },
                                                                                       new grouping_category { id = (int)grouping.YEAR, name = "Year", min = 0, max = int.MaxValue, max_display = 12 },
                                                                                       new grouping_category { id = (int)grouping.WEAPON, name = "Weapon", min = 0, max = int.MaxValue, max_display = 14 },
-                                                                                      new grouping_category { id = (int)grouping.MOVEMENT, name = "Movement Part", min = 0, max = int.MaxValue, max_display = 14 },
+                                                                                      new grouping_category { id = (int)grouping.MOVEMENT, name = "Movement", min = 0, max = int.MaxValue, max_display = 14 },
                                                                                       new grouping_category { id = (int)grouping.CABIN, name = "Cabin", min = 0, max = int.MaxValue, max_display = 14 },
                                                                                       new grouping_category { id = (int)grouping.MODULE, name = "Module", min = 0, max = int.MaxValue, max_display = 14 },
                                                                                       new grouping_category { id = (int)grouping.WEAPON_CAT, name = "Weapon Category", min = 0, max = int.MaxValue, max_display = 14 },
@@ -277,10 +278,19 @@ namespace CO_Driver
                     }
                     break;
                 case (int)grouping.MOVEMENT:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        foreach (part_loader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
+                            add_chart_element(part.name, value);
                     break;
                 case (int)grouping.CABIN:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        if (build_records[match.match_data.local_player.build_hash].cabin != null)
+                            add_chart_element(build_records[match.match_data.local_player.build_hash].cabin.name, value);
                     break;
                 case (int)grouping.MODULE:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        foreach (part_loader.Module part in build_records[match.match_data.local_player.build_hash].modules)
+                            add_chart_element(part.name, value);
                     break;
                 case (int)grouping.WEAPON_CAT:
                     break;
@@ -291,14 +301,17 @@ namespace CO_Driver
                 case (int)grouping.MODULE_CAT:
                     break;
                 case (int)grouping.MAP:
+                    add_chart_element(match.match_data.map_name, value);
                     break;
                 case (int)grouping.GAME_MODE:
+                    add_chart_element(match.match_data.gameplay_desc, value);
                     break;
                 case (int)grouping.GAME_MODE_CAT:
                     break;
                 case (int)grouping.GAME_RESULT:
                     break;
                 case (int)grouping.POWER_SCORE:
+                    add_chart_element(find_power_score_range(match.match_data.local_player.power_score), value);
                     break;
                 case (int)grouping.REGION:
                     break;
@@ -329,6 +342,29 @@ namespace CO_Driver
             }
         }
 
+        public string find_power_score_range(int power_score)
+        {
+            if (power_score < 2500)
+                return "0-2499";
+            if (power_score < 3500)
+                return "2500-3499";
+            if (power_score < 4500)
+                return "3500-4499";
+            if (power_score < 5500)
+                return "4500-5499";
+            if (power_score < 6500)
+                return "5500-6499";
+            if (power_score < 7500)
+                return "6500-7499";
+            if (power_score < 8500)
+                return "7500-8499";
+            if (power_score < 9500)
+                return "8500-9499";
+            if (power_score < 13000)
+                return "9500-12999";
+            return "13000+";
+        }
+
         public void reset_comparison_data()
         {
             foreach (Series series in ch_comparison.Series)
@@ -345,6 +381,19 @@ namespace CO_Driver
         private void cbYaxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.name == cbYaxis.SelectedItem.ToString());
+
+            if (current_y_axis.supports_min_max)
+            {
+                btnMaximum.Enabled = true;
+                btnMinimum.Enabled = true;
+                btnAverage.Enabled = true;
+            }
+            else
+            {
+                btnMaximum.Enabled = false;
+                btnMinimum.Enabled = false;
+                btnAverage.Enabled = false;
+            }
         }
 
         private void cbXaxis_SelectedIndexChanged(object sender, EventArgs e)
@@ -365,5 +414,41 @@ namespace CO_Driver
             current_min_sample_size = Convert.ToInt32(cbMinSampleSize.SelectedItem.ToString());
         }
 
+        private void reset_button_text()
+        {
+            //btnTotal.Font =   new Font(btnTotal.Font,   FontStyle.Regular);
+            //btnMinimum.Font = new Font(btnMinimum.Font, FontStyle.Regular);
+            //btnMaximum.Font = new Font(btnMaximum.Font, FontStyle.Regular);
+            //btnAverage.Font = new Font(btnAverage.Font, FontStyle.Regular);
+
+        }
+
+        private void btnTotal_Click(object sender, EventArgs e)
+        {
+            mode = "Total";
+            reset_button_text();
+            btnTotal.Font = new Font(btnTotal.Font, FontStyle.Bold);
+        }
+
+        private void btnMinimum_Click(object sender, EventArgs e)
+        {
+            mode = "Min";
+            reset_button_text();
+            btnMinimum.Font = new Font(btnMinimum.Font, FontStyle.Bold);
+        }
+
+        private void btnMaximum_Click(object sender, EventArgs e)
+        {
+            mode = "Max";
+            reset_button_text();
+            btnMaximum.Font = new Font(btnMaximum.Font, FontStyle.Bold);
+        }
+
+        private void btnAverage_Click(object sender, EventArgs e)
+        {
+            mode = "Avg";
+            reset_button_text();
+            btnAverage.Font = new Font(btnAverage.Font, FontStyle.Bold);
+        }
     }
 }
