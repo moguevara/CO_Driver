@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.dt_start_date = new System.Windows.Forms.DateTimePicker();
@@ -44,6 +44,7 @@
             this.cb_game_modes = new System.Windows.Forms.ComboBox();
             this.lb_user_name = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ch_comparison = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.cbXaxis = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,18 +57,17 @@
             this.cbReturnLimit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.ch_comparison = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btnMinimum = new System.Windows.Forms.Button();
-            this.btnTotal = new System.Windows.Forms.Button();
-            this.btnAverage = new System.Windows.Forms.Button();
             this.btnMaximum = new System.Windows.Forms.Button();
+            this.btnAverage = new System.Windows.Forms.Button();
+            this.btnTotal = new System.Windows.Forms.Button();
+            this.btnMinimum = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -274,6 +274,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1195, 542);
             this.tableLayoutPanel1.TabIndex = 73;
             // 
+            // ch_comparison
+            // 
+            this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
+            chartArea1.Name = "ChartArea1";
+            this.ch_comparison.ChartAreas.Add(chartArea1);
+            this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.AutoFitMinFontSize = 5;
+            legend1.Font = new System.Drawing.Font("Consolas", 8F);
+            legend1.IsTextAutoFit = false;
+            legend1.MaximumAutoSize = 20F;
+            legend1.Name = "Legend1";
+            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_comparison.Legends.Add(legend1);
+            this.ch_comparison.Location = new System.Drawing.Point(3, 121);
+            this.ch_comparison.Name = "ch_comparison";
+            this.ch_comparison.Size = new System.Drawing.Size(1189, 418);
+            this.ch_comparison.TabIndex = 4;
+            this.ch_comparison.Text = "chart1";
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
@@ -457,50 +476,18 @@
             this.tableLayoutPanel6.Size = new System.Drawing.Size(1189, 31);
             this.tableLayoutPanel6.TabIndex = 1;
             // 
-            // ch_comparison
+            // btnMaximum
             // 
-            this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea5.Name = "ChartArea1";
-            this.ch_comparison.ChartAreas.Add(chartArea5);
-            this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend5.AutoFitMinFontSize = 5;
-            legend5.Font = new System.Drawing.Font("Consolas", 8F);
-            legend5.IsTextAutoFit = false;
-            legend5.MaximumAutoSize = 20F;
-            legend5.Name = "Legend1";
-            legend5.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_comparison.Legends.Add(legend5);
-            this.ch_comparison.Location = new System.Drawing.Point(3, 121);
-            this.ch_comparison.Name = "ch_comparison";
-            this.ch_comparison.Size = new System.Drawing.Size(1189, 418);
-            this.ch_comparison.TabIndex = 4;
-            this.ch_comparison.Text = "chart1";
-            // 
-            // btnMinimum
-            // 
-            this.btnMinimum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinimum.Location = new System.Drawing.Point(300, 3);
-            this.btnMinimum.Name = "btnMinimum";
-            this.btnMinimum.Size = new System.Drawing.Size(291, 25);
-            this.btnMinimum.TabIndex = 69;
-            this.btnMinimum.Text = "Minimum";
-            this.btnMinimum.UseVisualStyleBackColor = true;
-            this.btnMinimum.Click += new System.EventHandler(this.btnMinimum_Click);
-            // 
-            // btnTotal
-            // 
-            this.btnTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTotal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTotal.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTotal.Location = new System.Drawing.Point(3, 3);
-            this.btnTotal.Name = "btnTotal";
-            this.btnTotal.Size = new System.Drawing.Size(291, 25);
-            this.btnTotal.TabIndex = 70;
-            this.btnTotal.Text = "Total";
-            this.btnTotal.UseVisualStyleBackColor = true;
-            this.btnTotal.Click += new System.EventHandler(this.btnTotal_Click);
+            this.btnMaximum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMaximum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaximum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaximum.Location = new System.Drawing.Point(597, 3);
+            this.btnMaximum.Name = "btnMaximum";
+            this.btnMaximum.Size = new System.Drawing.Size(291, 25);
+            this.btnMaximum.TabIndex = 72;
+            this.btnMaximum.Text = "Maximum";
+            this.btnMaximum.UseVisualStyleBackColor = true;
+            this.btnMaximum.Click += new System.EventHandler(this.btnMaximum_Click);
             // 
             // btnAverage
             // 
@@ -515,18 +502,31 @@
             this.btnAverage.UseVisualStyleBackColor = true;
             this.btnAverage.Click += new System.EventHandler(this.btnAverage_Click);
             // 
-            // btnMaximum
+            // btnTotal
             // 
-            this.btnMaximum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMaximum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaximum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMaximum.Location = new System.Drawing.Point(597, 3);
-            this.btnMaximum.Name = "btnMaximum";
-            this.btnMaximum.Size = new System.Drawing.Size(291, 25);
-            this.btnMaximum.TabIndex = 72;
-            this.btnMaximum.Text = "Maximum";
-            this.btnMaximum.UseVisualStyleBackColor = true;
-            this.btnMaximum.Click += new System.EventHandler(this.btnMaximum_Click);
+            this.btnTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTotal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTotal.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTotal.Location = new System.Drawing.Point(3, 3);
+            this.btnTotal.Name = "btnTotal";
+            this.btnTotal.Size = new System.Drawing.Size(291, 25);
+            this.btnTotal.TabIndex = 70;
+            this.btnTotal.Text = "Total";
+            this.btnTotal.UseVisualStyleBackColor = true;
+            this.btnTotal.Click += new System.EventHandler(this.btnTotal_Click);
+            // 
+            // btnMinimum
+            // 
+            this.btnMinimum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinimum.Location = new System.Drawing.Point(300, 3);
+            this.btnMinimum.Name = "btnMinimum";
+            this.btnMinimum.Size = new System.Drawing.Size(291, 25);
+            this.btnMinimum.TabIndex = 69;
+            this.btnMinimum.Text = "Minimum";
+            this.btnMinimum.UseVisualStyleBackColor = true;
+            this.btnMinimum.Click += new System.EventHandler(this.btnMinimum_Click);
             // 
             // comparison_screen
             // 
@@ -553,12 +553,12 @@
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.comparison_screen_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).EndInit();
             this.ResumeLayout(false);
 
         }
