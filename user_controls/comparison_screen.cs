@@ -29,6 +29,7 @@ namespace CO_Driver
         private int current_min_sample_size = 0;
         private string mode = "Total";
         private List<chart_element> chart_series = new List<chart_element> { };
+        private Series current_series = new Series { };
 
         private List<string> result_limit_groups = new List<string> { "All", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
         private List<string> min_sample_size_groups = new List<string> { "0", "5", "10", "15", "20", "25", "50", "75", "100", "150", "200", "250", "300"};
@@ -210,7 +211,31 @@ namespace CO_Driver
 
             foreach (file_trace_managment.MatchRecord match in match_history)
             {
-                
+                process_match(match);
+            }
+
+            current_series = new Series { };
+            current_series.ChartType = SeriesChartType.Bar;
+            current_series.Points.AddXY(0, 0);
+
+            foreach (chart_element element in chart_series.Where(x => x.count > current_min_sample_size).OrderByDescending(x => x.count))
+            {
+                if (current_series.Points.Count > current_min_sample_size)
+                    break;
+
+                if (mode == "Total")
+                    current_series.Points.AddXY(element.group, element.total);
+                else
+                if (mode == "Max")
+                    current_series.Points.AddXY(element.group, element.max);
+                else
+                if (mode == "Min")
+                    current_series.Points.AddXY(element.group, element.min);
+                else
+                if (mode == "Avg")
+                    current_series.Points.AddXY(element.group, (int)((double)element.total / (double)element.count));
+                else
+                    break;
             }
         }
 
@@ -309,15 +334,19 @@ namespace CO_Driver
                 case (int)grouping.GAME_MODE_CAT:
                     break;
                 case (int)grouping.GAME_RESULT:
+                    add_chart_element(match.match_data.game_result, value);
                     break;
                 case (int)grouping.POWER_SCORE:
                     add_chart_element(find_power_score_range(match.match_data.local_player.power_score), value);
                     break;
                 case (int)grouping.REGION:
+                    add_chart_element(match.match_data.host_name.Substring(3), value);
                     break;
                 case (int)grouping.SERVER:
+                    add_chart_element(match.match_data.host_name, value);
                     break;
                 case (int)grouping.GROUP_SIZE:
+                    add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id).ToString(), value);
                     break;
                 default:
                     return;
@@ -373,11 +402,6 @@ namespace CO_Driver
             ch_comparison.Series.Clear();
         }
 
-        public void populate_comparision_graph()
-        {
-
-        }
-
         private void cbYaxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.name == cbYaxis.SelectedItem.ToString());
@@ -394,11 +418,14 @@ namespace CO_Driver
                 btnMinimum.Enabled = false;
                 btnAverage.Enabled = false;
             }
+
+            populate_comparison_chart();
         }
 
         private void cbXaxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_x_axis = x_axis_groups.FirstOrDefault(x => x.name == cbXaxis.SelectedItem.ToString());
+            populate_comparison_chart();
         }
 
         private void cbReturnLimit_SelectedIndexChanged(object sender, EventArgs e)
@@ -407,11 +434,14 @@ namespace CO_Driver
                 current_result_limit = 0;
             else
                 current_result_limit = Convert.ToInt32(cbReturnLimit.SelectedItem.ToString());
+
+            populate_comparison_chart();
         }
 
         private void cbMinSampleSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_min_sample_size = Convert.ToInt32(cbMinSampleSize.SelectedItem.ToString());
+            populate_comparison_chart();
         }
 
         private void reset_button_text()
@@ -428,6 +458,7 @@ namespace CO_Driver
             mode = "Total";
             reset_button_text();
             btnTotal.Font = new Font(btnTotal.Font, FontStyle.Bold);
+            populate_comparison_chart();
         }
 
         private void btnMinimum_Click(object sender, EventArgs e)
@@ -435,6 +466,7 @@ namespace CO_Driver
             mode = "Min";
             reset_button_text();
             btnMinimum.Font = new Font(btnMinimum.Font, FontStyle.Bold);
+            populate_comparison_chart();
         }
 
         private void btnMaximum_Click(object sender, EventArgs e)
@@ -442,6 +474,7 @@ namespace CO_Driver
             mode = "Max";
             reset_button_text();
             btnMaximum.Font = new Font(btnMaximum.Font, FontStyle.Bold);
+            populate_comparison_chart();
         }
 
         private void btnAverage_Click(object sender, EventArgs e)
@@ -449,6 +482,7 @@ namespace CO_Driver
             mode = "Avg";
             reset_button_text();
             btnAverage.Font = new Font(btnAverage.Font, FontStyle.Bold);
+            populate_comparison_chart();
         }
     }
 }

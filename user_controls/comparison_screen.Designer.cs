@@ -93,7 +93,7 @@
             this.dt_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_end_date.Location = new System.Drawing.Point(519, 31);
             this.dt_end_date.Name = "dt_end_date";
-            this.dt_end_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_end_date.Size = new System.Drawing.Size(114, 25);
             this.dt_end_date.TabIndex = 71;
             // 
             // dt_start_date
@@ -108,7 +108,7 @@
             this.dt_start_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_start_date.Location = new System.Drawing.Point(399, 31);
             this.dt_start_date.Name = "dt_start_date";
-            this.dt_start_date.Size = new System.Drawing.Size(114, 22);
+            this.dt_start_date.Size = new System.Drawing.Size(114, 25);
             this.dt_start_date.TabIndex = 70;
             this.dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
             // 
@@ -124,7 +124,7 @@
             this.cb_cabins.Location = new System.Drawing.Point(639, 31);
             this.cb_cabins.MaxDropDownItems = 32;
             this.cb_cabins.Name = "cb_cabins";
-            this.cb_cabins.Size = new System.Drawing.Size(136, 22);
+            this.cb_cabins.Size = new System.Drawing.Size(136, 26);
             this.cb_cabins.TabIndex = 69;
             // 
             // btn_save_user_settings
@@ -151,7 +151,7 @@
             this.cb_modules.Location = new System.Drawing.Point(923, 31);
             this.cb_modules.MaxDropDownItems = 32;
             this.cb_modules.Name = "cb_modules";
-            this.cb_modules.Size = new System.Drawing.Size(109, 22);
+            this.cb_modules.Size = new System.Drawing.Size(109, 26);
             this.cb_modules.TabIndex = 67;
             // 
             // cb_versions
@@ -167,7 +167,7 @@
             this.cb_versions.Location = new System.Drawing.Point(399, 4);
             this.cb_versions.MaxDropDownItems = 32;
             this.cb_versions.Name = "cb_versions";
-            this.cb_versions.Size = new System.Drawing.Size(234, 22);
+            this.cb_versions.Size = new System.Drawing.Size(234, 26);
             this.cb_versions.TabIndex = 66;
             // 
             // cb_weapons
@@ -182,7 +182,7 @@
             this.cb_weapons.Location = new System.Drawing.Point(781, 31);
             this.cb_weapons.MaxDropDownItems = 32;
             this.cb_weapons.Name = "cb_weapons";
-            this.cb_weapons.Size = new System.Drawing.Size(136, 22);
+            this.cb_weapons.Size = new System.Drawing.Size(136, 26);
             this.cb_weapons.TabIndex = 65;
             // 
             // cb_movement
@@ -197,7 +197,7 @@
             this.cb_movement.Location = new System.Drawing.Point(1038, 31);
             this.cb_movement.MaxDropDownItems = 32;
             this.cb_movement.Name = "cb_movement";
-            this.cb_movement.Size = new System.Drawing.Size(154, 22);
+            this.cb_movement.Size = new System.Drawing.Size(154, 26);
             this.cb_movement.TabIndex = 64;
             // 
             // cb_power_score
@@ -212,7 +212,7 @@
             this.cb_power_score.Location = new System.Drawing.Point(639, 3);
             this.cb_power_score.MaxDropDownItems = 32;
             this.cb_power_score.Name = "cb_power_score";
-            this.cb_power_score.Size = new System.Drawing.Size(141, 22);
+            this.cb_power_score.Size = new System.Drawing.Size(141, 26);
             this.cb_power_score.TabIndex = 63;
             // 
             // cb_grouped
@@ -227,7 +227,7 @@
             this.cb_grouped.Location = new System.Drawing.Point(786, 3);
             this.cb_grouped.MaxDropDownItems = 32;
             this.cb_grouped.Name = "cb_grouped";
-            this.cb_grouped.Size = new System.Drawing.Size(131, 22);
+            this.cb_grouped.Size = new System.Drawing.Size(131, 26);
             this.cb_grouped.TabIndex = 62;
             // 
             // cb_game_modes
@@ -242,7 +242,7 @@
             this.cb_game_modes.Location = new System.Drawing.Point(923, 4);
             this.cb_game_modes.MaxDropDownItems = 32;
             this.cb_game_modes.Name = "cb_game_modes";
-            this.cb_game_modes.Size = new System.Drawing.Size(133, 22);
+            this.cb_game_modes.Size = new System.Drawing.Size(133, 26);
             this.cb_game_modes.TabIndex = 61;
             // 
             // lb_user_name
@@ -322,10 +322,10 @@
             this.cbXaxis.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbXaxis.ForeColor = System.Drawing.Color.Lime;
             this.cbXaxis.FormattingEnabled = true;
-            this.cbXaxis.Location = new System.Drawing.Point(502, 24);
+            this.cbXaxis.Location = new System.Drawing.Point(502, 22);
             this.cbXaxis.MaxDropDownItems = 32;
             this.cbXaxis.Name = "cbXaxis";
-            this.cbXaxis.Size = new System.Drawing.Size(291, 27);
+            this.cbXaxis.Size = new System.Drawing.Size(291, 31);
             this.cbXaxis.TabIndex = 69;
             this.cbXaxis.SelectedIndexChanged += new System.EventHandler(this.cbXaxis_SelectedIndexChanged);
             // 
@@ -350,11 +350,11 @@
             this.cbYaxis.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbYaxis.ForeColor = System.Drawing.Color.Lime;
             this.cbYaxis.FormattingEnabled = true;
-            this.cbYaxis.Location = new System.Drawing.Point(3, 24);
+            this.cbYaxis.Location = new System.Drawing.Point(3, 22);
             this.cbYaxis.MaxDropDownItems = 32;
             this.cbYaxis.Name = "cbYaxis";
             this.cbYaxis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbYaxis.Size = new System.Drawing.Size(291, 27);
+            this.cbYaxis.Size = new System.Drawing.Size(291, 31);
             this.cbYaxis.TabIndex = 67;
             this.cbYaxis.SelectedIndexChanged += new System.EventHandler(this.cbYaxis_SelectedIndexChanged);
             // 
@@ -401,7 +401,7 @@
             this.cbMinSampleSize.Location = new System.Drawing.Point(269, 3);
             this.cbMinSampleSize.MaxDropDownItems = 32;
             this.cbMinSampleSize.Name = "cbMinSampleSize";
-            this.cbMinSampleSize.Size = new System.Drawing.Size(109, 21);
+            this.cbMinSampleSize.Size = new System.Drawing.Size(109, 25);
             this.cbMinSampleSize.TabIndex = 75;
             this.cbMinSampleSize.SelectedIndexChanged += new System.EventHandler(this.cbMinSampleSize_SelectedIndexChanged);
             // 
@@ -442,7 +442,7 @@
             this.cbReturnLimit.Location = new System.Drawing.Point(269, 3);
             this.cbReturnLimit.MaxDropDownItems = 32;
             this.cbReturnLimit.Name = "cbReturnLimit";
-            this.cbReturnLimit.Size = new System.Drawing.Size(109, 21);
+            this.cbReturnLimit.Size = new System.Drawing.Size(109, 25);
             this.cbReturnLimit.TabIndex = 74;
             this.cbReturnLimit.SelectedIndexChanged += new System.EventHandler(this.cbReturnLimit_SelectedIndexChanged);
             // 
