@@ -170,8 +170,8 @@ namespace CO_Driver
                 cbMinSampleSize.Items.Add(group);
 
 
-            current_x_axis = x_axis_groups.FirstOrDefault();
-            current_y_axis = y_axis_groups.FirstOrDefault();
+            current_x_axis = x_axis_groups.FirstOrDefault(x => x.id == (int)grouping.WEAPON);
+            current_y_axis = y_axis_groups.FirstOrDefault(x => x.id == (int)metric.DAMAGE);
             current_result_limit = 0;
             current_min_sample_size = 0;
 
@@ -179,6 +179,7 @@ namespace CO_Driver
             cbYaxis.Text = current_y_axis.name;
             cbReturnLimit.Text = "All";
             cbMinSampleSize.Text = "15";
+            cb_min_max.Text = "Average";
         }
 
         public void initialize_comparison_chart()
@@ -187,35 +188,53 @@ namespace CO_Driver
             ch_comparison.ForeColor = session.fore_color;
             ch_comparison.Legends[0].BackColor = session.back_color;
             ch_comparison.Legends[0].ForeColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].BackColor = session.back_color;
-            //ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            //ch_comparison.ChartAreas[0].AxisX.Title = "Time (S)";
-            //ch_comparison.ChartAreas[0].AxisX.Minimum = 0;
-            //ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisX.LineColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
-            //ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
-            //ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
-            //ch_comparison.ChartAreas[0].AxisY.Title = "Damage";
-            //ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
-            //ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
-            //ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
+            ch_comparison.ChartAreas[0].BackColor = session.back_color;
+            ch_comparison.ChartAreas[0].AxisX.Minimum = 0;
+            ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.MinorTickMark.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.MajorTickMark.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
+            ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
+            ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
+            ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
+            ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_comparison.Legends[0].Enabled = false;
             ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -25;
             ch_comparison.ChartAreas[0].CursorX.IsUserEnabled = true;
             ch_comparison.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            //ch_comparison.Palette = ChartColorPalette.BrightPastel;
         }
 
         public void populate_comparison_chart()
         {
+            if (match_history.Count <= 0)
+                return;
+
+            double y_axis_max = 0;
+
+            //if (!force_refresh)
+            //{
+            //    new_selection = filter.filter_string(filter_selections);
+
+            //    if (new_selection == previous_selection)
+            //        return;
+            //}
+
+            force_refresh = false;
+            previous_selection = new_selection;
+            filter.reset_filters(filter_selections);
+
             reset_comparison_data();
 
             foreach (file_trace_managment.MatchRecord match in match_history.OrderByDescending(x => x.match_data.match_start))
             {
+                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
+                    continue;
+
                 process_match(match);
             }
 
@@ -237,33 +256,32 @@ namespace CO_Driver
                 if (mode == "Total")
                     y_value = element.total;
                 else
-                if (mode == "Max")
+                if (mode == "Maximum")
                     y_value = element.max;
                 else
-                if (mode == "Min")
+                if (mode == "Minimum")
                     y_value = element.min;
                 else
-                if (mode == "Avg")
+                if (mode == "Average")
                     y_value = (int)(((double)element.total / (double)element.count) + 0.5);
                 else
                     break;
 
+                if (y_value > y_axis_max)
+                    y_axis_max = y_value;
+
 
                 DataPoint data = new DataPoint(element.x_value, y_value);
-                //data.Label = element.title;
                 data.LegendText = element.title;
                 data.AxisLabel = element.title;
                 data.LabelBackColor = session.back_color;
                 data.LabelForeColor = session.fore_color;
-                //data.LabelAngle = 45;
                 data.ToolTip = string.Format(@"{0}:{1}", element.title, y_value);
                 current_series.Points.Add(data);
-
-                //TextAnnotation TA1 = new TextAnnotation();
-                //TA1.Text = element.title;
-                //TA1.SetAnchor(data);
-                //ch_comparison.Annotations.Add(TA1);
             }
+
+            ch_comparison.ChartAreas[0].AxisY.Maximum = y_axis_max * 1.05;
+            filter.populate_filters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
 
         private void process_match(file_trace_managment.MatchRecord match)
@@ -323,8 +341,9 @@ namespace CO_Driver
                 case (int)grouping.WEAPON:
                     if (current_y_axis.id == (int)metric.DAMAGE)
                     {
-                        foreach (file_trace_managment.DamageRecord rec in match.match_data.damage_record.Where(x => x.attacker == match.match_data.local_player.nickname))
-                            add_chart_element(translate.translate_string(rec.weapon, session, translations), (int)rec.damage);
+                        foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                            foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname))
+                                add_chart_element(translate.translate_string(rec.weapon, session, translations), (int)rec.damage);
                     }
                     else
                     {
@@ -336,17 +355,17 @@ namespace CO_Driver
                 case (int)grouping.MOVEMENT:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (part_loader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
-                            add_chart_element(part.name, value);
+                            add_chart_element(translate.translate_string(part.name, session, translations), value);
                     break;
                 case (int)grouping.CABIN:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         if (build_records[match.match_data.local_player.build_hash].cabin != null)
-                            add_chart_element(build_records[match.match_data.local_player.build_hash].cabin.name, value);
+                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations), value);
                     break;
                 case (int)grouping.MODULE:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (part_loader.Module part in build_records[match.match_data.local_player.build_hash].modules)
-                            add_chart_element(part.name, value);
+                            add_chart_element(translate.translate_string(part.name, session, translations), value);
                     break;
                 case (int)grouping.WEAPON_CAT:
                     break;
@@ -447,18 +466,18 @@ namespace CO_Driver
         {
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.name == cbYaxis.SelectedItem.ToString());
 
-            if (current_y_axis.supports_min_max)
-            {
-                btnMaximum.Enabled = true;
-                btnMinimum.Enabled = true;
-                btnAverage.Enabled = true;
-            }
-            else
-            {
-                btnMaximum.Enabled = false;
-                btnMinimum.Enabled = false;
-                btnAverage.Enabled = false;
-            }
+            //if (current_y_axis.supports_min_max)
+            //{
+            //    btnMaximum.Enabled = true;
+            //    btnMinimum.Enabled = true;
+            //    btnAverage.Enabled = true;
+            //}
+            //else
+            //{
+            //    btnMaximum.Enabled = false;
+            //    btnMinimum.Enabled = false;
+            //    btnAverage.Enabled = false;
+            //}
 
             populate_comparison_chart();
         }
@@ -494,36 +513,133 @@ namespace CO_Driver
 
         }
 
-        private void btnTotal_Click(object sender, EventArgs e)
+        //private void btnTotal_Click(object sender, EventArgs e)
+        //{
+        //    mode = "Total";
+        //    reset_button_text();
+        //    btnTotal.Font = new Font(btnTotal.Font, FontStyle.Bold);
+        //    populate_comparison_chart();
+        //}
+
+        //private void btnMinimum_Click(object sender, EventArgs e)
+        //{
+        //    mode = "Min";
+        //    reset_button_text();
+        //    btnMinimum.Font = new Font(btnMinimum.Font, FontStyle.Bold);
+        //    populate_comparison_chart();
+        //}
+
+        //private void btnMaximum_Click(object sender, EventArgs e)
+        //{
+        //    mode = "Max";
+        //    reset_button_text();
+        //    btnMaximum.Font = new Font(btnMaximum.Font, FontStyle.Bold);
+        //    populate_comparison_chart();
+        //}
+
+        //private void btnAverage_Click(object sender, EventArgs e)
+        //{
+        //    mode = "Avg";
+        //    reset_button_text();
+        //    btnAverage.Font = new Font(btnAverage.Font, FontStyle.Bold);
+        //    populate_comparison_chart();
+        //}
+
+        private void cb_min_max_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mode = "Total";
-            reset_button_text();
-            btnTotal.Font = new Font(btnTotal.Font, FontStyle.Bold);
+            mode = cb_min_max.SelectedItem.ToString();
             populate_comparison_chart();
         }
 
-        private void btnMinimum_Click(object sender, EventArgs e)
+        private void btn_save_user_settings_Click(object sender, EventArgs e)
         {
-            mode = "Min";
-            reset_button_text();
-            btnMinimum.Font = new Font(btnMinimum.Font, FontStyle.Bold);
+            filter.reset_filter_selections(filter_selections);
+
+            dt_start_date.Value = DateTime.Now;
+            dt_end_date.Value = DateTime.Now;
+
             populate_comparison_chart();
         }
 
-        private void btnMaximum_Click(object sender, EventArgs e)
+        private void cb_versions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mode = "Max";
-            reset_button_text();
-            btnMaximum.Font = new Font(btnMaximum.Font, FontStyle.Bold);
+            if (this.cb_versions.SelectedIndex >= 0)
+                filter_selections.client_versions_filter = this.cb_versions.Text;
+
             populate_comparison_chart();
         }
 
-        private void btnAverage_Click(object sender, EventArgs e)
+        private void cb_power_score_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mode = "Avg";
-            reset_button_text();
-            btnAverage.Font = new Font(btnAverage.Font, FontStyle.Bold);
+            if (this.cb_power_score.SelectedIndex >= 0)
+                filter_selections.power_score_filter = this.cb_power_score.Text;
+
             populate_comparison_chart();
+        }
+
+        private void cb_grouped_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_grouped.SelectedIndex >= 0)
+                filter_selections.group_filter = this.cb_grouped.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void cb_game_modes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_game_modes.SelectedIndex >= 0)
+                filter_selections.game_mode_filter = this.cb_game_modes.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void dt_start_date_ValueChanged(object sender, EventArgs e)
+        {
+            filter_selections.start_date = dt_start_date.Value;
+            populate_comparison_chart();
+        }
+
+        private void dt_end_date_ValueChanged(object sender, EventArgs e)
+        {
+            filter_selections.end_date = dt_end_date.Value;
+            populate_comparison_chart();
+        }
+
+        private void cb_cabins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_cabins.SelectedIndex >= 0)
+                filter_selections.cabin_filter = this.cb_cabins.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void cb_weapons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_weapons.SelectedIndex >= 0)
+                filter_selections.weapons_filter = this.cb_weapons.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void cb_modules_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_modules.SelectedIndex >= 0)
+                filter_selections.module_filter = this.cb_modules.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void cb_movement_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cb_movement.SelectedIndex >= 0)
+                filter_selections.movement_filter = this.cb_movement.Text;
+
+            populate_comparison_chart();
+        }
+
+        private void comparison_screen_Resize(object sender, EventArgs e)
+        {
+            resize.resize(this);
         }
     }
 }

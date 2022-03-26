@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.dt_start_date = new System.Windows.Forms.DateTimePicker();
@@ -56,18 +56,13 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.cbReturnLimit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnMaximum = new System.Windows.Forms.Button();
-            this.btnAverage = new System.Windows.Forms.Button();
-            this.btnTotal = new System.Windows.Forms.Button();
-            this.btnMinimum = new System.Windows.Forms.Button();
+            this.cb_min_max = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -93,8 +88,9 @@
             this.dt_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_end_date.Location = new System.Drawing.Point(519, 31);
             this.dt_end_date.Name = "dt_end_date";
-            this.dt_end_date.Size = new System.Drawing.Size(114, 25);
+            this.dt_end_date.Size = new System.Drawing.Size(114, 22);
             this.dt_end_date.TabIndex = 71;
+            this.dt_end_date.ValueChanged += new System.EventHandler(this.dt_end_date_ValueChanged);
             // 
             // dt_start_date
             // 
@@ -108,9 +104,10 @@
             this.dt_start_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dt_start_date.Location = new System.Drawing.Point(399, 31);
             this.dt_start_date.Name = "dt_start_date";
-            this.dt_start_date.Size = new System.Drawing.Size(114, 25);
+            this.dt_start_date.Size = new System.Drawing.Size(114, 22);
             this.dt_start_date.TabIndex = 70;
             this.dt_start_date.Value = new System.DateTime(2016, 4, 5, 0, 0, 0, 0);
+            this.dt_start_date.ValueChanged += new System.EventHandler(this.dt_start_date_ValueChanged);
             // 
             // cb_cabins
             // 
@@ -124,8 +121,9 @@
             this.cb_cabins.Location = new System.Drawing.Point(639, 31);
             this.cb_cabins.MaxDropDownItems = 32;
             this.cb_cabins.Name = "cb_cabins";
-            this.cb_cabins.Size = new System.Drawing.Size(136, 26);
+            this.cb_cabins.Size = new System.Drawing.Size(136, 22);
             this.cb_cabins.TabIndex = 69;
+            this.cb_cabins.SelectedIndexChanged += new System.EventHandler(this.cb_cabins_SelectedIndexChanged);
             // 
             // btn_save_user_settings
             // 
@@ -138,6 +136,7 @@
             this.btn_save_user_settings.TabIndex = 68;
             this.btn_save_user_settings.Text = "Reset";
             this.btn_save_user_settings.UseVisualStyleBackColor = true;
+            this.btn_save_user_settings.Click += new System.EventHandler(this.btn_save_user_settings_Click);
             // 
             // cb_modules
             // 
@@ -151,8 +150,9 @@
             this.cb_modules.Location = new System.Drawing.Point(923, 31);
             this.cb_modules.MaxDropDownItems = 32;
             this.cb_modules.Name = "cb_modules";
-            this.cb_modules.Size = new System.Drawing.Size(109, 26);
+            this.cb_modules.Size = new System.Drawing.Size(109, 22);
             this.cb_modules.TabIndex = 67;
+            this.cb_modules.SelectedIndexChanged += new System.EventHandler(this.cb_modules_SelectedIndexChanged);
             // 
             // cb_versions
             // 
@@ -167,8 +167,9 @@
             this.cb_versions.Location = new System.Drawing.Point(399, 4);
             this.cb_versions.MaxDropDownItems = 32;
             this.cb_versions.Name = "cb_versions";
-            this.cb_versions.Size = new System.Drawing.Size(234, 26);
+            this.cb_versions.Size = new System.Drawing.Size(234, 22);
             this.cb_versions.TabIndex = 66;
+            this.cb_versions.SelectedIndexChanged += new System.EventHandler(this.cb_versions_SelectedIndexChanged);
             // 
             // cb_weapons
             // 
@@ -182,8 +183,9 @@
             this.cb_weapons.Location = new System.Drawing.Point(781, 31);
             this.cb_weapons.MaxDropDownItems = 32;
             this.cb_weapons.Name = "cb_weapons";
-            this.cb_weapons.Size = new System.Drawing.Size(136, 26);
+            this.cb_weapons.Size = new System.Drawing.Size(136, 22);
             this.cb_weapons.TabIndex = 65;
+            this.cb_weapons.SelectedIndexChanged += new System.EventHandler(this.cb_weapons_SelectedIndexChanged);
             // 
             // cb_movement
             // 
@@ -197,8 +199,9 @@
             this.cb_movement.Location = new System.Drawing.Point(1038, 31);
             this.cb_movement.MaxDropDownItems = 32;
             this.cb_movement.Name = "cb_movement";
-            this.cb_movement.Size = new System.Drawing.Size(154, 26);
+            this.cb_movement.Size = new System.Drawing.Size(154, 22);
             this.cb_movement.TabIndex = 64;
+            this.cb_movement.SelectedIndexChanged += new System.EventHandler(this.cb_movement_SelectedIndexChanged);
             // 
             // cb_power_score
             // 
@@ -212,8 +215,9 @@
             this.cb_power_score.Location = new System.Drawing.Point(639, 3);
             this.cb_power_score.MaxDropDownItems = 32;
             this.cb_power_score.Name = "cb_power_score";
-            this.cb_power_score.Size = new System.Drawing.Size(141, 26);
+            this.cb_power_score.Size = new System.Drawing.Size(141, 22);
             this.cb_power_score.TabIndex = 63;
+            this.cb_power_score.SelectedIndexChanged += new System.EventHandler(this.cb_power_score_SelectedIndexChanged);
             // 
             // cb_grouped
             // 
@@ -227,8 +231,9 @@
             this.cb_grouped.Location = new System.Drawing.Point(786, 3);
             this.cb_grouped.MaxDropDownItems = 32;
             this.cb_grouped.Name = "cb_grouped";
-            this.cb_grouped.Size = new System.Drawing.Size(131, 26);
+            this.cb_grouped.Size = new System.Drawing.Size(131, 22);
             this.cb_grouped.TabIndex = 62;
+            this.cb_grouped.SelectedIndexChanged += new System.EventHandler(this.cb_grouped_SelectedIndexChanged);
             // 
             // cb_game_modes
             // 
@@ -242,8 +247,9 @@
             this.cb_game_modes.Location = new System.Drawing.Point(923, 4);
             this.cb_game_modes.MaxDropDownItems = 32;
             this.cb_game_modes.Name = "cb_game_modes";
-            this.cb_game_modes.Size = new System.Drawing.Size(133, 26);
+            this.cb_game_modes.Size = new System.Drawing.Size(133, 22);
             this.cb_game_modes.TabIndex = 61;
+            this.cb_game_modes.SelectedIndexChanged += new System.EventHandler(this.cb_game_modes_SelectedIndexChanged);
             // 
             // lb_user_name
             // 
@@ -261,49 +267,50 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.ch_comparison, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ch_comparison, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel6, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 59);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1195, 542);
             this.tableLayoutPanel1.TabIndex = 73;
             // 
             // ch_comparison
             // 
             this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.ch_comparison.ChartAreas.Add(chartArea1);
+            chartArea15.Name = "ChartArea1";
+            this.ch_comparison.ChartAreas.Add(chartArea15);
             this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.AutoFitMinFontSize = 5;
-            legend1.Font = new System.Drawing.Font("Consolas", 8F);
-            legend1.IsTextAutoFit = false;
-            legend1.MaximumAutoSize = 20F;
-            legend1.Name = "Legend1";
-            legend1.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_comparison.Legends.Add(legend1);
-            this.ch_comparison.Location = new System.Drawing.Point(3, 121);
+            legend15.AutoFitMinFontSize = 5;
+            legend15.Font = new System.Drawing.Font("Consolas", 8F);
+            legend15.IsTextAutoFit = false;
+            legend15.MaximumAutoSize = 20F;
+            legend15.Name = "Legend1";
+            legend15.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_comparison.Legends.Add(legend15);
+            this.ch_comparison.Location = new System.Drawing.Point(3, 84);
             this.ch_comparison.Name = "ch_comparison";
-            this.ch_comparison.Size = new System.Drawing.Size(1189, 418);
+            this.ch_comparison.Size = new System.Drawing.Size(1189, 455);
             this.ch_comparison.TabIndex = 4;
             this.ch_comparison.Text = "chart1";
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel2.Controls.Add(this.cbXaxis, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cbYaxis, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 3, 0);
+            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.80952F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.80952F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.80952F));
+            this.tableLayoutPanel2.Controls.Add(this.cb_min_max, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cbXaxis, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cbYaxis, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 4, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -322,10 +329,10 @@
             this.cbXaxis.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbXaxis.ForeColor = System.Drawing.Color.Lime;
             this.cbXaxis.FormattingEnabled = true;
-            this.cbXaxis.Location = new System.Drawing.Point(502, 22);
+            this.cbXaxis.Location = new System.Drawing.Point(624, 24);
             this.cbXaxis.MaxDropDownItems = 32;
             this.cbXaxis.Name = "cbXaxis";
-            this.cbXaxis.Size = new System.Drawing.Size(291, 31);
+            this.cbXaxis.Size = new System.Drawing.Size(277, 27);
             this.cbXaxis.TabIndex = 69;
             this.cbXaxis.SelectedIndexChanged += new System.EventHandler(this.cbXaxis_SelectedIndexChanged);
             // 
@@ -333,9 +340,9 @@
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(300, 0);
+            this.label2.Location = new System.Drawing.Point(455, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 75);
+            this.label2.Size = new System.Drawing.Size(163, 75);
             this.label2.TabIndex = 68;
             this.label2.Text = "Grouped By";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -350,11 +357,11 @@
             this.cbYaxis.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbYaxis.ForeColor = System.Drawing.Color.Lime;
             this.cbYaxis.FormattingEnabled = true;
-            this.cbYaxis.Location = new System.Drawing.Point(3, 22);
+            this.cbYaxis.Location = new System.Drawing.Point(172, 24);
             this.cbYaxis.MaxDropDownItems = 32;
             this.cbYaxis.Name = "cbYaxis";
             this.cbYaxis.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbYaxis.Size = new System.Drawing.Size(291, 31);
+            this.cbYaxis.Size = new System.Drawing.Size(277, 27);
             this.cbYaxis.TabIndex = 67;
             this.cbYaxis.SelectedIndexChanged += new System.EventHandler(this.cbYaxis_SelectedIndexChanged);
             // 
@@ -366,12 +373,12 @@
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(799, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(907, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(387, 69);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(279, 69);
             this.tableLayoutPanel3.TabIndex = 70;
             // 
             // tableLayoutPanel5
@@ -386,7 +393,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(381, 29);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(273, 29);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // cbMinSampleSize
@@ -398,10 +405,10 @@
             this.cbMinSampleSize.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMinSampleSize.ForeColor = System.Drawing.Color.Lime;
             this.cbMinSampleSize.FormattingEnabled = true;
-            this.cbMinSampleSize.Location = new System.Drawing.Point(269, 3);
+            this.cbMinSampleSize.Location = new System.Drawing.Point(194, 3);
             this.cbMinSampleSize.MaxDropDownItems = 32;
             this.cbMinSampleSize.Name = "cbMinSampleSize";
-            this.cbMinSampleSize.Size = new System.Drawing.Size(109, 25);
+            this.cbMinSampleSize.Size = new System.Drawing.Size(76, 21);
             this.cbMinSampleSize.TabIndex = 75;
             this.cbMinSampleSize.SelectedIndexChanged += new System.EventHandler(this.cbMinSampleSize_SelectedIndexChanged);
             // 
@@ -410,7 +417,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(260, 29);
+            this.label4.Size = new System.Drawing.Size(185, 29);
             this.label4.TabIndex = 74;
             this.label4.Text = "Minimum Sample Size:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -427,7 +434,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(381, 28);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(273, 28);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // cbReturnLimit
@@ -439,10 +446,10 @@
             this.cbReturnLimit.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbReturnLimit.ForeColor = System.Drawing.Color.Lime;
             this.cbReturnLimit.FormattingEnabled = true;
-            this.cbReturnLimit.Location = new System.Drawing.Point(269, 3);
+            this.cbReturnLimit.Location = new System.Drawing.Point(194, 3);
             this.cbReturnLimit.MaxDropDownItems = 32;
             this.cbReturnLimit.Name = "cbReturnLimit";
-            this.cbReturnLimit.Size = new System.Drawing.Size(109, 25);
+            this.cbReturnLimit.Size = new System.Drawing.Size(76, 21);
             this.cbReturnLimit.TabIndex = 74;
             this.cbReturnLimit.SelectedIndexChanged += new System.EventHandler(this.cbReturnLimit_SelectedIndexChanged);
             // 
@@ -451,82 +458,33 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(260, 28);
+            this.label3.Size = new System.Drawing.Size(185, 28);
             this.label3.TabIndex = 73;
             this.label3.Text = "Showing Top:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tableLayoutPanel6
+            // cb_min_max
             // 
-            this.tableLayoutPanel6.ColumnCount = 4;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Controls.Add(this.btnMaximum, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.btnAverage, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.btnTotal, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.btnMinimum, 0, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 84);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1189, 31);
-            this.tableLayoutPanel6.TabIndex = 1;
-            // 
-            // btnMaximum
-            // 
-            this.btnMaximum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMaximum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaximum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMaximum.Location = new System.Drawing.Point(597, 3);
-            this.btnMaximum.Name = "btnMaximum";
-            this.btnMaximum.Size = new System.Drawing.Size(291, 25);
-            this.btnMaximum.TabIndex = 72;
-            this.btnMaximum.Text = "Maximum";
-            this.btnMaximum.UseVisualStyleBackColor = true;
-            this.btnMaximum.Click += new System.EventHandler(this.btnMaximum_Click);
-            // 
-            // btnAverage
-            // 
-            this.btnAverage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAverage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAverage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAverage.Location = new System.Drawing.Point(894, 3);
-            this.btnAverage.Name = "btnAverage";
-            this.btnAverage.Size = new System.Drawing.Size(292, 25);
-            this.btnAverage.TabIndex = 71;
-            this.btnAverage.Text = "Average";
-            this.btnAverage.UseVisualStyleBackColor = true;
-            this.btnAverage.Click += new System.EventHandler(this.btnAverage_Click);
-            // 
-            // btnTotal
-            // 
-            this.btnTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTotal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTotal.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTotal.Location = new System.Drawing.Point(3, 3);
-            this.btnTotal.Name = "btnTotal";
-            this.btnTotal.Size = new System.Drawing.Size(291, 25);
-            this.btnTotal.TabIndex = 70;
-            this.btnTotal.Text = "Total";
-            this.btnTotal.UseVisualStyleBackColor = true;
-            this.btnTotal.Click += new System.EventHandler(this.btnTotal_Click);
-            // 
-            // btnMinimum
-            // 
-            this.btnMinimum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMinimum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinimum.Location = new System.Drawing.Point(300, 3);
-            this.btnMinimum.Name = "btnMinimum";
-            this.btnMinimum.Size = new System.Drawing.Size(291, 25);
-            this.btnMinimum.TabIndex = 69;
-            this.btnMinimum.Text = "Minimum";
-            this.btnMinimum.UseVisualStyleBackColor = true;
-            this.btnMinimum.Click += new System.EventHandler(this.btnMinimum_Click);
+            this.cb_min_max.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_min_max.BackColor = System.Drawing.Color.Black;
+            this.cb_min_max.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_min_max.DropDownWidth = 280;
+            this.cb_min_max.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_min_max.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_min_max.ForeColor = System.Drawing.Color.Lime;
+            this.cb_min_max.FormattingEnabled = true;
+            this.cb_min_max.Items.AddRange(new object[] {
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Total"});
+            this.cb_min_max.Location = new System.Drawing.Point(3, 24);
+            this.cb_min_max.MaxDropDownItems = 32;
+            this.cb_min_max.Name = "cb_min_max";
+            this.cb_min_max.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cb_min_max.Size = new System.Drawing.Size(163, 27);
+            this.cb_min_max.TabIndex = 71;
+            this.cb_min_max.SelectedIndexChanged += new System.EventHandler(this.cb_min_max_SelectedIndexChanged);
             // 
             // comparison_screen
             // 
@@ -552,13 +510,13 @@
             this.Name = "comparison_screen";
             this.Size = new System.Drawing.Size(1195, 601);
             this.Load += new System.EventHandler(this.comparison_screen_Load);
+            this.Resize += new System.EventHandler(this.comparison_screen_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -591,10 +549,6 @@
         private System.Windows.Forms.ComboBox cbReturnLimit;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataVisualization.Charting.Chart ch_comparison;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Button btnMaximum;
-        private System.Windows.Forms.Button btnAverage;
-        private System.Windows.Forms.Button btnTotal;
-        private System.Windows.Forms.Button btnMinimum;
+        private System.Windows.Forms.ComboBox cb_min_max;
     }
 }
