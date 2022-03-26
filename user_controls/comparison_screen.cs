@@ -125,7 +125,8 @@ namespace CO_Driver
 
         private class chart_element 
         { 
-            public string group { get; set; }
+            public double x_value { get; set; }
+            public string title { get; set; }
             public int total { get; set; }
             public int min { get; set; }
             public int max { get; set; }
@@ -139,6 +140,11 @@ namespace CO_Driver
         }
 
         private void comparison_screen_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void initialize_comparison_screen()
         {
             reset_comparision_dropdowns();
             initialize_comparison_chart();
@@ -181,61 +187,81 @@ namespace CO_Driver
             ch_comparison.ForeColor = session.fore_color;
             ch_comparison.Legends[0].BackColor = session.back_color;
             ch_comparison.Legends[0].ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].BackColor = session.back_color;
-            ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            ch_comparison.ChartAreas[0].AxisX.Title = "Time (S)";
-            ch_comparison.ChartAreas[0].AxisX.Minimum = 0;
-            ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
-            ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
-            ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
-            ch_comparison.ChartAreas[0].AxisY.Title = "Damage";
-            ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
-            ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
-            ch_comparison.Palette = ChartColorPalette.BrightPastel;
-
-            foreach (Series series in ch_comparison.Series)
-                series.Points.Clear();
-
-            ch_comparison.Series.Clear();
+            //ch_comparison.ChartAreas[0].BackColor = session.back_color;
+            //ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            //ch_comparison.ChartAreas[0].AxisX.Title = "Time (S)";
+            //ch_comparison.ChartAreas[0].AxisX.Minimum = 0;
+            //ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisX.LineColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
+            //ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
+            //ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
+            //ch_comparison.ChartAreas[0].AxisY.Title = "Damage";
+            //ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
+            //ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
+            //ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
+            ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
+            ch_comparison.ChartAreas[0].CursorX.IsUserEnabled = true;
+            ch_comparison.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            //ch_comparison.Palette = ChartColorPalette.BrightPastel;
         }
 
         public void populate_comparison_chart()
         {
             reset_comparison_data();
 
-            foreach (file_trace_managment.MatchRecord match in match_history)
+            foreach (file_trace_managment.MatchRecord match in match_history.OrderByDescending(x => x.match_data.match_start))
             {
                 process_match(match);
             }
 
-            current_series = new Series { };
-            current_series.ChartType = SeriesChartType.Bar;
-            current_series.Points.AddXY(0, 0);
+            //MessageBox.Show(string.Format(@"Found {0} items within limits {1},{2} looking at {3} matches", chart_series.Count.ToString(), current_min_sample_size, current_result_limit, match_history.Count));
 
-            foreach (chart_element element in chart_series.Where(x => x.count > current_min_sample_size).OrderByDescending(x => x.count))
+            
+            ch_comparison.Series.Add(current_series);
+
+            foreach (chart_element element in chart_series.OrderByDescending(x => x.count))
             {
-                if (current_series.Points.Count > current_min_sample_size)
-                    break;
+                //if (current_series.Points.Count > current_min_sample_size)
+                //    continue;
+
+                //if (element.count < current_min_sample_size)
+                //    continue;
+
+                int y_value;
 
                 if (mode == "Total")
-                    current_series.Points.AddXY(element.group, element.total);
+                    y_value = element.total;
                 else
                 if (mode == "Max")
-                    current_series.Points.AddXY(element.group, element.max);
+                    y_value = element.max;
                 else
                 if (mode == "Min")
-                    current_series.Points.AddXY(element.group, element.min);
+                    y_value = element.min;
                 else
                 if (mode == "Avg")
-                    current_series.Points.AddXY(element.group, (int)((double)element.total / (double)element.count));
+                    y_value = (int)(((double)element.total / (double)element.count) + 0.5);
                 else
                     break;
+
+
+                DataPoint data = new DataPoint(element.x_value, y_value);
+                //data.Label = element.title;
+                data.LegendText = element.title;
+                data.AxisLabel = element.title;
+                data.LabelBackColor = session.back_color;
+                data.LabelForeColor = session.fore_color;
+                //data.LabelAngle = 45;
+                data.ToolTip = string.Format(@"{0}:{1}", element.title, y_value);
+                current_series.Points.Add(data);
+
+                //TextAnnotation TA1 = new TextAnnotation();
+                //TA1.Text = element.title;
+                //TA1.SetAnchor(data);
+                //ch_comparison.Annotations.Add(TA1);
             }
         }
 
@@ -251,7 +277,7 @@ namespace CO_Driver
                     value = match.match_data.local_player.stripes.Any(x => x == "PvpMvpWin") ? 1 : 0;
                     break;
                 case (int)metric.DAMAGE:
-                    value = Convert.ToInt32(match.match_data.local_player.stats.damage);
+                    value = Convert.ToInt32(match.match_data.player_records[match.match_data.local_player.nickname].stats.damage);
                     break;
                 case (int)metric.DAMAGE_REC:
                     value = Convert.ToInt32(match.match_data.local_player.stats.damage_taken);
@@ -278,28 +304,32 @@ namespace CO_Driver
                     value = match.match_data.local_player.stripes.Count();
                     break;
                 default:
+                    MessageBox.Show("Unable to find metric");
                     return;
             }
 
             switch (current_x_axis.id)
             {
                 case (int)grouping.DAY:
+                    add_chart_element(match.match_data.match_start.Date.ToString(), value);
                     break;
                 case (int)grouping.WEEK:
+                    add_chart_element(match.match_data.match_start.Date.AddDays(-1 * ((int)match.match_data.match_start.Date.DayOfWeek - (int)DayOfWeek.Monday)).Date.ToString(), value);
                     break;
                 case (int)grouping.MONTH:
+                    add_chart_element(match.match_data.match_start.Date.AddDays(-1 * (int)match.match_data.match_start.Date.Day).Date.ToString(), value);
                     break;
                 case (int)grouping.WEAPON:
                     if (current_y_axis.id == (int)metric.DAMAGE)
                     {
                         foreach (file_trace_managment.DamageRecord rec in match.match_data.damage_record.Where(x => x.attacker == match.match_data.local_player.nickname))
-                            add_chart_element(rec.weapon, (int)rec.damage);
+                            add_chart_element(translate.translate_string(rec.weapon, session, translations), (int)rec.damage);
                     }
                     else
                     {
                         if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                             foreach (part_loader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
-                                add_chart_element(part.name, value);
+                                add_chart_element(translate.translate_string(part.name, session, translations), value);
                     }
                     break;
                 case (int)grouping.MOVEMENT:
@@ -349,25 +379,29 @@ namespace CO_Driver
                     add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id).ToString(), value);
                     break;
                 default:
+                    MessageBox.Show("Unable to find group");
                     return;
             }
         }
 
         private void add_chart_element(string group, int value)
         {
-            if (chart_series.Any(x => x.group == group))
-                chart_series.Add(new chart_element { group = group, total = value, min = value, max = value, count = 1 });
+            if (!chart_series.Any(x => x.title == group))
+            {
+                chart_series.Add(new chart_element { x_value = chart_series.Count, title = group, total = value, min = value, max = value, count = 1 });
+            }
             else
             {
-                chart_series.Where(x => x.group == group).Select(x => {
-                                                                    x.total += value;
-                                                                    if (x.min > value)
-                                                                        x.min = value;
-                                                                    if (x.max < value)
-                                                                        x.max = value;
-                                                                    x.count += 1;
-                                                                    return x;                                                        
-                                                                      });
+                chart_element element = chart_series.FirstOrDefault(x => x.title == group);
+                element.total += value;
+
+                if (element.min < value)
+                    element.min = value;
+
+                if (element.max > value)
+                    element.max = value;
+
+                element.count += 1;
             }
         }
 
@@ -396,8 +430,14 @@ namespace CO_Driver
 
         public void reset_comparison_data()
         {
-            foreach (Series series in ch_comparison.Series)
-                series.Points.Clear();
+            chart_series = new List<chart_element> { };
+
+            ch_comparison.ChartAreas[0].AxisX.Title = current_x_axis.name;
+            ch_comparison.ChartAreas[0].AxisY.Title = current_y_axis.name;
+
+            current_series = new Series { };
+            current_series.ChartType = SeriesChartType.Column;
+            current_series.Palette = ChartColorPalette.BrightPastel;
 
             ch_comparison.Series.Clear();
         }
