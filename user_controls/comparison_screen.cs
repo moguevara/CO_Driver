@@ -203,7 +203,8 @@ namespace CO_Driver
             //ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
             //ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
             //ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
-            ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
+            ch_comparison.Legends[0].Enabled = false;
+            ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -25;
             ch_comparison.ChartAreas[0].CursorX.IsUserEnabled = true;
             ch_comparison.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
             //ch_comparison.Palette = ChartColorPalette.BrightPastel;
