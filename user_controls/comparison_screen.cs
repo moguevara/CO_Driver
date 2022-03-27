@@ -70,21 +70,21 @@ namespace CO_Driver
             DEATHS,
             KILL_ASSIST,
             DRONE_KILLS,
-            MEDALS
+            MEDALS,
+            GAMES_PLAYED,
+            ROUNDS_PLAYED
         }
 
         private enum ordering
         {
-            VALUE_DESC//,
-            //VALUE_ASC,
-            //TITLE_DESC,
-            //TITLE_ASC
+            VALUE_DESC,
+            TIME_DESC
         }
 
-        private List<grouping_category> x_axis_groups = new List<grouping_category> { new grouping_category { id = grouping.DAY, name = "Day", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
-                                                                                      new grouping_category { id = grouping.WEEK, name = "Week", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.VALUE_DESC },
-                                                                                      new grouping_category { id = grouping.MONTH, name = "Month", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.VALUE_DESC },
-                                                                                      new grouping_category { id = grouping.YEAR, name = "Year", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.VALUE_DESC },
+        private List<grouping_category> x_axis_groups = new List<grouping_category> { new grouping_category { id = grouping.DAY, name = "Day", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.TIME_DESC },
+                                                                                      new grouping_category { id = grouping.WEEK, name = "Week", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.TIME_DESC },
+                                                                                      new grouping_category { id = grouping.MONTH, name = "Month", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.TIME_DESC },
+                                                                                      new grouping_category { id = grouping.YEAR, name = "Year", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.TIME_DESC },
                                                                                       new grouping_category { id = grouping.WEAPON, name = "Weapon", min = 0, max = int.MaxValue, max_display = 14,ordering =  ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.MOVEMENT, name = "Movement", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.CABIN, name = "Cabin", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
@@ -109,7 +109,9 @@ namespace CO_Driver
                                                                                   new metric_category { id = metric.DEATHS, name = "Deaths", supports_min_max = true },
                                                                                   new metric_category { id = metric.KILL_ASSIST, name = "(K+A)", supports_min_max = true },
                                                                                   new metric_category { id = metric.DRONE_KILLS, name = "Drone Kills", supports_min_max = true },
-                                                                                  new metric_category { id = metric.MEDALS, name = "Medals", supports_min_max = true }
+                                                                                  new metric_category { id = metric.MEDALS, name = "Medals", supports_min_max = true },
+                                                                                  new metric_category { id = metric.GAMES_PLAYED, name = "Games Played", supports_min_max = true },
+                                                                                  new metric_category { id = metric.ROUNDS_PLAYED, name = "Rounds Played", supports_min_max = true }
                                                                                  };
         private class grouping_category
         {
@@ -146,7 +148,8 @@ namespace CO_Driver
 
         private void comparison_screen_Load(object sender, EventArgs e)
         {
-            
+            this.Dock = DockStyle.Fill;
+            resize.record_initial_sizes(this);
         }
 
         public void initialize_comparison_screen()
@@ -201,13 +204,16 @@ namespace CO_Driver
             ch_comparison.ChartAreas[0].AxisX.MajorTickMark.LineColor = session.fore_color;
             ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
             ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep90;
+            ch_comparison.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
+            ch_comparison.ChartAreas[0].AxisX.Interval = 1;
             ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
             ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
             ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
             ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
             ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
             ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.MinorTickMark.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.MajorTickMark.LineColor = session.fore_color;
             ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_comparison.Legends[0].Enabled = false;
             //ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -25;
@@ -244,6 +250,9 @@ namespace CO_Driver
                 process_match(match);
             }
 
+            if (current_x_axis.ordering == ordering.TIME_DESC)
+                chart_series = chart_series.OrderByDescending(x => DateTime.Parse(x.title)).ToList();
+            else
             if (current_x_axis.ordering == ordering.VALUE_DESC && mode == "Total")
                 chart_series = chart_series.OrderByDescending(x => x.total).ToList();
             else
@@ -316,7 +325,7 @@ namespace CO_Driver
                 data.AxisLabel = element.title;
                 data.LabelBackColor = session.back_color;
                 data.LabelForeColor = session.fore_color;
-                data.ToolTip = string.Format(@"{0}:{1}", element.title, Math.Round(y_value,1));
+                data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value,1));
                 current_series.Points.Add(data);
                 x_value += 1;
             }
@@ -340,28 +349,34 @@ namespace CO_Driver
                     value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage;
                     break;
                 case metric.DAMAGE_REC:
-                    value = match.match_data.local_player.stats.damage_taken;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage_taken;
                     break;
                 case metric.SCORE:
-                    value = match.match_data.local_player.stats.score;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.score;
                     break;
                 case metric.KILLS:
-                    value = match.match_data.local_player.stats.kills;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.kills;
                     break;
                 case metric.ASSISTS:
-                    value = match.match_data.local_player.stats.assists;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.assists;
                     break;
                 case metric.DEATHS:
-                    value = match.match_data.local_player.stats.deaths;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.deaths;
                     break;
                 case metric.KILL_ASSIST:
-                    value = match.match_data.local_player.stats.kills + match.match_data.local_player.stats.assists;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.kills + match.match_data.player_records[match.match_data.local_player.nickname].stats.assists;
                     break;
                 case metric.DRONE_KILLS:
-                    value = match.match_data.local_player.stats.drone_kills;
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.drone_kills;
                     break;
                 case metric.MEDALS:
-                    value = match.match_data.local_player.stripes.Count();
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stripes.Count();
+                    break;
+                case metric.GAMES_PLAYED:
+                    value = 1;
+                    break;
+                case metric.ROUNDS_PLAYED:
+                    value = match.match_data.round_count;
                     break;
                 default:
                     MessageBox.Show("Unable to find metric");
@@ -374,32 +389,41 @@ namespace CO_Driver
                     add_chart_element(match.match_data.match_start.Date.ToString(), value);
                     break;
                 case grouping.WEEK:
-                    add_chart_element(match.match_data.match_start.Date.AddDays(-1 * (double)(match.match_data.match_start.Date.DayOfWeek - (int)DayOfWeek.Monday)).Date.ToString(), value);
+                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * (double)(match.match_data.match_start.Date.DayOfWeek - (int)DayOfWeek.Monday)) + 1).Date.ToString(), value);
                     break;
                 case grouping.MONTH:
-                    add_chart_element(match.match_data.match_start.Date.AddDays(-1 * match.match_data.match_start.Date.Day).Date.ToString(), value);
+                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * match.match_data.match_start.Date.Day) + 1).Date.ToString(), value);
                     break;
                 case grouping.YEAR:
-                    add_chart_element(match.match_data.match_start.Date.AddDays(-1 * match.match_data.match_start.Date.DayOfYear).Date.ToString(), value);
+                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * match.match_data.match_start.Date.DayOfYear) + 1).Date.ToString(), value);
                     break;
                 case grouping.WEAPON:
-                    Dictionary<string, double> damage_records = new Dictionary<string, double> { };
 
-                    foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                    if (current_y_axis.id == metric.DAMAGE)
                     {
-                        foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname))
+                        Dictionary<string, double> damage_records = new Dictionary<string, double> { };
+
+                        foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
                         {
-                            if (!damage_records.ContainsKey(rec.weapon))
-                                damage_records.Add(rec.weapon, rec.damage);
-                            else
-                                damage_records[rec.weapon] += rec.damage;
+                            foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname))
+                            {
+                                if (!damage_records.ContainsKey(rec.weapon))
+                                    damage_records.Add(rec.weapon, rec.damage);
+                                else
+                                    damage_records[rec.weapon] += rec.damage;
 
+                            }
                         }
-                    }
-                        
-                    foreach (KeyValuePair<string, double> rec in damage_records)
-                        add_chart_element(translate.translate_string(rec.Key, session, translations), rec.Value);
 
+                        foreach (KeyValuePair<string, double> rec in damage_records)
+                            add_chart_element(translate.translate_string(rec.Key, session, translations), rec.Value);
+                    }
+                    else
+                    {
+                        if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                            foreach (part_loader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
+                                add_chart_element(translate.translate_string(part.name, session, translations), value);
+                    }
                     break;
                 case grouping.MOVEMENT:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
@@ -428,7 +452,7 @@ namespace CO_Driver
                     add_chart_element(translate.translate_string(match.match_data.map_name, session, translations), value);
                     break;
                 case grouping.GAME_MODE:
-                    add_chart_element(match.match_data.gameplay_desc, value);
+                    add_chart_element(match.match_data.match_type_desc, value);
                     break;
                 case grouping.GAME_MODE_CAT:
                     add_chart_element(decode_match_classification(match.match_data.match_classification), value);
@@ -440,13 +464,13 @@ namespace CO_Driver
                     add_chart_element(find_power_score_range(match.match_data.local_player.power_score), value);
                     break;
                 case grouping.REGION:
-                    add_chart_element(match.match_data.host_name.Substring(3), value);
+                    add_chart_element(decode_game_region(match.match_data.host_name), value);
                     break;
                 case grouping.SERVER:
                     add_chart_element(match.match_data.host_name, value);
                     break;
                 case grouping.GROUP_SIZE:
-                    add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id).ToString(), value);
+                    add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).ToString(), value);
                     break;
                 default:
                     MessageBox.Show("Unable to find group");
@@ -456,6 +480,9 @@ namespace CO_Driver
 
         private void add_chart_element(string group, double value)
         {
+            if (group == "")
+                return;
+
             if (!chart_series.Any(x => x.title == group))
             {
                 chart_series.Add(new chart_element { x_value = chart_series.Count + 1, title = group, total = value, min = value, max = value, count = 1 });
@@ -465,10 +492,10 @@ namespace CO_Driver
                 chart_element element = chart_series.FirstOrDefault(x => x.title == group);
                 element.total += value;
 
-                if (element.min < value)
+                if (element.min > value)
                     element.min = value;
 
-                if (element.max > value)
+                if (element.max < value)
                     element.max = value;
 
                 element.count += 1;
@@ -513,6 +540,21 @@ namespace CO_Driver
             return "Undefined";
         }
 
+        public string decode_game_region(string host_name)
+        {
+            if (host_name.Contains("-ru"))
+                return "Russia";
+            if (host_name.Contains("-nl"))
+                return "Europe";
+            if (host_name.Contains("-us"))
+                return "North America";
+            else if (host_name.Contains("-jp"))
+                return "Asia";
+            else if (host_name.Contains("-au"))
+                return "Australia";
+            return "Unknown";
+        }
+
         public void reset_comparison_data()
         {
             chart_series = new List<chart_element> { };
@@ -531,20 +573,6 @@ namespace CO_Driver
         private void cbYaxis_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.name == cbYaxis.SelectedItem.ToString());
-
-            //if (current_y_axis.supports_min_max)
-            //{
-            //    btnMaximum.Enabled = true;
-            //    btnMinimum.Enabled = true;
-            //    btnAverage.Enabled = true;
-            //}
-            //else
-            //{
-            //    btnMaximum.Enabled = false;
-            //    btnMinimum.Enabled = false;
-            //    btnAverage.Enabled = false;
-            //}
-
             populate_comparison_chart();
         }
 

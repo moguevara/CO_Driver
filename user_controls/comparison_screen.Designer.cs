@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.dt_start_date = new System.Windows.Forms.DateTimePicker();
@@ -265,11 +265,13 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.ch_comparison, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 59);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -282,16 +284,16 @@
             // ch_comparison
             // 
             this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea15.Name = "ChartArea1";
-            this.ch_comparison.ChartAreas.Add(chartArea15);
+            chartArea16.Name = "ChartArea1";
+            this.ch_comparison.ChartAreas.Add(chartArea16);
             this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend15.AutoFitMinFontSize = 5;
-            legend15.Font = new System.Drawing.Font("Consolas", 8F);
-            legend15.IsTextAutoFit = false;
-            legend15.MaximumAutoSize = 20F;
-            legend15.Name = "Legend1";
-            legend15.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_comparison.Legends.Add(legend15);
+            legend16.AutoFitMinFontSize = 5;
+            legend16.Font = new System.Drawing.Font("Consolas", 8F);
+            legend16.IsTextAutoFit = false;
+            legend16.MaximumAutoSize = 20F;
+            legend16.Name = "Legend1";
+            legend16.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_comparison.Legends.Add(legend16);
             this.ch_comparison.Location = new System.Drawing.Point(3, 84);
             this.ch_comparison.Name = "ch_comparison";
             this.ch_comparison.Size = new System.Drawing.Size(1189, 455);
