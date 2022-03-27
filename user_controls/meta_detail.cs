@@ -353,6 +353,9 @@ namespace CO_Driver
 
         private void cb_versions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.client_versions_filter == this.cb_versions.Text)
+                return;
+
             if (this.cb_versions.SelectedIndex >= 0)
                 filter_selections.client_versions_filter = this.cb_versions.Text;
 
@@ -361,6 +364,9 @@ namespace CO_Driver
 
         private void cb_power_score_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.power_score_filter == this.cb_power_score.Text)
+                return;
+
             if (this.cb_power_score.SelectedIndex >= 0)
                 filter_selections.power_score_filter = this.cb_power_score.Text;
 
@@ -369,6 +375,9 @@ namespace CO_Driver
 
         private void cb_grouped_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.group_filter == this.cb_grouped.Text)
+                return;
+
             if (this.cb_grouped.SelectedIndex >= 0)
                 filter_selections.group_filter = this.cb_grouped.Text;
 
@@ -377,6 +386,9 @@ namespace CO_Driver
 
         private void cb_game_modes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.game_mode_filter == this.cb_game_modes.Text)
+                return;
+
             if (this.cb_game_modes.SelectedIndex >= 0)
                 filter_selections.game_mode_filter = this.cb_game_modes.Text;
 
@@ -385,18 +397,27 @@ namespace CO_Driver
 
         private void dt_start_date_ValueChanged(object sender, EventArgs e)
         {
+            if (filter_selections.start_date == dt_start_date.Value)
+                return;
+
             filter_selections.start_date = dt_start_date.Value;
             populate_meta_detail_screen();
         }
 
         private void dt_end_date_ValueChanged(object sender, EventArgs e)
         {
+            if (filter_selections.end_date == dt_end_date.Value)
+                return;
+
             filter_selections.end_date = dt_end_date.Value;
             populate_meta_detail_screen();
         }
 
         private void cb_cabins_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.cabin_filter == this.cb_cabins.Text)
+                return;
+
             if (this.cb_cabins.SelectedIndex >= 0)
                 filter_selections.cabin_filter = this.cb_cabins.Text;
 
@@ -405,6 +426,9 @@ namespace CO_Driver
 
         private void cb_weapons_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.weapons_filter == this.cb_weapons.Text)
+                return;
+
             if (this.cb_weapons.SelectedIndex >= 0)
                 filter_selections.weapons_filter = this.cb_weapons.Text;
 
@@ -413,6 +437,9 @@ namespace CO_Driver
 
         private void cb_modules_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.module_filter == this.cb_modules.Text)
+                return;
+
             if (this.cb_modules.SelectedIndex >= 0)
                 filter_selections.module_filter = this.cb_modules.Text;
 
@@ -421,6 +448,9 @@ namespace CO_Driver
 
         private void cb_movement_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (filter_selections.movement_filter == this.cb_movement.Text)
+                return;
+
             if (this.cb_movement.SelectedIndex >= 0)
                 filter_selections.movement_filter = this.cb_movement.Text;
 
