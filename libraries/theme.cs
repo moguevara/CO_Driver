@@ -46,6 +46,7 @@ namespace CO_Driver
                                                                     new ui_theme { name = "Juicebox",                    fore_ground = Color.FromArgb(156, 151, 166), back_ground = Color.FromArgb(47, 40, 51) },
                                                                     new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) },
                                                                     new ui_theme { name = "Mr. Gusano",                  fore_ground = Color.FromArgb(253, 255, 255), back_ground = Color.FromArgb(39, 86, 78) },
+                                                                    new ui_theme { name = "Slava Ukraini!",              fore_ground = Color.FromArgb(255, 215, 0),   back_ground = Color.FromArgb(0, 87, 183) },
                                                                     new ui_theme { name = "Hexagonis",                   fore_ground = Color.FromArgb(219, 173, 80),  back_ground = Color.FromArgb(37, 40, 60) }
                                                                  };
 

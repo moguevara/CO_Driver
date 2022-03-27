@@ -33,7 +33,7 @@
     <PublisherName>Dept116</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>135</ApplicationRevision>
+    <ApplicationRevision>137</ApplicationRevision>
     <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -65,16 +65,17 @@
     <ApplicationIcon>RotFish.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4BA4D0E198539909E5365A87D6CB6CF19F5C014B</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5B46FCEB0860772AB95E0C2EE9B8B02D5D3E0023</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>codriver.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -125,6 +126,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="user_controls\comparison_screen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user_controls\comparison_screen.Designer.cs">
+      <DependentUpon>comparison_screen.cs</DependentUpon>
     </Compile>
     <Compile Include="user_controls\revenue_review.cs">
       <SubType>UserControl</SubType>
@@ -237,6 +244,9 @@
     </Compile>
     <EmbeddedResource Include="user_controls\about_screen.resx">
       <DependentUpon>about_screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_controls\comparison_screen.resx">
+      <DependentUpon>comparison_screen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\garage_view.resx">
       <DependentUpon>garage_view.cs</DependentUpon>

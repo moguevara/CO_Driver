@@ -60,6 +60,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
+            this.performanceComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,7 +129,8 @@
             this.liveGarageChartingToolStripMenuItem,
             this.buildReviewToolStripMenuItem,
             this.stateOfYourMetaToolStripMenuItem,
-            this.revenueAnalysisToolStripMenuItem});
+            this.revenueAnalysisToolStripMenuItem,
+            this.performanceComparisonToolStripMenuItem});
             this.analysisToolStripMenuItem.Name = "analysisToolStripMenuItem";
             this.analysisToolStripMenuItem.Size = new System.Drawing.Size(110, 18);
             this.analysisToolStripMenuItem.Text = "Analysis Menu";
@@ -254,35 +256,35 @@
             // combatlogToolStripMenuItem
             // 
             this.combatlogToolStripMenuItem.Name = "combatlogToolStripMenuItem";
-            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.combatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.combatlogToolStripMenuItem.Text = "combat.log";
             this.combatlogToolStripMenuItem.Click += new System.EventHandler(this.combatlogToolStripMenuItem_Click);
             // 
             // gamelogToolStripMenuItem
             // 
             this.gamelogToolStripMenuItem.Name = "gamelogToolStripMenuItem";
-            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gamelogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.gamelogToolStripMenuItem.Text = "game.log";
             this.gamelogToolStripMenuItem.Click += new System.EventHandler(this.gamelogToolStripMenuItem_Click);
             // 
             // chatlogToolStripMenuItem
             // 
             this.chatlogToolStripMenuItem.Name = "chatlogToolStripMenuItem";
-            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chatlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.chatlogToolStripMenuItem.Text = "chat.log";
             this.chatlogToolStripMenuItem.Click += new System.EventHandler(this.chatlogToolStripMenuItem_Click);
             // 
             // netlogToolStripMenuItem
             // 
             this.netlogToolStripMenuItem.Name = "netlogToolStripMenuItem";
-            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.netlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.netlogToolStripMenuItem.Text = "net.log";
             this.netlogToolStripMenuItem.Click += new System.EventHandler(this.netlogToolStripMenuItem_Click);
             // 
             // gfxlogToolStripMenuItem
             // 
             this.gfxlogToolStripMenuItem.Name = "gfxlogToolStripMenuItem";
-            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gfxlogToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.gfxlogToolStripMenuItem.Text = "gfx.log";
             this.gfxlogToolStripMenuItem.Click += new System.EventHandler(this.gfxlogToolStripMenuItem_Click);
             // 
@@ -348,6 +350,13 @@
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
             // 
+            // performanceComparisonToolStripMenuItem
+            // 
+            this.performanceComparisonToolStripMenuItem.Name = "performanceComparisonToolStripMenuItem";
+            this.performanceComparisonToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.performanceComparisonToolStripMenuItem.Text = "Performance Comparison";
+            this.performanceComparisonToolStripMenuItem.Click += new System.EventHandler(this.performanceComparisonToolStripMenuItem_Click);
+            // 
             // frm_main_page
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -401,6 +410,7 @@
         private System.Windows.Forms.ToolStripMenuItem liveGarageChartingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buildReviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fullscreenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem performanceComparisonToolStripMenuItem;
     }
 }
 
