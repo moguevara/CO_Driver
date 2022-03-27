@@ -154,6 +154,20 @@ namespace CO_Driver
                             while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
                                 game_line = game_reader.ReadLine();
 
+                            if (game_line.Contains(@"| TargemService:OnGoingOnline:"))
+                            {
+                                string local_player_name = Regex.Match(game_line, @", nickName '(.+?)',").Groups[1].Value.Replace(" ", "");
+                                int uid = Convert.ToInt32(Regex.Match(game_line, @": uid (.+?), ").Groups[1].Value.Replace(" ", ""));
+
+                                if (session.valid_users.ContainsKey(local_player_name))
+                                    session.valid_users[local_player_name] += 1;
+                                else
+                                    session.valid_users.Add(local_player_name, 1);
+
+                                if (!session.uid_lookup.ContainsKey(local_player_name))
+                                    session.uid_lookup.Add(local_player_name, uid);
+                            }
+
                             if (game_line.Contains(@"| TSConnectionManager: negotiation complete:"))
                             {
                                 string local_player_name = Regex.Match(game_line, @", nickName '(.+?)',").Groups[1].Value.Replace(" ", "");
