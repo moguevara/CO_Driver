@@ -1736,7 +1736,7 @@ namespace CO_Driver
                 }
 
                 Current_session.current_match.player_records[attacker].stats.damage += damage;
-                Current_session.current_match.player_records[attacker].stats.cabin_damage += damage;
+                Current_session.current_match.player_records[attacker].stats.cabin_damage += cabin_damage;
                 Current_session.current_match.player_records[victim].stats.damage_taken += damage;
             }
         }
