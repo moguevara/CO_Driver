@@ -220,6 +220,7 @@ namespace CO_Driver
             public int score { get; set; }
             public double damage { get; set; }
             public double damage_taken { get; set; }
+            public double cabin_damage { get; set; }
             public int games { get; set; }
             public int rounds { get; set; }
             public int wins { get; set; }
@@ -1654,6 +1655,7 @@ namespace CO_Driver
             bool ram_damage = false;
             string flags = line_results.Groups["flags"].Value;
             bool found_damage_record = false;
+            double cabin_damage = flags.Contains("HUD_IMPORTANT") ? damage : 0.0;
 
             weapon = weapon.Substring(0, weapon.IndexOf(':') > 0 ? weapon.IndexOf(':') : weapon.Length);
 
@@ -1734,6 +1736,7 @@ namespace CO_Driver
                 }
 
                 Current_session.current_match.player_records[attacker].stats.damage += damage;
+                Current_session.current_match.player_records[attacker].stats.cabin_damage += damage;
                 Current_session.current_match.player_records[victim].stats.damage_taken += damage;
             }
         }
@@ -2294,6 +2297,7 @@ namespace CO_Driver
                 score = 0,
                 damage = 0.0,
                 damage_taken = 0.0,
+                cabin_damage = 0.0,
                 games = 0,
                 rounds = 1,
                 wins = 0,
@@ -2323,6 +2327,7 @@ namespace CO_Driver
                 score = a.score + b.score,
                 damage = a.damage + b.damage,
                 damage_taken = a.damage_taken + b.damage_taken,
+                cabin_damage = a.cabin_damage + b.cabin_damage,
                 wins = a.wins + b.wins,
                 losses = a.losses + b.losses
             };
@@ -2341,6 +2346,7 @@ namespace CO_Driver
                 score = a.score - b.score,
                 damage = a.damage - b.damage,
                 damage_taken = a.damage_taken - b.damage_taken,
+                cabin_damage = a.cabin_damage - b.cabin_damage,
                 wins = a.wins - b.wins,
                 losses = a.losses + b.losses
             };

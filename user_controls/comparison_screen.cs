@@ -55,7 +55,10 @@ namespace CO_Driver
             POWER_SCORE,
             REGION,
             SERVER,
-            GROUP_SIZE
+            GROUP_SIZE,
+            SQUAD_MATE,
+            OPPONENT,
+            ALLY
         }
 
         private enum metric
@@ -72,7 +75,10 @@ namespace CO_Driver
             DRONE_KILLS,
             MEDALS,
             GAMES_PLAYED,
-            ROUNDS_PLAYED
+            ROUNDS_PLAYED,
+            RAM_DAMAGE,
+            CABIN_DAMAGE,
+            BODY_DAMAGE
         }
 
         private enum ordering
@@ -96,7 +102,10 @@ namespace CO_Driver
                                                                                       new grouping_category { id = grouping.POWER_SCORE, name = "Power Score", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.REGION, name = "Region", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.SERVER, name = "Server", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
-                                                                                      new grouping_category { id = grouping.GROUP_SIZE, name = "Group Size", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC }
+                                                                                      new grouping_category { id = grouping.GROUP_SIZE, name = "Group Size", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.SQUAD_MATE, name = "Squadmate", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.OPPONENT, name = "Opponent", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.ALLY, name = "Ally", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                     };
 
         private List<metric_category> y_axis_groups = new List<metric_category> { new metric_category { id = metric.WIN_RATE, name = "Win Rate", supports_min_max = false },
@@ -111,7 +120,10 @@ namespace CO_Driver
                                                                                   new metric_category { id = metric.DRONE_KILLS, name = "Drone Kills", supports_min_max = true },
                                                                                   new metric_category { id = metric.MEDALS, name = "Medals", supports_min_max = true },
                                                                                   new metric_category { id = metric.GAMES_PLAYED, name = "Games Played", supports_min_max = true },
-                                                                                  new metric_category { id = metric.ROUNDS_PLAYED, name = "Rounds Played", supports_min_max = true }
+                                                                                  new metric_category { id = metric.ROUNDS_PLAYED, name = "Rounds Played", supports_min_max = true },
+                                                                                  new metric_category { id = metric.RAM_DAMAGE, name = "Ram Damage", supports_min_max = true },
+                                                                                  new metric_category { id = metric.CABIN_DAMAGE, name = "Cabin Damage", supports_min_max = true },
+                                                                                  new metric_category { id = metric.BODY_DAMAGE, name = "Body Damage", supports_min_max = true }
                                                                                  };
         private class grouping_category
         {
@@ -378,6 +390,17 @@ namespace CO_Driver
                 case metric.ROUNDS_PLAYED:
                     value = match.match_data.round_count;
                     break;
+                case metric.RAM_DAMAGE:
+                    foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                        foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname && x.weapon == "Ramming"))
+                            value += rec.damage;
+                    break;
+                case metric.CABIN_DAMAGE:
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.cabin_damage;
+                    break;
+                case metric.BODY_DAMAGE:
+                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage - match.match_data.player_records[match.match_data.local_player.nickname].stats.cabin_damage;
+                    break;
                 default:
                     MessageBox.Show("Unable to find metric");
                     return;
@@ -471,6 +494,18 @@ namespace CO_Driver
                     break;
                 case grouping.GROUP_SIZE:
                     add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).ToString(), value);
+                    break;
+                case grouping.SQUAD_MATE:
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).Select(x => x.Key))
+                        add_chart_element(player, value);
+                    break;
+                case grouping.OPPONENT:
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Key))
+                        add_chart_element(player, value);
+                    break;
+                case grouping.ALLY:
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Key))
+                        add_chart_element(player, value);
                     break;
                 default:
                     MessageBox.Show("Unable to find group");
