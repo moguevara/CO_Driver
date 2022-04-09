@@ -16,6 +16,7 @@ namespace CO_Driver
     public partial class match_history : UserControl
     {
         public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+        public event EventHandler<string> load_selected_build;
 
         public List<file_trace_managment.MatchRecord> history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
@@ -86,9 +87,17 @@ namespace CO_Driver
             if (e.RowIndex < 0)
                 return;
 
+            if (e.ColumnIndex == 4)
+            {
+                if (load_selected_build != null)
+                {
+                    if (!String.IsNullOrWhiteSpace(dg_match_history_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
+                        load_selected_build(this, dg_match_history_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                }
+            }
+            else
             if (load_selected_match != null)
             {
-                //load_selected_match(this, ((file_trace_managment.MatchRecord)dg_match_history_view.Rows[e.RowIndex].DataBoundItem));
                 foreach (file_trace_managment.MatchRecord match in history.ToList())
                 {
                     if (DateTime.Equals(match.match_data.match_start, dg_match_history_view.Rows[e.RowIndex].Cells[1].Value))

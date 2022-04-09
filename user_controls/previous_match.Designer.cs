@@ -271,7 +271,7 @@
             this.dg_medals.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_medals.EnableHeadersVisualStyles = false;
             this.dg_medals.GridColor = System.Drawing.Color.Lime;
-            this.dg_medals.Location = new System.Drawing.Point(3, 23);
+            this.dg_medals.Location = new System.Drawing.Point(3, 19);
             this.dg_medals.Margin = new System.Windows.Forms.Padding(0);
             this.dg_medals.Name = "dg_medals";
             this.dg_medals.ReadOnly = true;
@@ -300,7 +300,7 @@
             this.dg_medals.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_medals.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_medals.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_medals.Size = new System.Drawing.Size(209, 199);
+            this.dg_medals.Size = new System.Drawing.Size(209, 203);
             this.dg_medals.StandardTab = true;
             this.dg_medals.TabIndex = 40;
             // 
@@ -375,7 +375,7 @@
             this.dg_score.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_score.EnableHeadersVisualStyles = false;
             this.dg_score.GridColor = System.Drawing.Color.Lime;
-            this.dg_score.Location = new System.Drawing.Point(3, 23);
+            this.dg_score.Location = new System.Drawing.Point(3, 19);
             this.dg_score.Margin = new System.Windows.Forms.Padding(0);
             this.dg_score.Name = "dg_score";
             this.dg_score.ReadOnly = true;
@@ -404,7 +404,7 @@
             this.dg_score.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_score.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_score.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_score.Size = new System.Drawing.Size(148, 199);
+            this.dg_score.Size = new System.Drawing.Size(148, 203);
             this.dg_score.StandardTab = true;
             this.dg_score.TabIndex = 40;
             // 
@@ -500,7 +500,7 @@
             this.dg_red_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_red_team.EnableHeadersVisualStyles = false;
             this.dg_red_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_red_team.Location = new System.Drawing.Point(3, 23);
+            this.dg_red_team.Location = new System.Drawing.Point(3, 19);
             this.dg_red_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_red_team.Name = "dg_red_team";
             this.dg_red_team.ReadOnly = true;
@@ -529,7 +529,7 @@
             this.dg_red_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_red_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_red_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_red_team.Size = new System.Drawing.Size(389, 197);
+            this.dg_red_team.Size = new System.Drawing.Size(389, 201);
             this.dg_red_team.StandardTab = true;
             this.dg_red_team.TabIndex = 39;
             this.dg_red_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_red_player);
@@ -662,7 +662,7 @@
             this.dg_blue_team.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_blue_team.EnableHeadersVisualStyles = false;
             this.dg_blue_team.GridColor = System.Drawing.Color.Lime;
-            this.dg_blue_team.Location = new System.Drawing.Point(3, 23);
+            this.dg_blue_team.Location = new System.Drawing.Point(3, 19);
             this.dg_blue_team.Margin = new System.Windows.Forms.Padding(0);
             this.dg_blue_team.Name = "dg_blue_team";
             this.dg_blue_team.ReadOnly = true;
@@ -691,7 +691,7 @@
             this.dg_blue_team.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_blue_team.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_blue_team.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_blue_team.Size = new System.Drawing.Size(389, 197);
+            this.dg_blue_team.Size = new System.Drawing.Size(389, 201);
             this.dg_blue_team.StandardTab = true;
             this.dg_blue_team.TabIndex = 38;
             this.dg_blue_team.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lookup_blue_player);
@@ -835,7 +835,7 @@
             this.dg_damage_dealt.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_dealt.EnableHeadersVisualStyles = false;
             this.dg_damage_dealt.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 23);
+            this.dg_damage_dealt.Location = new System.Drawing.Point(3, 19);
             this.dg_damage_dealt.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_dealt.Name = "dg_damage_dealt";
             this.dg_damage_dealt.ReadOnly = true;
@@ -864,7 +864,7 @@
             this.dg_damage_dealt.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_dealt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_dealt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 313);
+            this.dg_damage_dealt.Size = new System.Drawing.Size(225, 317);
             this.dg_damage_dealt.StandardTab = true;
             this.dg_damage_dealt.TabIndex = 38;
             // 
@@ -1406,6 +1406,7 @@
             this.lb_build_name.TabIndex = 1;
             this.lb_build_name.Text = "Build";
             this.lb_build_name.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lb_build_name.Click += new System.EventHandler(this.lb_build_name_Click);
             // 
             // tableLayoutPanel24
             // 
@@ -1568,7 +1569,7 @@
             this.dg_damage_rec.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.dg_damage_rec.EnableHeadersVisualStyles = false;
             this.dg_damage_rec.GridColor = System.Drawing.Color.Lime;
-            this.dg_damage_rec.Location = new System.Drawing.Point(3, 23);
+            this.dg_damage_rec.Location = new System.Drawing.Point(3, 19);
             this.dg_damage_rec.Margin = new System.Windows.Forms.Padding(0);
             this.dg_damage_rec.Name = "dg_damage_rec";
             this.dg_damage_rec.ReadOnly = true;
@@ -1597,7 +1598,7 @@
             this.dg_damage_rec.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dg_damage_rec.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dg_damage_rec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dg_damage_rec.Size = new System.Drawing.Size(221, 274);
+            this.dg_damage_rec.Size = new System.Drawing.Size(221, 278);
             this.dg_damage_rec.StandardTab = true;
             this.dg_damage_rec.TabIndex = 39;
             // 

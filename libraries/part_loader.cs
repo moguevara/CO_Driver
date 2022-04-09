@@ -556,6 +556,16 @@ namespace CO_Driver
             Current_session.static_records.map_dict.Add("newyear_foray", "Mountain village");
         }
 
+        //new metric_category { id = metric.EXPERIENCE, name = "Experience", supports_min_max = true },
+        //new metric_category { id = metric.URANIUM, name = "Uranium", supports_min_max = true },
+        //new metric_category { id = metric.SCRAP, name = "Scrap", supports_min_max = true },
+        //new metric_category { id = metric.WIRES, name = "Wires", supports_min_max = true },
+        //new metric_category { id = metric.BATTERIES, name = "Batteries", supports_min_max = true },
+        //new metric_category { id = metric.COPPER, name = "Copper", supports_min_max = true },
+        //new metric_category { id = metric.COUPONS, name = "Coupons", supports_min_max = true },
+        //new metric_category { id = metric.ELECTRONICS, name = "Electronics", supports_min_max = true },
+        //new metric_category { id = metric.PLASTIC, name = "Plastic", supports_min_max = true }
+
         public static void load_resource_dictionary(file_trace_managment.SessionStats Current_session)
         {
             Current_session.static_records.resource_dict.Add("expFactionTotal", "Fation XP");

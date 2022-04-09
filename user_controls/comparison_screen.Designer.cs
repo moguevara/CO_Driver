@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.dt_end_date = new System.Windows.Forms.DateTimePicker();
             this.dt_start_date = new System.Windows.Forms.DateTimePicker();
@@ -46,6 +46,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ch_comparison = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.cb_min_max = new System.Windows.Forms.ComboBox();
             this.cbXaxis = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbYaxis = new System.Windows.Forms.ComboBox();
@@ -53,16 +54,11 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.cbMinSampleSize = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbReturnLimit = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cb_min_max = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ch_comparison)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -284,16 +280,16 @@
             // ch_comparison
             // 
             this.ch_comparison.BackImageTransparentColor = System.Drawing.Color.White;
-            chartArea16.Name = "ChartArea1";
-            this.ch_comparison.ChartAreas.Add(chartArea16);
+            chartArea2.Name = "ChartArea1";
+            this.ch_comparison.ChartAreas.Add(chartArea2);
             this.ch_comparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend16.AutoFitMinFontSize = 5;
-            legend16.Font = new System.Drawing.Font("Consolas", 8F);
-            legend16.IsTextAutoFit = false;
-            legend16.MaximumAutoSize = 20F;
-            legend16.Name = "Legend1";
-            legend16.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ch_comparison.Legends.Add(legend16);
+            legend2.AutoFitMinFontSize = 5;
+            legend2.Font = new System.Drawing.Font("Consolas", 8F);
+            legend2.IsTextAutoFit = false;
+            legend2.MaximumAutoSize = 20F;
+            legend2.Name = "Legend1";
+            legend2.TitleFont = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ch_comparison.Legends.Add(legend2);
             this.ch_comparison.Location = new System.Drawing.Point(3, 84);
             this.ch_comparison.Name = "ch_comparison";
             this.ch_comparison.Size = new System.Drawing.Size(1189, 455);
@@ -321,6 +317,29 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1189, 75);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // cb_min_max
+            // 
+            this.cb_min_max.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_min_max.BackColor = System.Drawing.Color.Black;
+            this.cb_min_max.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_min_max.DropDownWidth = 280;
+            this.cb_min_max.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_min_max.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_min_max.ForeColor = System.Drawing.Color.Lime;
+            this.cb_min_max.FormattingEnabled = true;
+            this.cb_min_max.Items.AddRange(new object[] {
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Total"});
+            this.cb_min_max.Location = new System.Drawing.Point(3, 24);
+            this.cb_min_max.MaxDropDownItems = 32;
+            this.cb_min_max.Name = "cb_min_max";
+            this.cb_min_max.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cb_min_max.Size = new System.Drawing.Size(163, 27);
+            this.cb_min_max.TabIndex = 71;
+            this.cb_min_max.SelectedIndexChanged += new System.EventHandler(this.cb_min_max_SelectedIndexChanged);
+            // 
             // cbXaxis
             // 
             this.cbXaxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -341,7 +360,7 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(455, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(163, 75);
@@ -372,12 +391,11 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(907, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(279, 69);
@@ -391,102 +409,38 @@
             this.tableLayoutPanel5.Controls.Add(this.cbMinSampleSize, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 37);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(273, 29);
-            this.tableLayoutPanel5.TabIndex = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(273, 63);
+            this.tableLayoutPanel5.TabIndex = 2;
             // 
             // cbMinSampleSize
             // 
+            this.cbMinSampleSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMinSampleSize.BackColor = System.Drawing.Color.Black;
-            this.cbMinSampleSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbMinSampleSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMinSampleSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMinSampleSize.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMinSampleSize.ForeColor = System.Drawing.Color.Lime;
             this.cbMinSampleSize.FormattingEnabled = true;
-            this.cbMinSampleSize.Location = new System.Drawing.Point(194, 3);
+            this.cbMinSampleSize.Location = new System.Drawing.Point(194, 21);
             this.cbMinSampleSize.MaxDropDownItems = 32;
             this.cbMinSampleSize.Name = "cbMinSampleSize";
             this.cbMinSampleSize.Size = new System.Drawing.Size(76, 21);
             this.cbMinSampleSize.TabIndex = 75;
-            this.cbMinSampleSize.SelectedIndexChanged += new System.EventHandler(this.cbMinSampleSize_SelectedIndexChanged);
+            this.cbMinSampleSize.SelectedIndexChanged += new System.EventHandler(this.cbMinSampleSize_SelectedIndexChanged_1);
             // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(185, 29);
+            this.label4.Size = new System.Drawing.Size(185, 63);
             this.label4.TabIndex = 74;
             this.label4.Text = "Minimum Sample Size:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel4.Controls.Add(this.cbReturnLimit, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(273, 28);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // cbReturnLimit
-            // 
-            this.cbReturnLimit.BackColor = System.Drawing.Color.Black;
-            this.cbReturnLimit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbReturnLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbReturnLimit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbReturnLimit.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbReturnLimit.ForeColor = System.Drawing.Color.Lime;
-            this.cbReturnLimit.FormattingEnabled = true;
-            this.cbReturnLimit.Location = new System.Drawing.Point(194, 3);
-            this.cbReturnLimit.MaxDropDownItems = 32;
-            this.cbReturnLimit.Name = "cbReturnLimit";
-            this.cbReturnLimit.Size = new System.Drawing.Size(76, 21);
-            this.cbReturnLimit.TabIndex = 74;
-            this.cbReturnLimit.SelectedIndexChanged += new System.EventHandler(this.cbReturnLimit_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(185, 28);
-            this.label3.TabIndex = 73;
-            this.label3.Text = "Showing Top:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cb_min_max
-            // 
-            this.cb_min_max.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cb_min_max.BackColor = System.Drawing.Color.Black;
-            this.cb_min_max.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_min_max.DropDownWidth = 280;
-            this.cb_min_max.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_min_max.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_min_max.ForeColor = System.Drawing.Color.Lime;
-            this.cb_min_max.FormattingEnabled = true;
-            this.cb_min_max.Items.AddRange(new object[] {
-            "Average",
-            "Minimum",
-            "Maximum",
-            "Total"});
-            this.cb_min_max.Location = new System.Drawing.Point(3, 24);
-            this.cb_min_max.MaxDropDownItems = 32;
-            this.cb_min_max.Name = "cb_min_max";
-            this.cb_min_max.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cb_min_max.Size = new System.Drawing.Size(163, 27);
-            this.cb_min_max.TabIndex = 71;
-            this.cb_min_max.SelectedIndexChanged += new System.EventHandler(this.cb_min_max_SelectedIndexChanged);
             // 
             // comparison_screen
             // 
@@ -518,7 +472,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -544,13 +497,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbYaxis;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart ch_comparison;
+        private System.Windows.Forms.ComboBox cb_min_max;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.ComboBox cbMinSampleSize;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.ComboBox cbReturnLimit;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart ch_comparison;
-        private System.Windows.Forms.ComboBox cb_min_max;
     }
 }

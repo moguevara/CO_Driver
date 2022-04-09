@@ -57,6 +57,7 @@ namespace CO_Driver
         private int global_total_player_count;
         private int global_total_bot_count;
         private int max_score;
+        private int highest_win_streak;
         private double max_damage_rec;
         private double max_damage_dealt;
         private MaxKills max_kills = new MaxKills { max_kills = 0, count = 0 };
@@ -98,6 +99,7 @@ namespace CO_Driver
             filter.reset_filters(filter_selections);
             initialize_user_profile();
 
+            int current_win_streak = 0;
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
@@ -169,6 +171,14 @@ namespace CO_Driver
                         global_total_score += player.Value.stats.score;
                     } 
                 }
+
+                if (match.match_data.local_player.team == match.match_data.winning_team)
+                    current_win_streak += 1;
+                else
+                    current_win_streak = 0;
+
+                if (current_win_streak > highest_win_streak)
+                    highest_win_streak = current_win_streak;
 
                 if ( match.match_data.local_player.stats.score > max_score)
                     max_score =  match.match_data.local_player.stats.score;
@@ -261,6 +271,8 @@ namespace CO_Driver
             lb_max_damage.Text = Math.Round(max_damage_dealt,1).ToString();
             lb_max_damage_rec.Text = Math.Round(max_damage_rec,1).ToString();
             lb_highest_score.Text = max_score.ToString();
+            lb_win_streak.Text = highest_win_streak.ToString();
+
             if (max_kills.count > 1)
                 lb_max_kills.Text = string.Format(@"({0} Kills)x{1}", max_kills.max_kills, max_kills.count);
             else
@@ -402,6 +414,7 @@ namespace CO_Driver
             weapon_usage = new Dictionary<string, int> { };
             module_usage = new Dictionary<string, int> { };
             max_score = 0;
+            highest_win_streak = 0;
             max_damage_rec = 0.0;
             max_damage_dealt = 0.0;
             max_kills.max_kills = 0;

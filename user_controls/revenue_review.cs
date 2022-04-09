@@ -359,7 +359,6 @@ namespace CO_Driver
             TimeSpan queue_span = TimeSpan.FromSeconds(total_queue_duration);
             TimeSpan match_span = TimeSpan.FromSeconds(total_match_duration);
 
-
             lb_queue_time.Text = "";
             lb_match_time.Text = "";
 

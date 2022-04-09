@@ -14,6 +14,7 @@ namespace CO_Driver
     {
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+        public event EventHandler<string> load_selected_build;
 
         public file_trace_managment.MatchData previous_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
@@ -489,6 +490,14 @@ namespace CO_Driver
         private void previous_match_Resize(object sender, EventArgs e)
         {
             resize.resize(this);
+        }
+
+        private void lb_build_name_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(match_data.local_player.build_hash))
+            {
+                load_selected_build(sender, match_data.local_player.build_hash);
+            }
         }
     }
 }

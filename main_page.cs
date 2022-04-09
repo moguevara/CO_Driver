@@ -92,6 +92,8 @@ namespace CO_Driver
 
             match_history_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
             match_detail_page.load_selected_match += new EventHandler<file_trace_managment.MatchRecord>(load_match_details);
+            match_history_page.load_selected_build += new EventHandler<string>(load_build_details);
+            match_detail_page.load_selected_build += new EventHandler<string>(load_build_details);
 
             settings_page.reload_all_themes += new EventHandler(reload_theme);
             settings_page.enable_uploads += new EventHandler(enable_upload);
@@ -1091,6 +1093,13 @@ namespace CO_Driver
             match_detail_page.populate_match();
             clear_main_page_panel();
             main_page_panel.Controls.Add(match_detail_page);
+        }
+
+        private void load_build_details(object sender, string build_hash)
+        {
+            build_page.load_build_hash(build_hash);
+            clear_main_page_panel();
+            main_page_panel.Controls.Add(build_page);
         }
 
         private void buildToolsToolStripMenuItem_Click(object sender, EventArgs e)

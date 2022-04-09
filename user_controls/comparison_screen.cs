@@ -31,7 +31,6 @@ namespace CO_Driver
         private List<chart_element> chart_series = new List<chart_element> { };
         private Series current_series = new Series { };
 
-        private List<string> result_limit_groups = new List<string> { "All", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
         private List<string> min_sample_size_groups = new List<string> { "0", "5", "10", "15", "20", "25", "50", "75", "100", "150", "200", "250", "300"};
 
         private enum grouping 
@@ -44,6 +43,7 @@ namespace CO_Driver
             MOVEMENT,
             CABIN,
             MODULE,
+            PART,
             WEAPON_CAT,
             MOVEMENT_CAT,
             CABIN_CAT,
@@ -55,6 +55,7 @@ namespace CO_Driver
             POWER_SCORE,
             REGION,
             SERVER,
+            CLIENT_VERSION,
             GROUP_SIZE,
             SQUAD_MATE,
             OPPONENT,
@@ -78,7 +79,16 @@ namespace CO_Driver
             ROUNDS_PLAYED,
             RAM_DAMAGE,
             CABIN_DAMAGE,
-            BODY_DAMAGE
+            BODY_DAMAGE,
+            EXPERIENCE,
+            URANIUM,
+            SCRAP,
+            WIRES,
+            BATTERIES,
+            COPPER,
+            COUPONS,
+            ELECTRONICS,
+            PLASTIC
         }
 
         private enum ordering
@@ -95,6 +105,7 @@ namespace CO_Driver
                                                                                       new grouping_category { id = grouping.MOVEMENT, name = "Movement", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.CABIN, name = "Cabin", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.MODULE, name = "Module", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.PART, name = "Part", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.MAP, name = "Map", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.GAME_MODE, name = "Game Mode", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.GAME_MODE_CAT, name = "Game Mode Category", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
@@ -102,6 +113,7 @@ namespace CO_Driver
                                                                                       new grouping_category { id = grouping.POWER_SCORE, name = "Power Score", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.REGION, name = "Region", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.SERVER, name = "Server", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.CLIENT_VERSION, name = "Crossout Version", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.GROUP_SIZE, name = "Group Size", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.SQUAD_MATE, name = "Squadmate", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.OPPONENT, name = "Opponent", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
@@ -123,7 +135,16 @@ namespace CO_Driver
                                                                                   new metric_category { id = metric.ROUNDS_PLAYED, name = "Rounds Played", supports_min_max = true },
                                                                                   new metric_category { id = metric.RAM_DAMAGE, name = "Ram Damage", supports_min_max = true },
                                                                                   new metric_category { id = metric.CABIN_DAMAGE, name = "Cabin Damage", supports_min_max = true },
-                                                                                  new metric_category { id = metric.BODY_DAMAGE, name = "Body Damage", supports_min_max = true }
+                                                                                  new metric_category { id = metric.BODY_DAMAGE, name = "Body Damage", supports_min_max = true },
+                                                                                  new metric_category { id = metric.EXPERIENCE, name = "Experience", supports_min_max = true },
+                                                                                  new metric_category { id = metric.URANIUM, name = "Uranium", supports_min_max = true },
+                                                                                  new metric_category { id = metric.SCRAP, name = "Scrap", supports_min_max = true },
+                                                                                  new metric_category { id = metric.WIRES, name = "Wires", supports_min_max = true },
+                                                                                  new metric_category { id = metric.BATTERIES, name = "Batteries", supports_min_max = true },
+                                                                                  new metric_category { id = metric.COPPER, name = "Copper", supports_min_max = true },
+                                                                                  new metric_category { id = metric.COUPONS, name = "Coupons", supports_min_max = true },
+                                                                                  new metric_category { id = metric.ELECTRONICS, name = "Electronics", supports_min_max = true },
+                                                                                  new metric_category { id = metric.PLASTIC, name = "Plastic", supports_min_max = true }
                                                                                  };
         private class grouping_category
         {
@@ -174,7 +195,6 @@ namespace CO_Driver
         {
             cbXaxis.Items.Clear();
             cbYaxis.Items.Clear();
-            cbReturnLimit.Items.Clear();
             cbMinSampleSize.Items.Clear();
 
             foreach (grouping_category group in x_axis_groups)
@@ -183,12 +203,8 @@ namespace CO_Driver
             foreach (metric_category group in y_axis_groups)
                 cbYaxis.Items.Add(group.name);
 
-            foreach (string group in result_limit_groups)
-                cbReturnLimit.Items.Add(group);
-
             foreach (string group in min_sample_size_groups)
                 cbMinSampleSize.Items.Add(group);
-
 
             current_x_axis = x_axis_groups.FirstOrDefault(x => x.id == grouping.WEAPON);
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.id == metric.DAMAGE);
@@ -197,7 +213,6 @@ namespace CO_Driver
 
             cbXaxis.Text = current_x_axis.name;
             cbYaxis.Text = current_y_axis.name;
-            cbReturnLimit.Text = "All";
             cbMinSampleSize.Text = "15";
             cb_min_max.Text = "Average";
         }
@@ -228,7 +243,6 @@ namespace CO_Driver
             ch_comparison.ChartAreas[0].AxisY.MajorTickMark.LineColor = session.fore_color;
             ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_comparison.Legends[0].Enabled = false;
-            //ch_comparison.ChartAreas[0].AxisX.LabelStyle.Angle = -25;
             ch_comparison.ChartAreas[0].CursorX.IsUserEnabled = true;
             ch_comparison.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
         }
@@ -401,6 +415,51 @@ namespace CO_Driver
                 case metric.BODY_DAMAGE:
                     value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage - match.match_data.player_records[match.match_data.local_player.nickname].stats.cabin_damage;
                     break;
+                case metric.EXPERIENCE:
+                    value = match.match_data.match_rewards.Where(x => x.Key.Contains("xp")).Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.URANIUM:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "ClanMoney").Sum(x => x.Value);
+                    if (match.match_data.match_type != global_data.STANDARD_CW_MATCH && match.match_data.match_type != global_data.LEVIATHIAN_CW_MATCH)
+                        return;
+                    break;
+                case metric.SCRAP:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Common").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.WIRES:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Rare").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.BATTERIES:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Accumulators").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.COPPER:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Platinum").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.COUPONS:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Supply").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.ELECTRONICS:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Epic").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case metric.PLASTIC:
+                    value = match.match_data.match_rewards.Where(x => x.Key == "Plastic").Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
                 default:
                     MessageBox.Show("Unable to find metric");
                     return;
@@ -463,6 +522,11 @@ namespace CO_Driver
                         foreach (part_loader.Module part in build_records[match.match_data.local_player.build_hash].modules)
                             add_chart_element(translate.translate_string(part.name, session, translations), value);
                     break;
+                case grouping.PART:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        foreach (string part in build_records[match.match_data.local_player.build_hash].parts)
+                            add_chart_element(translate.translate_string(part, session, translations), value);
+                    break;
                 case grouping.WEAPON_CAT:
                     break;
                 case grouping.MOVEMENT_CAT:
@@ -491,6 +555,9 @@ namespace CO_Driver
                     break;
                 case grouping.SERVER:
                     add_chart_element(match.match_data.host_name, value);
+                    break;
+                case grouping.CLIENT_VERSION:
+                    add_chart_element(match.match_data.client_version, value);
                     break;
                 case grouping.GROUP_SIZE:
                     add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).ToString(), value);
@@ -617,22 +684,6 @@ namespace CO_Driver
             populate_comparison_chart();
         }
 
-        private void cbReturnLimit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbReturnLimit.SelectedItem.ToString() == "All")
-                current_result_limit = 0;
-            else
-                current_result_limit = Convert.ToInt32(cbReturnLimit.SelectedItem.ToString());
-
-            populate_comparison_chart();
-        }
-
-        private void cbMinSampleSize_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            current_min_sample_size = Convert.ToInt32(cbMinSampleSize.SelectedItem.ToString());
-            populate_comparison_chart();
-        }
-
         private void cb_min_max_SelectedIndexChanged(object sender, EventArgs e)
         {
             mode = cb_min_max.SelectedItem.ToString();
@@ -648,7 +699,6 @@ namespace CO_Driver
 
             cbXaxis.Text = current_x_axis.name;
             cbYaxis.Text = current_y_axis.name;
-            cbReturnLimit.Text = "All";
             cbMinSampleSize.Text = "15";
             cb_min_max.Text = "Average";
 
@@ -769,6 +819,12 @@ namespace CO_Driver
         private void comparison_screen_Resize(object sender, EventArgs e)
         {
             resize.resize(this);
+        }
+
+        private void cbMinSampleSize_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            current_min_sample_size = Convert.ToInt32(cbMinSampleSize.SelectedItem.ToString());
+            populate_comparison_chart();
         }
     }
 }
