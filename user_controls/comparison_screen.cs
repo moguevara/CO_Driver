@@ -30,10 +30,11 @@ namespace CO_Driver
         private string mode = "Total";
         private List<chart_element> chart_series = new List<chart_element> { };
         private Series current_series = new Series { };
+        private chart_type current_chart_type = new chart_type { chart_name = "Column", series_type = SeriesChartType.Column };
 
-        private List<string> min_sample_size_groups = new List<string> { "0", "5", "10", "15", "20", "25", "50", "75", "100", "150", "200", "250", "300"};
+        private List<string> min_sample_size_groups = new List<string> { "0", "5", "10", "15", "20", "25", "50", "75", "100", "150", "200", "250", "300" };
 
-        private enum grouping 
+        private enum grouping
         {
             DAY,
             WEEK,
@@ -43,6 +44,7 @@ namespace CO_Driver
             MOVEMENT,
             CABIN,
             MODULE,
+            ENGINE,
             PART,
             WEAPON_CAT,
             MOVEMENT_CAT,
@@ -59,7 +61,11 @@ namespace CO_Driver
             GROUP_SIZE,
             SQUAD_MATE,
             OPPONENT,
-            ALLY
+            ALLY,
+            BUILD_HASH,
+            BUILD_DESC,
+            BOT_ALLY,
+            BOT_OPPONENT
         }
 
         private enum metric
@@ -97,6 +103,36 @@ namespace CO_Driver
             TIME_DESC
         }
 
+        private class chart_type
+        {
+            public string chart_name { get; set; }
+            public SeriesChartType series_type { get; set; }
+        }
+
+
+
+        private List<chart_type>  chart_type_list = new List<chart_type> {
+                new chart_type { series_type = SeriesChartType.Column, chart_name = "Column"},
+                new chart_type { series_type = SeriesChartType.StepLine, chart_name = "Step Line"},
+                new chart_type { series_type = SeriesChartType.Line, chart_name = "Line"},
+                new chart_type { series_type = SeriesChartType.Point, chart_name = "Point"},
+                new chart_type { series_type = SeriesChartType.Bar, chart_name = "Bar"},
+                new chart_type { series_type = SeriesChartType.Spline, chart_name = "Spline"},
+                new chart_type { series_type = SeriesChartType.Pie, chart_name = "Pie"},
+                new chart_type { series_type = SeriesChartType.Doughnut, chart_name = "Doughnut"},
+                new chart_type { series_type = SeriesChartType.Area, chart_name = "Area"},
+                new chart_type { series_type = SeriesChartType.Bubble, chart_name = "Bubble"},
+                new chart_type { series_type = SeriesChartType.Candlestick, chart_name = "Candlestick"},
+                //new chart_type { series_type = SeriesChartType.Funnel, chart_name = "Funnel"},
+                //new chart_type { series_type = SeriesChartType.Kagi, chart_name = "Kagi"},
+                //new chart_type { series_type = SeriesChartType.Pyramid, chart_name = "Pyramid"},
+                new chart_type { series_type = SeriesChartType.Radar, chart_name = "Radar"},
+                new chart_type { series_type = SeriesChartType.StackedArea, chart_name = "Stacked Area"},
+                new chart_type { series_type = SeriesChartType.Renko, chart_name = "Renko"},
+                new chart_type { series_type = SeriesChartType.Radar, chart_name = "Radar"}
+            };
+
+
         private List<grouping_category> x_axis_groups = new List<grouping_category> { new grouping_category { id = grouping.DAY, name = "Day", min = 0, max = int.MaxValue, max_display = 7, ordering = ordering.TIME_DESC },
                                                                                       new grouping_category { id = grouping.WEEK, name = "Week", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.TIME_DESC },
                                                                                       new grouping_category { id = grouping.MONTH, name = "Month", min = 0, max = int.MaxValue, max_display = 12, ordering = ordering.TIME_DESC },
@@ -105,6 +141,7 @@ namespace CO_Driver
                                                                                       new grouping_category { id = grouping.MOVEMENT, name = "Movement", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.CABIN, name = "Cabin", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.MODULE, name = "Module", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.ENGINE, name = "Engine", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.PART, name = "Part", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.MAP, name = "Map", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.GAME_MODE, name = "Game Mode", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
@@ -118,6 +155,10 @@ namespace CO_Driver
                                                                                       new grouping_category { id = grouping.SQUAD_MATE, name = "Squadmate", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.OPPONENT, name = "Opponent", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
                                                                                       new grouping_category { id = grouping.ALLY, name = "Ally", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.BUILD_HASH, name = "Build Hash", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.BUILD_DESC, name = "Build Description", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.BOT_ALLY, name = "Bot (Ally)", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC },
+                                                                                      new grouping_category { id = grouping.BOT_OPPONENT, name = "Bot (Opponent)", min = 0, max = int.MaxValue, max_display = 14, ordering = ordering.VALUE_DESC }
                                                                                     };
 
         private List<metric_category> y_axis_groups = new List<metric_category> { new metric_category { id = metric.WIN_RATE, name = "Win Rate", supports_min_max = false },
@@ -196,6 +237,7 @@ namespace CO_Driver
             cbXaxis.Items.Clear();
             cbYaxis.Items.Clear();
             cbMinSampleSize.Items.Clear();
+            cbChartType.Items.Clear();
 
             foreach (grouping_category group in x_axis_groups)
                 cbXaxis.Items.Add(group.name);
@@ -206,6 +248,9 @@ namespace CO_Driver
             foreach (string group in min_sample_size_groups)
                 cbMinSampleSize.Items.Add(group);
 
+            foreach (chart_type chart in chart_type_list)
+                cbChartType.Items.Add(chart.chart_name);
+
             current_x_axis = x_axis_groups.FirstOrDefault(x => x.id == grouping.WEAPON);
             current_y_axis = y_axis_groups.FirstOrDefault(x => x.id == metric.DAMAGE);
             current_result_limit = 0;
@@ -214,6 +259,7 @@ namespace CO_Driver
             cbXaxis.Text = current_x_axis.name;
             cbYaxis.Text = current_y_axis.name;
             cbMinSampleSize.Text = "15";
+            cbChartType.Text = "Column";
             cb_min_max.Text = "Average";
         }
 
@@ -522,6 +568,11 @@ namespace CO_Driver
                         foreach (part_loader.Module part in build_records[match.match_data.local_player.build_hash].modules)
                             add_chart_element(translate.translate_string(part.name, session, translations), value);
                     break;
+                case grouping.ENGINE:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        if (build_records[match.match_data.local_player.build_hash].engine != null)
+                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].engine.name, session, translations), value);
+                    break;
                 case grouping.PART:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (string part in build_records[match.match_data.local_player.build_hash].parts)
@@ -572,6 +623,21 @@ namespace CO_Driver
                     break;
                 case grouping.ALLY:
                     foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Key))
+                        add_chart_element(player, value);
+                    break;
+                case grouping.BUILD_HASH:
+                    add_chart_element(match.match_data.player_records[match.match_data.local_player.nickname].build_hash, value);
+                    break;
+                case grouping.BUILD_DESC:
+                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                        add_chart_element(build_records[match.match_data.local_player.build_hash].full_description, value);
+                    break;
+                case grouping.BOT_ALLY:
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Key))
+                        add_chart_element(player, value);
+                    break;
+                case grouping.BOT_OPPONENT:
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Key))
                         add_chart_element(player, value);
                     break;
                 default:
@@ -665,7 +731,7 @@ namespace CO_Driver
             ch_comparison.ChartAreas[0].AxisY.Title = current_y_axis.name;
 
             current_series = new Series { };
-            current_series.ChartType = SeriesChartType.Column;
+            current_series.ChartType = current_chart_type.series_type;
             current_series.Palette = ChartColorPalette.BrightPastel;
 
             ch_comparison.Series.Clear();
@@ -700,6 +766,7 @@ namespace CO_Driver
             cbXaxis.Text = current_x_axis.name;
             cbYaxis.Text = current_y_axis.name;
             cbMinSampleSize.Text = "15";
+            cbChartType.Text = "Column";
             cb_min_max.Text = "Average";
 
             filter.reset_filter_selections(filter_selections);
@@ -821,9 +888,15 @@ namespace CO_Driver
             resize.resize(this);
         }
 
-        private void cbMinSampleSize_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void cbMinSampleSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             current_min_sample_size = Convert.ToInt32(cbMinSampleSize.SelectedItem.ToString());
+            populate_comparison_chart();
+        }
+
+        private void cbChartType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            current_chart_type = chart_type_list.FirstOrDefault(x => x.chart_name == cbChartType.SelectedItem.ToString());
             populate_comparison_chart();
         }
     }
