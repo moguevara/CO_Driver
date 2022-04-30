@@ -431,7 +431,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_blue_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player).Value.uid;
+            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player && (x.Key > 0 || x.Value.bot != 0)).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -442,7 +442,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_red_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player).Value.uid;
+            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player && (x.Key > 0 || x.Value.bot != 0)).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }

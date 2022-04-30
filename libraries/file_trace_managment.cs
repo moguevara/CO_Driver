@@ -1307,10 +1307,14 @@ namespace CO_Driver
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
 
             if (uid == 0)
+            {
                 bot = 1;
-
+                uid = global_data.assign_bot_uid(player_name);
+            }
+                
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
+                Current_session.current_match.player_records[uid].nickname = player_name;
                 Current_session.current_match.player_records[uid].uid = uid;
                 Current_session.current_match.player_records[uid].spawn_position = spawn_position;
                 Current_session.current_match.player_records[uid].bot = bot;
@@ -1447,7 +1451,11 @@ namespace CO_Driver
                 Current_session.current_match.player_records[uid].spawn_position = spawn_position;
 
                 if (uid == 0)
+                {
                     Current_session.current_match.player_records[uid].bot = 1;
+                    Current_session.current_match.player_records[uid].uid = global_data.assign_bot_uid(player_name);
+                }
+                    
             }
             else
             {
@@ -1458,7 +1466,11 @@ namespace CO_Driver
                 current_player.team = team;
 
                 if (uid == 0)
+                {
                     current_player.bot = 1;
+                    current_player.uid = global_data.assign_bot_uid(player_name);
+                }
+                    
 
                 Current_session.current_match.player_records.Add(uid, current_player);
             }
@@ -1519,7 +1531,11 @@ namespace CO_Driver
             int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
 
             if (uid == 0)
+            {
                 bot = 1;
+                uid = global_data.assign_bot_uid(player_name);
+            }
+                
 
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
@@ -1678,6 +1694,12 @@ namespace CO_Driver
             if (victim.IndexOf(":") > 0)
                 return;
 
+            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == attacker))
+                return;
+
+            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == victim))
+                return;
+
             if (Current_session.static_records.ck_dict.ContainsKey(weapon))
                 weapon = Current_session.static_records.ck_dict[weapon].ToString();
 
@@ -1693,12 +1715,6 @@ namespace CO_Driver
                 Current_session.garage_data.damage_record = new GarageDamageRecord{ attacker = attacker, time = Current_session.current_combat_log_time, weapon = weapon_name, damage = damage, flags = flags };
                 return;
             }
-
-            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == attacker))
-                return;
-
-            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == victim))
-                return;
 
             int attacker_uid = Current_session.current_match.player_records.First(x => x.Value.nickname == attacker).Value.uid;
             int victim_uid = Current_session.current_match.player_records.First(x => x.Value.nickname == victim).Value.uid;

@@ -585,7 +585,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_nemesis_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -596,7 +596,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_victim_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
