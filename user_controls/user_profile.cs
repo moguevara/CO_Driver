@@ -158,14 +158,14 @@ namespace CO_Driver
                 total_score +=  match.match_data.local_player.stats.score;
                 total_medals +=  match.match_data.local_player.stripes.Count();
 
-                foreach (KeyValuePair<string, file_trace_managment.Player> player in match.match_data.player_records)
+                foreach (KeyValuePair<int, file_trace_managment.Player> player in match.match_data.player_records)
                 {
                     if (player.Value.bot == 1)
                     {
                         global_total_bot_count += 1;
                         global_total_bot_score += player.Value.stats.score;
                     }
-                    else if (player.Key != local_user)
+                    else if (player.Key != match.match_data.local_player.uid)
                     {
                         global_total_player_count += 1;
                         global_total_score += player.Value.stats.score;
@@ -585,7 +585,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_nemesis_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -596,7 +596,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_victim_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Key == player)).match_data.player_records.FirstOrDefault(z => z.Key == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }

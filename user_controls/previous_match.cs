@@ -284,7 +284,7 @@ namespace CO_Driver
             dg_red_team.AllowUserToAddRows = true;
 
 
-            foreach (KeyValuePair<string, file_trace_managment.Player> player in match_data.player_records.ToList())
+            foreach (KeyValuePair<int, file_trace_managment.Player> player in match_data.player_records.ToList())
             {
                 if (player.Value.team != match_data.local_player.team)
                 {
@@ -425,7 +425,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_blue_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Key == player).Value.uid;
+            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -436,7 +436,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_red_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Key == player).Value.uid;
+            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player).Value.uid;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
