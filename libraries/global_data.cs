@@ -166,5 +166,20 @@ namespace CO_Driver
                                                                     "QuantumCanine",
                                                                     "bIorgus",
                                                                     "LordDrex"};
+
+        public static int assign_bot_uid(string nickname)
+        {
+            int uid = 0;
+
+            for (int i = 0; i < nickname.Length; i++)
+            {
+                uid -= nickname[i] - '0';
+
+                if (i < 23)
+                    uid <<= 1;
+            }
+
+            return uid;
+        }
     }
 }
