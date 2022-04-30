@@ -116,6 +116,9 @@ namespace CO_Driver
                         if (!round.players.Any(x => x.nickname == player.nickname))
                             continue;
 
+                        if (!build_records.Any(x => x.Key == round.players.FirstOrDefault(y => y.nickname == player.nickname).build_hash))
+                            continue;
+
                         List<meta_grouping> player_level_grouping = new List<meta_grouping> { };
                         file_trace_managment.BuildRecord build = build_records[round.players.First(x => x.nickname == player.nickname).build_hash];
 
