@@ -116,7 +116,7 @@ namespace CO_Driver
                         if (!round.players.Any(x => x.nickname == player.nickname))
                             continue;
 
-                        if (!build_records.Any(x => x.Key == round.players.FirstOrDefault(y => y.nickname == player.nickname).build_hash))
+                        if (!build_records.ContainsKey(round.players.FirstOrDefault(x => x.nickname == player.nickname).build_hash))
                             continue;
 
                         List<meta_grouping> player_level_grouping = new List<meta_grouping> { };

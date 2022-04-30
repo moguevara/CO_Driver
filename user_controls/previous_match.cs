@@ -289,7 +289,10 @@ namespace CO_Driver
                 if (player.Value.team != match_data.local_player.team)
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_red_team.Rows[0].Clone();
-                    row.Cells[0].Value = player.Key;
+                    row.Cells[0].Value = player.Value.nickname;
+#if DEBUG
+                    row.Cells[0].ToolTipText = player.Key.ToString();
+#endif
                     row.Cells[1].Value = player.Value.power_score;
                     row.Cells[2].Value = player.Value.stats.kills;
                     row.Cells[3].Value = player.Value.stats.assists;
@@ -302,7 +305,10 @@ namespace CO_Driver
                 else
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_blue_team.Rows[0].Clone();
-                    row.Cells[0].Value = player.Key;
+                    row.Cells[0].Value = player.Value.nickname;
+#if DEBUG
+                    row.Cells[0].ToolTipText = player.Key.ToString();
+#endif
                     row.Cells[1].Value = player.Value.power_score;
                     row.Cells[2].Value = player.Value.stats.kills;
                     row.Cells[3].Value = player.Value.stats.assists;

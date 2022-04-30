@@ -1386,6 +1386,10 @@ namespace CO_Driver
             else
             {
                 int new_uid = global_data.assign_bot_uid(player_name);
+
+                if (player_name == Current_session.local_user)
+                    new_uid = Current_session.local_user_uid;
+
                 Player current_player = new_player();
                 current_player.nickname = player_name;
                 current_player.build_hash = build_hash;

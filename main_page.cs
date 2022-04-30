@@ -380,9 +380,9 @@ namespace CO_Driver
         }
         void unlock_menu_strip(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
             Current_session.live_trace_data = true;
             add_last_match(Current_session);
+            bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
         }
         private void populate_match_history(file_trace_managment.SessionStats Current_session)
         {
@@ -452,6 +452,9 @@ namespace CO_Driver
                     this.welcome_screen.tb_progress_tracking.AppendText(string.Format("Complete." + Environment.NewLine));
                     this.welcome_screen.pb_welcome_file_load.Value = 100;
                     this.welcome_screen.lb_load_status_text.Text = "Complete.";
+
+                    clear_main_page_panel();
+                    main_page_panel.Controls.Add(user_profile_page);
                 }
             }
             else

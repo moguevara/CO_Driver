@@ -48,7 +48,7 @@ namespace CO_Driver
                                                                     new ui_theme { name = "Mr. Gusano",                  fore_ground = Color.FromArgb(253, 255, 255), back_ground = Color.FromArgb(39, 86, 78) },
                                                                     new ui_theme { name = "Slava Ukraini!",              fore_ground = Color.FromArgb(255, 215, 0),   back_ground = Color.FromArgb(0, 87, 183) },
                                                                     new ui_theme { name = "Hexagonis",                   fore_ground = Color.FromArgb(219, 173, 80),  back_ground = Color.FromArgb(37, 40, 60) },
-                                                                    new ui_theme { name = "Split Push Toads",            fore_ground = Color.FromArgb(156, 227, 125), back_ground = Color.FromArgb(119, 134, 127) },
+                                                                    new ui_theme { name = "Split Push Toads",            fore_ground = Color.FromArgb(33, 95, 73),    back_ground = Color.FromArgb(248, 250, 229) },
                                                                     new ui_theme { name = "Soaring Potential",           fore_ground = Color.FromArgb(102, 0, 0),     back_ground = Color.FromArgb(230, 230, 230) }
 
                                                                  };
