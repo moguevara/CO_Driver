@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.73";
+        public static string CURRENT_VERSION = "0.1.0.74";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -94,6 +94,7 @@ namespace CO_Driver
         public const int COPPER_PATROL_MATCH = 35;
         public const int ARENA_CASUAL_MATCH = 36;
         public const int ARENA_RANKED_MATCH = 37;
+        
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 

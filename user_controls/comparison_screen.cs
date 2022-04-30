@@ -126,8 +126,8 @@ namespace CO_Driver
                 //new chart_type { series_type = SeriesChartType.Funnel, chart_name = "Funnel"},
                 //new chart_type { series_type = SeriesChartType.Kagi, chart_name = "Kagi"},
                 //new chart_type { series_type = SeriesChartType.Pyramid, chart_name = "Pyramid"},
-                new chart_type { series_type = SeriesChartType.Radar, chart_name = "Radar"},
-                new chart_type { series_type = SeriesChartType.StackedArea, chart_name = "Stacked Area"},
+                //new chart_type { series_type = SeriesChartType.Radar, chart_name = "Radar"},
+                //new chart_type { series_type = SeriesChartType.StackedArea, chart_name = "Stacked Area"},
                 new chart_type { series_type = SeriesChartType.Renko, chart_name = "Renko"},
                 new chart_type { series_type = SeriesChartType.Radar, chart_name = "Radar"}
             };
