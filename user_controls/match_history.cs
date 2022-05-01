@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
-using System.Reflection;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CO_Driver
 {
@@ -71,7 +65,7 @@ namespace CO_Driver
                 row.Cells[11].Value = Math.Round(match.match_data.local_player.stats.damage_taken, 1);
                 row.Cells[12].Value = match.match_data.game_result;
                 row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
-                
+
 
                 dg_match_history_view.Rows.Add(row);
             }

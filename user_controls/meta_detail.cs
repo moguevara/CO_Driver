@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
-using System.Reflection;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CO_Driver
 {
@@ -74,7 +67,7 @@ namespace CO_Driver
             total_games = 0;
             total_wins = 0;
             master_groupings = new List<master_meta_grouping> { };
-            
+
             previous_selection = new_selection;
 
             filter.reset_filters(filter_selections);
@@ -114,6 +107,9 @@ namespace CO_Driver
                             continue;
 
                         if (!round.players.Any(x => x.nickname == player.nickname))
+                            continue;
+
+                        if (!build_records.ContainsKey(round.players.FirstOrDefault(x => x.nickname == player.nickname).build_hash))
                             continue;
 
                         List<meta_grouping> player_level_grouping = new List<meta_grouping> { };
@@ -217,7 +213,7 @@ namespace CO_Driver
                             if (!found)
                                 round_level_grouping.Add(sub_group);
                         }
-                        
+
                     }
 
                     foreach (meta_grouping sub_group in round_level_grouping)
@@ -264,11 +260,11 @@ namespace CO_Driver
                     if (!found)
                     {
                         if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
-                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 1, rounds = sub_group.rounds,  group = sub_group });
+                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 1, rounds = sub_group.rounds, group = sub_group });
                         else
-                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 0, rounds = sub_group.rounds,  group = sub_group });
+                            master_groupings.Add(new master_meta_grouping { games = 1, wins = 0, rounds = sub_group.rounds, group = sub_group });
                     }
-                        
+
                 }
 
             }
@@ -284,7 +280,7 @@ namespace CO_Driver
 
         private meta_grouping new_grouping()
         {
-            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "", rounds = 1, total_seen = 1, stats = file_trace_managment.new_stats()};
+            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "", rounds = 1, total_seen = 1, stats = file_trace_managment.new_stats() };
         }
         private void populate_meta_detail_screen_elements()
         {

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -111,7 +107,7 @@ namespace CO_Driver
 
 
 
-        private List<chart_type>  chart_type_list = new List<chart_type> {
+        private List<chart_type> chart_type_list = new List<chart_type> {
                 new chart_type { series_type = SeriesChartType.Column, chart_name = "Column"},
                 new chart_type { series_type = SeriesChartType.StepLine, chart_name = "Step Line"},
                 new chart_type { series_type = SeriesChartType.Line, chart_name = "Line"},
@@ -200,12 +196,12 @@ namespace CO_Driver
         private class metric_category
         {
             public metric id { get; set; }
-            public string name { get; set;}
+            public string name { get; set; }
             public bool supports_min_max { get; set; }
         }
 
-        private class chart_element 
-        { 
+        private class chart_element
+        {
             public double x_value { get; set; }
             public string title { get; set; }
             public double total { get; set; }
@@ -373,7 +369,7 @@ namespace CO_Driver
             foreach (chart_element element in chart_series.OrderBy(x => x.title == "Other" ? 0 : 1))
             {
                 double y_value;
-                
+
                 if (mode == "Total")
                     y_value = element.total;
                 else
@@ -397,7 +393,7 @@ namespace CO_Driver
                 data.AxisLabel = element.title;
                 data.LabelBackColor = session.back_color;
                 data.LabelForeColor = session.fore_color;
-                data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value,1));
+                data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value, 1));
                 current_series.Points.Add(data);
                 x_value += 1;
             }
@@ -418,31 +414,31 @@ namespace CO_Driver
                     value = match.match_data.local_player.stripes.Any(x => x == "PvpMvpWin") ? 1 : 0;
                     break;
                 case metric.DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage;
                     break;
                 case metric.DAMAGE_REC:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage_taken;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage_taken;
                     break;
                 case metric.SCORE:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.score;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.score;
                     break;
                 case metric.KILLS:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.kills;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.kills;
                     break;
                 case metric.ASSISTS:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.assists;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.assists;
                     break;
                 case metric.DEATHS:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.deaths;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.deaths;
                     break;
                 case metric.KILL_ASSIST:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.kills + match.match_data.player_records[match.match_data.local_player.nickname].stats.assists;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.kills + match.match_data.player_records[match.match_data.local_player.uid].stats.assists;
                     break;
                 case metric.DRONE_KILLS:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.drone_kills;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.drone_kills;
                     break;
                 case metric.MEDALS:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stripes.Count();
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stripes.Count();
                     break;
                 case metric.GAMES_PLAYED:
                     value = 1;
@@ -456,10 +452,10 @@ namespace CO_Driver
                             value += rec.damage;
                     break;
                 case metric.CABIN_DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.cabin_damage;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.cabin_damage;
                     break;
                 case metric.BODY_DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.nickname].stats.damage - match.match_data.player_records[match.match_data.local_player.nickname].stats.cabin_damage;
+                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage - match.match_data.player_records[match.match_data.local_player.uid].stats.cabin_damage;
                     break;
                 case metric.EXPERIENCE:
                     value = match.match_data.match_rewards.Where(x => x.Key.Contains("xp")).Sum(x => x.Value);
@@ -614,30 +610,30 @@ namespace CO_Driver
                     add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).ToString(), value);
                     break;
                 case grouping.SQUAD_MATE:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).Select(x => x.Key))
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).Select(x => x.Value.nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.OPPONENT:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Key))
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Value.nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.ALLY:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Key))
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Value.nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.BUILD_HASH:
-                    add_chart_element(match.match_data.player_records[match.match_data.local_player.nickname].build_hash, value);
+                    add_chart_element(match.match_data.player_records[match.match_data.local_player.uid].build_hash, value);
                     break;
                 case grouping.BUILD_DESC:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         add_chart_element(build_records[match.match_data.local_player.build_hash].full_description, value);
                     break;
                 case grouping.BOT_ALLY:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Key))
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Value.nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.BOT_OPPONENT:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Key))
+                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Value.nickname))
                         add_chart_element(player, value);
                     break;
                 default:

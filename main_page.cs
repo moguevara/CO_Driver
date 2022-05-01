@@ -1,21 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Diagnostics;
 using System.Drawing.Imaging;
-using System.Reflection;
-using Newtonsoft.Json;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace CO_Driver
 {
@@ -105,7 +100,7 @@ namespace CO_Driver
             this.Text = string.Format(@"CO_Driver v{0}", get_current_version());
 
             print_control_names();
-            
+
             try
             {
                 bw_file_feed.RunWorkerAsync(argument: session);
@@ -246,7 +241,7 @@ namespace CO_Driver
             lab.Font = new Font(lab.Font.FontFamily, lab.Font.Size * ratio, lab.Font.Style);
         }
 
-        private void append_combo_box_controls (string panel_name, ComboBox drop_down, StreamWriter sw)
+        private void append_combo_box_controls(string panel_name, ComboBox drop_down, StreamWriter sw)
         {
             MessageBox.Show("Found drop down " + drop_down.Name);
             for (int i = 0; i < drop_down.Items.Count; i++)
@@ -292,7 +287,7 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(settings_page);
-            
+
         }
 
         public void clear_main_page_panel()
@@ -302,7 +297,7 @@ namespace CO_Driver
                 ctrl.Dispose();
             */
             main_page_panel.Controls.Clear();
-            
+
         }
 
         private void menu_fusion_calculator(object sender, EventArgs e)
@@ -316,7 +311,7 @@ namespace CO_Driver
             clear_main_page_panel();
             main_page_panel.Controls.Add(upload_page);
         }
-        
+
         private void userProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
@@ -380,9 +375,9 @@ namespace CO_Driver
         }
         void unlock_menu_strip(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
             Current_session.live_trace_data = true;
             add_last_match(Current_session);
+            bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
         }
         private void populate_match_history(file_trace_managment.SessionStats Current_session)
         {
@@ -392,7 +387,7 @@ namespace CO_Driver
 
         private void populate_static_elements(file_trace_managment.SessionStats Current_session)
         {
-            
+
             bw_file_feed.ReportProgress(global_data.POPULATE_STATIC_ELEMENTS_EVENT,
                     file_trace_manager.new_static_element_response(Current_session.static_records));
         }
@@ -405,7 +400,7 @@ namespace CO_Driver
 
         private void populate_user_profile(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.POPULATE_USER_PROFILE_EVENT, 
+            bw_file_feed.ReportProgress(global_data.POPULATE_USER_PROFILE_EVENT,
                 file_trace_manager.new_user_profile(
                     Current_session.match_history,
                     Current_session.player_build_records));
@@ -450,8 +445,11 @@ namespace CO_Driver
                     this.welcome_screen.tb_progress_tracking.AppendText(string.Format("Unlocking menu strip." + Environment.NewLine));
                     this.strp_main_menu_strip.Enabled = true;
                     this.welcome_screen.tb_progress_tracking.AppendText(string.Format("Complete." + Environment.NewLine));
-                    this.welcome_screen.pb_welcome_file_load.Value = 100;
+                    this.welcome_screen.pb_welcome_file_load.Value = 95;
                     this.welcome_screen.lb_load_status_text.Text = "Complete.";
+
+                    clear_main_page_panel();
+                    main_page_panel.Controls.Add(user_profile_page);
                 }
             }
             else
@@ -498,10 +496,10 @@ namespace CO_Driver
                 match_detail_page.previous_match_data = response.last_match;
                 match_detail_page.last_build_record = response.last_build;
                 match_detail_page.populate_match();
-                
+
 
             }
-            else 
+            else
             if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
@@ -559,7 +557,7 @@ namespace CO_Driver
                 log_file_manager.save_session_config(session_variables);
                 return;
             }
-            
+
             int file_count = Current_session.file_data.historic_file_session_list.Count();
 
             try
@@ -680,7 +678,7 @@ namespace CO_Driver
                                     game_log_event_handler(game_line, Current_session);
                                     game_line = game_reader.ReadLine();
                                 }
-                                else 
+                                else
                                 if (Current_session.current_combat_log_time < Current_session.current_game_log_time)
                                 {
                                     combat_log_event_handler(combat_line, Current_session);
@@ -757,7 +755,7 @@ namespace CO_Driver
             Current_session.queue_start_time = DateTime.MinValue;
             Current_session.in_match = false;
             Current_session.in_garage = false;
-            
+
 
             AutoResetEvent game_auto_reset = new AutoResetEvent(false);
             AutoResetEvent combat_auto_reset = new AutoResetEvent(false);
@@ -1032,10 +1030,10 @@ namespace CO_Driver
 
 
             System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp);
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         0),          new Point(0,         bmp.Height));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         0),          new Point(bmp.Width, 0));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0,         bmp.Height), new Point(bmp.Width, bmp.Height));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(bmp.Width, 0),          new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, 0), new Point(0, bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, 0), new Point(bmp.Width, 0));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, bmp.Height), new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(bmp.Width, 0), new Point(bmp.Width, bmp.Height));
 
             Clipboard.SetImage((Image)bmp);
 
@@ -1202,6 +1200,6 @@ namespace CO_Driver
             }
         }
 
-        
+
     }
 }

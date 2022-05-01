@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
-using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using System.Net;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CO_Driver
 {
@@ -287,7 +280,7 @@ namespace CO_Driver
 
         private void user_settings_Enter(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cmb_themes_DrawItem(object sender, DrawItemEventArgs e)
@@ -317,7 +310,7 @@ namespace CO_Driver
 
             //if (text == "Terminal" || text == "Static" || global_data.supporters.Contains(session.local_user_name))
             //{
-                tb_theme_warning.Text = "";
+            tb_theme_warning.Text = "";
             //}
             //else
             //{

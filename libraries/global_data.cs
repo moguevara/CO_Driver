@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CO_Driver
 {
     public class global_data
     {
-        public static string CURRENT_VERSION = "0.1.0.74";
+        public static string CURRENT_VERSION = "0.1.0.75";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -84,7 +81,7 @@ namespace CO_Driver
         public const int DRONE_BATTLE_MATCH = 25;
         public const int RACE_WHEELS_ONLY_MATCH = 26;
         public const int CROSSOUT_DAY_BRAWL_MATCH = 27;
-        public const int GOZU_MATCH = 28; 
+        public const int GOZU_MATCH = 28;
         public const int OPERATION_RED_LIGHT_MATCH = 29;
         public const int WITCH_HUNT_MATCH = 30;
         public const int BOMB_PLANT_MATCH = 31;
@@ -94,7 +91,7 @@ namespace CO_Driver
         public const int COPPER_PATROL_MATCH = 35;
         public const int ARENA_CASUAL_MATCH = 36;
         public const int ARENA_RANKED_MATCH = 37;
-        
+
 
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
@@ -166,5 +163,33 @@ namespace CO_Driver
                                                                     "QuantumCanine",
                                                                     "bIorgus",
                                                                     "LordDrex"};
+
+        public static int assign_bot_uid(string nickname)
+        {
+            int uid = 0;
+
+            for (int i = 0; i < nickname.Length; i++)
+            {
+                uid -= nickname[i] - '0';
+
+                if (i < 23)
+                    uid <<= 1;
+            }
+
+            return uid;
+        }
+
+        public static int assign_temp_uid(string nickname)
+        {
+            int uid = nickname.GetHashCode();
+
+            if (uid == Int32.MinValue)
+                uid = Int32.MaxValue;
+
+            if (uid > 0)
+                return uid * -1;
+
+            return uid;
+        }
     }
 }
