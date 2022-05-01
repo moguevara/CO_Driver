@@ -487,6 +487,7 @@ namespace CO_Driver
             Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_C2_Raider", "CarPart_Wheel_MonsterTruck");
             Current_session.static_records.ck_dict.Add("CarPart_Wheel_MonsterTruck_S_C2_Raider", "CarPart_Wheel_MonsterTruck_S");
             Current_session.static_records.ck_dict.Add("CarPart_Gun_BigCannon_Free_T34_epic_Misc", "CarPart_Gun_BigCannon_Free_T34_epic");
+            Current_session.static_records.ck_dict.Add("CarPart_Gun_SMG_bp8", "CarPart_Gun_SMG");
 
             Current_session.static_records.ck_dict.Add("CarPart_Gun_SmartMachinegun_bp7", "CarPart_Gun_SmartMachinegun");
             Current_session.static_records.ck_dict.Add("CarPart_Gun_Syfy_FusionRifle_legend_bp7", "CarPart_Gun_Syfy_FusionRifle_legend");

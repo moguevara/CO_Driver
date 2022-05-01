@@ -438,7 +438,7 @@ namespace CO_Driver
             if (e.ProgressPercentage == global_data.TRACE_EVENT_FILE_COMPLETE)
             {
                 file_trace_managment.FileCompleteResponse response = (file_trace_managment.FileCompleteResponse)e.UserState;
-                this.welcome_screen.pb_welcome_file_load.Value = (int)(response.historic_percent_processed * 100) > 100 ? 100 : (int)(response.historic_percent_processed * 100);
+                this.welcome_screen.pb_welcome_file_load.Value = (int)(response.historic_percent_processed * 100) > 95 ? 95 : (int)(response.historic_percent_processed * 100);
                 this.welcome_screen.lb_load_status_text.Text = response.load_desc;
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(response.load_desc + Environment.NewLine));
             }
