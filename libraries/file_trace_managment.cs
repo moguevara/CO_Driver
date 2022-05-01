@@ -1809,7 +1809,6 @@ namespace CO_Driver
                 Current_session.current_match.player_records[victim_uid].stats.damage_taken += damage;
             }
         }
-
         public static void kill_event(string line, SessionStats Current_session)
         {
             if (!Current_session.in_match)
