@@ -1731,12 +1731,6 @@ namespace CO_Driver
             if (victim.IndexOf(":") > 0)
                 return;
 
-            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == attacker))
-                return;
-
-            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == victim))
-                return;
-
             if (Current_session.static_records.ck_dict.ContainsKey(weapon))
                 weapon = Current_session.static_records.ck_dict[weapon].ToString();
 
@@ -1752,6 +1746,12 @@ namespace CO_Driver
                 Current_session.garage_data.damage_record = new GarageDamageRecord { attacker = attacker, time = Current_session.current_combat_log_time, weapon = weapon_name, damage = damage, flags = flags };
                 return;
             }
+
+            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == attacker))
+                return;
+
+            if (!Current_session.current_match.player_records.Any(x => x.Value.nickname == victim))
+                return;
 
             int attacker_uid = Current_session.current_match.player_records.First(x => x.Value.nickname == attacker).Value.uid;
             int victim_uid = Current_session.current_match.player_records.First(x => x.Value.nickname == victim).Value.uid;
