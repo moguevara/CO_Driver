@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 
 namespace CO_Driver
@@ -68,7 +65,7 @@ namespace CO_Driver
                 master_values = local_values;
                 return;
             }
-                
+
 
             foreach (market.market_item item in crossoutdb_data.market_items)
             {
@@ -77,7 +74,7 @@ namespace CO_Driver
 
                 if (line_results.Groups.Count < 2)
                     continue;
-                
+
 
                 string resource_name = line_results.Groups["resource_name"].Value;
                 int resource_ammount = Int32.Parse(line_results.Groups["ammount"].Value);
@@ -127,7 +124,7 @@ namespace CO_Driver
             total_coins = 0.0;
 
             master_groupings = new List<revenue_grouping> { };
-            
+
             previous_selection = new_selection;
 
             filter.reset_filters(filter_selections);
@@ -160,7 +157,7 @@ namespace CO_Driver
                 {
                     game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
                 }
-                
+
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
 
@@ -190,7 +187,7 @@ namespace CO_Driver
                     if (group.gamemode == game_mode &&
                        (chk_game_result.Checked == false || group.game_result == match.match_data.game_result))
                     {
-                        
+
                         group_found = true;
                         group.total_queue_time += queue_time.TotalSeconds;
                         group.total_match_time += match.match_data.match_duration_seconds;
@@ -198,7 +195,7 @@ namespace CO_Driver
                         group.fuel_cost += fuel_ammount;
                         group.total_game_duration += queue_time.TotalSeconds;
                         group.total_game_duration += match.match_data.match_duration_seconds;
-                        
+
                         foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
                         {
                             if (group.match_rewards.ContainsKey(reward.Key))
@@ -264,7 +261,7 @@ namespace CO_Driver
                 row.Cells[0].Value = group.gamemode;
                 row.Cells[1].Value = group.game_result;
                 row.Cells[2].Value = group.games;
-                 
+
                 if (show_average)
                 {
                     row.Cells[3].Value = string.Format("{0:D}m {1:D2}s", t2.Minutes, t2.Seconds);
@@ -309,7 +306,7 @@ namespace CO_Driver
                         {
                             row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
                         }
-                        
+
                         first = false;
 
                         foreach (market_values value in master_values)
@@ -327,7 +324,7 @@ namespace CO_Driver
                         coin_value -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                         total_coins -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                     }
-                        
+
                 }
                 if (show_average)
                 {
@@ -338,7 +335,7 @@ namespace CO_Driver
                     row.Cells[7].Value = coin_value;
                 }
 
-                
+
 
                 row.Cells[8].Value = (double)coin_value / ((double)group.total_game_duration / 3600.0);
 
@@ -349,7 +346,7 @@ namespace CO_Driver
                     total_queue_duration += group.total_queue_time;
                     total_match_duration += group.total_match_time;
                 }
-                
+
                 dg_revenue.Rows.Add(row);
             }
 
@@ -381,7 +378,7 @@ namespace CO_Driver
                 lb_match_time.Text = string.Format("{0:D}s", match_span.Seconds);
 
             lb_total_game.Text = total_games.ToString();
-            lb_coins.Text = string.Format("{0:n0}",total_coins);
+            lb_coins.Text = string.Format("{0:n0}", total_coins);
             lb_coins_rate.Text = Math.Round((double)total_coins / ((double)((total_queue_duration + total_match_duration) / 3600.0)), 2).ToString();
 
         }

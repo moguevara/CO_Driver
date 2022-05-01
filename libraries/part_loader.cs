@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.RegularExpressions;
-using CO_Driver.Properties;
-using System.Globalization;
 
 namespace CO_Driver
 {
@@ -130,7 +122,7 @@ namespace CO_Driver
             public TimeSpan end_time { get; set; }
         }
 
-        
+
         public static Reward new_reward(string name, string desc, string short_desc)
         {
             return new Reward
@@ -141,7 +133,7 @@ namespace CO_Driver
             };
         }
 
-        
+
 
         public static Part new_part(string desc, int faction, int level, int hull, int part_dura, int mass, int power_score, double pass_through, double bullet_resist, double melee_resist)
         {
@@ -574,7 +566,7 @@ namespace CO_Driver
             Current_session.static_records.resource_dict.Add("ClanMoney", "Uranium");
             Current_session.static_records.resource_dict.Add("Platinum", "Copper");
             Current_session.static_records.resource_dict.Add("Supply", "Coupons");
-            Current_session.static_records.resource_dict.Add("Scrap_Rare", "Wires"); 
+            Current_session.static_records.resource_dict.Add("Scrap_Rare", "Wires");
             Current_session.static_records.resource_dict.Add("Accumulators", "Batteries");
             Current_session.static_records.resource_dict.Add("NewYearMoney", "Crackers");
             Current_session.static_records.resource_dict.Add("Scrap_Epic", "Electronics");
@@ -585,16 +577,16 @@ namespace CO_Driver
 
         public static void load_event_schedule(file_trace_managment.SessionStats Current_session)
         {
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Monday,    new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Tuesday,   new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Wednesday, new TimeSpan(0, 0, 0),  new TimeSpan(4, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Thursday,  new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Thursday,  new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Friday,    new TimeSpan(0, 0, 0),  new TimeSpan(4, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Saturday,  new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Saturday,  new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Sunday,    new TimeSpan(0, 0, 0),  new TimeSpan(4, 0, 0)));
-            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW,   DayOfWeek.Sunday,    new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Monday, new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Tuesday, new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Wednesday, new TimeSpan(0, 0, 0), new TimeSpan(4, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Thursday, new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.LEVIATHIAN_CW, DayOfWeek.Thursday, new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Friday, new TimeSpan(0, 0, 0), new TimeSpan(4, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Saturday, new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Saturday, new TimeSpan(17, 0, 0), new TimeSpan(21, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Sunday, new TimeSpan(0, 0, 0), new TimeSpan(4, 0, 0)));
+            Current_session.static_records.global_event_times.Add(new_event(global_data.STANDARD_CW, DayOfWeek.Sunday, new TimeSpan(11, 0, 0), new TimeSpan(15, 0, 0)));
 
             Current_session.static_records.global_event_times.Add(new_event(global_data.BIG_BLACK_SCORPION, DayOfWeek.Monday, new TimeSpan(0, 0, 0), new TimeSpan(8, 0, 0)));
             Current_session.static_records.global_event_times.Add(new_event(global_data.CANNON_FODDER, DayOfWeek.Monday, new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0)));
@@ -1931,6 +1923,6 @@ namespace CO_Driver
             Current_session.static_records.global_parts_list.Add(new_part("Small Platform", global_data.FOUNDERS_FACTION, 1, 27, 27, 72, 18, 0.0, 0, 0));
         }
 
-        
+
     }
 }

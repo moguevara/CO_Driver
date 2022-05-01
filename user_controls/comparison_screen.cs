@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -111,7 +107,7 @@ namespace CO_Driver
 
 
 
-        private List<chart_type>  chart_type_list = new List<chart_type> {
+        private List<chart_type> chart_type_list = new List<chart_type> {
                 new chart_type { series_type = SeriesChartType.Column, chart_name = "Column"},
                 new chart_type { series_type = SeriesChartType.StepLine, chart_name = "Step Line"},
                 new chart_type { series_type = SeriesChartType.Line, chart_name = "Line"},
@@ -200,12 +196,12 @@ namespace CO_Driver
         private class metric_category
         {
             public metric id { get; set; }
-            public string name { get; set;}
+            public string name { get; set; }
             public bool supports_min_max { get; set; }
         }
 
-        private class chart_element 
-        { 
+        private class chart_element
+        {
             public double x_value { get; set; }
             public string title { get; set; }
             public double total { get; set; }
@@ -373,7 +369,7 @@ namespace CO_Driver
             foreach (chart_element element in chart_series.OrderBy(x => x.title == "Other" ? 0 : 1))
             {
                 double y_value;
-                
+
                 if (mode == "Total")
                     y_value = element.total;
                 else
@@ -397,7 +393,7 @@ namespace CO_Driver
                 data.AxisLabel = element.title;
                 data.LabelBackColor = session.back_color;
                 data.LabelForeColor = session.fore_color;
-                data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value,1));
+                data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value, 1));
                 current_series.Points.Add(data);
                 x_value += 1;
             }

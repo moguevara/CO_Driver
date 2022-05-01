@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -28,7 +26,7 @@ namespace CO_Driver
         private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
         private string blue_team = "";
         private string red_team = "";
-        
+
         public previous_match()
         {
             InitializeComponent();
@@ -50,7 +48,7 @@ namespace CO_Driver
                 lb_game_result.Text = "Victory";
             else if (match_data.game_result == "Loss")
                 lb_game_result.Text = "Defeat";
-            else 
+            else
                 lb_game_result.Text = match_data.game_result;
 
 #if DEBUG
@@ -67,11 +65,12 @@ namespace CO_Driver
             lb_kills.Text = match_data.local_player.stats.kills.ToString();
             lb_assists.Text = match_data.local_player.stats.assists.ToString();
             lb_drone_kills.Text = match_data.local_player.stats.drone_kills.ToString();
-            lb_damage_dealt.Text = Math.Round(match_data.local_player.stats.damage,1).ToString();
-            lb_damage_rec.Text = Math.Round(match_data.local_player.stats.damage_taken,1).ToString();
+            lb_damage_dealt.Text = Math.Round(match_data.local_player.stats.damage, 1).ToString();
+            lb_damage_rec.Text = Math.Round(match_data.local_player.stats.damage_taken, 1).ToString();
             lb_score.Text = match_data.local_player.stats.score.ToString();
             lb_medals.Text = match_data.local_player.stripes.Count().ToString();
-            if (match_data.match_rewards.ContainsKey("expFactionTotal")) {
+            if (match_data.match_rewards.ContainsKey("expFactionTotal"))
+            {
                 lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
                 lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
             }
@@ -80,7 +79,7 @@ namespace CO_Driver
                 lb_xp.Text = "";
                 lb_resources.Text = "";
             }
-            
+
             lb_blue_team.Text = blue_team;
             lb_red_team.Text = red_team;
 
@@ -115,7 +114,7 @@ namespace CO_Driver
             dg_score.Rows.Clear();
             dg_blue_team.Rows.Clear();
             dg_red_team.Rows.Clear();
-            
+
         }
 
         private void populate_damage_rec()
@@ -175,7 +174,7 @@ namespace CO_Driver
             string previous_victim = "";
             bool first = true;
 
-            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x=>x.victim).ThenByDescending(x=>x.damage).ToList())
+            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.victim).ThenByDescending(x => x.damage).ToList())
             {
                 if (damage_record.attacker != match_data.local_player.nickname)
                     continue;
@@ -198,7 +197,7 @@ namespace CO_Driver
                     row = (DataGridViewRow)this.dg_damage_dealt.Rows[0].Clone();
                     row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
                     row.Cells[0].Value = damage_record.victim;
-                    row.Cells[1].Value = Math.Round(match_data.damage_record.Where(x=>x.attacker == match_data.local_player.nickname && x.victim == damage_record.victim).Sum(x=>x.damage), 1);
+                    row.Cells[1].Value = Math.Round(match_data.damage_record.Where(x => x.attacker == match_data.local_player.nickname && x.victim == damage_record.victim).Sum(x => x.damage), 1);
                     dg_damage_dealt.Rows.Add(row);
                 }
 
@@ -322,7 +321,7 @@ namespace CO_Driver
 
             dg_blue_team.AllowUserToAddRows = false;
             dg_red_team.AllowUserToAddRows = false;
-            
+
 
             dg_red_team.Sort(dg_red_team.Columns[7], ListSortDirection.Descending);
             dg_blue_team.Sort(dg_blue_team.Columns[7], ListSortDirection.Descending);
@@ -405,12 +404,12 @@ namespace CO_Driver
 
         private void load_next_match(object sender, EventArgs e)
         {
-            
+
         }
 
         private void load_previous_match(object sender, EventArgs e)
         {
-            
+
         }
 
         private void gp_damage_recieved_Paint_1(object sender, PaintEventArgs e)

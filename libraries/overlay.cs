@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CO_Driver
 {
@@ -14,7 +12,7 @@ namespace CO_Driver
         public const int TEAM_PREVIEW_OVERLAY = 2;
         public const int IN_MATCH_OVERLAY = 3;
 
-        public const string line_break      = "-----------------------------------";
+        public const string line_break = "-----------------------------------";
         public const string line_break_long = "-----------------------------------";
 
         public class Overlay_action
@@ -43,7 +41,7 @@ namespace CO_Driver
             public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
             public string manual_gamemode { get; set; }
-            
+
             [System.ComponentModel.DefaultValue(OverlayWriter.Overlay_Format.txt)]
             public OverlayWriter.Overlay_Format overlay_format { get; set; }
         }
@@ -142,7 +140,7 @@ namespace CO_Driver
                         lines.Add(string.Format("<h3 class = \"{1}\">{0}</h3>", line, htmlClass));
                         break;
                     case Overlay_Format.md:
-                        lines.Add("###"+line);
+                        lines.Add("###" + line);
                         break;
                 }
             }
@@ -162,7 +160,7 @@ namespace CO_Driver
                         break;
                     case Overlay_Format.html:
                         result.Add("<!DOCTYPE html><html>");
-                        result.Add("<head><meta http-equiv=\"refresh\" content=\"1\"><link rel=\"stylesheet\" href=\""+path+".css\"></head>");//TODO separate config for css file paths for users?
+                        result.Add("<head><meta http-equiv=\"refresh\" content=\"1\"><link rel=\"stylesheet\" href=\"" + path + ".css\"></head>");//TODO separate config for css file paths for users?
                         result.Add("<body>");
                         result.AddRange(lines);
                         result.Add("</body></html>");
@@ -186,21 +184,21 @@ namespace CO_Driver
 
         public static string default_overlay_setup()
         {
-            return JsonConvert.SerializeObject(new List<Overlay_action> { 
-                new Overlay_action { 
+            return JsonConvert.SerializeObject(new List<Overlay_action> {
+                new Overlay_action {
                     overlay = STAT_CARD_OVERLAY,
                     draw_conditions = new List<int> {global_data.TEST_DRIVE_EVENT },
-                    clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT } 
+                    clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT }
                 },
-                new Overlay_action { 
-                    overlay = TEAM_PREVIEW_OVERLAY, 
-                    draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT }, 
-                    clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } 
+                new Overlay_action {
+                    overlay = TEAM_PREVIEW_OVERLAY,
+                    draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT },
+                    clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT }
                 },
-                new Overlay_action { 
+                new Overlay_action {
                     overlay = IN_MATCH_OVERLAY,
-                    draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT}, 
-                    clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT } 
+                    draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT},
+                    clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT }
                 }
             });
         }
@@ -208,10 +206,11 @@ namespace CO_Driver
         public static string default_twitch_settings()
         {
             return JsonConvert.SerializeObject(
-                new Twitch_settings { 
+                new Twitch_settings
+                {
                     endorse_co_driver = false,
                     overview_time_range = 7.0,
-                    default_time_range  = 7.0,
+                    default_time_range = 7.0,
                     toggle_overview_time_ranges = true,
                     show_stats = true,
                     nemeisis_count = 5,
@@ -273,7 +272,7 @@ namespace CO_Driver
             if (draw)
             {
                 if (Current_session.twitch_settings.show_stats)
-                    assign_stats(Current_session, writer, translation,  Current_session.match_history.FirstOrDefault().match_data.match_type_desc);
+                    assign_stats(Current_session, writer, translation, Current_session.match_history.FirstOrDefault().match_data.match_type_desc);
 
                 if (Current_session.twitch_settings.show_revenue)
                     assign_revenue(Current_session, session, writer, translation);
@@ -326,7 +325,7 @@ namespace CO_Driver
 
                 //TODO separate methods for css purposes
                 foreach (KeyValuePair<int, List<string>> team in blue_teams)
-                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)),"player blue_player");
+                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player blue_player");
 
                 foreach (KeyValuePair<int, List<string>> team in red_teams)
                     writerRed.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player red_player");
@@ -350,7 +349,7 @@ namespace CO_Driver
         {
             DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
             Dictionary<string, int> rewards = new Dictionary<string, int> { };
-            
+
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
                 if (match.match_data.match_start < time_cutoff)

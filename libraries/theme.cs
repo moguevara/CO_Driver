@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Diagnostics;
-using System.Drawing.Imaging;
-using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CO_Driver
@@ -94,7 +80,7 @@ namespace CO_Driver
             link.DisabledLinkColor = session.fore_color;
             link.LinkColor = session.fore_color;
         }
-        
+
 
         private void style_chart(Chart chart, log_file_managment.session_variables session)
         {
@@ -162,7 +148,7 @@ namespace CO_Driver
             dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = session.back_color;
             dgv.RowTemplate.DefaultCellStyle.SelectionBackColor = session.fore_color;
 
-            foreach (DataGridViewRow row in dgv.Rows) 
+            foreach (DataGridViewRow row in dgv.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {

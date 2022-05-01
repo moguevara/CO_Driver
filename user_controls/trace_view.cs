@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace CO_Driver
 {
@@ -46,9 +42,9 @@ namespace CO_Driver
                 return;
             }
 
-            this.lbl_current_file_name.Text = string.Format(@"Tracing File ""{0}""",trace_file.FullName);
+            this.lbl_current_file_name.Text = string.Format(@"Tracing File ""{0}""", trace_file.FullName);
             this.bw_file_tracer.RunWorkerAsync();
-            
+
         }
         private void bw_trace_file(object sender, DoWorkEventArgs event_args)
         {
@@ -75,7 +71,7 @@ namespace CO_Driver
                     s = sr.ReadLine();
                     if (s != null)
                     {
-                        data_return += string.Format(@"{0}{1}",s,Environment.NewLine);
+                        data_return += string.Format(@"{0}{1}", s, Environment.NewLine);
                         if (data_return.Length + s.Length > 50000)
                         {
                             bw_file_tracer.ReportProgress(0, data_return);
@@ -84,7 +80,8 @@ namespace CO_Driver
                     }
                     else
                     {
-                        if (data_return.Length > 0) {
+                        if (data_return.Length > 0)
+                        {
                             bw_file_tracer.ReportProgress(0, data_return);
                             data_return = "";
                             start_time = DateTime.Now.Ticks;

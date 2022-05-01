@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CO_Driver.Properties;
 
 namespace CO_Driver
 {
@@ -79,12 +73,12 @@ namespace CO_Driver
                     part_list.Find(x => x.part.description.Contains(master_part_list[i].description)).part_count++;
                     continue;
                 }
-                part_list.Add(new unique_parts { part_count = 1, part = master_part_list[i]});
+                part_list.Add(new unique_parts { part_count = 1, part = master_part_list[i] });
             }
 
             this.dg_available_parts.AllowUserToAddRows = true;
 
-            foreach (unique_parts part in part_list) 
+            foreach (unique_parts part in part_list)
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
                 row.Cells[0].Value = part.part.description.ToString();

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -146,17 +143,17 @@ namespace CO_Driver
                     wins++;
 
                 if (local_user == "")
-                    local_user =  match.match_data.local_player.nickname;
+                    local_user = match.match_data.local_player.nickname;
 
-                total_rounds +=  match.match_data.local_player.stats.rounds;
-                total_kills +=  match.match_data.local_player.stats.kills;
-                total_deaths +=  match.match_data.local_player.stats.deaths;
-                total_assists +=  match.match_data.local_player.stats.assists;
-                total_drone_kills +=  match.match_data.local_player.stats.drone_kills;
-                total_damage +=  match.match_data.local_player.stats.damage;
-                total_damage_rec +=  match.match_data.local_player.stats.damage_taken;
-                total_score +=  match.match_data.local_player.stats.score;
-                total_medals +=  match.match_data.local_player.stripes.Count();
+                total_rounds += match.match_data.local_player.stats.rounds;
+                total_kills += match.match_data.local_player.stats.kills;
+                total_deaths += match.match_data.local_player.stats.deaths;
+                total_assists += match.match_data.local_player.stats.assists;
+                total_drone_kills += match.match_data.local_player.stats.drone_kills;
+                total_damage += match.match_data.local_player.stats.damage;
+                total_damage_rec += match.match_data.local_player.stats.damage_taken;
+                total_score += match.match_data.local_player.stats.score;
+                total_medals += match.match_data.local_player.stripes.Count();
 
                 foreach (KeyValuePair<int, file_trace_managment.Player> player in match.match_data.player_records)
                 {
@@ -169,7 +166,7 @@ namespace CO_Driver
                     {
                         global_total_player_count += 1;
                         global_total_score += player.Value.stats.score;
-                    } 
+                    }
                 }
 
                 if (match.match_data.local_player.team == match.match_data.winning_team)
@@ -180,19 +177,19 @@ namespace CO_Driver
                 if (current_win_streak > highest_win_streak)
                     highest_win_streak = current_win_streak;
 
-                if ( match.match_data.local_player.stats.score > max_score)
-                    max_score =  match.match_data.local_player.stats.score;
+                if (match.match_data.local_player.stats.score > max_score)
+                    max_score = match.match_data.local_player.stats.score;
 
-                if ( match.match_data.local_player.stats.damage > max_damage_dealt)
-                    max_damage_dealt =  match.match_data.local_player.stats.damage;
+                if (match.match_data.local_player.stats.damage > max_damage_dealt)
+                    max_damage_dealt = match.match_data.local_player.stats.damage;
 
-                if ( match.match_data.local_player.stats.damage_taken > max_damage_rec)
-                    max_damage_rec =  match.match_data.local_player.stats.damage_taken;
+                if (match.match_data.local_player.stats.damage_taken > max_damage_rec)
+                    max_damage_rec = match.match_data.local_player.stats.damage_taken;
 
-                if ( match.match_data.local_player.stats.kills == max_kills.max_kills)
+                if (match.match_data.local_player.stats.kills == max_kills.max_kills)
                     max_kills.count += 1;
 
-                if ( match.match_data.local_player.stats.kills > max_kills.max_kills)
+                if (match.match_data.local_player.stats.kills > max_kills.max_kills)
                 {
                     max_kills.max_kills = match.match_data.local_player.stats.kills;
                     max_kills.count = 1;
@@ -214,7 +211,7 @@ namespace CO_Driver
                         opponent_dict[victim].killed += 1;
                 }
 
-                foreach (string stripe in  match.match_data.local_player.stripes)
+                foreach (string stripe in match.match_data.local_player.stripes)
                     if (stripe == "PvpMvpWin")
                         total_mvp++;
 
@@ -262,14 +259,14 @@ namespace CO_Driver
             lb_total_mvp.Text = total_mvp.ToString();
             lb_mvp_percent.Text = string.Format(@"{0}%", total_rounds > 0 ? Math.Round(((((double)total_mvp) / (double)games_played) * 100), 2) : double.PositiveInfinity);
             lb_avg_score.Text = string.Format(@"{0}", avg_player_score);
-            lb_avg_kills.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_kills) / (double)total_rounds),1) : double.PositiveInfinity);
-            lb_avg_assists.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_assists) / (double)total_rounds),1) : double.PositiveInfinity);
+            lb_avg_kills.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_kills) / (double)total_rounds), 1) : double.PositiveInfinity);
+            lb_avg_assists.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_assists) / (double)total_rounds), 1) : double.PositiveInfinity);
             lb_avg_dmg.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_damage) / (double)total_rounds)) : double.PositiveInfinity);
             lb_avg_dmg_rec.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_damage_rec) / (double)total_rounds)) : double.PositiveInfinity);
             lb_player_index.Text = player_index.ToString();
             lb_bot_index.Text = bot_index.ToString();
-            lb_max_damage.Text = Math.Round(max_damage_dealt,1).ToString();
-            lb_max_damage_rec.Text = Math.Round(max_damage_rec,1).ToString();
+            lb_max_damage.Text = Math.Round(max_damage_dealt, 1).ToString();
+            lb_max_damage_rec.Text = Math.Round(max_damage_rec, 1).ToString();
             lb_highest_score.Text = max_score.ToString();
             lb_win_streak.Text = highest_win_streak.ToString();
 
@@ -301,7 +298,7 @@ namespace CO_Driver
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(resource.Key,session,translations);
+                row.Cells[0].Value = translate.translate_string(resource.Key, session, translations);
                 row.Cells[1].Value = (int)resource.Value;
                 dg_resources.Rows.Add(row);
             }
@@ -326,7 +323,7 @@ namespace CO_Driver
                     first = false;
                 }
                 DataGridViewRow row = (DataGridViewRow)this.dg_map_data.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(map.Key,session, translations);
+                row.Cells[0].Value = translate.translate_string(map.Key, session, translations);
                 row.Cells[1].Value = string.Format(@"{0}/{1}", map.Value.wins, map.Value.games - map.Value.wins);
                 dg_map_data.Rows.Add(row);
             }
@@ -436,7 +433,7 @@ namespace CO_Driver
                                                box.ClientRectangle.Width - 1,
                                                box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
 
-                
+
                 g.Clear(this.BackColor);
                 g.DrawString(box.Text, box.Font, textBrush, box.Padding.Left, 0);
 

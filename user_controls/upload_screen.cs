@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
 
 namespace CO_Driver
 {
@@ -111,7 +105,7 @@ namespace CO_Driver
                 if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
                     continue;
 
-                ready_to_upload_matchs += 1;   
+                ready_to_upload_matchs += 1;
             }
 
             foreach (KeyValuePair<string, file_trace_managment.BuildRecord> build in build_records)
@@ -256,7 +250,7 @@ namespace CO_Driver
                 if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
                 {
                     percent_upload = percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
-                    status.text_update =  string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
+                    status.text_update = string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
                     status.text_update += string.Format("Uploading {0} builds." + Environment.NewLine, upload_entry.build_list.Count);
                     status.percent_upload = percent_upload;
                     status.matchs_uploaded = upload_return.uploaded_matches.Count;
@@ -277,7 +271,7 @@ namespace CO_Driver
             bw_file_uploader.ReportProgress(0, status);
 
             upload_return = Upload.upload_to_crossoutdb(upload_entry);
-            
+
             percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
             status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
             status.percent_upload = percent_upload;
