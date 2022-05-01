@@ -181,5 +181,18 @@ namespace CO_Driver
 
             return uid;
         }
+
+        public static int assign_temp_uid(string nickname)
+        {
+            int uid = nickname.GetHashCode();
+
+            if (uid == Int32.MinValue)
+                uid = Int32.MaxValue;
+
+            if (uid > 0)
+                uid = uid * -1;
+
+            return uid;
+        }
     }
 }

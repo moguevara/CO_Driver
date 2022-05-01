@@ -1307,10 +1307,10 @@ namespace CO_Driver
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
 
             if (uid == 0)
-            {
                 bot = 1;
+
+            if (bot == 1)
                 uid = global_data.assign_bot_uid(player_name);
-            }
                 
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
@@ -1370,7 +1370,6 @@ namespace CO_Driver
             int team = Int32.Parse(line_results.Groups["team"].Value);
             int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
             
-
             if (player_name == "" || player_name == null)
                 return;
 
@@ -1379,26 +1378,27 @@ namespace CO_Driver
 
             if (Current_session.current_match.player_records.Any(x => x.Value.nickname == player_name))
             {
-                int uid = Current_session.current_match.player_records.FirstOrDefault(x => x.Value.nickname == player_name).Key;
+                int uid = Current_session.current_match.player_records.First(x => x.Value.nickname == player_name).Key;
+
+                if (player_name == Current_session.local_user)
+                    uid = Current_session.local_user_uid;
+
                 Current_session.current_match.player_records[uid].build_hash = build_hash;
                 Current_session.current_match.player_records[uid].team = team;
                 Current_session.current_match.player_records[uid].spawn_position = spawn_position;
-
-                //if (Current_session.player_build_records.ContainsKey(build_hash))
-                //    Current_session.current_match.player_records[player_name].power_score = Current_session.player_build_records[build_hash].power_score;
             }
             else
             {
-                int new_uid = global_data.assign_bot_uid(player_name);
+                int uid = global_data.assign_temp_uid(player_name);
 
                 if (player_name == Current_session.local_user)
-                    new_uid = Current_session.local_user_uid;
+                    uid = Current_session.local_user_uid;
 
                 Player current_player = new_player();
                 current_player.nickname = player_name;
                 current_player.build_hash = build_hash;
                 current_player.spawn_position = spawn_position;
-                current_player.uid = new_uid;
+                current_player.uid = uid;
                 current_player.team = team;
                 
                 if (Current_session.player_build_records.ContainsKey(build_hash))
@@ -1406,7 +1406,7 @@ namespace CO_Driver
                 else
                     current_player.power_score = 0;
 
-                Current_session.current_match.player_records.Add(new_uid, current_player);
+                Current_session.current_match.player_records.Add(uid, current_player);
             }
 
             if (!Current_session.player_build_records.ContainsKey(build_hash))
@@ -1437,6 +1437,7 @@ namespace CO_Driver
             int uid = Int32.Parse(line_results.Groups["uid"].Value);
             int spawn_position =  spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
             int team = Int32.Parse(line_results.Groups["team"].Value);
+            int bot = 0;
 
             if (status != "ACTIVE")
                 return;
@@ -1444,16 +1445,21 @@ namespace CO_Driver
             if (team == 0)
                 return;
 
+            if (uid == 0)
+            {
+                bot = 1;
+                uid = global_data.assign_bot_uid(player_name);
+            }
+
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
                 Current_session.current_match.player_records[uid].team = team;
                 Current_session.current_match.player_records[uid].uid = uid;
                 Current_session.current_match.player_records[uid].spawn_position = spawn_position;
 
-                if (uid == 0)
+                if (bot != 0)
                 {
-                    Current_session.current_match.player_records[uid].bot = 1;
-                    Current_session.current_match.player_records[uid].uid = global_data.assign_bot_uid(player_name);
+                    Current_session.current_match.player_records[uid].bot = bot;
                 }
                     
             }
@@ -1465,13 +1471,11 @@ namespace CO_Driver
                 current_player.spawn_position = spawn_position;
                 current_player.team = team;
 
-                if (uid == 0)
+                if (bot != 0)
                 {
                     current_player.bot = 1;
-                    current_player.uid = global_data.assign_bot_uid(player_name);
                 }
-                    
-
+                
                 Current_session.current_match.player_records.Add(uid, current_player);
             }
         }
@@ -1530,13 +1534,12 @@ namespace CO_Driver
             int power_score = Int32.Parse(line_results.Groups["power_score"].Value);
             int spawn_position = Int32.Parse(line_results.Groups["spawn_position"].Value.Replace(" ", ""));
 
-            if (uid == 0)
+            if (bot != 0)
             {
                 bot = 1;
                 uid = global_data.assign_bot_uid(player_name);
             }
-                
-
+            
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
                 Current_session.current_match.player_records[uid].uid = uid;
