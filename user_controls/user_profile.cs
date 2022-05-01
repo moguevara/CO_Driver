@@ -36,7 +36,6 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
-        private string local_user;
         private int games_played;
         private int total_rounds;
         private int wins;
@@ -142,9 +141,6 @@ namespace CO_Driver
                 if (match.match_data.game_result == "Win")
                     wins++;
 
-                if (local_user == "")
-                    local_user = match.match_data.local_player.nickname;
-
                 total_rounds += match.match_data.local_player.stats.rounds;
                 total_kills += match.match_data.local_player.stats.kills;
                 total_deaths += match.match_data.local_player.stats.deaths;
@@ -245,7 +241,7 @@ namespace CO_Driver
         {
             double avg_player_score = total_rounds > 0 ? Math.Round((((double)total_score) / (double)games_played)) : double.PositiveInfinity;
 
-            lb_user_name.Text = local_user;
+            lb_user_name.Text = session.local_user_name;
             lb_games_played.Text = games_played.ToString();
             lb_wins.Text = wins.ToString();
             lb_win_rate.Text = string.Format(@"{0}%", games_played > 0 ? Math.Round((((double)wins / (double)games_played) * 100), 2) : double.PositiveInfinity);
@@ -387,7 +383,6 @@ namespace CO_Driver
 
         private void initialize_user_profile()
         {
-            local_user = "";
             games_played = 0;
             total_rounds = 0;
             wins = 0;

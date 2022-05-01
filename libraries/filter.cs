@@ -80,6 +80,88 @@ namespace CO_Driver
         public static bool check_filters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> build_records,
                                   log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
+            if (!filter.game_modes.Contains(match.match_data.match_type_desc))
+                filter.game_modes.Add((match.match_data.match_type_desc));
+
+            if (!filter.game_modes.Contains("PvP") && match.match_data.match_classification == global_data.PVP_CLASSIFICATION)
+                filter.game_modes.Add("PvP");
+
+            if (!filter.game_modes.Contains("PvE") && match.match_data.match_classification == global_data.PVE_CLASSIFICATION)
+                filter.game_modes.Add("PvE");
+
+            if (!filter.game_modes.Contains("Brawl") && match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+                filter.game_modes.Add("Brawl");
+
+            if (match.match_data.match_classification == global_data.PVP_CLASSIFICATION && !filter.game_modes.Contains("PvP"))
+                filter.game_modes.Add("PvP");
+
+            if (match.match_data.match_classification == global_data.PVE_CLASSIFICATION && !filter.game_modes.Contains("PvE"))
+                filter.game_modes.Add("PvE");
+
+            if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION && !filter.game_modes.Contains("Brawl"))
+                filter.game_modes.Add("Brawl");
+
+            if (match.match_data.local_player.party_id == 0 && !filter.grouped.Contains("Solo"))
+                filter.grouped.Add("Solo");
+
+            if (match.match_data.local_player.party_id > 0 && !filter.grouped.Contains("Grouped"))
+                filter.grouped.Add("Grouped");
+
+            if (match.match_data.local_player.power_score >= 0 && match.match_data.local_player.power_score <= 2499 && !filter.power_scores.Contains("0-2499"))
+                filter.power_scores.Add("0-2499");
+
+            if (match.match_data.local_player.power_score >= 2500 && match.match_data.local_player.power_score <= 2499 && !filter.power_scores.Contains("2500-3499"))
+                filter.power_scores.Add("2500-3499");
+
+            if (match.match_data.local_player.power_score >= 3500 && match.match_data.local_player.power_score <= 4499 && !filter.power_scores.Contains("3500-4499"))
+                filter.power_scores.Add("3500-4499");
+
+            if (match.match_data.local_player.power_score >= 4500 && match.match_data.local_player.power_score <= 5499 && !filter.power_scores.Contains("4500-5499"))
+                filter.power_scores.Add("4500-5499");
+
+            if (match.match_data.local_player.power_score >= 5500 && match.match_data.local_player.power_score <= 6499 && !filter.power_scores.Contains("5500-6499"))
+                filter.power_scores.Add("5500-6499");
+
+            if (match.match_data.local_player.power_score >= 6500 && match.match_data.local_player.power_score <= 7499 && !filter.power_scores.Contains("6500-7499"))
+                filter.power_scores.Add("6500-7499");
+
+            if (match.match_data.local_player.power_score >= 7500 && match.match_data.local_player.power_score <= 8499 && !filter.power_scores.Contains("7500-8499"))
+                filter.power_scores.Add("7500-8499");
+
+            if (match.match_data.local_player.power_score >= 8500 && match.match_data.local_player.power_score <= 9499 && !filter.power_scores.Contains("8500-9499"))
+                filter.power_scores.Add("8500-9499");
+
+            if (match.match_data.local_player.power_score >= 9500 && match.match_data.local_player.power_score <= 12999 && !filter.power_scores.Contains("9500-12999"))
+                filter.power_scores.Add("9500-12999");
+
+            if (match.match_data.local_player.power_score >= 13000 && match.match_data.local_player.power_score <= 22000 && !filter.power_scores.Contains("13000+"))
+                filter.power_scores.Add("13000+");
+
+            if (match.match_data.local_player.power_score >= 22000 && !filter.power_scores.Contains("Leviathan"))
+                filter.power_scores.Add("Leviathan");
+
+            if (!filter.client_versions.Contains(match.match_data.client_version))
+                filter.client_versions.Add((match.match_data.client_version));
+
+            if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+            {
+                if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                    if (!filter.cabins.Contains(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                        filter.cabins.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations));
+
+                foreach (part_loader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
+                    if (!filter.weapons.Contains(translate.translate_string(weapon.name, session, translations)))
+                        filter.weapons.Add(translate.translate_string(weapon.name, session, translations));
+
+                foreach (part_loader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
+                    if (!filter.movement_parts.Contains(translate.translate_string(movement.name, session, translations)))
+                        filter.movement_parts.Add(translate.translate_string(movement.name, session, translations));
+
+                foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
+                    if (!filter.module_parts.Contains(translate.translate_string(module.name, session, translations)))
+                        filter.module_parts.Add(translate.translate_string(module.name, session, translations));
+            }
+
             if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != "PvP" && filter.game_mode_filter != "PvE" && filter.game_mode_filter != "Brawl" && filter.game_mode_filter != match.match_data.match_type_desc)
                 return false;
 
@@ -170,88 +252,6 @@ namespace CO_Driver
 
                 if (filter.module_filter != global_data.MODULE_FILTER_DEFAULT)
                     return false;
-            }
-
-            if (!filter.game_modes.Contains(match.match_data.match_type_desc))
-                filter.game_modes.Add((match.match_data.match_type_desc));
-
-            if (!filter.game_modes.Contains("PvP") && match.match_data.match_classification == global_data.PVP_CLASSIFICATION)
-                filter.game_modes.Add("PvP");
-
-            if (!filter.game_modes.Contains("PvE") && match.match_data.match_classification == global_data.PVE_CLASSIFICATION)
-                filter.game_modes.Add("PvE");
-
-            if (!filter.game_modes.Contains("Brawl") && match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
-                filter.game_modes.Add("Brawl");
-
-            if (match.match_data.match_classification == global_data.PVP_CLASSIFICATION && !filter.game_modes.Contains("PvP"))
-                filter.game_modes.Add("PvP");
-
-            if (match.match_data.match_classification == global_data.PVE_CLASSIFICATION && !filter.game_modes.Contains("PvE"))
-                filter.game_modes.Add("PvE");
-
-            if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION && !filter.game_modes.Contains("Brawl"))
-                filter.game_modes.Add("Brawl");
-
-            if (match.match_data.local_player.party_id == 0 && !filter.grouped.Contains("Solo"))
-                filter.grouped.Add("Solo");
-
-            if (match.match_data.local_player.party_id > 0 && !filter.grouped.Contains("Grouped"))
-                filter.grouped.Add("Grouped");
-
-            if (match.match_data.local_player.power_score >= 0 && match.match_data.local_player.power_score <= 2499 && !filter.power_scores.Contains("0-2499"))
-                filter.power_scores.Add("0-2499");
-
-            if (match.match_data.local_player.power_score >= 2500 && match.match_data.local_player.power_score <= 2499 && !filter.power_scores.Contains("2500-3499"))
-                filter.power_scores.Add("2500-3499");
-
-            if (match.match_data.local_player.power_score >= 3500 && match.match_data.local_player.power_score <= 4499 && !filter.power_scores.Contains("3500-4499"))
-                filter.power_scores.Add("3500-4499");
-
-            if (match.match_data.local_player.power_score >= 4500 && match.match_data.local_player.power_score <= 5499 && !filter.power_scores.Contains("4500-5499"))
-                filter.power_scores.Add("4500-5499");
-
-            if (match.match_data.local_player.power_score >= 5500 && match.match_data.local_player.power_score <= 6499 && !filter.power_scores.Contains("5500-6499"))
-                filter.power_scores.Add("5500-6499");
-
-            if (match.match_data.local_player.power_score >= 6500 && match.match_data.local_player.power_score <= 7499 && !filter.power_scores.Contains("6500-7499"))
-                filter.power_scores.Add("6500-7499");
-
-            if (match.match_data.local_player.power_score >= 7500 && match.match_data.local_player.power_score <= 8499 && !filter.power_scores.Contains("7500-8499"))
-                filter.power_scores.Add("7500-8499");
-
-            if (match.match_data.local_player.power_score >= 8500 && match.match_data.local_player.power_score <= 9499 && !filter.power_scores.Contains("8500-9499"))
-                filter.power_scores.Add("8500-9499");
-
-            if (match.match_data.local_player.power_score >= 9500 && match.match_data.local_player.power_score <= 12999 && !filter.power_scores.Contains("9500-12999"))
-                filter.power_scores.Add("9500-12999");
-
-            if (match.match_data.local_player.power_score >= 13000 && match.match_data.local_player.power_score <= 22000 && !filter.power_scores.Contains("13000+"))
-                filter.power_scores.Add("13000+");
-
-            if (match.match_data.local_player.power_score >= 22000 && !filter.power_scores.Contains("Leviathan"))
-                filter.power_scores.Add("Leviathan");
-
-            if (!filter.client_versions.Contains(match.match_data.client_version))
-                filter.client_versions.Add((match.match_data.client_version));
-
-            if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-            {
-                if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                    if (!filter.cabins.Contains(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                        filter.cabins.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations));
-
-                foreach (part_loader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
-                    if (!filter.weapons.Contains(translate.translate_string(weapon.name, session, translations)))
-                        filter.weapons.Add(translate.translate_string(weapon.name, session, translations));
-
-                foreach (part_loader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
-                    if (!filter.movement_parts.Contains(translate.translate_string(movement.name, session, translations)))
-                        filter.movement_parts.Add(translate.translate_string(movement.name, session, translations));
-
-                foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
-                    if (!filter.module_parts.Contains(translate.translate_string(module.name, session, translations)))
-                        filter.module_parts.Add(translate.translate_string(module.name, session, translations));
             }
 
             return true;
