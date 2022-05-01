@@ -77,7 +77,16 @@ namespace CO_Driver
             filter.end_date = DateTime.Now;
         }
 
-        public static bool check_filters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> build_records,
+        public static void populate_filters(FilterSelections filter, List<file_trace_managment.MatchRecord> matchs, Dictionary<string, file_trace_managment.BuildRecord> build_records,
+                                  log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        {
+            foreach (file_trace_managment.MatchRecord match in matchs)
+            {
+                populate_filter_for_match(filter, match, build_records, session, translations);
+            }
+        } 
+
+        public static void populate_filter_for_match(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> build_records,
                                   log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             if (!filter.game_modes.Contains(match.match_data.match_type_desc))
@@ -161,6 +170,12 @@ namespace CO_Driver
                     if (!filter.module_parts.Contains(translate.translate_string(module.name, session, translations)))
                         filter.module_parts.Add(translate.translate_string(module.name, session, translations));
             }
+        }
+
+        public static bool check_filters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> build_records,
+                                  log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        {
+            populate_filter_for_match(filter, match, build_records, session, translations);
 
             if (filter.game_mode_filter != global_data.GAME_MODE_FILTER_DEFAULT && filter.game_mode_filter != "PvP" && filter.game_mode_filter != "PvE" && filter.game_mode_filter != "Brawl" && filter.game_mode_filter != match.match_data.match_type_desc)
                 return false;
