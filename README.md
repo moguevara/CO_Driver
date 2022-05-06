@@ -37,6 +37,7 @@
  
 <br />
 <br />
+  
 </div>
 
 ---
@@ -53,6 +54,121 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 
 # 📊 Features
 
+## Table of contents
+1. Performance Feedback
+    - [User Profile](#user-profile)
+    - [Ad Hoc Comparisons](#ad-hoc-comparisons)
+    - [Match History](#match-history)
+    - [Match Detail](#)
+2. [Meta Analysis](#meta-analysis)
+3. [Garage Testing](#garage-testing)
+4. [Revenue Analysis](#revenue-analysis)
+5. Build Tools
+    - [Part Viewer](#part-viewer)
+    - [Manual Builder](#manual-builder)
+6. Utilities
+    - [Fusion Calculator](#fusion-calculator)
+    - [File Traces](#file-traces)
+7. [CrossoutDB Uploading](#crossoutdb-uploading)
+8. [Twitch Overlays](#twitch-overlays)
+9. [Miscellaneous Functionality](#miscellaneous-functionality)
+
+
+
+#### User Profile
+  
+* Filter on Gamemode, Group size, Power score, Version, Time range, and Parts
+* Avg/Min/Max/Total Statistics
+* Nemesis and victim tracking
+* Map performance
+* Resource Overview
+  
+<img src='https://i.imgur.com/IxoWx7l.png'>
+
+#### Ad Hoc Comparisons
+
+ * Compare the following groupings against metrics and see what you're worst and best at.
+ * Define sample size and restrict matches reviewed with filters
+ * 12 supported chart types
+
+<div align='center'>
+  
+| Grouping | Grouping | Metric |
+| --- | --- | --- |
+| Average | Win Rate | Time |
+| Minimum | MVP Rate | Weapon | 
+| Maximum | Damage | Movement |
+| Total | Score | Cabin |
+| | Kills | Module |
+| | Assists | Engine |
+| | Deaths | Part |
+| | (K+A) | Map |  
+| | Drone Kills | Game Mode |  
+| | Medals | Game Mode Category |  
+| | Games Played | Game Result |  
+| | Rounds Played | Power Score |  
+| | Ram Damage | Region |  
+| | Cabin Damage | Server |  
+| | Experience | Crossout Version |  
+| | Uranium | Group Size |  
+| | Scrap | Squadmate |  
+| | Wires | Opponent |  
+| | Batteries | Ally |  
+| | Copper | Build Hash |  
+| | Coupons | Build Description |  
+| | Electronics | Bot (Ally) |  
+| | Plastic | Bot (Opponent) |  
+| | Batteries |  |  
+
+![image](https://user-images.githubusercontent.com/15959605/167177042-0fc4257a-8179-404c-9d1e-3c3ffc6f2dac.png)
+
+<div align='left'>
+
+#### Match History
+ * Sortable list of matches showing important metrics
+ * Double click on the build to review build performance
+ * Double click on row to view more detail on match
+
+![image](https://user-images.githubusercontent.com/15959605/167177518-21f462c4-017c-4f7b-be1c-3198c2a6ee59.png)
+
+#### Match Detail
+ * Perfomance on each player in match
+ * Breakdown on damage dealt and recieved
+ * Resource review
+ * Double click on any player to view [CrossoutDB Profile](https://beta.crossoutdb.com/profile/7907969)
+
+![image](https://user-images.githubusercontent.com/15959605/167177967-0fc0edec-4491-4a14-a8f2-30ebc6e7e5a0.png)
+  
+#### Meta Analysis
+  * See how enemies perform within a filtered game mode
+  * Breakdown enemy performance on weapon, movement part, cabin, map or any combination
+  * See what builds you perform well against and which matchups you struggle in. 
+
+![image](https://user-images.githubusercontent.com/15959605/167178296-43b3aebb-35b1-4c44-932c-84340fb4c14b.png)
+  
+#### Garage Testing
+  * Test various configurations and loadouts against eachother by entering garage and dealing damage
+  * See DPS, reload time, burst damage, and other metrics
+  * Compare builds against eachother
+ 
+  ![image](https://user-images.githubusercontent.com/15959605/167179639-74e9eddb-1b40-49b5-a597-988b96e475bc.png)
+
+#### Revenue Analysis
+  * See total coins earned
+  * Breakdown revenue by game mode  
+  * See what builds earn the most coins per hour
+  
+![image](https://user-images.githubusercontent.com/15959605/167179118-7e5921b2-a065-4859-b727-db5964c50e67.png)
+
+#### Part Viewer
+#### Manual Builder
+#### Fusion Calculator
+#### File Traces
+#### CrossoutDB Uploading
+#### Twitch Overlays
+#### Miscellaneous Functionality
+
+***
 
 
 
