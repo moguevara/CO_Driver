@@ -101,7 +101,7 @@ Interested in contributing to CO_Driver? We are always looking for motivated dev
 
 <div align='center'>
   
-| Grouping | Grouping | Metric |
+| Type | Grouping | Metric |
 | --- | --- | --- |
 | Average | Win Rate | Time |
 | Minimum | MVP Rate | Weapon | 
@@ -160,7 +160,7 @@ Interested in contributing to CO_Driver? We are always looking for motivated dev
 
 <div align='center'>
   
-![image](https://user-images.githubusercontent.com/15959605/167177967-0fc0edec-4491-4a14-a8f2-30ebc6e7e5a0.png)\
+![image](https://user-images.githubusercontent.com/15959605/167177967-0fc0edec-4491-4a14-a8f2-30ebc6e7e5a0.png)
  
 </div>
   
