@@ -123,16 +123,23 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 | | Plastic | Bot (Opponent) |  
 | | Batteries |  |  
 
+</div>
+<div align='center'>
+  
 ![image](https://user-images.githubusercontent.com/15959605/167177042-0fc4257a-8179-404c-9d1e-3c3ffc6f2dac.png)
-
-<div align='left'>
+  
+</div>
 
 #### Match History
  * Sortable list of matches showing important metrics
  * Double click on the build to review build performance
  * Double click on row to view more detail on match
 
+<div align='center'>
+  
 ![image](https://user-images.githubusercontent.com/15959605/167177518-21f462c4-017c-4f7b-be1c-3198c2a6ee59.png)
+  
+</div>
 
 #### Match Detail
  * Perfomance on each player in match
@@ -140,21 +147,33 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
  * Resource review
  * Double click on any player to view [CrossoutDB Profile](https://beta.crossoutdb.com/profile/7907969)
 
-![image](https://user-images.githubusercontent.com/15959605/167177967-0fc0edec-4491-4a14-a8f2-30ebc6e7e5a0.png)
+<div align='center'>
+  
+![image](https://user-images.githubusercontent.com/15959605/167177967-0fc0edec-4491-4a14-a8f2-30ebc6e7e5a0.png)\
+ 
+</div>
   
 #### Meta Analysis
   * See how enemies perform within a filtered game mode
   * Breakdown enemy performance on weapon, movement part, cabin, map or any combination
   * See what builds you perform well against and which matchups you struggle in. 
 
+<div align='center'>
+
 ![image](https://user-images.githubusercontent.com/15959605/167178296-43b3aebb-35b1-4c44-932c-84340fb4c14b.png)
+  
+</div>  
   
 #### Garage Testing
   * Test various configurations and loadouts against eachother by entering garage and dealing damage
   * See DPS, reload time, burst damage, and other metrics
   * Compare builds against eachother
  
-  ![image](https://user-images.githubusercontent.com/15959605/167179639-74e9eddb-1b40-49b5-a597-988b96e475bc.png)
+<div align='center'>
+ 
+![image](https://user-images.githubusercontent.com/15959605/167179639-74e9eddb-1b40-49b5-a597-988b96e475bc.png)
+  
+</div>  
 
 #### Revenue Analysis
   * See total coins earned
@@ -164,10 +183,64 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 ![image](https://user-images.githubusercontent.com/15959605/167179118-7e5921b2-a065-4859-b727-db5964c50e67.png)
 
 #### Part Viewer
+  * View and sort parts availible to you
+  * Configure levels in settings to see parts availible to friend
+
+<div align='center'>
+  
+  ![image](https://user-images.githubusercontent.com/15959605/167183726-de104aa6-2785-4b8c-988d-87f2ca88184a.png)
+  
+</div>
+
 #### Manual Builder
+  * Manually build with availible parts and view different conifigurations
+  
+<div align='center'>  
+  
+![image](https://user-images.githubusercontent.com/15959605/167184012-6d51359f-71c2-4d63-9936-6318451da032.png)
+
+</div>
+  
 #### Fusion Calculator
+  * Find the actual cost of a target fusion with a Monte Carlo algoritmn simulating 1,000,000 fusions
+  * See how stabilizers affect the outcome
+
+<div align='center'>  
+  
+![image](https://user-images.githubusercontent.com/15959605/167184458-a74af81a-4250-4dc1-b729-b9c5d1a215e6.png)
+
+</div>
+
 #### File Traces
+  * View the log files CO_Driver uses live
+  * Supports combat.log, game.log, net.log, gfx.log and chat.log
+  * Copy text directly out of chat.log for easy transalation or links
+
+<div align='center'>  
+  
+![image](https://user-images.githubusercontent.com/15959605/167184849-35b24d26-2437-4f7d-ab04-9935a2cfaf52.png)
+
+</div>
+
+#### Schedules
+  * View the clan war or brawl schedule for your region. No more converting from UTC.
+
+<div align='center'>  
+  
+![image](https://user-images.githubusercontent.com/15959605/167185137-85fc39a7-380c-4282-8ea9-165d9d474eea.png)
+![image](https://user-images.githubusercontent.com/15959605/167185100-12175245-8ee6-4790-979b-a3832ac5e6fd.png)
+  
+</div>
+
 #### CrossoutDB Uploading
+  * Upload your match and build history to your [CrossoutDB Profile](https://beta.crossoutdb.com/profile/7907969)
+
+<div align='center'>  
+
+![image](https://user-images.githubusercontent.com/15959605/167185529-e55d4456-5a3d-4ac4-811f-0e91ec7cdf86.png)
+
+</div>
+
 #### Twitch Overlays
 #### Miscellaneous Functionality
 
