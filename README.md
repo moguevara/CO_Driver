@@ -59,8 +59,6 @@ Interested in contributing to CO_Driver? We are always looking for motivated dev
 ---
 
 # 📊 Features
-
-## Table of contents
 1. Performance Feedback
     - [User Profile](#user-profile)
     - [Ad Hoc Comparisons](#ad-hoc-comparisons)
