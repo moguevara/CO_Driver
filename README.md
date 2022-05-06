@@ -242,7 +242,37 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 </div>
 
 #### Twitch Overlays
+  * Enable twitch overlays in settings and draw overlays live as you play
+  * Customize draw and erase conditions in the configuration file
+  * Just setup as a text input in OBS or any streaming service
+
+<div align='center'>  
+
+<img src='https://cdn.discordapp.com/attachments/962475774709989506/964265651994783794/unknown.png'>
+<img src='https://cdn.discordapp.com/attachments/962475774709989506/964265711830704279/unknown.png'>
+
+</div>
+
 #### Miscellaneous Functionality
+  * All tables easily export to excel
+  * Localized support for the following languages
+    - English
+    - Russian
+    - Polish
+    - Spanish
+    - German
+    - Korean
+    - Chinese (traditional and simplified)
+    - Hindi
+    - Greek
+  * Auto uploading optional
+  * Many themes! 
+ 
+<div align='center'>  
+  
+ ![image](https://user-images.githubusercontent.com/15959605/167187020-6d4cddb8-9c65-4f73-a397-a0e2825c233a.png)
+  
+</div>
 
 ***
 
