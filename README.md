@@ -58,6 +58,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 1. Performance Feedback
     - [User Profile](#user-profile)
     - [Ad Hoc Comparisons](#ad-hoc-comparisons)
+    - [Build Feedback](#build-feedback)
     - [Match History](#match-history)
     - [Match Detail](#match-detail)
 2. [Meta Analysis](#meta-analysis)
@@ -129,6 +130,12 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 ![image](https://user-images.githubusercontent.com/15959605/167177042-0fc4257a-8179-404c-9d1e-3c3ffc6f2dac.png)
   
 </div>
+
+#### Build Feedback
+  * See performance on a specific build
+  * Parts must deal damage to be assigned to the build, so understand the build more the more you play
+
+![image](https://user-images.githubusercontent.com/15959605/167187684-77ea6f6a-3682-4872-8b8c-6f80f26fbb1e.png)
 
 #### Match History
  * Sortable list of matches showing important metrics
