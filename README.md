@@ -48,7 +48,7 @@
 ---
 
 # 🙋‍♂️ About CO_Driver 
-CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data is derived from log files and grouped to give feedback performance feedback.
+CO_Driver is a free fan made [Crossout](https://crossout.net/en/) utility. Data is derived from log files and grouped to give feedback performance feedback.
 
 ---
 
@@ -61,7 +61,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
     - [Build Feedback](#build-feedback)
     - [Match History](#match-history)
     - [Match Detail](#match-detail)
-2. [Meta Analysis](#meta-analysis)
+2. [Meta-Analysis](#meta-analysis)
 3. [Garage Testing](#garage-testing)
 4. [Revenue Analysis](#revenue-analysis)
 5. Build Tools
@@ -77,7 +77,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 
 #### User Profile
   
-* Filter on Gamemode, Group size, Power score, Version, Time range, and Parts
+* Filter on Game mode, Group size, Power score, Version, Time range, and Parts
 * Avg/Min/Max/Total Statistics
 * Nemesis and victim tracking
 * Map performance
@@ -149,8 +149,8 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 </div>
 
 #### Match Detail
- * Perfomance on each player in match
- * Breakdown on damage dealt and recieved
+ * Performance  on each player in match
+ * Breakdown on damage dealt and received
  * Resource review
  * Double click on any player to view [CrossoutDB Profile](https://beta.crossoutdb.com/profile/7907969)
 
@@ -160,7 +160,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
  
 </div>
   
-#### Meta Analysis
+#### Meta-Analysis
   * See how enemies perform within a filtered game mode
   * Breakdown enemy performance on weapon, movement part, cabin, map or any combination
   * See what builds you perform well against and which matchups you struggle in. 
@@ -172,9 +172,9 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 </div>  
   
 #### Garage Testing
-  * Test various configurations and loadouts against eachother by entering garage and dealing damage
+  * Test various configurations and loadouts against each other by entering garage and dealing damage
   * See DPS, reload time, burst damage, and other metrics
-  * Compare builds against eachother
+  * Compare builds against each other
  
 <div align='center'>
  
@@ -190,8 +190,8 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 ![image](https://user-images.githubusercontent.com/15959605/167179118-7e5921b2-a065-4859-b727-db5964c50e67.png)
 
 #### Part Viewer
-  * View and sort parts availible to you
-  * Configure levels in settings to see parts availible to friend
+  * View and sort parts available to you
+  * Configure levels in settings to see parts available to friend
 
 <div align='center'>
   
@@ -200,7 +200,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 </div>
 
 #### Manual Builder
-  * Manually build with availible parts and view different conifigurations
+  * Manually build with available parts and view different configurations
   
 <div align='center'>  
   
@@ -209,7 +209,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 </div>
   
 #### Fusion Calculator
-  * Find the actual cost of a target fusion with a Monte Carlo algoritmn simulating 1,000,000 fusions
+  * Find the actual cost of a target fusion with a Monte Carlo algorithm simulating 1,000,000 fusions
   * See how stabilizers affect the outcome
 
 <div align='center'>  
@@ -221,7 +221,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 #### File Traces
   * View the log files CO_Driver uses live
   * Supports combat.log, game.log, net.log, gfx.log and chat.log
-  * Copy text directly out of chat.log for easy transalation or links
+  * Copy text directly out of chat.log for easy translation or links
 
 <div align='center'>  
   
