@@ -59,7 +59,7 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
     - [User Profile](#user-profile)
     - [Ad Hoc Comparisons](#ad-hoc-comparisons)
     - [Match History](#match-history)
-    - [Match Detail](#)
+    - [Match Detail](#match-detail)
 2. [Meta Analysis](#meta-analysis)
 3. [Garage Testing](#garage-testing)
 4. [Revenue Analysis](#revenue-analysis)
@@ -69,11 +69,10 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 6. Utilities
     - [Fusion Calculator](#fusion-calculator)
     - [File Traces](#file-traces)
+    - [Schedules](#schedules)
 7. [CrossoutDB Uploading](#crossoutdb-uploading)
 8. [Twitch Overlays](#twitch-overlays)
 9. [Miscellaneous Functionality](#miscellaneous-functionality)
-
-
 
 #### User Profile
   
@@ -83,7 +82,11 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
 * Map performance
 * Resource Overview
   
+<div align='center'>
+  
 <img src='https://i.imgur.com/IxoWx7l.png'>
+
+</div>
 
 #### Ad Hoc Comparisons
 
