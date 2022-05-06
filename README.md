@@ -41,14 +41,35 @@
 
 ---
 
-#### CO_Driver is available for download
+#### CO_Driver is available for download 🐛🤝🐛
 * Download at https://codriver.dept116.com/.
 
 ---
 
-# CO_Driver
+# 🙋‍♂️ About CO_Driver 
 CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data is derived from log files and grouped to give feedback performance feedback.
 
 ---
 
-# Features
+# 📊 Features
+
+
+
+
+---
+
+# ✍️ Contributing
+
+Interested in contributing to CO_Driver? We are always looking for motivated developers or suggestions from the community. Please contact Rot_Fish_Bandit at our [Discord](https://discord.com/invite/kKcnVXu2Xe).
+
+---
+
+# ⚠️ Terms
+
+All work product by Developer is provided ​“AS IS”. Other than as provided in this agreement, Developer makes no other warranties, express or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose.
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+---
+
+<br />
