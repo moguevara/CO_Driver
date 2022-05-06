@@ -281,10 +281,6 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) ulitlity. Data
   
 </div>
 
-***
-
-
-
 ---
 
 # ✍️ Contributing
