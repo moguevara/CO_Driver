@@ -48,7 +48,13 @@
 ---
 
 # 🙋‍♂️ About CO_Driver 
-CO_Driver is a free fan made [Crossout](https://crossout.net/en/) utility. Data is derived from log files and grouped to give feedback performance feedback.
+CO_Driver is a free fan made [Crossout](https://crossout.net/en/) utility. Data is derived from log files and grouped to give performance feedback.   
+
+---
+
+# ✍️ Contributing
+
+Interested in contributing to CO_Driver? We are always looking for motivated developers or suggestions from the community. Please contact Rot_Fish_Bandit at our [Discord](https://discord.com/invite/kKcnVXu2Xe).
 
 ---
 
@@ -280,12 +286,6 @@ CO_Driver is a free fan made [Crossout](https://crossout.net/en/) utility. Data 
  ![image](https://user-images.githubusercontent.com/15959605/167187020-6d4cddb8-9c65-4f73-a397-a0e2825c233a.png)
   
 </div>
-
----
-
-# ✍️ Contributing
-
-Interested in contributing to CO_Driver? We are always looking for motivated developers or suggestions from the community. Please contact Rot_Fish_Bandit at our [Discord](https://discord.com/invite/kKcnVXu2Xe).
 
 ---
 
