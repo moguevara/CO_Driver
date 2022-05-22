@@ -460,6 +460,7 @@ namespace CO_Driver
             Current_session.static_records.ck_dict.Add("Chassis_Kamaz_C1_Raider", "Chassis_Kamaz");
             Current_session.static_records.ck_dict.Add("Chassis_Military_C1_Raider", "Chassis_Military");
             Current_session.static_records.ck_dict.Add("Chassis_Maz_C1_Bundle", "Chassis_Maz");
+            Current_session.static_records.ck_dict.Add("Chassis_Maz_bp8", "Chassis_Maz");
             Current_session.static_records.ck_dict.Add("CarPart_WheelSmallChains_C1_Raider", "CarPart_WheelSmallChains");
             Current_session.static_records.ck_dict.Add("CarPart_WheelSmallChains_S_C1_Raider", "CarPart_WheelSmallChains_S");
             Current_session.static_records.ck_dict.Add("CarPart_WheelSmallSpiked_C1_Raider", "CarPart_WheelSmallSpiked");
@@ -804,6 +805,7 @@ namespace CO_Driver
             Current_session.static_records.global_cabin_dict.Add("Cabin_Bulldozer", new_cabin("Cabin_Bulldozer", "Bastion", global_data.EPIC_RARITY, 11, 60, 20000, 9000, 4500, 495, 1500, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_War", new_cabin("Cabin_War", "Echo", global_data.EPIC_RARITY, 11, 70, 18000, 10000, 3500, 440, 1500, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Chassis_Maz", new_cabin("Chassis_Maz", "Humpback", global_data.EPIC_RARITY, 11, 60, 20000, 8000, 4000, 470, 1500, "heavy cabin"));
+            Current_session.static_records.global_cabin_dict.Add("Cabin_Explorer", new_cabin("Cabin_Explorer", "Ermak", global_data.EPIC_RARITY, 11, 60, 20000, 8000, 4000, 470, 1500, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Big", new_cabin("Cabin_Big", "Icebox", global_data.EPIC_RARITY, 11, 65, 19000, 9000, 3800, 455, 1500, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_Military_cab4", new_cabin("Cabin_Military_cab4", "Cohort", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin"));
             Current_session.static_records.global_cabin_dict.Add("Cabin_CyberEast_Cab2", new_cabin("Cabin_CyberEast_Cab2", "Yokozuna", global_data.LEGENDARY_RARITY, 11, 60, 24000, 9200, 5200, 609, 2100, "heavy cabin")); /* incomplete */
@@ -1935,3 +1937,4 @@ namespace CO_Driver
         
     }
 }
+
