@@ -100,6 +100,8 @@ namespace CO_Driver
                 }
             }
 
+            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.id == 369).sellPrice/100});
+
             master_values = local_values;
         }
 
@@ -141,6 +143,7 @@ namespace CO_Driver
                 /* begin calc */
                 bool group_found = false;
                 int fuel_ammount = 0;
+                double badges_amount = 0;
                 TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
 
                 string game_mode = match.match_data.match_type_desc;
@@ -173,6 +176,43 @@ namespace CO_Driver
                 if (match.match_data.match_type == global_data.HARD_RAID_MATCH)
                     fuel_ammount = 60;
 
+                if (chk_badges.Checked && match.match_data.game_result == "Win")
+                {
+                    if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+                        badges_amount = 19.444;
+                    else
+                    {
+                        switch (match.match_data.match_type)
+                        {
+                            case global_data.EASY_RAID_MATCH:
+                                badges_amount = 16.667;
+                                break;
+                            case global_data.STANDARD_MATCH:
+                            case global_data.PATROL_MATCH:
+                                if (match.match_data.match_rewards.ContainsKey("Scrap_Rare"))
+                                    badges_amount = 10;
+                                else if (match.match_data.match_rewards.ContainsKey("Accumulators"))
+                                    badges_amount = 29.167;
+                                else if (match.match_data.match_rewards.ContainsKey("Scrap_Common"))
+                                    badges_amount = 12.5;
+                                break;
+                            case global_data.INVASION_MATCH:
+                                badges_amount = 17.5;
+                                break;
+                            case global_data.MED_RAID_MATCH:
+                                badges_amount = 15;
+                                break;
+                            case global_data.HARD_RAID_MATCH:
+                                badges_amount = 50;
+                                break;
+                            case global_data.LEVIATHIAN_CW_MATCH:
+                            case global_data.STANDARD_CW_MATCH:
+                                badges_amount = 90;
+                                break;
+                        }
+                    }
+                }
+
                 string match_result = match.match_data.game_result;
                 string premium = match.match_data.premium_reward.ToString();
 
@@ -195,6 +235,11 @@ namespace CO_Driver
                         group.fuel_cost += fuel_ammount;
                         group.total_game_duration += queue_time.TotalSeconds;
                         group.total_game_duration += match.match_data.match_duration_seconds;
+
+                        if (group.match_rewards.ContainsKey("Badges"))
+                            group.match_rewards["Badges"] += (int)badges_amount;
+                        else
+                            group.match_rewards.Add("Badges", (int)badges_amount);
 
                         foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
                         {
@@ -393,6 +438,11 @@ namespace CO_Driver
             populate_revenue_review_screen();
         }
         private void chk_free_fuel_CheckedChanged(object sender, EventArgs e)
+        {
+            force_refresh = true;
+            populate_revenue_review_screen();
+        }
+        private void chk_badges_CheckedChanged(object sender, EventArgs e)
         {
             force_refresh = true;
             populate_revenue_review_screen();
