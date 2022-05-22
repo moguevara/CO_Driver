@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -39,7 +35,7 @@ namespace CO_Driver
             num_handling_target.Value = 1;
             num_handling_max.Value = 3;
             num_stabilizer_count.Value = 0;
-            
+
             calculate_probabilities();
         }
 
@@ -119,7 +115,7 @@ namespace CO_Driver
                             stabilized_a = true;
                         }
                     }
-                    
+
                     if (Convert.ToInt32(num_power_target.Value) > 0 && !stabilized_b)
                     {
                         if (Convert.ToInt32(num_power_target.Value) < fusion_b)
@@ -131,7 +127,7 @@ namespace CO_Driver
                             stabilized_b = true;
                         }
                     }
-                    
+
                     if (Convert.ToInt32(num_handling_target.Value) > 0 && !stabilized_c)
                     {
                         if (Convert.ToInt32(num_handling_target.Value) < fusion_c)
@@ -143,7 +139,7 @@ namespace CO_Driver
                             stabilized_c = true;
                         }
                     }
-                    
+
                     if (success)
                     {
                         if (Distribution.ContainsKey(iterations))

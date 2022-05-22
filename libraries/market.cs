@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Net;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 
-namespace CO_Driver{
+namespace CO_Driver
+{
     public class market
     {
         public class market_data
@@ -26,7 +23,7 @@ namespace CO_Driver{
             public string description { get; set; }
             public int sellOffers { get; set; }
             public double sellPrice { get; set; }
-            public int buyOrders{ get; set; }
+            public int buyOrders { get; set; }
             public double buyPrice { get; set; }
             public int meta { get; set; }
             public int removed { get; set; }
@@ -103,14 +100,14 @@ namespace CO_Driver{
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    market_items =  JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
+                    market_items = JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
 
                     return market_items;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                //MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
             return market_items;

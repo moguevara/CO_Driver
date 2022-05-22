@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -62,7 +57,7 @@ namespace CO_Driver
                             if (event_time.event_type == global_data.STANDARD_CW || event_time.event_type == global_data.LEVIATHIAN_CW)
                                 continue;
                         }
-                        
+
                         DateTime start_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.start_time), TimeZoneInfo.Local);
                         DateTime end_time_dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.Date.ToUniversalTime().AddDays(-(int)DateTime.UtcNow.Date.DayOfWeek + (int)event_time.day).Add(event_time.end_time), TimeZoneInfo.Local);
 

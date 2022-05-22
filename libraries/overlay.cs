@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CO_Driver
 {
@@ -14,7 +12,7 @@ namespace CO_Driver
         public const int TEAM_PREVIEW_OVERLAY = 2;
         public const int IN_MATCH_OVERLAY = 3;
 
-        public const string line_break      = "-----------------------------------";
+        public const string line_break = "-----------------------------------";
         public const string line_break_long = "-----------------------------------";
 
         public class Overlay_action
@@ -43,7 +41,7 @@ namespace CO_Driver
             public bool in_game_killer { get; set; }
             public bool toggle_to_last_gamemode { get; set; }
             public string manual_gamemode { get; set; }
-            
+
             [System.ComponentModel.DefaultValue(OverlayWriter.Overlay_Format.txt)]
             public OverlayWriter.Overlay_Format overlay_format { get; set; }
         }
@@ -142,7 +140,7 @@ namespace CO_Driver
                         lines.Add(string.Format("<h3 class = \"{1}\">{0}</h3>", line, htmlClass));
                         break;
                     case Overlay_Format.md:
-                        lines.Add("###"+line);
+                        lines.Add("###" + line);
                         break;
                 }
             }
@@ -162,7 +160,7 @@ namespace CO_Driver
                         break;
                     case Overlay_Format.html:
                         result.Add("<!DOCTYPE html><html>");
-                        result.Add("<head><meta http-equiv=\"refresh\" content=\"1\"><link rel=\"stylesheet\" href=\""+path+".css\"></head>");//TODO separate config for css file paths for users?
+                        result.Add("<head><meta http-equiv=\"refresh\" content=\"1\"><link rel=\"stylesheet\" href=\"" + path + ".css\"></head>");//TODO separate config for css file paths for users?
                         result.Add("<body>");
                         result.AddRange(lines);
                         result.Add("</body></html>");
@@ -186,21 +184,21 @@ namespace CO_Driver
 
         public static string default_overlay_setup()
         {
-            return JsonConvert.SerializeObject(new List<Overlay_action> { 
-                new Overlay_action { 
+            return JsonConvert.SerializeObject(new List<Overlay_action> {
+                new Overlay_action {
                     overlay = STAT_CARD_OVERLAY,
                     draw_conditions = new List<int> {global_data.TEST_DRIVE_EVENT },
-                    clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT } 
+                    clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT }
                 },
-                new Overlay_action { 
-                    overlay = TEAM_PREVIEW_OVERLAY, 
-                    draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT }, 
-                    clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT } 
+                new Overlay_action {
+                    overlay = TEAM_PREVIEW_OVERLAY,
+                    draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT },
+                    clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT }
                 },
-                new Overlay_action { 
+                new Overlay_action {
                     overlay = IN_MATCH_OVERLAY,
-                    draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT}, 
-                    clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT } 
+                    draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT},
+                    clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT }
                 }
             });
         }
@@ -208,10 +206,11 @@ namespace CO_Driver
         public static string default_twitch_settings()
         {
             return JsonConvert.SerializeObject(
-                new Twitch_settings { 
+                new Twitch_settings
+                {
                     endorse_co_driver = false,
                     overview_time_range = 7.0,
-                    default_time_range  = 7.0,
+                    default_time_range = 7.0,
                     toggle_overview_time_ranges = true,
                     show_stats = true,
                     nemeisis_count = 5,
@@ -273,7 +272,7 @@ namespace CO_Driver
             if (draw)
             {
                 if (Current_session.twitch_settings.show_stats)
-                    assign_stats(Current_session, writer, translation,  Current_session.match_history.FirstOrDefault().match_data.match_type_desc);
+                    assign_stats(Current_session, writer, translation, Current_session.match_history.FirstOrDefault().match_data.match_type_desc);
 
                 if (Current_session.twitch_settings.show_revenue)
                     assign_revenue(Current_session, session, writer, translation);
@@ -295,20 +294,20 @@ namespace CO_Driver
                 Random random_number = new Random();
                 file_trace_managment.MatchData current_match = Current_session.current_match;
 
-                if (!current_match.player_records.ContainsKey(Current_session.local_user))
+                if (!current_match.player_records.ContainsKey(Current_session.local_user_uid))
                     return;
 
                 Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
                 Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
 
-                blue_teams.Add(current_match.player_records[Current_session.local_user].party_id, new List<string> { current_match.player_records[Current_session.local_user].nickname });
+                blue_teams.Add(current_match.player_records[Current_session.local_user_uid].party_id, new List<string> { current_match.player_records[Current_session.local_user_uid].nickname });
 
-                foreach (KeyValuePair<string, file_trace_managment.Player> player in current_match.player_records.ToList())
+                foreach (KeyValuePair<int, file_trace_managment.Player> player in current_match.player_records.ToList())
                 {
-                    if (player.Value.party_id == 0 || player.Value.nickname == current_match.player_records[Current_session.local_user].nickname)
+                    if (player.Value.party_id == 0 || player.Value.nickname == current_match.player_records[Current_session.local_user_uid].nickname)
                         continue;
 
-                    if (player.Value.team != current_match.player_records[Current_session.local_user].team)
+                    if (player.Value.team != current_match.player_records[Current_session.local_user_uid].team)
                     {
                         if (!red_teams.ContainsKey(player.Value.party_id))
                             red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
@@ -326,7 +325,7 @@ namespace CO_Driver
 
                 //TODO separate methods for css purposes
                 foreach (KeyValuePair<int, List<string>> team in blue_teams)
-                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)),"player blue_player");
+                    writerBlue.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player blue_player");
 
                 foreach (KeyValuePair<int, List<string>> team in red_teams)
                     writerRed.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player red_player");
@@ -350,7 +349,7 @@ namespace CO_Driver
         {
             DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
             Dictionary<string, int> rewards = new Dictionary<string, int> { };
-            
+
             foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
             {
                 if (match.match_data.match_start < time_cutoff)
@@ -438,7 +437,7 @@ namespace CO_Driver
 
             file_trace_managment.MatchData current_match = Current_session.current_match;
 
-            if (!current_match.player_records.ContainsKey(Current_session.local_user))
+            if (!current_match.player_records.ContainsKey(Current_session.local_user_uid))
                 return;
 
             if (current_match == null)
@@ -448,23 +447,23 @@ namespace CO_Driver
             {
                 writer.AddHeader(string.Format(@"Current match on {0}", translate.translate_string(current_match.map_name, session, translation)), "current_match");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[Current_session.local_user].stats.kills), "current_match kills");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[Current_session.local_user].stats.assists), "current_match assists");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.player_records[Current_session.local_user].stats.deaths), "current_match deaths");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.player_records[Current_session.local_user].stats.drone_kills), "current_match drone_kils");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.player_records[Current_session.local_user].stats.score), "current_match score");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[Current_session.local_user_uid].stats.kills), "current_match kills");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[Current_session.local_user_uid].stats.assists), "current_match assists");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.player_records[Current_session.local_user_uid].stats.deaths), "current_match deaths");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.player_records[Current_session.local_user_uid].stats.drone_kills), "current_match drone_kils");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.player_records[Current_session.local_user_uid].stats.score), "current_match score");
             }
 
             if (Current_session.twitch_settings.in_game_dmg)
             {
                 Dictionary<string, double> damage_breakdown = new Dictionary<string, double> { };
 
-                if (current_match.player_records[Current_session.local_user].stats.damage > 0)
+                if (current_match.player_records[Current_session.local_user_uid].stats.damage > 0)
                 {
                     writer.addEmptyRow();
                     writer.AddHeader("Damage Breakdown", "damage_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage), "damage_breakdown total");
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user_uid].stats.damage), "damage_breakdown total");
 
                     foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.attacker == Current_session.local_user))
                     {
@@ -483,13 +482,13 @@ namespace CO_Driver
                     }
                 }
 
-                if (current_match.player_records[Current_session.local_user].stats.damage_taken > 0)
+                if (current_match.player_records[Current_session.local_user_uid].stats.damage_taken > 0)
                 {
                     damage_breakdown = new Dictionary<string, double> { };
                     writer.addEmptyRow();
                     writer.AddHeader("Damage Recieved Breakdown", "damage_recieved_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user].stats.damage_taken), "damage_recieved_breakdown total");
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[Current_session.local_user_uid].stats.damage_taken), "damage_recieved_breakdown total");
 
                     foreach (file_trace_managment.DamageRecord record in Current_session.current_match.damage_record.Where(x => x.victim == Current_session.local_user))
                     {
@@ -517,10 +516,10 @@ namespace CO_Driver
                 foreach (string victim in current_match.victims)
                     writer.AddLine(string.Format(@"{0,16}", victim), "victims name");
 
-                if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count == 1)
+                if (current_match.player_records[Current_session.local_user_uid].stats.kills - current_match.victims.Count == 1)
                     writer.AddLine(string.Format(@"{0,16}", "Bot"), "victims bot");
-                else if (current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count > 1)
-                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[Current_session.local_user].stats.kills - current_match.victims.Count), "victims bot");
+                else if (current_match.player_records[Current_session.local_user_uid].stats.kills - current_match.victims.Count > 1)
+                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[Current_session.local_user_uid].stats.kills - current_match.victims.Count), "victims bot");
 
             }
 
@@ -620,7 +619,7 @@ namespace CO_Driver
 
             blue_teams.Add(match.local_player.party_id, new List<string> { match.local_player.nickname });
 
-            foreach (KeyValuePair<string, file_trace_managment.Player> player in match.player_records.ToList())
+            foreach (KeyValuePair<int, file_trace_managment.Player> player in match.player_records.ToList())
             {
                 if (player.Value.party_id == 0 || player.Value.nickname == match.local_player.nickname)
                     continue;

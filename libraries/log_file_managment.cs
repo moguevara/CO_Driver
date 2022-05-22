@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
-using System.Net;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace CO_Driver
 {
@@ -112,7 +111,7 @@ namespace CO_Driver
             session = load_previous_settings(session);
 
             create_sub_directories(session);
-            
+
             if (!session.valid_users.ContainsKey(session.local_user_name) || !session.uid_lookup.ContainsKey(session.local_user_name))
                 find_local_user_name(session);
 
@@ -129,7 +128,7 @@ namespace CO_Driver
         {
             session.valid_users = new Dictionary<string, int> { };
             List<FileInfo> last_game_logs;
-            
+
             try
             {
                 last_game_logs = new DirectoryInfo(session.historic_file_location).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.Length).ToList();
@@ -215,7 +214,7 @@ namespace CO_Driver
         {
             if (!File.Exists(session.config_file_location + @"\config.json"))
                 return session;
-            
+
             session_variables loaded_session = new_session_variables();
 
             try
@@ -320,7 +319,7 @@ namespace CO_Driver
         {
             bool valid_theme = false;
 
-            foreach(Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.ui_theme theme in Theme.themes)
             {
                 if (session.selected_theme == theme.name)
                     valid_theme = true;
@@ -393,7 +392,7 @@ namespace CO_Driver
             if (!Directory.Exists(session.error_log_location))
                 Directory.CreateDirectory(session.error_log_location);
         }
-        
+
         public void find_session_file_path(session_variables session)
         {
             string configuration_file_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver\config";
@@ -422,7 +421,7 @@ namespace CO_Driver
             {
                 if (file.CreationTime == files.Where(x => Path.GetFileNameWithoutExtension(x.Name) == Path.GetFileNameWithoutExtension(file.Name)).OrderByDescending(x => x.CreationTime).FirstOrDefault().CreationTime)
                     continue;
-                    
+
                 String destination_file_name = string.Format("{0}{1}{2}{3}{4}{5}", session.historic_file_location, "\\", Path.GetFileNameWithoutExtension(file.Name), "_", file.CreationTime.ToString("yyyyMMddHHmmss"), ".log");
                 FileInfo existing_file;
 
@@ -448,7 +447,7 @@ namespace CO_Driver
                     }
                 }
             }
-            
+
             try
             {
                 files = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver").GetFiles("*.log", SearchOption.TopDirectoryOnly).ToArray();

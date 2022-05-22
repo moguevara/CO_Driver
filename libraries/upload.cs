@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
-using System.Text.RegularExpressions;
+using System.Linq;
 using System.Net;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace CO_Driver
 {
@@ -38,7 +36,7 @@ namespace CO_Driver
             match_entry.winning_team = match.match_data.winning_team;
             match_entry.win_conidtion = 1; /*TODO*/
             match_entry.co_driver_version = global_data.CURRENT_VERSION;
-            if (match.match_data.client_version.Contains(" ")) 
+            if (match.match_data.client_version.Contains(" "))
                 match_entry.client_version = match.match_data.client_version.Split(' ')[0];
             else
                 match_entry.client_version = match.match_data.client_version;
@@ -88,13 +86,13 @@ namespace CO_Driver
                     new_player.score = player.stats.score;
                     new_player.damage = player.stats.damage;
                     new_player.damage_taken = player.stats.damage_taken;
-                    
+
                     new_player.scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { };
                     new_player.medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { };
 
                     foreach (file_trace_managment.Score score in player.scores)
                         new_player.scores.Add(new Crossout.AspWeb.Models.API.v2.ScoreEntry { score_type = score.description, points = score.points });
-                        
+
                     foreach (string stripe in player.stripes)
                     {
                         if (new_player.medals.Any(x => x.medal == stripe))
@@ -141,7 +139,7 @@ namespace CO_Driver
             request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = 30000;
-            
+
             try
             {
                 using (Stream webStream = request.GetRequestStream())

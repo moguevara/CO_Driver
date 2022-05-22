@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Globalization;
-using System.Net;
-using System.Diagnostics;
-using System.Drawing.Imaging;
-using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CO_Driver
@@ -48,6 +34,7 @@ namespace CO_Driver
                                                                     new ui_theme { name = "Mr. Gusano",                  fore_ground = Color.FromArgb(253, 255, 255), back_ground = Color.FromArgb(39, 86, 78) },
                                                                     new ui_theme { name = "Slava Ukraini!",              fore_ground = Color.FromArgb(255, 215, 0),   back_ground = Color.FromArgb(0, 87, 183) },
                                                                     new ui_theme { name = "Hexagonis",                   fore_ground = Color.FromArgb(219, 173, 80),  back_ground = Color.FromArgb(37, 40, 60) },
+                                                                    new ui_theme { name = "Split Push Toads",            fore_ground = Color.FromArgb(33, 95, 73),    back_ground = Color.FromArgb(248, 250, 229) },
                                                                     new ui_theme { name = "Soaring Potential",           fore_ground = Color.FromArgb(102, 0, 0),     back_ground = Color.FromArgb(230, 230, 230) }
 
                                                                  };
@@ -93,7 +80,7 @@ namespace CO_Driver
             link.DisabledLinkColor = session.fore_color;
             link.LinkColor = session.fore_color;
         }
-        
+
 
         private void style_chart(Chart chart, log_file_managment.session_variables session)
         {
@@ -161,7 +148,7 @@ namespace CO_Driver
             dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = session.back_color;
             dgv.RowTemplate.DefaultCellStyle.SelectionBackColor = session.fore_color;
 
-            foreach (DataGridViewRow row in dgv.Rows) 
+            foreach (DataGridViewRow row in dgv.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {

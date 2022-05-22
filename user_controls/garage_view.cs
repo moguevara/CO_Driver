@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -17,7 +14,7 @@ namespace CO_Driver
         {
             public string weapon { get; set; }
             public double total { get; set; }
-            
+
         }
 
         private class WeaponRow
@@ -95,20 +92,22 @@ namespace CO_Driver
                 weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)).total += rec.damage;
             }
 
-            if (weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations)) == null) {
-                weapon_rows.Add(new WeaponRow { 
-                                                percent = 0, 
-                                                weapon_name = translate.translate_string(rec.weapon, session, translations), 
-                                                total_damage = rec.damage, 
-                                                burst_damage = rec.damage, 
-                                                bursts = 1, 
-                                                hits = 1, 
-                                                first_hit = rec.time, 
-                                                last_hit = rec.time,
-                                                burst_start = rec.time, 
-                                                burst_duration = 0.0, 
-                                                reload_duration = 0.0 
-                                            });
+            if (weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations)) == null)
+            {
+                weapon_rows.Add(new WeaponRow
+                {
+                    percent = 0,
+                    weapon_name = translate.translate_string(rec.weapon, session, translations),
+                    total_damage = rec.damage,
+                    burst_damage = rec.damage,
+                    bursts = 1,
+                    hits = 1,
+                    first_hit = rec.time,
+                    last_hit = rec.time,
+                    burst_start = rec.time,
+                    burst_duration = 0.0,
+                    reload_duration = 0.0
+                });
             }
             else
             {
@@ -153,7 +152,7 @@ namespace CO_Driver
             current_damage_records.Add(rec);
             draw_text_elements();
             weapon_table_source.ResetBindings(false);
-        } 
+        }
 
         public void reset_damage_records()
         {
@@ -458,7 +457,7 @@ namespace CO_Driver
                 lb_trial_desc.Text = "";
                 num_trial_threshold.Value = 0;
                 num_trial_threshold.Enabled = false;
-            }   
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crossout.AspWeb.Models.API.v2
 {

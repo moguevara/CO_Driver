@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Text.RegularExpressions;
-using CO_Driver.Properties;
-using System.Globalization;
 
 namespace CO_Driver
 {
@@ -49,24 +42,24 @@ namespace CO_Driver
 
         private void populate_build_records()
         {
-            
+
 
             build_stats = new Dictionary<string, BuildStats> { };
 
-            
+
 
             foreach (file_trace_managment.MatchRecord match in match_history.match_history.ToList())
             {
                 if (!filter.check_filters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (!build_stats.ContainsKey( match.match_data.local_player.build_hash))
+                if (!build_stats.ContainsKey(match.match_data.local_player.build_hash))
                 {
-                    build_stats.Add( match.match_data.local_player.build_hash, new BuildStats { build_hash =  match.match_data.local_player.build_hash, power_score =  match.match_data.local_player.power_score, stats =  match.match_data.local_player.stats });
+                    build_stats.Add(match.match_data.local_player.build_hash, new BuildStats { build_hash = match.match_data.local_player.build_hash, power_score = match.match_data.local_player.power_score, stats = match.match_data.local_player.stats });
                 }
                 else
                 {
-                    build_stats[ match.match_data.local_player.build_hash].stats = file_trace_managment.sum_stats(build_stats[ match.match_data.local_player.build_hash].stats,  match.match_data.local_player.stats);
+                    build_stats[match.match_data.local_player.build_hash].stats = file_trace_managment.sum_stats(build_stats[match.match_data.local_player.build_hash].stats, match.match_data.local_player.stats);
                 }
             }
 
@@ -194,7 +187,7 @@ namespace CO_Driver
                 dg_module_list.AllowUserToAddRows = false;
                 dg_module_list.ClearSelection();
 
-                
+
             }
 
             this.dg_build_view_grid.AllowUserToAddRows = false;
