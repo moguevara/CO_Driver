@@ -442,6 +442,7 @@ namespace CO_Driver
             force_refresh = true;
             populate_revenue_review_screen();
         }
+
         private void chk_badges_CheckedChanged(object sender, EventArgs e)
         {
             force_refresh = true;
@@ -575,7 +576,8 @@ namespace CO_Driver
             filter.reset_filter_selections(filter_selections);
 
             chk_free_fuel.Checked = false;
-
+            chk_badges.Checked = false;
+            
             dt_start_date.Value = DateTime.Now;
             dt_end_date.Value = DateTime.Now;
 
@@ -592,5 +594,7 @@ namespace CO_Driver
         {
             resize.resize(this);
         }
+
+        
     }
 }
