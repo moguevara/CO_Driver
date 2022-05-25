@@ -273,6 +273,11 @@ namespace CO_Driver
                             new_group.match_rewards.Add(reward.Key, reward.Value);
                     }
 
+                    if (new_group.match_rewards.ContainsKey("Badges"))
+                        new_group.match_rewards["Badges"] += (int)badges_amount;
+                    else
+                        new_group.match_rewards.Add("Badges", (int)badges_amount);
+
                     master_groupings.Add(new_group);
                 }
             }
