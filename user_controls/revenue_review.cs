@@ -343,6 +343,9 @@ namespace CO_Driver
                             continue;
                         if (reward.Key.ToLower().Contains("score"))
                             continue;
+                        if (reward.Key.ToLower().Contains("badge") && reward.Value == 0)
+                            continue;
+
                         if (show_average)
                         {
                             row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
