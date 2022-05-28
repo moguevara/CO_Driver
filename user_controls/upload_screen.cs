@@ -10,7 +10,7 @@ namespace CO_Driver
     {
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
@@ -57,7 +57,7 @@ namespace CO_Driver
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.LocalUserID);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             matchs_uploaded = upload_return.uploaded_matches.Count;
             builds_uploaded = upload_return.uploaded_builds;
@@ -173,10 +173,10 @@ namespace CO_Driver
             bw_status_update status = new bw_status_update { };
             List<string> uploaded_builds = new List<string> { };
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
-            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.LocalUserID);
+            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
             Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
-            upload_entry.uploader_uid = session.local_user_uid;
+            upload_entry.uploader_uid = session.LocalUserID;
             upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             upload_entry.build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { };
 
@@ -185,7 +185,7 @@ namespace CO_Driver
             int percent_upload = 0;
 
             upload_return = Upload.upload_to_crossoutdb(upload_entry);
-            upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+            upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
 
             foreach (file_trace_managment.MatchRecord match in match_history)
             {
@@ -260,7 +260,7 @@ namespace CO_Driver
                     upload_return = Upload.upload_to_crossoutdb(upload_entry);
                     min_upload_date = DateTime.MaxValue;
                     max_upload_date = DateTime.MinValue;
-                    upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+                    upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
                 }
             }
 
@@ -330,12 +330,12 @@ namespace CO_Driver
 
         private void label2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID.ToString());
         }
 
         private void btn_view_profile_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID.ToString());
         }
 
         private void upload_screen_Load(object sender, EventArgs e)

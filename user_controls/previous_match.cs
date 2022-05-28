@@ -18,7 +18,7 @@ namespace CO_Driver
         public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
@@ -338,19 +338,19 @@ namespace CO_Driver
         private void gp_damage_recieved_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_red_team_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_damage_dealt_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void draw_group_box(GroupBox box, Graphics g, Color textColor, Color borderColor)
@@ -381,25 +381,25 @@ namespace CO_Driver
         private void gb_score_Paint_1(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_red_team_Paint_1(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_blue_team_Paint_1(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gp_medals_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void load_next_match(object sender, EventArgs e)
@@ -415,13 +415,13 @@ namespace CO_Driver
         private void gp_damage_recieved_Paint_1(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void groupBox1_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void lookup_blue_player(object sender, DataGridViewCellEventArgs e)

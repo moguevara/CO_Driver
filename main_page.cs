@@ -16,7 +16,7 @@ namespace CO_Driver
 {
     public partial class frm_main_page : Form
     {
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations { get; set; } = new Dictionary<string, Dictionary<string, translate.Translation>> { };
         public market.market_data crossoutdb_data = new market.market_data { };
@@ -27,7 +27,7 @@ namespace CO_Driver
             set { match_history = value; }
         }
 
-        public log_file_managment log_file_manager = new log_file_managment();
+        public LogFileManagment log_file_manager = new LogFileManagment();
         public file_trace_managment file_trace_manager = new file_trace_managment();
         public Theme theme_manager = new Theme { };
         public Upload uploader = new Upload { };
@@ -64,9 +64,9 @@ namespace CO_Driver
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
 
-            session = log_file_manager.load_user_session();
+            session = log_file_manager.LoadUserSession();
 
-            if (session.local_user_name == null)
+            if (session.LocalUserName == null)
             {
                 MessageBox.Show("An error has occured while loading, please try restarting CO_Driver. If the problem persists please report to https://discord.gg/kKcnVXu2Xe. Thanks.");
                 Application.Exit();
@@ -358,7 +358,7 @@ namespace CO_Driver
 
         private void process_log_files(object sender, DoWorkEventArgs e)
         {
-            log_file_managment.session_variables session_variables = (log_file_managment.session_variables)e.Argument;
+            LogFileManagment.SessionVariables session_variables = (LogFileManagment.SessionVariables)e.Argument;
 
             file_trace_managment.SessionStats Current_session = new file_trace_managment.SessionStats { };
             file_trace_managment ftm = new file_trace_managment();
@@ -475,7 +475,7 @@ namespace CO_Driver
                 meta_detail_page.populate_meta_detail_screen();
                 comparison_page.populate_comparison_chart();
                 upload_page.populate_upload_screen();
-                if (session.upload_data)
+                if (session.UploadData)
                     upload_page.btn_upload_matchs_Click(this, EventArgs.Empty);
             }
             else
@@ -539,22 +539,22 @@ namespace CO_Driver
             }
         }
 
-        private void load_precomipled_data(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session_variables)
+        private void load_precomipled_data(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session_variables)
         {
-            if (!File.Exists(session.data_file_location + @"\match_history.json"))
+            if (!File.Exists(session.DataFileLocation + @"\match_history.json"))
                 return;
 
-            if (!File.Exists(session.data_file_location + @"\build_records.json"))
+            if (!File.Exists(session.DataFileLocation + @"\build_records.json"))
                 return;
 
-            if (session_variables.parsed_logs.Count() == 0)
+            if (session_variables.ParsedLogs.Count() == 0)
                 return;
 
-            if (session_variables.client_version != GlobalData.CURRENT_VERSION)
+            if (session_variables.ClientVersion != GlobalData.CURRENT_VERSION)
             {
-                session_variables.client_version = GlobalData.CURRENT_VERSION;
-                session_variables.parsed_logs = new List<string> { };
-                log_file_manager.save_session_config(session_variables);
+                session_variables.ClientVersion = GlobalData.CURRENT_VERSION;
+                session_variables.ParsedLogs = new List<string> { };
+                log_file_manager.SaveSessionConfig(session_variables);
                 return;
             }
 
@@ -562,7 +562,7 @@ namespace CO_Driver
 
             try
             {
-                using (StreamReader file = File.OpenText(session.data_file_location + @"\match_history.json"))
+                using (StreamReader file = File.OpenText(session.DataFileLocation + @"\match_history.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     Current_session.match_history = (List<file_trace_managment.MatchRecord>)serializer.Deserialize(file, typeof(List<file_trace_managment.MatchRecord>));
@@ -576,7 +576,7 @@ namespace CO_Driver
 
             try
             {
-                using (StreamReader file = File.OpenText(session.data_file_location + @"\build_records.json"))
+                using (StreamReader file = File.OpenText(session.DataFileLocation + @"\build_records.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     Current_session.player_build_records = (Dictionary<string, file_trace_managment.BuildRecord>)serializer.Deserialize(file, typeof(Dictionary<string, file_trace_managment.BuildRecord>));
@@ -589,10 +589,10 @@ namespace CO_Driver
                 return;
             }
 
-            bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)session_variables.parsed_logs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.parsed_logs.Count())));
+            bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)session_variables.ParsedLogs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.ParsedLogs.Count())));
         }
 
-        private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session_variables)
+        private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session_variables)
         {
             int file_count = Current_session.file_data.historic_file_session_list.Count();
 
@@ -604,10 +604,10 @@ namespace CO_Driver
                 if (!File.Exists(session.game_log.FullName))
                     continue;
 
-                if (session_variables.parsed_logs.Contains(session.combat_log.FullName))
+                if (session_variables.ParsedLogs.Contains(session.combat_log.FullName))
                     continue;
 
-                if (session_variables.parsed_logs.Contains(session.game_log.FullName))
+                if (session_variables.ParsedLogs.Contains(session.game_log.FullName))
                     continue;
 
                 Current_session.file_data.processing_combat_session_file = session.combat_log;
@@ -625,7 +625,7 @@ namespace CO_Driver
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
-                bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)(session_variables.parsed_logs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.parsed_logs.Count() / 2) * 100) / (double)file_count))));
+                bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)(session_variables.ParsedLogs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.ParsedLogs.Count() / 2) * 100) / (double)file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
                 using (FileStream combat_stream = File.OpenRead(session.combat_log.FullName))
@@ -713,23 +713,23 @@ namespace CO_Driver
                 }
 
                 session.processed = true;
-                session_variables.parsed_logs.Add(session.combat_log.FullName);
-                session_variables.parsed_logs.Add(session.game_log.FullName);
+                session_variables.ParsedLogs.Add(session.combat_log.FullName);
+                session_variables.ParsedLogs.Add(session.game_log.FullName);
             }
 
-            log_file_manager.save_session_config(session_variables);
+            log_file_manager.SaveSessionConfig(session_variables);
             save_game_data(Current_session);
         }
 
         private void save_game_data(file_trace_managment.SessionStats Current_session)
         {
-            using (StreamWriter file = File.CreateText(session.data_file_location + @"\match_history.json"))
+            using (StreamWriter file = File.CreateText(session.DataFileLocation + @"\match_history.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, Current_session.match_history);
             }
 
-            using (StreamWriter file = File.CreateText(session.data_file_location + @"\build_records.json"))
+            using (StreamWriter file = File.CreateText(session.DataFileLocation + @"\build_records.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, Current_session.player_build_records);
@@ -740,8 +740,8 @@ namespace CO_Driver
         {
             bool found_new_file = false;
 
-            FileInfo combat_trace_file = new DirectoryInfo(session.log_file_location).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
-            FileInfo game_trace_file = new DirectoryInfo(session.log_file_location).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo combat_trace_file = new DirectoryInfo(session.LogFileLocation).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
+            FileInfo game_trace_file = new DirectoryInfo(session.LogFileLocation).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
 
             Current_session.file_data.processing_combat_session_file = combat_trace_file;
             Current_session.file_data.processing_game_session_file = game_trace_file;
@@ -857,8 +857,8 @@ namespace CO_Driver
 
                         if (new TimeSpan(DateTime.Now.Ticks - start_time).TotalSeconds > 30)
                         {
-                            if (combat_trace_file.FullName != new DirectoryInfo(session.log_file_location).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName ||
-                                game_trace_file.FullName != new DirectoryInfo(session.log_file_location).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
+                            if (combat_trace_file.FullName != new DirectoryInfo(session.LogFileLocation).GetFiles("combat.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName ||
+                                game_trace_file.FullName != new DirectoryInfo(session.LogFileLocation).GetFiles("game.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First().FullName)
                             {
                                 found_new_file = true;
                             }
@@ -1030,14 +1030,14 @@ namespace CO_Driver
 
 
             System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(bmp);
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, 0), new Point(0, bmp.Height));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, 0), new Point(bmp.Width, 0));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(0, bmp.Height), new Point(bmp.Width, bmp.Height));
-            gr.DrawLine(new Pen(session.fore_color, border_width * 2), new Point(bmp.Width, 0), new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(0, 0), new Point(0, bmp.Height));
+            gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(0, 0), new Point(bmp.Width, 0));
+            gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(0, bmp.Height), new Point(bmp.Width, bmp.Height));
+            gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(bmp.Width, 0), new Point(bmp.Width, bmp.Height));
 
             Clipboard.SetImage((Image)bmp);
 
-            if (session.save_captures)
+            if (session.SaveCaptures)
             {
                 try
                 {
@@ -1065,7 +1065,7 @@ namespace CO_Driver
 
             bw_file_feed.ReportProgress(GlobalData.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
 
-            if (session.update_postmatch)
+            if (session.UploadPostMatch)
             {
                 user_profile_page.force_refresh = true;
                 build_page.force_refresh = true;
@@ -1190,7 +1190,7 @@ namespace CO_Driver
             {
                 this.WindowState = FormWindowState.Normal;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                this.Bounds = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == session.primary_display).Bounds;
+                this.Bounds = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == session.PrimaryDisplay).Bounds;
             }
             else
             {

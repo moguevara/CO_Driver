@@ -8,7 +8,7 @@ namespace CO_Driver
     public partial class part_optimizer : UserControl
     {
         public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
@@ -23,15 +23,15 @@ namespace CO_Driver
             this.dg_available_parts.Rows.Clear();
             this.dg_selected_parts.Rows.Clear();
 
-            int engineer_level = session.engineer_level;
-            int lunatics_level = session.lunatics_level;
-            int nomads_level = session.nomads_level;
-            int scavengers_level = session.scavengers_level;
-            int steppenwolfs_level = session.steppenwolfs_level;
-            int dawns_children_level = session.dawns_children_level;
-            int firestarts_level = session.firestarts_level;
-            int founders_level = session.founders_level;
-            bool prestigue_parts = session.include_prestigue_parts;
+            int engineer_level = session.EngineerLevel;
+            int lunatics_level = session.LunaticsLevel;
+            int nomads_level = session.NomadsLevel;
+            int scavengers_level = session.ScavengersLevel;
+            int steppenwolfs_level = session.SteppenWolfLevel;
+            int dawns_children_level = session.DawnsChildrenLevel;
+            int firestarts_level = session.FireStartersLevel;
+            int founders_level = session.FoundersLevel;
+            bool prestigue_parts = session.IncludePresitgueParts;
 
             this.dg_available_parts.AllowUserToAddRows = true;
             this.dg_selected_parts.AllowUserToAddRows = true;

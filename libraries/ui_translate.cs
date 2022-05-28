@@ -4,11 +4,11 @@ namespace CO_Driver
 {
     public class ui_translate
     {
-        public static string translate(string text, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, string>> ui_translations)
+        public static string translate(string text, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, string>> ui_translations)
         {
-            if (ui_translations.ContainsKey(session.local_language))
-                if (ui_translations[session.local_language].ContainsKey(text))
-                    return ui_translations[session.local_language][text];
+            if (ui_translations.ContainsKey(session.LocalLanguage))
+                if (ui_translations[session.LocalLanguage].ContainsKey(text))
+                    return ui_translations[session.LocalLanguage][text];
 
             return text;
         }

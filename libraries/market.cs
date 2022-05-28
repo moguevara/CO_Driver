@@ -63,7 +63,7 @@ namespace CO_Driver
             public string sortedStats { get; set; }
         }
 
-        public static market_data populate_crossoutdb_data(log_file_managment.session_variables session)
+        public static market_data populate_crossoutdb_data(LogFileManagment.SessionVariables session)
         {
             market_data data = new market_data { };
 
@@ -113,25 +113,25 @@ namespace CO_Driver
             return market_items;
         }
 
-        public static void save_market_data(log_file_managment.session_variables session, market_data market)
+        public static void save_market_data(LogFileManagment.SessionVariables session, market_data market)
         {
-            using (StreamWriter file = File.CreateText(session.market_data_file_location + @"\crossoutdb_data.json"))
+            using (StreamWriter file = File.CreateText(session.MarketDataLocation + @"\crossoutdb_data.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, market);
             }
         }
 
-        public static market_data load_previous_market_data(log_file_managment.session_variables session, market_data market)
+        public static market_data load_previous_market_data(LogFileManagment.SessionVariables session, market_data market)
         {
-            if (!File.Exists(session.market_data_file_location + @"\crossoutdb_data.json"))
+            if (!File.Exists(session.MarketDataLocation + @"\crossoutdb_data.json"))
                 return market;
 
             market_data new_data = new market_data { };
 
             try
             {
-                using (StreamReader file = File.OpenText(session.market_data_file_location + @"\crossoutdb_data.json"))
+                using (StreamReader file = File.OpenText(session.MarketDataLocation + @"\crossoutdb_data.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     new_data = (market_data)serializer.Deserialize(file, typeof(market_data));

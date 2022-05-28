@@ -289,24 +289,24 @@ namespace CO_Driver
         }
         #endregion
         #region session_managment
-        public void initialize_session_stats(SessionStats Current_session, log_file_managment.session_variables local_session_variables)
+        public void initialize_session_stats(SessionStats Current_session, LogFileManagment.SessionVariables local_session_variables)
         {
             Current_session.live_trace_data = false;
             Current_session.in_match = false;
             Current_session.in_garage = false;
             Current_session.current_match = new_match_data();
-            Current_session.local_user = local_session_variables.local_user_name;
-            Current_session.local_user_uid = local_session_variables.local_user_uid;
+            Current_session.local_user = local_session_variables.LocalUserName;
+            Current_session.local_user_uid = local_session_variables.LocalUserID;
             Current_session.current_event = 0;
             Current_session.garage_data = new GarageData { };
             Current_session.garage_data.garage_start = new DateTime { };
             Current_session.pending_attributes = new_pending_attributes();
             Current_session.file_data = new FileData { };
-            Current_session.file_data.log_file_location = local_session_variables.log_file_location;
-            Current_session.file_data.historic_file_location = local_session_variables.historic_file_location;
-            Current_session.file_data.stream_overlay_output_location = local_session_variables.stream_file_location;
-            Current_session.client_language = local_session_variables.local_language;
-            Current_session.bundle_damage_into_ramming = local_session_variables.bundle_ram_mode;
+            Current_session.file_data.log_file_location = local_session_variables.LogFileLocation;
+            Current_session.file_data.historic_file_location = local_session_variables.HistoricFileLocation;
+            Current_session.file_data.stream_overlay_output_location = local_session_variables.StreamFileLocation;
+            Current_session.client_language = local_session_variables.LocalLanguage;
+            Current_session.bundle_damage_into_ramming = local_session_variables.BundleRamMode;
             Current_session.queue_start_time = DateTime.MinValue;
             Current_session.current_combat_log_time = DateTime.MinValue;
             Current_session.current_game_log_time = DateTime.MinValue;
@@ -320,7 +320,7 @@ namespace CO_Driver
             Current_session.previous_game_event = 0;
             Current_session.ready_to_add_round = false;
             Current_session.ready_to_finalize_round = false;
-            Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.historic_file_location);
+            Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.HistoricFileLocation);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
             Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
@@ -339,7 +339,7 @@ namespace CO_Driver
 
             try
             {
-                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.Overlay_action>>(local_session_variables.action_configuration);
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.Overlay_action>>(local_session_variables.ActionConfiguration);
             }
             catch (Exception ex)
             {
@@ -348,7 +348,7 @@ namespace CO_Driver
 
             try
             {
-                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.Twitch_settings>(local_session_variables.twitch_settings);
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.Twitch_settings>(local_session_variables.TwitchSettings);
             }
             catch (Exception ex)
             {

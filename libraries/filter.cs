@@ -80,7 +80,7 @@ namespace CO_Driver
         }
 
         public static void PopulateFilters(FilterSelections filter, List<file_trace_managment.MatchRecord> matchs, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
-                                  log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+                                  LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             foreach (file_trace_managment.MatchRecord match in matchs)
             {
@@ -89,7 +89,7 @@ namespace CO_Driver
         } 
 
         public static void PopulateFiltersForMatch(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
-                                  log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+                                  LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             if (!filter.GameModes.Contains(match.match_data.match_type_desc))
                 filter.GameModes.Add((match.match_data.match_type_desc));
@@ -175,7 +175,7 @@ namespace CO_Driver
         }
 
         public static bool CheckFilters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
-                                  log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+                                  LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             PopulateFiltersForMatch(filter, match, buildRecords, session, translations);
 

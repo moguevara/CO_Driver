@@ -8,7 +8,7 @@ namespace CO_Driver
     public partial class schedule_display : UserControl
     {
         public List<part_loader.EventTime> event_times = new List<part_loader.EventTime> { };
-        public log_file_managment.session_variables session;
+        public LogFileManagment.SessionVariables session;
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };

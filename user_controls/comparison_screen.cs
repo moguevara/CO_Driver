@@ -11,7 +11,7 @@ namespace CO_Driver
     {
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
@@ -263,28 +263,28 @@ namespace CO_Driver
 
         public void initialize_comparison_chart()
         {
-            ch_comparison.BackColor = session.back_color;
-            ch_comparison.ForeColor = session.fore_color;
-            ch_comparison.Legends[0].BackColor = session.back_color;
-            ch_comparison.Legends[0].ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].BackColor = session.back_color;
+            ch_comparison.BackColor = session.BackColor;
+            ch_comparison.ForeColor = session.ForeColor;
+            ch_comparison.Legends[0].BackColor = session.BackColor;
+            ch_comparison.Legends[0].ForeColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].BackColor = session.BackColor;
             ch_comparison.ChartAreas[0].AxisX.Minimum = 0;
-            ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.MinorTickMark.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.MajorTickMark.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
-            ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisX.TitleForeColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisX.LineColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisX.MinorTickMark.LineColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisX.MajorTickMark.LineColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisX.MajorGrid.LineColor = session.BackColor;
+            ch_comparison.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.ForeColor;
             ch_comparison.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
             ch_comparison.ChartAreas[0].AxisX.Interval = 1;
             ch_comparison.ChartAreas[0].AxisX.RoundAxisValues();
             ch_comparison.ChartAreas[0].AxisX.IsMarginVisible = false;
-            ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
-            ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.MinorTickMark.LineColor = session.fore_color;
-            ch_comparison.ChartAreas[0].AxisY.MajorTickMark.LineColor = session.fore_color;
+            ch_comparison.ChartAreas[0].AxisY.TitleForeColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisY.LineColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisY.MajorGrid.LineColor = session.BackColor;
+            ch_comparison.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisY.MinorTickMark.LineColor = session.ForeColor;
+            ch_comparison.ChartAreas[0].AxisY.MajorTickMark.LineColor = session.ForeColor;
             ch_comparison.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_comparison.Legends[0].Enabled = false;
             ch_comparison.ChartAreas[0].CursorX.IsUserEnabled = true;
@@ -393,8 +393,8 @@ namespace CO_Driver
                 DataPoint data = new DataPoint(x_value, y_value);
                 data.LegendText = element.title;
                 data.AxisLabel = element.title;
-                data.LabelBackColor = session.back_color;
-                data.LabelForeColor = session.fore_color;
+                data.LabelBackColor = session.BackColor;
+                data.LabelForeColor = session.ForeColor;
                 data.ToolTip = string.Format(@"{0}: {1}", element.title, Math.Round(y_value, 1));
                 current_series.Points.Add(data);
                 x_value += 1;

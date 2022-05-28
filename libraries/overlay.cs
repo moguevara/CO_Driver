@@ -250,9 +250,9 @@ namespace CO_Driver
                 });
         }
 
-        public static void resolve_overlay_action(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void resolve_overlay_action(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation)
         {
-            if (session.twitch_mode != true)
+            if (session.TwitchMode != true)
                 return;
 
             if (Current_session.live_trace_data != true)
@@ -287,7 +287,7 @@ namespace CO_Driver
             }
         }
 
-        public static void draw_stat_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void draw_stat_card(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
         {
             OverlayWriter writer = new OverlayWriter(Current_session.twitch_settings.overlay_format);
             if (draw)
@@ -305,7 +305,7 @@ namespace CO_Driver
             writer.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\gamemode_recap_card");
         }
 
-        public static void draw_team_preview_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void draw_team_preview_card(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
         {
             OverlayWriter writerBlue = new OverlayWriter(Current_session.twitch_settings.overlay_format);
             OverlayWriter writerRed = new OverlayWriter(Current_session.twitch_settings.overlay_format);
@@ -356,7 +356,7 @@ namespace CO_Driver
             writerRed.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\red_team_squads");
         }
 
-        public static void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void draw_in_game_recap_card(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
         {
             OverlayWriter writer = new OverlayWriter(Current_session.twitch_settings.overlay_format);
             if (draw)
@@ -366,7 +366,7 @@ namespace CO_Driver
             writer.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\in_game_report");
         }
 
-        public static void assign_revenue(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void assign_revenue(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
         {
             DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.overview_time_range * -1);
             Dictionary<string, int> rewards = new Dictionary<string, int> { };
@@ -450,7 +450,7 @@ namespace CO_Driver
             }
         }
 
-        public static void assign_current_match(file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void assign_current_match(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
         {
 
             if (!Current_session.in_match)

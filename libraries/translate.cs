@@ -9,16 +9,16 @@ namespace CO_Driver
             public string name { get; set; }
             public string description { get; set; }
         }
-        public static void populate_translations(log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        public static void populate_translations(LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
             translate_game_elements(session, translations);
         }
 
-        public static string translate_string(string part, log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        public static string translate_string(string part, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
-            if (translations.ContainsKey(session.local_language))
-                if (translations[session.local_language].ContainsKey((part ?? "").ToLower()))
-                    return translations[session.local_language][part.ToLower()].name;
+            if (translations.ContainsKey(session.LocalLanguage))
+                if (translations[session.LocalLanguage].ContainsKey((part ?? "").ToLower()))
+                    return translations[session.LocalLanguage][part.ToLower()].name;
 
             if (translations.ContainsKey("English"))
                 if (translations["English"].ContainsKey((part ?? "").ToLower()))
@@ -36,9 +36,9 @@ namespace CO_Driver
             return part;
         }
 
-        public static void translate_game_elements(log_file_managment.session_variables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        public static void translate_game_elements(LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translations)
         {
-            if (session.local_language == "简体中文")
+            if (session.LocalLanguage == "简体中文")
             {
                 translations.Add("简体中文", new Dictionary<string, Translation> { });
                 translations["简体中文"].Add("cabin_bell_uh1_oracle", new Translation { name = "旁观者", description = "" });
@@ -1163,7 +1163,7 @@ namespace CO_Driver
                 translations["简体中文"].Add("carpart_nyear_makeup_light_6", new Translation { name = "长神灯", description = "" });
                 translations["简体中文"].Add("newyear_foray", new Translation { name = "山村", description = "" });
             }
-            if (session.local_language == "繁體中文")
+            if (session.LocalLanguage == "繁體中文")
             {
                 translations.Add("繁體中文", new Dictionary<string, Translation> { });
                 translations["繁體中文"].Add("cabin_bell_uh1_oracle", new Translation { name = "旁觀者", description = "" });
@@ -2167,7 +2167,7 @@ namespace CO_Driver
                 translations["繁體中文"].Add("carpart_ps5_gift", new Translation { name = "風車", description = "" });
                 translations["繁體中文"].Add("carpart_hologram_bundle_ny2022", new Translation { name = "降雪", description = "" });
             }
-            if (session.local_language == "Français")
+            if (session.LocalLanguage == "Français")
             {
                 translations.Add("Français", new Dictionary<string, Translation> { });
                 translations["Français"].Add("cabin_bell_uh1_oracle", new Translation { name = "Beholder", description = "" });
@@ -3309,7 +3309,7 @@ namespace CO_Driver
                 translations["Français"].Add("arena_line_of_defense", new Translation { name = "Ligne de défense", description = "" });
                 translations["Français"].Add("arena_plaza", new Translation { name = "Centrale a énergie", description = "" });
             }
-            if (session.local_language == "Deutsch")
+            if (session.LocalLanguage == "Deutsch")
             {
                 translations.Add("Deutsch", new Dictionary<string, Translation> { });
                 translations["Deutsch"].Add("cabin_bell_uh1_oracle", new Translation { name = "Beholder", description = "" });
@@ -4451,7 +4451,7 @@ namespace CO_Driver
                 translations["Deutsch"].Add("arena_line_of_defense", new Translation { name = "Verteidigungslinie", description = "" });
                 translations["Deutsch"].Add("arena_plaza", new Translation { name = "Energiezentrum", description = "" });
             }
-            if (session.local_language == "Polskie")
+            if (session.LocalLanguage == "Polskie")
             {
                 translations.Add("Polskie", new Dictionary<string, Translation> { });
                 translations["Polskie"].Add("cabin_halloween2020_cab", new Translation { name = "Zmrok", description = "" });
@@ -5361,7 +5361,7 @@ namespace CO_Driver
                 translations["Polskie"].Add("carpart_interceptor", new Translation { name = "Myśliwiec", description = "" });
                 translations["Polskie"].Add("carpart_nyear_makeup_light_4", new Translation { name = "Światełka", description = "" });
             }
-            if (session.local_language == "Pусский")
+            if (session.LocalLanguage == "Pусский")
             {
                 translations.Add("Pусский", new Dictionary<string, Translation> { });
                 translations["Pусский"].Add("cabin_bell_uh1_oracle", new Translation { name = "Созерцатель", description = "" });
@@ -6503,7 +6503,7 @@ namespace CO_Driver
                 translations["Pусский"].Add("arena_line_of_defense", new Translation { name = "Линия обороны", description = "" });
                 translations["Pусский"].Add("arena_plaza", new Translation { name = "Энергоузел", description = "" });
             }
-            if (session.local_language == "Español")
+            if (session.LocalLanguage == "Español")
             {
                 translations.Add("Español", new Dictionary<string, Translation> { });
                 translations["Español"].Add("cabin_bell_uh1_oracle", new Translation { name = "Beholder", description = "" });
@@ -7645,7 +7645,7 @@ namespace CO_Driver
                 translations["Español"].Add("arena_line_of_defense", new Translation { name = "Línea de defensa", description = "" });
                 translations["Español"].Add("arena_plaza", new Translation { name = "Centro de energía", description = "" });
             }
-            if (session.local_language == "한국어")
+            if (session.LocalLanguage == "한국어")
             {
                 translations.Add("한국어", new Dictionary<string, Translation> { });
                 translations["한국어"].Add("cabin_bell_uh1_oracle", new Translation { name = "주시자", description = "" });

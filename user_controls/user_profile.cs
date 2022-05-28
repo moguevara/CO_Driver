@@ -31,7 +31,7 @@ namespace CO_Driver
 
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
@@ -241,7 +241,7 @@ namespace CO_Driver
         {
             double avg_player_score = total_rounds > 0 ? Math.Round((((double)total_score) / (double)games_played)) : double.PositiveInfinity;
 
-            lb_user_name.Text = session.local_user_name;
+            lb_user_name.Text = session.LocalUserName;
             lb_games_played.Text = games_played.ToString();
             lb_wins.Text = wins.ToString();
             lb_win_rate.Text = string.Format(@"{0}%", games_played > 0 ? Math.Round((((double)wins / (double)games_played) * 100), 2) : double.PositiveInfinity);
@@ -360,25 +360,25 @@ namespace CO_Driver
         private void gb_resources_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_map_data_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_victims_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_nemesis_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void initialize_user_profile()
@@ -595,7 +595,7 @@ namespace CO_Driver
 
         private void lb_user_name_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID);
         }
 
         private void user_profile_Resize(object sender, EventArgs e)

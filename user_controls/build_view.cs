@@ -23,7 +23,7 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         private Dictionary<string, BuildStats> build_stats = new Dictionary<string, BuildStats> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public bool force_refresh = false;
         private Dictionary<string, int> weapon_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> movement_usage = new Dictionary<string, int> { };
