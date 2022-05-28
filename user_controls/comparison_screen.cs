@@ -221,7 +221,7 @@ namespace CO_Driver
         private void comparison_screen_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         public void initialize_comparison_screen()
@@ -886,7 +886,7 @@ namespace CO_Driver
 
         private void comparison_screen_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
 
         private void cbMinSampleSize_SelectedIndexChanged(object sender, EventArgs e)

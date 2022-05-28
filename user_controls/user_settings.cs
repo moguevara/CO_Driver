@@ -346,12 +346,12 @@ namespace CO_Driver
         private void user_settings_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void user_settings_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

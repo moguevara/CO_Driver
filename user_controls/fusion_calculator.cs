@@ -42,7 +42,7 @@ namespace CO_Driver
         private void fusion_calculator_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -201,7 +201,7 @@ namespace CO_Driver
 
         private void fusion_calculator_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

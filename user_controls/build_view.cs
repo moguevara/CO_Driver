@@ -293,7 +293,7 @@ namespace CO_Driver
         private void build_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void dg_build_view_grid_SelectionChanged(object sender, EventArgs e)
@@ -419,7 +419,7 @@ namespace CO_Driver
 
         private void build_view_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

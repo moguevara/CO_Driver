@@ -595,12 +595,12 @@ namespace CO_Driver
         private void revenue_review_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void revenue_review_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
 
         

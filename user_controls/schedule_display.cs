@@ -117,7 +117,7 @@ namespace CO_Driver
         private void schedule_display_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         bool IsTheSameCellValue(int column, int row)
@@ -214,7 +214,7 @@ namespace CO_Driver
 
         private void schedule_display_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

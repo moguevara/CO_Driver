@@ -443,7 +443,7 @@ namespace CO_Driver
         private void user_profile_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void lb_max_kills_Click(object sender, EventArgs e)
@@ -600,7 +600,7 @@ namespace CO_Driver
 
         private void user_profile_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

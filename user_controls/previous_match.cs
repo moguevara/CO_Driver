@@ -489,12 +489,12 @@ namespace CO_Driver
         private void previous_match_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void previous_match_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
 
         private void lb_build_name_Click(object sender, EventArgs e)
