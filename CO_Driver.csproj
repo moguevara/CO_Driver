@@ -141,11 +141,11 @@
     <Compile Include="user_controls\revenue_review.Designer.cs">
       <DependentUpon>revenue_review.cs</DependentUpon>
     </Compile>
-    <Compile Include="user_controls\about_screen.cs">
+    <Compile Include="user_controls\AboutScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\about_screen.Designer.cs">
-      <DependentUpon>about_screen.cs</DependentUpon>
+    <Compile Include="user_controls\AboutScreen.Designer.cs">
+      <DependentUpon>AboutScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="user_controls\garage_view.cs">
       <SubType>UserControl</SubType>
@@ -242,8 +242,8 @@
     <Compile Include="user_controls\welcome_page.Designer.cs">
       <DependentUpon>welcome_page.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="user_controls\about_screen.resx">
-      <DependentUpon>about_screen.cs</DependentUpon>
+    <EmbeddedResource Include="user_controls\AboutScreen.resx">
+      <DependentUpon>AboutScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\comparison_screen.resx">
       <DependentUpon>comparison_screen.cs</DependentUpon>

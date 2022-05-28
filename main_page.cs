@@ -43,7 +43,7 @@ namespace CO_Driver
         public garage_view garage_page = new garage_view();
         public fusion_calculator fusion_page = new fusion_calculator();
         public user_settings settings_page = new user_settings();
-        public about_screen about_page = new about_screen();
+        public AboutScreen about_page = new AboutScreen();
         public meta_detail meta_detail_page = new meta_detail();
         public revenue_review revenue_page = new revenue_review();
         public upload_screen upload_page = new upload_screen();
