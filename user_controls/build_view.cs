@@ -129,7 +129,7 @@ namespace CO_Driver
             if (rows_populated > 0 && build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
             {
                 this.lb_build_desc.Text = build_records[build_hash].full_description;
-                this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.name, session, translations);
+                this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.Name, session, translations);
                 this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
                 this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
                 this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
@@ -144,7 +144,7 @@ namespace CO_Driver
                 dg_movement_list.Rows.Clear();
                 dg_movement_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -157,7 +157,7 @@ namespace CO_Driver
                 dg_weapon_list.Rows.Clear();
                 dg_weapon_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -170,14 +170,14 @@ namespace CO_Driver
                 dg_module_list.Rows.Clear();
                 dg_module_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.name, session, translations)))
+                foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.Name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
                     dg_module_list.Rows.Add(row);
                 }
 
-                foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -212,7 +212,7 @@ namespace CO_Driver
             if (build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
             {
                 this.lb_build_desc.Text = build_records[build_hash].full_description;
-                this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.name, session, translations);
+                this.lb_cabin.Text = translate.translate_string(build_records[build_hash].cabin.Name, session, translations);
                 this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
                 this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
                 this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
@@ -227,7 +227,7 @@ namespace CO_Driver
                 dg_movement_list.Rows.Clear();
                 dg_movement_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].movement.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -240,7 +240,7 @@ namespace CO_Driver
                 dg_weapon_list.Rows.Clear();
                 dg_weapon_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].weapons.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -253,14 +253,14 @@ namespace CO_Driver
                 dg_module_list.Rows.Clear();
                 dg_module_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.name, session, translations)))
+                foreach (string part in build_records[build_hash].modules.Select(x => translate.translate_string(x.Name, session, translations)).Append(translate.translate_string(build_records[build_hash].engine.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
                     dg_module_list.Rows.Add(row);
                 }
 
-                foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.name, session, translations)))
+                foreach (string part in build_records[build_hash].explosives.Select(x => translate.translate_string(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;

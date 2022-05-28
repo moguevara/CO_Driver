@@ -263,26 +263,26 @@ namespace CO_Driver
             public string short_description { get; set; }
             public string archetype_description { get; set; }
             public int power_score { get; set; }
-            public part_loader.Cabin cabin { get; set; }
-            public part_loader.Engine engine { get; set; }
-            public List<part_loader.Weapon> weapons { get; set; }
-            public List<part_loader.Module> modules { get; set; }
-            public List<part_loader.Explosive> explosives { get; set; }
-            public List<part_loader.Movement> movement { get; set; }
+            public PartLoader.Cabin cabin { get; set; }
+            public PartLoader.Engine engine { get; set; }
+            public List<PartLoader.Weapon> weapons { get; set; }
+            public List<PartLoader.Module> modules { get; set; }
+            public List<PartLoader.Explosive> explosives { get; set; }
+            public List<PartLoader.Movement> movement { get; set; }
             public List<string> parts { get; set; }
         }
 
         public class StaticRecordDB
         {
-            public List<part_loader.Part> global_parts_list { get; set; }
-            public Dictionary<string, part_loader.Weapon> global_weapon_dict { get; set; }
-            public Dictionary<string, part_loader.Cabin> global_cabin_dict { get; set; }
-            public Dictionary<string, part_loader.Engine> global_engine_dict { get; set; }
-            public Dictionary<string, part_loader.Module> global_module_dict { get; set; }
-            public Dictionary<string, part_loader.Explosive> global_explosives_dict { get; set; }
-            public Dictionary<string, part_loader.Movement> global_movement_dict { get; set; }
-            public Dictionary<string, part_loader.Reward> global_reward_dict { get; set; }
-            public List<part_loader.EventTime> global_event_times { get; set; }
+            public List<PartLoader.Part> global_parts_list { get; set; }
+            public Dictionary<string, PartLoader.Weapon> global_weapon_dict { get; set; }
+            public Dictionary<string, PartLoader.Cabin> global_cabin_dict { get; set; }
+            public Dictionary<string, PartLoader.Engine> global_engine_dict { get; set; }
+            public Dictionary<string, PartLoader.Module> global_module_dict { get; set; }
+            public Dictionary<string, PartLoader.Explosive> global_explosives_dict { get; set; }
+            public Dictionary<string, PartLoader.Movement> global_movement_dict { get; set; }
+            public Dictionary<string, PartLoader.Reward> global_reward_dict { get; set; }
+            public List<PartLoader.EventTime> global_event_times { get; set; }
             public Dictionary<string, string> map_dict { get; set; }
             public Dictionary<string, string> resource_dict { get; set; }
             public Dictionary<string, string> ck_dict { get; set; }
@@ -323,15 +323,15 @@ namespace CO_Driver
             Current_session.file_data.historic_file_session_list = load_historic_file_list(local_session_variables.HistoricFileLocation);
             Current_session.player_build_records = new Dictionary<string, BuildRecord> { };
             Current_session.static_records = new StaticRecordDB { };
-            Current_session.static_records.global_parts_list = new List<part_loader.Part> { };
-            Current_session.static_records.global_cabin_dict = new Dictionary<string, part_loader.Cabin> { };
-            Current_session.static_records.global_engine_dict = new Dictionary<string, part_loader.Engine> { };
-            Current_session.static_records.global_explosives_dict = new Dictionary<string, part_loader.Explosive> { };
-            Current_session.static_records.global_movement_dict = new Dictionary<string, part_loader.Movement> { };
-            Current_session.static_records.global_module_dict = new Dictionary<string, part_loader.Module> { };
-            Current_session.static_records.global_weapon_dict = new Dictionary<string, part_loader.Weapon> { };
-            Current_session.static_records.global_reward_dict = new Dictionary<string, part_loader.Reward> { };
-            Current_session.static_records.global_event_times = new List<part_loader.EventTime> { };
+            Current_session.static_records.global_parts_list = new List<PartLoader.Part> { };
+            Current_session.static_records.global_cabin_dict = new Dictionary<string, PartLoader.Cabin> { };
+            Current_session.static_records.global_engine_dict = new Dictionary<string, PartLoader.Engine> { };
+            Current_session.static_records.global_explosives_dict = new Dictionary<string, PartLoader.Explosive> { };
+            Current_session.static_records.global_movement_dict = new Dictionary<string, PartLoader.Movement> { };
+            Current_session.static_records.global_module_dict = new Dictionary<string, PartLoader.Module> { };
+            Current_session.static_records.global_weapon_dict = new Dictionary<string, PartLoader.Weapon> { };
+            Current_session.static_records.global_reward_dict = new Dictionary<string, PartLoader.Reward> { };
+            Current_session.static_records.global_event_times = new List<PartLoader.EventTime> { };
             Current_session.static_records.map_dict = new Dictionary<string, string> { };
             Current_session.static_records.resource_dict = new Dictionary<string, string> { };
             Current_session.static_records.ck_dict = new Dictionary<string, string> { };
@@ -355,18 +355,18 @@ namespace CO_Driver
                 Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(Overlay.DefaultTwitchSettings());
             }
 
-            part_loader.populate_global_parts_list(Current_session);
-            part_loader.populate_weapon_list(Current_session);
-            part_loader.populate_module_list(Current_session);
-            part_loader.populate_cabin_list(Current_session);
-            part_loader.populate_engine_list(Current_session);
-            part_loader.populate_explosive_list(Current_session);
-            part_loader.populate_movement_list(Current_session);
-            part_loader.populate_reward_list(Current_session);
-            part_loader.load_event_schedule(Current_session);
-            part_loader.load_map_dictionary(Current_session);
-            part_loader.load_resource_dictionary(Current_session);
-            part_loader.load_ck_dictionary(Current_session);
+            PartLoader.PopulateGlobalPartsList(Current_session);
+            PartLoader.PopulateWeaponList(Current_session);
+            PartLoader.PopulateModuleList(Current_session);
+            PartLoader.PopulateCabinList(Current_session);
+            PartLoader.PopulateEngineList(Current_session);
+            PartLoader.PopulateExplosiveList(Current_session);
+            PartLoader.PopulateMovementList(Current_session);
+            PartLoader.PopulateRewardList(Current_session);
+            PartLoader.LoadEventSchedule(Current_session);
+            PartLoader.LoadMapDictionary(Current_session);
+            PartLoader.LoadResourceDictionary(Current_session);
+            PartLoader.LoadCKDictionary(Current_session);
         }
 
 
@@ -1253,16 +1253,16 @@ namespace CO_Driver
                     if (Current_session.static_records.global_engine_dict.ContainsKey(part))
                         local_build.engine = Current_session.static_records.global_engine_dict[part];
                     else
-                    if (Current_session.static_records.global_weapon_dict.ContainsKey(part) && local_build.weapons.Where(x => x.name == part).Count() == 0)
+                    if (Current_session.static_records.global_weapon_dict.ContainsKey(part) && local_build.weapons.Where(x => x.Name == part).Count() == 0)
                         local_build.weapons.Add(Current_session.static_records.global_weapon_dict[part]);
                     else
-                    if (Current_session.static_records.global_movement_dict.ContainsKey(part) && local_build.movement.Where(x => x.name == part).Count() == 0)
+                    if (Current_session.static_records.global_movement_dict.ContainsKey(part) && local_build.movement.Where(x => x.Name == part).Count() == 0)
                         local_build.movement.Add(Current_session.static_records.global_movement_dict[part]);
                     else
-                    if (Current_session.static_records.global_module_dict.ContainsKey(part) && local_build.modules.Where(x => x.name == part).Count() == 0)
+                    if (Current_session.static_records.global_module_dict.ContainsKey(part) && local_build.modules.Where(x => x.Name == part).Count() == 0)
                         local_build.modules.Add(Current_session.static_records.global_module_dict[part]);
                     else
-                    if (Current_session.static_records.global_explosives_dict.ContainsKey(part) && local_build.explosives.Where(x => x.name == part).Count() == 0)
+                    if (Current_session.static_records.global_explosives_dict.ContainsKey(part) && local_build.explosives.Where(x => x.Name == part).Count() == 0)
                         local_build.explosives.Add(Current_session.static_records.global_explosives_dict[part]);
                 }
 
@@ -2083,9 +2083,9 @@ namespace CO_Driver
             BuildRecord local_build = Current_session.player_build_records[Current_session.current_match.player_records[Current_session.local_user_uid].build_hash];
 
             //CABIN NAMING
-            if (local_build.cabin.description.Length > 0)
+            if (local_build.cabin.Description.Length > 0)
             {
-                long_description += local_build.cabin.description;
+                long_description += local_build.cabin.Description;
                 long_description += " cabin ";
             }
 
@@ -2093,58 +2093,58 @@ namespace CO_Driver
             if (local_build.weapons.Count() == 0)
             {
                 long_description += "weaponless build ";
-                if (local_build.cabin.description.Length > 0)
+                if (local_build.cabin.Description.Length > 0)
                 {
-                    short_description += local_build.cabin.description;
+                    short_description += local_build.cabin.Description;
                     short_description += " ";
                 }
             }
             else
             if (local_build.weapons.Count() == 1)
             {
-                long_description += string.Format(@"{0} ", local_build.weapons[0].description);
-                short_description += string.Format(@"{0} ", local_build.weapons[0].description);
+                long_description += string.Format(@"{0} ", local_build.weapons[0].Description);
+                short_description += string.Format(@"{0} ", local_build.weapons[0].Description);
             }
             else
             {
                 //determine if all weapons are of the same category
-                string expected_category = local_build.weapons[0].weapon_class;
+                string expected_category = local_build.weapons[0].WeaponClass;
                 bool class_flag = false;
-                foreach (part_loader.Weapon weapon in local_build.weapons)
+                foreach (PartLoader.Weapon weapon in local_build.weapons)
                 {
-                    if (weapon.weapon_class != expected_category)
+                    if (weapon.WeaponClass != expected_category)
                         class_flag = true;
                 }
                 if (class_flag == false)
                 {
-                    List<part_loader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x => x.rarity).ToList();
-                    foreach (part_loader.Weapon weapon in sorted_weapons)
+                    List<PartLoader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x => x.Rarity).ToList();
+                    foreach (PartLoader.Weapon weapon in sorted_weapons)
                     {
-                        long_description += string.Format(@"{0} ", weapon.description);
+                        long_description += string.Format(@"{0} ", weapon.Description);
                     }
-                    short_description += string.Format(@"{0} ", local_build.weapons[0].weapon_class);
+                    short_description += string.Format(@"{0} ", local_build.weapons[0].WeaponClass);
                 }
                 else
                 {
                     //order weapon names correctly for builds with mixed weapons
-                    List<part_loader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x => x.rarity).ToList();
-                    List<part_loader.Weapon> sorted_supports = new List<part_loader.Weapon>();
-                    foreach (part_loader.Weapon weapon in sorted_weapons)
+                    List<PartLoader.Weapon> sorted_weapons = local_build.weapons.OrderByDescending(x => x.Rarity).ToList();
+                    List<PartLoader.Weapon> sorted_supports = new List<PartLoader.Weapon>();
+                    foreach (PartLoader.Weapon weapon in sorted_weapons)
                     {
-                        if (weapon.weapon_class == "tesla emitter" || weapon.weapon_class == "drone" || weapon.weapon_class == "turret"
-                            || weapon.weapon_class == "harpoon" || weapon.weapon_class == "explosive melee" || weapon.weapon_class == "laser minigun")
+                        if (weapon.WeaponClass == "tesla emitter" || weapon.WeaponClass == "drone" || weapon.WeaponClass == "turret"
+                            || weapon.WeaponClass == "harpoon" || weapon.WeaponClass == "explosive melee" || weapon.WeaponClass == "laser minigun")
                         {
                             sorted_supports.Add(weapon);
                         }
                         else
                         {
-                            long_description += string.Format(@"{0} ", weapon.description);
-                            short_description += string.Format(@"{0} ", weapon.description);
+                            long_description += string.Format(@"{0} ", weapon.Description);
+                            short_description += string.Format(@"{0} ", weapon.Description);
                         }
                     }
-                    foreach (part_loader.Weapon weapon in sorted_supports)
+                    foreach (PartLoader.Weapon weapon in sorted_supports)
                     {
-                        long_description += string.Format(@"{0} ", weapon.description);
+                        long_description += string.Format(@"{0} ", weapon.Description);
                     }
                 }
             }
@@ -2157,16 +2157,16 @@ namespace CO_Driver
             else
             if (local_build.movement.Count() == 1)
             {
-                long_description += string.Format(@"on {0}s ", local_build.movement[0].description);
-                short_description += string.Format(@"on {0}s ", local_build.movement[0].description);
+                long_description += string.Format(@"on {0}s ", local_build.movement[0].Description);
+                short_description += string.Format(@"on {0}s ", local_build.movement[0].Description);
             }
             else
             {
                 long_description += "on ";
                 int movement_count = 1;
-                foreach (part_loader.Movement movement in local_build.movement) //long description stuff
+                foreach (PartLoader.Movement movement in local_build.movement) //long description stuff
                 {
-                    long_description += movement.description;
+                    long_description += movement.Description;
                     if (movement_count < local_build.movement.Count() - 1)
                     {
                         long_description += ", ";
@@ -2182,41 +2182,41 @@ namespace CO_Driver
                     }
                     movement_count++;
                 }
-                string expected_category = local_build.movement[0].category; //short description stuff
+                string expected_category = local_build.movement[0].Category; //short description stuff
                 bool class_flag = false;
-                foreach (part_loader.Movement movement in local_build.movement)
+                foreach (PartLoader.Movement movement in local_build.movement)
                 {
-                    if (movement.category != expected_category)
+                    if (movement.Category != expected_category)
                     {
                         class_flag = true;
                     }
                 }
                 if (class_flag == false)
                 {
-                    short_description += local_build.movement[0].category;
+                    short_description += local_build.movement[0].Category;
                 }
                 else
                 {
                     string short_movement_desc = "";
-                    if (local_build.movement.Select(x => x.category.Contains("wheel")).Count() > 0)
+                    if (local_build.movement.Select(x => x.Category.Contains("wheel")).Count() > 0)
                     {
                         short_movement_desc = "wheels";
                     }
-                    if (local_build.movement.Select(x => x.category.Contains("track")).Count() > 0)
+                    if (local_build.movement.Select(x => x.Category.Contains("track")).Count() > 0)
                     {
                         short_movement_desc = "tracks";
                     }
-                    if (local_build.movement.Select(x => x.category == "auger").Count() > 0)
+                    if (local_build.movement.Select(x => x.Category == "auger").Count() > 0)
                     {
                         short_movement_desc = "augers";
                     }
-                    if (local_build.movement.Select(x => x.category == "hover").Count() > 0)
+                    if (local_build.movement.Select(x => x.Category == "hover").Count() > 0)
                     {
                         short_movement_desc = "hovers";
                     }
-                    if (local_build.movement.Select(x => x.description == "Bigram").Count() > 0)
+                    if (local_build.movement.Select(x => x.Description == "Bigram").Count() > 0)
                     {
-                        if (local_build.movement.Select(x => x.category.Contains("wheel")).Count() > 0)
+                        if (local_build.movement.Select(x => x.Category.Contains("wheel")).Count() > 0)
                         {
                             short_movement_desc = "wheels";
                         }
@@ -2225,7 +2225,7 @@ namespace CO_Driver
                             short_movement_desc = "legs";
                         }
                     }
-                    if (local_build.movement.Select(x => x.description == "ML 200").Count() > 0)
+                    if (local_build.movement.Select(x => x.Description == "ML 200").Count() > 0)
                     {
                         short_movement_desc = "legs";
                     }
@@ -2243,11 +2243,11 @@ namespace CO_Driver
             {
                 long_description += "with ";
                 int module_count = 1;
-                foreach (part_loader.Module module in local_build.modules)
+                foreach (PartLoader.Module module in local_build.modules)
                 {
-                    if (module.module_class != "connector" && module.name != "CarPart_ModuleRadio")
+                    if (module.ModuleClass != "connector" && module.Name != "CarPart_ModuleRadio")
                     {
-                        long_description += module.description;
+                        long_description += module.Description;
                         if (module_count < local_build.modules.Count() - 1)
                         {
                             long_description += ", ";
@@ -2266,7 +2266,7 @@ namespace CO_Driver
                 }
             }
             //ENGINE NAMING
-            if (local_build.engine.description == "")
+            if (local_build.engine.Description == "")
             {
                 long_description += "";
             }
@@ -2280,7 +2280,7 @@ namespace CO_Driver
                 {
                     long_description += "and ";
                 }
-                long_description += local_build.engine.description;
+                long_description += local_build.engine.Description;
                 long_description += " engine";
             }
 
@@ -2490,12 +2490,12 @@ namespace CO_Driver
                 short_description = "",
                 archetype_description = "",
                 power_score = 0,
-                cabin = part_loader.new_cabin(),
-                engine = part_loader.new_engine(),
-                weapons = new List<part_loader.Weapon> { },
-                modules = new List<part_loader.Module> { },
-                movement = new List<part_loader.Movement> { },
-                explosives = new List<part_loader.Explosive> { },
+                cabin = PartLoader.NewCabin(),
+                engine = PartLoader.NewEngine(),
+                weapons = new List<PartLoader.Weapon> { },
+                modules = new List<PartLoader.Module> { },
+                movement = new List<PartLoader.Movement> { },
+                explosives = new List<PartLoader.Explosive> { },
                 parts = new List<string> { }
             };
 

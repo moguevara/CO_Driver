@@ -104,36 +104,36 @@ namespace CO_Driver
 
                 if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                 {
-                    if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                    if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
                     {
-                        if (!cabin_usage.ContainsKey(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                            cabin_usage.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations), 1);
+                        if (!cabin_usage.ContainsKey(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                            cabin_usage.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), 1);
                         else
-                            cabin_usage[translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)] += 1;
+                            cabin_usage[translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
+                    foreach (PartLoader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
                     {
-                        if (!weapon_usage.ContainsKey(translate.translate_string(weapon.name, session, translations)))
-                            weapon_usage.Add(translate.translate_string(weapon.name, session, translations), 1);
+                        if (!weapon_usage.ContainsKey(translate.translate_string(weapon.Name, session, translations)))
+                            weapon_usage.Add(translate.translate_string(weapon.Name, session, translations), 1);
                         else
-                            weapon_usage[translate.translate_string(weapon.name, session, translations)] += 1;
+                            weapon_usage[translate.translate_string(weapon.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
+                    foreach (PartLoader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
                     {
-                        if (!movement_usage.ContainsKey(translate.translate_string(movement.name, session, translations)))
-                            movement_usage.Add(translate.translate_string(movement.name, session, translations), 1);
+                        if (!movement_usage.ContainsKey(translate.translate_string(movement.Name, session, translations)))
+                            movement_usage.Add(translate.translate_string(movement.Name, session, translations), 1);
                         else
-                            movement_usage[translate.translate_string(movement.name, session, translations)] += 1;
+                            movement_usage[translate.translate_string(movement.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
+                    foreach (PartLoader.Module module in build_records[match.match_data.local_player.build_hash].modules)
                     {
-                        if (!module_usage.ContainsKey(translate.translate_string(module.name, session, translations)))
-                            module_usage.Add(translate.translate_string(module.name, session, translations), 1);
+                        if (!module_usage.ContainsKey(translate.translate_string(module.Name, session, translations)))
+                            module_usage.Add(translate.translate_string(module.Name, session, translations), 1);
                         else
-                            module_usage[translate.translate_string(module.name, session, translations)] += 1;
+                            module_usage[translate.translate_string(module.Name, session, translations)] += 1;
                     }
                 }
 

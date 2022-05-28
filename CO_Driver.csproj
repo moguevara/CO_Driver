@@ -153,7 +153,7 @@
     <Compile Include="user_controls\garage_view.Designer.cs">
       <DependentUpon>garage_view.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\part_loader.cs" />
+    <Compile Include="libraries\PartLoader.cs" />
     <Compile Include="user_controls\meta_detail.cs">
       <SubType>UserControl</SubType>
     </Compile>

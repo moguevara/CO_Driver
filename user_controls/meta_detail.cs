@@ -117,10 +117,10 @@ namespace CO_Driver
 
                         if (chk_weapon_filter.Checked)
                         {
-                            foreach (part_loader.Weapon weapon in build.weapons)
+                            foreach (PartLoader.Weapon weapon in build.weapons)
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.weapon = translate.translate_string(weapon.name, session, translations);
+                                new_group.weapon = translate.translate_string(weapon.Name, session, translations);
                                 new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                 player_level_grouping.Add(new_group);
                             }
@@ -130,10 +130,10 @@ namespace CO_Driver
                         {
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
-                                foreach (part_loader.Movement movement in build.movement)
+                                foreach (PartLoader.Movement movement in build.movement)
                                 {
                                     meta_grouping new_group = new_grouping();
-                                    new_group.movement = translate.translate_string(movement.name, session, translations);
+                                    new_group.movement = translate.translate_string(movement.Name, session, translations);
                                     new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                     player_level_grouping.Add(new_group);
                                 }
@@ -146,13 +146,13 @@ namespace CO_Driver
                                     {
                                         if (i == 0)
                                         {
-                                            sub_group.movement = translate.translate_string(build.movement[i].name, session, translations);
+                                            sub_group.movement = translate.translate_string(build.movement[i].Name, session, translations);
                                         }
                                         else
                                         {
                                             meta_grouping new_group = new_grouping();
                                             new_group.weapon = sub_group.weapon;
-                                            new_group.movement = translate.translate_string(build.movement[i].name, session, translations);
+                                            new_group.movement = translate.translate_string(build.movement[i].Name, session, translations);
                                             new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                             player_level_grouping.Add(new_group);
                                         }
@@ -166,14 +166,14 @@ namespace CO_Driver
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.cabin = translate.translate_string(build.cabin.name, session, translations);
+                                new_group.cabin = translate.translate_string(build.cabin.Name, session, translations);
                                 new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                 player_level_grouping.Add(new_group);
                             }
                             else
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping)
-                                    sub_group.cabin = translate.translate_string(build.cabin.name, session, translations);
+                                    sub_group.cabin = translate.translate_string(build.cabin.Name, session, translations);
                             }
                         }
 

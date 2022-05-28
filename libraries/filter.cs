@@ -156,21 +156,21 @@ namespace CO_Driver
 
             if (buildRecords.ContainsKey(match.match_data.local_player.build_hash))
             {
-                if (!string.IsNullOrEmpty(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                    if (!filter.Cabins.Contains(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                        filter.Cabins.Add(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations));
+                if (!string.IsNullOrEmpty(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                    if (!filter.Cabins.Contains(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                        filter.Cabins.Add(translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations));
 
-                foreach (part_loader.Weapon weapon in buildRecords[match.match_data.local_player.build_hash].weapons)
-                    if (!filter.Weapons.Contains(translate.translate_string(weapon.name, session, translations)))
-                        filter.Weapons.Add(translate.translate_string(weapon.name, session, translations));
+                foreach (PartLoader.Weapon weapon in buildRecords[match.match_data.local_player.build_hash].weapons)
+                    if (!filter.Weapons.Contains(translate.translate_string(weapon.Name, session, translations)))
+                        filter.Weapons.Add(translate.translate_string(weapon.Name, session, translations));
 
-                foreach (part_loader.Movement movement in buildRecords[match.match_data.local_player.build_hash].movement)
-                    if (!filter.MovementParts.Contains(translate.translate_string(movement.name, session, translations)))
-                        filter.MovementParts.Add(translate.translate_string(movement.name, session, translations));
+                foreach (PartLoader.Movement movement in buildRecords[match.match_data.local_player.build_hash].movement)
+                    if (!filter.MovementParts.Contains(translate.translate_string(movement.Name, session, translations)))
+                        filter.MovementParts.Add(translate.translate_string(movement.Name, session, translations));
 
-                foreach (part_loader.Module module in buildRecords[match.match_data.local_player.build_hash].modules)
-                    if (!filter.ModuleParts.Contains(translate.translate_string(module.name, session, translations)))
-                        filter.ModuleParts.Add(translate.translate_string(module.name, session, translations));
+                foreach (PartLoader.Module module in buildRecords[match.match_data.local_player.build_hash].modules)
+                    if (!filter.ModuleParts.Contains(translate.translate_string(module.Name, session, translations)))
+                        filter.ModuleParts.Add(translate.translate_string(module.Name, session, translations));
             }
         }
 
@@ -244,16 +244,16 @@ namespace CO_Driver
 
             if (buildRecords.ContainsKey(match.match_data.local_player.build_hash))
             {
-                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
+                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].weapons.Select(x => translate.translate_string(x.Name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
                     return false;
 
-                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
+                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].movement.Select(x => translate.translate_string(x.Name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
                     return false;
 
-                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT && translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations) != filter.CabinFilter)
+                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT && translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations) != filter.CabinFilter)
                     return false;
 
-                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
+                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].modules.Select(x => translate.translate_string(x.Name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
                     return false;
             }
             else

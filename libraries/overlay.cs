@@ -14,8 +14,8 @@ namespace CO_Driver
         public const int TEAM_PREVIEW_OVERLAY = 2;
         public const int IN_MATCH_OVERLAY = 3;
 
-        public const string line_break = "-----------------------------------";
-        public const string line_break_long = "-----------------------------------";
+        public const string LineBreak = "-----------------------------------";
+        public const string LineBreakLong = "-----------------------------------";
 
         public class OverlayAction
         {

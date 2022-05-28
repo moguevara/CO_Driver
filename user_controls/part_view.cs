@@ -7,7 +7,7 @@ namespace CO_Driver
 {
     public partial class part_view : UserControl
     {
-        public List<part_loader.Part> master_part_list = new List<part_loader.Part> { };
+        public List<PartLoader.Part> master_part_list = new List<PartLoader.Part> { };
         public LogFileManagment.SessionVariables session;
         public Dictionary<string, Dictionary<string, translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -16,7 +16,7 @@ namespace CO_Driver
         private class unique_parts
         {
             public int part_count { get; set; }
-            public part_loader.Part part { get; set; }
+            public PartLoader.Part part { get; set; }
         }
 
         public part_view()
@@ -43,34 +43,34 @@ namespace CO_Driver
 
             for (int i = 0; i < master_part_list.Count(); i++)
             {
-                if (master_part_list[i].faction == GlobalData.ENGINEER_FACTION && master_part_list[i].level > engineer_level)
+                if (master_part_list[i].Faction == GlobalData.ENGINEER_FACTION && master_part_list[i].Level > engineer_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.LUNATICS_FACTION && master_part_list[i].level > lunatics_level)
+                if (master_part_list[i].Faction == GlobalData.LUNATICS_FACTION && master_part_list[i].Level > lunatics_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.NOMADS_FACTION && master_part_list[i].level > nomads_level)
+                if (master_part_list[i].Faction == GlobalData.NOMADS_FACTION && master_part_list[i].Level > nomads_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.SCAVENGERS_FACTION && master_part_list[i].level > scavengers_level)
+                if (master_part_list[i].Faction == GlobalData.SCAVENGERS_FACTION && master_part_list[i].Level > scavengers_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.STEPPENWOLFS_FACTION && master_part_list[i].level > steppenwolfs_level)
+                if (master_part_list[i].Faction == GlobalData.STEPPENWOLFS_FACTION && master_part_list[i].Level > steppenwolfs_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.DAWNS_CHILDREN_FACTION && master_part_list[i].level > dawns_children_level)
+                if (master_part_list[i].Faction == GlobalData.DAWNS_CHILDREN_FACTION && master_part_list[i].Level > dawns_children_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.FIRESTARTERS_FACTION && master_part_list[i].level > firestarts_level)
+                if (master_part_list[i].Faction == GlobalData.FIRESTARTERS_FACTION && master_part_list[i].Level > firestarts_level)
                     continue;
-                if (master_part_list[i].faction == GlobalData.FOUNDERS_FACTION && master_part_list[i].level > founders_level)
+                if (master_part_list[i].Faction == GlobalData.FOUNDERS_FACTION && master_part_list[i].Level > founders_level)
                     continue;
                 //if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
                 //    continue;
 
-                if ((int)num_min_dura.Value != 0 && master_part_list[i].part_durability < num_min_dura.Value)
+                if ((int)num_min_dura.Value != 0 && master_part_list[i].PartDurability < num_min_dura.Value)
                     continue;
 
-                if (!chk_include_bumpers.Checked && master_part_list[i].hull_durability == 0)
+                if (!chk_include_bumpers.Checked && master_part_list[i].HullDurability == 0)
                     continue;
 
-                if (part_list.Exists(x => x.part.description.Contains(master_part_list[i].description)))
+                if (part_list.Exists(x => x.part.Description.Contains(master_part_list[i].Description)))
                 {
-                    part_list.Find(x => x.part.description.Contains(master_part_list[i].description)).part_count++;
+                    part_list.Find(x => x.part.Description.Contains(master_part_list[i].Description)).part_count++;
                     continue;
                 }
                 part_list.Add(new unique_parts { part_count = 1, part = master_part_list[i] });
@@ -81,23 +81,23 @@ namespace CO_Driver
             foreach (unique_parts part in part_list)
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
-                row.Cells[0].Value = part.part.description.ToString();
+                row.Cells[0].Value = part.part.Description.ToString();
                 row.Cells[1].Value = part.part_count;
-                row.Cells[2].Value = part.part.faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.decode_faction_name(part.part.level) + " - Prestigue" : ftm.decode_faction_name(part.part.faction);
-                row.Cells[3].Value = part.part.faction == GlobalData.PRESTIGUE_PACK_FACTION ? 0 : part.part.level;
-                row.Cells[4].Value = part.part.part_durability;
-                row.Cells[5].Value = part.part.hull_durability;
-                row.Cells[6].Value = part.part.mass;
-                row.Cells[7].Value = part.part.power_score;
-                row.Cells[8].Value = part.part.pass_through;
-                row.Cells[9].Value = part.part.bullet_resistance;
-                row.Cells[10].Value = part.part.melee_resistance;
-                row.Cells[11].Value = Math.Round((double)part.part.part_durability / (double)part.part.power_score, 2);
-                row.Cells[12].Value = Math.Round((double)part.part.part_durability / (double)part.part.mass, 2);
-                row.Cells[13].Value = Math.Round((double)part.part.mass / (double)part.part.power_score, 2);
-                row.Cells[14].Value = Math.Round((double)part.part.mass / (double)part.part.part_durability, 2);
-                row.Cells[15].Value = Math.Round((double)part.part.power_score / (double)part.part.part_durability, 2);
-                row.Cells[16].Value = Math.Round((double)part.part.power_score / (double)part.part.mass, 2);
+                row.Cells[2].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.decode_faction_name(part.part.Level) + " - Prestigue" : ftm.decode_faction_name(part.part.Faction);
+                row.Cells[3].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? 0 : part.part.Level;
+                row.Cells[4].Value = part.part.PartDurability;
+                row.Cells[5].Value = part.part.HullDurability;
+                row.Cells[6].Value = part.part.Mass;
+                row.Cells[7].Value = part.part.PowerScore;
+                row.Cells[8].Value = part.part.PassThrough;
+                row.Cells[9].Value = part.part.BulletResistance;
+                row.Cells[10].Value = part.part.MeleeResistance;
+                row.Cells[11].Value = Math.Round((double)part.part.PartDurability / (double)part.part.PowerScore, 2);
+                row.Cells[12].Value = Math.Round((double)part.part.PartDurability / (double)part.part.Mass, 2);
+                row.Cells[13].Value = Math.Round((double)part.part.Mass / (double)part.part.PowerScore, 2);
+                row.Cells[14].Value = Math.Round((double)part.part.Mass / (double)part.part.PartDurability, 2);
+                row.Cells[15].Value = Math.Round((double)part.part.PowerScore / (double)part.part.PartDurability, 2);
+                row.Cells[16].Value = Math.Round((double)part.part.PowerScore / (double)part.part.Mass, 2);
                 this.dg_available_parts.Rows.Add(row);
             }
             this.dg_available_parts.AllowUserToAddRows = false;

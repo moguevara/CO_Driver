@@ -550,29 +550,29 @@ namespace CO_Driver
                     else
                     {
                         if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                            foreach (part_loader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
-                                add_chart_element(translate.translate_string(part.name, session, translations), value);
+                            foreach (PartLoader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
+                                add_chart_element(translate.translate_string(part.Name, session, translations), value);
                     }
                     break;
                 case grouping.MOVEMENT:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        foreach (part_loader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
-                            add_chart_element(translate.translate_string(part.name, session, translations), value);
+                        foreach (PartLoader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
+                            add_chart_element(translate.translate_string(part.Name, session, translations), value);
                     break;
                 case grouping.CABIN:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         if (build_records[match.match_data.local_player.build_hash].cabin != null)
-                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations), value);
+                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), value);
                     break;
                 case grouping.MODULE:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        foreach (part_loader.Module part in build_records[match.match_data.local_player.build_hash].modules)
-                            add_chart_element(translate.translate_string(part.name, session, translations), value);
+                        foreach (PartLoader.Module part in build_records[match.match_data.local_player.build_hash].modules)
+                            add_chart_element(translate.translate_string(part.Name, session, translations), value);
                     break;
                 case grouping.ENGINE:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         if (build_records[match.match_data.local_player.build_hash].engine != null)
-                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].engine.name, session, translations), value);
+                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].engine.Name, session, translations), value);
                     break;
                 case grouping.PART:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
