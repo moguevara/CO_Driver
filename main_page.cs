@@ -19,7 +19,7 @@ namespace CO_Driver
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Dictionary<string, Dictionary<string, translate.Translation>> translations { get; set; } = new Dictionary<string, Dictionary<string, translate.Translation>> { };
-        public market.market_data crossoutdb_data = new market.market_data { };
+        public Market.MarketData crossoutdb_data = new Market.MarketData { };
 
         public List<file_trace_managment.MatchRecord> match_history
         {
@@ -80,7 +80,7 @@ namespace CO_Driver
             strp_main_menu_strip.ShowItemToolTips = true;
 
             this.welcome_screen.tb_progress_tracking.AppendText("Loading market data from crossoutdb.com" + Environment.NewLine);
-            crossoutdb_data = market.populate_crossoutdb_data(session);
+            crossoutdb_data = Market.PopulateCrossoutDBData(session);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading previously stored log data (if any)." + Environment.NewLine);
 
             load_static_screen_data();

@@ -18,7 +18,7 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
-        public market.market_data crossoutdb_data = new market.market_data { };
+        public Market.MarketData crossoutdb_data = new Market.MarketData { };
         private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
 
         private string new_selection = "";
@@ -67,9 +67,9 @@ namespace CO_Driver
             }
 
 
-            foreach (market.market_item item in crossoutdb_data.market_items)
+            foreach (Market.MarketItem item in crossoutdb_data.market_items)
             {
-                Match line_results = Regex.Match(item.name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
+                Match line_results = Regex.Match(item.Name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
                 bool found_value = false;
 
                 if (line_results.Groups.Count < 2)
@@ -78,7 +78,7 @@ namespace CO_Driver
 
                 string resource_name = line_results.Groups["resource_name"].Value;
                 int resource_ammount = Int32.Parse(line_results.Groups["ammount"].Value);
-                double sell_price = item.sellPrice / 100;
+                double sell_price = item.SellPrice / 100;
 
                 foreach (market_values value in local_values)
                 {
@@ -100,7 +100,7 @@ namespace CO_Driver
                 }
             }
 
-            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.id == 369).sellPrice/100});
+            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.ID == 369).SellPrice/100});
 
             master_values = local_values;
         }
