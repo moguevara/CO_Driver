@@ -406,55 +406,55 @@ namespace CO_Driver
             int event_id = 0;
 
             if (line.Contains("| StartMatchmaking:"))
-                event_id = global_data.QUEUE_START_EVENT;
+                event_id = GlobalData.QUEUE_START_EVENT;
             else
             if (line.Contains("| Matchmaker_NotifyQueueState:"))
-                event_id = global_data.QUEUE_UPDATE_EVENT;
+                event_id = GlobalData.QUEUE_UPDATE_EVENT;
             else
             if (line.Contains("| CL_MatchMaker::ConnectHandler:"))
-                event_id = global_data.CONNECTION_INIT_EVENT;
+                event_id = GlobalData.CONNECTION_INIT_EVENT;
             else
             if (line.Substring(0, 9) == "--- Date:")
-                event_id = global_data.DATE_ASSIGNMENT_EVENT;
+                event_id = GlobalData.DATE_ASSIGNMENT_EVENT;
             else
             if (line.Contains("server guid"))
-                event_id = global_data.GUID_ASSIGN_EVENT;
+                event_id = GlobalData.GUID_ASSIGN_EVENT;
             else
             if (line.Contains("connected to dedicated server."))
-                event_id = global_data.HOST_NAME_ASSIGN_EVENT;
+                event_id = GlobalData.HOST_NAME_ASSIGN_EVENT;
             else
             if (line.Contains("expFactionTotal"))
-                event_id = global_data.MATCH_REWARD_EVENT;
+                event_id = GlobalData.MATCH_REWARD_EVENT;
             else
             if (line.Contains("| PlayButton disabled"))
-                event_id = global_data.QUEUE_END_EVENT;
+                event_id = GlobalData.QUEUE_END_EVENT;
             else
             if (line.Contains("\"queueTag\"") || line.Contains("\"minUR\"") || line.Contains("\"maxUR\"") || line.Contains("\"botlist\"") || line.Contains("\"custom_game\""))
-                event_id = global_data.MATCH_PROPERTY_EVENT;
+                event_id = GlobalData.MATCH_PROPERTY_EVENT;
             else
             if (line.Contains("| client:") && line.Contains("_PLAYER "))
-                event_id = global_data.ADD_OR_UPDATE_PLAYER_EVENT;
+                event_id = GlobalData.ADD_OR_UPDATE_PLAYER_EVENT;
             else
             if (line.Contains("| Combat: Spawn player "))
-                event_id = global_data.GAME_PLAYER_SPAWN_EVENT;
+                event_id = GlobalData.GAME_PLAYER_SPAWN_EVENT;
             else
             if (line.Contains("| Combat: 	player "))
-                event_id = global_data.GAME_PLAYER_LOAD_EVENT;
+                event_id = GlobalData.GAME_PLAYER_LOAD_EVENT;
             else
             if (line.Contains("| client: player "))
-                event_id = global_data.PLAYER_LEAVE_EVENT;
+                event_id = GlobalData.PLAYER_LEAVE_EVENT;
             else
             if (line.Contains("         | // Build:"))
-                event_id = global_data.ASSIGN_CLIENT_VERSION_EVENT;
+                event_id = GlobalData.ASSIGN_CLIENT_VERSION_EVENT;
             else
             if (line.Contains("|      quest "))
-                event_id = global_data.QUEST_EVENT;
+                event_id = GlobalData.QUEST_EVENT;
             else
             if (line.Contains("|      loot:"))
-                event_id = global_data.LOOT_EVENT;
+                event_id = GlobalData.LOOT_EVENT;
             else
             if (line.Contains("| ExplorationReward."))
-                event_id = global_data.ADVENTURE_REWARD_EVENT;
+                event_id = GlobalData.ADVENTURE_REWARD_EVENT;
 
             Current_session.current_event = event_id;
         }
@@ -464,46 +464,46 @@ namespace CO_Driver
             int event_id = 0;
 
             if (line.Contains("| Damage."))
-                event_id = global_data.DAMAGE_EVENT;
+                event_id = GlobalData.DAMAGE_EVENT;
             else
             if (line.Contains("| Score:"))
-                event_id = global_data.SCORE_EVENT;
+                event_id = GlobalData.SCORE_EVENT;
             else
             if (line.Contains("| ====== starting level ") && !line.Contains("hangar") && !line.Contains("mainmenu"))
-                event_id = global_data.MATCH_START_EVENT;
+                event_id = GlobalData.MATCH_START_EVENT;
             else
             if (line.Contains("| ===== Gameplay '"))
-                event_id = global_data.GAME_PLAY_START_EVENT;
+                event_id = GlobalData.GAME_PLAY_START_EVENT;
             else
             if (line.Contains("| 	player"))
-                event_id = global_data.LOAD_PLAYER_EVENT;
+                event_id = GlobalData.LOAD_PLAYER_EVENT;
             else
             if (line.Contains("| Stripe "))
-                event_id = global_data.STRIPE_EVENT;
+                event_id = GlobalData.STRIPE_EVENT;
             else
             if (line.Contains("| Kill."))
-                event_id = global_data.KILL_EVENT;
+                event_id = GlobalData.KILL_EVENT;
             else
             if (line.Contains("| 	 assist by"))
-                event_id = global_data.ASSIST_EVENT;
+                event_id = GlobalData.ASSIST_EVENT;
             else
             if (line.Contains("| Spawn player"))
-                event_id = global_data.SPAWN_PLAYER_EVENT;
+                event_id = GlobalData.SPAWN_PLAYER_EVENT;
             else
             if (line.Contains("===== Gameplay finish"))
-                event_id = global_data.MATCH_END_EVENT;
+                event_id = GlobalData.MATCH_END_EVENT;
             else
             if (line.Contains("| ====== starting level ") || line.Contains("levels/maps/hangar") || line.Contains("| ====== TestDrive finish ======"))
-                event_id = global_data.MAIN_MENU_EVENT;
+                event_id = GlobalData.MAIN_MENU_EVENT;
             else
             if (line.Contains("| ====== TestDrive started ======"))
-                event_id = global_data.TEST_DRIVE_EVENT;
+                event_id = GlobalData.TEST_DRIVE_EVENT;
             else
             if (line.Contains("| ===== Best Of N round"))
-                event_id = global_data.CW_ROUND_END_EVENT;
+                event_id = GlobalData.CW_ROUND_END_EVENT;
             else
             if (line.Contains("| Spawn mob. def '"))
-                event_id = global_data.ADD_MOB_EVENT;
+                event_id = GlobalData.ADD_MOB_EVENT;
 
             Current_session.current_event = event_id;
         }
@@ -955,7 +955,7 @@ namespace CO_Driver
         {
             int player_count = 0;
             int highest_power_score = 0;
-            Current_session.current_match.match_type = global_data.UNDEFINED_MATCH;
+            Current_session.current_match.match_type = GlobalData.UNDEFINED_MATCH;
 
             foreach (KeyValuePair<int, Player> entry in Current_session.current_match.player_records)
             {
@@ -968,35 +968,35 @@ namespace CO_Driver
             if ((Current_session.current_match.game_play_value.Contains("Conquer") ||
                  Current_session.current_match.game_play_value.Contains("Domination") ||
                  Current_session.current_match.game_play_value.Contains("Assault")))
-                Current_session.current_match.match_type = global_data.STANDARD_MATCH;
+                Current_session.current_match.match_type = GlobalData.STANDARD_MATCH;
 
             if (Current_session.current_match.match_attributes.Where(x => x.attribute.Contains("queueTag") && x.value == "Default").Count() > 0 &&
                 (Current_session.current_match.game_play_value.Contains("Conquer") ||
                  Current_session.current_match.game_play_value.Contains("Domination") ||
                  Current_session.current_match.game_play_value.Contains("Assault")))
-                Current_session.current_match.match_type = global_data.STANDARD_RESTRICTED_MATCH;
+                Current_session.current_match.match_type = GlobalData.STANDARD_RESTRICTED_MATCH;
 
             if ((Current_session.current_match.game_play_value.Contains("ConquerCoopVsAi") ||
                  Current_session.current_match.game_play_value.Contains("DominationCoopVsAi") ||
                  Current_session.current_match.game_play_value.Contains("AssaultCoopVsAi")))
-                Current_session.current_match.match_type = global_data.PATROL_MATCH;
+                Current_session.current_match.match_type = GlobalData.PATROL_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("BestOf3"))
-                Current_session.current_match.match_type = global_data.STANDARD_CW_MATCH;
+                Current_session.current_match.match_type = GlobalData.STANDARD_CW_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_DroneBattle"))
-                Current_session.current_match.match_type = global_data.DRONE_BATTLE_MATCH;
+                Current_session.current_match.match_type = GlobalData.DRONE_BATTLE_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("BestOf3") && highest_power_score > 23000)
-                Current_session.current_match.match_type = global_data.LEVIATHIAN_CW_MATCH;
+                Current_session.current_match.match_type = GlobalData.LEVIATHIAN_CW_MATCH;
 
             if (Current_session.current_match.map_name.Contains("red_rocks_battle_royale"))
-                Current_session.current_match.match_type = global_data.BATTLE_ROYALE_MATCH;
+                Current_session.current_match.match_type = GlobalData.BATTLE_ROYALE_MATCH;
 
 
 
             if (Current_session.current_match.game_play_value.Contains("Pve_Greatescape"))
-                Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
+                Current_session.current_match.match_type = GlobalData.MED_RAID_MATCH;
 
             if (Current_session.current_match.game_play_value.ToLower().Contains("pve"))
             {
@@ -1009,89 +1009,89 @@ namespace CO_Driver
                         continue;
 
                     if (player.Value.nickname.ToLower().Contains("hard"))
-                        Current_session.current_match.match_type = global_data.HARD_RAID_MATCH;
+                        Current_session.current_match.match_type = GlobalData.HARD_RAID_MATCH;
 
-                    if (player.Value.nickname.ToLower().Contains("medium") && Current_session.current_match.match_type != global_data.HARD_RAID_MATCH)
-                        Current_session.current_match.match_type = global_data.MED_RAID_MATCH;
+                    if (player.Value.nickname.ToLower().Contains("medium") && Current_session.current_match.match_type != GlobalData.HARD_RAID_MATCH)
+                        Current_session.current_match.match_type = GlobalData.MED_RAID_MATCH;
 
-                    if (player.Value.nickname.ToLower().Contains("easy") && Current_session.current_match.match_type != global_data.HARD_RAID_MATCH && Current_session.current_match.match_type != global_data.MED_RAID_MATCH)
-                        Current_session.current_match.match_type = global_data.EASY_RAID_MATCH;
+                    if (player.Value.nickname.ToLower().Contains("easy") && Current_session.current_match.match_type != GlobalData.HARD_RAID_MATCH && Current_session.current_match.match_type != GlobalData.MED_RAID_MATCH)
+                        Current_session.current_match.match_type = GlobalData.EASY_RAID_MATCH;
                 }
             }
 
             if (Current_session.current_match.game_play_value.Contains("Pve_Leviathan"))
-                Current_session.current_match.match_type = global_data.INVASION_MATCH;
+                Current_session.current_match.match_type = GlobalData.INVASION_MATCH;
 
             if ((Current_session.current_match.game_play_value.Contains("Conquer") ||
                  Current_session.current_match.game_play_value.Contains("Domination") ||
                  Current_session.current_match.game_play_value.Contains("Assault")) && player_count == 12)
-                Current_session.current_match.match_type = global_data.LEAGUE_6_v_6_MATCH;
+                Current_session.current_match.match_type = GlobalData.LEAGUE_6_v_6_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("FreePlay"))
-                Current_session.current_match.match_type = global_data.BEDLAM_MATCH;
+                Current_session.current_match.match_type = GlobalData.BEDLAM_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("InvRaceOnlyWheels"))
-                Current_session.current_match.match_type = global_data.RACE_WHEELS_ONLY_MATCH;
+                Current_session.current_match.match_type = GlobalData.RACE_WHEELS_ONLY_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("RaceOnlyWheels"))
-                Current_session.current_match.match_type = global_data.RACE_WHEELS_ONLY_MATCH;
+                Current_session.current_match.match_type = GlobalData.RACE_WHEELS_ONLY_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Exploration"))
-                Current_session.current_match.match_type = global_data.ADVENTURE_MATCH;
+                Current_session.current_match.match_type = GlobalData.ADVENTURE_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_NewYear_Convoy"))
-                Current_session.current_match.match_type = global_data.PRESENT_HEIST_MATCH;
+                Current_session.current_match.match_type = GlobalData.PRESENT_HEIST_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_AssaultAllCannons"))
-                Current_session.current_match.match_type = global_data.CANNON_BRAWL_MATCH;
+                Current_session.current_match.match_type = GlobalData.CANNON_BRAWL_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_FieldBattle"))
-                Current_session.current_match.match_type = global_data.WINTER_MAYHAM_MATCH;
+                Current_session.current_match.match_type = GlobalData.WINTER_MAYHAM_MATCH;
 
             if (Current_session.current_match.map_name.Contains("holes_halloween"))
-                Current_session.current_match.match_type = global_data.HALLOWEEN_MATCH;
+                Current_session.current_match.match_type = GlobalData.HALLOWEEN_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("DestructionDerbyLua"))
-                Current_session.current_match.match_type = global_data.STORMS_WARNING_MATCH;
+                Current_session.current_match.match_type = GlobalData.STORMS_WARNING_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Deathmatch"))
-                Current_session.current_match.match_type = global_data.FREE_FOR_ALL_MATCH;
+                Current_session.current_match.match_type = GlobalData.FREE_FOR_ALL_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_Football"))
-                Current_session.current_match.match_type = global_data.ROCKET_LEAGUE_MATCH;
+                Current_session.current_match.match_type = GlobalData.ROCKET_LEAGUE_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("FreePlay"))
-                Current_session.current_match.match_type = global_data.BEDLAM_MATCH;
+                Current_session.current_match.match_type = GlobalData.BEDLAM_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_BDCrossout"))
-                Current_session.current_match.match_type = global_data.CROSSOUT_DAY_BRAWL_MATCH;
+                Current_session.current_match.match_type = GlobalData.CROSSOUT_DAY_BRAWL_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Pve_Foray"))
-                Current_session.current_match.match_type = global_data.GOZU_MATCH;
+                Current_session.current_match.match_type = GlobalData.GOZU_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_Flag"))
-                Current_session.current_match.match_type = global_data.WITCH_HUNT_MATCH;
+                Current_session.current_match.match_type = GlobalData.WITCH_HUNT_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Bomb_Planting"))
-                Current_session.current_match.match_type = global_data.BOMB_PLANT_MATCH;
+                Current_session.current_match.match_type = GlobalData.BOMB_PLANT_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_Crush"))
-                Current_session.current_match.match_type = global_data.BOARS_MATCH;
+                Current_session.current_match.match_type = GlobalData.BOARS_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_ZombieEscape"))
-                Current_session.current_match.match_type = global_data.OPERATION_RED_LIGHT_MATCH;
+                Current_session.current_match.match_type = GlobalData.OPERATION_RED_LIGHT_MATCH;
 
             if (Current_session.current_match.game_play_value.Contains("Brawl_Arena"))
-                Current_session.current_match.match_type = global_data.ARENA_RANKED_MATCH;
+                Current_session.current_match.match_type = GlobalData.ARENA_RANKED_MATCH;
 
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.value.Contains("QBrawl_Arena_Casual")) != null)
-                Current_session.current_match.match_type = global_data.ARENA_CASUAL_MATCH;
+                Current_session.current_match.match_type = GlobalData.ARENA_CASUAL_MATCH;
 
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("custom_game")) != null)
-                Current_session.current_match.match_type = global_data.CUSTOM_MATCH;
+                Current_session.current_match.match_type = GlobalData.CUSTOM_MATCH;
 
             if (Current_session.current_match.match_attributes.FirstOrDefault(x => x.attribute.Contains("NoobPvp")) != null)
-                Current_session.current_match.match_type = global_data.TEST_SERVER_MATCH;
+                Current_session.current_match.match_type = GlobalData.TEST_SERVER_MATCH;
 
             Current_session.current_match.match_type_desc = decode_match_type(Current_session.current_match.match_type);
             Current_session.current_match.gameplay_desc = Current_session.current_match.game_play_value;
@@ -1100,52 +1100,52 @@ namespace CO_Driver
 
         public static void set_match_classification(SessionStats Current_session)
         {
-            Current_session.current_match.match_classification = global_data.UNDEFINED_CLASSIFICATION;
+            Current_session.current_match.match_classification = GlobalData.UNDEFINED_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.STANDARD_MATCH ||
-                Current_session.current_match.match_type == global_data.STANDARD_CW_MATCH ||
-                Current_session.current_match.match_type == global_data.LEVIATHIAN_CW_MATCH ||
-                Current_session.current_match.match_type == global_data.ARENA_RANKED_MATCH ||
-                Current_session.current_match.match_type == global_data.ARENA_CASUAL_MATCH ||
-                Current_session.current_match.match_type == global_data.LEAGUE_6_v_6_MATCH ||
-                Current_session.current_match.match_type == global_data.STANDARD_RESTRICTED_MATCH ||
-                Current_session.current_match.match_type == global_data.CANNON_BRAWL_MATCH)
-                Current_session.current_match.match_classification = global_data.PVP_CLASSIFICATION;
+            if (Current_session.current_match.match_type == GlobalData.STANDARD_MATCH ||
+                Current_session.current_match.match_type == GlobalData.STANDARD_CW_MATCH ||
+                Current_session.current_match.match_type == GlobalData.LEVIATHIAN_CW_MATCH ||
+                Current_session.current_match.match_type == GlobalData.ARENA_RANKED_MATCH ||
+                Current_session.current_match.match_type == GlobalData.ARENA_CASUAL_MATCH ||
+                Current_session.current_match.match_type == GlobalData.LEAGUE_6_v_6_MATCH ||
+                Current_session.current_match.match_type == GlobalData.STANDARD_RESTRICTED_MATCH ||
+                Current_session.current_match.match_type == GlobalData.CANNON_BRAWL_MATCH)
+                Current_session.current_match.match_classification = GlobalData.PVP_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.EASY_RAID_MATCH ||
-                Current_session.current_match.match_type == global_data.MED_RAID_MATCH ||
-                Current_session.current_match.match_type == global_data.HARD_RAID_MATCH ||
-                Current_session.current_match.match_type == global_data.ADVENTURE_MATCH ||
-                Current_session.current_match.match_type == global_data.PRESENT_HEIST_MATCH ||
-                Current_session.current_match.match_type == global_data.PATROL_MATCH ||
-                Current_session.current_match.match_type == global_data.INVASION_MATCH ||
-                Current_session.current_match.match_type == global_data.GOZU_MATCH)
-                Current_session.current_match.match_classification = global_data.PVE_CLASSIFICATION;
+            if (Current_session.current_match.match_type == GlobalData.EASY_RAID_MATCH ||
+                Current_session.current_match.match_type == GlobalData.MED_RAID_MATCH ||
+                Current_session.current_match.match_type == GlobalData.HARD_RAID_MATCH ||
+                Current_session.current_match.match_type == GlobalData.ADVENTURE_MATCH ||
+                Current_session.current_match.match_type == GlobalData.PRESENT_HEIST_MATCH ||
+                Current_session.current_match.match_type == GlobalData.PATROL_MATCH ||
+                Current_session.current_match.match_type == GlobalData.INVASION_MATCH ||
+                Current_session.current_match.match_type == GlobalData.GOZU_MATCH)
+                Current_session.current_match.match_classification = GlobalData.PVE_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.BATTLE_ROYALE_MATCH ||
-                Current_session.current_match.match_type == global_data.WINTER_MAYHAM_MATCH ||
-                Current_session.current_match.match_type == global_data.FREE_FOR_ALL_MATCH ||
-                Current_session.current_match.match_type == global_data.SCORPION_MATCH ||
-                Current_session.current_match.match_type == global_data.BOAR_FIGHT_MATCH ||
-                Current_session.current_match.match_type == global_data.BIG_BAD_BURNERS_MATCH ||
-                Current_session.current_match.match_type == global_data.RACE_MATCH ||
-                Current_session.current_match.match_type == global_data.STORMS_WARNING_MATCH ||
-                Current_session.current_match.match_type == global_data.HALLOWEEN_MATCH ||
-                Current_session.current_match.match_type == global_data.ROCKET_LEAGUE_MATCH ||
-                Current_session.current_match.match_type == global_data.DRONE_BATTLE_MATCH ||
-                Current_session.current_match.match_type == global_data.RACE_WHEELS_ONLY_MATCH ||
-                Current_session.current_match.match_type == global_data.OPERATION_RED_LIGHT_MATCH ||
-                Current_session.current_match.match_type == global_data.WITCH_HUNT_MATCH ||
-                Current_session.current_match.match_type == global_data.BOMB_PLANT_MATCH ||
-                Current_session.current_match.match_type == global_data.CROSSOUT_DAY_BRAWL_MATCH)
-                Current_session.current_match.match_classification = global_data.BRAWL_CLASSIFICATION;
+            if (Current_session.current_match.match_type == GlobalData.BATTLE_ROYALE_MATCH ||
+                Current_session.current_match.match_type == GlobalData.WINTER_MAYHAM_MATCH ||
+                Current_session.current_match.match_type == GlobalData.FREE_FOR_ALL_MATCH ||
+                Current_session.current_match.match_type == GlobalData.SCORPION_MATCH ||
+                Current_session.current_match.match_type == GlobalData.BOAR_FIGHT_MATCH ||
+                Current_session.current_match.match_type == GlobalData.BIG_BAD_BURNERS_MATCH ||
+                Current_session.current_match.match_type == GlobalData.RACE_MATCH ||
+                Current_session.current_match.match_type == GlobalData.STORMS_WARNING_MATCH ||
+                Current_session.current_match.match_type == GlobalData.HALLOWEEN_MATCH ||
+                Current_session.current_match.match_type == GlobalData.ROCKET_LEAGUE_MATCH ||
+                Current_session.current_match.match_type == GlobalData.DRONE_BATTLE_MATCH ||
+                Current_session.current_match.match_type == GlobalData.RACE_WHEELS_ONLY_MATCH ||
+                Current_session.current_match.match_type == GlobalData.OPERATION_RED_LIGHT_MATCH ||
+                Current_session.current_match.match_type == GlobalData.WITCH_HUNT_MATCH ||
+                Current_session.current_match.match_type == GlobalData.BOMB_PLANT_MATCH ||
+                Current_session.current_match.match_type == GlobalData.CROSSOUT_DAY_BRAWL_MATCH)
+                Current_session.current_match.match_classification = GlobalData.BRAWL_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.BEDLAM_MATCH)
-                Current_session.current_match.match_classification = global_data.FREE_PLAY_CLASSIFICATION;
+            if (Current_session.current_match.match_type == GlobalData.BEDLAM_MATCH)
+                Current_session.current_match.match_classification = GlobalData.FREE_PLAY_CLASSIFICATION;
 
-            if (Current_session.current_match.match_type == global_data.CUSTOM_MATCH ||
-                Current_session.current_match.match_type == global_data.TEST_SERVER_MATCH)
-                Current_session.current_match.match_classification = global_data.CUSTOM_CLASSIFICATION;
+            if (Current_session.current_match.match_type == GlobalData.CUSTOM_MATCH ||
+                Current_session.current_match.match_type == GlobalData.TEST_SERVER_MATCH)
+                Current_session.current_match.match_classification = GlobalData.CUSTOM_CLASSIFICATION;
         }
 
         private static void finalize_match_record(SessionStats Current_session)
@@ -1154,7 +1154,7 @@ namespace CO_Driver
 
             Current_session.current_match.local_player = Current_session.current_match.player_records[Current_session.local_user_uid];
 
-            if (Current_session.current_match.match_type == global_data.BEDLAM_MATCH || Current_session.current_match.match_type == global_data.ADVENTURE_MATCH)
+            if (Current_session.current_match.match_type == GlobalData.BEDLAM_MATCH || Current_session.current_match.match_type == GlobalData.ADVENTURE_MATCH)
             {
                 Current_session.current_match.game_result = "";
             }
@@ -1306,7 +1306,7 @@ namespace CO_Driver
                 bot = 1;
 
             if (bot == 1)
-                uid = global_data.assign_bot_uid(player_name);
+                uid = GlobalData.AssignBotUid(player_name);
 
             if (Current_session.current_match.player_records.ContainsKey(uid))
             {
@@ -1392,7 +1392,7 @@ namespace CO_Driver
             }
             else
             {
-                int uid = global_data.assign_temp_uid(player_name);
+                int uid = GlobalData.AssignTempUid(player_name);
 
                 if (player_name == Current_session.local_user)
                     uid = Current_session.local_user_uid;
@@ -1451,7 +1451,7 @@ namespace CO_Driver
             if (uid == 0)
             {
                 bot = 1;
-                uid = global_data.assign_bot_uid(player_name);
+                uid = GlobalData.AssignBotUid(player_name);
             }
 
 
@@ -1548,7 +1548,7 @@ namespace CO_Driver
             if (bot != 0)
             {
                 bot = 1;
-                uid = global_data.assign_bot_uid(player_name);
+                uid = GlobalData.AssignBotUid(player_name);
             }
 
             if (Current_session.current_match.player_records.ContainsKey(uid))
@@ -1661,7 +1661,7 @@ namespace CO_Driver
             }
 
             string mob_name = line_results.Groups["mob_name"].Value;
-            int uid = global_data.assign_bot_uid(mob_name);
+            int uid = GlobalData.AssignBotUid(mob_name);
 
             if (!Current_session.current_match.player_records.ContainsKey(uid))
             {
@@ -1972,75 +1972,75 @@ namespace CO_Driver
         {
             switch (match_type)
             {
-                case global_data.STANDARD_MATCH:
+                case GlobalData.STANDARD_MATCH:
                     return "8v8";
-                case global_data.STANDARD_CW_MATCH:
+                case GlobalData.STANDARD_CW_MATCH:
                     return "CW";
-                case global_data.LEVIATHIAN_CW_MATCH:
+                case GlobalData.LEVIATHIAN_CW_MATCH:
                     return "Levi CW";
-                case global_data.BATTLE_ROYALE_MATCH:
+                case GlobalData.BATTLE_ROYALE_MATCH:
                     return "Battle Royale";
-                case global_data.LEAGUE_6_v_6_MATCH:
+                case GlobalData.LEAGUE_6_v_6_MATCH:
                     return "6v6";
-                case global_data.ARENA_CASUAL_MATCH:
+                case GlobalData.ARENA_CASUAL_MATCH:
                     return "Arena (Casual)";
-                case global_data.ARENA_RANKED_MATCH:
+                case GlobalData.ARENA_RANKED_MATCH:
                     return "Arena (Ranked)";
-                case global_data.EASY_RAID_MATCH:
+                case GlobalData.EASY_RAID_MATCH:
                     return "Easy Raid";
-                case global_data.MED_RAID_MATCH:
+                case GlobalData.MED_RAID_MATCH:
                     return "Medium Raid";
-                case global_data.HARD_RAID_MATCH:
+                case GlobalData.HARD_RAID_MATCH:
                     return "Hard Raid";
-                case global_data.CUSTOM_MATCH:
+                case GlobalData.CUSTOM_MATCH:
                     return "Custom Game";
-                case global_data.TEST_SERVER_MATCH:
+                case GlobalData.TEST_SERVER_MATCH:
                     return "Test Server";
-                case global_data.BEDLAM_MATCH:
+                case GlobalData.BEDLAM_MATCH:
                     return "Bedlam";
-                case global_data.PRESENT_HEIST_MATCH:
+                case GlobalData.PRESENT_HEIST_MATCH:
                     return "Present Heist";
-                case global_data.ADVENTURE_MATCH:
+                case GlobalData.ADVENTURE_MATCH:
                     return "Adventure";
-                case global_data.PATROL_MATCH:
+                case GlobalData.PATROL_MATCH:
                     return "Patrol";
-                case global_data.STANDARD_RESTRICTED_MATCH:
+                case GlobalData.STANDARD_RESTRICTED_MATCH:
                     return "Restricted 8v8";
-                case global_data.CANNON_BRAWL_MATCH:
+                case GlobalData.CANNON_BRAWL_MATCH:
                     return "Cannon Brawl";
-                case global_data.WINTER_MAYHAM_MATCH:
+                case GlobalData.WINTER_MAYHAM_MATCH:
                     return "Winter Mayhem";
-                case global_data.FREE_FOR_ALL_MATCH:
+                case GlobalData.FREE_FOR_ALL_MATCH:
                     return "FFA";
-                case global_data.STORMS_WARNING_MATCH:
+                case GlobalData.STORMS_WARNING_MATCH:
                     return "Storms Warning";
-                case global_data.ROCKET_LEAGUE_MATCH:
+                case GlobalData.ROCKET_LEAGUE_MATCH:
                     return "Football";
-                case global_data.SCORPION_MATCH:
+                case GlobalData.SCORPION_MATCH:
                     return "BBS";
-                case global_data.RACE_MATCH:
+                case GlobalData.RACE_MATCH:
                     return "Race";
-                case global_data.RACE_WHEELS_ONLY_MATCH:
+                case GlobalData.RACE_WHEELS_ONLY_MATCH:
                     return "Race: Only Wheels";
-                case global_data.HALLOWEEN_MATCH:
+                case GlobalData.HALLOWEEN_MATCH:
                     return "Witch Hunt";
-                case global_data.DRONE_BATTLE_MATCH:
+                case GlobalData.DRONE_BATTLE_MATCH:
                     return "Drone Battle";
-                case global_data.CROSSOUT_DAY_BRAWL_MATCH:
+                case GlobalData.CROSSOUT_DAY_BRAWL_MATCH:
                     return "Crossout Day Brawl";
-                case global_data.GOZU_MATCH:
+                case GlobalData.GOZU_MATCH:
                     return "Gozu";
-                case global_data.WITCH_HUNT_MATCH:
+                case GlobalData.WITCH_HUNT_MATCH:
                     return "Witch Hunt";
-                case global_data.BOMB_PLANT_MATCH:
+                case GlobalData.BOMB_PLANT_MATCH:
                     return "Sabotage";
-                case global_data.BOARS_MATCH:
+                case GlobalData.BOARS_MATCH:
                     return "Boars";
-                case global_data.OPERATION_RED_LIGHT_MATCH:
+                case GlobalData.OPERATION_RED_LIGHT_MATCH:
                     return "Operation Red Light";
-                case global_data.INVASION_MATCH:
+                case GlobalData.INVASION_MATCH:
                     return "Invasion";
-                case global_data.UNDEFINED_MATCH:
+                case GlobalData.UNDEFINED_MATCH:
                     return "Undefined";
                 default:
                     return match_type.ToString();
@@ -2051,21 +2051,21 @@ namespace CO_Driver
         {
             switch (faction)
             {
-                case global_data.ENGINEER_FACTION:
+                case GlobalData.ENGINEER_FACTION:
                     return "Engineers";
-                case global_data.LUNATICS_FACTION:
+                case GlobalData.LUNATICS_FACTION:
                     return "Lunatics";
-                case global_data.NOMADS_FACTION:
+                case GlobalData.NOMADS_FACTION:
                     return "Nomads";
-                case global_data.SCAVENGERS_FACTION:
+                case GlobalData.SCAVENGERS_FACTION:
                     return "Scavengers";
-                case global_data.STEPPENWOLFS_FACTION:
+                case GlobalData.STEPPENWOLFS_FACTION:
                     return "Steppenwolfs";
-                case global_data.DAWNS_CHILDREN_FACTION:
+                case GlobalData.DAWNS_CHILDREN_FACTION:
                     return "Dawns Children";
-                case global_data.FIRESTARTERS_FACTION:
+                case GlobalData.FIRESTARTERS_FACTION:
                     return "Firestarters";
-                case global_data.FOUNDERS_FACTION:
+                case GlobalData.FOUNDERS_FACTION:
                     return "Founders";
                 default:
                     return "Undefined";
@@ -2295,7 +2295,7 @@ namespace CO_Driver
             if (!Current_session.current_match.player_records.ContainsKey(Current_session.local_user_uid))
                 return;
 
-            int game_mode = global_data.STANDARD_MATCH;
+            int game_mode = GlobalData.STANDARD_MATCH;
             int total_wins;
             int total_losses;
             int total_games;
@@ -2444,8 +2444,8 @@ namespace CO_Driver
             {
                 map_name = "",
                 map_desc = "",
-                match_type = global_data.UNDEFINED_MATCH,
-                match_classification = global_data.UNDEFINED_CLASSIFICATION,
+                match_type = GlobalData.UNDEFINED_MATCH,
+                match_classification = GlobalData.UNDEFINED_CLASSIFICATION,
                 match_type_desc = "",
                 server_guid = 0,
                 client_guid = 0,

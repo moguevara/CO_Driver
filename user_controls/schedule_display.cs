@@ -49,12 +49,12 @@ namespace CO_Driver
                     {
                         if (type == "cw")
                         {
-                            if (event_time.event_type != global_data.STANDARD_CW && event_time.event_type != global_data.LEVIATHIAN_CW)
+                            if (event_time.event_type != GlobalData.STANDARD_CW && event_time.event_type != GlobalData.LEVIATHIAN_CW)
                                 continue;
                         }
                         else
                         {
-                            if (event_time.event_type == global_data.STANDARD_CW || event_time.event_type == global_data.LEVIATHIAN_CW)
+                            if (event_time.event_type == GlobalData.STANDARD_CW || event_time.event_type == GlobalData.LEVIATHIAN_CW)
                                 continue;
                         }
 
@@ -65,37 +65,37 @@ namespace CO_Driver
                             (cell_time >= start_time_dt.AddDays(7) && cell_time < end_time_dt.AddDays(7)) ||
                             (cell_time >= start_time_dt.AddDays(-7) && cell_time < end_time_dt.AddDays(-7)))
                         {
-                            if (event_time.event_type == global_data.STANDARD_CW)
+                            if (event_time.event_type == GlobalData.STANDARD_CW)
                                 row.Cells[j + 1].Value = "Standard CW";
                             else
-                            if (event_time.event_type == global_data.LEVIATHIAN_CW)
+                            if (event_time.event_type == GlobalData.LEVIATHIAN_CW)
                                 row.Cells[j + 1].Value = "Leviathan CW";
                             else
-                            if (event_time.event_type == global_data.BIG_BLACK_SCORPION)
+                            if (event_time.event_type == GlobalData.BIG_BLACK_SCORPION)
                                 row.Cells[j + 1].Value = "Big Black Scorpions";
                             else
-                            if (event_time.event_type == global_data.STORM_WARNING)
+                            if (event_time.event_type == GlobalData.STORM_WARNING)
                                 row.Cells[j + 1].Value = "Storm Warning";
                             else
-                            if (event_time.event_type == global_data.WHEEL_RACE)
+                            if (event_time.event_type == GlobalData.WHEEL_RACE)
                                 row.Cells[j + 1].Value = "Race(Wheels)";
                             else
-                            if (event_time.event_type == global_data.HOVER_RACE)
+                            if (event_time.event_type == GlobalData.HOVER_RACE)
                                 row.Cells[j + 1].Value = "Race(Hovers)";
                             else
-                            if (event_time.event_type == global_data.FREE_FOR_ALL)
+                            if (event_time.event_type == GlobalData.FREE_FOR_ALL)
                                 row.Cells[j + 1].Value = "Free For All";
                             else
-                            if (event_time.event_type == global_data.BATTLE_ROYALE)
+                            if (event_time.event_type == GlobalData.BATTLE_ROYALE)
                                 row.Cells[j + 1].Value = "Battle Royale";
                             else
-                            if (event_time.event_type == global_data.CANNON_FODDER)
+                            if (event_time.event_type == GlobalData.CANNON_FODDER)
                                 row.Cells[j + 1].Value = "Cannon Fodder";
                             else
-                            if (event_time.event_type == global_data.HEAD_ON)
+                            if (event_time.event_type == GlobalData.HEAD_ON)
                                 row.Cells[j + 1].Value = "Head-On!";
                             else
-                            if (event_time.event_type == global_data.STEEL_CHAMPIONSHIP)
+                            if (event_time.event_type == GlobalData.STEEL_CHAMPIONSHIP)
                                 row.Cells[j + 1].Value = "Steel Championship";
                             else
                                 row.Cells[j + 1].Value = "Undefined Brawl";

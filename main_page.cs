@@ -377,30 +377,30 @@ namespace CO_Driver
         {
             Current_session.live_trace_data = true;
             add_last_match(Current_session);
-            bw_file_feed.ReportProgress(global_data.UNLOCK_MENU_BAR_EVENT);
+            bw_file_feed.ReportProgress(GlobalData.UNLOCK_MENU_BAR_EVENT);
         }
         private void populate_match_history(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.POPULATE_MATCH_HISTORY_EVENT,
+            bw_file_feed.ReportProgress(GlobalData.POPULATE_MATCH_HISTORY_EVENT,
                     file_trace_manager.new_match_history_list(Current_session.match_history));
         }
 
         private void populate_static_elements(file_trace_managment.SessionStats Current_session)
         {
 
-            bw_file_feed.ReportProgress(global_data.POPULATE_STATIC_ELEMENTS_EVENT,
+            bw_file_feed.ReportProgress(GlobalData.POPULATE_STATIC_ELEMENTS_EVENT,
                     file_trace_manager.new_static_element_response(Current_session.static_records));
         }
 
         private void populate_build_records(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.BUILD_POPULATE_EVENT,
+            bw_file_feed.ReportProgress(GlobalData.BUILD_POPULATE_EVENT,
                     file_trace_manager.new_build_record_response(Current_session.player_build_records));
         }
 
         private void populate_user_profile(file_trace_managment.SessionStats Current_session)
         {
-            bw_file_feed.ReportProgress(global_data.POPULATE_USER_PROFILE_EVENT,
+            bw_file_feed.ReportProgress(GlobalData.POPULATE_USER_PROFILE_EVENT,
                 file_trace_manager.new_user_profile(
                     Current_session.match_history,
                     Current_session.player_build_records));
@@ -420,17 +420,17 @@ namespace CO_Driver
             if (Current_session.garage_data.damage_record.attacker != Current_session.local_user)
                 return;
 
-            bw_file_feed.ReportProgress(global_data.GARAGE_DAMAGE_EVENT, Current_session.garage_data.damage_record);
+            bw_file_feed.ReportProgress(GlobalData.GARAGE_DAMAGE_EVENT, Current_session.garage_data.damage_record);
         }
 
         private void clear_current_test_drive_data()
         {
-            bw_file_feed.ReportProgress(global_data.TEST_DRIVE_END_EVENT, null);
+            bw_file_feed.ReportProgress(GlobalData.TEST_DRIVE_END_EVENT, null);
         }
 
         private void process_log_event(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == global_data.TRACE_EVENT_FILE_COMPLETE)
+            if (e.ProgressPercentage == GlobalData.TRACE_EVENT_FILE_COMPLETE)
             {
                 file_trace_managment.FileCompleteResponse response = (file_trace_managment.FileCompleteResponse)e.UserState;
                 this.welcome_screen.pb_welcome_file_load.Value = (int)(response.historic_percent_processed * 100) > 95 ? 95 : (int)(response.historic_percent_processed * 100);
@@ -438,7 +438,7 @@ namespace CO_Driver
                 this.welcome_screen.tb_progress_tracking.AppendText(string.Format(response.load_desc + Environment.NewLine));
             }
             else
-            if (e.ProgressPercentage == global_data.UNLOCK_MENU_BAR_EVENT)
+            if (e.ProgressPercentage == GlobalData.UNLOCK_MENU_BAR_EVENT)
             {
                 if (this.strp_main_menu_strip.Enabled == false)
                 {
@@ -453,7 +453,7 @@ namespace CO_Driver
                 }
             }
             else
-            if (e.ProgressPercentage == global_data.POPULATE_USER_PROFILE_EVENT)
+            if (e.ProgressPercentage == GlobalData.POPULATE_USER_PROFILE_EVENT)
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating User Profile" + Environment.NewLine));
                 file_trace_managment.UserProfileResponse response = (file_trace_managment.UserProfileResponse)e.UserState;
@@ -479,7 +479,7 @@ namespace CO_Driver
                     upload_page.btn_upload_matchs_Click(this, EventArgs.Empty);
             }
             else
-            if (e.ProgressPercentage == global_data.POPULATE_MATCH_HISTORY_EVENT)
+            if (e.ProgressPercentage == GlobalData.POPULATE_MATCH_HISTORY_EVENT)
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 file_trace_managment.MatchHistoryResponse response = (file_trace_managment.MatchHistoryResponse)e.UserState;
@@ -488,7 +488,7 @@ namespace CO_Driver
                 match_history_page.refersh_history_table();
             }
             else
-            if (e.ProgressPercentage == global_data.MATCH_END_POPULATE_EVENT)
+            if (e.ProgressPercentage == GlobalData.MATCH_END_POPULATE_EVENT)
             {
                 file_trace_managment.MatchEndResponse response = new file_trace_managment.MatchEndResponse { };
                 response = (file_trace_managment.MatchEndResponse)e.UserState;
@@ -500,7 +500,7 @@ namespace CO_Driver
 
             }
             else
-            if (e.ProgressPercentage == global_data.BUILD_POPULATE_EVENT)
+            if (e.ProgressPercentage == GlobalData.BUILD_POPULATE_EVENT)
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
                 file_trace_managment.BuildRecordResponse response = (file_trace_managment.BuildRecordResponse)e.UserState;
@@ -508,7 +508,7 @@ namespace CO_Driver
                 build_page.populate_build_record_table();
             }
             else
-            if (e.ProgressPercentage == global_data.POPULATE_STATIC_ELEMENTS_EVENT)
+            if (e.ProgressPercentage == GlobalData.POPULATE_STATIC_ELEMENTS_EVENT)
             {
                 welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Configuring Build Optimization" + Environment.NewLine));
                 file_trace_managment.StaticRecordResponse response = (file_trace_managment.StaticRecordResponse)e.UserState;
@@ -521,18 +521,18 @@ namespace CO_Driver
                 schedule_page.event_times = response.master_static_records.global_event_times;
             }
             else
-            if (e.ProgressPercentage == global_data.GARAGE_DAMAGE_EVENT)
+            if (e.ProgressPercentage == GlobalData.GARAGE_DAMAGE_EVENT)
             {
                 file_trace_managment.GarageDamageRecord response = (file_trace_managment.GarageDamageRecord)e.UserState;
                 garage_page.add_damage_record(response);
             }
             else
-            if (e.ProgressPercentage == global_data.TEST_DRIVE_END_EVENT)
+            if (e.ProgressPercentage == GlobalData.TEST_DRIVE_END_EVENT)
             {
                 garage_page.reset_damage_records();
             }
             else
-            if (e.ProgressPercentage == global_data.DEBUG_GIVE_LINE_UPDATE_EVENT)
+            if (e.ProgressPercentage == GlobalData.DEBUG_GIVE_LINE_UPDATE_EVENT)
             {
                 file_trace_managment.DebugResponse response = (file_trace_managment.DebugResponse)e.UserState;
                 welcome_screen.tb_progress_tracking.AppendText(string.Format(@"{0}{1}" + Environment.NewLine, response.event_type, response.line));
@@ -550,9 +550,9 @@ namespace CO_Driver
             if (session_variables.parsed_logs.Count() == 0)
                 return;
 
-            if (session_variables.client_version != global_data.CURRENT_VERSION)
+            if (session_variables.client_version != GlobalData.CURRENT_VERSION)
             {
-                session_variables.client_version = global_data.CURRENT_VERSION;
+                session_variables.client_version = GlobalData.CURRENT_VERSION;
                 session_variables.parsed_logs = new List<string> { };
                 log_file_manager.save_session_config(session_variables);
                 return;
@@ -589,7 +589,7 @@ namespace CO_Driver
                 return;
             }
 
-            bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)session_variables.parsed_logs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.parsed_logs.Count())));
+            bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)session_variables.parsed_logs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.parsed_logs.Count())));
         }
 
         private void process_historic_files(file_trace_managment ftm, file_trace_managment.SessionStats Current_session, log_file_managment.session_variables session_variables)
@@ -625,7 +625,7 @@ namespace CO_Driver
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
-                bw_file_feed.ReportProgress(global_data.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)(session_variables.parsed_logs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.parsed_logs.Count() / 2) * 100) / (double)file_count))));
+                bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.new_worker_response((double)(session_variables.parsed_logs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.combat_log.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.parsed_logs.Count() / 2) * 100) / (double)file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.game_log.FullName))
                 using (FileStream combat_stream = File.OpenRead(session.combat_log.FullName))
@@ -898,53 +898,53 @@ namespace CO_Driver
 
             switch (Current_session.current_event)
             {
-                case global_data.QUEUE_START_EVENT:
+                case GlobalData.QUEUE_START_EVENT:
                     file_trace_managment.queue_start_event(line, Current_session);
                     break;
-                case global_data.QUEUE_UPDATE_EVENT:
+                case GlobalData.QUEUE_UPDATE_EVENT:
                     file_trace_managment.queue_update_event(line, Current_session);
                     break;
-                case global_data.QUEUE_END_EVENT:
+                case GlobalData.QUEUE_END_EVENT:
                     file_trace_managment.queue_end_event(line, Current_session);
                     break;
-                case global_data.GAME_PLAYER_LOAD_EVENT:
+                case GlobalData.GAME_PLAYER_LOAD_EVENT:
                     file_trace_managment.load_player_from_game_log(line, Current_session);
                     break;
-                case global_data.PLAYER_LEAVE_EVENT:
+                case GlobalData.PLAYER_LEAVE_EVENT:
                     file_trace_managment.player_leave_event(line, Current_session);
                     break;
-                case global_data.GUID_ASSIGN_EVENT:
+                case GlobalData.GUID_ASSIGN_EVENT:
                     file_trace_managment.guid_assign_event(line, Current_session);
                     break;
-                case global_data.ADD_OR_UPDATE_PLAYER_EVENT:
+                case GlobalData.ADD_OR_UPDATE_PLAYER_EVENT:
                     file_trace_managment.add_or_update_player_from_game_log(line, Current_session);
                     break;
-                case global_data.GAME_PLAYER_SPAWN_EVENT:
+                case GlobalData.GAME_PLAYER_SPAWN_EVENT:
                     file_trace_managment.spawn_player_from_game_log(line, Current_session);
                     break;
-                case global_data.HOST_NAME_ASSIGN_EVENT:
+                case GlobalData.HOST_NAME_ASSIGN_EVENT:
                     file_trace_managment.dedicated_server_connect_event(line, Current_session);
                     break;
-                case global_data.CONNECTION_INIT_EVENT:
+                case GlobalData.CONNECTION_INIT_EVENT:
                     file_trace_managment.connection_made_event(line, Current_session);
                     break;
-                case global_data.MATCH_REWARD_EVENT:
+                case GlobalData.MATCH_REWARD_EVENT:
                     file_trace_managment.match_reward_event(line, Current_session);
                     if (Current_session.current_match.match_type_desc != "")
                         add_last_match(Current_session);
                     break;
-                case global_data.MATCH_PROPERTY_EVENT:
+                case GlobalData.MATCH_PROPERTY_EVENT:
                     file_trace_managment.assign_match_property(line, Current_session);
                     break;
-                case global_data.ADVENTURE_REWARD_EVENT:
+                case GlobalData.ADVENTURE_REWARD_EVENT:
                     file_trace_managment.assign_adventure_reward_event(line, Current_session);
                     break;
-                case global_data.QUEST_EVENT:
+                case GlobalData.QUEST_EVENT:
                     break;
-                case global_data.LOOT_EVENT:
+                case GlobalData.LOOT_EVENT:
                     file_trace_managment.assign_loot_event(line, Current_session);
                     break;
-                case global_data.ASSIGN_CLIENT_VERSION_EVENT:
+                case GlobalData.ASSIGN_CLIENT_VERSION_EVENT:
                     file_trace_managment.assign_client_version_event(line, Current_session);
                     break;
             }
@@ -961,53 +961,53 @@ namespace CO_Driver
 
             switch (Current_session.current_event)
             {
-                case global_data.MATCH_START_EVENT:
+                case GlobalData.MATCH_START_EVENT:
                     add_last_match(Current_session);
                     file_trace_managment.match_start_event(line, Current_session);
                     break;
-                case global_data.GAME_PLAY_START_EVENT:
+                case GlobalData.GAME_PLAY_START_EVENT:
                     file_trace_managment.gameplay_start_event(line, Current_session);
                     break;
-                case global_data.LOAD_PLAYER_EVENT:
+                case GlobalData.LOAD_PLAYER_EVENT:
                     file_trace_managment.load_player_event(line, Current_session);
                     break;
-                case global_data.SPAWN_PLAYER_EVENT:
+                case GlobalData.SPAWN_PLAYER_EVENT:
                     file_trace_managment.spawn_player_event(line, Current_session);
                     break;
-                case global_data.DAMAGE_EVENT:
+                case GlobalData.DAMAGE_EVENT:
                     file_trace_managment.damage_event(line, Current_session);
                     update_garage_view(Current_session);
                     break;
-                case global_data.STRIPE_EVENT:
+                case GlobalData.STRIPE_EVENT:
                     file_trace_managment.stripe_event(line, Current_session);
                     break;
-                case global_data.KILL_EVENT:
+                case GlobalData.KILL_EVENT:
                     file_trace_managment.kill_event(line, Current_session);
                     break;
-                case global_data.ASSIST_EVENT:
+                case GlobalData.ASSIST_EVENT:
                     file_trace_managment.kill_assist_event(line, Current_session);
                     break;
-                case global_data.SCORE_EVENT:
+                case GlobalData.SCORE_EVENT:
                     file_trace_managment.score_event(line, Current_session);
                     break;
-                case global_data.CW_ROUND_END_EVENT:
+                case GlobalData.CW_ROUND_END_EVENT:
                     file_trace_managment.clan_war_round_end_event(line, Current_session);
                     break;
-                case global_data.MAIN_MENU_EVENT:
+                case GlobalData.MAIN_MENU_EVENT:
                     file_trace_managment.main_menu_event(line, Current_session);
                     //bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
                     add_last_match(Current_session);
                     break;
-                case global_data.TEST_DRIVE_EVENT:
+                case GlobalData.TEST_DRIVE_EVENT:
                     file_trace_managment.test_drive_event(line, Current_session);
                     //bw_file_feed.ReportProgress(global_data.DEBUG_GIVE_LINE_UPDATE_EVENT, file_trace_manager.new_debug_response(Current_session.current_event, "c:" + line));
                     clear_current_test_drive_data();
                     break;
-                case global_data.MATCH_END_EVENT:
+                case GlobalData.MATCH_END_EVENT:
                     file_trace_managment.match_end_event(line, Current_session);
                     add_last_match(Current_session);
                     break;
-                case global_data.ADD_MOB_EVENT:
+                case GlobalData.ADD_MOB_EVENT:
                     file_trace_managment.add_mob_event(line, Current_session);
                     break;
             }
@@ -1063,7 +1063,7 @@ namespace CO_Driver
             if (Current_session.player_build_records.ContainsKey(Current_session.current_match.local_player.build_hash))
                 last_build_record = Current_session.player_build_records[Current_session.current_match.local_player.build_hash];
 
-            bw_file_feed.ReportProgress(global_data.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
+            bw_file_feed.ReportProgress(GlobalData.MATCH_END_POPULATE_EVENT, file_trace_manager.new_match_end_response(Current_session.current_match, last_build_record));
 
             if (session.update_postmatch)
             {
@@ -1081,7 +1081,7 @@ namespace CO_Driver
 
         public string get_current_version()
         {
-            return global_data.CURRENT_VERSION;
+            return GlobalData.CURRENT_VERSION;
         }
 
         private void load_match_details(object sender, file_trace_managment.MatchRecord historic_match)

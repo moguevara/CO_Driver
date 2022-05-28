@@ -469,7 +469,7 @@ namespace CO_Driver
                     break;
                 case metric.URANIUM:
                     value = match.match_data.match_rewards.Where(x => x.Key == "ClanMoney").Sum(x => x.Value);
-                    if (match.match_data.match_type != global_data.STANDARD_CW_MATCH && match.match_data.match_type != global_data.LEVIATHIAN_CW_MATCH)
+                    if (match.match_data.match_type != GlobalData.STANDARD_CW_MATCH && match.match_data.match_type != GlobalData.LEVIATHIAN_CW_MATCH)
                         return;
                     break;
                 case metric.SCRAP:
@@ -696,15 +696,15 @@ namespace CO_Driver
 
         public string decode_match_classification(int match_classification)
         {
-            if (match_classification == global_data.PVP_CLASSIFICATION)
+            if (match_classification == GlobalData.PVP_CLASSIFICATION)
                 return "PvP";
-            if (match_classification == global_data.PVE_CLASSIFICATION)
+            if (match_classification == GlobalData.PVE_CLASSIFICATION)
                 return "PvE";
-            if (match_classification == global_data.BRAWL_CLASSIFICATION)
+            if (match_classification == GlobalData.BRAWL_CLASSIFICATION)
                 return "Brawl";
-            if (match_classification == global_data.CUSTOM_CLASSIFICATION)
+            if (match_classification == GlobalData.CUSTOM_CLASSIFICATION)
                 return "Custom";
-            if (match_classification == global_data.FREE_PLAY_CLASSIFICATION)
+            if (match_classification == GlobalData.FREE_PLAY_CLASSIFICATION)
                 return "Free Play";
             return "Undefined";
         }

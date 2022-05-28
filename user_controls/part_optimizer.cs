@@ -38,21 +38,21 @@ namespace CO_Driver
 
             for (int i = 0; i < master_part_list.Count(); i++)
             {
-                if (master_part_list[i].faction == global_data.ENGINEER_FACTION && master_part_list[i].level > engineer_level)
+                if (master_part_list[i].faction == GlobalData.ENGINEER_FACTION && master_part_list[i].level > engineer_level)
                     continue;
-                if (master_part_list[i].faction == global_data.LUNATICS_FACTION && master_part_list[i].level > lunatics_level)
+                if (master_part_list[i].faction == GlobalData.LUNATICS_FACTION && master_part_list[i].level > lunatics_level)
                     continue;
-                if (master_part_list[i].faction == global_data.NOMADS_FACTION && master_part_list[i].level > nomads_level)
+                if (master_part_list[i].faction == GlobalData.NOMADS_FACTION && master_part_list[i].level > nomads_level)
                     continue;
-                if (master_part_list[i].faction == global_data.SCAVENGERS_FACTION && master_part_list[i].level > scavengers_level)
+                if (master_part_list[i].faction == GlobalData.SCAVENGERS_FACTION && master_part_list[i].level > scavengers_level)
                     continue;
-                if (master_part_list[i].faction == global_data.STEPPENWOLFS_FACTION && master_part_list[i].level > steppenwolfs_level)
+                if (master_part_list[i].faction == GlobalData.STEPPENWOLFS_FACTION && master_part_list[i].level > steppenwolfs_level)
                     continue;
-                if (master_part_list[i].faction == global_data.DAWNS_CHILDREN_FACTION && master_part_list[i].level > dawns_children_level)
+                if (master_part_list[i].faction == GlobalData.DAWNS_CHILDREN_FACTION && master_part_list[i].level > dawns_children_level)
                     continue;
-                if (master_part_list[i].faction == global_data.FIRESTARTERS_FACTION && master_part_list[i].level > firestarts_level)
+                if (master_part_list[i].faction == GlobalData.FIRESTARTERS_FACTION && master_part_list[i].level > firestarts_level)
                     continue;
-                if (master_part_list[i].faction == global_data.FOUNDERS_FACTION && master_part_list[i].level > founders_level)
+                if (master_part_list[i].faction == GlobalData.FOUNDERS_FACTION && master_part_list[i].level > founders_level)
                     continue;
                 //if (master_part_list[i].faction == global_data.PRESTIGUE_PACK_FACTION && prestigue_parts == true)
                 //    continue;

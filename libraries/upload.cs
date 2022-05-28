@@ -35,7 +35,7 @@ namespace CO_Driver
             match_entry.map_display_name = translate.translate_string_english(match.match_data.map_desc, translations);
             match_entry.winning_team = match.match_data.winning_team;
             match_entry.win_conidtion = 1; /*TODO*/
-            match_entry.co_driver_version = global_data.CURRENT_VERSION;
+            match_entry.co_driver_version = GlobalData.CURRENT_VERSION;
             if (match.match_data.client_version.Contains(" "))
                 match_entry.client_version = match.match_data.client_version.Split(' ')[0];
             else

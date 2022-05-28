@@ -20,7 +20,7 @@ namespace CO_Driver
         {
             base.OnLoad(e);
 
-            version_label.Text = string.Format(@"CO_Driver v{0}", global_data.CURRENT_VERSION);
+            version_label.Text = string.Format(@"CO_Driver v{0}", GlobalData.CURRENT_VERSION);
         }
 
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)

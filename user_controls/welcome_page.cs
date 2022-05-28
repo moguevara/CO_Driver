@@ -30,7 +30,7 @@ namespace CO_Driver
 
         public string get_current_version()
         {
-            return global_data.CURRENT_VERSION;
+            return GlobalData.CURRENT_VERSION;
         }
 
         private void welcome_page_Load(object sender, EventArgs e)

@@ -164,31 +164,31 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
 
-                if (match.match_data.match_type == global_data.INVASION_MATCH)
+                if (match.match_data.match_type == GlobalData.INVASION_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == global_data.EASY_RAID_MATCH)
+                if (match.match_data.match_type == GlobalData.EASY_RAID_MATCH)
                     fuel_ammount = 20;
                 else
-                if (match.match_data.match_type == global_data.MED_RAID_MATCH)
+                if (match.match_data.match_type == GlobalData.MED_RAID_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == global_data.HARD_RAID_MATCH)
+                if (match.match_data.match_type == GlobalData.HARD_RAID_MATCH)
                     fuel_ammount = 60;
 
                 if (chk_badges.Checked && match.match_data.game_result == "Win")
                 {
-                    if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+                    if (match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION)
                         badges_amount = 19.444;
                     else
                     {
                         switch (match.match_data.match_type)
                         {
-                            case global_data.EASY_RAID_MATCH:
+                            case GlobalData.EASY_RAID_MATCH:
                                 badges_amount = 16.667;
                                 break;
-                            case global_data.STANDARD_MATCH:
-                            case global_data.PATROL_MATCH:
+                            case GlobalData.STANDARD_MATCH:
+                            case GlobalData.PATROL_MATCH:
                                 if (match.match_data.match_rewards.ContainsKey("Scrap_Rare"))
                                     badges_amount = 10;
                                 else if (match.match_data.match_rewards.ContainsKey("Accumulators"))
@@ -196,17 +196,17 @@ namespace CO_Driver
                                 else if (match.match_data.match_rewards.ContainsKey("Scrap_Common"))
                                     badges_amount = 12.5;
                                 break;
-                            case global_data.INVASION_MATCH:
+                            case GlobalData.INVASION_MATCH:
                                 badges_amount = 17.5;
                                 break;
-                            case global_data.MED_RAID_MATCH:
+                            case GlobalData.MED_RAID_MATCH:
                                 badges_amount = 15;
                                 break;
-                            case global_data.HARD_RAID_MATCH:
+                            case GlobalData.HARD_RAID_MATCH:
                                 badges_amount = 50;
                                 break;
-                            case global_data.LEVIATHIAN_CW_MATCH:
-                            case global_data.STANDARD_CW_MATCH:
+                            case GlobalData.LEVIATHIAN_CW_MATCH:
+                            case GlobalData.STANDARD_CW_MATCH:
                                 badges_amount = 90;
                                 break;
                         }

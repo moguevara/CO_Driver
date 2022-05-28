@@ -91,7 +91,7 @@ namespace CO_Driver
                 back_color = Color.Black,
                 fore_color = Color.Lime,
                 include_prestigue_parts = true,
-                client_version = global_data.CURRENT_VERSION,
+                client_version = GlobalData.CURRENT_VERSION,
                 primary_display = Screen.PrimaryScreen.DeviceName,
                 parsed_logs = new List<string> { },
                 uid_lookup = new Dictionary<string, int> { },

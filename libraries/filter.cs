@@ -34,14 +34,14 @@ namespace CO_Driver
         {
             return new FilterSelections
             {
-                GameModeFilter = global_data.GAME_MODE_FILTER_DEFAULT,
-                GroupFilter = global_data.GROUP_FILTER_DEFAULT,
-                PowerScoreFilter = global_data.POWER_SCORE_FILTER_DEFAULT,
-                ClientVersionFilter = global_data.CLIENT_VERSION_FILTER_DEFAULT,
-                WeaponsFilter = global_data.WEAPONS_FILTER_DEFAULT,
-                MovementFilter = global_data.MOVEMENT_FILTER_DEFAULT,
-                ModuleFilter = global_data.MODULE_FILTER_DEFAULT,
-                CabinFilter = global_data.CABIN_FILTER_DEFAULT,
+                GameModeFilter = GlobalData.GAME_MODE_FILTER_DEFAULT,
+                GroupFilter = GlobalData.GROUP_FILTER_DEFAULT,
+                PowerScoreFilter = GlobalData.POWER_SCORE_FILTER_DEFAULT,
+                ClientVersionFilter = GlobalData.CLIENT_VERSION_FILTER_DEFAULT,
+                WeaponsFilter = GlobalData.WEAPONS_FILTER_DEFAULT,
+                MovementFilter = GlobalData.MOVEMENT_FILTER_DEFAULT,
+                ModuleFilter = GlobalData.MODULE_FILTER_DEFAULT,
+                CabinFilter = GlobalData.CABIN_FILTER_DEFAULT,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now,
                 GameModes = new List<string> { },
@@ -67,14 +67,14 @@ namespace CO_Driver
 
         public static void ResetFilterSelections(FilterSelections filter)
         {
-            filter.GameModeFilter = global_data.GAME_MODE_FILTER_DEFAULT;
-            filter.GroupFilter = global_data.GROUP_FILTER_DEFAULT;
-            filter.PowerScoreFilter = global_data.POWER_SCORE_FILTER_DEFAULT;
-            filter.ClientVersionFilter = global_data.CLIENT_VERSION_FILTER_DEFAULT;
-            filter.WeaponsFilter = global_data.WEAPONS_FILTER_DEFAULT;
-            filter.MovementFilter = global_data.MOVEMENT_FILTER_DEFAULT;
-            filter.ModuleFilter = global_data.MODULE_FILTER_DEFAULT;
-            filter.CabinFilter = global_data.CABIN_FILTER_DEFAULT;
+            filter.GameModeFilter = GlobalData.GAME_MODE_FILTER_DEFAULT;
+            filter.GroupFilter = GlobalData.GROUP_FILTER_DEFAULT;
+            filter.PowerScoreFilter = GlobalData.POWER_SCORE_FILTER_DEFAULT;
+            filter.ClientVersionFilter = GlobalData.CLIENT_VERSION_FILTER_DEFAULT;
+            filter.WeaponsFilter = GlobalData.WEAPONS_FILTER_DEFAULT;
+            filter.MovementFilter = GlobalData.MOVEMENT_FILTER_DEFAULT;
+            filter.ModuleFilter = GlobalData.MODULE_FILTER_DEFAULT;
+            filter.CabinFilter = GlobalData.CABIN_FILTER_DEFAULT;
             filter.StartDate = DateTime.Now;
             filter.EndDate = DateTime.Now;
         }
@@ -94,22 +94,22 @@ namespace CO_Driver
             if (!filter.GameModes.Contains(match.match_data.match_type_desc))
                 filter.GameModes.Add((match.match_data.match_type_desc));
 
-            if (!filter.GameModes.Contains("PvP") && match.match_data.match_classification == global_data.PVP_CLASSIFICATION)
+            if (!filter.GameModes.Contains("PvP") && match.match_data.match_classification == GlobalData.PVP_CLASSIFICATION)
                 filter.GameModes.Add("PvP");
 
-            if (!filter.GameModes.Contains("PvE") && match.match_data.match_classification == global_data.PVE_CLASSIFICATION)
+            if (!filter.GameModes.Contains("PvE") && match.match_data.match_classification == GlobalData.PVE_CLASSIFICATION)
                 filter.GameModes.Add("PvE");
 
-            if (!filter.GameModes.Contains("Brawl") && match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+            if (!filter.GameModes.Contains("Brawl") && match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION)
                 filter.GameModes.Add("Brawl");
 
-            if (match.match_data.match_classification == global_data.PVP_CLASSIFICATION && !filter.GameModes.Contains("PvP"))
+            if (match.match_data.match_classification == GlobalData.PVP_CLASSIFICATION && !filter.GameModes.Contains("PvP"))
                 filter.GameModes.Add("PvP");
 
-            if (match.match_data.match_classification == global_data.PVE_CLASSIFICATION && !filter.GameModes.Contains("PvE"))
+            if (match.match_data.match_classification == GlobalData.PVE_CLASSIFICATION && !filter.GameModes.Contains("PvE"))
                 filter.GameModes.Add("PvE");
 
-            if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION && !filter.GameModes.Contains("Brawl"))
+            if (match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION && !filter.GameModes.Contains("Brawl"))
                 filter.GameModes.Add("Brawl");
 
             if (match.match_data.local_player.party_id == 0 && !filter.Grouped.Contains("Solo"))
@@ -179,16 +179,16 @@ namespace CO_Driver
         {
             PopulateFiltersForMatch(filter, match, buildRecords, session, translations);
 
-            if (filter.GameModeFilter != global_data.GAME_MODE_FILTER_DEFAULT && filter.GameModeFilter != "PvP" && filter.GameModeFilter != "PvE" && filter.GameModeFilter != "Brawl" && filter.GameModeFilter != match.match_data.match_type_desc)
+            if (filter.GameModeFilter != GlobalData.GAME_MODE_FILTER_DEFAULT && filter.GameModeFilter != "PvP" && filter.GameModeFilter != "PvE" && filter.GameModeFilter != "Brawl" && filter.GameModeFilter != match.match_data.match_type_desc)
                 return false;
 
-            if (filter.GameModeFilter == "PvP" && match.match_data.match_classification != global_data.PVP_CLASSIFICATION)
+            if (filter.GameModeFilter == "PvP" && match.match_data.match_classification != GlobalData.PVP_CLASSIFICATION)
                 return false;
 
-            if (filter.GameModeFilter == "PvE" && match.match_data.match_classification != global_data.PVE_CLASSIFICATION)
+            if (filter.GameModeFilter == "PvE" && match.match_data.match_classification != GlobalData.PVE_CLASSIFICATION)
                 return false;
 
-            if (filter.GameModeFilter == "Brawl" && match.match_data.match_classification != global_data.BRAWL_CLASSIFICATION)
+            if (filter.GameModeFilter == "Brawl" && match.match_data.match_classification != GlobalData.BRAWL_CLASSIFICATION)
                 return false;
 
             if (filter.GroupFilter == "Solo" && match.match_data.local_player.party_id > 0)
@@ -197,7 +197,7 @@ namespace CO_Driver
             if (filter.GroupFilter == "Grouped" && match.match_data.local_player.party_id == 0)
                 return false;
 
-            if (filter.ClientVersionFilter != global_data.CLIENT_VERSION_FILTER_DEFAULT && filter.ClientVersionFilter != match.match_data.client_version)
+            if (filter.ClientVersionFilter != GlobalData.CLIENT_VERSION_FILTER_DEFAULT && filter.ClientVersionFilter != match.match_data.client_version)
                 return false;
 
             if (filter.StartDate.Date != DateTime.Now.Date && match.match_data.match_start.Date < filter.StartDate)
@@ -206,7 +206,7 @@ namespace CO_Driver
             if (filter.EndDate.Date != DateTime.Now.Date && match.match_data.match_start.Date > filter.EndDate)
                 return false;
 
-            if (filter.PowerScoreFilter != global_data.POWER_SCORE_FILTER_DEFAULT)
+            if (filter.PowerScoreFilter != GlobalData.POWER_SCORE_FILTER_DEFAULT)
             {
                 if (filter.PowerScoreFilter == "0-2499" && (match.match_data.local_player.power_score < 0 || match.match_data.local_player.power_score > 2499))
                     return false;
@@ -244,30 +244,30 @@ namespace CO_Driver
 
             if (buildRecords.ContainsKey(match.match_data.local_player.build_hash))
             {
-                if (filter.WeaponsFilter != global_data.WEAPONS_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
+                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].weapons.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
                     return false;
 
-                if (filter.MovementFilter != global_data.MOVEMENT_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
+                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].movement.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
                     return false;
 
-                if (filter.CabinFilter != global_data.CABIN_FILTER_DEFAULT && translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations) != filter.CabinFilter)
+                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT && translate.translate_string(buildRecords[match.match_data.local_player.build_hash].cabin.name, session, translations) != filter.CabinFilter)
                     return false;
 
-                if (filter.ModuleFilter != global_data.MODULE_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
+                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].modules.Select(x => translate.translate_string(x.name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
                     return false;
             }
             else
             {
-                if (filter.WeaponsFilter != global_data.WEAPONS_FILTER_DEFAULT)
+                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT)
                     return false;
 
-                if (filter.MovementFilter != global_data.MOVEMENT_FILTER_DEFAULT)
+                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT)
                     return false;
 
-                if (filter.CabinFilter != global_data.CABIN_FILTER_DEFAULT)
+                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT)
                     return false;
 
-                if (filter.ModuleFilter != global_data.MODULE_FILTER_DEFAULT)
+                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT)
                     return false;
             }
 
@@ -287,13 +287,13 @@ namespace CO_Driver
             cbCabins.Items.Clear();
             cbModules.Items.Clear();
 
-            filter.GameModes = filter.GameModes.OrderBy(x => x != global_data.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x != "PvP").ThenBy(x => x != "PvE").ThenBy(x => x != "Brawl").ThenBy(x => x).ToList();
-            filter.PowerScores = filter.PowerScores.OrderBy(x => x != global_data.POWER_SCORE_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.ClientVersions = filter.ClientVersions.OrderBy(x => x != global_data.CLIENT_VERSION_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.Weapons = filter.Weapons.OrderBy(x => x != global_data.WEAPONS_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.MovementParts = filter.MovementParts.OrderBy(x => x != global_data.MOVEMENT_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.Cabins = filter.Cabins.OrderBy(x => x != global_data.CABIN_FILTER_DEFAULT).ThenBy(x => x).ToList();
-            filter.ModuleParts = filter.ModuleParts.OrderBy(x => x != global_data.MODULE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.GameModes = filter.GameModes.OrderBy(x => x != GlobalData.GAME_MODE_FILTER_DEFAULT).ThenBy(x => x != "PvP").ThenBy(x => x != "PvE").ThenBy(x => x != "Brawl").ThenBy(x => x).ToList();
+            filter.PowerScores = filter.PowerScores.OrderBy(x => x != GlobalData.POWER_SCORE_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.ClientVersions = filter.ClientVersions.OrderBy(x => x != GlobalData.CLIENT_VERSION_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.Weapons = filter.Weapons.OrderBy(x => x != GlobalData.WEAPONS_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.MovementParts = filter.MovementParts.OrderBy(x => x != GlobalData.MOVEMENT_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.Cabins = filter.Cabins.OrderBy(x => x != GlobalData.CABIN_FILTER_DEFAULT).ThenBy(x => x).ToList();
+            filter.ModuleParts = filter.ModuleParts.OrderBy(x => x != GlobalData.MODULE_FILTER_DEFAULT).ThenBy(x => x).ToList();
 
             if (filter.PowerScores.Contains("13000+"))
             {
@@ -352,14 +352,14 @@ namespace CO_Driver
             filter.Cabins = new List<string> { };
             filter.ModuleParts = new List<string> { };
 
-            filter.GameModes.Add(global_data.GAME_MODE_FILTER_DEFAULT);
-            filter.Grouped.Add(global_data.GROUP_FILTER_DEFAULT);
-            filter.PowerScores.Add(global_data.POWER_SCORE_FILTER_DEFAULT);
-            filter.ClientVersions.Add(global_data.CLIENT_VERSION_FILTER_DEFAULT);
-            filter.Weapons.Add(global_data.WEAPONS_FILTER_DEFAULT);
-            filter.MovementParts.Add(global_data.MOVEMENT_FILTER_DEFAULT);
-            filter.Cabins.Add(global_data.CABIN_FILTER_DEFAULT);
-            filter.ModuleParts.Add(global_data.MODULE_FILTER_DEFAULT);
+            filter.GameModes.Add(GlobalData.GAME_MODE_FILTER_DEFAULT);
+            filter.Grouped.Add(GlobalData.GROUP_FILTER_DEFAULT);
+            filter.PowerScores.Add(GlobalData.POWER_SCORE_FILTER_DEFAULT);
+            filter.ClientVersions.Add(GlobalData.CLIENT_VERSION_FILTER_DEFAULT);
+            filter.Weapons.Add(GlobalData.WEAPONS_FILTER_DEFAULT);
+            filter.MovementParts.Add(GlobalData.MOVEMENT_FILTER_DEFAULT);
+            filter.Cabins.Add(GlobalData.CABIN_FILTER_DEFAULT);
+            filter.ModuleParts.Add(GlobalData.MODULE_FILTER_DEFAULT);
         }
     }
 }

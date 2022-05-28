@@ -208,18 +208,18 @@ namespace CO_Driver
             return JsonConvert.SerializeObject(new List<Overlay_action> {
                 new Overlay_action {
                     overlay = STAT_CARD_OVERLAY,
-                    draw_conditions = new List<int> {global_data.TEST_DRIVE_EVENT },
-                    clear_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.MAIN_MENU_EVENT }
+                    draw_conditions = new List<int> {GlobalData.TEST_DRIVE_EVENT },
+                    clear_conditions = new List<int> { GlobalData.MATCH_START_EVENT, GlobalData.MAIN_MENU_EVENT }
                 },
                 new Overlay_action {
                     overlay = TEAM_PREVIEW_OVERLAY,
-                    draw_conditions = new List<int> { global_data.PLAYER_LEAVE_EVENT, global_data.LOAD_PLAYER_EVENT },
-                    clear_conditions = new List<int> { global_data.MAIN_MENU_EVENT }
+                    draw_conditions = new List<int> { GlobalData.PLAYER_LEAVE_EVENT, GlobalData.LOAD_PLAYER_EVENT },
+                    clear_conditions = new List<int> { GlobalData.MAIN_MENU_EVENT }
                 },
                 new Overlay_action {
                     overlay = IN_MATCH_OVERLAY,
-                    draw_conditions = new List<int> { global_data.MATCH_START_EVENT, global_data.KILL_EVENT, global_data.ASSIST_EVENT, global_data.DAMAGE_EVENT, global_data.SCORE_EVENT, global_data.STRIPE_EVENT},
-                    clear_conditions = new List<int> { global_data.TEST_DRIVE_EVENT }
+                    draw_conditions = new List<int> { GlobalData.MATCH_START_EVENT, GlobalData.KILL_EVENT, GlobalData.ASSIST_EVENT, GlobalData.DAMAGE_EVENT, GlobalData.SCORE_EVENT, GlobalData.STRIPE_EVENT},
+                    clear_conditions = new List<int> { GlobalData.TEST_DRIVE_EVENT }
                 }
             });
         }
@@ -564,7 +564,7 @@ namespace CO_Driver
                 if (match.match_data.match_start < time_cutoff)
                     continue;
 
-                if (match.match_data.match_classification == global_data.CUSTOM_CLASSIFICATION)
+                if (match.match_data.match_classification == GlobalData.CUSTOM_CLASSIFICATION)
                     continue;
 
                 if (match.match_data.nemesis != "")
@@ -627,10 +627,10 @@ namespace CO_Driver
             blue_team = "";
             Random random_number = new Random();
 
-            if (match.match_classification == global_data.PVE_CLASSIFICATION)
+            if (match.match_classification == GlobalData.PVE_CLASSIFICATION)
                 red_team = "A bunch of robots.";
             else
-            if (match.match_classification == global_data.FREE_PLAY_CLASSIFICATION)
+            if (match.match_classification == GlobalData.FREE_PLAY_CLASSIFICATION)
                 red_team = "The elite of Bedlam.";
             else
                 red_team = solo_queue_names[random_number.Next(solo_queue_names.Count())];

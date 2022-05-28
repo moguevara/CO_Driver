@@ -94,10 +94,10 @@ namespace CO_Driver
                     continue;
                 }
 
-                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                if (match.match_data.match_type == GlobalData.TEST_SERVER_MATCH)
                     continue;
 
-                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                if (match.match_data.match_type == GlobalData.CUSTOM_MATCH)
                     continue;
 
                 valid_matchs += 1;
@@ -210,10 +210,10 @@ namespace CO_Driver
                 if (match.match_data.winning_team == -1)
                     continue;
 
-                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                if (match.match_data.match_type == GlobalData.TEST_SERVER_MATCH)
                     continue;
 
-                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                if (match.match_data.match_type == GlobalData.CUSTOM_MATCH)
                     continue;
 
                 if (match.match_data.match_start < min_upload_date)
@@ -247,7 +247,7 @@ namespace CO_Driver
                 }
                 upload_entry.match_list.Add(Upload.populate_match_entry(match, translations));
 
-                if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
+                if (upload_entry.match_list.Count >= GlobalData.UPLOAD_LIST_SIZE)
                 {
                     percent_upload = percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
                     status.text_update = string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
