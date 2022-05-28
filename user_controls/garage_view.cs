@@ -33,8 +33,8 @@ namespace CO_Driver
             public double dps { get; set; }
         }
 
-        public List<file_trace_managment.GarageDamageRecord> current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
-        public List<List<file_trace_managment.GarageDamageRecord>> historic_damage_records = new List<List<file_trace_managment.GarageDamageRecord>> { };
+        public List<FileTraceManagment.GarageDamageRecord> current_damage_records = new List<FileTraceManagment.GarageDamageRecord> { };
+        public List<List<FileTraceManagment.GarageDamageRecord>> historic_damage_records = new List<List<FileTraceManagment.GarageDamageRecord>> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -58,81 +58,81 @@ namespace CO_Driver
             InitializeComponent();
         }
 
-        public void add_damage_record(file_trace_managment.GarageDamageRecord rec)
+        public void add_damage_record(FileTraceManagment.GarageDamageRecord rec)
         {
             if (trial_start_time == DateTime.MinValue)
-                trial_start_time = rec.time;
+                trial_start_time = rec.Time;
 
             if (damage_cutoff != Double.MinValue && total_damage > damage_cutoff)
                 return;
 
-            if (time_cutoff != Double.MinValue && rec.time.Subtract(trial_start_time).TotalSeconds > time_cutoff)
+            if (time_cutoff != Double.MinValue && rec.Time.Subtract(trial_start_time).TotalSeconds > time_cutoff)
                 return;
 
-            total_damage += rec.damage;
+            total_damage += rec.Damage;
 
-            if (rec.flags.Contains("HUD_IMPORTANT"))
-                total_hull_damage += rec.damage;
+            if (rec.Flags.Contains("HUD_IMPORTANT"))
+                total_hull_damage += rec.Damage;
             else
-                total_body_damage += rec.damage;
+                total_body_damage += rec.Damage;
 
             //translate.translate_string(x.Key, session, translations)
 
-            current_total_series.Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, total_damage);
+            current_total_series.Points.AddXY(rec.Time.Subtract(trial_start_time).TotalSeconds, total_damage);
 
-            if (weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.weapon, session, translations)) == null)
+            if (weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.Weapon, session, translations)) == null)
             {
                 initialize_series(rec);
-                ch_live_feed.Series[Translate.TranslateString(rec.weapon, session, translations)].Points.AddXY(0, 0);
-                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[Translate.TranslateString(rec.weapon, session, translations)]);
-                weapon_totals.Add(new WeaponTotals { weapon = Translate.TranslateString(rec.weapon, session, translations), total = rec.damage });
+                ch_live_feed.Series[Translate.TranslateString(rec.Weapon, session, translations)].Points.AddXY(0, 0);
+                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[Translate.TranslateString(rec.Weapon, session, translations)]);
+                weapon_totals.Add(new WeaponTotals { weapon = Translate.TranslateString(rec.Weapon, session, translations), total = rec.Damage });
             }
             else
             {
-                weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.weapon, session, translations)).total += rec.damage;
+                weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.Weapon, session, translations)).total += rec.Damage;
             }
 
-            if (weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.weapon, session, translations)) == null)
+            if (weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.Weapon, session, translations)) == null)
             {
                 weapon_rows.Add(new WeaponRow
                 {
                     percent = 0,
-                    weapon_name = Translate.TranslateString(rec.weapon, session, translations),
-                    total_damage = rec.damage,
-                    burst_damage = rec.damage,
+                    weapon_name = Translate.TranslateString(rec.Weapon, session, translations),
+                    total_damage = rec.Damage,
+                    burst_damage = rec.Damage,
                     bursts = 1,
                     hits = 1,
-                    first_hit = rec.time,
-                    last_hit = rec.time,
-                    burst_start = rec.time,
+                    first_hit = rec.Time,
+                    last_hit = rec.Time,
+                    burst_start = rec.Time,
                     burst_duration = 0.0,
                     reload_duration = 0.0
                 });
             }
             else
             {
-                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.weapon, session, translations));
-                weapon_rec.total_damage += rec.damage;
+                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.Weapon, session, translations));
+                weapon_rec.total_damage += rec.Damage;
 
-                if (rec.time != weapon_rec.last_hit)
+                if (rec.Time != weapon_rec.last_hit)
                     weapon_rec.hits += 1;
 
-                if ((rec.time - weapon_rec.last_hit).TotalSeconds > 0.5)
+                if ((rec.Time - weapon_rec.last_hit).TotalSeconds > 0.5)
                 {
                     weapon_rec.bursts += 1;
                     weapon_rec.burst_duration = (weapon_rec.last_hit - weapon_rec.burst_start).TotalSeconds;
-                    weapon_rec.reload_duration = (rec.time - weapon_rec.last_hit).TotalSeconds;
+                    weapon_rec.reload_duration = (rec.Time - weapon_rec.last_hit).TotalSeconds;
 
-                    weapon_rec.burst_start = rec.time;
-                    weapon_rec.burst_damage = rec.damage;
+                    weapon_rec.burst_start = rec.Time;
+                    weapon_rec.burst_damage = rec.Damage;
                 }
                 else
                 {
-                    weapon_rec.burst_damage += rec.damage;
+                    weapon_rec.burst_damage += rec.Damage;
                 }
 
-                weapon_rec.dps = weapon_rec.total_damage / (rec.time - weapon_rec.first_hit).TotalSeconds;
-                weapon_rec.last_hit = rec.time;
+                weapon_rec.dps = weapon_rec.total_damage / (rec.Time - weapon_rec.first_hit).TotalSeconds;
+                weapon_rec.last_hit = rec.Time;
             }
 
 
@@ -141,7 +141,7 @@ namespace CO_Driver
             for (int i = weapon_totals.Count() - 1; i >= 0; i--)
             {
                 current_total += weapon_totals[i].total;
-                ch_live_feed.Series[weapon_totals[i].weapon].Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, current_total);
+                ch_live_feed.Series[weapon_totals[i].weapon].Points.AddXY(rec.Time.Subtract(trial_start_time).TotalSeconds, current_total);
             }
 
             foreach (WeaponRow row in weapon_rows)
@@ -159,7 +159,7 @@ namespace CO_Driver
             total_damage = 0.0;
             total_hull_damage = 0.0;
             total_body_damage = 0.0;
-            current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
+            current_damage_records = new List<FileTraceManagment.GarageDamageRecord> { };
             trial_start_time = DateTime.MinValue;
 
             foreach (Series series in ch_live_feed.Series)
@@ -393,14 +393,14 @@ namespace CO_Driver
             num_trial_threshold.Enabled = false;
         }
 
-        private void initialize_series(file_trace_managment.GarageDamageRecord rec)
+        private void initialize_series(FileTraceManagment.GarageDamageRecord rec)
         {
-            string name = Translate.TranslateString(rec.weapon, session, translations);
+            string name = Translate.TranslateString(rec.Weapon, session, translations);
 
             ch_live_feed.Series.Add(new Series(name));
             ch_live_feed.Series[name].LegendText = name;
 
-            if (rec.flags.Contains("HIGH_RATE_FIRE") || rec.flags.Contains("CONTINUOUS"))
+            if (rec.Flags.Contains("HIGH_RATE_FIRE") || rec.Flags.Contains("CONTINUOUS"))
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
             else
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;

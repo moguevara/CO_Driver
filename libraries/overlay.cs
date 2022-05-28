@@ -250,22 +250,22 @@ namespace CO_Driver
                 });
         }
 
-        public static void ResolveOverlayAction(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
+        public static void ResolveOverlayAction(FileTraceManagment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
             if (session.TwitchMode != true)
                 return;
 
-            if (currentSession.live_trace_data != true)
+            if (currentSession.LiveTraceData != true)
                 return;
 
 
-            foreach (OverlayAction action in currentSession.overlay_actions)
+            foreach (OverlayAction action in currentSession.OverlayActions)
             {
                 bool draw;
 
-                if (action.ClearConditions.Contains(currentSession.current_event))
+                if (action.ClearConditions.Contains(currentSession.CurrentEvent))
                     draw = false;
-                else if (action.DrawConditions.Contains(currentSession.current_event))
+                else if (action.DrawConditions.Contains(currentSession.CurrentEvent))
                     draw = true;
                 else
                     continue;
@@ -287,60 +287,60 @@ namespace CO_Driver
             }
         }
 
-        public static void DrawStatCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
+        public static void DrawStatCard(FileTraceManagment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
-            OverlayWriter writer = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
+            OverlayWriter writer = new OverlayWriter(currentSession.TwitchSettings.OverlayFormat);
             if (draw)
             {
-                if (currentSession.twitch_settings.ShowStats)
-                    AssignStats(currentSession, writer, translation, currentSession.match_history.FirstOrDefault().match_data.match_type_desc);
+                if (currentSession.TwitchSettings.ShowStats)
+                    AssignStats(currentSession, writer, translation, currentSession.MatchHistory.FirstOrDefault().MatchData.MatchTypeDesc);
 
-                if (currentSession.twitch_settings.ShowRevenue)
+                if (currentSession.TwitchSettings.ShowRevenue)
                     AssignRevenue(currentSession, session, writer, translation);
 
-                if (currentSession.twitch_settings.ShowNemesis || currentSession.twitch_settings.ShowVictims)
+                if (currentSession.TwitchSettings.ShowNemesis || currentSession.TwitchSettings.ShowVictims)
                     AssignNemesisVictim(currentSession, writer, translation);
 
             }
-            writer.WriteToFile(currentSession.file_data.stream_overlay_output_location + @"\gamemode_recap_card");
+            writer.WriteToFile(currentSession.FileData.StreamOverlayOutputLocation + @"\gamemode_recap_card");
         }
 
-        public static void DrawTeamPreviewCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
+        public static void DrawTeamPreviewCard(FileTraceManagment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
-            OverlayWriter writerBlue = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
-            OverlayWriter writerRed = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
+            OverlayWriter writerBlue = new OverlayWriter(currentSession.TwitchSettings.OverlayFormat);
+            OverlayWriter writerRed = new OverlayWriter(currentSession.TwitchSettings.OverlayFormat);
 
-            if (draw && currentSession.current_match.player_records.Any(x => x.Value.party_id != 0))
+            if (draw && currentSession.CurrentMatch.PlayerRecords.Any(x => x.Value.PartyID != 0))
             {
                 Random random_number = new Random();
-                file_trace_managment.MatchData current_match = currentSession.current_match;
+                FileTraceManagment.MatchData current_match = currentSession.CurrentMatch;
 
-                if (!current_match.player_records.ContainsKey(currentSession.local_user_uid))
+                if (!current_match.PlayerRecords.ContainsKey(currentSession.LocalUserUID))
                     return;
 
                 Dictionary<int, List<string>> blue_teams = new Dictionary<int, List<string>> { };
                 Dictionary<int, List<string>> red_teams = new Dictionary<int, List<string>> { };
 
-                blue_teams.Add(current_match.player_records[currentSession.local_user_uid].party_id, new List<string> { current_match.player_records[currentSession.local_user_uid].nickname });
+                blue_teams.Add(current_match.PlayerRecords[currentSession.LocalUserUID].PartyID, new List<string> { current_match.PlayerRecords[currentSession.LocalUserUID].Nickname });
 
-                foreach (KeyValuePair<int, file_trace_managment.Player> player in current_match.player_records.ToList())
+                foreach (KeyValuePair<int, FileTraceManagment.Player> player in current_match.PlayerRecords.ToList())
                 {
-                    if (player.Value.party_id == 0 || player.Value.nickname == current_match.player_records[currentSession.local_user_uid].nickname)
+                    if (player.Value.PartyID == 0 || player.Value.Nickname == current_match.PlayerRecords[currentSession.LocalUserUID].Nickname)
                         continue;
 
-                    if (player.Value.team != current_match.player_records[currentSession.local_user_uid].team)
+                    if (player.Value.Team != current_match.PlayerRecords[currentSession.LocalUserUID].Team)
                     {
-                        if (!red_teams.ContainsKey(player.Value.party_id))
-                            red_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                        if (!red_teams.ContainsKey(player.Value.PartyID))
+                            red_teams.Add(player.Value.PartyID, new List<string> { player.Value.Nickname });
                         else
-                            red_teams[player.Value.party_id].Add(player.Value.nickname);
+                            red_teams[player.Value.PartyID].Add(player.Value.Nickname);
                     }
                     else
                     {
-                        if (!blue_teams.ContainsKey(player.Value.party_id))
-                            blue_teams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                        if (!blue_teams.ContainsKey(player.Value.PartyID))
+                            blue_teams.Add(player.Value.PartyID, new List<string> { player.Value.Nickname });
                         else
-                            blue_teams[player.Value.party_id].Add(player.Value.nickname);
+                            blue_teams[player.Value.PartyID].Add(player.Value.Nickname);
                     }
                 }
 
@@ -352,34 +352,34 @@ namespace CO_Driver
                     writerRed.AddLine(string.Format("{0}", string.Join(",", team.Value)), "player red_player");
 
             }
-            writerBlue.WriteToFile(currentSession.file_data.stream_overlay_output_location + @"\blue_team_squads");
-            writerRed.WriteToFile(currentSession.file_data.stream_overlay_output_location + @"\red_team_squads");
+            writerBlue.WriteToFile(currentSession.FileData.StreamOverlayOutputLocation + @"\blue_team_squads");
+            writerRed.WriteToFile(currentSession.FileData.StreamOverlayOutputLocation + @"\red_team_squads");
         }
 
-        public static void DrawInGameRecapCard(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
+        public static void DrawInGameRecapCard(FileTraceManagment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
-            OverlayWriter writer = new OverlayWriter(Current_session.twitch_settings.OverlayFormat);
+            OverlayWriter writer = new OverlayWriter(Current_session.TwitchSettings.OverlayFormat);
             if (draw)
             {
                 AssignCurrentMatch(Current_session, session, writer, translation);
             }
-            writer.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\in_game_report");
+            writer.WriteToFile(Current_session.FileData.StreamOverlayOutputLocation + @"\in_game_report");
         }
 
-        public static void AssignRevenue(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
+        public static void AssignRevenue(FileTraceManagment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
-            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.OverviewTimeRange * -1);
+            DateTime time_cutoff = DateTime.Now.AddDays(Current_session.TwitchSettings.OverviewTimeRange * -1);
             Dictionary<string, int> rewards = new Dictionary<string, int> { };
 
-            foreach (file_trace_managment.MatchRecord match in Current_session.match_history)
+            foreach (FileTraceManagment.MatchRecord match in Current_session.MatchHistory)
             {
-                if (match.match_data.match_start < time_cutoff)
+                if (match.MatchData.MatchStart < time_cutoff)
                     continue;
 
-                if (match.match_data.match_rewards.Count() == 0)
+                if (match.MatchData.MatchRewards.Count() == 0)
                     continue;
 
-                foreach (KeyValuePair<string, int> value in match.match_data.match_rewards.Where(x => !x.Key.Contains("exp") && x.Key != "score"))
+                foreach (KeyValuePair<string, int> value in match.MatchData.MatchRewards.Where(x => !x.Key.Contains("exp") && x.Key != "score"))
                 {
                     if (rewards.ContainsKey(value.Key))
                         rewards[value.Key] += value.Value;
@@ -400,98 +400,98 @@ namespace CO_Driver
             }
         }
 
-        public static void AssignStats(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation, string game_mode)
+        public static void AssignStats(FileTraceManagment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation, string game_mode)
         {
-            file_trace_managment.Stats stats = file_trace_managment.new_stats();
+            FileTraceManagment.Stats stats = FileTraceManagment.NewStats();
 
-            if (currentSession.twitch_settings.ToggleOverviewTimeRanges)
+            if (currentSession.TwitchSettings.ToggleOverviewTimeRanges)
             {
-                if (currentSession.twitch_settings.OverviewTimeRange == 7.0)
-                    currentSession.twitch_settings.OverviewTimeRange = 31.0;
+                if (currentSession.TwitchSettings.OverviewTimeRange == 7.0)
+                    currentSession.TwitchSettings.OverviewTimeRange = 31.0;
                 else
-                if (currentSession.twitch_settings.OverviewTimeRange == 31.0)
-                    currentSession.twitch_settings.OverviewTimeRange = 365.0;
+                if (currentSession.TwitchSettings.OverviewTimeRange == 31.0)
+                    currentSession.TwitchSettings.OverviewTimeRange = 365.0;
                 else
-                if (currentSession.twitch_settings.OverviewTimeRange == 365.0)
-                    currentSession.twitch_settings.OverviewTimeRange = 1.0;
+                if (currentSession.TwitchSettings.OverviewTimeRange == 365.0)
+                    currentSession.TwitchSettings.OverviewTimeRange = 1.0;
                 else
-                if (currentSession.twitch_settings.OverviewTimeRange == 1.0)
-                    currentSession.twitch_settings.OverviewTimeRange = 7.0;
+                if (currentSession.TwitchSettings.OverviewTimeRange == 1.0)
+                    currentSession.TwitchSettings.OverviewTimeRange = 7.0;
             }
             else
             {
-                currentSession.twitch_settings.OverviewTimeRange = currentSession.twitch_settings.DefaultTimeRange;
+                currentSession.TwitchSettings.OverviewTimeRange = currentSession.TwitchSettings.DefaultTimeRange;
             }
 
-            DateTime timeCutoff = DateTime.Now.AddDays(currentSession.twitch_settings.OverviewTimeRange * -1);
+            DateTime timeCutoff = DateTime.Now.AddDays(currentSession.TwitchSettings.OverviewTimeRange * -1);
 
-            foreach (file_trace_managment.MatchRecord match in currentSession.match_history)
+            foreach (FileTraceManagment.MatchRecord match in currentSession.MatchHistory)
             {
-                if (match.match_data.match_start < timeCutoff)
+                if (match.MatchData.MatchStart < timeCutoff)
                     continue;
 
-                if (match.match_data.match_type_desc != game_mode)
+                if (match.MatchData.MatchTypeDesc != game_mode)
                     continue;
 
-                stats = file_trace_managment.sum_stats(stats, match.match_data.local_player.stats);
+                stats = FileTraceManagment.SumStats(stats, match.MatchData.LocalPlayer.Stats);
             }
 
-            if (stats.games > 0)
+            if (stats.Games > 0)
             {
-                writer.AddHeader(string.Format(@"{0,3} Day Stats for {1}", currentSession.twitch_settings.OverviewTimeRange, game_mode), "day_stats");
+                writer.AddHeader(string.Format(@"{0,3} Day Stats for {1}", currentSession.TwitchSettings.OverviewTimeRange, game_mode), "day_stats");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16} {1,8}", "Games", stats.games), "day_stats games");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.wins, stats.losses), (double)stats.wins / (double)stats.games), "day_stats win_lose_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.deaths), (double)stats.kills / (double)stats.deaths), "day_stats kill_death_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.kills, stats.games), (double)stats.kills / (double)stats.games), "day_stats kill_game_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.damage / (double)stats.rounds), "day_stats avg_dmg");
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.damage_taken / (double)stats.rounds), "day_stats avg_dmg_rec");
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.score / (double)stats.rounds), "day_stats avg_score");
+                writer.AddLine(string.Format(@"{0,16} {1,8}", "Games", stats.Games), "day_stats games");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.Wins, stats.Losses), (double)stats.Wins / (double)stats.Games), "day_stats win_lose_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Deaths), (double)stats.Kills / (double)stats.Deaths), "day_stats kill_death_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Games), (double)stats.Kills / (double)stats.Games), "day_stats kill_game_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.Damage / (double)stats.Rounds), "day_stats avg_dmg");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.DamageTaken / (double)stats.Rounds), "day_stats avg_dmg_rec");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.Score / (double)stats.Rounds), "day_stats avg_score");
             }
         }
 
-        public static void AssignCurrentMatch(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
+        public static void AssignCurrentMatch(FileTraceManagment.SessionStats currentSession, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
 
-            if (!currentSession.in_match)
+            if (!currentSession.InMatch)
                 return;
 
-            file_trace_managment.MatchData current_match = currentSession.current_match;
+            FileTraceManagment.MatchData current_match = currentSession.CurrentMatch;
 
-            if (!current_match.player_records.ContainsKey(currentSession.local_user_uid))
+            if (!current_match.PlayerRecords.ContainsKey(currentSession.LocalUserUID))
                 return;
 
             if (current_match == null)
                 return;
 
-            if (currentSession.twitch_settings.InGameKD)
+            if (currentSession.TwitchSettings.InGameKD)
             {
-                writer.AddHeader(string.Format(@"Current match on {0}", Translate.TranslateString(current_match.map_name, session, translation)), "current_match");
+                writer.AddHeader(string.Format(@"Current match on {0}", Translate.TranslateString(current_match.MapName, session, translation)), "current_match");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[currentSession.local_user_uid].stats.kills), "current_match kills");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[currentSession.local_user_uid].stats.assists), "current_match assists");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.player_records[currentSession.local_user_uid].stats.deaths), "current_match deaths");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.player_records[currentSession.local_user_uid].stats.drone_kills), "current_match drone_kils");
-                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.player_records[currentSession.local_user_uid].stats.score), "current_match score");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Kills), "current_match kills");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Assists), "current_match assists");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Deaths", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Deaths), "current_match deaths");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Drone Kills", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.DroneKills), "current_match drone_kils");
+                writer.AddLine(string.Format(@"{0,16} {1:N0}", "Score", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Score), "current_match score");
             }
 
-            if (currentSession.twitch_settings.InGameDamage)
+            if (currentSession.TwitchSettings.InGameDamage)
             {
                 Dictionary<string, double> damageBreakdown = new Dictionary<string, double> { };
 
-                if (current_match.player_records[currentSession.local_user_uid].stats.damage > 0)
+                if (current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Damage > 0)
                 {
                     writer.AddEmptyRow();
                     writer.AddHeader("Damage Breakdown", "damage_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[currentSession.local_user_uid].stats.damage), "damage_breakdown total");
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Damage), "damage_breakdown total");
 
-                    foreach (file_trace_managment.DamageRecord record in currentSession.current_match.damage_record.Where(x => x.attacker == currentSession.local_user))
+                    foreach (FileTraceManagment.DamageRecord record in currentSession.CurrentMatch.DamageRecord.Where(x => x.Attacker == currentSession.LocalUser))
                     {
-                        if (damageBreakdown.ContainsKey(record.weapon))
-                            damageBreakdown[record.weapon] += record.damage;
+                        if (damageBreakdown.ContainsKey(record.Weapon))
+                            damageBreakdown[record.Weapon] += record.Damage;
                         else
-                            damageBreakdown.Add(record.weapon, record.damage);
+                            damageBreakdown.Add(record.Weapon, record.Damage);
                     }
 
                     if (damageBreakdown.Count > 0)
@@ -503,20 +503,20 @@ namespace CO_Driver
                     }
                 }
 
-                if (current_match.player_records[currentSession.local_user_uid].stats.damage_taken > 0)
+                if (current_match.PlayerRecords[currentSession.LocalUserUID].Stats.DamageTaken > 0)
                 {
                     damageBreakdown = new Dictionary<string, double> { };
                     writer.AddEmptyRow();
                     writer.AddHeader("Damage Recieved Breakdown", "damage_recieved_breakdown");
                     writer.AddHorizontalRow();
-                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.player_records[currentSession.local_user_uid].stats.damage_taken), "damage_recieved_breakdown total");
+                    writer.AddLine(string.Format(@"{0,16} {1:N1}", "Total", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.DamageTaken), "damage_recieved_breakdown total");
 
-                    foreach (file_trace_managment.DamageRecord record in currentSession.current_match.damage_record.Where(x => x.victim == currentSession.local_user))
+                    foreach (FileTraceManagment.DamageRecord record in currentSession.CurrentMatch.DamageRecord.Where(x => x.Victim == currentSession.LocalUser))
                     {
-                        if (damageBreakdown.ContainsKey(record.weapon))
-                            damageBreakdown[record.weapon] += record.damage;
+                        if (damageBreakdown.ContainsKey(record.Weapon))
+                            damageBreakdown[record.Weapon] += record.Damage;
                         else
-                            damageBreakdown.Add(record.weapon, record.damage);
+                            damageBreakdown.Add(record.Weapon, record.Damage);
                     }
 
                     if (damageBreakdown.Count > 0)
@@ -529,53 +529,53 @@ namespace CO_Driver
                 }
             }
 
-            if (currentSession.twitch_settings.InGameVictims && current_match.victims.Count > 0)
+            if (currentSession.TwitchSettings.InGameVictims && current_match.Victims.Count > 0)
             {
                 writer.AddEmptyRow();
                 writer.AddHeader("Victims", "victims");
                 writer.AddHorizontalRow();
-                foreach (string victim in current_match.victims)
+                foreach (string victim in current_match.Victims)
                     writer.AddLine(string.Format(@"{0,16}", victim), "victims name");
 
-                if (current_match.player_records[currentSession.local_user_uid].stats.kills - current_match.victims.Count == 1)
+                if (current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Kills - current_match.Victims.Count == 1)
                     writer.AddLine(string.Format(@"{0,16}", "Bot"), "victims bot");
-                else if (current_match.player_records[currentSession.local_user_uid].stats.kills - current_match.victims.Count > 1)
-                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.player_records[currentSession.local_user_uid].stats.kills - current_match.victims.Count), "victims bot");
+                else if (current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Kills - current_match.Victims.Count > 1)
+                    writer.AddLine(string.Format(@"{0,16}{1}", "Bots X", current_match.PlayerRecords[currentSession.LocalUserUID].Stats.Kills - current_match.Victims.Count), "victims bot");
 
             }
 
-            if (currentSession.twitch_settings.InGameKiller && current_match.nemesis != "")
+            if (currentSession.TwitchSettings.InGameKiller && current_match.Nemesis != "")
             {
                 writer.AddEmptyRow();
                 writer.AddHeader("Killed by", "killed_by");
                 writer.AddHorizontalRow();
-                writer.AddLine(string.Format(@"{0,16}", current_match.nemesis), "killed_by name");
+                writer.AddLine(string.Format(@"{0,16}", current_match.Nemesis), "killed_by name");
             }
         }
 
-        public static void AssignNemesisVictim(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
+        public static void AssignNemesisVictim(FileTraceManagment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
-            DateTime timeCutoff = DateTime.Now.AddDays(currentSession.twitch_settings.OverviewTimeRange * -1);
+            DateTime timeCutoff = DateTime.Now.AddDays(currentSession.TwitchSettings.OverviewTimeRange * -1);
             Dictionary<string, Opponent> opponentDictionary = new Dictionary<string, Opponent> { };
             int count;
 
-            foreach (file_trace_managment.MatchRecord match in currentSession.match_history)
+            foreach (FileTraceManagment.MatchRecord match in currentSession.MatchHistory)
             {
-                if (match.match_data.match_start < timeCutoff)
+                if (match.MatchData.MatchStart < timeCutoff)
                     continue;
 
-                if (match.match_data.match_classification == GlobalData.CUSTOM_CLASSIFICATION)
+                if (match.MatchData.MatchClassification == GlobalData.CUSTOM_CLASSIFICATION)
                     continue;
 
-                if (match.match_data.nemesis != "")
+                if (match.MatchData.Nemesis != "")
                 {
-                    if (!opponentDictionary.ContainsKey(match.match_data.nemesis))
-                        opponentDictionary.Add(match.match_data.nemesis, new Opponent { Nickname = match.match_data.nemesis, BeenKilled = 1, Killed = 0 });
+                    if (!opponentDictionary.ContainsKey(match.MatchData.Nemesis))
+                        opponentDictionary.Add(match.MatchData.Nemesis, new Opponent { Nickname = match.MatchData.Nemesis, BeenKilled = 1, Killed = 0 });
                     else
-                        opponentDictionary[match.match_data.nemesis].BeenKilled += 1;
+                        opponentDictionary[match.MatchData.Nemesis].BeenKilled += 1;
                 }
 
-                foreach (string victim in match.match_data.victims)
+                foreach (string victim in match.MatchData.Victims)
                 {
                     if (!opponentDictionary.ContainsKey(victim))
                         opponentDictionary.Add(victim, new Opponent { Nickname = victim, BeenKilled = 0, Killed = 1 });
@@ -584,15 +584,15 @@ namespace CO_Driver
                 }
             }
 
-            if (currentSession.twitch_settings.ShowNemesis)
+            if (currentSession.TwitchSettings.ShowNemesis)
             {
                 count = 0;
                 writer.AddEmptyRow();
-                writer.AddHeader(string.Format(@"Top {0} Nemesis", currentSession.twitch_settings.NemesisCount), "top_nemesis");
+                writer.AddHeader(string.Format(@"Top {0} Nemesis", currentSession.TwitchSettings.NemesisCount), "top_nemesis");
                 writer.AddHorizontalRow();
                 foreach (KeyValuePair<string, Opponent> nemesis in opponentDictionary.OrderByDescending(x => x.Value.Killed).ThenByDescending(x => x.Value.BeenKilled))
                 {
-                    if (count >= currentSession.twitch_settings.NemesisCount)
+                    if (count >= currentSession.TwitchSettings.NemesisCount)
                         break;
 
                     writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.Killed, nemesis.Value.BeenKilled), "top_nemesis entry"); //TODO add formatted input option for writer with divs for each entry
@@ -600,15 +600,15 @@ namespace CO_Driver
                 }
             }
 
-            if (currentSession.twitch_settings.ShowVictims)
+            if (currentSession.TwitchSettings.ShowVictims)
             {
                 count = 0;
                 writer.AddEmptyRow();
-                writer.AddHeader(string.Format(@"Top {0} Victims", currentSession.twitch_settings.NemesisCount), "top_victims");
+                writer.AddHeader(string.Format(@"Top {0} Victims", currentSession.TwitchSettings.NemesisCount), "top_victims");
                 writer.AddHorizontalRow();
                 foreach (KeyValuePair<string, Opponent> nemesis in opponentDictionary.OrderByDescending(x => x.Value.BeenKilled).ThenByDescending(x => x.Value.Killed))
                 {
-                    if (count >= currentSession.twitch_settings.NemesisCount)
+                    if (count >= currentSession.TwitchSettings.NemesisCount)
                         break;
 
                     writer.AddLine(string.Format(@"{0,16} {1,4}/{2,-4}", nemesis.Key, nemesis.Value.Killed, nemesis.Value.BeenKilled), "top_victims entry");
@@ -622,15 +622,15 @@ namespace CO_Driver
             return new List<String> { "" };
         }
 
-        public static void AssignTeams(file_trace_managment.MatchData match, ref string blueTeam, ref string redTeam)
+        public static void AssignTeams(FileTraceManagment.MatchData match, ref string blueTeam, ref string redTeam)
         {
             blueTeam = "";
             Random randomNumber = new Random();
 
-            if (match.match_classification == GlobalData.PVE_CLASSIFICATION)
+            if (match.MatchClassification == GlobalData.PVE_CLASSIFICATION)
                 redTeam = "A bunch of robots.";
             else
-            if (match.match_classification == GlobalData.FREE_PLAY_CLASSIFICATION)
+            if (match.MatchClassification == GlobalData.FREE_PLAY_CLASSIFICATION)
                 redTeam = "The elite of Bedlam.";
             else
                 redTeam = SoloQueueNames[randomNumber.Next(SoloQueueNames.Count())];
@@ -638,26 +638,26 @@ namespace CO_Driver
             Dictionary<int, List<string>> blueTeams = new Dictionary<int, List<string>> { };
             Dictionary<int, List<string>> redTeams = new Dictionary<int, List<string>> { };
 
-            blueTeams.Add(match.local_player.party_id, new List<string> { match.local_player.nickname });
+            blueTeams.Add(match.LocalPlayer.PartyID, new List<string> { match.LocalPlayer.Nickname });
 
-            foreach (KeyValuePair<int, file_trace_managment.Player> player in match.player_records.ToList())
+            foreach (KeyValuePair<int, FileTraceManagment.Player> player in match.PlayerRecords.ToList())
             {
-                if (player.Value.party_id == 0 || player.Value.nickname == match.local_player.nickname)
+                if (player.Value.PartyID == 0 || player.Value.Nickname == match.LocalPlayer.Nickname)
                     continue;
 
-                if (player.Value.team != match.local_player.team)
+                if (player.Value.Team != match.LocalPlayer.Team)
                 {
-                    if (!redTeams.ContainsKey(player.Value.party_id))
-                        redTeams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    if (!redTeams.ContainsKey(player.Value.PartyID))
+                        redTeams.Add(player.Value.PartyID, new List<string> { player.Value.Nickname });
                     else
-                        redTeams[player.Value.party_id].Add(player.Value.nickname);
+                        redTeams[player.Value.PartyID].Add(player.Value.Nickname);
                 }
                 else
                 {
-                    if (!blueTeams.ContainsKey(player.Value.party_id))
-                        blueTeams.Add(player.Value.party_id, new List<string> { player.Value.nickname });
+                    if (!blueTeams.ContainsKey(player.Value.PartyID))
+                        blueTeams.Add(player.Value.PartyID, new List<string> { player.Value.Nickname });
                     else
-                        blueTeams[player.Value.party_id].Add(player.Value.nickname);
+                        blueTeams[player.Value.PartyID].Add(player.Value.Nickname);
                 }
             }
 

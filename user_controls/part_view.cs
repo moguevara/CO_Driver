@@ -29,7 +29,7 @@ namespace CO_Driver
             this.dg_available_parts.Rows.Clear();
 
             List<unique_parts> part_list = new List<unique_parts> { };
-            file_trace_managment ftm = new file_trace_managment { };
+            FileTraceManagment ftm = new FileTraceManagment { };
 
             int engineer_level = session.EngineerLevel;
             int lunatics_level = session.LunaticsLevel;
@@ -83,7 +83,7 @@ namespace CO_Driver
                 DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
                 row.Cells[0].Value = part.part.Description.ToString();
                 row.Cells[1].Value = part.part_count;
-                row.Cells[2].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.decode_faction_name(part.part.Level) + " - Prestigue" : ftm.decode_faction_name(part.part.Faction);
+                row.Cells[2].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.DecodeFactionName(part.part.Level) + " - Prestigue" : ftm.DecodeFactionName(part.part.Faction);
                 row.Cells[3].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? 0 : part.part.Level;
                 row.Cells[4].Value = part.part.PartDurability;
                 row.Cells[5].Value = part.part.HullDurability;

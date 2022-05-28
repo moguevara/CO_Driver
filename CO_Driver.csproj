@@ -184,7 +184,7 @@
     <Compile Include="user_controls\build_view.Designer.cs">
       <DependentUpon>build_view.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\file_trace_managment.cs" />
+    <Compile Include="libraries\FileTraceManagment.cs" />
     <Compile Include="user_controls\schedule_display.cs">
       <SubType>UserControl</SubType>
     </Compile>

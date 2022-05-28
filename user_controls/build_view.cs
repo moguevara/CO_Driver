@@ -13,13 +13,13 @@ namespace CO_Driver
         {
             public string build_hash;
             public int power_score;
-            public file_trace_managment.Stats stats;
+            public FileTraceManagment.Stats stats;
         }
 
         //public event EventHandler<string> load_selected_build;
 
-        public file_trace_managment.MatchHistoryResponse match_history = new file_trace_managment.MatchHistoryResponse { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public FileTraceManagment.MatchHistoryResponse match_history = new FileTraceManagment.MatchHistoryResponse { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         private Dictionary<string, BuildStats> build_stats = new Dictionary<string, BuildStats> { };
@@ -48,18 +48,18 @@ namespace CO_Driver
 
 
 
-            foreach (file_trace_managment.MatchRecord match in match_history.match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.MatchHistory.ToList())
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (!build_stats.ContainsKey(match.match_data.local_player.build_hash))
+                if (!build_stats.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                 {
-                    build_stats.Add(match.match_data.local_player.build_hash, new BuildStats { build_hash = match.match_data.local_player.build_hash, power_score = match.match_data.local_player.power_score, stats = match.match_data.local_player.stats });
+                    build_stats.Add(match.MatchData.LocalPlayer.BuildHash, new BuildStats { build_hash = match.MatchData.LocalPlayer.BuildHash, power_score = match.MatchData.LocalPlayer.PowerScore, stats = match.MatchData.LocalPlayer.Stats });
                 }
                 else
                 {
-                    build_stats[match.match_data.local_player.build_hash].stats = file_trace_managment.sum_stats(build_stats[match.match_data.local_player.build_hash].stats, match.match_data.local_player.stats);
+                    build_stats[match.MatchData.LocalPlayer.BuildHash].stats = FileTraceManagment.SumStats(build_stats[match.MatchData.LocalPlayer.BuildHash].stats, match.MatchData.LocalPlayer.Stats);
                 }
             }
 
@@ -108,12 +108,12 @@ namespace CO_Driver
                 DataGridViewRow row = (DataGridViewRow)this.dg_build_view_grid.Rows[0].Clone();
                 row.Cells[0].Value = build.Key;
                 row.Cells[1].Value = build.Value.power_score;
-                row.Cells[2].Value = build.Value.stats.games;
-                row.Cells[3].Value = build.Value.stats.kills;
-                row.Cells[4].Value = Math.Round(build.Value.stats.deaths > 0 ? (double)build.Value.stats.kills / (double)build.Value.stats.deaths : Double.PositiveInfinity, 2);
-                row.Cells[5].Value = Math.Round((double)build.Value.stats.damage / (double)build.Value.stats.rounds, 0);
-                row.Cells[6].Value = Math.Round((double)build.Value.stats.damage_taken / (double)build.Value.stats.rounds, 0);
-                row.Cells[7].Value = (double)build.Value.stats.wins / (double)build.Value.stats.games;
+                row.Cells[2].Value = build.Value.stats.Games;
+                row.Cells[3].Value = build.Value.stats.Kills;
+                row.Cells[4].Value = Math.Round(build.Value.stats.Deaths > 0 ? (double)build.Value.stats.Kills / (double)build.Value.stats.Deaths : Double.PositiveInfinity, 2);
+                row.Cells[5].Value = Math.Round((double)build.Value.stats.Damage / (double)build.Value.stats.Rounds, 0);
+                row.Cells[6].Value = Math.Round((double)build.Value.stats.DamageTaken / (double)build.Value.stats.Rounds, 0);
+                row.Cells[7].Value = (double)build.Value.stats.Wins / (double)build.Value.stats.Games;
 
                 this.dg_build_view_grid.Rows.Add(row);
                 rows_populated++;
@@ -128,23 +128,23 @@ namespace CO_Driver
 
             if (rows_populated > 0 && build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
             {
-                this.lb_build_desc.Text = build_records[build_hash].full_description;
-                this.lb_cabin.Text = Translate.TranslateString(build_records[build_hash].cabin.Name, session, translations);
-                this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
-                this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
-                this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
-                this.lb_assists.Text = build_stats[build_hash].stats.assists.ToString();
-                this.lb_deaths.Text = build_stats[build_hash].stats.deaths.ToString();
-                this.lb_kda.Text = (((double)build_stats[build_hash].stats.kills + (double)build_stats[build_hash].stats.assists) / (double)build_stats[build_hash].stats.games).ToString("N2");
-                this.lb_damage.Text = (build_stats[build_hash].stats.damage / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_damage_rec.Text = (build_stats[build_hash].stats.damage_taken / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_score.Text = ((double)build_stats[build_hash].stats.score / (double)build_stats[build_hash].stats.games).ToString("N0");
-                this.lb_parts.Text = string.Join(", ", build_records[build_hash].parts.Select(x => Translate.TranslateString(x, session, translations)));
+                this.lb_build_desc.Text = build_records[build_hash].FullDescription;
+                this.lb_cabin.Text = Translate.TranslateString(build_records[build_hash].Cabin.Name, session, translations);
+                this.lb_game_count.Text = build_stats[build_hash].stats.Games.ToString();
+                this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.Wins / (double)build_stats[build_hash].stats.Games).ToString("P1");
+                this.lb_kills.Text = build_stats[build_hash].stats.Kills.ToString();
+                this.lb_assists.Text = build_stats[build_hash].stats.Assists.ToString();
+                this.lb_deaths.Text = build_stats[build_hash].stats.Deaths.ToString();
+                this.lb_kda.Text = (((double)build_stats[build_hash].stats.Kills + (double)build_stats[build_hash].stats.Assists) / (double)build_stats[build_hash].stats.Games).ToString("N2");
+                this.lb_damage.Text = (build_stats[build_hash].stats.Damage / (double)build_stats[build_hash].stats.Games).ToString("N1");
+                this.lb_damage_rec.Text = (build_stats[build_hash].stats.DamageTaken / (double)build_stats[build_hash].stats.Games).ToString("N1");
+                this.lb_score.Text = ((double)build_stats[build_hash].stats.Score / (double)build_stats[build_hash].stats.Games).ToString("N0");
+                this.lb_parts.Text = string.Join(", ", build_records[build_hash].Parts.Select(x => Translate.TranslateString(x, session, translations)));
 
                 dg_movement_list.Rows.Clear();
                 dg_movement_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].movement.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Movement.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -157,7 +157,7 @@ namespace CO_Driver
                 dg_weapon_list.Rows.Clear();
                 dg_weapon_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].weapons.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Weapons.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -170,14 +170,14 @@ namespace CO_Driver
                 dg_module_list.Rows.Clear();
                 dg_module_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Append(Translate.TranslateString(build_records[build_hash].engine.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Append(Translate.TranslateString(build_records[build_hash].Engine.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
                     dg_module_list.Rows.Add(row);
                 }
 
-                foreach (string part in build_records[build_hash].explosives.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Explosives.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -211,23 +211,23 @@ namespace CO_Driver
         {
             if (build_records.ContainsKey(build_hash) && build_stats.ContainsKey(build_hash))
             {
-                this.lb_build_desc.Text = build_records[build_hash].full_description;
-                this.lb_cabin.Text = Translate.TranslateString(build_records[build_hash].cabin.Name, session, translations);
-                this.lb_game_count.Text = build_stats[build_hash].stats.games.ToString();
-                this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.wins / (double)build_stats[build_hash].stats.games).ToString("P1");
-                this.lb_kills.Text = build_stats[build_hash].stats.kills.ToString();
-                this.lb_assists.Text = build_stats[build_hash].stats.assists.ToString();
-                this.lb_deaths.Text = build_stats[build_hash].stats.deaths.ToString();
-                this.lb_kda.Text = (((double)build_stats[build_hash].stats.kills + (double)build_stats[build_hash].stats.assists) / (double)build_stats[build_hash].stats.games).ToString("N2");
-                this.lb_damage.Text = (build_stats[build_hash].stats.damage / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_damage_rec.Text = (build_stats[build_hash].stats.damage_taken / (double)build_stats[build_hash].stats.games).ToString("N1");
-                this.lb_score.Text = ((double)build_stats[build_hash].stats.score / (double)build_stats[build_hash].stats.games).ToString("N0");
-                this.lb_parts.Text = string.Join(", ", build_records[build_hash].parts.Select(x => Translate.TranslateString(x, session, translations)));
+                this.lb_build_desc.Text = build_records[build_hash].FullDescription;
+                this.lb_cabin.Text = Translate.TranslateString(build_records[build_hash].Cabin.Name, session, translations);
+                this.lb_game_count.Text = build_stats[build_hash].stats.Games.ToString();
+                this.lb_win_rate.Text = ((double)build_stats[build_hash].stats.Wins / (double)build_stats[build_hash].stats.Games).ToString("P1");
+                this.lb_kills.Text = build_stats[build_hash].stats.Kills.ToString();
+                this.lb_assists.Text = build_stats[build_hash].stats.Assists.ToString();
+                this.lb_deaths.Text = build_stats[build_hash].stats.Deaths.ToString();
+                this.lb_kda.Text = (((double)build_stats[build_hash].stats.Kills + (double)build_stats[build_hash].stats.Assists) / (double)build_stats[build_hash].stats.Games).ToString("N2");
+                this.lb_damage.Text = (build_stats[build_hash].stats.Damage / (double)build_stats[build_hash].stats.Games).ToString("N1");
+                this.lb_damage_rec.Text = (build_stats[build_hash].stats.DamageTaken / (double)build_stats[build_hash].stats.Games).ToString("N1");
+                this.lb_score.Text = ((double)build_stats[build_hash].stats.Score / (double)build_stats[build_hash].stats.Games).ToString("N0");
+                this.lb_parts.Text = string.Join(", ", build_records[build_hash].Parts.Select(x => Translate.TranslateString(x, session, translations)));
 
                 dg_movement_list.Rows.Clear();
                 dg_movement_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].movement.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Movement.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_movement_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -240,7 +240,7 @@ namespace CO_Driver
                 dg_weapon_list.Rows.Clear();
                 dg_weapon_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].weapons.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Weapons.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_weapon_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
@@ -253,14 +253,14 @@ namespace CO_Driver
                 dg_module_list.Rows.Clear();
                 dg_module_list.AllowUserToAddRows = true;
 
-                foreach (string part in build_records[build_hash].modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Append(Translate.TranslateString(build_records[build_hash].engine.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Append(Translate.TranslateString(build_records[build_hash].Engine.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;
                     dg_module_list.Rows.Add(row);
                 }
 
-                foreach (string part in build_records[build_hash].explosives.Select(x => Translate.TranslateString(x.Name, session, translations)))
+                foreach (string part in build_records[build_hash].Explosives.Select(x => Translate.TranslateString(x.Name, session, translations)))
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_module_list.Rows[0].Clone();
                     row.Cells[0].Value = part;

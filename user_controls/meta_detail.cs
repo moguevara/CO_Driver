@@ -8,10 +8,10 @@ namespace CO_Driver
 {
     public partial class meta_detail : UserControl
     {
-        public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+        public event EventHandler<FileTraceManagment.MatchRecord> load_selected_match;
 
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -35,7 +35,7 @@ namespace CO_Driver
             public string map { get; set; }
             public int rounds { get; set; }
             public int total_seen { get; set; }
-            public file_trace_managment.Stats stats { get; set; }
+            public FileTraceManagment.Stats stats { get; set; }
         }
 
         private class master_meta_grouping
@@ -73,7 +73,7 @@ namespace CO_Driver
             Filter.ResetFilters(filter_selections);
             initialize_user_profile();
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
 
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
@@ -84,44 +84,44 @@ namespace CO_Driver
                 total_games += 1;
                 List<meta_grouping> match_level_grouping = new List<meta_grouping> { };
 
-                if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
+                if (match.MatchData.LocalPlayer.Team != match.MatchData.WinningTeam && match.MatchData.WinningTeam != -1)
                     total_wins += 1; /* enemy wins */
 
-                foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                foreach (FileTraceManagment.RoundRecord round in match.MatchData.RoundRecords)
                 {
                     List<meta_grouping> round_level_grouping = new List<meta_grouping> { };
 
-                    foreach (file_trace_managment.Player player in round.players)
+                    foreach (FileTraceManagment.Player player in round.Players)
                     {
                         #region player_level
-                        if (player.team == match.match_data.local_player.team)
+                        if (player.Team == match.MatchData.LocalPlayer.Team)
                             continue;
 
-                        if (!build_records.ContainsKey(player.build_hash))
+                        if (!build_records.ContainsKey(player.BuildHash))
                             continue;
 
-                        if (!chk_bot_filter.Checked && player.bot == 1)
+                        if (!chk_bot_filter.Checked && player.Bot == 1)
                             continue;
 
-                        if (!chk_bot_filter.Checked && player.power_score >= 22000)
+                        if (!chk_bot_filter.Checked && player.PowerScore >= 22000)
                             continue;
 
-                        if (!round.players.Any(x => x.nickname == player.nickname))
+                        if (!round.Players.Any(x => x.Nickname == player.Nickname))
                             continue;
 
-                        if (!build_records.ContainsKey(round.players.FirstOrDefault(x => x.nickname == player.nickname).build_hash))
+                        if (!build_records.ContainsKey(round.Players.FirstOrDefault(x => x.Nickname == player.Nickname).BuildHash))
                             continue;
 
                         List<meta_grouping> player_level_grouping = new List<meta_grouping> { };
-                        file_trace_managment.BuildRecord build = build_records[round.players.First(x => x.nickname == player.nickname).build_hash];
+                        FileTraceManagment.BuildRecord build = build_records[round.Players.First(x => x.Nickname == player.Nickname).BuildHash];
 
                         if (chk_weapon_filter.Checked)
                         {
-                            foreach (PartLoader.Weapon weapon in build.weapons)
+                            foreach (PartLoader.Weapon weapon in build.Weapons)
                             {
                                 meta_grouping new_group = new_grouping();
                                 new_group.weapon = Translate.TranslateString(weapon.Name, session, translations);
-                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                new_group.stats = round.Players.First(x => x.Nickname == player.Nickname).Stats;
                                 player_level_grouping.Add(new_group);
                             }
                         }
@@ -130,11 +130,11 @@ namespace CO_Driver
                         {
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
-                                foreach (PartLoader.Movement movement in build.movement)
+                                foreach (PartLoader.Movement movement in build.Movement)
                                 {
                                     meta_grouping new_group = new_grouping();
                                     new_group.movement = Translate.TranslateString(movement.Name, session, translations);
-                                    new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                    new_group.stats = round.Players.First(x => x.Nickname == player.Nickname).Stats;
                                     player_level_grouping.Add(new_group);
                                 }
                             }
@@ -142,18 +142,18 @@ namespace CO_Driver
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping.ToList())
                                 {
-                                    for (int i = 0; i < build.movement.Count(); i++)
+                                    for (int i = 0; i < build.Movement.Count(); i++)
                                     {
                                         if (i == 0)
                                         {
-                                            sub_group.movement = Translate.TranslateString(build.movement[i].Name, session, translations);
+                                            sub_group.movement = Translate.TranslateString(build.Movement[i].Name, session, translations);
                                         }
                                         else
                                         {
                                             meta_grouping new_group = new_grouping();
                                             new_group.weapon = sub_group.weapon;
-                                            new_group.movement = Translate.TranslateString(build.movement[i].Name, session, translations);
-                                            new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                            new_group.movement = Translate.TranslateString(build.Movement[i].Name, session, translations);
+                                            new_group.stats = round.Players.First(x => x.Nickname == player.Nickname).Stats;
                                             player_level_grouping.Add(new_group);
                                         }
                                     }
@@ -166,14 +166,14 @@ namespace CO_Driver
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.cabin = Translate.TranslateString(build.cabin.Name, session, translations);
-                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                new_group.cabin = Translate.TranslateString(build.Cabin.Name, session, translations);
+                                new_group.stats = round.Players.First(x => x.Nickname == player.Nickname).Stats;
                                 player_level_grouping.Add(new_group);
                             }
                             else
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping)
-                                    sub_group.cabin = Translate.TranslateString(build.cabin.Name, session, translations);
+                                    sub_group.cabin = Translate.TranslateString(build.Cabin.Name, session, translations);
                             }
                         }
 
@@ -183,14 +183,14 @@ namespace CO_Driver
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.map = Translate.TranslateString(match.match_data.map_name, session, translations);
-                                new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
+                                new_group.map = Translate.TranslateString(match.MatchData.MapName, session, translations);
+                                new_group.stats = round.Players.First(x => x.Nickname == player.Nickname).Stats;
                                 player_level_grouping.Add(new_group);
                             }
                             else
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping)
-                                    sub_group.map = Translate.TranslateString(match.match_data.map_name, session, translations);
+                                    sub_group.map = Translate.TranslateString(match.MatchData.MapName, session, translations);
                             }
                         }
                         #endregion
@@ -206,7 +206,7 @@ namespace CO_Driver
                                 {
                                     found = true;
                                     round_level_grouping[i].total_seen += 1;
-                                    round_level_grouping[i].stats = file_trace_managment.sum_stats(round_level_grouping[i].stats, round.players.First(x => x.nickname == player.nickname).stats);
+                                    round_level_grouping[i].stats = FileTraceManagment.SumStats(round_level_grouping[i].stats, round.Players.First(x => x.Nickname == player.Nickname).Stats);
                                 }
                             }
 
@@ -230,7 +230,7 @@ namespace CO_Driver
                                 match_level_grouping[i].rounds += 1;
                                 match_level_grouping[i].total_seen += sub_group.total_seen;
 
-                                match_level_grouping[i].stats = file_trace_managment.sum_stats(match_level_grouping[i].stats, sub_group.stats);
+                                match_level_grouping[i].stats = FileTraceManagment.SumStats(match_level_grouping[i].stats, sub_group.stats);
                             }
                         }
                         if (!found)
@@ -251,15 +251,15 @@ namespace CO_Driver
                             master_groupings[i].games += 1;
                             master_groupings[i].rounds += sub_group.rounds;
                             master_groupings[i].total_seen += sub_group.total_seen;
-                            if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
+                            if (match.MatchData.LocalPlayer.Team != match.MatchData.WinningTeam && match.MatchData.WinningTeam != -1)
                                 master_groupings[i].wins += 1;
 
-                            master_groupings[i].group.stats = file_trace_managment.sum_stats(master_groupings[i].group.stats, sub_group.stats);
+                            master_groupings[i].group.stats = FileTraceManagment.SumStats(master_groupings[i].group.stats, sub_group.stats);
                         }
                     }
                     if (!found)
                     {
-                        if (match.match_data.local_player.team != match.match_data.winning_team && match.match_data.winning_team != -1)
+                        if (match.MatchData.LocalPlayer.Team != match.MatchData.WinningTeam && match.MatchData.WinningTeam != -1)
                             master_groupings.Add(new master_meta_grouping { games = 1, wins = 1, rounds = sub_group.rounds, group = sub_group });
                         else
                             master_groupings.Add(new master_meta_grouping { games = 1, wins = 0, rounds = sub_group.rounds, group = sub_group });
@@ -280,7 +280,7 @@ namespace CO_Driver
 
         private meta_grouping new_grouping()
         {
-            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "", rounds = 1, total_seen = 1, stats = file_trace_managment.new_stats() };
+            return new meta_grouping { map = "", cabin = "", movement = "", weapon = "", rounds = 1, total_seen = 1, stats = FileTraceManagment.NewStats() };
         }
         private void populate_meta_detail_screen_elements()
         {
@@ -313,12 +313,12 @@ namespace CO_Driver
                 row.Cells[4].Value = group.games;
                 row.Cells[5].Value = (double)group.games / (double)total_games;
                 row.Cells[6].Value = (double)group.total_seen / (double)group.rounds;
-                row.Cells[7].Value = (double)group.group.stats.kills / (double)group.total_seen;
-                row.Cells[8].Value = (double)group.group.stats.assists / (double)group.total_seen;
-                row.Cells[9].Value = (double)group.group.stats.deaths / (double)group.total_seen;
-                row.Cells[10].Value = (double)group.group.stats.damage / (double)group.total_seen;
-                row.Cells[11].Value = (double)group.group.stats.damage_taken / (double)group.total_seen;
-                row.Cells[12].Value = (double)group.group.stats.score / (double)group.total_seen;
+                row.Cells[7].Value = (double)group.group.stats.Kills / (double)group.total_seen;
+                row.Cells[8].Value = (double)group.group.stats.Assists / (double)group.total_seen;
+                row.Cells[9].Value = (double)group.group.stats.Deaths / (double)group.total_seen;
+                row.Cells[10].Value = (double)group.group.stats.Damage / (double)group.total_seen;
+                row.Cells[11].Value = (double)group.group.stats.DamageTaken / (double)group.total_seen;
+                row.Cells[12].Value = (double)group.group.stats.Score / (double)group.total_seen;
                 row.Cells[13].Value = (double)group.wins / (double)group.games;
                 row.Cells[14].Value = (((double)group.wins / (double)group.games) - global_enemy_win_percent);
                 dg_meta_detail_view.Rows.Add(row);

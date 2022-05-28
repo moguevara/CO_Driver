@@ -29,8 +29,8 @@ namespace CO_Driver
             public int count;
         }
 
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -97,22 +97,22 @@ namespace CO_Driver
 
             int current_win_streak = 0;
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                 {
-                    if (!string.IsNullOrEmpty(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                    if (!string.IsNullOrEmpty(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
                     {
-                        if (!cabin_usage.ContainsKey(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
-                            cabin_usage.Add(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), 1);
+                        if (!cabin_usage.ContainsKey(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
+                            cabin_usage.Add(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations), 1);
                         else
-                            cabin_usage[Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)] += 1;
+                            cabin_usage[Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)] += 1;
                     }
 
-                    foreach (PartLoader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
+                    foreach (PartLoader.Weapon weapon in build_records[match.MatchData.LocalPlayer.BuildHash].Weapons)
                     {
                         if (!weapon_usage.ContainsKey(Translate.TranslateString(weapon.Name, session, translations)))
                             weapon_usage.Add(Translate.TranslateString(weapon.Name, session, translations), 1);
@@ -120,7 +120,7 @@ namespace CO_Driver
                             weapon_usage[Translate.TranslateString(weapon.Name, session, translations)] += 1;
                     }
 
-                    foreach (PartLoader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
+                    foreach (PartLoader.Movement movement in build_records[match.MatchData.LocalPlayer.BuildHash].Movement)
                     {
                         if (!movement_usage.ContainsKey(Translate.TranslateString(movement.Name, session, translations)))
                             movement_usage.Add(Translate.TranslateString(movement.Name, session, translations), 1);
@@ -128,7 +128,7 @@ namespace CO_Driver
                             movement_usage[Translate.TranslateString(movement.Name, session, translations)] += 1;
                     }
 
-                    foreach (PartLoader.Module module in build_records[match.match_data.local_player.build_hash].modules)
+                    foreach (PartLoader.Module module in build_records[match.MatchData.LocalPlayer.BuildHash].Modules)
                     {
                         if (!module_usage.ContainsKey(Translate.TranslateString(module.Name, session, translations)))
                             module_usage.Add(Translate.TranslateString(module.Name, session, translations), 1);
@@ -138,34 +138,34 @@ namespace CO_Driver
                 }
 
                 games_played++;
-                if (match.match_data.game_result == "Win")
+                if (match.MatchData.GameResult == "Win")
                     wins++;
 
-                total_rounds += match.match_data.local_player.stats.rounds;
-                total_kills += match.match_data.local_player.stats.kills;
-                total_deaths += match.match_data.local_player.stats.deaths;
-                total_assists += match.match_data.local_player.stats.assists;
-                total_drone_kills += match.match_data.local_player.stats.drone_kills;
-                total_damage += match.match_data.local_player.stats.damage;
-                total_damage_rec += match.match_data.local_player.stats.damage_taken;
-                total_score += match.match_data.local_player.stats.score;
-                total_medals += match.match_data.local_player.stripes.Count();
+                total_rounds += match.MatchData.LocalPlayer.Stats.Rounds;
+                total_kills += match.MatchData.LocalPlayer.Stats.Kills;
+                total_deaths += match.MatchData.LocalPlayer.Stats.Deaths;
+                total_assists += match.MatchData.LocalPlayer.Stats.Assists;
+                total_drone_kills += match.MatchData.LocalPlayer.Stats.DroneKills;
+                total_damage += match.MatchData.LocalPlayer.Stats.Damage;
+                total_damage_rec += match.MatchData.LocalPlayer.Stats.DamageTaken;
+                total_score += match.MatchData.LocalPlayer.Stats.Score;
+                total_medals += match.MatchData.LocalPlayer.Stripes.Count();
 
-                foreach (KeyValuePair<int, file_trace_managment.Player> player in match.match_data.player_records)
+                foreach (KeyValuePair<int, FileTraceManagment.Player> player in match.MatchData.PlayerRecords)
                 {
-                    if (player.Value.bot == 1)
+                    if (player.Value.Bot == 1)
                     {
                         global_total_bot_count += 1;
-                        global_total_bot_score += player.Value.stats.score;
+                        global_total_bot_score += player.Value.Stats.Score;
                     }
-                    else if (player.Key != match.match_data.local_player.uid)
+                    else if (player.Key != match.MatchData.LocalPlayer.UID)
                     {
                         global_total_player_count += 1;
-                        global_total_score += player.Value.stats.score;
+                        global_total_score += player.Value.Stats.Score;
                     }
                 }
 
-                if (match.match_data.local_player.team == match.match_data.winning_team)
+                if (match.MatchData.LocalPlayer.Team == match.MatchData.WinningTeam)
                     current_win_streak += 1;
                 else
                     current_win_streak = 0;
@@ -173,33 +173,33 @@ namespace CO_Driver
                 if (current_win_streak > highest_win_streak)
                     highest_win_streak = current_win_streak;
 
-                if (match.match_data.local_player.stats.score > max_score)
-                    max_score = match.match_data.local_player.stats.score;
+                if (match.MatchData.LocalPlayer.Stats.Score > max_score)
+                    max_score = match.MatchData.LocalPlayer.Stats.Score;
 
-                if (match.match_data.local_player.stats.damage > max_damage_dealt)
-                    max_damage_dealt = match.match_data.local_player.stats.damage;
+                if (match.MatchData.LocalPlayer.Stats.Damage > max_damage_dealt)
+                    max_damage_dealt = match.MatchData.LocalPlayer.Stats.Damage;
 
-                if (match.match_data.local_player.stats.damage_taken > max_damage_rec)
-                    max_damage_rec = match.match_data.local_player.stats.damage_taken;
+                if (match.MatchData.LocalPlayer.Stats.DamageTaken > max_damage_rec)
+                    max_damage_rec = match.MatchData.LocalPlayer.Stats.DamageTaken;
 
-                if (match.match_data.local_player.stats.kills == max_kills.max_kills)
+                if (match.MatchData.LocalPlayer.Stats.Kills == max_kills.max_kills)
                     max_kills.count += 1;
 
-                if (match.match_data.local_player.stats.kills > max_kills.max_kills)
+                if (match.MatchData.LocalPlayer.Stats.Kills > max_kills.max_kills)
                 {
-                    max_kills.max_kills = match.match_data.local_player.stats.kills;
+                    max_kills.max_kills = match.MatchData.LocalPlayer.Stats.Kills;
                     max_kills.count = 1;
                 }
 
-                if (match.match_data.nemesis != "")
+                if (match.MatchData.Nemesis != "")
                 {
-                    if (!opponent_dict.ContainsKey(match.match_data.nemesis))
-                        opponent_dict.Add(match.match_data.nemesis, new Opponent { nickname = match.match_data.nemesis, been_killed = 1, killed = 0 });
+                    if (!opponent_dict.ContainsKey(match.MatchData.Nemesis))
+                        opponent_dict.Add(match.MatchData.Nemesis, new Opponent { nickname = match.MatchData.Nemesis, been_killed = 1, killed = 0 });
                     else
-                        opponent_dict[match.match_data.nemesis].been_killed += 1;
+                        opponent_dict[match.MatchData.Nemesis].been_killed += 1;
                 }
 
-                foreach (string victim in match.match_data.victims)
+                foreach (string victim in match.MatchData.Victims)
                 {
                     if (!opponent_dict.ContainsKey(victim))
                         opponent_dict.Add(victim, new Opponent { nickname = victim, been_killed = 0, killed = 1 });
@@ -207,22 +207,22 @@ namespace CO_Driver
                         opponent_dict[victim].killed += 1;
                 }
 
-                foreach (string stripe in match.match_data.local_player.stripes)
+                foreach (string stripe in match.MatchData.LocalPlayer.Stripes)
                     if (stripe == "PvpMvpWin")
                         total_mvp++;
 
-                if (!total_map_data.ContainsKey(match.match_data.map_desc))
+                if (!total_map_data.ContainsKey(match.MatchData.MapDesc))
                 {
-                    total_map_data.Add(match.match_data.map_desc, new MapData { map_name = match.match_data.map_desc, wins = match.match_data.game_result == "Win" ? 1 : 0, games = 1 });
+                    total_map_data.Add(match.MatchData.MapDesc, new MapData { map_name = match.MatchData.MapDesc, wins = match.MatchData.GameResult == "Win" ? 1 : 0, games = 1 });
                 }
                 else
                 {
-                    total_map_data[match.match_data.map_desc].games = total_map_data[match.match_data.map_desc].games + 1;
-                    if (match.match_data.game_result == "Win")
-                        total_map_data[match.match_data.map_desc].wins = total_map_data[match.match_data.map_desc].wins + 1;
+                    total_map_data[match.MatchData.MapDesc].games = total_map_data[match.MatchData.MapDesc].games + 1;
+                    if (match.MatchData.GameResult == "Win")
+                        total_map_data[match.MatchData.MapDesc].wins = total_map_data[match.MatchData.MapDesc].wins + 1;
                 }
 
-                foreach (KeyValuePair<string, int> match_reward in match.match_data.match_rewards)
+                foreach (KeyValuePair<string, int> match_reward in match.MatchData.MatchRewards)
                 {
                     if (!total_resources.ContainsKey(match_reward.Key))
                     {
@@ -577,7 +577,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_nemesis_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.MatchData.PlayerRecords.Any(y => y.Value.Nickname == player && y.Key > 0)).MatchData.PlayerRecords.FirstOrDefault(z => z.Value.Nickname == player).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -588,7 +588,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_victim_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.MatchData.PlayerRecords.Any(y => y.Value.Nickname == player && y.Key > 0)).MatchData.PlayerRecords.FirstOrDefault(z => z.Value.Nickname == player).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }

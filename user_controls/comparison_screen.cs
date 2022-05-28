@@ -9,8 +9,8 @@ namespace CO_Driver
 {
     public partial class comparison_screen : UserControl
     {
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -312,7 +312,7 @@ namespace CO_Driver
 
             reset_comparison_data();
 
-            foreach (file_trace_managment.MatchRecord match in match_history.OrderByDescending(x => x.match_data.match_start))
+            foreach (FileTraceManagment.MatchRecord match in match_history.OrderByDescending(x => x.MatchData.MatchStart))
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
@@ -404,106 +404,106 @@ namespace CO_Driver
             Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
 
-        private void process_match(file_trace_managment.MatchRecord match)
+        private void process_match(FileTraceManagment.MatchRecord match)
         {
             double value = 0;
             switch (current_y_axis.id)
             {
                 case metric.WIN_RATE:
-                    value = match.match_data.winning_team == match.match_data.local_player.team ? 1 : 0;
+                    value = match.MatchData.WinningTeam == match.MatchData.LocalPlayer.Team ? 1 : 0;
                     break;
                 case metric.MVP:
-                    value = match.match_data.local_player.stripes.Any(x => x == "PvpMvpWin") ? 1 : 0;
+                    value = match.MatchData.LocalPlayer.Stripes.Any(x => x == "PvpMvpWin") ? 1 : 0;
                     break;
                 case metric.DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Damage;
                     break;
                 case metric.DAMAGE_REC:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage_taken;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.DamageTaken;
                     break;
                 case metric.SCORE:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.score;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Score;
                     break;
                 case metric.KILLS:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.kills;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Kills;
                     break;
                 case metric.ASSISTS:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.assists;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Assists;
                     break;
                 case metric.DEATHS:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.deaths;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Deaths;
                     break;
                 case metric.KILL_ASSIST:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.kills + match.match_data.player_records[match.match_data.local_player.uid].stats.assists;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Kills + match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Assists;
                     break;
                 case metric.DRONE_KILLS:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.drone_kills;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.DroneKills;
                     break;
                 case metric.MEDALS:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stripes.Count();
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stripes.Count();
                     break;
                 case metric.GAMES_PLAYED:
                     value = 1;
                     break;
                 case metric.ROUNDS_PLAYED:
-                    value = match.match_data.round_count;
+                    value = match.MatchData.RoundCount;
                     break;
                 case metric.TIME_SPENT:
-                    value = match.match_data.match_duration_seconds;
+                    value = match.MatchData.MatchDurationSeconds;
                     break;
                 case metric.RAM_DAMAGE:
-                    foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
-                        foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname && x.weapon == "Ramming"))
-                            value += rec.damage;
+                    foreach (FileTraceManagment.RoundRecord round in match.MatchData.RoundRecords)
+                        foreach (FileTraceManagment.RoundDamageRecord rec in round.DamageRecords.Where(x => x.Attacker == match.MatchData.LocalPlayer.Nickname && x.Weapon == "Ramming"))
+                            value += rec.Damage;
                     break;
                 case metric.CABIN_DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.cabin_damage;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.CabinDamage;
                     break;
                 case metric.BODY_DAMAGE:
-                    value = match.match_data.player_records[match.match_data.local_player.uid].stats.damage - match.match_data.player_records[match.match_data.local_player.uid].stats.cabin_damage;
+                    value = match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.Damage - match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].Stats.CabinDamage;
                     break;
                 case metric.EXPERIENCE:
-                    value = match.match_data.match_rewards.Where(x => x.Key.Contains("xp")).Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key.Contains("xp")).Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.URANIUM:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "ClanMoney").Sum(x => x.Value);
-                    if (match.match_data.match_type != GlobalData.STANDARD_CW_MATCH && match.match_data.match_type != GlobalData.LEVIATHIAN_CW_MATCH)
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "ClanMoney").Sum(x => x.Value);
+                    if (match.MatchData.MatchType != GlobalData.STANDARD_CW_MATCH && match.MatchData.MatchType != GlobalData.LEVIATHIAN_CW_MATCH)
                         return;
                     break;
                 case metric.SCRAP:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Common").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Scrap_Common").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.WIRES:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Rare").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Scrap_Rare").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.BATTERIES:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Accumulators").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Accumulators").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.COPPER:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Platinum").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Platinum").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.COUPONS:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Supply").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Supply").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.ELECTRONICS:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Scrap_Epic").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Scrap_Epic").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
                 case metric.PLASTIC:
-                    value = match.match_data.match_rewards.Where(x => x.Key == "Plastic").Sum(x => x.Value);
+                    value = match.MatchData.MatchRewards.Where(x => x.Key == "Plastic").Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;
@@ -515,16 +515,16 @@ namespace CO_Driver
             switch (current_x_axis.id)
             {
                 case grouping.DAY:
-                    add_chart_element(match.match_data.match_start.Date.ToString(), value);
+                    add_chart_element(match.MatchData.MatchStart.Date.ToString(), value);
                     break;
                 case grouping.WEEK:
-                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * (double)(match.match_data.match_start.Date.DayOfWeek - (int)DayOfWeek.Monday)) + 1).Date.ToString(), value);
+                    add_chart_element(match.MatchData.MatchStart.Date.AddDays((-1 * (double)(match.MatchData.MatchStart.Date.DayOfWeek - (int)DayOfWeek.Monday)) + 1).Date.ToString(), value);
                     break;
                 case grouping.MONTH:
-                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * match.match_data.match_start.Date.Day) + 1).Date.ToString(), value);
+                    add_chart_element(match.MatchData.MatchStart.Date.AddDays((-1 * match.MatchData.MatchStart.Date.Day) + 1).Date.ToString(), value);
                     break;
                 case grouping.YEAR:
-                    add_chart_element(match.match_data.match_start.Date.AddDays((-1 * match.match_data.match_start.Date.DayOfYear) + 1).Date.ToString(), value);
+                    add_chart_element(match.MatchData.MatchStart.Date.AddDays((-1 * match.MatchData.MatchStart.Date.DayOfYear) + 1).Date.ToString(), value);
                     break;
                 case grouping.WEAPON:
 
@@ -532,14 +532,14 @@ namespace CO_Driver
                     {
                         Dictionary<string, double> damage_records = new Dictionary<string, double> { };
 
-                        foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                        foreach (FileTraceManagment.RoundRecord round in match.MatchData.RoundRecords)
                         {
-                            foreach (file_trace_managment.RoundDamageRecord rec in round.damage_records.Where(x => x.attacker == match.match_data.local_player.nickname))
+                            foreach (FileTraceManagment.RoundDamageRecord rec in round.DamageRecords.Where(x => x.Attacker == match.MatchData.LocalPlayer.Nickname))
                             {
-                                if (!damage_records.ContainsKey(rec.weapon))
-                                    damage_records.Add(rec.weapon, rec.damage);
+                                if (!damage_records.ContainsKey(rec.Weapon))
+                                    damage_records.Add(rec.Weapon, rec.Damage);
                                 else
-                                    damage_records[rec.weapon] += rec.damage;
+                                    damage_records[rec.Weapon] += rec.Damage;
 
                             }
                         }
@@ -549,34 +549,34 @@ namespace CO_Driver
                     }
                     else
                     {
-                        if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                            foreach (PartLoader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
+                        if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                            foreach (PartLoader.Weapon part in build_records[match.MatchData.LocalPlayer.BuildHash].Weapons)
                                 add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     }
                     break;
                 case grouping.MOVEMENT:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        foreach (PartLoader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        foreach (PartLoader.Movement part in build_records[match.MatchData.LocalPlayer.BuildHash].Movement)
                             add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     break;
                 case grouping.CABIN:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        if (build_records[match.match_data.local_player.build_hash].cabin != null)
-                            add_chart_element(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), value);
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        if (build_records[match.MatchData.LocalPlayer.BuildHash].Cabin != null)
+                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations), value);
                     break;
                 case grouping.MODULE:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        foreach (PartLoader.Module part in build_records[match.match_data.local_player.build_hash].modules)
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        foreach (PartLoader.Module part in build_records[match.MatchData.LocalPlayer.BuildHash].Modules)
                             add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     break;
                 case grouping.ENGINE:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        if (build_records[match.match_data.local_player.build_hash].engine != null)
-                            add_chart_element(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].engine.Name, session, translations), value);
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        if (build_records[match.MatchData.LocalPlayer.BuildHash].Engine != null)
+                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Engine.Name, session, translations), value);
                     break;
                 case grouping.PART:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        foreach (string part in build_records[match.match_data.local_player.build_hash].parts)
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        foreach (string part in build_records[match.MatchData.LocalPlayer.BuildHash].Parts)
                             add_chart_element(Translate.TranslateString(part, session, translations), value);
                     break;
                 case grouping.WEAPON_CAT:
@@ -588,57 +588,57 @@ namespace CO_Driver
                 case grouping.MODULE_CAT:
                     break;
                 case grouping.MAP:
-                    add_chart_element(Translate.TranslateString(match.match_data.map_name, session, translations), value);
+                    add_chart_element(Translate.TranslateString(match.MatchData.MapName, session, translations), value);
                     break;
                 case grouping.GAME_MODE:
-                    add_chart_element(match.match_data.match_type_desc, value);
+                    add_chart_element(match.MatchData.MatchTypeDesc, value);
                     break;
                 case grouping.GAME_MODE_CAT:
-                    add_chart_element(decode_match_classification(match.match_data.match_classification), value);
+                    add_chart_element(decode_match_classification(match.MatchData.MatchClassification), value);
                     break;
                 case grouping.GAME_RESULT:
-                    add_chart_element(match.match_data.game_result, value);
+                    add_chart_element(match.MatchData.GameResult, value);
                     break;
                 case grouping.POWER_SCORE:
-                    add_chart_element(find_power_score_range(match.match_data.local_player.power_score), value);
+                    add_chart_element(find_power_score_range(match.MatchData.LocalPlayer.PowerScore), value);
                     break;
                 case grouping.REGION:
-                    add_chart_element(decode_game_region(match.match_data.host_name), value);
+                    add_chart_element(decode_game_region(match.MatchData.HostName), value);
                     break;
                 case grouping.SERVER:
-                    add_chart_element(match.match_data.host_name, value);
+                    add_chart_element(match.MatchData.HostName, value);
                     break;
                 case grouping.CLIENT_VERSION:
-                    add_chart_element(match.match_data.client_version, value);
+                    add_chart_element(match.MatchData.ClientVersion, value);
                     break;
                 case grouping.GROUP_SIZE:
-                    add_chart_element(match.match_data.player_records.Count(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).ToString(), value);
+                    add_chart_element(match.MatchData.PlayerRecords.Count(x => x.Value.PartyID == match.MatchData.LocalPlayer.PartyID && match.MatchData.LocalPlayer.PartyID != 0).ToString(), value);
                     break;
                 case grouping.SQUAD_MATE:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.party_id == match.match_data.local_player.party_id && match.match_data.local_player.party_id != 0).Select(x => x.Value.nickname))
+                    foreach (string player in match.MatchData.PlayerRecords.Where(x => x.Value.PartyID == match.MatchData.LocalPlayer.PartyID && match.MatchData.LocalPlayer.PartyID != 0).Select(x => x.Value.Nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.OPPONENT:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Value.nickname))
+                    foreach (string player in match.MatchData.PlayerRecords.Where(x => x.Value.Team != match.MatchData.LocalPlayer.Team && x.Value.UID > 0 && x.Value.Nickname != match.MatchData.LocalPlayer.Nickname).Select(x => x.Value.Nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.ALLY:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid > 0 && x.Value.nickname != match.match_data.local_player.nickname).Select(x => x.Value.nickname))
+                    foreach (string player in match.MatchData.PlayerRecords.Where(x => x.Value.Team == match.MatchData.LocalPlayer.Team && x.Value.UID > 0 && x.Value.Nickname != match.MatchData.LocalPlayer.Nickname).Select(x => x.Value.Nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.BUILD_HASH:
-                    add_chart_element(match.match_data.player_records[match.match_data.local_player.uid].build_hash, value);
+                    add_chart_element(match.MatchData.PlayerRecords[match.MatchData.LocalPlayer.UID].BuildHash, value);
                     break;
                 case grouping.BUILD_DESC:
-                    if (build_records.ContainsKey(match.match_data.local_player.build_hash))
-                        add_chart_element(build_records[match.match_data.local_player.build_hash].full_description, value);
+                    if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
+                        add_chart_element(build_records[match.MatchData.LocalPlayer.BuildHash].FullDescription, value);
                     break;
                 case grouping.BOT_ALLY:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team == match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Value.nickname))
+                    foreach (string player in match.MatchData.PlayerRecords.Where(x => x.Value.Team == match.MatchData.LocalPlayer.Team && x.Value.UID == 0).Select(x => x.Value.Nickname))
                         add_chart_element(player, value);
                     break;
                 case grouping.BOT_OPPONENT:
-                    foreach (string player in match.match_data.player_records.Where(x => x.Value.team != match.match_data.local_player.team && x.Value.uid == 0).Select(x => x.Value.nickname))
+                    foreach (string player in match.MatchData.PlayerRecords.Where(x => x.Value.Team != match.MatchData.LocalPlayer.Team && x.Value.UID == 0).Select(x => x.Value.Nickname))
                         add_chart_element(player, value);
                     break;
                 default:

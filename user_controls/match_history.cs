@@ -9,14 +9,14 @@ namespace CO_Driver
 {
     public partial class match_history : UserControl
     {
-        public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+        public event EventHandler<FileTraceManagment.MatchRecord> load_selected_match;
         public event EventHandler<string> load_selected_build;
 
-        public List<file_trace_managment.MatchRecord> history = new List<file_trace_managment.MatchRecord> { };
+        public List<FileTraceManagment.MatchRecord> history = new List<FileTraceManagment.MatchRecord> { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         private BindingSource history_table_source = new BindingSource();
         private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
         public Resize resize = new Resize { };
@@ -44,27 +44,27 @@ namespace CO_Driver
             dg_match_history_view.Rows.Clear();
             //dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
             dg_match_history_view.AllowUserToAddRows = true;
-            foreach (file_trace_managment.MatchRecord match in history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in history.ToList())
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_match_history_view.Rows[0].Clone();
-                TimeSpan duration = match.match_data.match_end - match.match_data.match_start;
-                row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
-                row.Cells[1].Value = match.match_data.match_start;
+                TimeSpan duration = match.MatchData.MatchEnd - match.MatchData.MatchStart;
+                row.Cells[0].Value = FileTraceManagment.DecodeMatchType(match.MatchData.MatchType);
+                row.Cells[1].Value = match.MatchData.MatchStart;
                 row.Cells[2].Value = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
-                row.Cells[3].Value = Translate.TranslateString(match.match_data.map_desc, session, translations);
-                row.Cells[4].Value = match.match_data.local_player.build_hash;
-                row.Cells[5].Value = match.match_data.local_player.power_score;
-                row.Cells[6].Value = match.match_data.local_player.stats.score;
-                row.Cells[7].Value = match.match_data.local_player.stats.kills;
-                row.Cells[8].Value = match.match_data.local_player.stats.assists;
-                row.Cells[9].Value = match.match_data.local_player.stats.drone_kills;
-                row.Cells[10].Value = Math.Round(match.match_data.local_player.stats.damage, 1);
-                row.Cells[11].Value = Math.Round(match.match_data.local_player.stats.damage_taken, 1);
-                row.Cells[12].Value = match.match_data.game_result;
-                row.Cells[13].Value = string.Join(",", match.match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
+                row.Cells[3].Value = Translate.TranslateString(match.MatchData.MapDesc, session, translations);
+                row.Cells[4].Value = match.MatchData.LocalPlayer.BuildHash;
+                row.Cells[5].Value = match.MatchData.LocalPlayer.PowerScore;
+                row.Cells[6].Value = match.MatchData.LocalPlayer.Stats.Score;
+                row.Cells[7].Value = match.MatchData.LocalPlayer.Stats.Kills;
+                row.Cells[8].Value = match.MatchData.LocalPlayer.Stats.Assists;
+                row.Cells[9].Value = match.MatchData.LocalPlayer.Stats.DroneKills;
+                row.Cells[10].Value = Math.Round(match.MatchData.LocalPlayer.Stats.Damage, 1);
+                row.Cells[11].Value = Math.Round(match.MatchData.LocalPlayer.Stats.DamageTaken, 1);
+                row.Cells[12].Value = match.MatchData.GameResult;
+                row.Cells[13].Value = string.Join(",", match.MatchData.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
 
 
                 dg_match_history_view.Rows.Add(row);
@@ -92,9 +92,9 @@ namespace CO_Driver
             else
             if (load_selected_match != null)
             {
-                foreach (file_trace_managment.MatchRecord match in history.ToList())
+                foreach (FileTraceManagment.MatchRecord match in history.ToList())
                 {
-                    if (DateTime.Equals(match.match_data.match_start, dg_match_history_view.Rows[e.RowIndex].Cells[1].Value))
+                    if (DateTime.Equals(match.MatchData.MatchStart, dg_match_history_view.Rows[e.RowIndex].Cells[1].Value))
                     {
                         load_selected_match(this, match);
                         break;

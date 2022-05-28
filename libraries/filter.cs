@@ -79,181 +79,181 @@ namespace CO_Driver
             filter.EndDate = DateTime.Now;
         }
 
-        public static void PopulateFilters(FilterSelections filter, List<file_trace_managment.MatchRecord> matchs, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
+        public static void PopulateFilters(FilterSelections filter, List<FileTraceManagment.MatchRecord> matchs, Dictionary<string, FileTraceManagment.BuildRecord> buildRecords,
                                   LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
         {
-            foreach (file_trace_managment.MatchRecord match in matchs)
+            foreach (FileTraceManagment.MatchRecord match in matchs)
             {
                 PopulateFiltersForMatch(filter, match, buildRecords, session, translations);
             }
         } 
 
-        public static void PopulateFiltersForMatch(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
+        public static void PopulateFiltersForMatch(FilterSelections filter, FileTraceManagment.MatchRecord match, Dictionary<string, FileTraceManagment.BuildRecord> buildRecords,
                                   LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
         {
-            if (!filter.GameModes.Contains(match.match_data.match_type_desc))
-                filter.GameModes.Add((match.match_data.match_type_desc));
+            if (!filter.GameModes.Contains(match.MatchData.MatchTypeDesc))
+                filter.GameModes.Add((match.MatchData.MatchTypeDesc));
 
-            if (!filter.GameModes.Contains("PvP") && match.match_data.match_classification == GlobalData.PVP_CLASSIFICATION)
+            if (!filter.GameModes.Contains("PvP") && match.MatchData.MatchClassification == GlobalData.PVP_CLASSIFICATION)
                 filter.GameModes.Add("PvP");
 
-            if (!filter.GameModes.Contains("PvE") && match.match_data.match_classification == GlobalData.PVE_CLASSIFICATION)
+            if (!filter.GameModes.Contains("PvE") && match.MatchData.MatchClassification == GlobalData.PVE_CLASSIFICATION)
                 filter.GameModes.Add("PvE");
 
-            if (!filter.GameModes.Contains("Brawl") && match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION)
+            if (!filter.GameModes.Contains("Brawl") && match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
                 filter.GameModes.Add("Brawl");
 
-            if (match.match_data.match_classification == GlobalData.PVP_CLASSIFICATION && !filter.GameModes.Contains("PvP"))
+            if (match.MatchData.MatchClassification == GlobalData.PVP_CLASSIFICATION && !filter.GameModes.Contains("PvP"))
                 filter.GameModes.Add("PvP");
 
-            if (match.match_data.match_classification == GlobalData.PVE_CLASSIFICATION && !filter.GameModes.Contains("PvE"))
+            if (match.MatchData.MatchClassification == GlobalData.PVE_CLASSIFICATION && !filter.GameModes.Contains("PvE"))
                 filter.GameModes.Add("PvE");
 
-            if (match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION && !filter.GameModes.Contains("Brawl"))
+            if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION && !filter.GameModes.Contains("Brawl"))
                 filter.GameModes.Add("Brawl");
 
-            if (match.match_data.local_player.party_id == 0 && !filter.Grouped.Contains("Solo"))
+            if (match.MatchData.LocalPlayer.PartyID == 0 && !filter.Grouped.Contains("Solo"))
                 filter.Grouped.Add("Solo");
 
-            if (match.match_data.local_player.party_id > 0 && !filter.Grouped.Contains("Grouped"))
+            if (match.MatchData.LocalPlayer.PartyID > 0 && !filter.Grouped.Contains("Grouped"))
                 filter.Grouped.Add("Grouped");
 
-            if (match.match_data.local_player.power_score >= 0 && match.match_data.local_player.power_score <= 2499 && !filter.PowerScores.Contains("0-2499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 0 && match.MatchData.LocalPlayer.PowerScore <= 2499 && !filter.PowerScores.Contains("0-2499"))
                 filter.PowerScores.Add("0-2499");
 
-            if (match.match_data.local_player.power_score >= 2500 && match.match_data.local_player.power_score <= 2499 && !filter.PowerScores.Contains("2500-3499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 2500 && match.MatchData.LocalPlayer.PowerScore <= 2499 && !filter.PowerScores.Contains("2500-3499"))
                 filter.PowerScores.Add("2500-3499");
 
-            if (match.match_data.local_player.power_score >= 3500 && match.match_data.local_player.power_score <= 4499 && !filter.PowerScores.Contains("3500-4499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 3500 && match.MatchData.LocalPlayer.PowerScore <= 4499 && !filter.PowerScores.Contains("3500-4499"))
                 filter.PowerScores.Add("3500-4499");
 
-            if (match.match_data.local_player.power_score >= 4500 && match.match_data.local_player.power_score <= 5499 && !filter.PowerScores.Contains("4500-5499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 4500 && match.MatchData.LocalPlayer.PowerScore <= 5499 && !filter.PowerScores.Contains("4500-5499"))
                 filter.PowerScores.Add("4500-5499");
 
-            if (match.match_data.local_player.power_score >= 5500 && match.match_data.local_player.power_score <= 6499 && !filter.PowerScores.Contains("5500-6499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 5500 && match.MatchData.LocalPlayer.PowerScore <= 6499 && !filter.PowerScores.Contains("5500-6499"))
                 filter.PowerScores.Add("5500-6499");
 
-            if (match.match_data.local_player.power_score >= 6500 && match.match_data.local_player.power_score <= 7499 && !filter.PowerScores.Contains("6500-7499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 6500 && match.MatchData.LocalPlayer.PowerScore <= 7499 && !filter.PowerScores.Contains("6500-7499"))
                 filter.PowerScores.Add("6500-7499");
 
-            if (match.match_data.local_player.power_score >= 7500 && match.match_data.local_player.power_score <= 8499 && !filter.PowerScores.Contains("7500-8499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 7500 && match.MatchData.LocalPlayer.PowerScore <= 8499 && !filter.PowerScores.Contains("7500-8499"))
                 filter.PowerScores.Add("7500-8499");
 
-            if (match.match_data.local_player.power_score >= 8500 && match.match_data.local_player.power_score <= 9499 && !filter.PowerScores.Contains("8500-9499"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 8500 && match.MatchData.LocalPlayer.PowerScore <= 9499 && !filter.PowerScores.Contains("8500-9499"))
                 filter.PowerScores.Add("8500-9499");
 
-            if (match.match_data.local_player.power_score >= 9500 && match.match_data.local_player.power_score <= 12999 && !filter.PowerScores.Contains("9500-12999"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 9500 && match.MatchData.LocalPlayer.PowerScore <= 12999 && !filter.PowerScores.Contains("9500-12999"))
                 filter.PowerScores.Add("9500-12999");
 
-            if (match.match_data.local_player.power_score >= 13000 && match.match_data.local_player.power_score <= 22000 && !filter.PowerScores.Contains("13000+"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 13000 && match.MatchData.LocalPlayer.PowerScore <= 22000 && !filter.PowerScores.Contains("13000+"))
                 filter.PowerScores.Add("13000+");
 
-            if (match.match_data.local_player.power_score >= 22000 && !filter.PowerScores.Contains("Leviathan"))
+            if (match.MatchData.LocalPlayer.PowerScore >= 22000 && !filter.PowerScores.Contains("Leviathan"))
                 filter.PowerScores.Add("Leviathan");
 
-            if (!filter.ClientVersions.Contains(match.match_data.client_version))
-                filter.ClientVersions.Add((match.match_data.client_version));
+            if (!filter.ClientVersions.Contains(match.MatchData.ClientVersion))
+                filter.ClientVersions.Add((match.MatchData.ClientVersion));
 
-            if (buildRecords.ContainsKey(match.match_data.local_player.build_hash))
+            if (buildRecords.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
             {
-                if (!string.IsNullOrEmpty(Translate.TranslateString(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
-                    if (!filter.Cabins.Contains(Translate.TranslateString(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
-                        filter.Cabins.Add(Translate.TranslateString(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations));
+                if (!string.IsNullOrEmpty(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
+                    if (!filter.Cabins.Contains(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
+                        filter.Cabins.Add(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations));
 
-                foreach (PartLoader.Weapon weapon in buildRecords[match.match_data.local_player.build_hash].weapons)
+                foreach (PartLoader.Weapon weapon in buildRecords[match.MatchData.LocalPlayer.BuildHash].Weapons)
                     if (!filter.Weapons.Contains(Translate.TranslateString(weapon.Name, session, translations)))
                         filter.Weapons.Add(Translate.TranslateString(weapon.Name, session, translations));
 
-                foreach (PartLoader.Movement movement in buildRecords[match.match_data.local_player.build_hash].movement)
+                foreach (PartLoader.Movement movement in buildRecords[match.MatchData.LocalPlayer.BuildHash].Movement)
                     if (!filter.MovementParts.Contains(Translate.TranslateString(movement.Name, session, translations)))
                         filter.MovementParts.Add(Translate.TranslateString(movement.Name, session, translations));
 
-                foreach (PartLoader.Module module in buildRecords[match.match_data.local_player.build_hash].modules)
+                foreach (PartLoader.Module module in buildRecords[match.MatchData.LocalPlayer.BuildHash].Modules)
                     if (!filter.ModuleParts.Contains(Translate.TranslateString(module.Name, session, translations)))
                         filter.ModuleParts.Add(Translate.TranslateString(module.Name, session, translations));
             }
         }
 
-        public static bool CheckFilters(FilterSelections filter, file_trace_managment.MatchRecord match, Dictionary<string, file_trace_managment.BuildRecord> buildRecords,
+        public static bool CheckFilters(FilterSelections filter, FileTraceManagment.MatchRecord match, Dictionary<string, FileTraceManagment.BuildRecord> buildRecords,
                                   LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
         {
             PopulateFiltersForMatch(filter, match, buildRecords, session, translations);
 
-            if (filter.GameModeFilter != GlobalData.GAME_MODE_FILTER_DEFAULT && filter.GameModeFilter != "PvP" && filter.GameModeFilter != "PvE" && filter.GameModeFilter != "Brawl" && filter.GameModeFilter != match.match_data.match_type_desc)
+            if (filter.GameModeFilter != GlobalData.GAME_MODE_FILTER_DEFAULT && filter.GameModeFilter != "PvP" && filter.GameModeFilter != "PvE" && filter.GameModeFilter != "Brawl" && filter.GameModeFilter != match.MatchData.MatchTypeDesc)
                 return false;
 
-            if (filter.GameModeFilter == "PvP" && match.match_data.match_classification != GlobalData.PVP_CLASSIFICATION)
+            if (filter.GameModeFilter == "PvP" && match.MatchData.MatchClassification != GlobalData.PVP_CLASSIFICATION)
                 return false;
 
-            if (filter.GameModeFilter == "PvE" && match.match_data.match_classification != GlobalData.PVE_CLASSIFICATION)
+            if (filter.GameModeFilter == "PvE" && match.MatchData.MatchClassification != GlobalData.PVE_CLASSIFICATION)
                 return false;
 
-            if (filter.GameModeFilter == "Brawl" && match.match_data.match_classification != GlobalData.BRAWL_CLASSIFICATION)
+            if (filter.GameModeFilter == "Brawl" && match.MatchData.MatchClassification != GlobalData.BRAWL_CLASSIFICATION)
                 return false;
 
-            if (filter.GroupFilter == "Solo" && match.match_data.local_player.party_id > 0)
+            if (filter.GroupFilter == "Solo" && match.MatchData.LocalPlayer.PartyID > 0)
                 return false;
 
-            if (filter.GroupFilter == "Grouped" && match.match_data.local_player.party_id == 0)
+            if (filter.GroupFilter == "Grouped" && match.MatchData.LocalPlayer.PartyID == 0)
                 return false;
 
-            if (filter.ClientVersionFilter != GlobalData.CLIENT_VERSION_FILTER_DEFAULT && filter.ClientVersionFilter != match.match_data.client_version)
+            if (filter.ClientVersionFilter != GlobalData.CLIENT_VERSION_FILTER_DEFAULT && filter.ClientVersionFilter != match.MatchData.ClientVersion)
                 return false;
 
-            if (filter.StartDate.Date != DateTime.Now.Date && match.match_data.match_start.Date < filter.StartDate)
+            if (filter.StartDate.Date != DateTime.Now.Date && match.MatchData.MatchStart.Date < filter.StartDate)
                 return false;
 
-            if (filter.EndDate.Date != DateTime.Now.Date && match.match_data.match_start.Date > filter.EndDate)
+            if (filter.EndDate.Date != DateTime.Now.Date && match.MatchData.MatchStart.Date > filter.EndDate)
                 return false;
 
             if (filter.PowerScoreFilter != GlobalData.POWER_SCORE_FILTER_DEFAULT)
             {
-                if (filter.PowerScoreFilter == "0-2499" && (match.match_data.local_player.power_score < 0 || match.match_data.local_player.power_score > 2499))
+                if (filter.PowerScoreFilter == "0-2499" && (match.MatchData.LocalPlayer.PowerScore < 0 || match.MatchData.LocalPlayer.PowerScore > 2499))
                     return false;
 
-                if (filter.PowerScoreFilter == "2500-3499" && (match.match_data.local_player.power_score < 2500 || match.match_data.local_player.power_score > 3499))
+                if (filter.PowerScoreFilter == "2500-3499" && (match.MatchData.LocalPlayer.PowerScore < 2500 || match.MatchData.LocalPlayer.PowerScore > 3499))
                     return false;
 
-                if (filter.PowerScoreFilter == "3500-4499" && (match.match_data.local_player.power_score < 3500 || match.match_data.local_player.power_score > 4499))
+                if (filter.PowerScoreFilter == "3500-4499" && (match.MatchData.LocalPlayer.PowerScore < 3500 || match.MatchData.LocalPlayer.PowerScore > 4499))
                     return false;
 
-                if (filter.PowerScoreFilter == "4500-5499" && (match.match_data.local_player.power_score < 4500 || match.match_data.local_player.power_score > 5499))
+                if (filter.PowerScoreFilter == "4500-5499" && (match.MatchData.LocalPlayer.PowerScore < 4500 || match.MatchData.LocalPlayer.PowerScore > 5499))
                     return false;
 
-                if (filter.PowerScoreFilter == "5500-6499" && (match.match_data.local_player.power_score < 5500 || match.match_data.local_player.power_score > 6499))
+                if (filter.PowerScoreFilter == "5500-6499" && (match.MatchData.LocalPlayer.PowerScore < 5500 || match.MatchData.LocalPlayer.PowerScore > 6499))
                     return false;
 
-                if (filter.PowerScoreFilter == "6500-7499" && (match.match_data.local_player.power_score < 6500 || match.match_data.local_player.power_score > 7499))
+                if (filter.PowerScoreFilter == "6500-7499" && (match.MatchData.LocalPlayer.PowerScore < 6500 || match.MatchData.LocalPlayer.PowerScore > 7499))
                     return false;
 
-                if (filter.PowerScoreFilter == "7500-8499" && (match.match_data.local_player.power_score < 7500 || match.match_data.local_player.power_score > 8499))
+                if (filter.PowerScoreFilter == "7500-8499" && (match.MatchData.LocalPlayer.PowerScore < 7500 || match.MatchData.LocalPlayer.PowerScore > 8499))
                     return false;
 
-                if (filter.PowerScoreFilter == "8500-9499" && (match.match_data.local_player.power_score < 8500 || match.match_data.local_player.power_score > 9499))
+                if (filter.PowerScoreFilter == "8500-9499" && (match.MatchData.LocalPlayer.PowerScore < 8500 || match.MatchData.LocalPlayer.PowerScore > 9499))
                     return false;
 
-                if (filter.PowerScoreFilter == "9500-12999" && (match.match_data.local_player.power_score < 9500 || match.match_data.local_player.power_score > 12999))
+                if (filter.PowerScoreFilter == "9500-12999" && (match.MatchData.LocalPlayer.PowerScore < 9500 || match.MatchData.LocalPlayer.PowerScore > 12999))
                     return false;
 
-                if (filter.PowerScoreFilter == "13000+" && (match.match_data.local_player.power_score < 13000 || match.match_data.local_player.power_score > 22000))
+                if (filter.PowerScoreFilter == "13000+" && (match.MatchData.LocalPlayer.PowerScore < 13000 || match.MatchData.LocalPlayer.PowerScore > 22000))
                     return false;
 
-                if (filter.PowerScoreFilter == "Leviathan" && match.match_data.local_player.power_score < 22000)
+                if (filter.PowerScoreFilter == "Leviathan" && match.MatchData.LocalPlayer.PowerScore < 22000)
                     return false;
             }
 
-            if (buildRecords.ContainsKey(match.match_data.local_player.build_hash))
+            if (buildRecords.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
             {
-                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].weapons.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
+                if (filter.WeaponsFilter != GlobalData.WEAPONS_FILTER_DEFAULT && buildRecords[match.MatchData.LocalPlayer.BuildHash].Weapons.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.WeaponsFilter).Count() == 0)
                     return false;
 
-                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].movement.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
+                if (filter.MovementFilter != GlobalData.MOVEMENT_FILTER_DEFAULT && buildRecords[match.MatchData.LocalPlayer.BuildHash].Movement.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.MovementFilter).Count() == 0)
                     return false;
 
-                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT && Translate.TranslateString(buildRecords[match.match_data.local_player.build_hash].cabin.Name, session, translations) != filter.CabinFilter)
+                if (filter.CabinFilter != GlobalData.CABIN_FILTER_DEFAULT && Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations) != filter.CabinFilter)
                     return false;
 
-                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT && buildRecords[match.match_data.local_player.build_hash].modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
+                if (filter.ModuleFilter != GlobalData.MODULE_FILTER_DEFAULT && buildRecords[match.MatchData.LocalPlayer.BuildHash].Modules.Select(x => Translate.TranslateString(x.Name, session, translations)).Where(x => x == filter.ModuleFilter).Count() == 0)
                     return false;
             }
             else

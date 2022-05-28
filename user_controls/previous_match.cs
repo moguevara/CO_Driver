@@ -10,20 +10,20 @@ namespace CO_Driver
 {
     public partial class previous_match : UserControl
     {
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public event EventHandler<file_trace_managment.MatchRecord> load_selected_match;
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public event EventHandler<FileTraceManagment.MatchRecord> load_selected_match;
         public event EventHandler<string> load_selected_build;
 
-        public file_trace_managment.MatchData previous_match_data = new file_trace_managment.MatchData { };
-        public file_trace_managment.MatchData historical_match_data = new file_trace_managment.MatchData { };
-        public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public FileTraceManagment.MatchData previous_match_data = new FileTraceManagment.MatchData { };
+        public FileTraceManagment.MatchData historical_match_data = new FileTraceManagment.MatchData { };
+        public FileTraceManagment.BuildRecord last_build_record = new FileTraceManagment.BuildRecord { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool show_last_match = true;
-        private file_trace_managment.MatchData match_data = new file_trace_managment.MatchData { };
+        private FileTraceManagment.MatchData match_data = new FileTraceManagment.MatchData { };
         private string blue_team = "";
         private string red_team = "";
 
@@ -40,39 +40,39 @@ namespace CO_Driver
 
             reset_screen_elements();
             assign_teams();
-            TimeSpan duration = match_data.match_end - match_data.match_start;
+            TimeSpan duration = match_data.MatchEnd - match_data.MatchStart;
 
             //MessageBox.Show(match_data.game_play_value + Environment.NewLine + match_data.map_name + Environment.NewLine + Environment.NewLine +  string.Join(",", match_data.match_attributes.Select(x => x.attribute)));
 
-            if (match_data.game_result == "Win")
+            if (match_data.GameResult == "Win")
                 lb_game_result.Text = "Victory";
-            else if (match_data.game_result == "Loss")
+            else if (match_data.GameResult == "Loss")
                 lb_game_result.Text = "Defeat";
             else
-                lb_game_result.Text = match_data.game_result;
+                lb_game_result.Text = match_data.GameResult;
 
 #if DEBUG
-            lb_game_result.Text = match_data.server_guid.ToString();
+            lb_game_result.Text = match_data.ServerGUID.ToString();
 #endif
 
-            lb_match_type.Text = match_data.match_type_desc;
-            lb_map_name.Text = Translate.TranslateString(match_data.map_name, session, translations);
-            if (build_records.ContainsKey(match_data.local_player.build_hash))
-                lb_build_name.Text = build_records[match_data.local_player.build_hash].full_description;
+            lb_match_type.Text = match_data.MatchTypeDesc;
+            lb_map_name.Text = Translate.TranslateString(match_data.MapName, session, translations);
+            if (build_records.ContainsKey(match_data.LocalPlayer.BuildHash))
+                lb_build_name.Text = build_records[match_data.LocalPlayer.BuildHash].FullDescription;
             else
                 lb_build_name.Text = "";
             lb_duration.Text = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
-            lb_kills.Text = match_data.local_player.stats.kills.ToString();
-            lb_assists.Text = match_data.local_player.stats.assists.ToString();
-            lb_drone_kills.Text = match_data.local_player.stats.drone_kills.ToString();
-            lb_damage_dealt.Text = Math.Round(match_data.local_player.stats.damage, 1).ToString();
-            lb_damage_rec.Text = Math.Round(match_data.local_player.stats.damage_taken, 1).ToString();
-            lb_score.Text = match_data.local_player.stats.score.ToString();
-            lb_medals.Text = match_data.local_player.stripes.Count().ToString();
-            if (match_data.match_rewards.ContainsKey("expFactionTotal"))
+            lb_kills.Text = match_data.LocalPlayer.Stats.Kills.ToString();
+            lb_assists.Text = match_data.LocalPlayer.Stats.Assists.ToString();
+            lb_drone_kills.Text = match_data.LocalPlayer.Stats.DroneKills.ToString();
+            lb_damage_dealt.Text = Math.Round(match_data.LocalPlayer.Stats.Damage, 1).ToString();
+            lb_damage_rec.Text = Math.Round(match_data.LocalPlayer.Stats.DamageTaken, 1).ToString();
+            lb_score.Text = match_data.LocalPlayer.Stats.Score.ToString();
+            lb_medals.Text = match_data.LocalPlayer.Stripes.Count().ToString();
+            if (match_data.MatchRewards.ContainsKey("expFactionTotal"))
             {
-                lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
-                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
+                lb_xp.Text = match_data.MatchRewards["expFactionTotal"].ToString();
+                lb_resources.Text = string.Join(",", match_data.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
             }
             else
             {
@@ -126,14 +126,14 @@ namespace CO_Driver
             string previous_attacker = "";
             bool first = true;
 
-            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.attacker).ThenByDescending(x => x.damage).ToList())
+            foreach (FileTraceManagment.DamageRecord damage_record in match_data.DamageRecord.OrderBy(x => x.Attacker).ThenByDescending(x => x.Damage).ToList())
             {
-                if (damage_record.victim != match_data.local_player.nickname)
+                if (damage_record.Victim != match_data.LocalPlayer.Nickname)
                     continue;
 
                 DataGridViewRow row;
 
-                if (damage_record.attacker != previous_attacker)
+                if (damage_record.Attacker != previous_attacker)
                 {
                     if (!first)
                     {
@@ -145,18 +145,18 @@ namespace CO_Driver
 
                     row = (DataGridViewRow)this.dg_damage_rec.Rows[0].Clone();
                     row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                    row.Cells[0].Value = damage_record.attacker;
-                    row.Cells[1].Value = Math.Round(match_data.damage_record.Where(x => x.victim == damage_record.victim && x.attacker == damage_record.attacker).Sum(x => x.damage), 1);
+                    row.Cells[0].Value = damage_record.Attacker;
+                    row.Cells[1].Value = Math.Round(match_data.DamageRecord.Where(x => x.Victim == damage_record.Victim && x.Attacker == damage_record.Attacker).Sum(x => x.Damage), 1);
                     dg_damage_rec.Rows.Add(row);
                 }
 
                 row = (DataGridViewRow)this.dg_damage_rec.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = Translate.TranslateString(damage_record.weapon, session, translations);
-                row.Cells[1].Value = Math.Round(damage_record.damage, 1);
+                row.Cells[0].Value = Translate.TranslateString(damage_record.Weapon, session, translations);
+                row.Cells[1].Value = Math.Round(damage_record.Damage, 1);
                 dg_damage_rec.Rows.Add(row);
 
-                previous_attacker = damage_record.attacker;
+                previous_attacker = damage_record.Attacker;
                 if (first)
                     first = false;
             }
@@ -174,17 +174,17 @@ namespace CO_Driver
             string previous_victim = "";
             bool first = true;
 
-            foreach (file_trace_managment.DamageRecord damage_record in match_data.damage_record.OrderBy(x => x.victim).ThenByDescending(x => x.damage).ToList())
+            foreach (FileTraceManagment.DamageRecord damage_record in match_data.DamageRecord.OrderBy(x => x.Victim).ThenByDescending(x => x.Damage).ToList())
             {
-                if (damage_record.attacker != match_data.local_player.nickname)
+                if (damage_record.Attacker != match_data.LocalPlayer.Nickname)
                     continue;
 
-                if (damage_record.victim == match_data.local_player.nickname)
+                if (damage_record.Victim == match_data.LocalPlayer.Nickname)
                     continue;
 
                 DataGridViewRow row;
 
-                if (damage_record.victim != previous_victim)
+                if (damage_record.Victim != previous_victim)
                 {
                     if (!first)
                     {
@@ -196,18 +196,18 @@ namespace CO_Driver
 
                     row = (DataGridViewRow)this.dg_damage_dealt.Rows[0].Clone();
                     row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                    row.Cells[0].Value = damage_record.victim;
-                    row.Cells[1].Value = Math.Round(match_data.damage_record.Where(x => x.attacker == match_data.local_player.nickname && x.victim == damage_record.victim).Sum(x => x.damage), 1);
+                    row.Cells[0].Value = damage_record.Victim;
+                    row.Cells[1].Value = Math.Round(match_data.DamageRecord.Where(x => x.Attacker == match_data.LocalPlayer.Nickname && x.Victim == damage_record.Victim).Sum(x => x.Damage), 1);
                     dg_damage_dealt.Rows.Add(row);
                 }
 
                 row = (DataGridViewRow)this.dg_damage_dealt.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = Translate.TranslateString(damage_record.weapon, session, translations);
-                row.Cells[1].Value = Math.Round(damage_record.damage, 1);
+                row.Cells[0].Value = Translate.TranslateString(damage_record.Weapon, session, translations);
+                row.Cells[1].Value = Math.Round(damage_record.Damage, 1);
                 dg_damage_dealt.Rows.Add(row);
 
-                previous_victim = damage_record.victim;
+                previous_victim = damage_record.Victim;
                 if (first)
                     first = false;
             }
@@ -224,7 +224,7 @@ namespace CO_Driver
             dg_medals.AllowUserToAddRows = true;
 
             Dictionary<string, int> stripes = new Dictionary<string, int> { };
-            foreach (string stripe in match_data.local_player.stripes.OrderBy(x => x))
+            foreach (string stripe in match_data.LocalPlayer.Stripes.OrderBy(x => x))
             {
                 string strip_name = stripe;
                 if (strip_name.ToLower().StartsWith("pv"))
@@ -251,7 +251,7 @@ namespace CO_Driver
 
         private void populate_score_table()
         {
-            if (match_data.local_player.scores == null)
+            if (match_data.LocalPlayer.Scores == null)
                 return;
 
             dg_score.AllowUserToAddRows = false;
@@ -259,11 +259,11 @@ namespace CO_Driver
             dg_score.Rows.Clear();
             dg_score.AllowUserToAddRows = true;
 
-            foreach (file_trace_managment.Score score in match_data.local_player.scores)
+            foreach (FileTraceManagment.Score score in match_data.LocalPlayer.Scores)
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_score.Rows[0].Clone();
-                row.Cells[0].Value = score.description;
-                row.Cells[1].Value = score.points;
+                row.Cells[0].Value = score.Description;
+                row.Cells[1].Value = score.Points;
                 dg_score.Rows.Add(row);
             }
 
@@ -283,38 +283,38 @@ namespace CO_Driver
             dg_red_team.AllowUserToAddRows = true;
 
 
-            foreach (KeyValuePair<int, file_trace_managment.Player> player in match_data.player_records.ToList())
+            foreach (KeyValuePair<int, FileTraceManagment.Player> player in match_data.PlayerRecords.ToList())
             {
-                if (player.Value.team != match_data.local_player.team)
+                if (player.Value.Team != match_data.LocalPlayer.Team)
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_red_team.Rows[0].Clone();
-                    row.Cells[0].Value = player.Value.nickname;
+                    row.Cells[0].Value = player.Value.Nickname;
 #if DEBUG
                     row.Cells[0].ToolTipText = player.Key.ToString();
 #endif
-                    row.Cells[1].Value = player.Value.power_score;
-                    row.Cells[2].Value = player.Value.stats.kills;
-                    row.Cells[3].Value = player.Value.stats.assists;
-                    row.Cells[4].Value = player.Value.stats.deaths;
-                    row.Cells[5].Value = Math.Round(player.Value.stats.damage, 0);
-                    row.Cells[6].Value = Math.Round(player.Value.stats.damage_taken, 0);
-                    row.Cells[7].Value = player.Value.stats.score;
+                    row.Cells[1].Value = player.Value.PowerScore;
+                    row.Cells[2].Value = player.Value.Stats.Kills;
+                    row.Cells[3].Value = player.Value.Stats.Assists;
+                    row.Cells[4].Value = player.Value.Stats.Deaths;
+                    row.Cells[5].Value = Math.Round(player.Value.Stats.Damage, 0);
+                    row.Cells[6].Value = Math.Round(player.Value.Stats.DamageTaken, 0);
+                    row.Cells[7].Value = player.Value.Stats.Score;
                     dg_red_team.Rows.Add(row);
                 }
                 else
                 {
                     DataGridViewRow row = (DataGridViewRow)this.dg_blue_team.Rows[0].Clone();
-                    row.Cells[0].Value = player.Value.nickname;
+                    row.Cells[0].Value = player.Value.Nickname;
 #if DEBUG
                     row.Cells[0].ToolTipText = player.Key.ToString();
 #endif
-                    row.Cells[1].Value = player.Value.power_score;
-                    row.Cells[2].Value = player.Value.stats.kills;
-                    row.Cells[3].Value = player.Value.stats.assists;
-                    row.Cells[4].Value = player.Value.stats.deaths;
-                    row.Cells[5].Value = Math.Round(player.Value.stats.damage, 0);
-                    row.Cells[6].Value = Math.Round(player.Value.stats.damage_taken, 0);
-                    row.Cells[7].Value = player.Value.stats.score;
+                    row.Cells[1].Value = player.Value.PowerScore;
+                    row.Cells[2].Value = player.Value.Stats.Kills;
+                    row.Cells[3].Value = player.Value.Stats.Assists;
+                    row.Cells[4].Value = player.Value.Stats.Deaths;
+                    row.Cells[5].Value = Math.Round(player.Value.Stats.Damage, 0);
+                    row.Cells[6].Value = Math.Round(player.Value.Stats.DamageTaken, 0);
+                    row.Cells[7].Value = player.Value.Stats.Score;
                     dg_blue_team.Rows.Add(row);
                 }
             }
@@ -430,7 +430,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_blue_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player && (x.Key > 0 || x.Value.bot != 0)).Value.uid;
+            int uid = match_data.PlayerRecords.FirstOrDefault(x => x.Value.Nickname == player && (x.Key > 0 || x.Value.Bot != 0)).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -441,14 +441,14 @@ namespace CO_Driver
                 return;
 
             string player = dg_red_team.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_data.player_records.FirstOrDefault(x => x.Value.nickname == player && (x.Key > 0 || x.Value.bot != 0)).Value.uid;
+            int uid = match_data.PlayerRecords.FirstOrDefault(x => x.Value.Nickname == player && (x.Key > 0 || x.Value.Bot != 0)).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
 
         public void btn_last_MouseClick(object sender, MouseEventArgs e)
         {
-            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
+            FileTraceManagment.MatchRecord previous_match = match_history.Where(x => x.MatchData.MatchStart < match_data.MatchStart).OrderBy(x => x.MatchData.MatchStart).FirstOrDefault();
 
             if (previous_match == null)
                 return;
@@ -458,7 +458,7 @@ namespace CO_Driver
 
         private void btn_previous_Click(object sender, EventArgs e)
         {
-            file_trace_managment.MatchRecord previous_match = match_history.Where(x => x.match_data.match_start < match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+            FileTraceManagment.MatchRecord previous_match = match_history.Where(x => x.MatchData.MatchStart < match_data.MatchStart).OrderByDescending(x => x.MatchData.MatchStart).FirstOrDefault();
 
             if (previous_match == null)
                 return;
@@ -468,7 +468,7 @@ namespace CO_Driver
 
         private void btn_next_Click(object sender, EventArgs e)
         {
-            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderBy(x => x.match_data.match_start).FirstOrDefault();
+            FileTraceManagment.MatchRecord next_match = match_history.Where(x => x.MatchData.MatchStart > match_data.MatchStart).OrderBy(x => x.MatchData.MatchStart).FirstOrDefault();
 
             if (next_match == null)
                 return;
@@ -478,7 +478,7 @@ namespace CO_Driver
 
         private void btn_first_Click(object sender, EventArgs e)
         {
-            file_trace_managment.MatchRecord next_match = match_history.Where(x => x.match_data.match_start > match_data.match_start).OrderByDescending(x => x.match_data.match_start).FirstOrDefault();
+            FileTraceManagment.MatchRecord next_match = match_history.Where(x => x.MatchData.MatchStart > match_data.MatchStart).OrderByDescending(x => x.MatchData.MatchStart).FirstOrDefault();
 
             if (next_match == null)
                 return;
@@ -499,9 +499,9 @@ namespace CO_Driver
 
         private void lb_build_name_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(match_data.local_player.build_hash))
+            if (!String.IsNullOrWhiteSpace(match_data.LocalPlayer.BuildHash))
             {
-                load_selected_build(sender, match_data.local_player.build_hash);
+                load_selected_build(sender, match_data.LocalPlayer.BuildHash);
             }
         }
     }

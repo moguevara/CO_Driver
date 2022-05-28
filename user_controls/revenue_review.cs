@@ -11,8 +11,8 @@ namespace CO_Driver
 {
     public partial class revenue_review : UserControl
     {
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -132,68 +132,68 @@ namespace CO_Driver
             Filter.ResetFilters(filter_selections);
             initialize_user_profile();
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (match.match_data.match_rewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
+                if (match.MatchData.MatchRewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
                     continue;
 
                 /* begin calc */
                 bool group_found = false;
                 int fuel_ammount = 0;
                 double badges_amount = 0;
-                TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
+                TimeSpan queue_time = match.MatchData.QueueEnd - match.MatchData.QueueStart;
 
-                string game_mode = match.match_data.match_type_desc;
+                string game_mode = match.MatchData.MatchTypeDesc;
 
                 if (game_mode.Contains("Raid"))
                 {
-                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.match_data.gameplay_desc, session, translations), string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => Translate.TranslateString(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.MatchData.GameplayDesc, session, translations), string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                     if (game_mode.EndsWith("()"))
                         game_mode.Substring(("()").Length);
                 }
 
-                if (match.match_data.gameplay_desc == "Pve_Leviathan")
+                if (match.MatchData.GameplayDesc == "Pve_Leviathan")
                 {
-                    game_mode = Translate.TranslateString(match.match_data.gameplay_desc, session, translations);
+                    game_mode = Translate.TranslateString(match.MatchData.GameplayDesc, session, translations);
                 }
 
                 if (game_mode.Contains("8v8"))
-                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (match.match_data.match_type == GlobalData.INVASION_MATCH)
+                if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == GlobalData.EASY_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
                     fuel_ammount = 20;
                 else
-                if (match.match_data.match_type == GlobalData.MED_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == GlobalData.HARD_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
                     fuel_ammount = 60;
 
-                if (chk_badges.Checked && match.match_data.game_result == "Win")
+                if (chk_badges.Checked && match.MatchData.GameResult == "Win")
                 {
-                    if (match.match_data.match_classification == GlobalData.BRAWL_CLASSIFICATION)
+                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
                         badges_amount = 19.444;
                     else
                     {
-                        switch (match.match_data.match_type)
+                        switch (match.MatchData.MatchType)
                         {
                             case GlobalData.EASY_RAID_MATCH:
                                 badges_amount = 16.667;
                                 break;
                             case GlobalData.STANDARD_MATCH:
                             case GlobalData.PATROL_MATCH:
-                                if (match.match_data.match_rewards.ContainsKey("Scrap_Rare"))
+                                if (match.MatchData.MatchRewards.ContainsKey("Scrap_Rare"))
                                     badges_amount = 10;
-                                else if (match.match_data.match_rewards.ContainsKey("Accumulators"))
+                                else if (match.MatchData.MatchRewards.ContainsKey("Accumulators"))
                                     badges_amount = 29.167;
-                                else if (match.match_data.match_rewards.ContainsKey("Scrap_Common"))
+                                else if (match.MatchData.MatchRewards.ContainsKey("Scrap_Common"))
                                     badges_amount = 12.5;
                                 break;
                             case GlobalData.INVASION_MATCH:
@@ -213,8 +213,8 @@ namespace CO_Driver
                     }
                 }
 
-                string match_result = match.match_data.game_result;
-                string premium = match.match_data.premium_reward.ToString();
+                string match_result = match.MatchData.GameResult;
+                string premium = match.MatchData.PremiumReward.ToString();
 
                 if (!chk_game_result.Checked)
                     match_result = "";
@@ -225,23 +225,23 @@ namespace CO_Driver
                 foreach (revenue_grouping group in master_groupings)
                 {
                     if (group.gamemode == game_mode &&
-                       (chk_game_result.Checked == false || group.game_result == match.match_data.game_result))
+                       (chk_game_result.Checked == false || group.game_result == match.MatchData.GameResult))
                     {
 
                         group_found = true;
                         group.total_queue_time += queue_time.TotalSeconds;
-                        group.total_match_time += match.match_data.match_duration_seconds;
+                        group.total_match_time += match.MatchData.MatchDurationSeconds;
                         group.games += 1;
                         group.fuel_cost += fuel_ammount;
                         group.total_game_duration += queue_time.TotalSeconds;
-                        group.total_game_duration += match.match_data.match_duration_seconds;
+                        group.total_game_duration += match.MatchData.MatchDurationSeconds;
 
                         if (group.match_rewards.ContainsKey("Badges"))
                             group.match_rewards["Badges"] += (int)badges_amount;
                         else
                             group.match_rewards.Add("Badges", (int)badges_amount);
 
-                        foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
+                        foreach (KeyValuePair<string, int> reward in match.MatchData.MatchRewards)
                         {
                             if (group.match_rewards.ContainsKey(reward.Key))
                                 group.match_rewards[reward.Key] += reward.Value;
@@ -261,11 +261,11 @@ namespace CO_Driver
                     new_group.premium = premium;
                     new_group.games = 1;
                     new_group.total_queue_time = queue_time.TotalSeconds;
-                    new_group.total_match_time = match.match_data.match_duration_seconds;
-                    new_group.total_game_duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds;
+                    new_group.total_match_time = match.MatchData.MatchDurationSeconds;
+                    new_group.total_game_duration = queue_time.TotalSeconds + match.MatchData.MatchDurationSeconds;
                     new_group.match_rewards = new Dictionary<string, int> { };
 
-                    foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
+                    foreach (KeyValuePair<string, int> reward in match.MatchData.MatchRewards)
                     {
                         if (new_group.match_rewards.ContainsKey(reward.Key))
                             new_group.match_rewards[reward.Key] += reward.Value;
