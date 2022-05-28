@@ -57,7 +57,7 @@ namespace CO_Driver
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.LocalUserID);
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.GetPreviousUploads(session.LocalUserID);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             matchs_uploaded = upload_return.uploaded_matches.Count;
             builds_uploaded = upload_return.uploaded_builds;
@@ -173,7 +173,7 @@ namespace CO_Driver
             bw_status_update status = new bw_status_update { };
             List<string> uploaded_builds = new List<string> { };
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.LocalUserID);
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.GetPreviousUploads(session.LocalUserID);
             Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
             Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
             upload_entry.uploader_uid = session.LocalUserID;
@@ -184,7 +184,7 @@ namespace CO_Driver
             DateTime max_upload_date = DateTime.MinValue;
             int percent_upload = 0;
 
-            upload_return = Upload.upload_to_crossoutdb(upload_entry);
+            upload_return = Upload.UploadToCrossoutDB(upload_entry);
             upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
 
             foreach (file_trace_managment.MatchRecord match in match_history)
@@ -242,10 +242,10 @@ namespace CO_Driver
                             continue;
 
                         uploaded_builds.Add(player.build_hash);
-                        upload_entry.build_list.Add(Upload.populate_build_entry(build_records[player.build_hash]));
+                        upload_entry.build_list.Add(Upload.PopulateBuildEntry(build_records[player.build_hash]));
                     }
                 }
-                upload_entry.match_list.Add(Upload.populate_match_entry(match, translations));
+                upload_entry.match_list.Add(Upload.PopulateMatchEntry(match, translations));
 
                 if (upload_entry.match_list.Count >= GlobalData.UPLOAD_LIST_SIZE)
                 {
@@ -257,7 +257,7 @@ namespace CO_Driver
                     status.builds_uploaded = upload_return.uploaded_builds;
                     bw_file_uploader.ReportProgress(0, status);
 
-                    upload_return = Upload.upload_to_crossoutdb(upload_entry);
+                    upload_return = Upload.UploadToCrossoutDB(upload_entry);
                     min_upload_date = DateTime.MaxValue;
                     max_upload_date = DateTime.MinValue;
                     upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
@@ -270,7 +270,7 @@ namespace CO_Driver
             status.builds_uploaded = upload_return.uploaded_builds;
             bw_file_uploader.ReportProgress(0, status);
 
-            upload_return = Upload.upload_to_crossoutdb(upload_entry);
+            upload_return = Upload.UploadToCrossoutDB(upload_entry);
 
             percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
             status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);

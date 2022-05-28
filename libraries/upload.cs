@@ -11,7 +11,7 @@ namespace CO_Driver
 {
     public class Upload
     {
-        public static Crossout.AspWeb.Models.API.v2.BuildEntry populate_build_entry(file_trace_managment.BuildRecord build)
+        public static Crossout.AspWeb.Models.API.v2.BuildEntry PopulateBuildEntry(file_trace_managment.BuildRecord build)
         {
             Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
 
@@ -22,7 +22,7 @@ namespace CO_Driver
             return build_entry;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
+        public static Crossout.AspWeb.Models.API.v2.MatchEntry PopulateMatchEntry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
         {
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
@@ -41,7 +41,7 @@ namespace CO_Driver
             else
                 match_entry.client_version = match.match_data.client_version;
             match_entry.host_name = match.match_data.host_name;
-            match_entry.rounds = populate_round_entrys(match);
+            match_entry.rounds = PopulateRoundEntrys(match);
             match_entry.resources = new List<Crossout.AspWeb.Models.API.v2.ResourceEntry> { };
 
             foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards.Where(x => x.Key != "score"))
@@ -50,7 +50,7 @@ namespace CO_Driver
             return match_entry;
         }
 
-        public static List<Crossout.AspWeb.Models.API.v2.RoundEntry> populate_round_entrys(file_trace_managment.MatchRecord match)
+        public static List<Crossout.AspWeb.Models.API.v2.RoundEntry> PopulateRoundEntrys(file_trace_managment.MatchRecord match)
         {
             List<Crossout.AspWeb.Models.API.v2.RoundEntry> rounds = new List<Crossout.AspWeb.Models.API.v2.RoundEntry> { };
             Crossout.AspWeb.Models.API.v2.RoundEntry new_round;
@@ -126,13 +126,13 @@ namespace CO_Driver
             return rounds;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn get_previous_uploads(int local_user_id)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn GetPreviousUploads(int localUserID)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
 #if DEBUG
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + local_user_id.ToString());
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + localUserID.ToString());
 #else
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
 #endif
@@ -173,13 +173,13 @@ namespace CO_Driver
         }
 
 
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn upload_to_crossoutdb(Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToCrossoutDB(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
             try
             {
-                string serialized_match_list = JsonConvert.SerializeObject(upload_entry);
+                string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
 
 #if DEBUG
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_match_and_build");

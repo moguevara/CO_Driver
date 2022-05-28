@@ -123,7 +123,7 @@
     <Compile Include="libraries\Theme.cs" />
     <Compile Include="libraries\Translate.cs" />
     <Compile Include="libraries\UITranslate.cs" />
-    <Compile Include="libraries\upload.cs" />
+    <Compile Include="libraries\Upload.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
