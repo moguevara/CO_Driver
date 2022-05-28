@@ -35,7 +35,7 @@ namespace CO_Driver
         public user_profile user_profile_page = new user_profile();
         public match_history match_history_page = new match_history();
         public schedule_display schedule_page = new schedule_display();
-        public build_view build_page = new build_view();
+        public BuildView build_page = new BuildView();
         public comparison_screen comparison_page = new comparison_screen();
         public part_optimizer part_page = new part_optimizer();
         public part_view avail_part_page = new part_view();
@@ -156,7 +156,7 @@ namespace CO_Driver
             schedule_page.ui_translations = ui_translations;
             match_history_page.ui_translations = ui_translations;
             meta_detail_page.ui_translations = ui_translations;
-            build_page.ui_translations = ui_translations;
+            build_page.uiTranslations = ui_translations;
             comparison_page.ui_translations = ui_translations;
             revenue_page.ui_translations = ui_translations;
             upload_page.ui_translations = ui_translations;
@@ -484,7 +484,7 @@ namespace CO_Driver
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Match History" + Environment.NewLine));
                 FileTraceManagment.MatchHistoryResponse response = (FileTraceManagment.MatchHistoryResponse)e.UserState;
                 match_history_page.history = response.MatchHistory;
-                build_page.match_history = response;
+                build_page.matchHistory = response;
                 match_history_page.refersh_history_table();
             }
             else
@@ -504,8 +504,8 @@ namespace CO_Driver
             {
                 //this.welcome_screen.tb_progress_tracking.AppendText(string.Format(@"Populating Build Records" + Environment.NewLine));
                 FileTraceManagment.BuildRecordResponse response = (FileTraceManagment.BuildRecordResponse)e.UserState;
-                build_page.build_records = response.BuildRecords;
-                build_page.populate_build_record_table();
+                build_page.buildRecords = response.BuildRecords;
+                build_page.PopulateBuildRecordTable();
             }
             else
             if (e.ProgressPercentage == GlobalData.POPULATE_STATIC_ELEMENTS_EVENT)
@@ -1068,7 +1068,7 @@ namespace CO_Driver
             if (session.UploadPostMatch)
             {
                 user_profile_page.force_refresh = true;
-                build_page.force_refresh = true;
+                build_page.forceRefresh = true;
                 match_history_page.force_refresh = true;
                 revenue_page.force_refresh = true;
                 meta_detail_page.force_refresh = true;
@@ -1095,7 +1095,7 @@ namespace CO_Driver
 
         private void load_build_details(object sender, string build_hash)
         {
-            build_page.load_build_hash(build_hash);
+            build_page.LoadBuildHash(build_hash);
             clear_main_page_panel();
             main_page_panel.Controls.Add(build_page);
         }

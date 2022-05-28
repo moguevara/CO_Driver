@@ -178,11 +178,11 @@
     <Compile Include="user_controls\part_optimizer.Designer.cs">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </Compile>
-    <Compile Include="user_controls\build_view.cs">
+    <Compile Include="user_controls\BuildView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\build_view.Designer.cs">
-      <DependentUpon>build_view.cs</DependentUpon>
+    <Compile Include="user_controls\BuildView.Designer.cs">
+      <DependentUpon>BuildView.cs</DependentUpon>
     </Compile>
     <Compile Include="libraries\FileTraceManagment.cs" />
     <Compile Include="user_controls\schedule_display.cs">
@@ -257,8 +257,8 @@
     <EmbeddedResource Include="user_controls\part_optimizer.resx">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\build_view.resx">
-      <DependentUpon>build_view.cs</DependentUpon>
+    <EmbeddedResource Include="user_controls\BuildView.resx">
+      <DependentUpon>BuildView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\part_view.resx">
