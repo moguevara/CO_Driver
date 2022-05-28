@@ -83,8 +83,8 @@ namespace CO_Driver
                 SaveCaptures = true,
                 TwitchMode = false,
                 EndorseCODriver = true,
-                ActionConfiguration = Overlay.default_overlay_setup(),
-                TwitchSettings = Overlay.default_twitch_settings(),
+                ActionConfiguration = Overlay.DefaultOverlaySetup(),
+                TwitchSettings = Overlay.DefaultTwitchSettings(),
                 BundleRamMode = true,
                 UploadPostMatch = true,
                 SelectedTheme = "Terminal",
@@ -229,10 +229,10 @@ namespace CO_Driver
                         loaded_session.PrimaryDisplay = session.PrimaryDisplay;
 
                     if (String.IsNullOrEmpty(loaded_session.ActionConfiguration))
-                        loaded_session.ActionConfiguration = Overlay.default_overlay_setup();
+                        loaded_session.ActionConfiguration = Overlay.DefaultOverlaySetup();
 
                     if (String.IsNullOrEmpty(loaded_session.TwitchSettings))
-                        loaded_session.TwitchSettings = Overlay.default_twitch_settings();
+                        loaded_session.TwitchSettings = Overlay.DefaultTwitchSettings();
 
                     if (ValidUserSession(loaded_session))
                         return loaded_session;

@@ -77,8 +77,8 @@ namespace CO_Driver
             public int previous_game_event { get; set; }
             public bool ready_to_add_round { get; set; }
             public bool ready_to_finalize_round { get; set; }
-            public List<Overlay.Overlay_action> overlay_actions { get; set; }
-            public Overlay.Twitch_settings twitch_settings { get; set; }
+            public List<Overlay.OverlayAction> overlay_actions { get; set; }
+            public Overlay.TwitchSettings twitch_settings { get; set; }
             public MatchData current_match { get; set; }
             public FileData file_data { get; set; }
             public GarageData garage_data { get; set; }
@@ -339,20 +339,20 @@ namespace CO_Driver
 
             try
             {
-                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.Overlay_action>>(local_session_variables.ActionConfiguration);
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.OverlayAction>>(local_session_variables.ActionConfiguration);
             }
             catch (Exception ex)
             {
-                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.Overlay_action>>(Overlay.default_overlay_setup());
+                Current_session.overlay_actions = JsonConvert.DeserializeObject<List<Overlay.OverlayAction>>(Overlay.DefaultOverlaySetup());
             }
 
             try
             {
-                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.Twitch_settings>(local_session_variables.TwitchSettings);
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(local_session_variables.TwitchSettings);
             }
             catch (Exception ex)
             {
-                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.Twitch_settings>(Overlay.default_twitch_settings());
+                Current_session.twitch_settings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(Overlay.DefaultTwitchSettings());
             }
 
             part_loader.populate_global_parts_list(Current_session);

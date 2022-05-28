@@ -220,8 +220,8 @@ namespace CO_Driver
             session.BundleRamMode = true;
             session.UploadPostMatch = true;
             session.UploadData = false;
-            session.ActionConfiguration = Overlay.default_overlay_setup();
-            session.TwitchSettings = Overlay.default_twitch_settings();
+            session.ActionConfiguration = Overlay.DefaultOverlaySetup();
+            session.TwitchSettings = Overlay.DefaultTwitchSettings();
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);

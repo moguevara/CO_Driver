@@ -332,7 +332,7 @@ namespace CO_Driver
 
         private void assign_teams()
         {
-            Overlay.assign_teams(match_data, ref blue_team, ref red_team);
+            Overlay.AssignTeams(match_data, ref blue_team, ref red_team);
         }
 
         private void gp_damage_recieved_Paint(object sender, PaintEventArgs e)
