@@ -250,7 +250,7 @@ namespace CO_Driver
                 });
         }
 
-        public static void ResolveOverlayAction(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void ResolveOverlayAction(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
             if (session.TwitchMode != true)
                 return;
@@ -287,7 +287,7 @@ namespace CO_Driver
             }
         }
 
-        public static void DrawStatCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void DrawStatCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
             OverlayWriter writer = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
             if (draw)
@@ -305,7 +305,7 @@ namespace CO_Driver
             writer.WriteToFile(currentSession.file_data.stream_overlay_output_location + @"\gamemode_recap_card");
         }
 
-        public static void DrawTeamPreviewCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void DrawTeamPreviewCard(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
             OverlayWriter writerBlue = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
             OverlayWriter writerRed = new OverlayWriter(currentSession.twitch_settings.OverlayFormat);
@@ -356,7 +356,7 @@ namespace CO_Driver
             writerRed.WriteToFile(currentSession.file_data.stream_overlay_output_location + @"\red_team_squads");
         }
 
-        public static void DrawInGameRecapCard(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, translate.Translation>> translation, bool draw)
+        public static void DrawInGameRecapCard(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, Dictionary<string, Dictionary<string, Translate.Translation>> translation, bool draw)
         {
             OverlayWriter writer = new OverlayWriter(Current_session.twitch_settings.OverlayFormat);
             if (draw)
@@ -366,7 +366,7 @@ namespace CO_Driver
             writer.WriteToFile(Current_session.file_data.stream_overlay_output_location + @"\in_game_report");
         }
 
-        public static void AssignRevenue(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void AssignRevenue(file_trace_managment.SessionStats Current_session, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
             DateTime time_cutoff = DateTime.Now.AddDays(Current_session.twitch_settings.OverviewTimeRange * -1);
             Dictionary<string, int> rewards = new Dictionary<string, int> { };
@@ -395,12 +395,12 @@ namespace CO_Driver
 
                 foreach (KeyValuePair<string, int> value in rewards.OrderByDescending(x => x.Value))
                 {
-                    writer.AddLine(string.Format(@"{0,16} {1}", translate.translate_string(value.Key, session, translation), value.Value), "resource_breakdown reward");
+                    writer.AddLine(string.Format(@"{0,16} {1}", Translate.TranslateString(value.Key, session, translation), value.Value), "resource_breakdown reward");
                 }
             }
         }
 
-        public static void AssignStats(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation, string game_mode)
+        public static void AssignStats(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation, string game_mode)
         {
             file_trace_managment.Stats stats = file_trace_managment.new_stats();
 
@@ -450,7 +450,7 @@ namespace CO_Driver
             }
         }
 
-        public static void AssignCurrentMatch(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void AssignCurrentMatch(file_trace_managment.SessionStats currentSession, LogFileManagment.SessionVariables session, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
 
             if (!currentSession.in_match)
@@ -466,7 +466,7 @@ namespace CO_Driver
 
             if (currentSession.twitch_settings.InGameKD)
             {
-                writer.AddHeader(string.Format(@"Current match on {0}", translate.translate_string(current_match.map_name, session, translation)), "current_match");
+                writer.AddHeader(string.Format(@"Current match on {0}", Translate.TranslateString(current_match.map_name, session, translation)), "current_match");
                 writer.AddHorizontalRow();
                 writer.AddLine(string.Format(@"{0,16} {1:N0}", "Kills", current_match.player_records[currentSession.local_user_uid].stats.kills), "current_match kills");
                 writer.AddLine(string.Format(@"{0,16} {1:N0}", "Assists", current_match.player_records[currentSession.local_user_uid].stats.assists), "current_match assists");
@@ -498,7 +498,7 @@ namespace CO_Driver
                     {
                         foreach (KeyValuePair<string, double> record in damageBreakdown)
                         {
-                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value), "damage_breakdown weapon");
+                            writer.AddLine(string.Format(@"{0,16} {1:N1}", Translate.TranslateString(record.Key, session, translation), record.Value), "damage_breakdown weapon");
                         }
                     }
                 }
@@ -523,7 +523,7 @@ namespace CO_Driver
                     {
                         foreach (KeyValuePair<string, double> record in damageBreakdown)
                         {
-                            writer.AddLine(string.Format(@"{0,16} {1:N1}", translate.translate_string(record.Key, session, translation), record.Value), "damage_recieved_breakdown weapon");
+                            writer.AddLine(string.Format(@"{0,16} {1:N1}", Translate.TranslateString(record.Key, session, translation), record.Value), "damage_recieved_breakdown weapon");
                         }
                     }
                 }
@@ -553,7 +553,7 @@ namespace CO_Driver
             }
         }
 
-        public static void AssignNemesisVictim(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, translate.Translation>> translation)
+        public static void AssignNemesisVictim(file_trace_managment.SessionStats currentSession, OverlayWriter writer, Dictionary<string, Dictionary<string, Translate.Translation>> translation)
         {
             DateTime timeCutoff = DateTime.Now.AddDays(currentSession.twitch_settings.OverviewTimeRange * -1);
             Dictionary<string, Opponent> opponentDictionary = new Dictionary<string, Opponent> { };

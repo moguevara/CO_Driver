@@ -13,7 +13,7 @@ namespace CO_Driver
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
@@ -120,7 +120,7 @@ namespace CO_Driver
                             foreach (PartLoader.Weapon weapon in build.weapons)
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.weapon = translate.translate_string(weapon.Name, session, translations);
+                                new_group.weapon = Translate.TranslateString(weapon.Name, session, translations);
                                 new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                 player_level_grouping.Add(new_group);
                             }
@@ -133,7 +133,7 @@ namespace CO_Driver
                                 foreach (PartLoader.Movement movement in build.movement)
                                 {
                                     meta_grouping new_group = new_grouping();
-                                    new_group.movement = translate.translate_string(movement.Name, session, translations);
+                                    new_group.movement = Translate.TranslateString(movement.Name, session, translations);
                                     new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                     player_level_grouping.Add(new_group);
                                 }
@@ -146,13 +146,13 @@ namespace CO_Driver
                                     {
                                         if (i == 0)
                                         {
-                                            sub_group.movement = translate.translate_string(build.movement[i].Name, session, translations);
+                                            sub_group.movement = Translate.TranslateString(build.movement[i].Name, session, translations);
                                         }
                                         else
                                         {
                                             meta_grouping new_group = new_grouping();
                                             new_group.weapon = sub_group.weapon;
-                                            new_group.movement = translate.translate_string(build.movement[i].Name, session, translations);
+                                            new_group.movement = Translate.TranslateString(build.movement[i].Name, session, translations);
                                             new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                             player_level_grouping.Add(new_group);
                                         }
@@ -166,14 +166,14 @@ namespace CO_Driver
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.cabin = translate.translate_string(build.cabin.Name, session, translations);
+                                new_group.cabin = Translate.TranslateString(build.cabin.Name, session, translations);
                                 new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                 player_level_grouping.Add(new_group);
                             }
                             else
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping)
-                                    sub_group.cabin = translate.translate_string(build.cabin.Name, session, translations);
+                                    sub_group.cabin = Translate.TranslateString(build.cabin.Name, session, translations);
                             }
                         }
 
@@ -183,14 +183,14 @@ namespace CO_Driver
                             if (player_level_grouping == null || !player_level_grouping.Any())
                             {
                                 meta_grouping new_group = new_grouping();
-                                new_group.map = translate.translate_string(match.match_data.map_name, session, translations);
+                                new_group.map = Translate.TranslateString(match.match_data.map_name, session, translations);
                                 new_group.stats = round.players.First(x => x.nickname == player.nickname).stats;
                                 player_level_grouping.Add(new_group);
                             }
                             else
                             {
                                 foreach (meta_grouping sub_group in player_level_grouping)
-                                    sub_group.map = translate.translate_string(match.match_data.map_name, session, translations);
+                                    sub_group.map = Translate.TranslateString(match.match_data.map_name, session, translations);
                             }
                         }
                         #endregion

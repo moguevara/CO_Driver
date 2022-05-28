@@ -14,7 +14,7 @@ namespace CO_Driver
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
@@ -150,7 +150,7 @@ namespace CO_Driver
 
                 if (game_mode.Contains("Raid"))
                 {
-                    game_mode = string.Format(@"{0} ({1})", translate.translate_string(match.match_data.gameplay_desc, session, translations), string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => translate.translate_string(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.match_data.gameplay_desc, session, translations), string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                     if (game_mode.EndsWith("()"))
                         game_mode.Substring(("()").Length);
@@ -158,11 +158,11 @@ namespace CO_Driver
 
                 if (match.match_data.gameplay_desc == "Pve_Leviathan")
                 {
-                    game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
+                    game_mode = Translate.TranslateString(match.match_data.gameplay_desc, session, translations);
                 }
 
                 if (game_mode.Contains("8v8"))
-                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                 if (match.match_data.match_type == GlobalData.INVASION_MATCH)
                     fuel_ammount = 40;
@@ -353,18 +353,18 @@ namespace CO_Driver
 
                         if (show_average)
                         {
-                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
                         }
                         else
                         {
-                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), reward.Value.ToString());
                         }
 
                         first = false;
 
                         foreach (market_values value in master_values)
                         {
-                            if (translate.translate_string(reward.Key, session, translations) == value.resource)
+                            if (Translate.TranslateString(reward.Key, session, translations) == value.resource)
                             {
                                 coin_value += ((double)reward.Value / (double)value.ammount) * value.sell_price;
                                 total_coins += ((double)reward.Value / (double)value.ammount) * value.sell_price;

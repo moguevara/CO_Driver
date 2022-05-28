@@ -19,7 +19,7 @@ namespace CO_Driver
         public file_trace_managment.BuildRecord last_build_record = new file_trace_managment.BuildRecord { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool show_last_match = true;
@@ -56,7 +56,7 @@ namespace CO_Driver
 #endif
 
             lb_match_type.Text = match_data.match_type_desc;
-            lb_map_name.Text = translate.translate_string(match_data.map_name, session, translations);
+            lb_map_name.Text = Translate.TranslateString(match_data.map_name, session, translations);
             if (build_records.ContainsKey(match_data.local_player.build_hash))
                 lb_build_name.Text = build_records[match_data.local_player.build_hash].full_description;
             else
@@ -72,7 +72,7 @@ namespace CO_Driver
             if (match_data.match_rewards.ContainsKey("expFactionTotal"))
             {
                 lb_xp.Text = match_data.match_rewards["expFactionTotal"].ToString();
-                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations) + ":" + x.Value.ToString()));
+                lb_resources.Text = string.Join(",", match_data.match_rewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
             }
             else
             {
@@ -152,7 +152,7 @@ namespace CO_Driver
 
                 row = (DataGridViewRow)this.dg_damage_rec.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = translate.translate_string(damage_record.weapon, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(damage_record.weapon, session, translations);
                 row.Cells[1].Value = Math.Round(damage_record.damage, 1);
                 dg_damage_rec.Rows.Add(row);
 
@@ -203,7 +203,7 @@ namespace CO_Driver
 
                 row = (DataGridViewRow)this.dg_damage_dealt.Rows[0].Clone();
                 row.Cells[0].Style.Alignment = DataGridViewContentAlignment.BottomRight;
-                row.Cells[0].Value = translate.translate_string(damage_record.weapon, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(damage_record.weapon, session, translations);
                 row.Cells[1].Value = Math.Round(damage_record.damage, 1);
                 dg_damage_dealt.Rows.Add(row);
 

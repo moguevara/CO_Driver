@@ -22,7 +22,7 @@ namespace CO_Driver
             return build_entry;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, translate.Translation>> translations)
+        public static Crossout.AspWeb.Models.API.v2.MatchEntry populate_match_entry(file_trace_managment.MatchRecord match, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
         {
             Crossout.AspWeb.Models.API.v2.MatchEntry match_entry = new Crossout.AspWeb.Models.API.v2.MatchEntry { };
 
@@ -32,7 +32,7 @@ namespace CO_Driver
             match_entry.match_start = match.match_data.match_start.ToUniversalTime();
             match_entry.match_end = match.match_data.match_end.ToUniversalTime();
             match_entry.map_name = match.match_data.map_name;
-            match_entry.map_display_name = translate.translate_string_english(match.match_data.map_desc, translations);
+            match_entry.map_display_name = Translate.TranslateStringEnglish(match.match_data.map_desc, translations);
             match_entry.winning_team = match.match_data.winning_team;
             match_entry.win_conidtion = 1; /*TODO*/
             match_entry.co_driver_version = GlobalData.CURRENT_VERSION;

@@ -18,7 +18,7 @@ namespace CO_Driver
     {
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations { get; set; } = new Dictionary<string, Dictionary<string, translate.Translation>> { };
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations { get; set; } = new Dictionary<string, Dictionary<string, Translate.Translation>> { };
         public Market.MarketData crossoutdb_data = new Market.MarketData { };
 
         public List<file_trace_managment.MatchRecord> match_history
@@ -73,7 +73,7 @@ namespace CO_Driver
             }
 
             ui_translate.load_ui_translate(ui_translations);
-            translate.populate_translations(session, translations);
+            Translate.PopulateTranslations(session, translations);
 
             reload_theme(this, EventArgs.Empty);
             Initial_screen_size = this.Size;

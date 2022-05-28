@@ -14,7 +14,7 @@ namespace CO_Driver
 
         LogFileManagment log_file_manager = new LogFileManagment();
         public LogFileManagment.SessionVariables session;
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 

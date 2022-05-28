@@ -9,7 +9,7 @@ namespace CO_Driver
     {
         public List<PartLoader.EventTime> event_times = new List<PartLoader.EventTime> { };
         public LogFileManagment.SessionVariables session;
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 

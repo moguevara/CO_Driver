@@ -12,7 +12,7 @@ namespace CO_Driver
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
@@ -545,39 +545,39 @@ namespace CO_Driver
                         }
 
                         foreach (KeyValuePair<string, double> rec in damage_records)
-                            add_chart_element(translate.translate_string(rec.Key, session, translations), rec.Value);
+                            add_chart_element(Translate.TranslateString(rec.Key, session, translations), rec.Value);
                     }
                     else
                     {
                         if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                             foreach (PartLoader.Weapon part in build_records[match.match_data.local_player.build_hash].weapons)
-                                add_chart_element(translate.translate_string(part.Name, session, translations), value);
+                                add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     }
                     break;
                 case grouping.MOVEMENT:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (PartLoader.Movement part in build_records[match.match_data.local_player.build_hash].movement)
-                            add_chart_element(translate.translate_string(part.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     break;
                 case grouping.CABIN:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         if (build_records[match.match_data.local_player.build_hash].cabin != null)
-                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), value);
                     break;
                 case grouping.MODULE:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (PartLoader.Module part in build_records[match.match_data.local_player.build_hash].modules)
-                            add_chart_element(translate.translate_string(part.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
                     break;
                 case grouping.ENGINE:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         if (build_records[match.match_data.local_player.build_hash].engine != null)
-                            add_chart_element(translate.translate_string(build_records[match.match_data.local_player.build_hash].engine.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].engine.Name, session, translations), value);
                     break;
                 case grouping.PART:
                     if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                         foreach (string part in build_records[match.match_data.local_player.build_hash].parts)
-                            add_chart_element(translate.translate_string(part, session, translations), value);
+                            add_chart_element(Translate.TranslateString(part, session, translations), value);
                     break;
                 case grouping.WEAPON_CAT:
                     break;
@@ -588,7 +588,7 @@ namespace CO_Driver
                 case grouping.MODULE_CAT:
                     break;
                 case grouping.MAP:
-                    add_chart_element(translate.translate_string(match.match_data.map_name, session, translations), value);
+                    add_chart_element(Translate.TranslateString(match.match_data.map_name, session, translations), value);
                     break;
                 case grouping.GAME_MODE:
                     add_chart_element(match.match_data.match_type_desc, value);

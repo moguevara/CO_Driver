@@ -12,7 +12,7 @@ namespace CO_Driver
         static int Attempt_depth = 100000;
         static int Fusion_depth = 20;
 
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public Dictionary<int, int> Distribution { get; set; }

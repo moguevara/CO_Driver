@@ -36,7 +36,7 @@ namespace CO_Driver
         public List<file_trace_managment.GarageDamageRecord> current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
         public List<List<file_trace_managment.GarageDamageRecord>> historic_damage_records = new List<List<file_trace_managment.GarageDamageRecord>> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 
@@ -80,24 +80,24 @@ namespace CO_Driver
 
             current_total_series.Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, total_damage);
 
-            if (weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)) == null)
+            if (weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.weapon, session, translations)) == null)
             {
                 initialize_series(rec);
-                ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)].Points.AddXY(0, 0);
-                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)]);
-                weapon_totals.Add(new WeaponTotals { weapon = translate.translate_string(rec.weapon, session, translations), total = rec.damage });
+                ch_live_feed.Series[Translate.TranslateString(rec.weapon, session, translations)].Points.AddXY(0, 0);
+                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[Translate.TranslateString(rec.weapon, session, translations)]);
+                weapon_totals.Add(new WeaponTotals { weapon = Translate.TranslateString(rec.weapon, session, translations), total = rec.damage });
             }
             else
             {
-                weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)).total += rec.damage;
+                weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.weapon, session, translations)).total += rec.damage;
             }
 
-            if (weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations)) == null)
+            if (weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.weapon, session, translations)) == null)
             {
                 weapon_rows.Add(new WeaponRow
                 {
                     percent = 0,
-                    weapon_name = translate.translate_string(rec.weapon, session, translations),
+                    weapon_name = Translate.TranslateString(rec.weapon, session, translations),
                     total_damage = rec.damage,
                     burst_damage = rec.damage,
                     bursts = 1,
@@ -111,7 +111,7 @@ namespace CO_Driver
             }
             else
             {
-                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations));
+                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.weapon, session, translations));
                 weapon_rec.total_damage += rec.damage;
 
                 if (rec.time != weapon_rec.last_hit)
@@ -395,7 +395,7 @@ namespace CO_Driver
 
         private void initialize_series(file_trace_managment.GarageDamageRecord rec)
         {
-            string name = translate.translate_string(rec.weapon, session, translations);
+            string name = Translate.TranslateString(rec.weapon, session, translations);
 
             ch_live_feed.Series.Add(new Series(name));
             ch_live_feed.Series[name].LegendText = name;

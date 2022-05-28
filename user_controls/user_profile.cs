@@ -32,7 +32,7 @@ namespace CO_Driver
         public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
         public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
@@ -104,36 +104,36 @@ namespace CO_Driver
 
                 if (build_records.ContainsKey(match.match_data.local_player.build_hash))
                 {
-                    if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                    if (!string.IsNullOrEmpty(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
                     {
-                        if (!cabin_usage.ContainsKey(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
-                            cabin_usage.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), 1);
+                        if (!cabin_usage.ContainsKey(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)))
+                            cabin_usage.Add(Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations), 1);
                         else
-                            cabin_usage[translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)] += 1;
+                            cabin_usage[Translate.TranslateString(build_records[match.match_data.local_player.build_hash].cabin.Name, session, translations)] += 1;
                     }
 
                     foreach (PartLoader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
                     {
-                        if (!weapon_usage.ContainsKey(translate.translate_string(weapon.Name, session, translations)))
-                            weapon_usage.Add(translate.translate_string(weapon.Name, session, translations), 1);
+                        if (!weapon_usage.ContainsKey(Translate.TranslateString(weapon.Name, session, translations)))
+                            weapon_usage.Add(Translate.TranslateString(weapon.Name, session, translations), 1);
                         else
-                            weapon_usage[translate.translate_string(weapon.Name, session, translations)] += 1;
+                            weapon_usage[Translate.TranslateString(weapon.Name, session, translations)] += 1;
                     }
 
                     foreach (PartLoader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
                     {
-                        if (!movement_usage.ContainsKey(translate.translate_string(movement.Name, session, translations)))
-                            movement_usage.Add(translate.translate_string(movement.Name, session, translations), 1);
+                        if (!movement_usage.ContainsKey(Translate.TranslateString(movement.Name, session, translations)))
+                            movement_usage.Add(Translate.TranslateString(movement.Name, session, translations), 1);
                         else
-                            movement_usage[translate.translate_string(movement.Name, session, translations)] += 1;
+                            movement_usage[Translate.TranslateString(movement.Name, session, translations)] += 1;
                     }
 
                     foreach (PartLoader.Module module in build_records[match.match_data.local_player.build_hash].modules)
                     {
-                        if (!module_usage.ContainsKey(translate.translate_string(module.Name, session, translations)))
-                            module_usage.Add(translate.translate_string(module.Name, session, translations), 1);
+                        if (!module_usage.ContainsKey(Translate.TranslateString(module.Name, session, translations)))
+                            module_usage.Add(Translate.TranslateString(module.Name, session, translations), 1);
                         else
-                            module_usage[translate.translate_string(module.Name, session, translations)] += 1;
+                            module_usage[Translate.TranslateString(module.Name, session, translations)] += 1;
                     }
                 }
 
@@ -294,7 +294,7 @@ namespace CO_Driver
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(resource.Key, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(resource.Key, session, translations);
                 row.Cells[1].Value = (int)resource.Value;
                 dg_resources.Rows.Add(row);
             }
@@ -315,11 +315,11 @@ namespace CO_Driver
             {
                 if (first)
                 {
-                    lb_best_map.Text = translate.translate_string(map.Key, session, translations);
+                    lb_best_map.Text = Translate.TranslateString(map.Key, session, translations);
                     first = false;
                 }
                 DataGridViewRow row = (DataGridViewRow)this.dg_map_data.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(map.Key, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(map.Key, session, translations);
                 row.Cells[1].Value = string.Format(@"{0}/{1}", map.Value.wins, map.Value.games - map.Value.wins);
                 dg_map_data.Rows.Add(row);
             }
