@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace CO_Driver
 {
@@ -171,16 +173,35 @@ namespace CO_Driver
 
                 if (result.Count > 0)
                 {
-                    File.WriteAllLines(path, result);
+                    WithRetry(() => File.WriteAllLines(path, result));
                 }
                 else
                 {
-                    File.WriteAllText(path, String.Empty);
+                    WithRetry(() => File.WriteAllText(path, String.Empty));
                 }
 
             }
         }
 
+        private static void WithRetry(Action action, int timeoutMs = 5000)
+        {
+            var time = Stopwatch.StartNew();
+            while (time.ElapsedMilliseconds < timeoutMs)
+            {
+                try
+                {
+                    action();
+                    return;
+                }
+                catch (IOException) { }
+                catch (Exception)
+                {
+                    throw;
+                }
+                Thread.Sleep(10);
+            }
+            return;
+        }
 
         public static string default_overlay_setup()
         {

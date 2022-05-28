@@ -16,7 +16,7 @@ namespace CO_Driver
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
-        private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
         private string new_selection = "";
         private string previous_selection = "";
         private grouping_category current_x_axis = null;
@@ -79,6 +79,7 @@ namespace CO_Driver
             MEDALS,
             GAMES_PLAYED,
             ROUNDS_PLAYED,
+            TIME_SPENT,
             RAM_DAMAGE,
             CABIN_DAMAGE,
             BODY_DAMAGE,
@@ -170,6 +171,7 @@ namespace CO_Driver
                                                                                   new metric_category { id = metric.MEDALS, name = "Medals", supports_min_max = true },
                                                                                   new metric_category { id = metric.GAMES_PLAYED, name = "Games Played", supports_min_max = true },
                                                                                   new metric_category { id = metric.ROUNDS_PLAYED, name = "Rounds Played", supports_min_max = true },
+                                                                                  new metric_category { id = metric.TIME_SPENT, name = "Time Spent", supports_min_max = true },
                                                                                   new metric_category { id = metric.RAM_DAMAGE, name = "Ram Damage", supports_min_max = true },
                                                                                   new metric_category { id = metric.CABIN_DAMAGE, name = "Cabin Damage", supports_min_max = true },
                                                                                   new metric_category { id = metric.BODY_DAMAGE, name = "Body Damage", supports_min_max = true },
@@ -306,13 +308,13 @@ namespace CO_Driver
 
             force_refresh = false;
             previous_selection = new_selection;
-            filter.reset_filters(filter_selections);
+            Filter.ResetFilters(filter_selections);
 
             reset_comparison_data();
 
             foreach (file_trace_managment.MatchRecord match in match_history.OrderByDescending(x => x.match_data.match_start))
             {
-                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
                 process_match(match);
@@ -399,7 +401,7 @@ namespace CO_Driver
             }
 
             ch_comparison.ChartAreas[0].AxisY.Maximum = y_axis_max * 1.05;
-            filter.populate_filters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
+            Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
 
         private void process_match(file_trace_managment.MatchRecord match)
@@ -445,6 +447,9 @@ namespace CO_Driver
                     break;
                 case metric.ROUNDS_PLAYED:
                     value = match.match_data.round_count;
+                    break;
+                case metric.TIME_SPENT:
+                    value = match.match_data.match_duration_seconds;
                     break;
                 case metric.RAM_DAMAGE:
                     foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
@@ -765,7 +770,7 @@ namespace CO_Driver
             cbChartType.Text = "Column";
             cb_min_max.Text = "Average";
 
-            filter.reset_filter_selections(filter_selections);
+            Filter.ResetFilterSelections(filter_selections);
 
             dt_start_date.Value = DateTime.Now;
             dt_end_date.Value = DateTime.Now;
@@ -775,106 +780,106 @@ namespace CO_Driver
 
         private void cb_versions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.client_versions_filter == this.cb_versions.Text)
+            if (filter_selections.ClientVersionFilter == this.cb_versions.Text)
                 return;
 
             if (this.cb_versions.SelectedIndex >= 0)
-                filter_selections.client_versions_filter = this.cb_versions.Text;
+                filter_selections.ClientVersionFilter = this.cb_versions.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_power_score_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.power_score_filter == this.cb_power_score.Text)
+            if (filter_selections.PowerScoreFilter == this.cb_power_score.Text)
                 return;
 
             if (this.cb_power_score.SelectedIndex >= 0)
-                filter_selections.power_score_filter = this.cb_power_score.Text;
+                filter_selections.PowerScoreFilter = this.cb_power_score.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_grouped_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.group_filter == this.cb_grouped.Text)
+            if (filter_selections.GroupFilter == this.cb_grouped.Text)
                 return;
 
             if (this.cb_grouped.SelectedIndex >= 0)
-                filter_selections.group_filter = this.cb_grouped.Text;
+                filter_selections.GroupFilter = this.cb_grouped.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_game_modes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.game_mode_filter == this.cb_game_modes.Text)
+            if (filter_selections.GameModeFilter == this.cb_game_modes.Text)
                 return;
 
             if (this.cb_game_modes.SelectedIndex >= 0)
-                filter_selections.game_mode_filter = this.cb_game_modes.Text;
+                filter_selections.GameModeFilter = this.cb_game_modes.Text;
 
             populate_comparison_chart();
         }
 
         private void dt_start_date_ValueChanged(object sender, EventArgs e)
         {
-            if (filter_selections.start_date == dt_start_date.Value)
+            if (filter_selections.StartDate == dt_start_date.Value)
                 return;
 
-            filter_selections.start_date = dt_start_date.Value;
+            filter_selections.StartDate = dt_start_date.Value;
             populate_comparison_chart();
         }
 
         private void dt_end_date_ValueChanged(object sender, EventArgs e)
         {
-            if (filter_selections.end_date == dt_end_date.Value)
+            if (filter_selections.EndDate == dt_end_date.Value)
                 return;
 
-            filter_selections.end_date = dt_end_date.Value;
+            filter_selections.EndDate = dt_end_date.Value;
             populate_comparison_chart();
         }
 
         private void cb_cabins_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.cabin_filter == this.cb_cabins.Text)
+            if (filter_selections.CabinFilter == this.cb_cabins.Text)
                 return;
 
             if (this.cb_cabins.SelectedIndex >= 0)
-                filter_selections.cabin_filter = this.cb_cabins.Text;
+                filter_selections.CabinFilter = this.cb_cabins.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_weapons_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.weapons_filter == this.cb_weapons.Text)
+            if (filter_selections.WeaponsFilter == this.cb_weapons.Text)
                 return;
 
             if (this.cb_weapons.SelectedIndex >= 0)
-                filter_selections.weapons_filter = this.cb_weapons.Text;
+                filter_selections.WeaponsFilter = this.cb_weapons.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_modules_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.module_filter == this.cb_modules.Text)
+            if (filter_selections.ModuleFilter == this.cb_modules.Text)
                 return;
 
             if (this.cb_modules.SelectedIndex >= 0)
-                filter_selections.module_filter = this.cb_modules.Text;
+                filter_selections.ModuleFilter = this.cb_modules.Text;
 
             populate_comparison_chart();
         }
 
         private void cb_movement_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filter_selections.movement_filter == this.cb_movement.Text)
+            if (filter_selections.MovementFilter == this.cb_movement.Text)
                 return;
 
             if (this.cb_movement.SelectedIndex >= 0)
-                filter_selections.movement_filter = this.cb_movement.Text;
+                filter_selections.MovementFilter = this.cb_movement.Text;
 
             populate_comparison_chart();
         }

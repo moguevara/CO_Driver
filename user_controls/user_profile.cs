@@ -66,7 +66,7 @@ namespace CO_Driver
         private Dictionary<string, int> movement_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> cabin_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> module_usage = new Dictionary<string, int> { };
-        private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
         private string new_selection = "";
         private string previous_selection = "";
 
@@ -82,7 +82,7 @@ namespace CO_Driver
         {
             if (!force_refresh)
             {
-                new_selection = filter.filter_string(filter_selections);
+                new_selection = Filter.FilterString(filter_selections);
 
                 if (new_selection == previous_selection)
                     return;
@@ -92,14 +92,14 @@ namespace CO_Driver
 
             previous_selection = new_selection;
 
-            filter.reset_filters(filter_selections);
+            Filter.ResetFilters(filter_selections);
             initialize_user_profile();
 
             int current_win_streak = 0;
 
             foreach (file_trace_managment.MatchRecord match in match_history.ToList())
             {
-                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
                 if (build_records.ContainsKey(match.match_data.local_player.build_hash))
@@ -234,7 +234,7 @@ namespace CO_Driver
             }
 
             populate_user_profile_screen_elements();
-            filter.populate_filters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
+            Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
 
         private void populate_user_profile_screen_elements()
@@ -454,13 +454,13 @@ namespace CO_Driver
         private void cb_game_modes_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.cb_game_modes.SelectedIndex >= 0)
-                filter_selections.game_mode_filter = this.cb_game_modes.Text;
+                filter_selections.GameModeFilter = this.cb_game_modes.Text;
             populate_user_profile_screen();
         }
 
         private void btn_save_user_settings_Click_1(object sender, EventArgs e)
         {
-            filter.reset_filter_selections(filter_selections);
+            Filter.ResetFilterSelections(filter_selections);
 
             dt_start_date.Value = DateTime.Now;
             dt_end_date.Value = DateTime.Now;
@@ -470,103 +470,103 @@ namespace CO_Driver
 
         private void cb_movement_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.movement_filter == this.cb_movement.Text)
+            if (filter_selections.MovementFilter == this.cb_movement.Text)
                 return;
 
             if (this.cb_movement.SelectedIndex >= 0)
-                filter_selections.movement_filter = this.cb_movement.Text;
+                filter_selections.MovementFilter = this.cb_movement.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_modules_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.module_filter == this.cb_modules.Text)
+            if (filter_selections.ModuleFilter == this.cb_modules.Text)
                 return;
 
             if (this.cb_modules.SelectedIndex >= 0)
-                filter_selections.module_filter = this.cb_modules.Text;
+                filter_selections.ModuleFilter = this.cb_modules.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_weapons_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.weapons_filter == this.cb_weapons.Text)
+            if (filter_selections.WeaponsFilter == this.cb_weapons.Text)
                 return;
 
             if (this.cb_weapons.SelectedIndex >= 0)
-                filter_selections.weapons_filter = this.cb_weapons.Text;
+                filter_selections.WeaponsFilter = this.cb_weapons.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_cabins_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.cabin_filter == this.cb_cabins.Text)
+            if (filter_selections.CabinFilter == this.cb_cabins.Text)
                 return;
 
             if (this.cb_cabins.SelectedIndex >= 0)
-                filter_selections.cabin_filter = this.cb_cabins.Text;
+                filter_selections.CabinFilter = this.cb_cabins.Text;
 
             populate_user_profile_screen();
         }
 
         private void dt_end_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.end_date == dt_end_date.Value)
+            if (filter_selections.EndDate == dt_end_date.Value)
                 return;
 
             if (dt_start_date.Value > dt_end_date.Value)
                 dt_start_date.Value = dt_end_date.Value;
 
-            filter_selections.end_date = dt_end_date.Value;
+            filter_selections.EndDate = dt_end_date.Value;
 
             populate_user_profile_screen();
         }
 
         private void dt_start_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.start_date == dt_start_date.Value)
+            if (filter_selections.StartDate == dt_start_date.Value)
                 return;
 
             if (dt_end_date.Value < dt_start_date.Value)
                 dt_end_date.Value = dt_start_date.Value;
 
-            filter_selections.start_date = dt_start_date.Value;
+            filter_selections.StartDate = dt_start_date.Value;
 
             populate_user_profile_screen();
         }
 
         private void cb_versions_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.client_versions_filter == this.cb_versions.Text)
+            if (filter_selections.ClientVersionFilter == this.cb_versions.Text)
                 return;
 
             if (this.cb_versions.SelectedIndex >= 0)
-                filter_selections.client_versions_filter = this.cb_versions.Text;
+                filter_selections.ClientVersionFilter = this.cb_versions.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_power_score_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.power_score_filter == this.cb_power_score.Text)
+            if (filter_selections.PowerScoreFilter == this.cb_power_score.Text)
                 return;
 
             if (this.cb_power_score.SelectedIndex >= 0)
-                filter_selections.power_score_filter = this.cb_power_score.Text;
+                filter_selections.PowerScoreFilter = this.cb_power_score.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_grouped_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.group_filter == this.cb_grouped.Text)
+            if (filter_selections.GroupFilter == this.cb_grouped.Text)
                 return;
 
             if (this.cb_grouped.SelectedIndex >= 0)
-                filter_selections.group_filter = this.cb_grouped.Text;
+                filter_selections.GroupFilter = this.cb_grouped.Text;
 
             populate_user_profile_screen();
         }

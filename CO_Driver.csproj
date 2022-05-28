@@ -113,7 +113,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="libraries\filter.cs" />
+    <Compile Include="libraries\Filter.cs" />
     <Compile Include="libraries\market.cs" />
     <Compile Include="libraries\MatchEntry.cs" />
     <Compile Include="libraries\overlay.cs" />
