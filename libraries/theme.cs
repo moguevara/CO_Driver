@@ -7,45 +7,45 @@ namespace CO_Driver
 {
     public class Theme
     {
-        public class ui_theme
+        public class UITheme
         {
-            public string name { get; set; }
-            public Color fore_ground { get; set; }
-            public Color back_ground { get; set; }
+            public string Name { get; set; }
+            public Color ForeGround { get; set; }
+            public Color BackGround { get; set; }
         }
 
-        public static List<ui_theme> themes = new List<ui_theme> {  new ui_theme { name = "Terminal",                    fore_ground = Color.Lime,                    back_ground = Color.Black },
-                                                                    new ui_theme { name = "Static",                      fore_ground = Color.FromArgb(245,245,245),   back_ground = Color.Black },
-                                                                    new ui_theme { name = "Blabadon",                    fore_ground = Color.FromArgb(235, 117, 55),  back_ground = Color.FromArgb(29,35,40)},
-                                                                    new ui_theme { name = "Eris",                        fore_ground = Color.FromArgb(247, 247, 247), back_ground = Color.FromArgb(54, 57, 63) },
-                                                                    new ui_theme { name = "Isotope",                     fore_ground = Color.FromArgb(198, 245, 165), back_ground = Color.Black },
-                                                                    new ui_theme { name = "Mint Oreo",                   fore_ground = Color.FromArgb(154, 246, 189), back_ground = Color.FromArgb(31, 20, 11) },
-                                                                    new ui_theme { name = "S C R O L L",                 fore_ground = Color.FromArgb(171, 171, 171), back_ground = Color.FromArgb(25, 25, 25) },
-                                                                    new ui_theme { name = "Ravage",                      fore_ground = Color.FromArgb(245, 21, 118),  back_ground = Color.FromArgb(12, 24, 14) },
-                                                                    new ui_theme { name = "Yakuza",                      fore_ground = Color.FromArgb(245, 106, 246), back_ground = Color.FromArgb(0, 16, 36) },
-                                                                    new ui_theme { name = "Foiu7dnfr",                   fore_ground = Color.FromArgb(246, 207, 70),  back_ground = Color.FromArgb(18, 18, 18) },
-                                                                    new ui_theme { name = "Step on Wolf",                fore_ground = Color.FromArgb(234, 240, 207), back_ground = Color.FromArgb(37, 49, 14) },
-                                                                    new ui_theme { name = "Don's Children",              fore_ground = Color.FromArgb(36, 246, 236),  back_ground = Color.FromArgb(31, 24, 6) },
-                                                                    new ui_theme { name = "Arson",                       fore_ground = Color.FromArgb(246, 125, 35),  back_ground = Color.FromArgb(27, 10, 10) },
-                                                                    new ui_theme { name = "Trucker Cab Best Cab",        fore_ground = Color.FromArgb(246, 195, 35),  back_ground = Color.FromArgb(22, 20, 10) },
-                                                                    new ui_theme { name = "It ain't easy being green",   fore_ground = Color.FromArgb(84, 211, 70),   back_ground = Color.FromArgb(22, 20, 10) },
-                                                                    new ui_theme { name = "Juicebox",                    fore_ground = Color.FromArgb(156, 151, 166), back_ground = Color.FromArgb(47, 40, 51) },
-                                                                    new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) },
-                                                                    new ui_theme { name = "Mr. Gusano",                  fore_ground = Color.FromArgb(253, 255, 255), back_ground = Color.FromArgb(39, 86, 78) },
-                                                                    new ui_theme { name = "Slava Ukraini!",              fore_ground = Color.FromArgb(255, 215, 0),   back_ground = Color.FromArgb(0, 87, 183) },
-                                                                    new ui_theme { name = "Hexagonis",                   fore_ground = Color.FromArgb(219, 173, 80),  back_ground = Color.FromArgb(37, 40, 60) },
-                                                                    new ui_theme { name = "Split Push Toads",            fore_ground = Color.FromArgb(33, 95, 73),    back_ground = Color.FromArgb(248, 250, 229) },
-                                                                    new ui_theme { name = "Soaring Potential",           fore_ground = Color.FromArgb(102, 0, 0),     back_ground = Color.FromArgb(230, 230, 230) }
+        public static List<UITheme> themes = new List<UITheme> {  new UITheme { Name = "Terminal",                      ForeGround = Color.Lime,                    BackGround = Color.Black },
+                                                                    new UITheme { Name = "Static",                      ForeGround = Color.FromArgb(245,245,245),   BackGround = Color.Black },
+                                                                    new UITheme { Name = "Blabadon",                    ForeGround = Color.FromArgb(235, 117, 55),  BackGround = Color.FromArgb(29,35,40)},
+                                                                    new UITheme { Name = "Eris",                        ForeGround = Color.FromArgb(247, 247, 247), BackGround = Color.FromArgb(54, 57, 63) },
+                                                                    new UITheme { Name = "Isotope",                     ForeGround = Color.FromArgb(198, 245, 165), BackGround = Color.Black },
+                                                                    new UITheme { Name = "Mint Oreo",                   ForeGround = Color.FromArgb(154, 246, 189), BackGround = Color.FromArgb(31, 20, 11) },
+                                                                    new UITheme { Name = "S C R O L L",                 ForeGround = Color.FromArgb(171, 171, 171), BackGround = Color.FromArgb(25, 25, 25) },
+                                                                    new UITheme { Name = "Ravage",                      ForeGround = Color.FromArgb(245, 21, 118),  BackGround = Color.FromArgb(12, 24, 14) },
+                                                                    new UITheme { Name = "Yakuza",                      ForeGround = Color.FromArgb(245, 106, 246), BackGround = Color.FromArgb(0, 16, 36) },
+                                                                    new UITheme { Name = "Foiu7dnfr",                   ForeGround = Color.FromArgb(246, 207, 70),  BackGround = Color.FromArgb(18, 18, 18) },
+                                                                    new UITheme { Name = "Step on Wolf",                ForeGround = Color.FromArgb(234, 240, 207), BackGround = Color.FromArgb(37, 49, 14) },
+                                                                    new UITheme { Name = "Don's Children",              ForeGround = Color.FromArgb(36, 246, 236),  BackGround = Color.FromArgb(31, 24, 6) },
+                                                                    new UITheme { Name = "Arson",                       ForeGround = Color.FromArgb(246, 125, 35),  BackGround = Color.FromArgb(27, 10, 10) },
+                                                                    new UITheme { Name = "Trucker Cab Best Cab",        ForeGround = Color.FromArgb(246, 195, 35),  BackGround = Color.FromArgb(22, 20, 10) },
+                                                                    new UITheme { Name = "It ain't easy being green",   ForeGround = Color.FromArgb(84, 211, 70),   BackGround = Color.FromArgb(22, 20, 10) },
+                                                                    new UITheme { Name = "Juicebox",                    ForeGround = Color.FromArgb(156, 151, 166), BackGround = Color.FromArgb(47, 40, 51) },
+                                                                    new UITheme { Name = "Nomadic",                     ForeGround = Color.FromArgb(195, 191, 148), BackGround = Color.FromArgb(7, 20, 4) },
+                                                                    new UITheme { Name = "Mr. Gusano",                  ForeGround = Color.FromArgb(253, 255, 255), BackGround = Color.FromArgb(39, 86, 78) },
+                                                                    new UITheme { Name = "Slava Ukraini!",              ForeGround = Color.FromArgb(255, 215, 0),   BackGround = Color.FromArgb(0, 87, 183) },
+                                                                    new UITheme { Name = "Hexagonis",                   ForeGround = Color.FromArgb(219, 173, 80),  BackGround = Color.FromArgb(37, 40, 60) },
+                                                                    new UITheme { Name = "Split Push Toads",            ForeGround = Color.FromArgb(33, 95, 73),    BackGround = Color.FromArgb(248, 250, 229) },
+                                                                    new UITheme { Name = "Soaring Potential",           ForeGround = Color.FromArgb(102, 0, 0),     BackGround = Color.FromArgb(230, 230, 230) }
 
                                                                  };
 
 
-        public void apply_theme(Control user_control, LogFileManagment.SessionVariables session)
+        public void ApplyTheme(Control userControl, LogFileManagment.SessionVariables session)
         {
-            for_each_control(user_control, session);
+            ForEachControl(userControl, session);
         }
 
-        private void for_each_control(Control parent, LogFileManagment.SessionVariables session)
+        private void ForEachControl(Control parent, LogFileManagment.SessionVariables session)
         {
             foreach (Control ctrl in parent.Controls)
             {
@@ -53,28 +53,28 @@ namespace CO_Driver
                 ctrl.BackColor = session.BackColor;
 
                 if (ctrl is DataGridView)
-                    style_data_grid_view(((DataGridView)ctrl), session);
+                    StyleDataGridView(((DataGridView)ctrl), session);
 
                 if (ctrl is Chart)
-                    style_chart(((Chart)ctrl), session);
+                    StyleChart(((Chart)ctrl), session);
 
                 if (ctrl is LinkLabel)
-                    style_link(((LinkLabel)ctrl), session);
+                    StyleLink(((LinkLabel)ctrl), session);
 
                 if (ctrl is ProgressBar)
-                    style_progressbar(((ProgressBar)ctrl), session);
+                    StyleProgressBar(((ProgressBar)ctrl), session);
 
-                for_each_control(ctrl, session);
+                ForEachControl(ctrl, session);
             }
             parent.ForeColor = session.ForeColor;
             parent.BackColor = session.BackColor;
         }
 
-        private void style_progressbar(ProgressBar pb, LogFileManagment.SessionVariables session)
+        private void StyleProgressBar(ProgressBar pb, LogFileManagment.SessionVariables session)
         {
         }
 
-        private void style_link(LinkLabel link, LogFileManagment.SessionVariables session)
+        private void StyleLink(LinkLabel link, LogFileManagment.SessionVariables session)
         {
             link.ActiveLinkColor = session.ForeColor;
             link.DisabledLinkColor = session.ForeColor;
@@ -82,7 +82,7 @@ namespace CO_Driver
         }
 
 
-        private void style_chart(Chart chart, LogFileManagment.SessionVariables session)
+        private void StyleChart(Chart chart, LogFileManagment.SessionVariables session)
         {
             foreach (Legend leg in chart.Legends)
             {
@@ -123,7 +123,7 @@ namespace CO_Driver
         }
 
 
-        private void style_data_grid_view(DataGridView dgv, LogFileManagment.SessionVariables session)
+        private void StyleDataGridView(DataGridView dgv, LogFileManagment.SessionVariables session)
         {
             dgv.GridColor = session.ForeColor;
             dgv.BackgroundColor = session.BackColor;

@@ -319,9 +319,9 @@ namespace CO_Driver
         {
             bool valid_theme = false;
 
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (session.SelectedTheme == theme.name)
+                if (session.SelectedTheme == theme.Name)
                     valid_theme = true;
             }
 
@@ -330,12 +330,12 @@ namespace CO_Driver
                 session.SelectedTheme = "Terminal";
             }
 
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (session.SelectedTheme == theme.name)
+                if (session.SelectedTheme == theme.Name)
                 {
-                    session.ForeColor = theme.fore_ground;
-                    session.BackColor = theme.back_ground;
+                    session.ForeColor = theme.ForeGround;
+                    session.BackColor = theme.BackGround;
                 }
             }
         }

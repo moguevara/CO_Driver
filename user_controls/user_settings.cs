@@ -30,8 +30,8 @@ namespace CO_Driver
             foreach (KeyValuePair<string, int> player in session.ValidUsers)
                 cmb_user_names.Items.Add(player.Key);
 
-            foreach (Theme.ui_theme theme in Theme.themes)
-                cmb_themes.Items.Add(theme.name);
+            foreach (Theme.UITheme theme in Theme.themes)
+                cmb_themes.Items.Add(theme.Name);
 
             foreach (Screen device in Screen.AllScreens)
                 cmb_fullscreen_monitor.Items.Add(string.Format(@"{0}", device.DeviceName));
@@ -156,12 +156,12 @@ namespace CO_Driver
             session.UploadPostMatch = chk_update.Checked;
 
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (text == theme.name)
+                if (text == theme.Name)
                 {
-                    session.ForeColor = theme.fore_ground;
-                    session.BackColor = theme.back_ground;
+                    session.ForeColor = theme.ForeGround;
+                    session.BackColor = theme.BackGround;
                     break;
                 }
             }
@@ -288,14 +288,14 @@ namespace CO_Driver
             if (e.Index > -1)
             {
                 string text = cmb_themes.Items[e.Index].ToString();
-                foreach (Theme.ui_theme theme in Theme.themes)
+                foreach (Theme.UITheme theme in Theme.themes)
                 {
-                    if (text == theme.name)
+                    if (text == theme.Name)
                     {
-                        using (SolidBrush background_brush = new SolidBrush(theme.back_ground))
-                            e.Graphics.FillRectangle(new SolidBrush(theme.back_ground), e.Bounds);
+                        using (SolidBrush background_brush = new SolidBrush(theme.BackGround))
+                            e.Graphics.FillRectangle(new SolidBrush(theme.BackGround), e.Bounds);
 
-                        using (Brush text_brush = new SolidBrush(theme.fore_ground))
+                        using (Brush text_brush = new SolidBrush(theme.ForeGround))
                             e.Graphics.DrawString(text, e.Font, text_brush, e.Bounds.Location);
 
                         break;
@@ -319,17 +319,17 @@ namespace CO_Driver
             //                            "This is the only restricted feature.";
             //}
 
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (text == theme.name)
+                if (text == theme.Name)
                 {
                     foreach (Control ctrl in this.Controls)
                     {
                         if (ctrl.Name == cmb_themes.Name)
                             continue;
 
-                        ctrl.ForeColor = theme.fore_ground;
-                        ctrl.BackColor = theme.back_ground;
+                        ctrl.ForeColor = theme.ForeGround;
+                        ctrl.BackColor = theme.BackGround;
                     }
                     break;
                 }

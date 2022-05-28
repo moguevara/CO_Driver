@@ -259,23 +259,23 @@ namespace CO_Driver
 
         private void reload_theme(object sender, EventArgs e)
         {
-            theme_manager.apply_theme(main_page_panel, session);
-            theme_manager.apply_theme(welcome_screen, session);
-            theme_manager.apply_theme(user_profile_page, session);
-            theme_manager.apply_theme(match_history_page, session);
-            theme_manager.apply_theme(schedule_page, session);
-            theme_manager.apply_theme(build_page, session);
-            theme_manager.apply_theme(comparison_page, session);
-            theme_manager.apply_theme(part_page, session);
-            theme_manager.apply_theme(avail_part_page, session);
-            theme_manager.apply_theme(match_detail_page, session);
-            theme_manager.apply_theme(garage_page, session);
-            theme_manager.apply_theme(fusion_page, session);
-            theme_manager.apply_theme(settings_page, session);
-            theme_manager.apply_theme(about_page, session);
-            theme_manager.apply_theme(meta_detail_page, session);
-            theme_manager.apply_theme(revenue_page, session);
-            theme_manager.apply_theme(upload_page, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
+            theme_manager.ApplyTheme(welcome_screen, session);
+            theme_manager.ApplyTheme(user_profile_page, session);
+            theme_manager.ApplyTheme(match_history_page, session);
+            theme_manager.ApplyTheme(schedule_page, session);
+            theme_manager.ApplyTheme(build_page, session);
+            theme_manager.ApplyTheme(comparison_page, session);
+            theme_manager.ApplyTheme(part_page, session);
+            theme_manager.ApplyTheme(avail_part_page, session);
+            theme_manager.ApplyTheme(match_detail_page, session);
+            theme_manager.ApplyTheme(garage_page, session);
+            theme_manager.ApplyTheme(fusion_page, session);
+            theme_manager.ApplyTheme(settings_page, session);
+            theme_manager.ApplyTheme(about_page, session);
+            theme_manager.ApplyTheme(meta_detail_page, session);
+            theme_manager.ApplyTheme(revenue_page, session);
+            theme_manager.ApplyTheme(upload_page, session);
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1141,35 +1141,35 @@ namespace CO_Driver
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Combat", session));
-            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
         }
 
         private void gamelogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Game", session));
-            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
         }
 
         private void chatlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Chat", session));
-            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
         }
 
         private void netlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Net", session));
-            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
         }
 
         private void gfxlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clear_main_page_panel();
             main_page_panel.Controls.Add(new trace_view("Gfx", session));
-            theme_manager.apply_theme(main_page_panel, session);
+            theme_manager.ApplyTheme(main_page_panel, session);
         }
 
         private void buildReviewToolStripMenuItem_Click(object sender, EventArgs e)

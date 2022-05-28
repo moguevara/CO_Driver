@@ -120,7 +120,7 @@
     <Compile Include="libraries\MatchEntry.cs" />
     <Compile Include="libraries\Overlay.cs" />
     <Compile Include="libraries\Resize.cs" />
-    <Compile Include="libraries\theme.cs" />
+    <Compile Include="libraries\Theme.cs" />
     <Compile Include="libraries\translate.cs" />
     <Compile Include="libraries\ui_translate.cs" />
     <Compile Include="libraries\upload.cs" />
