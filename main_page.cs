@@ -72,7 +72,7 @@ namespace CO_Driver
                 Application.Exit();
             }
 
-            ui_translate.load_ui_translate(ui_translations);
+            UITranslate.LoadUITranslate(ui_translations);
             Translate.PopulateTranslations(session, translations);
 
             reload_theme(this, EventArgs.Empty);
@@ -198,7 +198,7 @@ namespace CO_Driver
         {
             if (ctrl.Text.Any(char.IsLetter))
             {
-                ctrl.Text = ui_translate.translate(ctrl.Text, session, ui_translations);
+                ctrl.Text = UITranslate.Translate(ctrl.Text, session, ui_translations);
 
                 if (ctrl is Label)
                     scale_font(ctrl);
@@ -214,7 +214,7 @@ namespace CO_Driver
         private void translate_menu_strip(MenuStrip menu_strip)
         {
             foreach (ToolStripItem item in menu_strip.Items)
-                item.Text = ui_translate.translate(item.Text, session, ui_translations);
+                item.Text = UITranslate.Translate(item.Text, session, ui_translations);
         }
 
         private void translate_text_box(TextBox text_box)
@@ -222,7 +222,7 @@ namespace CO_Driver
             List<string> text_lines = new List<string> { };
 
             foreach (string line in text_box.Lines)
-                text_lines.Add(ui_translate.translate(line, session, ui_translations));
+                text_lines.Add(UITranslate.Translate(line, session, ui_translations));
 
             text_box.Lines = text_lines.ToArray();
         }
