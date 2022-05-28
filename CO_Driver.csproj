@@ -114,6 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="libraries\Filter.cs" />
+    <Compile Include="libraries\GlobalData.cs" />
+    <Compile Include="libraries\LogFileManagment.cs" />
     <Compile Include="libraries\market.cs" />
     <Compile Include="libraries\MatchEntry.cs" />
     <Compile Include="libraries\overlay.cs" />
@@ -183,7 +185,6 @@
       <DependentUpon>build_view.cs</DependentUpon>
     </Compile>
     <Compile Include="libraries\file_trace_managment.cs" />
-    <Compile Include="libraries\log_file_managment.cs" />
     <Compile Include="user_controls\schedule_display.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,7 +197,6 @@
     <Compile Include="user_controls\fusion_calculator.Designer.cs">
       <DependentUpon>fusion_calculator.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\global_data.cs" />
     <Compile Include="main_page.cs">
       <SubType>Form</SubType>
     </Compile>
