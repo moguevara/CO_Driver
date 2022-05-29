@@ -42,7 +42,6 @@ namespace CO_Driver
             filter.reset_filters(filter_selections);
 
             dg_match_history_view.Rows.Clear();
-            //dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
             dg_match_history_view.AllowUserToAddRows = true;
             foreach (file_trace_managment.MatchRecord match in history.ToList())
             {
@@ -50,10 +49,9 @@ namespace CO_Driver
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_match_history_view.Rows[0].Clone();
-                TimeSpan duration = match.match_data.match_end - match.match_data.match_start;
                 row.Cells[0].Value = file_trace_managment.decode_match_type(match.match_data.match_type);
                 row.Cells[1].Value = match.match_data.match_start;
-                row.Cells[2].Value = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
+                row.Cells[2].Value = match.match_data.match_end - match.match_data.match_start;
                 row.Cells[3].Value = translate.translate_string(match.match_data.map_desc, session, translations);
                 row.Cells[4].Value = match.match_data.local_player.build_hash;
                 row.Cells[5].Value = match.match_data.local_player.power_score;
@@ -228,6 +226,14 @@ namespace CO_Driver
         private void match_history_Resize(object sender, EventArgs e)
         {
             resize.resize(this);
+        }
+
+        private void dg_match_history_view_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value != null && dg_match_history_view.Columns[e.ColumnIndex].Name == "match_round_duration")
+            {
+                ViewHelpers.SetMomentFormatForTimeSpanCell(e);
+            }
         }
     }
 }
