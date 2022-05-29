@@ -196,6 +196,7 @@
             this.dg_revenue.Size = new System.Drawing.Size(1195, 450);
             this.dg_revenue.StandardTab = true;
             this.dg_revenue.TabIndex = 2;
+            this.dg_revenue.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dg_revenue_CellFormatting);
             // 
             // match_type
             // 

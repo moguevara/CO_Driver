@@ -146,6 +146,7 @@
             this.dg_match_history_view.StandardTab = true;
             this.dg_match_history_view.TabIndex = 1;
             this.dg_match_history_view.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_match_history_view_CellDoubleClick);
+            this.dg_match_history_view.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dg_match_history_view_CellFormatting);
             // 
             // match_type
             // 
