@@ -404,7 +404,7 @@ namespace CO_Driver
             }
 
             dg_revenue.AllowUserToAddRows = false;
-            dg_revenue.Sort(dg_revenue.Columns[2], ListSortDirection.Descending);
+            dg_revenue.Sort(dg_revenue.SortedColumn ?? dg_revenue.Columns[2], ((int)dg_revenue.SortOrder) != 1 ? ListSortDirection.Descending : ListSortDirection.Ascending);
 
             TimeSpan queue_span = TimeSpan.FromSeconds(total_queue_duration);
             TimeSpan match_span = TimeSpan.FromSeconds(total_match_duration);
