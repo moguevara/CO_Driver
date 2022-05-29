@@ -8,10 +8,10 @@ namespace CO_Driver
 {
     public partial class upload_screen : UserControl
     {
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 
@@ -57,63 +57,63 @@ namespace CO_Driver
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.GetPreviousUploads(session.LocalUserID);
             List<Crossout.AspWeb.Models.API.v2.MatchEntry> upload_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             matchs_uploaded = upload_return.uploaded_matches.Count;
             builds_uploaded = upload_return.uploaded_builds;
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
-                if (match.match_data.server_guid == 0)
+                if (match.MatchData.ServerGUID == 0)
                 {
                     match_corruptions += 1;
                     continue;
                 }
 
-                if (match.match_data.local_player.uid == 0)
+                if (match.MatchData.LocalPlayer.UID == 0)
                 {
                     invalid_uid += 1;
                     continue;
                 }
 
-                if (!match.match_data.match_rewards.Any())
+                if (!match.MatchData.MatchRewards.Any())
                 {
                     match_corruptions += 1;
                     continue;
                 }
 
-                if (match.match_data.player_records.Any(x => x.Value.uid == 0 && x.Value.bot == 0))
+                if (match.MatchData.PlayerRecords.Any(x => x.Value.UID == 0 && x.Value.Bot == 0))
                 {
                     incomplete_matchs += 1;
                     continue;
                 }
 
-                if (match.match_data.winning_team == -1)
+                if (match.MatchData.WinningTeam == -1)
                 {
                     incomplete_matchs += 1;
                     continue;
                 }
 
-                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                if (match.MatchData.MatchType == GlobalData.TEST_SERVER_MATCH)
                     continue;
 
-                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                if (match.MatchData.MatchType == GlobalData.CUSTOM_MATCH)
                     continue;
 
                 valid_matchs += 1;
 
-                if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
+                if (upload_return.uploaded_matches.Contains(match.MatchData.ServerGUID))
                     continue;
 
                 ready_to_upload_matchs += 1;
             }
 
-            foreach (KeyValuePair<string, file_trace_managment.BuildRecord> build in build_records)
+            foreach (KeyValuePair<string, FileTraceManagment.BuildRecord> build in build_records)
             {
-                if (build.Value.parts.Count == 0)
+                if (build.Value.Parts.Count == 0)
                     continue;
 
-                if (build.Value.power_score == 0)
+                if (build.Value.PowerScore == 0)
                 {
                     invalid_builds += 1;
                     continue;
@@ -173,10 +173,10 @@ namespace CO_Driver
             bw_status_update status = new bw_status_update { };
             List<string> uploaded_builds = new List<string> { };
 
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.get_previous_uploads(session.local_user_uid);
-            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = Upload.GetPreviousUploads(session.LocalUserID);
+            Crossout.AspWeb.Models.API.v2.UploadEntry upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
             Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
-            upload_entry.uploader_uid = session.local_user_uid;
+            upload_entry.uploader_uid = session.LocalUserID;
             upload_entry.match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { };
             upload_entry.build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { };
 
@@ -184,70 +184,70 @@ namespace CO_Driver
             DateTime max_upload_date = DateTime.MinValue;
             int percent_upload = 0;
 
-            upload_return = Upload.upload_to_crossoutdb(upload_entry);
-            upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+            upload_return = Upload.UploadToCrossoutDB(upload_entry);
+            upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
 
-            foreach (file_trace_managment.MatchRecord match in match_history)
+            foreach (FileTraceManagment.MatchRecord match in match_history)
             {
                 if (bw_file_uploader.CancellationPending)
                     return;
 
-                if (upload_return.uploaded_matches.Contains(match.match_data.server_guid))
+                if (upload_return.uploaded_matches.Contains(match.MatchData.ServerGUID))
                     continue;
 
-                if (match.match_data.server_guid == 0)
+                if (match.MatchData.ServerGUID == 0)
                     continue;
 
-                if (match.match_data.local_player.uid == 0)
+                if (match.MatchData.LocalPlayer.UID == 0)
                     continue;
 
-                if (match.match_data.player_records.Any(x => x.Value.uid == 0 && x.Value.bot == 0))
+                if (match.MatchData.PlayerRecords.Any(x => x.Value.UID == 0 && x.Value.Bot == 0))
                     continue;
 
-                if (!match.match_data.match_rewards.Any())
+                if (!match.MatchData.MatchRewards.Any())
                     continue;
 
-                if (match.match_data.winning_team == -1)
+                if (match.MatchData.WinningTeam == -1)
                     continue;
 
-                if (match.match_data.match_type == global_data.TEST_SERVER_MATCH)
+                if (match.MatchData.MatchType == GlobalData.TEST_SERVER_MATCH)
                     continue;
 
-                if (match.match_data.match_type == global_data.CUSTOM_MATCH)
+                if (match.MatchData.MatchType == GlobalData.CUSTOM_MATCH)
                     continue;
 
-                if (match.match_data.match_start < min_upload_date)
-                    min_upload_date = match.match_data.match_start;
+                if (match.MatchData.MatchStart < min_upload_date)
+                    min_upload_date = match.MatchData.MatchStart;
 
-                if (match.match_data.match_end > max_upload_date)
-                    max_upload_date = match.match_data.match_end;
+                if (match.MatchData.MatchEnd > max_upload_date)
+                    max_upload_date = match.MatchData.MatchEnd;
 
-                foreach (file_trace_managment.RoundRecord round in match.match_data.round_records)
+                foreach (FileTraceManagment.RoundRecord round in match.MatchData.RoundRecords)
                 {
-                    foreach (file_trace_managment.Player player in round.players)
+                    foreach (FileTraceManagment.Player player in round.Players)
                     {
                         if (bw_file_uploader.CancellationPending)
                             return;
 
-                        if (!build_records.ContainsKey(player.build_hash))
+                        if (!build_records.ContainsKey(player.BuildHash))
                             continue;
 
-                        if (build_records[player.build_hash].parts.Count == 0)
+                        if (build_records[player.BuildHash].Parts.Count == 0)
                             continue;
 
-                        if (build_records[player.build_hash].power_score == 0)
+                        if (build_records[player.BuildHash].PowerScore == 0)
                             continue;
 
-                        if (uploaded_builds.Contains(player.build_hash))
+                        if (uploaded_builds.Contains(player.BuildHash))
                             continue;
 
-                        uploaded_builds.Add(player.build_hash);
-                        upload_entry.build_list.Add(Upload.populate_build_entry(build_records[player.build_hash]));
+                        uploaded_builds.Add(player.BuildHash);
+                        upload_entry.build_list.Add(Upload.PopulateBuildEntry(build_records[player.BuildHash]));
                     }
                 }
-                upload_entry.match_list.Add(Upload.populate_match_entry(match, translations));
+                upload_entry.match_list.Add(Upload.PopulateMatchEntry(match, translations));
 
-                if (upload_entry.match_list.Count >= global_data.UPLOAD_LIST_SIZE)
+                if (upload_entry.match_list.Count >= GlobalData.UPLOAD_LIST_SIZE)
                 {
                     percent_upload = percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
                     status.text_update = string.Format("Uploading {0} matches from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
@@ -257,10 +257,10 @@ namespace CO_Driver
                     status.builds_uploaded = upload_return.uploaded_builds;
                     bw_file_uploader.ReportProgress(0, status);
 
-                    upload_return = Upload.upload_to_crossoutdb(upload_entry);
+                    upload_return = Upload.UploadToCrossoutDB(upload_entry);
                     min_upload_date = DateTime.MaxValue;
                     max_upload_date = DateTime.MinValue;
-                    upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.local_user_uid, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+                    upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
                 }
             }
 
@@ -270,7 +270,7 @@ namespace CO_Driver
             status.builds_uploaded = upload_return.uploaded_builds;
             bw_file_uploader.ReportProgress(0, status);
 
-            upload_return = Upload.upload_to_crossoutdb(upload_entry);
+            upload_return = Upload.UploadToCrossoutDB(upload_entry);
 
             percent_upload = get_percent_upload(upload_return.uploaded_matches.Count);
             status.text_update = string.Format("Finished upload of {0} from {1} to {2}." + Environment.NewLine, upload_entry.match_list.Count, min_upload_date, max_upload_date);
@@ -330,23 +330,23 @@ namespace CO_Driver
 
         private void label2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID.ToString());
         }
 
         private void btn_view_profile_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid.ToString());
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID.ToString());
         }
 
         private void upload_screen_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void upload_screen_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

@@ -33,10 +33,10 @@ namespace CO_Driver
             public double dps { get; set; }
         }
 
-        public List<file_trace_managment.GarageDamageRecord> current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
-        public List<List<file_trace_managment.GarageDamageRecord>> historic_damage_records = new List<List<file_trace_managment.GarageDamageRecord>> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public List<FileTraceManagment.GarageDamageRecord> current_damage_records = new List<FileTraceManagment.GarageDamageRecord> { };
+        public List<List<FileTraceManagment.GarageDamageRecord>> historic_damage_records = new List<List<FileTraceManagment.GarageDamageRecord>> { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 
@@ -58,81 +58,81 @@ namespace CO_Driver
             InitializeComponent();
         }
 
-        public void add_damage_record(file_trace_managment.GarageDamageRecord rec)
+        public void add_damage_record(FileTraceManagment.GarageDamageRecord rec)
         {
             if (trial_start_time == DateTime.MinValue)
-                trial_start_time = rec.time;
+                trial_start_time = rec.Time;
 
             if (damage_cutoff != Double.MinValue && total_damage > damage_cutoff)
                 return;
 
-            if (time_cutoff != Double.MinValue && rec.time.Subtract(trial_start_time).TotalSeconds > time_cutoff)
+            if (time_cutoff != Double.MinValue && rec.Time.Subtract(trial_start_time).TotalSeconds > time_cutoff)
                 return;
 
-            total_damage += rec.damage;
+            total_damage += rec.Damage;
 
-            if (rec.flags.Contains("HUD_IMPORTANT"))
-                total_hull_damage += rec.damage;
+            if (rec.Flags.Contains("HUD_IMPORTANT"))
+                total_hull_damage += rec.Damage;
             else
-                total_body_damage += rec.damage;
+                total_body_damage += rec.Damage;
 
             //translate.translate_string(x.Key, session, translations)
 
-            current_total_series.Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, total_damage);
+            current_total_series.Points.AddXY(rec.Time.Subtract(trial_start_time).TotalSeconds, total_damage);
 
-            if (weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)) == null)
+            if (weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.Weapon, session, translations)) == null)
             {
                 initialize_series(rec);
-                ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)].Points.AddXY(0, 0);
-                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[translate.translate_string(rec.weapon, session, translations)]);
-                weapon_totals.Add(new WeaponTotals { weapon = translate.translate_string(rec.weapon, session, translations), total = rec.damage });
+                ch_live_feed.Series[Translate.TranslateString(rec.Weapon, session, translations)].Points.AddXY(0, 0);
+                add_vertical_annotation(ch_live_feed, ch_live_feed.Series[Translate.TranslateString(rec.Weapon, session, translations)]);
+                weapon_totals.Add(new WeaponTotals { weapon = Translate.TranslateString(rec.Weapon, session, translations), total = rec.Damage });
             }
             else
             {
-                weapon_totals.FirstOrDefault(x => x.weapon == translate.translate_string(rec.weapon, session, translations)).total += rec.damage;
+                weapon_totals.FirstOrDefault(x => x.weapon == Translate.TranslateString(rec.Weapon, session, translations)).total += rec.Damage;
             }
 
-            if (weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations)) == null)
+            if (weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.Weapon, session, translations)) == null)
             {
                 weapon_rows.Add(new WeaponRow
                 {
                     percent = 0,
-                    weapon_name = translate.translate_string(rec.weapon, session, translations),
-                    total_damage = rec.damage,
-                    burst_damage = rec.damage,
+                    weapon_name = Translate.TranslateString(rec.Weapon, session, translations),
+                    total_damage = rec.Damage,
+                    burst_damage = rec.Damage,
                     bursts = 1,
                     hits = 1,
-                    first_hit = rec.time,
-                    last_hit = rec.time,
-                    burst_start = rec.time,
+                    first_hit = rec.Time,
+                    last_hit = rec.Time,
+                    burst_start = rec.Time,
                     burst_duration = 0.0,
                     reload_duration = 0.0
                 });
             }
             else
             {
-                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == translate.translate_string(rec.weapon, session, translations));
-                weapon_rec.total_damage += rec.damage;
+                WeaponRow weapon_rec = weapon_rows.FirstOrDefault(x => x.weapon_name == Translate.TranslateString(rec.Weapon, session, translations));
+                weapon_rec.total_damage += rec.Damage;
 
-                if (rec.time != weapon_rec.last_hit)
+                if (rec.Time != weapon_rec.last_hit)
                     weapon_rec.hits += 1;
 
-                if ((rec.time - weapon_rec.last_hit).TotalSeconds > 0.5)
+                if ((rec.Time - weapon_rec.last_hit).TotalSeconds > 0.5)
                 {
                     weapon_rec.bursts += 1;
                     weapon_rec.burst_duration = (weapon_rec.last_hit - weapon_rec.burst_start).TotalSeconds;
-                    weapon_rec.reload_duration = (rec.time - weapon_rec.last_hit).TotalSeconds;
+                    weapon_rec.reload_duration = (rec.Time - weapon_rec.last_hit).TotalSeconds;
 
-                    weapon_rec.burst_start = rec.time;
-                    weapon_rec.burst_damage = rec.damage;
+                    weapon_rec.burst_start = rec.Time;
+                    weapon_rec.burst_damage = rec.Damage;
                 }
                 else
                 {
-                    weapon_rec.burst_damage += rec.damage;
+                    weapon_rec.burst_damage += rec.Damage;
                 }
 
-                weapon_rec.dps = weapon_rec.total_damage / (rec.time - weapon_rec.first_hit).TotalSeconds;
-                weapon_rec.last_hit = rec.time;
+                weapon_rec.dps = weapon_rec.total_damage / (rec.Time - weapon_rec.first_hit).TotalSeconds;
+                weapon_rec.last_hit = rec.Time;
             }
 
 
@@ -141,7 +141,7 @@ namespace CO_Driver
             for (int i = weapon_totals.Count() - 1; i >= 0; i--)
             {
                 current_total += weapon_totals[i].total;
-                ch_live_feed.Series[weapon_totals[i].weapon].Points.AddXY(rec.time.Subtract(trial_start_time).TotalSeconds, current_total);
+                ch_live_feed.Series[weapon_totals[i].weapon].Points.AddXY(rec.Time.Subtract(trial_start_time).TotalSeconds, current_total);
             }
 
             foreach (WeaponRow row in weapon_rows)
@@ -159,7 +159,7 @@ namespace CO_Driver
             total_damage = 0.0;
             total_hull_damage = 0.0;
             total_body_damage = 0.0;
-            current_damage_records = new List<file_trace_managment.GarageDamageRecord> { };
+            current_damage_records = new List<FileTraceManagment.GarageDamageRecord> { };
             trial_start_time = DateTime.MinValue;
 
             foreach (Series series in ch_live_feed.Series)
@@ -173,8 +173,8 @@ namespace CO_Driver
             dg_weapon_overview.DataSource = weapon_table_source;
 
             current_total_series = new Series { };
-            current_total_series.LabelBackColor = session.back_color;
-            current_total_series.LabelForeColor = session.fore_color;
+            current_total_series.LabelBackColor = session.BackColor;
+            current_total_series.LabelForeColor = session.ForeColor;
             current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.AddXY(0, 0);
 
@@ -196,19 +196,19 @@ namespace CO_Driver
         private void gb_weapon_breakdown_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_live_data_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_comparison_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void draw_group_box(GroupBox box, Graphics g, Color textColor, Color borderColor)
@@ -239,52 +239,52 @@ namespace CO_Driver
         private void garage_view_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         public void initialize_live_feed()
         {
-            ch_live_feed.BackColor = session.back_color;
-            ch_live_feed.ForeColor = session.fore_color;
-            ch_live_feed.Legends[0].BackColor = session.back_color;
-            ch_live_feed.Legends[0].ForeColor = session.fore_color;
-            ch_live_feed.ChartAreas[0].BackColor = session.back_color;
+            ch_live_feed.BackColor = session.BackColor;
+            ch_live_feed.ForeColor = session.ForeColor;
+            ch_live_feed.Legends[0].BackColor = session.BackColor;
+            ch_live_feed.Legends[0].ForeColor = session.ForeColor;
+            ch_live_feed.ChartAreas[0].BackColor = session.BackColor;
             ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             ch_live_feed.ChartAreas[0].AxisX.Title = "Time (S)";
             ch_live_feed.ChartAreas[0].AxisX.Minimum = 0;
-            ch_live_feed.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
-            ch_live_feed.ChartAreas[0].AxisX.LineColor = session.fore_color;
-            ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
-            ch_live_feed.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisX.TitleForeColor = session.ForeColor;
+            ch_live_feed.ChartAreas[0].AxisX.LineColor = session.ForeColor;
+            ch_live_feed.ChartAreas[0].AxisX.MajorGrid.LineColor = session.BackColor;
+            ch_live_feed.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.ForeColor;
             ch_live_feed.ChartAreas[0].AxisX.RoundAxisValues();
             ch_live_feed.ChartAreas[0].AxisX.IsMarginVisible = false;
             ch_live_feed.ChartAreas[0].AxisY.Title = "Damage";
-            ch_live_feed.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
-            ch_live_feed.ChartAreas[0].AxisY.LineColor = session.fore_color;
-            ch_live_feed.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
-            ch_live_feed.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
+            ch_live_feed.ChartAreas[0].AxisY.TitleForeColor = session.ForeColor;
+            ch_live_feed.ChartAreas[0].AxisY.LineColor = session.ForeColor;
+            ch_live_feed.ChartAreas[0].AxisY.MajorGrid.LineColor = session.BackColor;
+            ch_live_feed.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.ForeColor;
             ch_live_feed.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_live_feed.Palette = ChartColorPalette.BrightPastel;
 
-            ch_compare.BackColor = session.back_color;
-            ch_compare.ForeColor = session.fore_color;
-            ch_compare.Legends[0].BackColor = session.back_color;
-            ch_compare.Legends[0].ForeColor = session.fore_color;
-            ch_compare.ChartAreas[0].BackColor = session.back_color;
+            ch_compare.BackColor = session.BackColor;
+            ch_compare.ForeColor = session.ForeColor;
+            ch_compare.Legends[0].BackColor = session.BackColor;
+            ch_compare.Legends[0].ForeColor = session.ForeColor;
+            ch_compare.ChartAreas[0].BackColor = session.BackColor;
             ch_compare.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             ch_compare.ChartAreas[0].AxisX.Title = "Time (S)";
             ch_compare.ChartAreas[0].AxisX.Minimum = 0;
-            ch_compare.ChartAreas[0].AxisX.TitleForeColor = session.fore_color;
-            ch_compare.ChartAreas[0].AxisX.LineColor = session.fore_color;
-            ch_compare.ChartAreas[0].AxisX.MajorGrid.LineColor = session.back_color;
-            ch_compare.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisX.TitleForeColor = session.ForeColor;
+            ch_compare.ChartAreas[0].AxisX.LineColor = session.ForeColor;
+            ch_compare.ChartAreas[0].AxisX.MajorGrid.LineColor = session.BackColor;
+            ch_compare.ChartAreas[0].AxisX.LabelStyle.ForeColor = session.ForeColor;
             ch_compare.ChartAreas[0].AxisX.RoundAxisValues();
             ch_compare.ChartAreas[0].AxisX.IsMarginVisible = false;
             ch_compare.ChartAreas[0].AxisY.Title = "Damage";
-            ch_compare.ChartAreas[0].AxisY.TitleForeColor = session.fore_color;
-            ch_compare.ChartAreas[0].AxisY.LineColor = session.fore_color;
-            ch_compare.ChartAreas[0].AxisY.MajorGrid.LineColor = session.back_color;
-            ch_compare.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.fore_color;
+            ch_compare.ChartAreas[0].AxisY.TitleForeColor = session.ForeColor;
+            ch_compare.ChartAreas[0].AxisY.LineColor = session.ForeColor;
+            ch_compare.ChartAreas[0].AxisY.MajorGrid.LineColor = session.BackColor;
+            ch_compare.ChartAreas[0].AxisY.LabelStyle.ForeColor = session.ForeColor;
             ch_compare.ChartAreas[0].AxisY.IsMarginVisible = false;
             ch_compare.Palette = ChartColorPalette.BrightPastel;
 
@@ -375,9 +375,9 @@ namespace CO_Driver
             dg_weapon_overview.Columns["last_hit"].Visible = false;
             dg_weapon_overview.Columns["burst_start"].Visible = false;
 
-            current_total_series.Color = session.fore_color;
-            current_total_series.LabelBackColor = session.back_color;
-            current_total_series.LabelForeColor = session.fore_color;
+            current_total_series.Color = session.ForeColor;
+            current_total_series.LabelBackColor = session.BackColor;
+            current_total_series.LabelForeColor = session.ForeColor;
             current_total_series.ChartType = SeriesChartType.StepLine;
             current_total_series.Points.Clear();
             current_total_series.Points.AddXY(0, 0);
@@ -393,21 +393,21 @@ namespace CO_Driver
             num_trial_threshold.Enabled = false;
         }
 
-        private void initialize_series(file_trace_managment.GarageDamageRecord rec)
+        private void initialize_series(FileTraceManagment.GarageDamageRecord rec)
         {
-            string name = translate.translate_string(rec.weapon, session, translations);
+            string name = Translate.TranslateString(rec.Weapon, session, translations);
 
             ch_live_feed.Series.Add(new Series(name));
             ch_live_feed.Series[name].LegendText = name;
 
-            if (rec.flags.Contains("HIGH_RATE_FIRE") || rec.flags.Contains("CONTINUOUS"))
+            if (rec.Flags.Contains("HIGH_RATE_FIRE") || rec.Flags.Contains("CONTINUOUS"))
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
             else
                 ch_live_feed.Series[name].ChartType = SeriesChartType.StepLine;
 
             ch_live_feed.Series[name].ToolTip = name;
-            ch_live_feed.Series[name].LabelBackColor = session.back_color;
-            ch_live_feed.Series[name].LabelForeColor = session.fore_color;
+            ch_live_feed.Series[name].LabelBackColor = session.BackColor;
+            ch_live_feed.Series[name].LabelForeColor = session.ForeColor;
             ch_live_feed.Series[name].Points.Clear();
 
         }
@@ -493,7 +493,7 @@ namespace CO_Driver
 
         private void garage_view_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

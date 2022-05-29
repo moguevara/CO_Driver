@@ -7,80 +7,81 @@ using System.Windows.Forms;
 
 namespace CO_Driver
 {
-    public class market
+    public class Market
+
     {
-        public class market_data
+        public class MarketData
         {
             public DateTime last_update { get; set; }
-            public List<market_item> market_items { get; set; }
+            public List<MarketItem> market_items { get; set; }
         }
-        public class market_item
+        public class MarketItem
         {
-            public int id { get; set; }
-            public string name { get; set; }
-            public string localizedName { get; set; }
-            public string availableName { get; set; }
-            public string description { get; set; }
-            public int sellOffers { get; set; }
-            public double sellPrice { get; set; }
-            public int buyOrders { get; set; }
-            public double buyPrice { get; set; }
-            public int meta { get; set; }
-            public int removed { get; set; }
-            public int craftable { get; set; }
-            public int popularity { get; set; }
-            public int workbenchRarity { get; set; }
-            public double craftingSellSum { get; set; }
-            public double craftingBuySum { get; set; }
-            public int ammount { get; set; }
-            public double demandSupplyRatio { get; set; }
-            public double margin { get; set; }
-            public double roi { get; set; }
-            public double craftingMargin { get; set; }
-            public double formatDemandSupplyRatio { get; set; }
-            public double formatMargin { get; set; }
-            public double formatRoi { get; set; }
-            public double formatCraftingMargin { get; set; }
-            public string craftVsBuy { get; set; }
-            public DateTime timestamp { get; set; }
-            public DateTime lastUpdateTime { get; set; }
-            public int rarityId { get; set; }
-            public string rarityName { get; set; }
-            public int categoryId { get; set; }
-            public string categoryName { get; set; }
-            public int typeId { get; set; }
-            public int recipeId { get; set; }
-            public string typeName { get; set; }
-            public int factionNumber { get; set; }
-            public string faction { get; set; }
-            public double formatBuyPrice { get; set; }
-            public double formatSellPrice { get; set; }
-            public double formatCraftingSellSum { get; set; }
-            public double formatCraftingBuySum { get; set; }
-            public int craftingResultAmount { get; set; }
-            public string image { get; set; }
-            public string imagePath { get; set; }
-            public string sortedStats { get; set; }
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string LocalizedName { get; set; }
+            public string AvailableName { get; set; }
+            public string Description { get; set; }
+            public int SellOffers { get; set; }
+            public double SellPrice { get; set; }
+            public int BuyOrders { get; set; }
+            public double BuyPrice { get; set; }
+            public int Meta { get; set; }
+            public int Removed { get; set; }
+            public int Craftable { get; set; }
+            public int Popularity { get; set; }
+            public int WorkbenchRarity { get; set; }
+            public double CraftingSellSum { get; set; }
+            public double CraftingBuySum { get; set; }
+            public int Ammount { get; set; }
+            public double DemandSupplyRatio { get; set; }
+            public double Margin { get; set; }
+            public double ROI { get; set; }
+            public double CraftingMargin { get; set; }
+            public double FormatSupplyDemandRatio { get; set; }
+            public double FormatMargin { get; set; }
+            public double FormatROI { get; set; }
+            public double FormatCraftingMargin { get; set; }
+            public string CraftVBuy { get; set; }
+            public DateTime TimeStamp { get; set; }
+            public DateTime LastUpdateTime { get; set; }
+            public int RarityID { get; set; }
+            public string RarityName { get; set; }
+            public int CategoryID { get; set; }
+            public string CategoryName { get; set; }
+            public int TypeID { get; set; }
+            public int RecipeID { get; set; }
+            public string TypeName { get; set; }
+            public int FactionNumber { get; set; }
+            public string Faction { get; set; }
+            public double FormatBuyPrice { get; set; }
+            public double FormatSellPrice { get; set; }
+            public double FormatCraftingSellSum { get; set; }
+            public double FormatCraftingBuySum { get; set; }
+            public int CraftingResultType { get; set; }
+            public string Image { get; set; }
+            public string ImagePath { get; set; }
+            public string SortedStats { get; set; }
         }
 
-        public static market_data populate_crossoutdb_data(log_file_managment.session_variables session)
+        public static MarketData PopulateCrossoutDBData(LogFileManagment.SessionVariables session)
         {
-            market_data data = new market_data { };
+            MarketData data = new MarketData { };
 
-            data = load_previous_market_data(session, data);
+            data = LoadPreviousMarketData(session, data);
 
             if (data.last_update > DateTime.Now.AddHours(-1))
                 return data;
 
             data.last_update = DateTime.Now;
-            data.market_items = load_crossoutdb_data();
-            save_market_data(session, data);
+            data.market_items = LoadCrossoutDBData();
+            SaveMarketData(session, data);
             return data;
         }
 
-        private static List<market_item> load_crossoutdb_data()
+        private static List<MarketItem> LoadCrossoutDBData()
         {
-            List<market_item> market_items = new List<market_item> { };
+            List<MarketItem> marketItems = new List<MarketItem> { };
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
             request.Method = "POST";
@@ -100,9 +101,9 @@ namespace CO_Driver
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
-                    market_items = JsonConvert.DeserializeObject<List<market_item>>(crossoutdb_json);
+                    marketItems = JsonConvert.DeserializeObject<List<MarketItem>>(crossoutdb_json);
 
-                    return market_items;
+                    return marketItems;
                 }
             }
             catch (Exception ex)
@@ -110,33 +111,33 @@ namespace CO_Driver
                 //MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
-            return market_items;
+            return marketItems;
         }
 
-        public static void save_market_data(log_file_managment.session_variables session, market_data market)
+        public static void SaveMarketData(LogFileManagment.SessionVariables session, MarketData market)
         {
-            using (StreamWriter file = File.CreateText(session.market_data_file_location + @"\crossoutdb_data.json"))
+            using (StreamWriter file = File.CreateText(session.MarketDataLocation + @"\crossoutdb_data.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, market);
             }
         }
 
-        public static market_data load_previous_market_data(log_file_managment.session_variables session, market_data market)
+        public static MarketData LoadPreviousMarketData(LogFileManagment.SessionVariables session, MarketData market)
         {
-            if (!File.Exists(session.market_data_file_location + @"\crossoutdb_data.json"))
+            if (!File.Exists(session.MarketDataLocation + @"\crossoutdb_data.json"))
                 return market;
 
-            market_data new_data = new market_data { };
+            MarketData newData = new MarketData { };
 
             try
             {
-                using (StreamReader file = File.OpenText(session.market_data_file_location + @"\crossoutdb_data.json"))
+                using (StreamReader file = File.OpenText(session.MarketDataLocation + @"\crossoutdb_data.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    new_data = (market_data)serializer.Deserialize(file, typeof(market_data));
-                    if (new_data.last_update != null)
-                        return new_data;
+                    newData = (MarketData)serializer.Deserialize(file, typeof(MarketData));
+                    if (newData.last_update != null)
+                        return newData;
                 }
             }
             catch (Exception ex)

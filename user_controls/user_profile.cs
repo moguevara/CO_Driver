@@ -29,10 +29,10 @@ namespace CO_Driver
             public int count;
         }
 
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
@@ -66,7 +66,7 @@ namespace CO_Driver
         private Dictionary<string, int> movement_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> cabin_usage = new Dictionary<string, int> { };
         private Dictionary<string, int> module_usage = new Dictionary<string, int> { };
-        private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
         private string new_selection = "";
         private string previous_selection = "";
 
@@ -82,7 +82,7 @@ namespace CO_Driver
         {
             if (!force_refresh)
             {
-                new_selection = filter.filter_string(filter_selections);
+                new_selection = Filter.FilterString(filter_selections);
 
                 if (new_selection == previous_selection)
                     return;
@@ -92,80 +92,80 @@ namespace CO_Driver
 
             previous_selection = new_selection;
 
-            filter.reset_filters(filter_selections);
+            Filter.ResetFilters(filter_selections);
             initialize_user_profile();
 
             int current_win_streak = 0;
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
-                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (build_records.ContainsKey(match.match_data.local_player.build_hash))
+                if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                 {
-                    if (!string.IsNullOrEmpty(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
+                    if (!string.IsNullOrEmpty(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
                     {
-                        if (!cabin_usage.ContainsKey(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)))
-                            cabin_usage.Add(translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations), 1);
+                        if (!cabin_usage.ContainsKey(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
+                            cabin_usage.Add(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations), 1);
                         else
-                            cabin_usage[translate.translate_string(build_records[match.match_data.local_player.build_hash].cabin.name, session, translations)] += 1;
+                            cabin_usage[Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Weapon weapon in build_records[match.match_data.local_player.build_hash].weapons)
+                    foreach (PartLoader.Weapon weapon in build_records[match.MatchData.LocalPlayer.BuildHash].Weapons)
                     {
-                        if (!weapon_usage.ContainsKey(translate.translate_string(weapon.name, session, translations)))
-                            weapon_usage.Add(translate.translate_string(weapon.name, session, translations), 1);
+                        if (!weapon_usage.ContainsKey(Translate.TranslateString(weapon.Name, session, translations)))
+                            weapon_usage.Add(Translate.TranslateString(weapon.Name, session, translations), 1);
                         else
-                            weapon_usage[translate.translate_string(weapon.name, session, translations)] += 1;
+                            weapon_usage[Translate.TranslateString(weapon.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Movement movement in build_records[match.match_data.local_player.build_hash].movement)
+                    foreach (PartLoader.Movement movement in build_records[match.MatchData.LocalPlayer.BuildHash].Movement)
                     {
-                        if (!movement_usage.ContainsKey(translate.translate_string(movement.name, session, translations)))
-                            movement_usage.Add(translate.translate_string(movement.name, session, translations), 1);
+                        if (!movement_usage.ContainsKey(Translate.TranslateString(movement.Name, session, translations)))
+                            movement_usage.Add(Translate.TranslateString(movement.Name, session, translations), 1);
                         else
-                            movement_usage[translate.translate_string(movement.name, session, translations)] += 1;
+                            movement_usage[Translate.TranslateString(movement.Name, session, translations)] += 1;
                     }
 
-                    foreach (part_loader.Module module in build_records[match.match_data.local_player.build_hash].modules)
+                    foreach (PartLoader.Module module in build_records[match.MatchData.LocalPlayer.BuildHash].Modules)
                     {
-                        if (!module_usage.ContainsKey(translate.translate_string(module.name, session, translations)))
-                            module_usage.Add(translate.translate_string(module.name, session, translations), 1);
+                        if (!module_usage.ContainsKey(Translate.TranslateString(module.Name, session, translations)))
+                            module_usage.Add(Translate.TranslateString(module.Name, session, translations), 1);
                         else
-                            module_usage[translate.translate_string(module.name, session, translations)] += 1;
+                            module_usage[Translate.TranslateString(module.Name, session, translations)] += 1;
                     }
                 }
 
                 games_played++;
-                if (match.match_data.game_result == "Win")
+                if (match.MatchData.GameResult == "Win")
                     wins++;
 
-                total_rounds += match.match_data.local_player.stats.rounds;
-                total_kills += match.match_data.local_player.stats.kills;
-                total_deaths += match.match_data.local_player.stats.deaths;
-                total_assists += match.match_data.local_player.stats.assists;
-                total_drone_kills += match.match_data.local_player.stats.drone_kills;
-                total_damage += match.match_data.local_player.stats.damage;
-                total_damage_rec += match.match_data.local_player.stats.damage_taken;
-                total_score += match.match_data.local_player.stats.score;
-                total_medals += match.match_data.local_player.stripes.Count();
+                total_rounds += match.MatchData.LocalPlayer.Stats.Rounds;
+                total_kills += match.MatchData.LocalPlayer.Stats.Kills;
+                total_deaths += match.MatchData.LocalPlayer.Stats.Deaths;
+                total_assists += match.MatchData.LocalPlayer.Stats.Assists;
+                total_drone_kills += match.MatchData.LocalPlayer.Stats.DroneKills;
+                total_damage += match.MatchData.LocalPlayer.Stats.Damage;
+                total_damage_rec += match.MatchData.LocalPlayer.Stats.DamageTaken;
+                total_score += match.MatchData.LocalPlayer.Stats.Score;
+                total_medals += match.MatchData.LocalPlayer.Stripes.Count();
 
-                foreach (KeyValuePair<int, file_trace_managment.Player> player in match.match_data.player_records)
+                foreach (KeyValuePair<int, FileTraceManagment.Player> player in match.MatchData.PlayerRecords)
                 {
-                    if (player.Value.bot == 1)
+                    if (player.Value.Bot == 1)
                     {
                         global_total_bot_count += 1;
-                        global_total_bot_score += player.Value.stats.score;
+                        global_total_bot_score += player.Value.Stats.Score;
                     }
-                    else if (player.Key != match.match_data.local_player.uid)
+                    else if (player.Key != match.MatchData.LocalPlayer.UID)
                     {
                         global_total_player_count += 1;
-                        global_total_score += player.Value.stats.score;
+                        global_total_score += player.Value.Stats.Score;
                     }
                 }
 
-                if (match.match_data.local_player.team == match.match_data.winning_team)
+                if (match.MatchData.LocalPlayer.Team == match.MatchData.WinningTeam)
                     current_win_streak += 1;
                 else
                     current_win_streak = 0;
@@ -173,33 +173,33 @@ namespace CO_Driver
                 if (current_win_streak > highest_win_streak)
                     highest_win_streak = current_win_streak;
 
-                if (match.match_data.local_player.stats.score > max_score)
-                    max_score = match.match_data.local_player.stats.score;
+                if (match.MatchData.LocalPlayer.Stats.Score > max_score)
+                    max_score = match.MatchData.LocalPlayer.Stats.Score;
 
-                if (match.match_data.local_player.stats.damage > max_damage_dealt)
-                    max_damage_dealt = match.match_data.local_player.stats.damage;
+                if (match.MatchData.LocalPlayer.Stats.Damage > max_damage_dealt)
+                    max_damage_dealt = match.MatchData.LocalPlayer.Stats.Damage;
 
-                if (match.match_data.local_player.stats.damage_taken > max_damage_rec)
-                    max_damage_rec = match.match_data.local_player.stats.damage_taken;
+                if (match.MatchData.LocalPlayer.Stats.DamageTaken > max_damage_rec)
+                    max_damage_rec = match.MatchData.LocalPlayer.Stats.DamageTaken;
 
-                if (match.match_data.local_player.stats.kills == max_kills.max_kills)
+                if (match.MatchData.LocalPlayer.Stats.Kills == max_kills.max_kills)
                     max_kills.count += 1;
 
-                if (match.match_data.local_player.stats.kills > max_kills.max_kills)
+                if (match.MatchData.LocalPlayer.Stats.Kills > max_kills.max_kills)
                 {
-                    max_kills.max_kills = match.match_data.local_player.stats.kills;
+                    max_kills.max_kills = match.MatchData.LocalPlayer.Stats.Kills;
                     max_kills.count = 1;
                 }
 
-                if (match.match_data.nemesis != "")
+                if (match.MatchData.Nemesis != "")
                 {
-                    if (!opponent_dict.ContainsKey(match.match_data.nemesis))
-                        opponent_dict.Add(match.match_data.nemesis, new Opponent { nickname = match.match_data.nemesis, been_killed = 1, killed = 0 });
+                    if (!opponent_dict.ContainsKey(match.MatchData.Nemesis))
+                        opponent_dict.Add(match.MatchData.Nemesis, new Opponent { nickname = match.MatchData.Nemesis, been_killed = 1, killed = 0 });
                     else
-                        opponent_dict[match.match_data.nemesis].been_killed += 1;
+                        opponent_dict[match.MatchData.Nemesis].been_killed += 1;
                 }
 
-                foreach (string victim in match.match_data.victims)
+                foreach (string victim in match.MatchData.Victims)
                 {
                     if (!opponent_dict.ContainsKey(victim))
                         opponent_dict.Add(victim, new Opponent { nickname = victim, been_killed = 0, killed = 1 });
@@ -207,22 +207,22 @@ namespace CO_Driver
                         opponent_dict[victim].killed += 1;
                 }
 
-                foreach (string stripe in match.match_data.local_player.stripes)
+                foreach (string stripe in match.MatchData.LocalPlayer.Stripes)
                     if (stripe == "PvpMvpWin")
                         total_mvp++;
 
-                if (!total_map_data.ContainsKey(match.match_data.map_desc))
+                if (!total_map_data.ContainsKey(match.MatchData.MapDesc))
                 {
-                    total_map_data.Add(match.match_data.map_desc, new MapData { map_name = match.match_data.map_desc, wins = match.match_data.game_result == "Win" ? 1 : 0, games = 1 });
+                    total_map_data.Add(match.MatchData.MapDesc, new MapData { map_name = match.MatchData.MapDesc, wins = match.MatchData.GameResult == "Win" ? 1 : 0, games = 1 });
                 }
                 else
                 {
-                    total_map_data[match.match_data.map_desc].games = total_map_data[match.match_data.map_desc].games + 1;
-                    if (match.match_data.game_result == "Win")
-                        total_map_data[match.match_data.map_desc].wins = total_map_data[match.match_data.map_desc].wins + 1;
+                    total_map_data[match.MatchData.MapDesc].games = total_map_data[match.MatchData.MapDesc].games + 1;
+                    if (match.MatchData.GameResult == "Win")
+                        total_map_data[match.MatchData.MapDesc].wins = total_map_data[match.MatchData.MapDesc].wins + 1;
                 }
 
-                foreach (KeyValuePair<string, int> match_reward in match.match_data.match_rewards)
+                foreach (KeyValuePair<string, int> match_reward in match.MatchData.MatchRewards)
                 {
                     if (!total_resources.ContainsKey(match_reward.Key))
                     {
@@ -234,14 +234,14 @@ namespace CO_Driver
             }
 
             populate_user_profile_screen_elements();
-            filter.populate_filters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
+            Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
 
         private void populate_user_profile_screen_elements()
         {
             double avg_player_score = total_rounds > 0 ? Math.Round((((double)total_score) / (double)games_played)) : double.PositiveInfinity;
 
-            lb_user_name.Text = session.local_user_name;
+            lb_user_name.Text = session.LocalUserName;
             lb_games_played.Text = games_played.ToString();
             lb_wins.Text = wins.ToString();
             lb_win_rate.Text = string.Format(@"{0}%", games_played > 0 ? Math.Round((((double)wins / (double)games_played) * 100), 2) : double.PositiveInfinity);
@@ -294,7 +294,7 @@ namespace CO_Driver
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(resource.Key, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(resource.Key, session, translations);
                 row.Cells[1].Value = (int)resource.Value;
                 dg_resources.Rows.Add(row);
             }
@@ -315,11 +315,11 @@ namespace CO_Driver
             {
                 if (first)
                 {
-                    lb_best_map.Text = translate.translate_string(map.Key, session, translations);
+                    lb_best_map.Text = Translate.TranslateString(map.Key, session, translations);
                     first = false;
                 }
                 DataGridViewRow row = (DataGridViewRow)this.dg_map_data.Rows[0].Clone();
-                row.Cells[0].Value = translate.translate_string(map.Key, session, translations);
+                row.Cells[0].Value = Translate.TranslateString(map.Key, session, translations);
                 row.Cells[1].Value = string.Format(@"{0}/{1}", map.Value.wins, map.Value.games - map.Value.wins);
                 dg_map_data.Rows.Add(row);
             }
@@ -360,25 +360,25 @@ namespace CO_Driver
         private void gb_resources_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_map_data_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_victims_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void gb_nemesis_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            draw_group_box(box, e.Graphics, session.fore_color, session.fore_color);
+            draw_group_box(box, e.Graphics, session.ForeColor, session.ForeColor);
         }
 
         private void initialize_user_profile()
@@ -443,7 +443,7 @@ namespace CO_Driver
         private void user_profile_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void lb_max_kills_Click(object sender, EventArgs e)
@@ -454,13 +454,13 @@ namespace CO_Driver
         private void cb_game_modes_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (this.cb_game_modes.SelectedIndex >= 0)
-                filter_selections.game_mode_filter = this.cb_game_modes.Text;
+                filter_selections.GameModeFilter = this.cb_game_modes.Text;
             populate_user_profile_screen();
         }
 
         private void btn_save_user_settings_Click_1(object sender, EventArgs e)
         {
-            filter.reset_filter_selections(filter_selections);
+            Filter.ResetFilterSelections(filter_selections);
 
             dt_start_date.Value = DateTime.Now;
             dt_end_date.Value = DateTime.Now;
@@ -470,103 +470,103 @@ namespace CO_Driver
 
         private void cb_movement_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.movement_filter == this.cb_movement.Text)
+            if (filter_selections.MovementFilter == this.cb_movement.Text)
                 return;
 
             if (this.cb_movement.SelectedIndex >= 0)
-                filter_selections.movement_filter = this.cb_movement.Text;
+                filter_selections.MovementFilter = this.cb_movement.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_modules_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.module_filter == this.cb_modules.Text)
+            if (filter_selections.ModuleFilter == this.cb_modules.Text)
                 return;
 
             if (this.cb_modules.SelectedIndex >= 0)
-                filter_selections.module_filter = this.cb_modules.Text;
+                filter_selections.ModuleFilter = this.cb_modules.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_weapons_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.weapons_filter == this.cb_weapons.Text)
+            if (filter_selections.WeaponsFilter == this.cb_weapons.Text)
                 return;
 
             if (this.cb_weapons.SelectedIndex >= 0)
-                filter_selections.weapons_filter = this.cb_weapons.Text;
+                filter_selections.WeaponsFilter = this.cb_weapons.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_cabins_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.cabin_filter == this.cb_cabins.Text)
+            if (filter_selections.CabinFilter == this.cb_cabins.Text)
                 return;
 
             if (this.cb_cabins.SelectedIndex >= 0)
-                filter_selections.cabin_filter = this.cb_cabins.Text;
+                filter_selections.CabinFilter = this.cb_cabins.Text;
 
             populate_user_profile_screen();
         }
 
         private void dt_end_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.end_date == dt_end_date.Value)
+            if (filter_selections.EndDate == dt_end_date.Value)
                 return;
 
             if (dt_start_date.Value > dt_end_date.Value)
                 dt_start_date.Value = dt_end_date.Value;
 
-            filter_selections.end_date = dt_end_date.Value;
+            filter_selections.EndDate = dt_end_date.Value;
 
             populate_user_profile_screen();
         }
 
         private void dt_start_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.start_date == dt_start_date.Value)
+            if (filter_selections.StartDate == dt_start_date.Value)
                 return;
 
             if (dt_end_date.Value < dt_start_date.Value)
                 dt_end_date.Value = dt_start_date.Value;
 
-            filter_selections.start_date = dt_start_date.Value;
+            filter_selections.StartDate = dt_start_date.Value;
 
             populate_user_profile_screen();
         }
 
         private void cb_versions_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.client_versions_filter == this.cb_versions.Text)
+            if (filter_selections.ClientVersionFilter == this.cb_versions.Text)
                 return;
 
             if (this.cb_versions.SelectedIndex >= 0)
-                filter_selections.client_versions_filter = this.cb_versions.Text;
+                filter_selections.ClientVersionFilter = this.cb_versions.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_power_score_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.power_score_filter == this.cb_power_score.Text)
+            if (filter_selections.PowerScoreFilter == this.cb_power_score.Text)
                 return;
 
             if (this.cb_power_score.SelectedIndex >= 0)
-                filter_selections.power_score_filter = this.cb_power_score.Text;
+                filter_selections.PowerScoreFilter = this.cb_power_score.Text;
 
             populate_user_profile_screen();
         }
 
         private void cb_grouped_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.group_filter == this.cb_grouped.Text)
+            if (filter_selections.GroupFilter == this.cb_grouped.Text)
                 return;
 
             if (this.cb_grouped.SelectedIndex >= 0)
-                filter_selections.group_filter = this.cb_grouped.Text;
+                filter_selections.GroupFilter = this.cb_grouped.Text;
 
             populate_user_profile_screen();
         }
@@ -577,7 +577,7 @@ namespace CO_Driver
                 return;
 
             string player = dg_nemesis_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.MatchData.PlayerRecords.Any(y => y.Value.Nickname == player && y.Key > 0)).MatchData.PlayerRecords.FirstOrDefault(z => z.Value.Nickname == player).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
@@ -588,19 +588,19 @@ namespace CO_Driver
                 return;
 
             string player = dg_victim_list.Rows[e.RowIndex].Cells[0].Value.ToString();
-            int uid = match_history.FirstOrDefault(x => x.match_data.player_records.Any(y => y.Value.nickname == player && y.Key > 0)).match_data.player_records.FirstOrDefault(z => z.Value.nickname == player).Value.uid;
+            int uid = match_history.FirstOrDefault(x => x.MatchData.PlayerRecords.Any(y => y.Value.Nickname == player && y.Key > 0)).MatchData.PlayerRecords.FirstOrDefault(z => z.Value.Nickname == player).Value.UID;
 
             System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + uid.ToString());
         }
 
         private void lb_user_name_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.local_user_uid);
+            System.Diagnostics.Process.Start("https://beta.crossoutdb.com/profile/" + session.LocalUserID);
         }
 
         private void user_profile_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

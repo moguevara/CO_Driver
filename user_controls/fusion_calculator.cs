@@ -12,7 +12,7 @@ namespace CO_Driver
         static int Attempt_depth = 100000;
         static int Fusion_depth = 20;
 
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public Dictionary<int, int> Distribution { get; set; }
@@ -42,7 +42,7 @@ namespace CO_Driver
         private void fusion_calculator_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -201,7 +201,7 @@ namespace CO_Driver
 
         private void fusion_calculator_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

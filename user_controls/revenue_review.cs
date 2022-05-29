@@ -11,15 +11,15 @@ namespace CO_Driver
 {
     public partial class revenue_review : UserControl
     {
-        public List<file_trace_managment.MatchRecord> match_history = new List<file_trace_managment.MatchRecord> { };
-        public Dictionary<string, file_trace_managment.BuildRecord> build_records = new Dictionary<string, file_trace_managment.BuildRecord> { };
-        public log_file_managment.session_variables session = new log_file_managment.session_variables { };
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
+        public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };
+        public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
         public bool force_refresh = false;
-        public market.market_data crossoutdb_data = new market.market_data { };
-        private filter.FilterSelections filter_selections = filter.new_filter_selection();
+        public Market.MarketData crossoutdb_data = new Market.MarketData { };
+        private Filter.FilterSelections filter_selections = Filter.NewFilterSelection();
 
         private string new_selection = "";
         private string previous_selection = "";
@@ -67,9 +67,9 @@ namespace CO_Driver
             }
 
 
-            foreach (market.market_item item in crossoutdb_data.market_items)
+            foreach (Market.MarketItem item in crossoutdb_data.market_items)
             {
-                Match line_results = Regex.Match(item.name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
+                Match line_results = Regex.Match(item.Name, @"(?<resource_name>.+) x(?<ammount>[0-9].*)");
                 bool found_value = false;
 
                 if (line_results.Groups.Count < 2)
@@ -78,7 +78,7 @@ namespace CO_Driver
 
                 string resource_name = line_results.Groups["resource_name"].Value;
                 int resource_ammount = Int32.Parse(line_results.Groups["ammount"].Value);
-                double sell_price = item.sellPrice / 100;
+                double sell_price = item.SellPrice / 100;
 
                 foreach (market_values value in local_values)
                 {
@@ -100,7 +100,7 @@ namespace CO_Driver
                 }
             }
 
-            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.id == 369).sellPrice/100});
+            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.ID == 369).SellPrice/100});
 
             master_values = local_values;
         }
@@ -110,7 +110,7 @@ namespace CO_Driver
         {
             if (!force_refresh)
             {
-                new_selection = filter.filter_string(filter_selections);
+                new_selection = Filter.FilterString(filter_selections);
 
                 if (new_selection == previous_selection)
                     return;
@@ -129,92 +129,92 @@ namespace CO_Driver
 
             previous_selection = new_selection;
 
-            filter.reset_filters(filter_selections);
+            Filter.ResetFilters(filter_selections);
             initialize_user_profile();
 
-            foreach (file_trace_managment.MatchRecord match in match_history.ToList())
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
-                if (!filter.check_filters(filter_selections, match, build_records, session, translations))
+                if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (match.match_data.match_rewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
+                if (match.MatchData.MatchRewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
                     continue;
 
                 /* begin calc */
                 bool group_found = false;
                 int fuel_ammount = 0;
                 double badges_amount = 0;
-                TimeSpan queue_time = match.match_data.queue_end - match.match_data.queue_start;
+                TimeSpan queue_time = match.MatchData.QueueEnd - match.MatchData.QueueStart;
 
-                string game_mode = match.match_data.match_type_desc;
+                string game_mode = match.MatchData.MatchTypeDesc;
 
                 if (game_mode.Contains("Raid"))
                 {
-                    game_mode = string.Format(@"{0} ({1})", translate.translate_string(match.match_data.gameplay_desc, session, translations), string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => translate.translate_string(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.MatchData.GameplayDesc, session, translations), string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                     if (game_mode.EndsWith("()"))
                         game_mode.Substring(("()").Length);
                 }
 
-                if (match.match_data.gameplay_desc == "Pve_Leviathan")
+                if (match.MatchData.GameplayDesc == "Pve_Leviathan")
                 {
-                    game_mode = translate.translate_string(match.match_data.gameplay_desc, session, translations);
+                    game_mode = Translate.TranslateString(match.MatchData.GameplayDesc, session, translations);
                 }
 
                 if (game_mode.Contains("8v8"))
-                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.match_data.match_rewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => translate.translate_string(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (match.match_data.match_type == global_data.INVASION_MATCH)
+                if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == global_data.EASY_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
                     fuel_ammount = 20;
                 else
-                if (match.match_data.match_type == global_data.MED_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
                     fuel_ammount = 40;
                 else
-                if (match.match_data.match_type == global_data.HARD_RAID_MATCH)
+                if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
                     fuel_ammount = 60;
 
-                if (chk_badges.Checked && match.match_data.game_result == "Win")
+                if (chk_badges.Checked && match.MatchData.GameResult == "Win")
                 {
-                    if (match.match_data.match_classification == global_data.BRAWL_CLASSIFICATION)
+                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
                         badges_amount = 19.444;
                     else
                     {
-                        switch (match.match_data.match_type)
+                        switch (match.MatchData.MatchType)
                         {
-                            case global_data.EASY_RAID_MATCH:
+                            case GlobalData.EASY_RAID_MATCH:
                                 badges_amount = 16.667;
                                 break;
-                            case global_data.STANDARD_MATCH:
-                            case global_data.PATROL_MATCH:
-                                if (match.match_data.match_rewards.ContainsKey("Scrap_Rare"))
+                            case GlobalData.STANDARD_MATCH:
+                            case GlobalData.PATROL_MATCH:
+                                if (match.MatchData.MatchRewards.ContainsKey("Scrap_Rare"))
                                     badges_amount = 10;
-                                else if (match.match_data.match_rewards.ContainsKey("Accumulators"))
+                                else if (match.MatchData.MatchRewards.ContainsKey("Accumulators"))
                                     badges_amount = 29.167;
-                                else if (match.match_data.match_rewards.ContainsKey("Scrap_Common"))
+                                else if (match.MatchData.MatchRewards.ContainsKey("Scrap_Common"))
                                     badges_amount = 12.5;
                                 break;
-                            case global_data.INVASION_MATCH:
+                            case GlobalData.INVASION_MATCH:
                                 badges_amount = 17.5;
                                 break;
-                            case global_data.MED_RAID_MATCH:
+                            case GlobalData.MED_RAID_MATCH:
                                 badges_amount = 15;
                                 break;
-                            case global_data.HARD_RAID_MATCH:
+                            case GlobalData.HARD_RAID_MATCH:
                                 badges_amount = 50;
                                 break;
-                            case global_data.LEVIATHIAN_CW_MATCH:
-                            case global_data.STANDARD_CW_MATCH:
+                            case GlobalData.LEVIATHIAN_CW_MATCH:
+                            case GlobalData.STANDARD_CW_MATCH:
                                 badges_amount = 90;
                                 break;
                         }
                     }
                 }
 
-                string match_result = match.match_data.game_result;
-                string premium = match.match_data.premium_reward.ToString();
+                string match_result = match.MatchData.GameResult;
+                string premium = match.MatchData.PremiumReward.ToString();
 
                 if (!chk_game_result.Checked)
                     match_result = "";
@@ -225,23 +225,23 @@ namespace CO_Driver
                 foreach (revenue_grouping group in master_groupings)
                 {
                     if (group.gamemode == game_mode &&
-                       (chk_game_result.Checked == false || group.game_result == match.match_data.game_result))
+                       (chk_game_result.Checked == false || group.game_result == match.MatchData.GameResult))
                     {
 
                         group_found = true;
                         group.total_queue_time += queue_time.TotalSeconds;
-                        group.total_match_time += match.match_data.match_duration_seconds;
+                        group.total_match_time += match.MatchData.MatchDurationSeconds;
                         group.games += 1;
                         group.fuel_cost += fuel_ammount;
                         group.total_game_duration += queue_time.TotalSeconds;
-                        group.total_game_duration += match.match_data.match_duration_seconds;
+                        group.total_game_duration += match.MatchData.MatchDurationSeconds;
 
                         if (group.match_rewards.ContainsKey("Badges"))
                             group.match_rewards["Badges"] += (int)badges_amount;
                         else
                             group.match_rewards.Add("Badges", (int)badges_amount);
 
-                        foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
+                        foreach (KeyValuePair<string, int> reward in match.MatchData.MatchRewards)
                         {
                             if (group.match_rewards.ContainsKey(reward.Key))
                                 group.match_rewards[reward.Key] += reward.Value;
@@ -261,11 +261,11 @@ namespace CO_Driver
                     new_group.premium = premium;
                     new_group.games = 1;
                     new_group.total_queue_time = queue_time.TotalSeconds;
-                    new_group.total_match_time = match.match_data.match_duration_seconds;
-                    new_group.total_game_duration = queue_time.TotalSeconds + match.match_data.match_duration_seconds;
+                    new_group.total_match_time = match.MatchData.MatchDurationSeconds;
+                    new_group.total_game_duration = queue_time.TotalSeconds + match.MatchData.MatchDurationSeconds;
                     new_group.match_rewards = new Dictionary<string, int> { };
 
-                    foreach (KeyValuePair<string, int> reward in match.match_data.match_rewards)
+                    foreach (KeyValuePair<string, int> reward in match.MatchData.MatchRewards)
                     {
                         if (new_group.match_rewards.ContainsKey(reward.Key))
                             new_group.match_rewards[reward.Key] += reward.Value;
@@ -284,7 +284,7 @@ namespace CO_Driver
 
 
             populate_revenue_review_screen_elements();
-            filter.populate_filters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
+            Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
         private void populate_revenue_review_screen_elements()
         {
@@ -353,18 +353,18 @@ namespace CO_Driver
 
                         if (show_average)
                         {
-                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
                         }
                         else
                         {
-                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, translate.translate_string(reward.Key, session, translations), reward.Value.ToString());
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), reward.Value.ToString());
                         }
 
                         first = false;
 
                         foreach (market_values value in master_values)
                         {
-                            if (translate.translate_string(reward.Key, session, translations) == value.resource)
+                            if (Translate.TranslateString(reward.Key, session, translations) == value.resource)
                             {
                                 coin_value += ((double)reward.Value / (double)value.ammount) * value.sell_price;
                                 total_coins += ((double)reward.Value / (double)value.ammount) * value.sell_price;
@@ -475,113 +475,113 @@ namespace CO_Driver
 
         private void cb_versions_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.client_versions_filter == this.cb_versions.Text)
+            if (filter_selections.ClientVersionFilter == this.cb_versions.Text)
                 return;
 
             if (this.cb_versions.SelectedIndex >= 0)
-                filter_selections.client_versions_filter = this.cb_versions.Text;
+                filter_selections.ClientVersionFilter = this.cb_versions.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_power_score_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.power_score_filter == this.cb_power_score.Text)
+            if (filter_selections.PowerScoreFilter == this.cb_power_score.Text)
                 return;
 
             if (this.cb_power_score.SelectedIndex >= 0)
-                filter_selections.power_score_filter = this.cb_power_score.Text;
+                filter_selections.PowerScoreFilter = this.cb_power_score.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_grouped_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.group_filter == this.cb_grouped.Text)
+            if (filter_selections.GroupFilter == this.cb_grouped.Text)
                 return;
 
             if (this.cb_grouped.SelectedIndex >= 0)
-                filter_selections.group_filter = this.cb_grouped.Text;
+                filter_selections.GroupFilter = this.cb_grouped.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_game_modes_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.game_mode_filter == this.cb_game_modes.Text)
+            if (filter_selections.GameModeFilter == this.cb_game_modes.Text)
                 return;
 
             if (this.cb_game_modes.SelectedIndex >= 0)
-                filter_selections.game_mode_filter = this.cb_game_modes.Text;
+                filter_selections.GameModeFilter = this.cb_game_modes.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_cabins_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.cabin_filter == this.cb_cabins.Text)
+            if (filter_selections.CabinFilter == this.cb_cabins.Text)
                 return;
 
             if (this.cb_cabins.SelectedIndex >= 0)
-                filter_selections.cabin_filter = this.cb_cabins.Text;
+                filter_selections.CabinFilter = this.cb_cabins.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_weapons_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.weapons_filter == this.cb_weapons.Text)
+            if (filter_selections.WeaponsFilter == this.cb_weapons.Text)
                 return;
 
             if (this.cb_weapons.SelectedIndex >= 0)
-                filter_selections.weapons_filter = this.cb_weapons.Text;
+                filter_selections.WeaponsFilter = this.cb_weapons.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_modules_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.module_filter == this.cb_modules.Text)
+            if (filter_selections.ModuleFilter == this.cb_modules.Text)
                 return;
 
             if (this.cb_modules.SelectedIndex >= 0)
-                filter_selections.module_filter = this.cb_modules.Text;
+                filter_selections.ModuleFilter = this.cb_modules.Text;
 
             populate_revenue_review_screen();
         }
 
         private void cb_movement_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.movement_filter == this.cb_movement.Text)
+            if (filter_selections.MovementFilter == this.cb_movement.Text)
                 return;
 
             if (this.cb_movement.SelectedIndex >= 0)
-                filter_selections.movement_filter = this.cb_movement.Text;
+                filter_selections.MovementFilter = this.cb_movement.Text;
 
             populate_revenue_review_screen();
         }
 
         private void dt_start_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.start_date == dt_start_date.Value)
+            if (filter_selections.StartDate == dt_start_date.Value)
                 return;
 
-            filter_selections.start_date = dt_start_date.Value;
+            filter_selections.StartDate = dt_start_date.Value;
             populate_revenue_review_screen();
         }
 
         private void dt_end_date_ValueChanged_1(object sender, EventArgs e)
         {
-            if (filter_selections.end_date == dt_end_date.Value)
+            if (filter_selections.EndDate == dt_end_date.Value)
                 return;
 
-            filter_selections.end_date = dt_end_date.Value;
+            filter_selections.EndDate = dt_end_date.Value;
             populate_revenue_review_screen();
         }
 
         private void btn_save_user_settings_Click(object sender, EventArgs e)
         {
-            filter.reset_filter_selections(filter_selections);
+            Filter.ResetFilterSelections(filter_selections);
 
             chk_free_fuel.Checked = false;
             chk_badges.Checked = false;
@@ -595,12 +595,12 @@ namespace CO_Driver
         private void revenue_review_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void revenue_review_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
 
         

@@ -12,9 +12,9 @@ namespace CO_Driver
         public event EventHandler reload_all_themes;
         public event EventHandler enable_uploads;
 
-        log_file_managment log_file_manager = new log_file_managment();
-        public log_file_managment.session_variables session;
-        public Dictionary<string, Dictionary<string, translate.Translation>> translations;
+        LogFileManagment log_file_manager = new LogFileManagment();
+        public LogFileManagment.SessionVariables session;
+        public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
         public Resize resize = new Resize { };
 
@@ -27,36 +27,36 @@ namespace CO_Driver
             base.OnLoad(e);
 
 
-            foreach (KeyValuePair<string, int> player in session.valid_users)
+            foreach (KeyValuePair<string, int> player in session.ValidUsers)
                 cmb_user_names.Items.Add(player.Key);
 
-            foreach (Theme.ui_theme theme in Theme.themes)
-                cmb_themes.Items.Add(theme.name);
+            foreach (Theme.UITheme theme in Theme.themes)
+                cmb_themes.Items.Add(theme.Name);
 
             foreach (Screen device in Screen.AllScreens)
                 cmb_fullscreen_monitor.Items.Add(string.Format(@"{0}", device.DeviceName));
 
-            cmb_user_names.SelectedItem = session.local_user_name;
-            txt_log_file_location.Text = session.log_file_location;
-            txt_historic_log_location.Text = session.historic_file_location;
-            cmb_language_drop_down.SelectedItem = session.local_language;
+            cmb_user_names.SelectedItem = session.LocalUserName;
+            txt_log_file_location.Text = session.LogFileLocation;
+            txt_historic_log_location.Text = session.HistoricFileLocation;
+            cmb_language_drop_down.SelectedItem = session.LocalLanguage;
             //cmb_fullscreen_monitor.SelectedItem = session.primary_display;
-            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.primary_display);
-            cmb_themes.SelectedItem = session.selected_theme;
-            num_engineer_level.Value = session.engineer_level;
-            num_lunatic_level.Value = session.lunatics_level;
-            num_nomad_level.Value = session.nomads_level;
-            num_scavenger_level.Value = session.scavengers_level;
-            num_steppenwolf_level.Value = session.steppenwolfs_level;
-            num_dawns_children_level.Value = session.dawns_children_level;
-            num_firestarter_level.Value = session.firestarts_level;
-            num_founders_level.Value = session.founders_level;
-            chk_prestigue_parts.Checked = session.include_prestigue_parts;
-            chk_twitch_mode.Checked = session.twitch_mode;
-            chk_group_ram.Checked = session.bundle_ram_mode;
-            chk_save_screen_shots.Checked = session.save_captures;
-            chk_upload_post_match.Checked = session.upload_data;
-            chk_update.Checked = session.update_postmatch;
+            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.PrimaryDisplay);
+            cmb_themes.SelectedItem = session.SelectedTheme;
+            num_engineer_level.Value = session.EngineerLevel;
+            num_lunatic_level.Value = session.LunaticsLevel;
+            num_nomad_level.Value = session.NomadsLevel;
+            num_scavenger_level.Value = session.ScavengersLevel;
+            num_steppenwolf_level.Value = session.SteppenWolfLevel;
+            num_dawns_children_level.Value = session.DawnsChildrenLevel;
+            num_firestarter_level.Value = session.FireStartersLevel;
+            num_founders_level.Value = session.FoundersLevel;
+            chk_prestigue_parts.Checked = session.IncludePresitgueParts;
+            chk_twitch_mode.Checked = session.TwitchMode;
+            chk_group_ram.Checked = session.BundleRamMode;
+            chk_save_screen_shots.Checked = session.SaveCaptures;
+            chk_upload_post_match.Checked = session.UploadData;
+            chk_update.Checked = session.UploadPostMatch;
         }
 
         private void save_user_settings(object sender, EventArgs e)
@@ -67,20 +67,20 @@ namespace CO_Driver
             if (!Directory.Exists(txt_log_file_location.Text))
             {
                 MessageBox.Show("Target log file location invalid. Aborting save." + Environment.NewLine + Environment.NewLine + txt_log_file_location.Text);
-                session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
-                txt_log_file_location.Text = session.log_file_location;
+                session.LogFileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+                txt_log_file_location.Text = session.LogFileLocation;
                 return;
             }
 
             if (!Directory.EnumerateFiles(txt_log_file_location.Text, "*.log", SearchOption.AllDirectories).Any())
             {
                 MessageBox.Show("Target log file location does not contain any crossout log files. Aborting save." + Environment.NewLine + Environment.NewLine + txt_log_file_location.Text);
-                session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
-                txt_log_file_location.Text = session.log_file_location;
+                session.LogFileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+                txt_log_file_location.Text = session.LogFileLocation;
                 return;
             }
 
-            if (session.local_user_name != cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString())
+            if (session.LocalUserName != cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString())
             {
                 DialogResult dialogResult = MessageBox.Show("Changing user name requires restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -88,10 +88,10 @@ namespace CO_Driver
                     return;
                 }
                 prompt_restart = true;
-                session.parsed_logs = new List<string> { };
+                session.ParsedLogs = new List<string> { };
             }
 
-            if (session.local_language != cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString())
+            if (session.LocalLanguage != cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString())
             {
                 DialogResult dialogResult = MessageBox.Show("Changing language requires restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -101,7 +101,7 @@ namespace CO_Driver
                 prompt_restart = true;
             }
 
-            if (session.twitch_mode != chk_twitch_mode.Checked)
+            if (session.TwitchMode != chk_twitch_mode.Checked)
             {
                 DialogResult dialogResult = MessageBox.Show("Supporting Twitch overlays requires restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -111,7 +111,7 @@ namespace CO_Driver
                 prompt_restart = true;
             }
 
-            if (session.bundle_ram_mode != chk_group_ram.Checked)
+            if (session.BundleRamMode != chk_group_ram.Checked)
             {
                 DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -119,10 +119,10 @@ namespace CO_Driver
                     return;
                 }
                 prompt_restart = true;
-                session.parsed_logs = new List<string> { };
+                session.ParsedLogs = new List<string> { };
             }
 
-            if (session.log_file_location != txt_log_file_location.Text)
+            if (session.LogFileLocation != txt_log_file_location.Text)
             {
                 DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -130,51 +130,51 @@ namespace CO_Driver
                     return;
                 }
                 prompt_restart = true;
-                session.parsed_logs = new List<string> { };
+                session.ParsedLogs = new List<string> { };
             }
 
-            if (session.upload_data != chk_upload_post_match.Checked)
+            if (session.UploadData != chk_upload_post_match.Checked)
                 upload_change = true;
 
-            session.local_user_name = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
-            session.log_file_location = txt_log_file_location.Text;
-            session.local_language = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
-            session.primary_display = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == cmb_fullscreen_monitor.Items[cmb_fullscreen_monitor.SelectedIndex].ToString()).DeviceName;
-            session.engineer_level = Convert.ToInt32(num_engineer_level.Value);
-            session.lunatics_level = Convert.ToInt32(num_lunatic_level.Value);
-            session.nomads_level = Convert.ToInt32(num_nomad_level.Value);
-            session.scavengers_level = Convert.ToInt32(num_scavenger_level.Value);
-            session.steppenwolfs_level = Convert.ToInt32(num_steppenwolf_level.Value);
-            session.dawns_children_level = Convert.ToInt32(num_dawns_children_level.Value);
-            session.firestarts_level = Convert.ToInt32(num_firestarter_level.Value);
-            session.founders_level = Convert.ToInt32(num_founders_level.Value);
-            session.include_prestigue_parts = chk_prestigue_parts.Checked;
-            session.twitch_mode = chk_twitch_mode.Checked;
-            session.bundle_ram_mode = chk_group_ram.Checked;
-            session.save_captures = chk_save_screen_shots.Checked;
-            session.upload_data = chk_upload_post_match.Checked;
-            session.update_postmatch = chk_update.Checked;
+            session.LocalUserName = cmb_user_names.Items[cmb_user_names.SelectedIndex].ToString();
+            session.LogFileLocation = txt_log_file_location.Text;
+            session.LocalLanguage = cmb_language_drop_down.Items[cmb_language_drop_down.SelectedIndex].ToString();
+            session.PrimaryDisplay = Screen.AllScreens.FirstOrDefault(x => x.DeviceName == cmb_fullscreen_monitor.Items[cmb_fullscreen_monitor.SelectedIndex].ToString()).DeviceName;
+            session.EngineerLevel = Convert.ToInt32(num_engineer_level.Value);
+            session.LunaticsLevel = Convert.ToInt32(num_lunatic_level.Value);
+            session.NomadsLevel = Convert.ToInt32(num_nomad_level.Value);
+            session.ScavengersLevel = Convert.ToInt32(num_scavenger_level.Value);
+            session.SteppenWolfLevel = Convert.ToInt32(num_steppenwolf_level.Value);
+            session.DawnsChildrenLevel = Convert.ToInt32(num_dawns_children_level.Value);
+            session.FireStartersLevel = Convert.ToInt32(num_firestarter_level.Value);
+            session.FoundersLevel = Convert.ToInt32(num_founders_level.Value);
+            session.IncludePresitgueParts = chk_prestigue_parts.Checked;
+            session.TwitchMode = chk_twitch_mode.Checked;
+            session.BundleRamMode = chk_group_ram.Checked;
+            session.SaveCaptures = chk_save_screen_shots.Checked;
+            session.UploadData = chk_upload_post_match.Checked;
+            session.UploadPostMatch = chk_update.Checked;
 
             string text = cmb_themes.Items[cmb_themes.SelectedIndex].ToString();
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (text == theme.name)
+                if (text == theme.Name)
                 {
-                    session.fore_color = theme.fore_ground;
-                    session.back_color = theme.back_ground;
+                    session.ForeColor = theme.ForeGround;
+                    session.BackColor = theme.BackGround;
                     break;
                 }
             }
 
-            session.selected_theme = text;
+            session.SelectedTheme = text;
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
 
-            if (session.upload_data && upload_change)
+            if (session.UploadData && upload_change)
                 enable_uploads(this, EventArgs.Empty);
 
-            log_file_manager.save_session_config(session);
+            log_file_manager.SaveSessionConfig(session);
 
             if (prompt_restart)
             {
@@ -186,7 +186,7 @@ namespace CO_Driver
         {
             bool prompt_restart = false;
 
-            if (session.local_user_name != session.valid_users.Aggregate((l, r) => l.Value > r.Value ? l : r).Key)
+            if (session.LocalUserName != session.ValidUsers.Aggregate((l, r) => l.Value > r.Value ? l : r).Key)
             {
                 DialogResult dialogResult = MessageBox.Show("Reseting will reset user name and require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -194,39 +194,39 @@ namespace CO_Driver
                     return;
                 }
                 prompt_restart = true;
-                session.parsed_logs = new List<string> { };
+                session.ParsedLogs = new List<string> { };
             }
 
-            log_file_manager.find_local_user_name(session);
-            log_file_manager.get_live_file_location(session);
+            log_file_manager.FindLocalUserName(session);
+            log_file_manager.GetLiveFileLocation(session);
 
-            session.log_file_location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
-            session.local_language = "English";
-            session.primary_display = Screen.PrimaryScreen.DeviceName;
-            session.engineer_level = 30;
-            session.lunatics_level = 15;
-            session.nomads_level = 15;
-            session.scavengers_level = 15;
-            session.steppenwolfs_level = 15;
-            session.dawns_children_level = 15;
-            session.firestarts_level = 15;
-            session.founders_level = 75;
-            session.include_prestigue_parts = true;
-            session.selected_theme = "Terminal";
-            session.fore_color = Color.Lime;
-            session.back_color = Color.Black;
-            session.save_captures = true;
-            session.twitch_mode = false;
-            session.bundle_ram_mode = true;
-            session.update_postmatch = true;
-            session.upload_data = false;
-            session.action_configuration = Overlay.default_overlay_setup();
-            session.twitch_settings = Overlay.default_twitch_settings();
+            session.LogFileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\my games\Crossout\logs";
+            session.LocalLanguage = "English";
+            session.PrimaryDisplay = Screen.PrimaryScreen.DeviceName;
+            session.EngineerLevel = 30;
+            session.LunaticsLevel = 15;
+            session.NomadsLevel = 15;
+            session.ScavengersLevel = 15;
+            session.SteppenWolfLevel = 15;
+            session.DawnsChildrenLevel = 15;
+            session.FireStartersLevel = 15;
+            session.FoundersLevel = 75;
+            session.IncludePresitgueParts = true;
+            session.SelectedTheme = "Terminal";
+            session.ForeColor = Color.Lime;
+            session.BackColor = Color.Black;
+            session.SaveCaptures = true;
+            session.TwitchMode = false;
+            session.BundleRamMode = true;
+            session.UploadPostMatch = true;
+            session.UploadData = false;
+            session.ActionConfiguration = Overlay.DefaultOverlaySetup();
+            session.TwitchSettings = Overlay.DefaultTwitchSettings();
 
             if (reload_all_themes != null)
                 reload_all_themes(this, EventArgs.Empty);
 
-            if (session.log_file_location != txt_log_file_location.Text)
+            if (session.LogFileLocation != txt_log_file_location.Text)
             {
                 DialogResult dialogResult = MessageBox.Show("Some changes require restart. Continue?", "Save Settings", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.No)
@@ -234,38 +234,38 @@ namespace CO_Driver
                     return;
                 }
                 prompt_restart = true;
-                session.parsed_logs = new List<string> { };
+                session.ParsedLogs = new List<string> { };
             }
 
-            log_file_manager.save_session_config(session);
+            log_file_manager.SaveSessionConfig(session);
 
             if (prompt_restart)
             {
                 Application.Restart();
             }
 
-            cmb_user_names.SelectedItem = session.local_user_name;
-            txt_log_file_location.Text = session.log_file_location;
-            txt_historic_log_location.Text = session.historic_file_location;
-            cmb_language_drop_down.SelectedItem = session.local_language;
-            cmb_fullscreen_monitor.SelectedItem = session.primary_display;
-            num_engineer_level.Value = session.engineer_level;
-            num_lunatic_level.Value = session.lunatics_level;
-            num_nomad_level.Value = session.nomads_level;
-            num_scavenger_level.Value = session.scavengers_level;
-            num_steppenwolf_level.Value = session.steppenwolfs_level;
-            num_dawns_children_level.Value = session.dawns_children_level;
-            num_firestarter_level.Value = session.firestarts_level;
-            num_founders_level.Value = session.founders_level;
-            chk_prestigue_parts.Checked = session.include_prestigue_parts;
+            cmb_user_names.SelectedItem = session.LocalUserName;
+            txt_log_file_location.Text = session.LogFileLocation;
+            txt_historic_log_location.Text = session.HistoricFileLocation;
+            cmb_language_drop_down.SelectedItem = session.LocalLanguage;
+            cmb_fullscreen_monitor.SelectedItem = session.PrimaryDisplay;
+            num_engineer_level.Value = session.EngineerLevel;
+            num_lunatic_level.Value = session.LunaticsLevel;
+            num_nomad_level.Value = session.NomadsLevel;
+            num_scavenger_level.Value = session.ScavengersLevel;
+            num_steppenwolf_level.Value = session.SteppenWolfLevel;
+            num_dawns_children_level.Value = session.DawnsChildrenLevel;
+            num_firestarter_level.Value = session.FireStartersLevel;
+            num_founders_level.Value = session.FoundersLevel;
+            chk_prestigue_parts.Checked = session.IncludePresitgueParts;
             cmb_themes.SelectedItem = "Terminal";
-            chk_save_screen_shots.Checked = session.save_captures;
-            chk_upload_post_match.Checked = session.upload_data;
-            chk_update.Checked = session.update_postmatch;
+            chk_save_screen_shots.Checked = session.SaveCaptures;
+            chk_upload_post_match.Checked = session.UploadData;
+            chk_update.Checked = session.UploadPostMatch;
             cmb_themes.SelectedIndex = 0;
-            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.primary_display);
-            chk_twitch_mode.Checked = session.twitch_mode;
-            chk_group_ram.Checked = session.bundle_ram_mode;
+            cmb_fullscreen_monitor.SelectedIndex = cmb_fullscreen_monitor.Items.IndexOf(session.PrimaryDisplay);
+            chk_twitch_mode.Checked = session.TwitchMode;
+            chk_group_ram.Checked = session.BundleRamMode;
         }
 
         private void chk_twitch_mode_CheckedChanged(object sender, EventArgs e)
@@ -288,14 +288,14 @@ namespace CO_Driver
             if (e.Index > -1)
             {
                 string text = cmb_themes.Items[e.Index].ToString();
-                foreach (Theme.ui_theme theme in Theme.themes)
+                foreach (Theme.UITheme theme in Theme.themes)
                 {
-                    if (text == theme.name)
+                    if (text == theme.Name)
                     {
-                        using (SolidBrush background_brush = new SolidBrush(theme.back_ground))
-                            e.Graphics.FillRectangle(new SolidBrush(theme.back_ground), e.Bounds);
+                        using (SolidBrush background_brush = new SolidBrush(theme.BackGround))
+                            e.Graphics.FillRectangle(new SolidBrush(theme.BackGround), e.Bounds);
 
-                        using (Brush text_brush = new SolidBrush(theme.fore_ground))
+                        using (Brush text_brush = new SolidBrush(theme.ForeGround))
                             e.Graphics.DrawString(text, e.Font, text_brush, e.Bounds.Location);
 
                         break;
@@ -319,17 +319,17 @@ namespace CO_Driver
             //                            "This is the only restricted feature.";
             //}
 
-            foreach (Theme.ui_theme theme in Theme.themes)
+            foreach (Theme.UITheme theme in Theme.themes)
             {
-                if (text == theme.name)
+                if (text == theme.Name)
                 {
                     foreach (Control ctrl in this.Controls)
                     {
                         if (ctrl.Name == cmb_themes.Name)
                             continue;
 
-                        ctrl.ForeColor = theme.fore_ground;
-                        ctrl.BackColor = theme.back_ground;
+                        ctrl.ForeColor = theme.ForeGround;
+                        ctrl.BackColor = theme.BackGround;
                     }
                     break;
                 }
@@ -338,20 +338,20 @@ namespace CO_Driver
 
         private void recalculate_logs(object sender, EventArgs e)
         {
-            session.parsed_logs = new List<string> { };
-            log_file_manager.save_session_config(session);
+            session.ParsedLogs = new List<string> { };
+            log_file_manager.SaveSessionConfig(session);
             Application.Restart();
         }
 
         private void user_settings_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            resize.record_initial_sizes(this);
+            resize.RecordInitialSizes(this);
         }
 
         private void user_settings_Resize(object sender, EventArgs e)
         {
-            resize.resize(this);
+            resize.ResizeUserControl(this);
         }
     }
 }

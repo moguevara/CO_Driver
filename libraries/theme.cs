@@ -7,155 +7,155 @@ namespace CO_Driver
 {
     public class Theme
     {
-        public class ui_theme
+        public class UITheme
         {
-            public string name { get; set; }
-            public Color fore_ground { get; set; }
-            public Color back_ground { get; set; }
+            public string Name { get; set; }
+            public Color ForeGround { get; set; }
+            public Color BackGround { get; set; }
         }
 
-        public static List<ui_theme> themes = new List<ui_theme> {  new ui_theme { name = "Terminal",                    fore_ground = Color.Lime,                    back_ground = Color.Black },
-                                                                    new ui_theme { name = "Static",                      fore_ground = Color.FromArgb(245,245,245),   back_ground = Color.Black },
-                                                                    new ui_theme { name = "Blabadon",                    fore_ground = Color.FromArgb(235, 117, 55),  back_ground = Color.FromArgb(29,35,40)},
-                                                                    new ui_theme { name = "Eris",                        fore_ground = Color.FromArgb(247, 247, 247), back_ground = Color.FromArgb(54, 57, 63) },
-                                                                    new ui_theme { name = "Isotope",                     fore_ground = Color.FromArgb(198, 245, 165), back_ground = Color.Black },
-                                                                    new ui_theme { name = "Mint Oreo",                   fore_ground = Color.FromArgb(154, 246, 189), back_ground = Color.FromArgb(31, 20, 11) },
-                                                                    new ui_theme { name = "S C R O L L",                 fore_ground = Color.FromArgb(171, 171, 171), back_ground = Color.FromArgb(25, 25, 25) },
-                                                                    new ui_theme { name = "Ravage",                      fore_ground = Color.FromArgb(245, 21, 118),  back_ground = Color.FromArgb(12, 24, 14) },
-                                                                    new ui_theme { name = "Yakuza",                      fore_ground = Color.FromArgb(245, 106, 246), back_ground = Color.FromArgb(0, 16, 36) },
-                                                                    new ui_theme { name = "Foiu7dnfr",                   fore_ground = Color.FromArgb(246, 207, 70),  back_ground = Color.FromArgb(18, 18, 18) },
-                                                                    new ui_theme { name = "Step on Wolf",                fore_ground = Color.FromArgb(234, 240, 207), back_ground = Color.FromArgb(37, 49, 14) },
-                                                                    new ui_theme { name = "Don's Children",              fore_ground = Color.FromArgb(36, 246, 236),  back_ground = Color.FromArgb(31, 24, 6) },
-                                                                    new ui_theme { name = "Arson",                       fore_ground = Color.FromArgb(246, 125, 35),  back_ground = Color.FromArgb(27, 10, 10) },
-                                                                    new ui_theme { name = "Trucker Cab Best Cab",        fore_ground = Color.FromArgb(246, 195, 35),  back_ground = Color.FromArgb(22, 20, 10) },
-                                                                    new ui_theme { name = "It ain't easy being green",   fore_ground = Color.FromArgb(84, 211, 70),   back_ground = Color.FromArgb(22, 20, 10) },
-                                                                    new ui_theme { name = "Juicebox",                    fore_ground = Color.FromArgb(156, 151, 166), back_ground = Color.FromArgb(47, 40, 51) },
-                                                                    new ui_theme { name = "Nomadic",                     fore_ground = Color.FromArgb(195, 191, 148), back_ground = Color.FromArgb(7, 20, 4) },
-                                                                    new ui_theme { name = "Mr. Gusano",                  fore_ground = Color.FromArgb(253, 255, 255), back_ground = Color.FromArgb(39, 86, 78) },
-                                                                    new ui_theme { name = "Slava Ukraini!",              fore_ground = Color.FromArgb(255, 215, 0),   back_ground = Color.FromArgb(0, 87, 183) },
-                                                                    new ui_theme { name = "Hexagonis",                   fore_ground = Color.FromArgb(219, 173, 80),  back_ground = Color.FromArgb(37, 40, 60) },
-                                                                    new ui_theme { name = "Split Push Toads",            fore_ground = Color.FromArgb(33, 95, 73),    back_ground = Color.FromArgb(248, 250, 229) },
-                                                                    new ui_theme { name = "Soaring Potential",           fore_ground = Color.FromArgb(102, 0, 0),     back_ground = Color.FromArgb(230, 230, 230) }
+        public static List<UITheme> themes = new List<UITheme> {  new UITheme { Name = "Terminal",                      ForeGround = Color.Lime,                    BackGround = Color.Black },
+                                                                    new UITheme { Name = "Static",                      ForeGround = Color.FromArgb(245,245,245),   BackGround = Color.Black },
+                                                                    new UITheme { Name = "Blabadon",                    ForeGround = Color.FromArgb(235, 117, 55),  BackGround = Color.FromArgb(29,35,40)},
+                                                                    new UITheme { Name = "Eris",                        ForeGround = Color.FromArgb(247, 247, 247), BackGround = Color.FromArgb(54, 57, 63) },
+                                                                    new UITheme { Name = "Isotope",                     ForeGround = Color.FromArgb(198, 245, 165), BackGround = Color.Black },
+                                                                    new UITheme { Name = "Mint Oreo",                   ForeGround = Color.FromArgb(154, 246, 189), BackGround = Color.FromArgb(31, 20, 11) },
+                                                                    new UITheme { Name = "S C R O L L",                 ForeGround = Color.FromArgb(171, 171, 171), BackGround = Color.FromArgb(25, 25, 25) },
+                                                                    new UITheme { Name = "Ravage",                      ForeGround = Color.FromArgb(245, 21, 118),  BackGround = Color.FromArgb(12, 24, 14) },
+                                                                    new UITheme { Name = "Yakuza",                      ForeGround = Color.FromArgb(245, 106, 246), BackGround = Color.FromArgb(0, 16, 36) },
+                                                                    new UITheme { Name = "Foiu7dnfr",                   ForeGround = Color.FromArgb(246, 207, 70),  BackGround = Color.FromArgb(18, 18, 18) },
+                                                                    new UITheme { Name = "Step on Wolf",                ForeGround = Color.FromArgb(234, 240, 207), BackGround = Color.FromArgb(37, 49, 14) },
+                                                                    new UITheme { Name = "Don's Children",              ForeGround = Color.FromArgb(36, 246, 236),  BackGround = Color.FromArgb(31, 24, 6) },
+                                                                    new UITheme { Name = "Arson",                       ForeGround = Color.FromArgb(246, 125, 35),  BackGround = Color.FromArgb(27, 10, 10) },
+                                                                    new UITheme { Name = "Trucker Cab Best Cab",        ForeGround = Color.FromArgb(246, 195, 35),  BackGround = Color.FromArgb(22, 20, 10) },
+                                                                    new UITheme { Name = "It ain't easy being green",   ForeGround = Color.FromArgb(84, 211, 70),   BackGround = Color.FromArgb(22, 20, 10) },
+                                                                    new UITheme { Name = "Juicebox",                    ForeGround = Color.FromArgb(156, 151, 166), BackGround = Color.FromArgb(47, 40, 51) },
+                                                                    new UITheme { Name = "Nomadic",                     ForeGround = Color.FromArgb(195, 191, 148), BackGround = Color.FromArgb(7, 20, 4) },
+                                                                    new UITheme { Name = "Mr. Gusano",                  ForeGround = Color.FromArgb(253, 255, 255), BackGround = Color.FromArgb(39, 86, 78) },
+                                                                    new UITheme { Name = "Slava Ukraini!",              ForeGround = Color.FromArgb(255, 215, 0),   BackGround = Color.FromArgb(0, 87, 183) },
+                                                                    new UITheme { Name = "Hexagonis",                   ForeGround = Color.FromArgb(219, 173, 80),  BackGround = Color.FromArgb(37, 40, 60) },
+                                                                    new UITheme { Name = "Split Push Toads",            ForeGround = Color.FromArgb(33, 95, 73),    BackGround = Color.FromArgb(248, 250, 229) },
+                                                                    new UITheme { Name = "Soaring Potential",           ForeGround = Color.FromArgb(102, 0, 0),     BackGround = Color.FromArgb(230, 230, 230) }
 
                                                                  };
 
 
-        public void apply_theme(Control user_control, log_file_managment.session_variables session)
+        public void ApplyTheme(Control userControl, LogFileManagment.SessionVariables session)
         {
-            for_each_control(user_control, session);
+            ForEachControl(userControl, session);
         }
 
-        private void for_each_control(Control parent, log_file_managment.session_variables session)
+        private void ForEachControl(Control parent, LogFileManagment.SessionVariables session)
         {
             foreach (Control ctrl in parent.Controls)
             {
-                ctrl.ForeColor = session.fore_color;
-                ctrl.BackColor = session.back_color;
+                ctrl.ForeColor = session.ForeColor;
+                ctrl.BackColor = session.BackColor;
 
                 if (ctrl is DataGridView)
-                    style_data_grid_view(((DataGridView)ctrl), session);
+                    StyleDataGridView(((DataGridView)ctrl), session);
 
                 if (ctrl is Chart)
-                    style_chart(((Chart)ctrl), session);
+                    StyleChart(((Chart)ctrl), session);
 
                 if (ctrl is LinkLabel)
-                    style_link(((LinkLabel)ctrl), session);
+                    StyleLink(((LinkLabel)ctrl), session);
 
                 if (ctrl is ProgressBar)
-                    style_progressbar(((ProgressBar)ctrl), session);
+                    StyleProgressBar(((ProgressBar)ctrl), session);
 
-                for_each_control(ctrl, session);
+                ForEachControl(ctrl, session);
             }
-            parent.ForeColor = session.fore_color;
-            parent.BackColor = session.back_color;
+            parent.ForeColor = session.ForeColor;
+            parent.BackColor = session.BackColor;
         }
 
-        private void style_progressbar(ProgressBar pb, log_file_managment.session_variables session)
+        private void StyleProgressBar(ProgressBar pb, LogFileManagment.SessionVariables session)
         {
         }
 
-        private void style_link(LinkLabel link, log_file_managment.session_variables session)
+        private void StyleLink(LinkLabel link, LogFileManagment.SessionVariables session)
         {
-            link.ActiveLinkColor = session.fore_color;
-            link.DisabledLinkColor = session.fore_color;
-            link.LinkColor = session.fore_color;
+            link.ActiveLinkColor = session.ForeColor;
+            link.DisabledLinkColor = session.ForeColor;
+            link.LinkColor = session.ForeColor;
         }
 
 
-        private void style_chart(Chart chart, log_file_managment.session_variables session)
+        private void StyleChart(Chart chart, LogFileManagment.SessionVariables session)
         {
             foreach (Legend leg in chart.Legends)
             {
-                leg.ForeColor = session.fore_color;
-                leg.BackColor = session.back_color;
-                leg.TitleForeColor = session.fore_color;
-                leg.TitleBackColor = session.back_color;
+                leg.ForeColor = session.ForeColor;
+                leg.BackColor = session.BackColor;
+                leg.TitleForeColor = session.ForeColor;
+                leg.TitleBackColor = session.BackColor;
             }
 
             foreach (ChartArea area in chart.ChartAreas)
             {
-                area.BackColor = session.back_color;
+                area.BackColor = session.BackColor;
 
-                area.AxisX.TitleForeColor = session.fore_color;
-                area.AxisX.LineColor = session.fore_color;
-                area.AxisX.InterlacedColor = session.fore_color;
-                area.AxisX.MajorGrid.LineColor = session.back_color;
-                area.AxisX.LabelStyle.ForeColor = session.fore_color;
+                area.AxisX.TitleForeColor = session.ForeColor;
+                area.AxisX.LineColor = session.ForeColor;
+                area.AxisX.InterlacedColor = session.ForeColor;
+                area.AxisX.MajorGrid.LineColor = session.BackColor;
+                area.AxisX.LabelStyle.ForeColor = session.ForeColor;
 
-                area.AxisX2.TitleForeColor = session.fore_color;
-                area.AxisX2.LineColor = session.fore_color;
-                area.AxisX2.InterlacedColor = session.fore_color;
-                area.AxisX2.MajorGrid.LineColor = session.back_color;
-                area.AxisX2.LabelStyle.ForeColor = session.fore_color;
+                area.AxisX2.TitleForeColor = session.ForeColor;
+                area.AxisX2.LineColor = session.ForeColor;
+                area.AxisX2.InterlacedColor = session.ForeColor;
+                area.AxisX2.MajorGrid.LineColor = session.BackColor;
+                area.AxisX2.LabelStyle.ForeColor = session.ForeColor;
 
-                area.AxisY.TitleForeColor = session.fore_color;
-                area.AxisY.LineColor = session.fore_color;
-                area.AxisY.InterlacedColor = session.fore_color;
-                area.AxisY.MajorGrid.LineColor = session.back_color;
-                area.AxisY.LabelStyle.ForeColor = session.fore_color;
+                area.AxisY.TitleForeColor = session.ForeColor;
+                area.AxisY.LineColor = session.ForeColor;
+                area.AxisY.InterlacedColor = session.ForeColor;
+                area.AxisY.MajorGrid.LineColor = session.BackColor;
+                area.AxisY.LabelStyle.ForeColor = session.ForeColor;
 
-                area.AxisY2.TitleForeColor = session.fore_color;
-                area.AxisY2.LineColor = session.fore_color;
-                area.AxisY2.InterlacedColor = session.fore_color;
-                area.AxisY2.MajorGrid.LineColor = session.back_color;
-                area.AxisY2.LabelStyle.ForeColor = session.fore_color;
+                area.AxisY2.TitleForeColor = session.ForeColor;
+                area.AxisY2.LineColor = session.ForeColor;
+                area.AxisY2.InterlacedColor = session.ForeColor;
+                area.AxisY2.MajorGrid.LineColor = session.BackColor;
+                area.AxisY2.LabelStyle.ForeColor = session.ForeColor;
             }
         }
 
 
-        private void style_data_grid_view(DataGridView dgv, log_file_managment.session_variables session)
+        private void StyleDataGridView(DataGridView dgv, LogFileManagment.SessionVariables session)
         {
-            dgv.GridColor = session.fore_color;
-            dgv.BackgroundColor = session.back_color;
-            dgv.DefaultCellStyle.ForeColor = session.fore_color;
-            dgv.DefaultCellStyle.BackColor = session.back_color;
-            dgv.DefaultCellStyle.SelectionForeColor = session.back_color;
-            dgv.DefaultCellStyle.SelectionBackColor = session.fore_color;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = session.fore_color;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = session.back_color;
-            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = session.back_color;
-            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = session.fore_color;
-            dgv.RowHeadersDefaultCellStyle.ForeColor = session.fore_color;
-            dgv.RowHeadersDefaultCellStyle.BackColor = session.back_color;
-            dgv.RowHeadersDefaultCellStyle.SelectionForeColor = session.back_color;
-            dgv.RowHeadersDefaultCellStyle.SelectionBackColor = session.fore_color;
-            dgv.RowsDefaultCellStyle.ForeColor = session.fore_color;
-            dgv.RowsDefaultCellStyle.BackColor = session.back_color;
-            dgv.RowsDefaultCellStyle.SelectionForeColor = session.back_color;
-            dgv.RowsDefaultCellStyle.SelectionBackColor = session.fore_color;
-            dgv.RowTemplate.DefaultCellStyle.ForeColor = session.fore_color;
-            dgv.RowTemplate.DefaultCellStyle.BackColor = session.back_color;
-            dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = session.back_color;
-            dgv.RowTemplate.DefaultCellStyle.SelectionBackColor = session.fore_color;
+            dgv.GridColor = session.ForeColor;
+            dgv.BackgroundColor = session.BackColor;
+            dgv.DefaultCellStyle.ForeColor = session.ForeColor;
+            dgv.DefaultCellStyle.BackColor = session.BackColor;
+            dgv.DefaultCellStyle.SelectionForeColor = session.BackColor;
+            dgv.DefaultCellStyle.SelectionBackColor = session.ForeColor;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = session.ForeColor;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = session.BackColor;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = session.BackColor;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = session.ForeColor;
+            dgv.RowHeadersDefaultCellStyle.ForeColor = session.ForeColor;
+            dgv.RowHeadersDefaultCellStyle.BackColor = session.BackColor;
+            dgv.RowHeadersDefaultCellStyle.SelectionForeColor = session.BackColor;
+            dgv.RowHeadersDefaultCellStyle.SelectionBackColor = session.ForeColor;
+            dgv.RowsDefaultCellStyle.ForeColor = session.ForeColor;
+            dgv.RowsDefaultCellStyle.BackColor = session.BackColor;
+            dgv.RowsDefaultCellStyle.SelectionForeColor = session.BackColor;
+            dgv.RowsDefaultCellStyle.SelectionBackColor = session.ForeColor;
+            dgv.RowTemplate.DefaultCellStyle.ForeColor = session.ForeColor;
+            dgv.RowTemplate.DefaultCellStyle.BackColor = session.BackColor;
+            dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = session.BackColor;
+            dgv.RowTemplate.DefaultCellStyle.SelectionBackColor = session.ForeColor;
 
             foreach (DataGridViewRow row in dgv.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    cell.Style.ForeColor = session.fore_color;
-                    cell.Style.BackColor = session.back_color;
-                    cell.Style.SelectionForeColor = session.back_color;
-                    cell.Style.SelectionBackColor = session.fore_color;
+                    cell.Style.ForeColor = session.ForeColor;
+                    cell.Style.BackColor = session.BackColor;
+                    cell.Style.SelectionForeColor = session.BackColor;
+                    cell.Style.SelectionBackColor = session.ForeColor;
                 }
             }
         }

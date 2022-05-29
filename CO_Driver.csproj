@@ -113,15 +113,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="libraries\filter.cs" />
-    <Compile Include="libraries\market.cs" />
+    <Compile Include="libraries\Filter.cs" />
+    <Compile Include="libraries\GlobalData.cs" />
+    <Compile Include="libraries\LogFileManagment.cs" />
+    <Compile Include="libraries\Market.cs" />
     <Compile Include="libraries\MatchEntry.cs" />
-    <Compile Include="libraries\overlay.cs" />
-    <Compile Include="libraries\resize.cs" />
-    <Compile Include="libraries\theme.cs" />
-    <Compile Include="libraries\translate.cs" />
-    <Compile Include="libraries\ui_translate.cs" />
-    <Compile Include="libraries\upload.cs" />
+    <Compile Include="libraries\Overlay.cs" />
+    <Compile Include="libraries\Resize.cs" />
+    <Compile Include="libraries\Theme.cs" />
+    <Compile Include="libraries\Translate.cs" />
+    <Compile Include="libraries\UITranslate.cs" />
+    <Compile Include="libraries\Upload.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,11 +141,11 @@
     <Compile Include="user_controls\revenue_review.Designer.cs">
       <DependentUpon>revenue_review.cs</DependentUpon>
     </Compile>
-    <Compile Include="user_controls\about_screen.cs">
+    <Compile Include="user_controls\AboutScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\about_screen.Designer.cs">
-      <DependentUpon>about_screen.cs</DependentUpon>
+    <Compile Include="user_controls\AboutScreen.Designer.cs">
+      <DependentUpon>AboutScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="user_controls\garage_view.cs">
       <SubType>UserControl</SubType>
@@ -151,7 +153,7 @@
     <Compile Include="user_controls\garage_view.Designer.cs">
       <DependentUpon>garage_view.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\part_loader.cs" />
+    <Compile Include="libraries\PartLoader.cs" />
     <Compile Include="user_controls\meta_detail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,14 +178,13 @@
     <Compile Include="user_controls\part_optimizer.Designer.cs">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </Compile>
-    <Compile Include="user_controls\build_view.cs">
+    <Compile Include="user_controls\BuildView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\build_view.Designer.cs">
-      <DependentUpon>build_view.cs</DependentUpon>
+    <Compile Include="user_controls\BuildView.Designer.cs">
+      <DependentUpon>BuildView.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\file_trace_managment.cs" />
-    <Compile Include="libraries\log_file_managment.cs" />
+    <Compile Include="libraries\FileTraceManagment.cs" />
     <Compile Include="user_controls\schedule_display.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,7 +197,6 @@
     <Compile Include="user_controls\fusion_calculator.Designer.cs">
       <DependentUpon>fusion_calculator.cs</DependentUpon>
     </Compile>
-    <Compile Include="libraries\global_data.cs" />
     <Compile Include="main_page.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,8 +242,8 @@
     <Compile Include="user_controls\welcome_page.Designer.cs">
       <DependentUpon>welcome_page.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="user_controls\about_screen.resx">
-      <DependentUpon>about_screen.cs</DependentUpon>
+    <EmbeddedResource Include="user_controls\AboutScreen.resx">
+      <DependentUpon>AboutScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\comparison_screen.resx">
       <DependentUpon>comparison_screen.cs</DependentUpon>
@@ -257,8 +257,8 @@
     <EmbeddedResource Include="user_controls\part_optimizer.resx">
       <DependentUpon>part_optimizer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\build_view.resx">
-      <DependentUpon>build_view.cs</DependentUpon>
+    <EmbeddedResource Include="user_controls\BuildView.resx">
+      <DependentUpon>BuildView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="user_controls\part_view.resx">
