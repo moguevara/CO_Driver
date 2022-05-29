@@ -47,7 +47,9 @@ namespace CO_Driver
             {
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
-
+                
+                DataGridViewRow row = (DataGridViewRow)dg_match_history_view.Rows[0].Clone();
+                
                 TimeSpan duration = match.MatchData.MatchEnd - match.MatchData.MatchStart;
                 row.Cells[0].Value = FileTraceManagment.DecodeMatchType(match.MatchData.MatchType);
                 row.Cells[1].Value = match.MatchData.MatchStart;
