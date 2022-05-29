@@ -71,7 +71,7 @@ namespace CO_Driver
             }
 
             dg_match_history_view.AllowUserToAddRows = false;
-            dg_match_history_view.Sort(dg_match_history_view.Columns[1], ListSortDirection.Descending);
+            dg_match_history_view.Sort(dg_match_history_view.SortedColumn ?? dg_match_history_view.Columns[1], ((int)dg_match_history_view.SortOrder) != 1 ? ListSortDirection.Descending : ListSortDirection.Ascending);
 
             Filter.PopulateFilters(filter_selections, cb_game_modes, cb_grouped, cb_power_score, cb_versions, cb_weapons, cb_movement, cb_cabins, cb_modules);
         }
