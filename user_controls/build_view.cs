@@ -119,7 +119,7 @@ namespace CO_Driver
                 rows_populated++;
             }
 
-            this.dg_build_view_grid.Sort(this.dg_build_view_grid.Columns[2], ListSortDirection.Descending);
+            dg_build_view_grid.Sort(dg_build_view_grid.SortedColumn ?? dg_build_view_grid.Columns[2], ((int)dg_build_view_grid.SortOrder) != 2 ? ListSortDirection.Ascending : ListSortDirection.Descending);
 
             string build_hash = "";
 
@@ -191,7 +191,7 @@ namespace CO_Driver
             }
 
             this.dg_build_view_grid.AllowUserToAddRows = false;
-            this.dg_build_view_grid.Sort(this.dg_build_view_grid.Columns[2], ListSortDirection.Descending);
+            dg_build_view_grid.Sort(dg_build_view_grid.SortedColumn ?? dg_build_view_grid.Columns[2], ((int)dg_build_view_grid.SortOrder) != 2 ? ListSortDirection.Ascending : ListSortDirection.Descending);
             this.lb_build_desc.Focus();
             this.dg_build_view_grid.ClearSelection();
         }

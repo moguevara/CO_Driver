@@ -325,7 +325,7 @@ namespace CO_Driver
             }
 
             dg_meta_detail_view.AllowUserToAddRows = false;
-            dg_meta_detail_view.Sort(dg_meta_detail_view.Columns[5], ListSortDirection.Descending);
+            dg_meta_detail_view.Sort(dg_meta_detail_view.SortedColumn ?? dg_meta_detail_view.Columns[5], ((int)dg_meta_detail_view.SortOrder) != 1 ? ListSortDirection.Descending : ListSortDirection.Ascending);
         }
 
         private void initialize_user_profile()
