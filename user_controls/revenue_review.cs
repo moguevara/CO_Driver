@@ -164,23 +164,35 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
-                    fuel_ammount = 40;
-                else
-                if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
-                    fuel_ammount = 20;
-                else
-                if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
-                    fuel_ammount = 40;
-                else
-                if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
-                    fuel_ammount = 60;
-
-                if (chk_badges.Checked && match.MatchData.GameResult == "Win")
+                if (chk_free_fuel.Checked)
                 {
-                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
-                        badges_amount = 19.444;
+                    if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
+                        fuel_ammount = 40;
                     else
+                    if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
+                        fuel_ammount = 20;
+                    else
+                    if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
+                        fuel_ammount = 40;
+                    else
+                    if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
+                        fuel_ammount = 60;
+                }
+
+                if (chk_badges.Checked)
+                { 
+                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
+                    {
+                        if (match.MatchData.GameResult == "Win")
+                        {
+                            badges_amount = 19.444;
+                        }
+                        else if (match.MatchData.GameResult == "Unfinished" && match.MatchData.LocalPlayer.Stats.Score >= 40 && match.MatchData.WinReason == "RACE_FIRST")
+                        {
+                            badges_amount = 19.444;
+                        }
+                    }
+                    else if (match.MatchData.GameResult == "Win")
                     {
                         switch (match.MatchData.MatchType)
                         {
@@ -218,9 +230,6 @@ namespace CO_Driver
 
                 if (!chk_game_result.Checked)
                     match_result = "";
-
-                if (chk_free_fuel.Checked)
-                    fuel_ammount = 0;
 
                 foreach (revenue_grouping group in master_groupings)
                 {
