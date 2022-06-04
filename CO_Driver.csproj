@@ -129,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="user_controls\ViewHelpers.cs" />
     <Compile Include="user_controls\comparison_screen.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -42,7 +42,6 @@ namespace CO_Driver
             Filter.ResetFilters(filter_selections);
 
             dg_match_history_view.Rows.Clear();
-            //dg_match_history_view.Columns[1].DefaultCellStyle.Format = "MM/dd HH:mm:ss";
             dg_match_history_view.AllowUserToAddRows = true;
             foreach (FileTraceManagment.MatchRecord match in history.ToList())
             {
@@ -53,7 +52,7 @@ namespace CO_Driver
                 TimeSpan duration = match.MatchData.MatchEnd - match.MatchData.MatchStart;
                 row.Cells[0].Value = FileTraceManagment.DecodeMatchType(match.MatchData.MatchType);
                 row.Cells[1].Value = match.MatchData.MatchStart;
-                row.Cells[2].Value = string.Format(@"{0}m {1}s", duration.Minutes, duration.Seconds);
+                row.Cells[2].Value = match.MatchData.MatchEnd - match.MatchData.MatchStart;
                 row.Cells[3].Value = Translate.TranslateString(match.MatchData.MapDesc, session, translations);
                 row.Cells[4].Value = match.MatchData.LocalPlayer.BuildHash;
                 row.Cells[5].Value = match.MatchData.LocalPlayer.PowerScore;
@@ -228,6 +227,14 @@ namespace CO_Driver
         private void match_history_Resize(object sender, EventArgs e)
         {
             resize.ResizeUserControl(this);
+        }
+
+        private void dg_match_history_view_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value != null && dg_match_history_view.Columns[e.ColumnIndex].Name == "match_round_duration")
+            {
+                ViewHelpers.SetMomentFormatForTimeSpanCell(e);
+            }
         }
     }
 }

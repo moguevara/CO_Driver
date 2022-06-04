@@ -74,8 +74,16 @@ namespace CO_Driver
                 return data;
 
             data.last_update = DateTime.Now;
-            data.market_items = LoadCrossoutDBData();
-            SaveMarketData(session, data);
+            try
+            {
+                data.market_items = LoadCrossoutDBData();
+                SaveMarketData(session, data);
+            }
+            catch
+            {
+
+            }
+            
             return data;
         }
 

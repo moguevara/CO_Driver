@@ -164,23 +164,35 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
-                    fuel_ammount = 40;
-                else
-                if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
-                    fuel_ammount = 20;
-                else
-                if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
-                    fuel_ammount = 40;
-                else
-                if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
-                    fuel_ammount = 60;
-
-                if (chk_badges.Checked && match.MatchData.GameResult == "Win")
+                if (chk_free_fuel.Checked)
                 {
-                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
-                        badges_amount = 19.444;
+                    if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
+                        fuel_ammount = 40;
                     else
+                    if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
+                        fuel_ammount = 20;
+                    else
+                    if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
+                        fuel_ammount = 40;
+                    else
+                    if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
+                        fuel_ammount = 60;
+                }
+
+                if (chk_badges.Checked)
+                { 
+                    if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
+                    {
+                        if (match.MatchData.GameResult == "Win")
+                        {
+                            badges_amount = 19.444;
+                        }
+                        else if (match.MatchData.GameResult == "Unfinished" && match.MatchData.LocalPlayer.Stats.Score >= 40 && match.MatchData.WinReason == "RACE_FIRST")
+                        {
+                            badges_amount = 19.444;
+                        }
+                    }
+                    else if (match.MatchData.GameResult == "Win")
                     {
                         switch (match.MatchData.MatchType)
                         {
@@ -218,9 +230,6 @@ namespace CO_Driver
 
                 if (!chk_game_result.Checked)
                     match_result = "";
-
-                if (chk_free_fuel.Checked)
-                    fuel_ammount = 0;
 
                 foreach (revenue_grouping group in master_groupings)
                 {
@@ -314,21 +323,14 @@ namespace CO_Driver
 
                 if (show_average)
                 {
-                    row.Cells[3].Value = string.Format("{0:D}m {1:D2}s", t2.Minutes, t2.Seconds);
-                    row.Cells[4].Value = string.Format("{0:D}m {1:D2}s", t3.Minutes, t3.Seconds);
+                    row.Cells[3].Value = t2;
+                    row.Cells[4].Value = t3;
                     row.Cells[5].Value = (group.fuel_cost / group.games).ToString();
                 }
                 else
                 {
-                    if (t4.Days == 0)
-                        row.Cells[3].Value = string.Format("{0:D}h {1:D2}m", t4.Hours, t4.Minutes);
-                    else
-                        row.Cells[3].Value = string.Format("{0:D}d {1:D2}h", t4.Days, t4.Hours);
-
-                    if (t5.Days == 0)
-                        row.Cells[4].Value = string.Format("{0:D}h {1:D2}m", t5.Hours, t5.Minutes);
-                    else
-                        row.Cells[4].Value = string.Format("{0:D}d {1:D2}h", t5.Days, t5.Hours);
+                    row.Cells[3].Value = t4;
+                    row.Cells[4].Value = t5;
 
                     row.Cells[5].Value = group.fuel_cost.ToString();
                 }
@@ -406,30 +408,8 @@ namespace CO_Driver
             dg_revenue.AllowUserToAddRows = false;
             dg_revenue.Sort(dg_revenue.SortedColumn ?? dg_revenue.Columns[2], ((int)dg_revenue.SortOrder) != 1 ? ListSortDirection.Descending : ListSortDirection.Ascending);
 
-            TimeSpan queue_span = TimeSpan.FromSeconds(total_queue_duration);
-            TimeSpan match_span = TimeSpan.FromSeconds(total_match_duration);
-
-            lb_queue_time.Text = "";
-            lb_match_time.Text = "";
-
-            if (queue_span.Days != 0)
-                lb_queue_time.Text = string.Format("{0:D}d {1:D}h", queue_span.Days, queue_span.Hours);
-            else if (queue_span.Hours != 0)
-                lb_queue_time.Text = string.Format("{0:D}h {1:D2}m", queue_span.Hours, queue_span.Minutes);
-            else if (queue_span.Minutes != 0)
-                lb_queue_time.Text = string.Format("{0:D}m {1:D2}s", queue_span.Minutes, queue_span.Seconds);
-            else if (queue_span.Seconds != 0)
-                lb_queue_time.Text = string.Format("{0:D}s", queue_span.Seconds);
-
-            if (match_span.Days != 0)
-                lb_match_time.Text = string.Format("{0:D}d {1:D}h", match_span.Days, match_span.Hours);
-            else if (match_span.Hours != 0)
-                lb_match_time.Text = string.Format("{0:D}h {1:D2}m", match_span.Hours, match_span.Minutes);
-            else if (match_span.Minutes != 0)
-                lb_match_time.Text = string.Format("{0:D}m {1:D2}s", match_span.Minutes, match_span.Seconds);
-            else if (match_span.Seconds != 0)
-                lb_match_time.Text = string.Format("{0:D}s", match_span.Seconds);
-
+            lb_queue_time.Text = ViewHelpers.GetMomentFormatFromSeconds(total_queue_duration);
+            lb_match_time.Text = ViewHelpers.GetMomentFormatFromSeconds(total_match_duration);
             lb_total_game.Text = total_games.ToString();
             lb_coins.Text = string.Format("{0:n0}", total_coins);
             lb_coins_rate.Text = Math.Round((double)total_coins / ((double)((total_queue_duration + total_match_duration) / 3600.0)), 2).ToString();
@@ -602,7 +582,13 @@ namespace CO_Driver
         {
             resize.ResizeUserControl(this);
         }
-
         
+        private void dg_revenue_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value != null && (dg_revenue.Columns[e.ColumnIndex].Name == "Column14" || dg_revenue.Columns[e.ColumnIndex].Name == "Column5"))
+            {
+               ViewHelpers.SetMomentFormatForTimeSpanCell(e);
+            }
+        }
     }
 }
