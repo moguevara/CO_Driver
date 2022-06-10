@@ -164,18 +164,15 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (chk_free_fuel.Checked)
+                if (!chk_free_fuel.Checked)
                 {
                     if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
                         fuel_ammount = 40;
-                    else
-                    if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
+                    else if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
                         fuel_ammount = 20;
-                    else
-                    if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
+                    else if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
                         fuel_ammount = 40;
-                    else
-                    if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
+                    else if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
                         fuel_ammount = 60;
                 }
 
@@ -246,9 +243,9 @@ namespace CO_Driver
                         group.total_game_duration += match.MatchData.MatchDurationSeconds;
 
                         if (group.match_rewards.ContainsKey("Badges"))
-                            group.match_rewards["Badges"] += (int)badges_amount;
+                            group.match_rewards["Badges"] += (int)Math.Round(badges_amount, 0);
                         else
-                            group.match_rewards.Add("Badges", (int)badges_amount);
+                            group.match_rewards.Add("Badges", (int)Math.Round(badges_amount, 0));
 
                         foreach (KeyValuePair<string, int> reward in match.MatchData.MatchRewards)
                         {
@@ -283,9 +280,9 @@ namespace CO_Driver
                     }
 
                     if (new_group.match_rewards.ContainsKey("Badges"))
-                        new_group.match_rewards["Badges"] += (int)badges_amount;
+                        new_group.match_rewards["Badges"] += (int)Math.Round(badges_amount, 0);
                     else
-                        new_group.match_rewards.Add("Badges", (int)badges_amount);
+                        new_group.match_rewards.Add("Badges", (int)Math.Round(badges_amount, 0));
 
                     master_groupings.Add(new_group);
                 }
