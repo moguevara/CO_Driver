@@ -134,7 +134,7 @@ namespace CO_Driver
             System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + localUserID.ToString());
 #else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + local_user_id.ToString());
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString());
 #endif
             request.Method = "POST";
             request.ContentType = "application/json";

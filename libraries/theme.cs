@@ -35,7 +35,8 @@ namespace CO_Driver
                                                                     new UITheme { Name = "Slava Ukraini!",              ForeGround = Color.FromArgb(255, 215, 0),   BackGround = Color.FromArgb(0, 87, 183) },
                                                                     new UITheme { Name = "Hexagonis",                   ForeGround = Color.FromArgb(219, 173, 80),  BackGround = Color.FromArgb(37, 40, 60) },
                                                                     new UITheme { Name = "Split Push Toads",            ForeGround = Color.FromArgb(33, 95, 73),    BackGround = Color.FromArgb(248, 250, 229) },
-                                                                    new UITheme { Name = "Soaring Potential",           ForeGround = Color.FromArgb(102, 0, 0),     BackGround = Color.FromArgb(230, 230, 230) }
+                                                                    new UITheme { Name = "Soaring Potential",           ForeGround = Color.FromArgb(102, 0, 0),     BackGround = Color.FromArgb(230, 230, 230) },
+                                                                    new UITheme { Name = "Cactus",                      ForeGround = Color.FromArgb(153, 153, 102), BackGround = Color.FromArgb(51, 102, 0) }
 
                                                                  };
 

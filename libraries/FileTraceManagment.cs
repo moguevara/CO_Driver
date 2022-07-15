@@ -1285,11 +1285,11 @@ namespace CO_Driver
 
         public static void LoadPlayerEvent(string line, SessionStats currentSession)
         {
-            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
+            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})\| 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8})(?<live>.*), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
 
             if (lineResults.Groups.Count < 2)
             {
-                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                MessageBox.Show(string.Format(@"Error with LoadPlayerEvent line {0}", line));
                 return;
             }
 
@@ -1427,11 +1427,11 @@ namespace CO_Driver
         {
             //| client: ADD_PLAYER  0   SmokinJoker420, uid 02097231 status   ACTIVE team 2
             //| client: UPDATE_PLAYER  4   BLU SKY3S@live, uid 10813925 status   ACTIVE team 1
-            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: (?<add_or_update>[^\s]+) [\s]{0,1}(?<spawn_position>[^\s]+) (?<nickname>[^,]+), uid (?<uid>[^\s]+) status (?<status>.*) team (?<team>.*)$");
+            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| client: (?<add_or_update>[^\s]+) [\s]{0,1}(?<spawn_position>[^\s]+) (?<nickname>[^,]+), uid (?<uid>[0-9]{8})(?<live>.*) status (?<status>.*) team (?<team>.*)$");
 
             if (lineResults.Groups.Count < 2)
             {
-                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                MessageBox.Show(string.Format(@"Error with AddOrUpdatePlayerFromGameLog line {0}", line));
                 return;
             }
 
@@ -1528,11 +1528,11 @@ namespace CO_Driver
         public static void LoadPlayerFromGameLog(string line, SessionStats currentSession)
         {
             //08:14:48.699         | Combat: 	player  0, uid 09495729, party 00000000, nickname: Stiiin              , team: 2, bot: 0, ur: 8884, mmHash: 6e064b74
-            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| Combat: 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8}), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
+            Match lineResults = Regex.Match(line, @"^(?<hour>[0-9]{2}):(?<minute>[0-9]{2}):(?<second>[0-9]{2})\.(?<millisecond>[0-9]{3})         \| Combat: 	player (?<spawn_position>.+), uid (?<uid>[0-9]{8})(?<live>.*), party (?<party_id>[0-9]{8}), nickname: (?<nickname>.+?), team: (?<team>[0-9]+), bot: (?<bot>[0-9]{1}), ur: (?<power_score>[0-9]+), mmHash: (?<build_hash>.{8})$");
 
             if (lineResults.Groups.Count < 2)
             {
-                MessageBox.Show(string.Format(@"Error with line {0}", line));
+                MessageBox.Show(string.Format(@"Error with LoadPlayerFromGameLog line {0}", line));
                 return;
             }
 
