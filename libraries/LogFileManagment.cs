@@ -150,7 +150,7 @@ namespace CO_Driver
 
                         while (game_line != null)
                         {
-                            while (game_line != null && (game_line.Length == 0 || game_line.Substring(0, 9) == "--- Date:"))
+                            while (game_line != null && (game_line.Length < 13 || game_line.Substring(0, 9) == "--- Date:"))
                                 game_line = game_reader.ReadLine();
 
                             if (game_line.Contains(@"| TargemService:OnGoingOnline:"))
