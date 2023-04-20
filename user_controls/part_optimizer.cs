@@ -7,7 +7,7 @@ namespace CO_Driver
 {
     public partial class part_optimizer : UserControl
     {
-        public List<PartLoader.Part> master_part_list = new List<PartLoader.Part> { };
+        public List<PartLoader.Structure> master_part_list = new List<PartLoader.Structure> { };
         public LogFileManagment.SessionVariables session = new LogFileManagment.SessionVariables { };
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };

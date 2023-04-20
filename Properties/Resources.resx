@@ -121,10 +121,34 @@
   <data name="32x32logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\32x32logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cabins" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cabins.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cks.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="codriver_transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\codriver_transparent.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="codriver_transparent_initial" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\codriver_transparent_initial.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="engines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\engines.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="explosives" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\explosives.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="modules" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\modules.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="movements" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\movements.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="structures" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\structures.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="weapons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\weapons.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

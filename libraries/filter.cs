@@ -156,21 +156,21 @@ namespace CO_Driver
 
             if (buildRecords.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
             {
-                if (!string.IsNullOrEmpty(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
-                    if (!filter.Cabins.Contains(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations)))
-                        filter.Cabins.Add(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations));
+                if (!string.IsNullOrEmpty(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Description, session, translations)))
+                    if (!filter.Cabins.Contains(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Description, session, translations)))
+                        filter.Cabins.Add(Translate.TranslateString(buildRecords[match.MatchData.LocalPlayer.BuildHash].Cabin.Description, session, translations));
 
                 foreach (PartLoader.Weapon weapon in buildRecords[match.MatchData.LocalPlayer.BuildHash].Weapons)
-                    if (!filter.Weapons.Contains(Translate.TranslateString(weapon.Name, session, translations)))
-                        filter.Weapons.Add(Translate.TranslateString(weapon.Name, session, translations));
+                    if (!filter.Weapons.Contains(Translate.TranslateString(weapon.Description, session, translations)))
+                        filter.Weapons.Add(Translate.TranslateString(weapon.Description, session, translations));
 
                 foreach (PartLoader.Movement movement in buildRecords[match.MatchData.LocalPlayer.BuildHash].Movement)
-                    if (!filter.MovementParts.Contains(Translate.TranslateString(movement.Name, session, translations)))
-                        filter.MovementParts.Add(Translate.TranslateString(movement.Name, session, translations));
+                    if (!filter.MovementParts.Contains(Translate.TranslateString(movement.Description, session, translations)))
+                        filter.MovementParts.Add(Translate.TranslateString(movement.Description, session, translations));
 
                 foreach (PartLoader.Module module in buildRecords[match.MatchData.LocalPlayer.BuildHash].Modules)
-                    if (!filter.ModuleParts.Contains(Translate.TranslateString(module.Name, session, translations)))
-                        filter.ModuleParts.Add(Translate.TranslateString(module.Name, session, translations));
+                    if (!filter.ModuleParts.Contains(Translate.TranslateString(module.Description, session, translations)))
+                        filter.ModuleParts.Add(Translate.TranslateString(module.Description, session, translations));
             }
         }
 

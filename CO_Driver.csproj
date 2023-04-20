@@ -65,7 +65,7 @@
     <ApplicationIcon>RotFish.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>5B46FCEB0860772AB95E0C2EE9B8B02D5D3E0023</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>DA9479CA5CD4A2B375F0FDE3C44D5CC24073006A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>
@@ -316,6 +316,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\cabins.json" />
+    <None Include="Resources\cks.json" />
+    <None Include="Resources\engines.json" />
+    <None Include="Resources\explosives.json" />
+    <None Include="Resources\modules.json" />
+    <None Include="Resources\movements.json" />
+    <None Include="Resources\structures.json" />
+    <None Include="Resources\weapons.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

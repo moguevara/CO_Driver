@@ -7,7 +7,7 @@ namespace CO_Driver
 {
     public partial class part_view : UserControl
     {
-        public List<PartLoader.Part> master_part_list = new List<PartLoader.Part> { };
+        public List<PartLoader.Structure> master_part_list = new List<PartLoader.Structure> { };
         public LogFileManagment.SessionVariables session;
         public Dictionary<string, Dictionary<string, Translate.Translation>> translations;
         public Dictionary<string, Dictionary<string, string>> ui_translations = new Dictionary<string, Dictionary<string, string>> { };
@@ -16,7 +16,7 @@ namespace CO_Driver
         private class unique_parts
         {
             public int part_count { get; set; }
-            public PartLoader.Part part { get; set; }
+            public PartLoader.Structure part { get; set; }
         }
 
         public part_view()

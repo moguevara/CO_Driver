@@ -71,6 +71,26 @@ namespace CO_Driver.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] cabins {
+            get {
+                object obj = ResourceManager.GetObject("cabins", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] cks {
+            get {
+                object obj = ResourceManager.GetObject("cks", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap codriver_transparent {
@@ -87,6 +107,66 @@ namespace CO_Driver.Properties {
             get {
                 object obj = ResourceManager.GetObject("codriver_transparent_initial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] engines {
+            get {
+                object obj = ResourceManager.GetObject("engines", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] explosives {
+            get {
+                object obj = ResourceManager.GetObject("explosives", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] modules {
+            get {
+                object obj = ResourceManager.GetObject("modules", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] movements {
+            get {
+                object obj = ResourceManager.GetObject("movements", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] structures {
+            get {
+                object obj = ResourceManager.GetObject("structures", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] weapons {
+            get {
+                object obj = ResourceManager.GetObject("weapons", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

@@ -5,7 +5,7 @@ namespace CO_Driver
 {
     public class GlobalData
     {
-        public static string CURRENT_VERSION = "0.1.0.80";
+        public static string CURRENT_VERSION = "0.1.0.81";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -109,6 +109,7 @@ namespace CO_Driver
         public const int GFX_LOG_FILE = 4;
         public const int NET_LOG_FILE = 5;
 
+        public const int SHOP_FACTION = 0;
         public const int ENGINEER_FACTION = 1;
         public const int LUNATICS_FACTION = 2;
         public const int NOMADS_FACTION = 3;
@@ -118,6 +119,7 @@ namespace CO_Driver
         public const int FIRESTARTERS_FACTION = 7;
         public const int FOUNDERS_FACTION = 8;
         public const int PRESTIGUE_PACK_FACTION = 9;
+        public const int SYNDICATE_FACTION = 10;
 
         public const int BASE_RARITY = 0;
         public const int COMMON_RARITY = 1;

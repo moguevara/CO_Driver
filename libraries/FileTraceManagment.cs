@@ -274,7 +274,7 @@ namespace CO_Driver
 
         public class StaticRecordDB
         {
-            public List<PartLoader.Part> GlobalPartsList { get; set; }
+            public List<PartLoader.Structure> GlobalPartsList { get; set; }
             public Dictionary<string, PartLoader.Weapon> GlobalWeaponDict { get; set; }
             public Dictionary<string, PartLoader.Cabin> GlobalCabinDict { get; set; }
             public Dictionary<string, PartLoader.Engine> GlobalEngineDict { get; set; }
@@ -323,7 +323,7 @@ namespace CO_Driver
             currentSession.FileData.HistoricFileSessionList = LoadHistoricFileList(localSessionVariables.HistoricFileLocation);
             currentSession.PlayerBuildRecords = new Dictionary<string, BuildRecord> { };
             currentSession.StaticRecords = new StaticRecordDB { };
-            currentSession.StaticRecords.GlobalPartsList = new List<PartLoader.Part> { };
+            currentSession.StaticRecords.GlobalPartsList = new List<PartLoader.Structure> { };
             currentSession.StaticRecords.GlobalCabinDict = new Dictionary<string, PartLoader.Cabin> { };
             currentSession.StaticRecords.GlobalEngineDict = new Dictionary<string, PartLoader.Engine> { };
             currentSession.StaticRecords.GlobalExplosivesDict = new Dictionary<string, PartLoader.Explosive> { };
@@ -355,18 +355,9 @@ namespace CO_Driver
                 currentSession.TwitchSettings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(Overlay.DefaultTwitchSettings());
             }
 
-            PartLoader.PopulateGlobalPartsList(currentSession);
-            PartLoader.PopulateWeaponList(currentSession);
-            PartLoader.PopulateModuleList(currentSession);
-            PartLoader.PopulateCabinList(currentSession);
-            PartLoader.PopulateEngineList(currentSession);
-            PartLoader.PopulateExplosiveList(currentSession);
-            PartLoader.PopulateMovementList(currentSession);
-            PartLoader.PopulateRewardList(currentSession);
-            PartLoader.LoadEventSchedule(currentSession);
-            PartLoader.LoadMapDictionary(currentSession);
-            PartLoader.LoadResourceDictionary(currentSession);
-            PartLoader.LoadCKDictionary(currentSession);
+            PartLoader.LoadParts(currentSession);
+
+            
         }
 
 
@@ -2181,41 +2172,41 @@ namespace CO_Driver
                     }
                     movement_count++;
                 }
-                string expected_category = localBuild.Movement[0].Category; //short description stuff
+                string expected_category = localBuild.Movement[0].Type; //short description stuff
                 bool class_flag = false;
                 foreach (PartLoader.Movement movement in localBuild.Movement)
                 {
-                    if (movement.Category != expected_category)
+                    if (movement.Type != expected_category)
                     {
                         class_flag = true;
                     }
                 }
                 if (class_flag == false)
                 {
-                    short_description += localBuild.Movement[0].Category;
+                    short_description += localBuild.Movement[0].Type;
                 }
                 else
                 {
                     string short_movement_desc = "";
-                    if (localBuild.Movement.Select(x => x.Category.Contains("wheel")).Count() > 0)
+                    if (localBuild.Movement.Select(x => x.Type.Contains("wheel")).Count() > 0)
                     {
                         short_movement_desc = "wheels";
                     }
-                    if (localBuild.Movement.Select(x => x.Category.Contains("track")).Count() > 0)
+                    if (localBuild.Movement.Select(x => x.Type.Contains("track")).Count() > 0)
                     {
                         short_movement_desc = "tracks";
                     }
-                    if (localBuild.Movement.Select(x => x.Category == "auger").Count() > 0)
+                    if (localBuild.Movement.Select(x => x.Type == "auger").Count() > 0)
                     {
                         short_movement_desc = "augers";
                     }
-                    if (localBuild.Movement.Select(x => x.Category == "hover").Count() > 0)
+                    if (localBuild.Movement.Select(x => x.Type == "hover").Count() > 0)
                     {
                         short_movement_desc = "hovers";
                     }
                     if (localBuild.Movement.Select(x => x.Description == "Bigram").Count() > 0)
                     {
-                        if (localBuild.Movement.Select(x => x.Category.Contains("wheel")).Count() > 0)
+                        if (localBuild.Movement.Select(x => x.Type.Contains("wheel")).Count() > 0)
                         {
                             short_movement_desc = "wheels";
                         }
@@ -2244,7 +2235,7 @@ namespace CO_Driver
                 int module_count = 1;
                 foreach (PartLoader.Module module in localBuild.Modules)
                 {
-                    if (module.ModuleClass != "connector" && module.Name != "CarPart_ModuleRadio")
+                    if (module.ModuleClass != "Coupling module" && module.ModuleClass != "Rift 2M" && module.Name != "CarPart_ModuleRadio")
                     {
                         long_description += module.Description;
                         if (module_count < localBuild.Modules.Count() - 1)
