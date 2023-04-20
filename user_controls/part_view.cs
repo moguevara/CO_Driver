@@ -82,22 +82,21 @@ namespace CO_Driver
             {
                 DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
                 row.Cells[0].Value = part.part.Description.ToString();
-                row.Cells[1].Value = part.part_count;
-                row.Cells[2].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.DecodeFactionName(part.part.Level) + " - Prestigue" : ftm.DecodeFactionName(part.part.Faction);
-                row.Cells[3].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? 0 : part.part.Level;
-                row.Cells[4].Value = part.part.PartDurability;
-                row.Cells[5].Value = part.part.HullDurability;
-                row.Cells[6].Value = part.part.Mass;
-                row.Cells[7].Value = part.part.PowerScore;
-                row.Cells[8].Value = part.part.PassThrough;
-                row.Cells[9].Value = part.part.BulletResistance;
-                row.Cells[10].Value = part.part.MeleeResistance;
-                row.Cells[11].Value = Math.Round((double)part.part.PartDurability / (double)part.part.PowerScore, 2);
-                row.Cells[12].Value = Math.Round((double)part.part.PartDurability / (double)part.part.Mass, 2);
-                row.Cells[13].Value = Math.Round((double)part.part.Mass / (double)part.part.PowerScore, 2);
-                row.Cells[14].Value = Math.Round((double)part.part.Mass / (double)part.part.PartDurability, 2);
-                row.Cells[15].Value = Math.Round((double)part.part.PowerScore / (double)part.part.PartDurability, 2);
-                row.Cells[16].Value = Math.Round((double)part.part.PowerScore / (double)part.part.Mass, 2);
+                row.Cells[1].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? ftm.DecodeFactionName(part.part.Level) + " - Prestigue" : ftm.DecodeFactionName(part.part.Faction);
+                row.Cells[2].Value = part.part.Faction == GlobalData.PRESTIGUE_PACK_FACTION ? 0 : part.part.Level;
+                row.Cells[3].Value = part.part.PartDurability;
+                row.Cells[4].Value = part.part.HullDurability;
+                row.Cells[5].Value = part.part.Mass;
+                row.Cells[6].Value = part.part.PowerScore;
+                row.Cells[7].Value = part.part.PassThrough;
+                row.Cells[8].Value = part.part.BulletResistance;
+                row.Cells[9].Value = part.part.MeleeResistance;
+                row.Cells[10].Value = Math.Round((double)part.part.PartDurability / (double)part.part.PowerScore, 2);
+                row.Cells[11].Value = Math.Round((double)part.part.PartDurability / (double)part.part.Mass, 2);
+                row.Cells[12].Value = Math.Round((double)part.part.Mass / (double)part.part.PowerScore, 2);
+                row.Cells[13].Value = Math.Round((double)part.part.Mass / (double)part.part.PartDurability, 2);
+                row.Cells[14].Value = Math.Round((double)part.part.PowerScore / (double)part.part.PartDurability, 2);
+                row.Cells[15].Value = Math.Round((double)part.part.PowerScore / (double)part.part.Mass, 2);
                 this.dg_available_parts.Rows.Add(row);
             }
             this.dg_available_parts.AllowUserToAddRows = false;
@@ -122,6 +121,11 @@ namespace CO_Driver
         private void part_view_Resize(object sender, EventArgs e)
         {
             resize.ResizeUserControl(this);
+        }
+
+        private void dg_available_parts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

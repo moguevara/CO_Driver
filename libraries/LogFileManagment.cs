@@ -79,7 +79,7 @@ namespace CO_Driver
                 DawnsChildrenLevel = 15,
                 FireStartersLevel = 15,
                 FoundersLevel = 75,
-                UploadData = false,
+                UploadData = true,
                 SaveCaptures = true,
                 TwitchMode = false,
                 EndorseCODriver = true,

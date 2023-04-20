@@ -94,7 +94,7 @@ namespace CO_Driver
                         row.Cells[2].Value = master_part_list[i].Mass;
                         row.Cells[3].Value = master_part_list[i].PowerScore;
                         this.dg_selected_parts.Rows.Add(row);
-                        this.dg_available_parts.Rows.RemoveAt(e.RowIndex);
+                        //this.dg_available_parts.Rows.RemoveAt(e.RowIndex);
 
                         this.lb_total_parts.Text = string.Format(@"{0}", Convert.ToInt32(this.lb_total_parts.Text) + 1);
                         this.lb_effective_dura.Text = string.Format(@"{0}", Convert.ToInt32(this.lb_effective_dura.Text) + Math.Round(master_part_list[i].PartDurability * resistance_modifier));
@@ -125,15 +125,15 @@ namespace CO_Driver
                     if (this.dg_selected_parts.Rows[e.RowIndex].Cells[0].Value.ToString() == master_part_list[i].Description)
                     {
                         this.dg_available_parts.AllowUserToAddRows = true;
-                        DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
-                        row.Cells[0].Value = master_part_list[i].Description;
-                        row.Cells[1].Value = master_part_list[i].PartDurability;
-                        row.Cells[2].Value = master_part_list[i].HullDurability;
-                        row.Cells[3].Value = master_part_list[i].Mass;
-                        row.Cells[4].Value = master_part_list[i].PowerScore;
-                        row.Cells[5].Value = Math.Round(Math.Round((double)master_part_list[i].PartDurability * resistance_modifier) / (double)master_part_list[i].Mass, 2);
-                        row.Cells[6].Value = Math.Round(Math.Round((double)master_part_list[i].PowerScore * resistance_modifier) / (double)master_part_list[i].Mass, 2);
-                        this.dg_available_parts.Rows.Add(row);
+                        //DataGridViewRow row = (DataGridViewRow)this.dg_available_parts.Rows[0].Clone();
+                        //row.Cells[0].Value = master_part_list[i].Description;
+                        //row.Cells[1].Value = master_part_list[i].PartDurability;
+                        //row.Cells[2].Value = master_part_list[i].HullDurability;
+                        //row.Cells[3].Value = master_part_list[i].Mass;
+                        //row.Cells[4].Value = master_part_list[i].PowerScore;
+                        //row.Cells[5].Value = Math.Round(Math.Round((double)master_part_list[i].PartDurability * resistance_modifier) / (double)master_part_list[i].Mass, 2);
+                        //row.Cells[6].Value = Math.Round(Math.Round((double)master_part_list[i].PowerScore * resistance_modifier) / (double)master_part_list[i].Mass, 2);
+                        //this.dg_available_parts.Rows.Add(row);
                         this.dg_selected_parts.Rows.RemoveAt(e.RowIndex);
 
                         this.dg_available_parts.AllowUserToAddRows = false;

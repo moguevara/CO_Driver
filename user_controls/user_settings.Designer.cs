@@ -707,6 +707,8 @@
             // chk_upload_post_match
             // 
             this.chk_upload_post_match.AutoSize = true;
+            this.chk_upload_post_match.Checked = true;
+            this.chk_upload_post_match.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_upload_post_match.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chk_upload_post_match.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_upload_post_match.ForeColor = System.Drawing.Color.Lime;

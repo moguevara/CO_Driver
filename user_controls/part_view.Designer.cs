@@ -34,8 +34,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dg_available_parts = new System.Windows.Forms.DataGridView();
+            this.chk_include_bumpers = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.num_min_dura = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.build_build_hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.part_quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.part_faction = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.part_level = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.build_games = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,10 +54,6 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chk_include_bumpers = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.num_min_dura = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dg_available_parts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_min_dura)).BeginInit();
             this.SuspendLayout();
@@ -97,7 +96,6 @@
             this.dg_available_parts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_available_parts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.build_build_hash,
-            this.part_quantity,
             this.part_faction,
             this.part_level,
             this.build_games,
@@ -156,6 +154,70 @@
             this.dg_available_parts.Size = new System.Drawing.Size(1195, 536);
             this.dg_available_parts.StandardTab = true;
             this.dg_available_parts.TabIndex = 4;
+            this.dg_available_parts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_available_parts_CellContentClick);
+            // 
+            // chk_include_bumpers
+            // 
+            this.chk_include_bumpers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chk_include_bumpers.AutoSize = true;
+            this.chk_include_bumpers.Checked = true;
+            this.chk_include_bumpers.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_include_bumpers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_include_bumpers.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_include_bumpers.ForeColor = System.Drawing.Color.Lime;
+            this.chk_include_bumpers.Location = new System.Drawing.Point(1064, 50);
+            this.chk_include_bumpers.Name = "chk_include_bumpers";
+            this.chk_include_bumpers.Size = new System.Drawing.Size(12, 11);
+            this.chk_include_bumpers.TabIndex = 53;
+            this.chk_include_bumpers.UseVisualStyleBackColor = true;
+            this.chk_include_bumpers.CheckedChanged += new System.EventHandler(this.chk_include_bumpers_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.Lime;
+            this.label21.Location = new System.Drawing.Point(1080, 48);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(112, 14);
+            this.label21.TabIndex = 54;
+            this.label21.Text = "Include Bumpers";
+            // 
+            // num_min_dura
+            // 
+            this.num_min_dura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_min_dura.BackColor = System.Drawing.Color.Black;
+            this.num_min_dura.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.num_min_dura.ForeColor = System.Drawing.Color.Lime;
+            this.num_min_dura.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.num_min_dura.Location = new System.Drawing.Point(1002, 39);
+            this.num_min_dura.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.num_min_dura.Name = "num_min_dura";
+            this.num_min_dura.Size = new System.Drawing.Size(54, 22);
+            this.num_min_dura.TabIndex = 55;
+            this.num_min_dura.ThousandsSeparator = true;
+            this.num_min_dura.ValueChanged += new System.EventHandler(this.num_min_dura_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Lime;
+            this.label2.Location = new System.Drawing.Point(863, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 14);
+            this.label2.TabIndex = 56;
+            this.label2.Text = "Minimum Durability";
             // 
             // build_build_hash
             // 
@@ -164,14 +226,6 @@
             this.build_build_hash.MinimumWidth = 180;
             this.build_build_hash.Name = "build_build_hash";
             this.build_build_hash.ReadOnly = true;
-            // 
-            // part_quantity
-            // 
-            this.part_quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.part_quantity.HeaderText = "#";
-            this.part_quantity.MinimumWidth = 30;
-            this.part_quantity.Name = "part_quantity";
-            this.part_quantity.ReadOnly = true;
             // 
             // part_faction
             // 
@@ -293,69 +347,6 @@
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             // 
-            // chk_include_bumpers
-            // 
-            this.chk_include_bumpers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chk_include_bumpers.AutoSize = true;
-            this.chk_include_bumpers.Checked = true;
-            this.chk_include_bumpers.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_include_bumpers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chk_include_bumpers.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_include_bumpers.ForeColor = System.Drawing.Color.Lime;
-            this.chk_include_bumpers.Location = new System.Drawing.Point(1064, 50);
-            this.chk_include_bumpers.Name = "chk_include_bumpers";
-            this.chk_include_bumpers.Size = new System.Drawing.Size(12, 11);
-            this.chk_include_bumpers.TabIndex = 53;
-            this.chk_include_bumpers.UseVisualStyleBackColor = true;
-            this.chk_include_bumpers.CheckedChanged += new System.EventHandler(this.chk_include_bumpers_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Lime;
-            this.label21.Location = new System.Drawing.Point(1080, 48);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(112, 14);
-            this.label21.TabIndex = 54;
-            this.label21.Text = "Include Bumpers";
-            // 
-            // num_min_dura
-            // 
-            this.num_min_dura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.num_min_dura.BackColor = System.Drawing.Color.Black;
-            this.num_min_dura.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.num_min_dura.ForeColor = System.Drawing.Color.Lime;
-            this.num_min_dura.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.num_min_dura.Location = new System.Drawing.Point(1002, 39);
-            this.num_min_dura.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.num_min_dura.Name = "num_min_dura";
-            this.num_min_dura.Size = new System.Drawing.Size(54, 22);
-            this.num_min_dura.TabIndex = 55;
-            this.num_min_dura.ThousandsSeparator = true;
-            this.num_min_dura.ValueChanged += new System.EventHandler(this.num_min_dura_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Lime;
-            this.label2.Location = new System.Drawing.Point(863, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 14);
-            this.label2.TabIndex = 56;
-            this.label2.Text = "Minimum Durability";
-            // 
             // part_view
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -389,7 +380,6 @@
         private System.Windows.Forms.NumericUpDown num_min_dura;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_build_hash;
-        private System.Windows.Forms.DataGridViewTextBoxColumn part_quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn part_faction;
         private System.Windows.Forms.DataGridViewTextBoxColumn part_level;
         private System.Windows.Forms.DataGridViewTextBoxColumn build_games;

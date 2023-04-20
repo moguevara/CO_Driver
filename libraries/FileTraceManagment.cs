@@ -2057,6 +2057,8 @@ namespace CO_Driver
                     return "Firestarters";
                 case GlobalData.FOUNDERS_FACTION:
                     return "Founders";
+                case GlobalData.SYNDICATE_FACTION:
+                    return "Syndicate";
                 default:
                     return "Undefined";
             }
