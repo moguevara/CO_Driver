@@ -1236,8 +1236,13 @@ namespace CO_Driver
 
                 BuildRecord local_build = currentSession.PlayerBuildRecords[player.Value.BuildHash];
 
-                foreach (string part in currentSession.PlayerBuildRecords[player.Value.BuildHash].Parts)
+                foreach (string p in currentSession.PlayerBuildRecords[player.Value.BuildHash].Parts)
                 {
+                    string part = p;
+
+                    if (currentSession.StaticRecords.CKDict.ContainsKey(p))
+                        part = currentSession.StaticRecords.CKDict[p];
+
                     if (currentSession.StaticRecords.GlobalCabinDict.ContainsKey(part))
                         local_build.Cabin = currentSession.StaticRecords.GlobalCabinDict[part];
                     else
