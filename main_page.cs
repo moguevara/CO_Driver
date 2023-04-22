@@ -292,10 +292,9 @@ namespace CO_Driver
 
         public void clear_main_page_panel()
         {
-            /*
-            foreach (Control ctrl in main_page_panel.Controls)
-                ctrl.Dispose();
-            */
+            //foreach (Control ctrl in main_page_panel.Controls)
+            //    ctrl.Dispose();
+
             main_page_panel.Controls.Clear();
 
         }

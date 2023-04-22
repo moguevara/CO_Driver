@@ -551,28 +551,28 @@ namespace CO_Driver
                     {
                         if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                             foreach (PartLoader.Weapon part in build_records[match.MatchData.LocalPlayer.BuildHash].Weapons)
-                                add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
+                                add_chart_element(Translate.TranslateString(part.Description, session, translations), value);
                     }
                     break;
                 case grouping.MOVEMENT:
                     if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                         foreach (PartLoader.Movement part in build_records[match.MatchData.LocalPlayer.BuildHash].Movement)
-                            add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(part.Description, session, translations), value);
                     break;
                 case grouping.CABIN:
                     if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                         if (build_records[match.MatchData.LocalPlayer.BuildHash].Cabin != null)
-                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Cabin.Description, session, translations), value);
                     break;
                 case grouping.MODULE:
                     if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                         foreach (PartLoader.Module part in build_records[match.MatchData.LocalPlayer.BuildHash].Modules)
-                            add_chart_element(Translate.TranslateString(part.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(part.Description, session, translations), value);
                     break;
                 case grouping.ENGINE:
                     if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
                         if (build_records[match.MatchData.LocalPlayer.BuildHash].Engine != null)
-                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Engine.Name, session, translations), value);
+                            add_chart_element(Translate.TranslateString(build_records[match.MatchData.LocalPlayer.BuildHash].Engine.Description, session, translations), value);
                     break;
                 case grouping.PART:
                     if (build_records.ContainsKey(match.MatchData.LocalPlayer.BuildHash))
