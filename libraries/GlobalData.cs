@@ -5,7 +5,7 @@ namespace CO_Driver
 {
     public class GlobalData
     {
-        public static string CURRENT_VERSION = "0.1.0.81";
+        public static string CURRENT_VERSION = "0.1.0.82";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -92,7 +92,6 @@ namespace CO_Driver
         public const int ARENA_CASUAL_MATCH = 36;
         public const int ARENA_RANKED_MATCH = 37;
 
-
         public const int MATCH_CATEGORY_COUNT = UNDEFINED_MATCH + 1;
 
         public const int UNDEFINED_CLASSIFICATION = 0;
@@ -154,8 +153,6 @@ namespace CO_Driver
         public const string MOVEMENT_FILTER_DEFAULT = "All Movement";
         public const string MODULE_FILTER_DEFAULT = "All Modules";
         public const string CABIN_FILTER_DEFAULT = "All Cabins";
-
-        public static string DB_PATH = "Data Source=log_database.db;Version=3;New=True;Compress=True;";
 
         public static List<string> Supporters = new List<string> {  "Rot_Fish_Bandit",
                                                                     "QuickSkinner",

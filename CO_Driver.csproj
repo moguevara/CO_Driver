@@ -116,6 +116,7 @@
     <Compile Include="libraries\Filter.cs" />
     <Compile Include="libraries\GlobalData.cs" />
     <Compile Include="libraries\LogFileManagment.cs" />
+    <Compile Include="libraries\LookAheadStreamReader.cs" />
     <Compile Include="libraries\Market.cs" />
     <Compile Include="libraries\MatchEntry.cs" />
     <Compile Include="libraries\Overlay.cs" />

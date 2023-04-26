@@ -112,7 +112,7 @@ namespace CO_Driver
 
             CreateSubDirectories(session);
 
-            if (!session.ValidUsers.ContainsKey(session.LocalUserName) || !session.UIDLookup.ContainsKey(session.LocalUserName))
+            if (!session.ValidUsers.ContainsKey(session.LocalUserName))
                 FindLocalUserName(session);
 
             if (session.UIDLookup.ContainsKey(session.LocalUserName))

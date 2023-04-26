@@ -8,7 +8,7 @@ namespace CO_Driver
 {
     public partial class meta_detail : UserControl
     {
-        public event EventHandler<FileTraceManagment.MatchRecord> load_selected_match;
+        //public event EventHandler<FileTraceManagment.MatchRecord> load_selected_match;
 
         public List<FileTraceManagment.MatchRecord> match_history = new List<FileTraceManagment.MatchRecord> { };
         public Dictionary<string, FileTraceManagment.BuildRecord> build_records = new Dictionary<string, FileTraceManagment.BuildRecord> { };

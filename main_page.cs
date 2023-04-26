@@ -755,7 +755,6 @@ namespace CO_Driver
             Current_session.InMatch = false;
             Current_session.InGarage = false;
 
-
             AutoResetEvent game_auto_reset = new AutoResetEvent(false);
             AutoResetEvent combat_auto_reset = new AutoResetEvent(false);
             FileSystemWatcher game_file_system_watcher = new FileSystemWatcher(".");
@@ -772,12 +771,12 @@ namespace CO_Driver
             FileStream game_file_stream = new FileStream(game_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             FileStream combat_file_stream = new FileStream(combat_trace_file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             StreamReader game_reader = new StreamReader(game_file_stream);
-            StreamReader combat_reader = new StreamReader(combat_file_stream);
+            LookAheadStreamReader combat_reader = new LookAheadStreamReader(combat_file_stream);
 
             try
             {
                 string game_line = game_reader.ReadLine();
-                string combat_line = game_line = combat_reader.ReadLine();
+                string combat_line = combat_reader.ReadLine();
 
                 while (found_new_file == false)
                 {
@@ -810,11 +809,21 @@ namespace CO_Driver
                     {
                         if (Current_session.CurrentCombatLogTime > Current_session.CurrentGameLogTime)
                         {
+                            if ((combat_line.Contains("| ====== starting level ") ||
+                                combat_line.Contains("levels/maps/hangar") ||
+                                combat_line.Contains("| ====== TestDrive finish ======") ||
+                                combat_line.Contains("| ===== Gameplay finish")) &&
+                                combat_reader.PeekNextLine() == null)
+                            {
+                                System.Threading.Thread.Sleep(10);
+                                continue;
+                            }
+
                             game_log_event_handler(game_line, Current_session);
                             game_line = game_reader.ReadLine();
                         }
                         else
-                                if (Current_session.CurrentCombatLogTime < Current_session.CurrentGameLogTime)
+                        if (Current_session.CurrentCombatLogTime < Current_session.CurrentGameLogTime)
                         {
                             combat_log_event_handler(combat_line, Current_session);
                             combat_line = combat_reader.ReadLine();
@@ -827,6 +836,16 @@ namespace CO_Driver
                         }
                         else
                         {
+                            if ((combat_line.Contains("| ====== starting level ") ||
+                                combat_line.Contains("levels/maps/hangar") ||
+                                combat_line.Contains("| ====== TestDrive finish ======") ||
+                                combat_line.Contains("| ===== Gameplay finish")) &&
+                                combat_reader.PeekNextLine() == null)
+                            {
+                                System.Threading.Thread.Sleep(10);
+                                continue;
+                            }
+
                             game_log_event_handler(game_line, Current_session);
                             game_line = game_reader.ReadLine();
                         }

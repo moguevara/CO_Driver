@@ -187,7 +187,7 @@ namespace CO_Driver
             upload_return = Upload.UploadToCrossoutDB(upload_entry);
             upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
 
-            foreach (FileTraceManagment.MatchRecord match in match_history)
+            foreach (FileTraceManagment.MatchRecord match in match_history.ToList())
             {
                 if (bw_file_uploader.CancellationPending)
                     return;
