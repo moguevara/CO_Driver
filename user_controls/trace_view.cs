@@ -36,7 +36,7 @@ namespace CO_Driver
             {
                 trace_file = new DirectoryInfo(session.LogFileLocation).GetFiles(trace_type + "*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray().First();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.lbl_current_file_name.Text = string.Format(@"File ""{0}.log"" not found at path  ""{1}"". Please check path in settings.", trace_type, local_session_variables.LogFileLocation);
                 return;

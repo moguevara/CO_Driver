@@ -1,21 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0416A627-3E06-419A-8051-C892486C99E6}</ProjectGuid>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CO_Driver</RootNamespace>
-    <AssemblyName>CO_Driver</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <PublishUrl>C:\Users\morgh\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -33,33 +20,22 @@
     <PublisherName>Dept116</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>153</ApplicationRevision>
+    <ApplicationRevision>154</ApplicationRevision>
     <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <DefineConstants>
+    </DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>RotFish.ico</ApplicationIcon>
@@ -78,9 +54,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -90,247 +63,64 @@
   <PropertyGroup>
     <TargetZone>Internet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="libraries\Filter.cs" />
-    <Compile Include="libraries\GlobalData.cs" />
-    <Compile Include="libraries\LogFileManagment.cs" />
-    <Compile Include="libraries\LookAheadStreamReader.cs" />
-    <Compile Include="libraries\Market.cs" />
-    <Compile Include="libraries\MatchEntry.cs" />
-    <Compile Include="libraries\Overlay.cs" />
-    <Compile Include="libraries\Resize.cs" />
-    <Compile Include="libraries\Theme.cs" />
-    <Compile Include="libraries\Translate.cs" />
-    <Compile Include="libraries\UITranslate.cs" />
-    <Compile Include="libraries\Upload.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\ViewHelpers.cs" />
-    <Compile Include="user_controls\comparison_screen.cs">
+    <Compile Update="user_controls\comparison_screen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\comparison_screen.Designer.cs">
-      <DependentUpon>comparison_screen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\revenue_review.cs">
+    <Compile Update="user_controls\revenue_review.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\revenue_review.Designer.cs">
-      <DependentUpon>revenue_review.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\AboutScreen.cs">
+    <Compile Update="user_controls\AboutScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\AboutScreen.Designer.cs">
-      <DependentUpon>AboutScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\garage_view.cs">
+    <Compile Update="user_controls\garage_view.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\garage_view.Designer.cs">
-      <DependentUpon>garage_view.cs</DependentUpon>
-    </Compile>
-    <Compile Include="libraries\PartLoader.cs" />
-    <Compile Include="user_controls\meta_detail.cs">
+    <Compile Update="user_controls\meta_detail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\meta_detail.Designer.cs">
-      <DependentUpon>meta_detail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\previous_match.cs">
+    <Compile Update="user_controls\previous_match.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\previous_match.Designer.cs">
-      <DependentUpon>previous_match.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\part_view.cs">
+    <Compile Update="user_controls\part_view.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\part_view.Designer.cs">
-      <DependentUpon>part_view.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\part_optimizer.cs">
+    <Compile Update="user_controls\part_optimizer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\part_optimizer.Designer.cs">
-      <DependentUpon>part_optimizer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\BuildView.cs">
+    <Compile Update="user_controls\BuildView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\BuildView.Designer.cs">
-      <DependentUpon>BuildView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="libraries\FileTraceManagment.cs" />
-    <Compile Include="user_controls\schedule_display.cs">
+    <Compile Update="user_controls\schedule_display.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\schedule_display.Designer.cs">
-      <DependentUpon>schedule_display.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\fusion_calculator.cs">
+    <Compile Update="user_controls\fusion_calculator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\fusion_calculator.Designer.cs">
-      <DependentUpon>fusion_calculator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="main_page.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="main_page.Designer.cs">
-      <DependentUpon>main_page.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\match_history.cs">
+    <Compile Update="user_controls\match_history.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\match_history.Designer.cs">
-      <DependentUpon>match_history.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="user_controls\trace_view.cs">
+    <Compile Update="user_controls\trace_view.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\trace_view.Designer.cs">
-      <DependentUpon>trace_view.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\upload_screen.cs">
+    <Compile Update="user_controls\upload_screen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\upload_screen.Designer.cs">
-      <DependentUpon>upload_screen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\user_profile.cs">
+    <Compile Update="user_controls\user_profile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\user_profile.Designer.cs">
-      <DependentUpon>user_profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\user_settings.cs">
+    <Compile Update="user_controls\user_settings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\user_settings.Designer.cs">
-      <DependentUpon>user_settings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="user_controls\welcome_page.cs">
+    <Compile Update="user_controls\welcome_page.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user_controls\welcome_page.Designer.cs">
-      <DependentUpon>welcome_page.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="user_controls\AboutScreen.resx">
-      <DependentUpon>AboutScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\comparison_screen.resx">
-      <DependentUpon>comparison_screen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\garage_view.resx">
-      <DependentUpon>garage_view.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\meta_detail.resx">
-      <DependentUpon>meta_detail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\part_optimizer.resx">
-      <DependentUpon>part_optimizer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\BuildView.resx">
-      <DependentUpon>BuildView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\part_view.resx">
-      <DependentUpon>part_view.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\previous_match.resx">
-      <DependentUpon>previous_match.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\revenue_review.resx">
-      <DependentUpon>revenue_review.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\schedule_display.resx">
-      <DependentUpon>schedule_display.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\fusion_calculator.resx">
-      <DependentUpon>fusion_calculator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="main_page.resx">
-      <DependentUpon>main_page.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\match_history.resx">
-      <DependentUpon>match_history.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\trace_view.resx">
-      <DependentUpon>trace_view.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\upload_screen.resx">
-      <DependentUpon>upload_screen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\user_profile.resx">
-      <DependentUpon>user_profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\user_settings.resx">
-      <DependentUpon>user_settings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="user_controls\welcome_page.resx">
-      <DependentUpon>welcome_page.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="codriver.pfx" />
-    <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <None Include="Resources\cabins.json" />
-    <None Include="Resources\cks.json" />
-    <None Include="Resources\engines.json" />
-    <None Include="Resources\explosives.json" />
-    <None Include="Resources\modules.json" />
-    <None Include="Resources\movements.json" />
-    <None Include="Resources\structures.json" />
-    <None Include="Resources\weapons.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\32x32logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -345,20 +135,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\codriver_transparent.gif" />
-    <None Include="Resources\codriver_transparent_initial.gif" />
     <Content Include="RotFish.ico" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
-  </Target>
-  <Import Project="packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="user_controls\comparison_tool.cs" />
+    <Compile Remove="user_controls\comparison_tool.Designer.cs" />
+    <EmbeddedResource Remove="user_controls\comparison_tool.resx" />
+  </ItemGroup>
 </Project>

@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -91,32 +95,25 @@ namespace CO_Driver
         {
             List<MarketItem> marketItems = new List<MarketItem> { };
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://crossoutdb.com/api/v1/items?category=Resources");
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Timeout = 30000;
-            using (Stream webStream = request.GetRequestStream())
-            using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-            {
-                requestWriter.Write(@"{""object"":{""name"":""Name""}}");
-            }
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = new StringContent(@"{""object"":{""name"":""Name""}}", Encoding.ASCII, "application/json");
 
             try
             {
-                WebResponse webResponse = request.GetResponse();
+                var response = httpClient.PostAsync("https://crossoutdb.com/api/v1/items?category=Resources", content).Result;
 
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                using (StreamReader responseReader = new StreamReader(webStream))
-                {
-                    string crossoutdb_json = responseReader.ReadToEnd();
-                    marketItems = JsonConvert.DeserializeObject<List<MarketItem>>(crossoutdb_json);
+                response.EnsureSuccessStatusCode();
 
-                    return marketItems;
-                }
+                string crossoutdb_json = response.Content.ReadAsStringAsync().Result;
+                marketItems = JsonConvert.DeserializeObject<List<MarketItem>>(crossoutdb_json);
+
+                return marketItems;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                //MessageBox.Show("The following problem occurred when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
             }
 
             return marketItems;
@@ -144,7 +141,7 @@ namespace CO_Driver
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     newData = (MarketData)serializer.Deserialize(file, typeof(MarketData));
-                    if (newData.last_update != null)
+                    if (newData != null)
                         return newData;
                 }
             }

@@ -369,7 +369,7 @@ namespace CO_Driver
             //populate_match_history(Current_session);
             //populate_build_records(Current_session);
 
-            System.Threading.Thread.Sleep(1000); /* WEIRD SHIT IS HAPPENING HERE */
+            System.Threading.Thread.Sleep(1500); /* WEIRD SHIT IS HAPPENING HERE */
             process_live_files(ftm, Current_session);
         }
         void unlock_menu_strip(FileTraceManagment.SessionStats Current_session)
@@ -567,7 +567,7 @@ namespace CO_Driver
                     Current_session.MatchHistory = (List<FileTraceManagment.MatchRecord>)serializer.Deserialize(file, typeof(List<FileTraceManagment.MatchRecord>));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Current_session.MatchHistory = new List<FileTraceManagment.MatchRecord> { };
                 return;
@@ -581,7 +581,7 @@ namespace CO_Driver
                     Current_session.PlayerBuildRecords = (Dictionary<string, FileTraceManagment.BuildRecord>)serializer.Deserialize(file, typeof(Dictionary<string, FileTraceManagment.BuildRecord>));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Current_session.MatchHistory = new List<FileTraceManagment.MatchRecord> { };
                 Current_session.PlayerBuildRecords = new Dictionary<string, FileTraceManagment.BuildRecord> { };
@@ -1061,7 +1061,7 @@ namespace CO_Driver
                 {
                     bmp.Save(string.Format(@"{0}\co_driver{1}.png", screenshot_directory, DateTime.Now.ToString("yyyyMMddHHmmss")), ImageFormat.Png);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }

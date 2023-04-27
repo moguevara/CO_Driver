@@ -44,7 +44,12 @@ namespace CO_Driver
         {
             buildStats = new Dictionary<string, BuildStats> { };
 
-            foreach (FileTraceManagment.MatchRecord match in matchHistory.MatchHistory.ToList())
+            if (matchHistory == null || matchHistory.MatchHistory == null)
+            {
+                return;
+            }
+
+            foreach (FileTraceManagment.MatchRecord match in matchHistory.MatchHistory)
             {
                 if (!Filter.CheckFilters(filterSelections, match, buildRecords, session, translations))
                     continue;

@@ -353,5 +353,10 @@ namespace CO_Driver
         {
             resize.ResizeUserControl(this);
         }
+
+        private void chk_upload_post_match_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

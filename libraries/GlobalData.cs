@@ -5,7 +5,7 @@ namespace CO_Driver
 {
     public class GlobalData
     {
-        public static string CURRENT_VERSION = "0.1.0.82";
+        public static string CURRENT_VERSION = "0.1.0.83";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -139,7 +139,7 @@ namespace CO_Driver
         public const int GARAGE_DAMAGE_EVENT = 9;
         public const int TEST_DRIVE_END_EVENT = 10;
 
-        public const int UPLOAD_LIST_SIZE = 75;
+        public const int UPLOAD_LIST_SIZE = 50;
 
         public const int INITIAL_SCREEN_HEIGHT = 601;
         public const int INITIAL_SCREEN_WIDTH = 1195;

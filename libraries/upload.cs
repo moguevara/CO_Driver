@@ -5,6 +5,9 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
 using System.Windows.Forms;
 
 namespace CO_Driver
@@ -130,32 +133,25 @@ namespace CO_Driver
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
+            var httpClient = new HttpClient();
 #if DEBUG
-            System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + localUserID.ToString());
+            httpClient.BaseAddress = new Uri("https://localhost:5001");
 #else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString());
+            httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #endif
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Timeout = 30000;
+
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = new StringContent(@"{""object"":{""name"":""Name""}}", Encoding.ASCII, "application/json");
 
             try
             {
-                using (Stream webStream = request.GetRequestStream())
-                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-                {
-                    requestWriter.Write(@"{""object"":{""name"":""Name""}}");
-                }
+                var response = httpClient.PostAsync($"/api/v2/co_driver/upload_records/{localUserID}", content).Result;
 
-                WebResponse webResponse = request.GetResponse();
+                response.EnsureSuccessStatusCode();
 
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                using (StreamReader responseReader = new StreamReader(webStream))
-                {
-                    string crossoutdb_json = responseReader.ReadToEnd();
-                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
-                }
+                string crossoutdb_json = response.Content.ReadAsStringAsync().Result;
+                upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
             }
             catch (WebException)
             {
@@ -172,7 +168,6 @@ namespace CO_Driver
             return upload_return;
         }
 
-
         public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToCrossoutDB(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
@@ -181,30 +176,25 @@ namespace CO_Driver
             {
                 string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
 
+                var httpClient = new HttpClient();
 #if DEBUG
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_match_and_build");
+                httpClient.BaseAddress = new Uri("https://localhost:5001");
 #else
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build");
+                httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #endif
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=UTF-8";
-                request.Timeout = 100000;
-                using (Stream webStream = request.GetRequestStream())
-                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-                {
-                    requestWriter.Write(serialized_match_list);
-                }
 
-                WebResponse webResponse = request.GetResponse();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                using (StreamReader responseReader = new StreamReader(webStream))
-                {
-                    string crossoutdb_json = responseReader.ReadToEnd();
-                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
-                }
+                var content = new StringContent(serialized_match_list, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("/api/v2/co_driver/upload_match_and_build", content).Result;
+
+                response.EnsureSuccessStatusCode();
+
+                string crossoutdb_json = response.Content.ReadAsStringAsync().Result;
+                upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 //if (ex.Status != WebExceptionStatus.Timeout)
                 //{
