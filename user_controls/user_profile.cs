@@ -290,7 +290,7 @@ namespace CO_Driver
 
             foreach (KeyValuePair<string, int> resource in total_resources.OrderByDescending(x => x.Value))
             {
-                if (resource.Key.ToLower().Contains("xp") || resource.Key.ToLower().Contains("score"))
+                if (resource.Key.ToLower().Contains("xp") || resource.Key.ToLower().Contains("score") || resource.Key.ToLower().Contains("glory"))
                     continue;
 
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();

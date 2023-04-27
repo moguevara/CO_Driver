@@ -281,7 +281,6 @@ namespace CO_Driver
             public Dictionary<string, PartLoader.Module> GlobalModuleDict { get; set; }
             public Dictionary<string, PartLoader.Explosive> GlobalExplosivesDict { get; set; }
             public Dictionary<string, PartLoader.Movement> GlobalMovementDict { get; set; }
-            public Dictionary<string, PartLoader.Reward> GlobalRewardDict { get; set; }
             public List<PartLoader.EventTime> GlobalEventTimes { get; set; }
             public Dictionary<string, string> MapDict { get; set; }
             public Dictionary<string, string> ResourceDict { get; set; }
@@ -330,7 +329,6 @@ namespace CO_Driver
             currentSession.StaticRecords.GlobalMovementDict = new Dictionary<string, PartLoader.Movement> { };
             currentSession.StaticRecords.GlobalModuleDict = new Dictionary<string, PartLoader.Module> { };
             currentSession.StaticRecords.GlobalWeaponDict = new Dictionary<string, PartLoader.Weapon> { };
-            currentSession.StaticRecords.GlobalRewardDict = new Dictionary<string, PartLoader.Reward> { };
             currentSession.StaticRecords.GlobalEventTimes = new List<PartLoader.EventTime> { };
             currentSession.StaticRecords.MapDict = new Dictionary<string, string> { };
             currentSession.StaticRecords.ResourceDict = new Dictionary<string, string> { };

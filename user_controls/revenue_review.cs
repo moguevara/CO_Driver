@@ -137,7 +137,7 @@ namespace CO_Driver
                 if (!Filter.CheckFilters(filter_selections, match, build_records, session, translations))
                     continue;
 
-                if (match.MatchData.MatchRewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp")).FirstOrDefault().Key == null)
+                if (match.MatchData.MatchRewards.Where(x => x.Key != "Fuel" && !x.Key.ToLower().Contains("xp") && !x.Key.ToLower().Equals("glory")).FirstOrDefault().Key == null)
                     continue;
 
                 /* begin calc */
@@ -150,7 +150,7 @@ namespace CO_Driver
 
                 if (game_mode.Contains("Raid"))
                 {
-                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.MatchData.GameplayDesc, session, translations), string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply")).Select(x => Translate.TranslateString(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", Translate.TranslateString(match.MatchData.GameplayDesc, session, translations), string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Contains("supply") && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                     if (game_mode.EndsWith("()"))
                         game_mode.Substring(("()").Length);
@@ -162,7 +162,7 @@ namespace CO_Driver
                 }
 
                 if (game_mode.Contains("8v8"))
-                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations))));
+                    game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
                 if (chk_free_fuel.Checked)
                 {
@@ -349,6 +349,8 @@ namespace CO_Driver
                         if (reward.Key.ToLower().Contains("xp"))
                             continue;
                         if (reward.Key.ToLower().Contains("score"))
+                            continue;
+                        if (reward.Key.ToLower().Equals("glory"))
                             continue;
                         if (reward.Key.ToLower().Contains("badge") && reward.Value == 0)
                             continue;
