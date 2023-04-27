@@ -70,55 +70,55 @@
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="user_controls\ComparisonScreen.cs">
+    <Compile Update="UserControls\ComparisonScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\RevenueReview.cs">
+    <Compile Update="UserControls\RevenueReview.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\AboutScreen.cs">
+    <Compile Update="UserControls\AboutScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\GarageView.cs">
+    <Compile Update="UserControls\GarageView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\MetaDetail.cs">
+    <Compile Update="UserControls\MetaDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\MatchDetail.cs">
+    <Compile Update="UserControls\MatchDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\PartView.cs">
+    <Compile Update="UserControls\PartView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\PartOptimizer.cs">
+    <Compile Update="UserControls\PartOptimizer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\BuildView.cs">
+    <Compile Update="UserControls\BuildView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\ScheduleDisplay.cs">
+    <Compile Update="UserControls\ScheduleDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\FusionCalculator.cs">
+    <Compile Update="UserControls\FusionCalculator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\MatchHistory.cs">
+    <Compile Update="UserControls\MatchHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\TraceView.cs">
+    <Compile Update="UserControls\TraceView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\UploadScreen.cs">
+    <Compile Update="UserControls\UploadScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\UserProfile.cs">
+    <Compile Update="UserControls\UserProfile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\UserSettings.cs">
+    <Compile Update="UserControls\UserSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\WelcomePage.cs">
+    <Compile Update="UserControls\WelcomePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -153,8 +153,8 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="user_controls\comparison_tool.cs" />
-    <Compile Remove="user_controls\comparison_tool.Designer.cs" />
-    <EmbeddedResource Remove="user_controls\comparison_tool.resx" />
+    <Compile Remove="UserControls\comparison_tool.cs" />
+    <Compile Remove="UserControls\comparison_tool.Designer.cs" />
+    <EmbeddedResource Remove="UserControls\comparison_tool.resx" />
   </ItemGroup>
 </Project>
