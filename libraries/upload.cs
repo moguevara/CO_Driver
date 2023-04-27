@@ -135,7 +135,7 @@ namespace CO_Driver
 
             var httpClient = new HttpClient();
 #if DEBUG
-            httpClient.BaseAddress = new Uri("https://localhost:5001");
+            httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #else
             httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #endif
@@ -178,7 +178,7 @@ namespace CO_Driver
 
                 var httpClient = new HttpClient();
 #if DEBUG
-                httpClient.BaseAddress = new Uri("https://localhost:5001");
+                httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #else
                 httpClient.BaseAddress = new Uri("https://beta.crossoutdb.com");
 #endif

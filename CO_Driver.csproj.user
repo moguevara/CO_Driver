@@ -15,6 +15,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DebugSecurityZoneURL>https://codriver.dept116.com/CODriverDownload/</DebugSecurityZoneURL>
+    <_LastSelectedProfileId>C:\Users\morgh\source\repos\RFB_Tool_Suite\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Main.cs">
