@@ -70,55 +70,55 @@
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="user_controls\comparison_screen.cs">
+    <Compile Update="user_controls\ComparisonScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\revenue_review.cs">
+    <Compile Update="user_controls\RevenueReview.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="user_controls\AboutScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\garage_view.cs">
+    <Compile Update="user_controls\GarageView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\meta_detail.cs">
+    <Compile Update="user_controls\MetaDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\previous_match.cs">
+    <Compile Update="user_controls\PreviousMatch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\part_view.cs">
+    <Compile Update="user_controls\PartView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\part_optimizer.cs">
+    <Compile Update="user_controls\PartOptimizer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="user_controls\BuildView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\schedule_display.cs">
+    <Compile Update="user_controls\ScheduleDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\fusion_calculator.cs">
+    <Compile Update="user_controls\FusionCalculator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\match_history.cs">
+    <Compile Update="user_controls\MatchHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\trace_view.cs">
+    <Compile Update="user_controls\TraceView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\upload_screen.cs">
+    <Compile Update="user_controls\UploadScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\user_profile.cs">
+    <Compile Update="user_controls\UserProfile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\user_settings.cs">
+    <Compile Update="user_controls\UserSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\welcome_page.cs">
+    <Compile Update="user_controls\WelcomePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

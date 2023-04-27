@@ -17,7 +17,7 @@
     <DebugSecurityZoneURL>https://codriver.dept116.com/CODriverDownload/</DebugSecurityZoneURL>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="main_page.cs">
+    <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
