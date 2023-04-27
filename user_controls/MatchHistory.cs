@@ -63,7 +63,7 @@ namespace CO_Driver
                 row.Cells[10].Value = Math.Round(match.MatchData.LocalPlayer.Stats.Damage, 1);
                 row.Cells[11].Value = Math.Round(match.MatchData.LocalPlayer.Stats.DamageTaken, 1);
                 row.Cells[12].Value = match.MatchData.GameResult;
-                row.Cells[13].Value = string.Join(",", match.MatchData.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score").Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
+                row.Cells[13].Value = string.Join(",", match.MatchData.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score" && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
 
 
                 dg_match_history_view.Rows.Add(row);

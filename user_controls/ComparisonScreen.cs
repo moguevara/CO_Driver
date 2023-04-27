@@ -84,6 +84,7 @@ namespace CO_Driver
             CABIN_DAMAGE,
             BODY_DAMAGE,
             EXPERIENCE,
+            INTELLIGENCE,
             URANIUM,
             SCRAP,
             WIRES,
@@ -176,6 +177,7 @@ namespace CO_Driver
                                                                                   new metric_category { id = Metric.CABIN_DAMAGE, name = "Cabin Damage", supports_min_max = true },
                                                                                   new metric_category { id = Metric.BODY_DAMAGE, name = "Body Damage", supports_min_max = true },
                                                                                   new metric_category { id = Metric.EXPERIENCE, name = "Experience", supports_min_max = true },
+                                                                                  new metric_category { id = Metric.INTELLIGENCE, name = "Intelligence", supports_min_max = true },
                                                                                   new metric_category { id = Metric.URANIUM, name = "Uranium", supports_min_max = true },
                                                                                   new metric_category { id = Metric.SCRAP, name = "Scrap", supports_min_max = true },
                                                                                   new metric_category { id = Metric.WIRES, name = "Wires", supports_min_max = true },
@@ -464,6 +466,11 @@ namespace CO_Driver
                     break;
                 case Metric.EXPERIENCE:
                     value = match.MatchData.MatchRewards.Where(x => x.Key.Contains("xp")).Sum(x => x.Value);
+                    if ((int)value == 0)
+                        return;
+                    break;
+                case Metric.INTELLIGENCE:
+                    value = match.MatchData.MatchRewards.Where(x => x.Key.ToLower().Equals("glory")).Sum(x => x.Value);
                     if ((int)value == 0)
                         return;
                     break;

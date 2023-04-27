@@ -85,7 +85,7 @@
     <Compile Update="user_controls\MetaDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="user_controls\PreviousMatch.cs">
+    <Compile Update="user_controls\MatchDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="user_controls\PartView.cs">

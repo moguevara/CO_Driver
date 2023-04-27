@@ -39,7 +39,7 @@ namespace CO_Driver
         public ComparisonScreen comparison_page = new ComparisonScreen();
         public PartOptimizer part_page = new PartOptimizer();
         public PartView avail_part_page = new PartView();
-        public PreviousMatch match_detail_page = new PreviousMatch();
+        public MatchDetail match_detail_page = new MatchDetail();
         public GarageView garage_page = new GarageView();
         public FusionCalculator fusion_page = new FusionCalculator();
         public UserSettings settings_page = new UserSettings();
