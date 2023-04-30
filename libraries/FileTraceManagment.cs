@@ -341,7 +341,7 @@ namespace CO_Driver
             {
                 currentSession.OverlayActions = JsonConvert.DeserializeObject<List<Overlay.OverlayAction>>(localSessionVariables.ActionConfiguration);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 currentSession.OverlayActions = JsonConvert.DeserializeObject<List<Overlay.OverlayAction>>(Overlay.DefaultOverlaySetup());
             }
@@ -350,7 +350,7 @@ namespace CO_Driver
             {
                 currentSession.TwitchSettings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(localSessionVariables.TwitchSettings);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 currentSession.TwitchSettings = JsonConvert.DeserializeObject<Overlay.TwitchSettings>(Overlay.DefaultTwitchSettings());
             }
@@ -812,7 +812,7 @@ namespace CO_Driver
                 {
                     logTime = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", currentSession.FileData.ProcessingCombatSessionFileDay.AddDays(currentSession.CurrentCombatLogDayOffset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
@@ -840,7 +840,7 @@ namespace CO_Driver
                 {
                     logTime = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", currentSession.FileData.ProcessingCombatSessionFileDay.AddDays(currentSession.CurrentGameLogDayOffset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
@@ -874,7 +874,7 @@ namespace CO_Driver
                 {
                     currentSession.PreviousCombatLogTime = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", currentSession.FileData.ProcessingCombatSessionFileDay.AddDays(currentSession.CurrentCombatLogDayOffset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;
@@ -886,7 +886,7 @@ namespace CO_Driver
                 {
                     currentSession.PreviousGameLogTime = DateTime.ParseExact(string.Format("{0}{1}{2}{3}.{4}", currentSession.FileData.ProcessingCombatSessionFileDay.AddDays(currentSession.CurrentGameLogDayOffset).ToString("yyyyMMdd", CultureInfo.CurrentCulture), hour, minute, second, millisecond), "yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("A valid date time was not found in the following line" + Environment.NewLine + line);
                     return;

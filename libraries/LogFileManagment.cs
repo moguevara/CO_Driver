@@ -133,7 +133,7 @@ namespace CO_Driver
             {
                 last_game_logs = new DirectoryInfo(session.HistoricFileLocation).GetFiles("game*.*log", SearchOption.AllDirectories).OrderByDescending(p => p.Length).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -238,7 +238,7 @@ namespace CO_Driver
                         return loaded_session;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
             return session;
@@ -407,7 +407,7 @@ namespace CO_Driver
             {
                 Files = new DirectoryInfo(session.LogFileLocation).GetFiles("*.log", SearchOption.AllDirectories).OrderByDescending(p => p.CreationTime).ToArray();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -436,7 +436,7 @@ namespace CO_Driver
                         File.Delete(existing_file.FullName);
                         File.Copy(HistoricFile.FullName, destination_file_name);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         //MessageBox.Show("An error has occurred while overriding corrupted log file");
                     }
@@ -447,7 +447,7 @@ namespace CO_Driver
             {
                 Files = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\CO_Driver").GetFiles("*.log", SearchOption.TopDirectoryOnly).ToArray();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }

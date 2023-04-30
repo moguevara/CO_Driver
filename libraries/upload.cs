@@ -204,7 +204,7 @@ namespace CO_Driver
                     upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 //if (ex.Status != WebExceptionStatus.Timeout)
                 //{
