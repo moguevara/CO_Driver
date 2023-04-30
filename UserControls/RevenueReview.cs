@@ -164,20 +164,17 @@ namespace CO_Driver
                 if (game_mode.Contains("8v8"))
                     game_mode = string.Format(@"{0} ({1})", game_mode, string.Join(",", match.MatchData.MatchRewards.Where(x => !x.Key.ToLower().Contains("xp") && x.Key != "score" && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations))));
 
-                if (chk_free_fuel.Checked)
-                {
-                    if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
-                        fuel_ammount = 40;
-                    else
+                if (match.MatchData.MatchType == GlobalData.INVASION_MATCH)
+                    fuel_ammount = 40;
+                else
                     if (match.MatchData.MatchType == GlobalData.EASY_RAID_MATCH)
-                        fuel_ammount = 20;
-                    else
+                    fuel_ammount = 20;
+                else
                     if (match.MatchData.MatchType == GlobalData.MED_RAID_MATCH)
-                        fuel_ammount = 40;
-                    else
+                    fuel_ammount = 40;
+                else
                     if (match.MatchData.MatchType == GlobalData.HARD_RAID_MATCH)
-                        fuel_ammount = 60;
-                }
+                    fuel_ammount = 60;
 
                 if (chk_badges.Checked)
                 { 
@@ -242,6 +239,7 @@ namespace CO_Driver
                         group.total_match_time += match.MatchData.MatchDurationSeconds;
                         group.games += 1;
                         group.fuel_cost += fuel_ammount;
+
                         group.total_game_duration += queue_time.TotalSeconds;
                         group.total_game_duration += match.MatchData.MatchDurationSeconds;
 
@@ -373,13 +371,11 @@ namespace CO_Driver
                             }
                         }
                     }
-
                     if (!chk_free_fuel.Checked)
                     {
                         coin_value -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                         total_coins -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                     }
-
                 }
                 if (show_average)
                 {
@@ -389,8 +385,6 @@ namespace CO_Driver
                 {
                     row.Cells[7].Value = coin_value;
                 }
-
-
 
                 row.Cells[8].Value = (double)coin_value / ((double)group.total_game_duration / 3600.0);
 
