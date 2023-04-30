@@ -172,7 +172,6 @@ namespace CO_Driver
             PartLoader.PopulateEngineList(currentSession);
             PartLoader.PopulateExplosiveList(currentSession);
             PartLoader.PopulateMovementList(currentSession);
-            PartLoader.PopulateRewardList(currentSession);
             PartLoader.LoadEventSchedule(currentSession);
             PartLoader.LoadMapDictionary(currentSession);
             PartLoader.LoadResourceDictionary(currentSession);
@@ -239,7 +238,7 @@ namespace CO_Driver
 
         public static void LoadResourceDictionary(FileTraceManagment.SessionStats currentSession)
         {
-            currentSession.StaticRecords.ResourceDict.Add("expFactionTotal", "Fation XP");
+            currentSession.StaticRecords.ResourceDict.Add("expFactionTotal", "Faction XP");
             currentSession.StaticRecords.ResourceDict.Add("expBaseFactionTotal", "Engineer XP");
             currentSession.StaticRecords.ResourceDict.Add("Scrap_Common", "Scrap");
             currentSession.StaticRecords.ResourceDict.Add("ClanMoney", "Uranium");
@@ -251,6 +250,7 @@ namespace CO_Driver
             currentSession.StaticRecords.ResourceDict.Add("Scrap_Epic", "Electronics");
             currentSession.StaticRecords.ResourceDict.Add("Plastic", "Plastic");
             currentSession.StaticRecords.ResourceDict.Add("GermanMoney", "Taler");
+            currentSession.StaticRecords.ResourceDict.Add("Glory", "Intelligence");
         }
 
 
@@ -284,23 +284,6 @@ namespace CO_Driver
             currentSession.StaticRecords.GlobalEventTimes.Add(NewEvent(GlobalData.WHEEL_RACE, DayOfWeek.Friday, new TimeSpan(16, 0, 0), new TimeSpan(24, 0, 0)));
             currentSession.StaticRecords.GlobalEventTimes.Add(NewEvent(GlobalData.BATTLE_ROYALE, DayOfWeek.Saturday, new TimeSpan(0, 0, 0), new TimeSpan(24, 0, 0)));
             currentSession.StaticRecords.GlobalEventTimes.Add(NewEvent(GlobalData.BATTLE_ROYALE, DayOfWeek.Sunday, new TimeSpan(0, 0, 0), new TimeSpan(24, 0, 0)));
-        }
-
-        public static void PopulateRewardList(FileTraceManagment.SessionStats currentSession)
-        {
-            currentSession.StaticRecords.GlobalRewardDict.Add("expFactionTotal", NewReward("expFactionTotal", "Total Exp", "Tot Exp"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("expBaseFactionTotal", NewReward("expBaseFactionTotal", "Faction Exp", "Fac Exp"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("ClanMoney", NewReward("ClanMoney", "Uranium", "U"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Scrap_Common", NewReward("Scrap_Common", "Scrap", "S"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Scrap_Rare", NewReward("Scrap_Rare", "Wires", "W"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Scrap_Epic", NewReward("Scrap_Epic", "Electronics", "B"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Plastic", NewReward("Plastic", "Plastic", "P"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Accumulators", NewReward("Accumulators", "unknown", "unknown"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("HalloweenMoney", NewReward("HalloweenMoney", "Tricky Treats", "TT"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Supply", NewReward("Supply", "unknown", "unknown"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("Platinum", NewReward("Platinum", "unknown", "unknown"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("NewYearMoney", NewReward("NewYearMoney", "Crackers", "Cr"));
-            currentSession.StaticRecords.GlobalRewardDict.Add("GermanMoney", NewReward("GermanMoney", "Taler", "T"));
         }
 
         public static void LoadCKDictionary(FileTraceManagment.SessionStats currentSession)

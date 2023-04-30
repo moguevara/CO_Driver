@@ -41,7 +41,7 @@ namespace CO_Driver
             public string gamemode { get; set; }
             public string game_result { get; set; }
             public string premium { get; set; }
-            public int fuel_cost { get; set; }
+            public double fuel_cost { get; set; }
             public int games { get; set; }
             public double total_game_duration { get; set; }
             public double total_queue_time { get; set; }
@@ -305,6 +305,7 @@ namespace CO_Driver
             total_match_duration = 0.0;
             total_coins = 0.0;
 
+            dg_revenue.Columns[5].DefaultCellStyle.Format = "N2";
             dg_revenue.Columns[7].DefaultCellStyle.Format = "N2";
             dg_revenue.Columns[8].DefaultCellStyle.Format = "N2";
 
@@ -325,13 +326,12 @@ namespace CO_Driver
                 {
                     row.Cells[3].Value = t2;
                     row.Cells[4].Value = t3;
-                    row.Cells[5].Value = (group.fuel_cost / group.games).ToString();
+                    row.Cells[5].Value = ((double)group.fuel_cost / (double)group.games).ToString();
                 }
                 else
                 {
                     row.Cells[3].Value = t4;
                     row.Cells[4].Value = t5;
-
                     row.Cells[5].Value = group.fuel_cost.ToString();
                 }
 
