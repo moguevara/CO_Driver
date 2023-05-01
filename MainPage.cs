@@ -813,9 +813,11 @@ namespace CO_Driver
                                 combat_line.Contains("levels/maps/hangar") ||
                                 combat_line.Contains("| ====== TestDrive finish ======") ||
                                 combat_line.Contains("| ===== Gameplay finish")) &&
+                                Current_session.LiveTraceData &&
                                 combat_reader.PeekNextLine() == null)
                             {
-                                System.Threading.Thread.Sleep(10);
+                                MessageBox.Show($"{combat_line}\n\n\n{game_line}\n\n\n{combat_reader.PeekNextLine()}");
+
                                 continue;
                             }
 
@@ -840,9 +842,9 @@ namespace CO_Driver
                                 combat_line.Contains("levels/maps/hangar") ||
                                 combat_line.Contains("| ====== TestDrive finish ======") ||
                                 combat_line.Contains("| ===== Gameplay finish")) &&
+                                Current_session.LiveTraceData &&
                                 combat_reader.PeekNextLine() == null)
                             {
-                                System.Threading.Thread.Sleep(10);
                                 continue;
                             }
 
