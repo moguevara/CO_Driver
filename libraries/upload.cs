@@ -13,7 +13,7 @@ namespace CO_Driver
 {
     public class Upload
     {
-        public enum Site
+        public enum Domain
         {
             ALL,
             CrossoutDB, 
@@ -31,7 +31,7 @@ namespace CO_Driver
             return build_entry;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.UploadEntry BuildNextBatchForUpload(Site site, LogFileManagment.SessionVariables session, List<FileTraceManagment.MatchRecord> match_history, 
+        public static Crossout.AspWeb.Models.API.v2.UploadEntry BuildNextBatchForUpload(Domain domain, LogFileManagment.SessionVariables session, List<FileTraceManagment.MatchRecord> match_history, 
                                                 Dictionary<string, FileTraceManagment.BuildRecord> build_records, Dictionary<string, Dictionary<string, Translate.Translation>> translations,
                                                 ref List<long> uploaded_matches, ref List<string> uploaded_builds)
         {
@@ -76,6 +76,11 @@ namespace CO_Driver
             if (uploaded.Contains(match.MatchData.ServerGUID))
                 return false;
 
+            return ValidMatch(match);
+        }
+
+        public static bool ValidMatch(FileTraceManagment.MatchRecord match)
+        {
             if (match.MatchData.ServerGUID == 0)
                 return false;
 
@@ -147,27 +152,29 @@ namespace CO_Driver
 
                 foreach (FileTraceManagment.Player player in round.Players)
                 {
-                    Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry { };
-                    new_player.match_id = match.MatchData.ServerGUID;
-                    new_player.round_id = i;
-                    new_player.uid = player.UID;
-                    new_player.bot = player.Bot;
-                    new_player.nickname = player.Nickname;
-                    new_player.team = player.Team;
-                    new_player.group_id = player.PartyID;
-                    new_player.build_hash = player.BuildHash;
-                    new_player.power_score = player.PowerScore;
-                    new_player.kills = player.Stats.Kills;
-                    new_player.assists = player.Stats.Assists;
-                    new_player.drone_kills = player.Stats.DroneKills;
-                    new_player.deaths = player.Stats.Deaths;
-                    new_player.score = player.Stats.Score;
-                    new_player.damage = Math.Round(player.Stats.Damage, 2);
-                    //new_player.cabin_damage = Math.Round(player.Stats.CabinDamage, 2);
-                    new_player.damage_taken = Math.Round(player.Stats.DamageTaken, 2);
+                    Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry
+                    {
+                        match_id = match.MatchData.ServerGUID,
+                        round_id = i,
+                        uid = player.UID,
+                        bot = player.Bot,
+                        nickname = player.Nickname,
+                        team = player.Team,
+                        group_id = player.PartyID,
+                        build_hash = player.BuildHash,
+                        power_score = player.PowerScore,
+                        kills = player.Stats.Kills,
+                        assists = player.Stats.Assists,
+                        drone_kills = player.Stats.DroneKills,
+                        deaths = player.Stats.Deaths,
+                        score = player.Stats.Score,
+                        damage = Math.Round(player.Stats.Damage, 2),
+                        //new_player.cabin_damage = Math.Round(player.Stats.CabinDamage, 2);
+                        damage_taken = Math.Round(player.Stats.DamageTaken, 2),
 
-                    new_player.scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { };
-                    new_player.medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { };
+                        scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { },
+                        medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { }
+                    };
 
                     foreach (FileTraceManagment.Score score in player.Scores)
                         new_player.scores.Add(new Crossout.AspWeb.Models.API.v2.ScoreEntry { score_type = score.Description, points = score.Points });
@@ -205,13 +212,13 @@ namespace CO_Driver
             return rounds;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn GetPreviousUploads(int localUserID, Site site)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn GetPreviousUploads(int localUserID, Domain domain)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
             string path = "";
 
-            if (site == Site.CrossoutDB)
+            if (domain == Domain.CrossoutDB)
             {
 #if DEBUG
                 path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
@@ -219,7 +226,7 @@ namespace CO_Driver
                 path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
 #endif
             }
-            else if (site == Site.XOStat)
+            else if (domain == Domain.XOStat)
             {
 #if DEBUG
                 path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/player/" + localUserID.ToString();
@@ -229,7 +236,7 @@ namespace CO_Driver
             }
             else
             {
-                throw new Exception("Invalid Site");
+                throw new Exception("Invalid Domain");
             }
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
@@ -267,13 +274,13 @@ namespace CO_Driver
         }
 
 
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToSite(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry, Site site)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToDomain(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry, Domain domain)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
             string path = "";
 
-            if (site == Site.CrossoutDB)
+            if (domain == Domain.CrossoutDB)
             {
 #if DEBUG
                 path = "https://localhost:5001/api/v2/co_driver/upload_match_and_build";
@@ -281,7 +288,7 @@ namespace CO_Driver
                 path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build";
 #endif
             }
-            else if (site == Site.XOStat)
+            else if (domain == Domain.XOStat)
             {
 #if DEBUG
                 path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/upload";
@@ -291,7 +298,7 @@ namespace CO_Driver
             }
             else
             {
-                throw new Exception("Invalid Site");
+                throw new Exception("Invalid Domain");
             }
 
             try

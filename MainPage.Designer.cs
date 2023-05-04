@@ -40,6 +40,7 @@
             this.buildReviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stateOfYourMetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.revenueAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.performanceComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fusionTrackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_page_panel = new System.Windows.Forms.Panel();
             this.bw_file_feed = new System.ComponentModel.BackgroundWorker();
-            this.performanceComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strp_main_menu_strip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,6 +172,13 @@
             this.revenueAnalysisToolStripMenuItem.Text = "Revenue Analysis";
             this.revenueAnalysisToolStripMenuItem.ToolTipText = "F7 - Revenue breakdown by game mode. See what builds are your most profitable.";
             this.revenueAnalysisToolStripMenuItem.Click += new System.EventHandler(this.revenueAnalysisToolStripMenuItem_Click);
+            // 
+            // performanceComparisonToolStripMenuItem
+            // 
+            this.performanceComparisonToolStripMenuItem.Name = "performanceComparisonToolStripMenuItem";
+            this.performanceComparisonToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.performanceComparisonToolStripMenuItem.Text = "Performance Comparison";
+            this.performanceComparisonToolStripMenuItem.Click += new System.EventHandler(this.performanceComparisonToolStripMenuItem_Click);
             // 
             // buildToolsToolStripMenuItem
             // 
@@ -292,8 +299,8 @@
             // 
             this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
             this.uploadToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(159, 18);
-            this.uploadToolStripMenuItem.Text = "Upload to CrossoutDB";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(103, 18);
+            this.uploadToolStripMenuItem.Text = "Upload Stats";
             this.uploadToolStripMenuItem.ToolTipText = "F9 - Upload match data to CrossoutDB.com. Click \"view profile\" to see your online" +
     " summary.";
             this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
@@ -349,13 +356,6 @@
             this.bw_file_feed.WorkerReportsProgress = true;
             this.bw_file_feed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.process_log_files);
             this.bw_file_feed.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.process_log_event);
-            // 
-            // performanceComparisonToolStripMenuItem
-            // 
-            this.performanceComparisonToolStripMenuItem.Name = "performanceComparisonToolStripMenuItem";
-            this.performanceComparisonToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
-            this.performanceComparisonToolStripMenuItem.Text = "Performance Comparison";
-            this.performanceComparisonToolStripMenuItem.Click += new System.EventHandler(this.performanceComparisonToolStripMenuItem_Click);
             // 
             // frm_main_page
             // 

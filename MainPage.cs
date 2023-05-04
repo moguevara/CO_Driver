@@ -254,7 +254,7 @@ namespace CO_Driver
 
         private void enable_upload(object sender, EventArgs e)
         {
-            upload_page.populate_upload_screen();
+            upload_page.PopulateUploadScreen();
         }
 
         private void reload_theme(object sender, EventArgs e)
@@ -473,7 +473,7 @@ namespace CO_Driver
                 revenue_page.populate_revenue_review_screen();
                 meta_detail_page.populate_meta_detail_screen();
                 comparison_page.populate_comparison_chart();
-                upload_page.populate_upload_screen();
+                upload_page.PopulateUploadScreen();
                 if (session.UploadData)
                     upload_page.btn_upload_matchs_Click(this, EventArgs.Empty);
             }

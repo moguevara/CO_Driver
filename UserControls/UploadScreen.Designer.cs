@@ -362,9 +362,9 @@
             // 
             this.bw_file_uploader.WorkerReportsProgress = true;
             this.bw_file_uploader.WorkerSupportsCancellation = true;
-            this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.upload_files);
-            this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.report_upload_status);
-            this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.finished_uploading);
+            this.bw_file_uploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UploadFiles);
+            this.bw_file_uploader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.ReportUploadStatus);
+            this.bw_file_uploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FinishedUploading);
             // 
             // upload_screen
             // 
