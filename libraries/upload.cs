@@ -6,6 +6,9 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -216,22 +219,22 @@ namespace CO_Driver
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
-            string path = "";
+            string url = "";
 
             if (domain == Domain.CrossoutDB)
             {
 #if DEBUG
-                path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
 #else
-                path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
 #endif
             }
             else if (domain == Domain.XOStat)
             {
 #if DEBUG
-                path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/player/" + localUserID.ToString();
+                url = "http://localhost:3000/dev/player/" + localUserID.ToString();
 #else
-                path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/player/" + localUserID.ToString();
+                url = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/player/" + localUserID.ToString();
 #endif
             }
             else
@@ -239,7 +242,7 @@ namespace CO_Driver
                 throw new Exception("Invalid Domain");
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = @"CO_Driver";
             request.Accept = "text/html";
             request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
@@ -263,7 +266,7 @@ namespace CO_Driver
                 //{
                 //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine);
                 //}
-                MessageBox.Show("The following request:" + path + Environment.NewLine + Environment.NewLine + "Had the following problem occured when loading previous match list from crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
+                MessageBox.Show("The following request:" + url + Environment.NewLine + Environment.NewLine + "Had the following problem occured when loading previous match list from crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
             }
             catch (Exception ex)
             {
@@ -273,27 +276,24 @@ namespace CO_Driver
             return upload_return;
         }
 
-
         public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToDomain(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry, Domain domain)
         {
-            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
-
-            string path = "";
+            string url = "";
 
             if (domain == Domain.CrossoutDB)
             {
 #if DEBUG
-                path = "https://localhost:5001/api/v2/co_driver/upload_match_and_build";
+                url = "https://localhost:5001/api/v2/co_driver/upload_match_and_build";
 #else
-                path = "https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build";
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build";
 #endif
             }
             else if (domain == Domain.XOStat)
             {
 #if DEBUG
-                path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/upload";
+                url = "http://localhost:3000/dev/upload";
 #else
-                path = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/upload";
+                url = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/upload";
 #endif
             }
             else
@@ -301,50 +301,24 @@ namespace CO_Driver
                 throw new Exception("Invalid Domain");
             }
 
-            try
+            string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
+            File.WriteAllText("C:\\Users\\morgh\\Documents\\CO_Driver\\test.json", serialized_match_list);
+
+            using (HttpClient client = new HttpClient())
             {
-                string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
+                var content = new StringContent(serialized_match_list, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                File.WriteAllText(@"C:\Users\morgh\Documents\CO_Driver\test.json", serialized_match_list);
-
-                request.Method = "POST";
-                request.UserAgent = @"CO_Driver";
-                request.ContentType = "application/json; charset=UTF-8";
-                request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                request.Timeout = 100000;
-
-
-                using (Stream webStream = request.GetRequestStream())
-                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
+                if (response.IsSuccessStatusCode)
                 {
-                    requestWriter.Write(serialized_match_list);
+                    return JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(response.Content.ReadAsStringAsync().Result);
                 }
-
-                WebResponse webResponse = request.GetResponse();
-
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                using (StreamReader responseReader = new StreamReader(webStream))
+                else
                 {
-                    string crossoutdb_json = responseReader.ReadToEnd();
-
-                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
+                    MessageBox.Show($"Error message: {response.Content.ReadAsStringAsync().Result}");
+                    throw new HttpRequestException($"Error: {response.StatusCode}");
                 }
             }
-            catch (WebException ex)
-            {
-                //if (ex.Status != WebExceptionStatus.Timeout)
-                //{
-                //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
-                //}
-                MessageBox.Show("The following request:" + path + Environment.NewLine + Environment.NewLine + "Had the following problem occured when uploading to crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
-            }
-
-            return upload_return;
         }
     }
 }
