@@ -5,7 +5,7 @@ namespace CO_Driver
 {
     public class GlobalData
     {
-        public static string CURRENT_VERSION = "0.1.0.88";
+        public static string CURRENT_VERSION = "----XOSTAT TEST----UNCONTROLLED COPY----REVIEWERS ONLY----";
 
         public const int FILE_BUFFER_SIZE = 256;
 

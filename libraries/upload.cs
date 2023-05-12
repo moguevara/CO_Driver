@@ -278,6 +278,7 @@ namespace CO_Driver
 
         public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToDomain(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry, Domain domain)
         {
+            Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
             string url = "";
 
             if (domain == Domain.CrossoutDB)
@@ -306,19 +307,28 @@ namespace CO_Driver
 
             using (HttpClient client = new HttpClient())
             {
-                var content = new StringContent(serialized_match_list, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(url, content).Result;
+                try
+                {
+                    var content = new StringContent(serialized_match_list, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(response.Content.ReadAsStringAsync().Result);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(response.Content.ReadAsStringAsync().Result);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Error message: {response.Content.ReadAsStringAsync().Result}");
+                        throw new HttpRequestException($"Error: {response.StatusCode}");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Error message: {response.Content.ReadAsStringAsync().Result}");
-                    throw new HttpRequestException($"Error: {response.StatusCode}");
+                    MessageBox.Show("The following problem occured when loading previous match list from xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
                 }
             }
+
+            return upload_return;
         }
     }
 }
