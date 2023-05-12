@@ -112,8 +112,7 @@ namespace CO_Driver
 
             lb_xodb_track.Text = string.Format("{0}/{1}", UpStatus.CrossoutDB.Uploaded, UpStatus.CrossoutDB.Valid);
             lb_xostat_track.Text = string.Format("{0}/{1}", UpStatus.XOStat.Uploaded, UpStatus.XOStat.Valid);
-            //pb_upload_bar.Value = up_status.percent();
-
+            pb_upload_bar.Value = UpStatus.Percent();
             lb_upload_status_text.Text = string.Format("Standing by to upload {0} matches, Press <Upload> when ready" + Environment.NewLine, UpStatus.Total.Valid - UpStatus.Total.Uploaded);
         }
 
@@ -124,7 +123,7 @@ namespace CO_Driver
 
             UpStatus.CalcTotals();
             tb_upload_progress.AppendText(string.Format("Starting background worker to upload. Feel free to use other screens during upload." + Environment.NewLine));
-            //pb_upload_bar.Value = up_status.percent();
+            pb_upload_bar.Value = UpStatus.Percent();
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent;
             pb_upload.Refresh();
 
@@ -177,7 +176,7 @@ namespace CO_Driver
                 UpStatus.XOStat.Uploaded += s.Ammount;
 
             UpStatus.CalcTotals();
-            //pb_upload_bar.Value = up_status.percent();
+            pb_upload_bar.Value = UpStatus.Percent();
 
             lb_xodb_track.Text = string.Format("{0}/{1}", UpStatus.CrossoutDB.Uploaded, UpStatus.CrossoutDB.Valid);
             lb_xostat_track.Text = string.Format("{0}/{1}", UpStatus.XOStat.Uploaded, UpStatus.XOStat.Valid);
@@ -189,7 +188,7 @@ namespace CO_Driver
         private void FinishedUploading(object sender, RunWorkerCompletedEventArgs e)
         {
             tb_upload_progress.AppendText("Finished uploading." + Environment.NewLine);
-            //pb_upload_bar.Value = 100;
+            pb_upload_bar.Value = 100;
             lb_upload_status_text.Text = string.Format("Standing by to upload matches, Press <Upload> when ready" + Environment.NewLine);
             pb_upload.Image = CO_Driver.Properties.Resources.codriver_transparent_initial;
             pb_upload.Refresh();

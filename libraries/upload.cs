@@ -309,7 +309,7 @@ namespace CO_Driver
             {
                 try
                 {
-                    var content = new StringContent(serialized_match_list, Encoding.UTF8, "application/json");
+                    var content = new StringContent(serialized_match_list, Encoding.ASCII, "application/json");
                     HttpResponseMessage response = client.PostAsync(url, content).Result;
 
                     if (response.IsSuccessStatusCode)
