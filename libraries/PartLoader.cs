@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 
 namespace CO_Driver
 {
@@ -312,7 +310,7 @@ namespace CO_Driver
 
             foreach (Explosive explosive in explosives)
             {
-                currentSession.StaticRecords.GlobalExplosivesDict.Add(explosive.Name, new Explosive { Name = explosive.Name, Description = explosive.Description});
+                currentSession.StaticRecords.GlobalExplosivesDict.Add(explosive.Name, new Explosive { Name = explosive.Name, Description = explosive.Description });
             }
         }
 
@@ -362,7 +360,8 @@ namespace CO_Driver
 
             foreach (Structure structure in structures)
             {
-                currentSession.StaticRecords.GlobalPartsList.Add(new Structure { 
+                currentSession.StaticRecords.GlobalPartsList.Add(new Structure
+                {
                     Name = structure.Name,
                     Description = structure.Description,
                     Faction = structure.Faction,

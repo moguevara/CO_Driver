@@ -357,7 +357,7 @@ namespace CO_Driver
 
             PartLoader.LoadParts(currentSession);
 
-            
+
         }
 
 
@@ -1560,7 +1560,7 @@ namespace CO_Driver
                 currentSession.CurrentMatch.PlayerRecords[uid].PowerScore = powerScore;
                 currentSession.CurrentMatch.PlayerRecords[uid].Team = team;
             }
-            
+
             else
             {
                 Player current_player = NewPlayer();
@@ -2316,9 +2316,9 @@ namespace CO_Driver
             lines.Add(String.Format(" {0} STATS", DecodeMatchType(game_mode)));
             lines.Add(String.Format("---------------------------------"));
             lines.Add(String.Format(" Games            {0,15}", totalGames));
-            lines.Add(String.Format(" W/L (%)         {0,4}/{1,-4} ({2,4:N2})", totalWins, totalLosses, (double)totalWins / (double)totalGames));
-            lines.Add(String.Format(" K/D (%)         {0,4}/{1,-4} ({2,4:N2})", totalKills, totalDeaths, (double)totalKills / (double)totalDeaths));
-            lines.Add(String.Format(" K/G (%)         {0,4}/{1,-4} ({2,4:N2})", totalKills, totalGames, (double)totalKills / (double)totalGames));
+            lines.Add(String.Format(" W/L (%)         {0,4}/{1,-4} ({2,4:N2})", totalWins, totalLosses, totalWins / (double)totalGames));
+            lines.Add(String.Format(" K/D (%)         {0,4}/{1,-4} ({2,4:N2})", totalKills, totalDeaths, totalKills / (double)totalDeaths));
+            lines.Add(String.Format(" K/G (%)         {0,4}/{1,-4} ({2,4:N2})", totalKills, totalGames, totalKills / (double)totalGames));
             lines.Add(String.Format(" Avg Dmg          {0,15:N1}", totalDamage / totalGames));
 
             //File.WriteAllLines(Current_session.file_data.stat_card_file, lines);

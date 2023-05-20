@@ -106,10 +106,10 @@ namespace CO_Driver
                 row.Cells[1].Value = build.Value.powerScore;
                 row.Cells[2].Value = build.Value.stats.Games;
                 row.Cells[3].Value = build.Value.stats.Kills;
-                row.Cells[4].Value = Math.Round(build.Value.stats.Deaths > 0 ? (double)build.Value.stats.Kills / (double)build.Value.stats.Deaths : Double.PositiveInfinity, 2);
-                row.Cells[5].Value = Math.Round((double)build.Value.stats.Damage / (double)build.Value.stats.Rounds, 0);
-                row.Cells[6].Value = Math.Round((double)build.Value.stats.DamageTaken / (double)build.Value.stats.Rounds, 0);
-                row.Cells[7].Value = (double)build.Value.stats.Wins / (double)build.Value.stats.Games;
+                row.Cells[4].Value = Math.Round(build.Value.stats.Deaths > 0 ? build.Value.stats.Kills / (double)build.Value.stats.Deaths : Double.PositiveInfinity, 2);
+                row.Cells[5].Value = Math.Round((double)build.Value.stats.Damage / build.Value.stats.Rounds, 0);
+                row.Cells[6].Value = Math.Round((double)build.Value.stats.DamageTaken / build.Value.stats.Rounds, 0);
+                row.Cells[7].Value = build.Value.stats.Wins / (double)build.Value.stats.Games;
 
                 this.dg_build_view_grid.Rows.Add(row);
                 rows_populated++;
@@ -127,14 +127,14 @@ namespace CO_Driver
                 this.lb_build_desc.Text = buildRecords[build_hash].FullDescription;
                 this.lb_cabin.Text = Translate.TranslateString(buildRecords[build_hash].Cabin.Name, session, translations);
                 this.lb_game_count.Text = buildStats[build_hash].stats.Games.ToString();
-                this.lb_win_rate.Text = ((double)buildStats[build_hash].stats.Wins / (double)buildStats[build_hash].stats.Games).ToString("P1");
+                this.lb_win_rate.Text = (buildStats[build_hash].stats.Wins / (double)buildStats[build_hash].stats.Games).ToString("P1");
                 this.lb_kills.Text = buildStats[build_hash].stats.Kills.ToString();
                 this.lb_assists.Text = buildStats[build_hash].stats.Assists.ToString();
                 this.lb_deaths.Text = buildStats[build_hash].stats.Deaths.ToString();
-                this.lb_kda.Text = (((double)buildStats[build_hash].stats.Kills + (double)buildStats[build_hash].stats.Assists) / (double)buildStats[build_hash].stats.Games).ToString("N2");
-                this.lb_damage.Text = (buildStats[build_hash].stats.Damage / (double)buildStats[build_hash].stats.Games).ToString("N1");
-                this.lb_damage_rec.Text = (buildStats[build_hash].stats.DamageTaken / (double)buildStats[build_hash].stats.Games).ToString("N1");
-                this.lb_score.Text = ((double)buildStats[build_hash].stats.Score / (double)buildStats[build_hash].stats.Games).ToString("N0");
+                this.lb_kda.Text = ((buildStats[build_hash].stats.Kills + (double)buildStats[build_hash].stats.Assists) / buildStats[build_hash].stats.Games).ToString("N2");
+                this.lb_damage.Text = (buildStats[build_hash].stats.Damage / buildStats[build_hash].stats.Games).ToString("N1");
+                this.lb_damage_rec.Text = (buildStats[build_hash].stats.DamageTaken / buildStats[build_hash].stats.Games).ToString("N1");
+                this.lb_score.Text = (buildStats[build_hash].stats.Score / (double)buildStats[build_hash].stats.Games).ToString("N0");
                 this.lb_parts.Text = string.Join(", ", buildRecords[build_hash].Parts.Select(x => Translate.TranslateString(x, session, translations)));
 
                 dg_movement_list.Rows.Clear();
@@ -210,14 +210,14 @@ namespace CO_Driver
                 this.lb_build_desc.Text = buildRecords[build_hash].FullDescription;
                 this.lb_cabin.Text = Translate.TranslateString(buildRecords[build_hash].Cabin.Name, session, translations);
                 this.lb_game_count.Text = buildStats[build_hash].stats.Games.ToString();
-                this.lb_win_rate.Text = ((double)buildStats[build_hash].stats.Wins / (double)buildStats[build_hash].stats.Games).ToString("P1");
+                this.lb_win_rate.Text = (buildStats[build_hash].stats.Wins / (double)buildStats[build_hash].stats.Games).ToString("P1");
                 this.lb_kills.Text = buildStats[build_hash].stats.Kills.ToString();
                 this.lb_assists.Text = buildStats[build_hash].stats.Assists.ToString();
                 this.lb_deaths.Text = buildStats[build_hash].stats.Deaths.ToString();
-                this.lb_kda.Text = (((double)buildStats[build_hash].stats.Kills + (double)buildStats[build_hash].stats.Assists) / (double)buildStats[build_hash].stats.Games).ToString("N2");
-                this.lb_damage.Text = (buildStats[build_hash].stats.Damage / (double)buildStats[build_hash].stats.Games).ToString("N1");
-                this.lb_damage_rec.Text = (buildStats[build_hash].stats.DamageTaken / (double)buildStats[build_hash].stats.Games).ToString("N1");
-                this.lb_score.Text = ((double)buildStats[build_hash].stats.Score / (double)buildStats[build_hash].stats.Games).ToString("N0");
+                this.lb_kda.Text = ((buildStats[build_hash].stats.Kills + (double)buildStats[build_hash].stats.Assists) / buildStats[build_hash].stats.Games).ToString("N2");
+                this.lb_damage.Text = (buildStats[build_hash].stats.Damage / buildStats[build_hash].stats.Games).ToString("N1");
+                this.lb_damage_rec.Text = (buildStats[build_hash].stats.DamageTaken / buildStats[build_hash].stats.Games).ToString("N1");
+                this.lb_score.Text = (buildStats[build_hash].stats.Score / (double)buildStats[build_hash].stats.Games).ToString("N0");
                 this.lb_parts.Text = string.Join(", ", buildRecords[build_hash].Parts.Select(x => Translate.TranslateString(x, session, translations)));
 
                 dg_movement_list.Rows.Clear();

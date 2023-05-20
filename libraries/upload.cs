@@ -5,12 +5,22 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Windows.Forms;
+
 
 namespace CO_Driver
 {
     public class Upload
     {
+        public enum Domain
+        {
+            ALL,
+            CrossoutDB,
+            XOStat
+        }
+
         public static Crossout.AspWeb.Models.API.v2.BuildEntry PopulateBuildEntry(FileTraceManagment.BuildRecord build)
         {
             Crossout.AspWeb.Models.API.v2.BuildEntry build_entry = new Crossout.AspWeb.Models.API.v2.BuildEntry { };
@@ -20,6 +30,80 @@ namespace CO_Driver
             build_entry.parts = build.Parts;
 
             return build_entry;
+        }
+
+        public static Crossout.AspWeb.Models.API.v2.UploadEntry BuildNextBatchForUpload(Domain domain, LogFileManagment.SessionVariables session, List<FileTraceManagment.MatchRecord> match_history,
+                                                Dictionary<string, FileTraceManagment.BuildRecord> build_records, Dictionary<string, Dictionary<string, Translate.Translation>> translations,
+                                                ref List<long> uploaded_matches, ref List<string> uploaded_builds)
+        {
+            Crossout.AspWeb.Models.API.v2.UploadEntry crossoutdb_upload_entry = new Crossout.AspWeb.Models.API.v2.UploadEntry { uploader_uid = session.LocalUserID, match_list = new List<Crossout.AspWeb.Models.API.v2.MatchEntry> { }, build_list = new List<Crossout.AspWeb.Models.API.v2.BuildEntry> { } };
+
+            foreach (FileTraceManagment.MatchRecord match in match_history)
+            {
+                if (!ValidMatch(match, uploaded_matches))
+                    continue;
+
+                foreach (FileTraceManagment.RoundRecord round in match.MatchData.RoundRecords)
+                {
+                    foreach (FileTraceManagment.Player player in round.Players)
+                    {
+                        if (!build_records.ContainsKey(player.BuildHash))
+                            continue;
+
+                        if (build_records[player.BuildHash].Parts.Count == 0)
+                            continue;
+
+                        if (build_records[player.BuildHash].PowerScore == 0)
+                            continue;
+
+                        if (uploaded_builds.Contains(player.BuildHash))
+                            continue;
+
+                        uploaded_builds.Add(player.BuildHash);
+                        crossoutdb_upload_entry.build_list.Add(Upload.PopulateBuildEntry(build_records[player.BuildHash]));
+                    }
+                }
+                crossoutdb_upload_entry.match_list.Add(Upload.PopulateMatchEntry(match, translations));
+
+                if (crossoutdb_upload_entry.match_list.Count >= GlobalData.UPLOAD_LIST_SIZE)
+                    return crossoutdb_upload_entry;
+            }
+
+            return crossoutdb_upload_entry;
+        }
+
+        public static bool ValidMatch(FileTraceManagment.MatchRecord match, List<long> uploaded)
+        {
+            if (uploaded.Contains(match.MatchData.ServerGUID))
+                return false;
+
+            return ValidMatch(match);
+        }
+
+        public static bool ValidMatch(FileTraceManagment.MatchRecord match)
+        {
+            if (match.MatchData.ServerGUID == 0)
+                return false;
+
+            if (match.MatchData.LocalPlayer.UID == 0)
+                return false;
+
+            if (match.MatchData.PlayerRecords.Any(x => x.Value.UID == 0 && x.Value.Bot == 0))
+                return false;
+
+            if (!match.MatchData.MatchRewards.Any())
+                return false;
+
+            if (match.MatchData.WinningTeam == -1)
+                return false;
+
+            if (match.MatchData.MatchType == GlobalData.TEST_SERVER_MATCH)
+                return false;
+
+            if (match.MatchData.MatchType == GlobalData.CUSTOM_MATCH)
+                return false;
+
+            return true;
         }
 
         public static Crossout.AspWeb.Models.API.v2.MatchEntry PopulateMatchEntry(FileTraceManagment.MatchRecord match, Dictionary<string, Dictionary<string, Translate.Translation>> translations)
@@ -69,26 +153,29 @@ namespace CO_Driver
 
                 foreach (FileTraceManagment.Player player in round.Players)
                 {
-                    Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry { };
-                    new_player.match_id = match.MatchData.ServerGUID;
-                    new_player.round_id = i;
-                    new_player.uid = player.UID;
-                    new_player.bot = player.Bot;
-                    new_player.nickname = player.Nickname;
-                    new_player.team = player.Team;
-                    new_player.group_id = player.PartyID;
-                    new_player.build_hash = player.BuildHash;
-                    new_player.power_score = player.PowerScore;
-                    new_player.kills = player.Stats.Kills;
-                    new_player.assists = player.Stats.Assists;
-                    new_player.drone_kills = player.Stats.DroneKills;
-                    new_player.deaths = player.Stats.Deaths;
-                    new_player.score = player.Stats.Score;
-                    new_player.damage = player.Stats.Damage;
-                    new_player.damage_taken = player.Stats.DamageTaken;
+                    Crossout.AspWeb.Models.API.v2.MatchPlayerEntry new_player = new Crossout.AspWeb.Models.API.v2.MatchPlayerEntry
+                    {
+                        match_id = match.MatchData.ServerGUID,
+                        round_id = i,
+                        uid = player.UID,
+                        bot = player.Bot,
+                        nickname = player.Nickname,
+                        team = player.Team,
+                        group_id = player.PartyID,
+                        build_hash = player.BuildHash,
+                        power_score = player.PowerScore,
+                        kills = player.Stats.Kills,
+                        assists = player.Stats.Assists,
+                        drone_kills = player.Stats.DroneKills,
+                        deaths = player.Stats.Deaths,
+                        score = player.Stats.Score,
+                        damage = Math.Round(player.Stats.Damage, 2),
+                        //new_player.cabin_damage = Math.Round(player.Stats.CabinDamage, 2);
+                        damage_taken = Math.Round(player.Stats.DamageTaken, 2),
 
-                    new_player.scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { };
-                    new_player.medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { };
+                        scores = new List<Crossout.AspWeb.Models.API.v2.ScoreEntry> { },
+                        medals = new List<Crossout.AspWeb.Models.API.v2.MedalEntry> { }
+                    };
 
                     foreach (FileTraceManagment.Score score in player.Scores)
                         new_player.scores.Add(new Crossout.AspWeb.Models.API.v2.ScoreEntry { score_type = score.Description, points = score.Points });
@@ -115,7 +202,7 @@ namespace CO_Driver
                     Crossout.AspWeb.Models.API.v2.RoundDamageEntry new_damage_record = new Crossout.AspWeb.Models.API.v2.RoundDamageEntry { };
                     new_damage_record.uid = round.Players.FirstOrDefault(x => x.Nickname == damage_record.Attacker).UID;
                     new_damage_record.weapon = damage_record.Weapon;
-                    new_damage_record.damage = damage_record.Damage;
+                    new_damage_record.damage = Math.Round(damage_record.Damage, 2);
                     new_round.damage_records.Add(new_damage_record);
                 }
 
@@ -126,43 +213,58 @@ namespace CO_Driver
             return rounds;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn GetPreviousUploads(int localUserID)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn GetPreviousUploads(int localUserID, Domain domain)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
 
+            string url = "";
+
+            if (domain == Domain.CrossoutDB)
+            {
 #if DEBUG
-            System.Net.ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_records/" + localUserID.ToString());
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
 #else
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString());
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_records/" + localUserID.ToString();
 #endif
-            request.Method = "POST";
-            request.ContentType = "application/json";
+            }
+            else if (domain == Domain.XOStat)
+            {
+#if DEBUG
+                url = "http://localhost:3000/dev/player/" + localUserID.ToString();
+#else
+                url = "https://6nriz5cih6.execute-api.us-east-2.amazonaws.com/prod/player/" + localUserID.ToString();
+#endif
+            }
+            else
+            {
+                throw new Exception("Invalid Domain");
+            }
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.UserAgent = @"CO_Driver";
+            request.Accept = "text/html";
+            request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            request.Method = "GET";
             request.Timeout = 30000;
 
             try
             {
-                using (Stream webStream = request.GetRequestStream())
-                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-                {
-                    requestWriter.Write(@"{""object"":{""name"":""Name""}}");
-                }
-
-                WebResponse webResponse = request.GetResponse();
-
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
+                using (WebResponse response = request.GetResponse())
+                using (Stream webStream = response.GetResponseStream() ?? Stream.Null)
                 using (StreamReader responseReader = new StreamReader(webStream))
                 {
                     string crossoutdb_json = responseReader.ReadToEnd();
+
                     upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
                 }
             }
-            catch (WebException)
+            catch (WebException ex)
             {
                 //if (ex.Status != WebExceptionStatus.Timeout)
                 //{
                 //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine);
                 //}
+                MessageBox.Show("The following request:" + url + Environment.NewLine + Environment.NewLine + "Had the following problem occured when loading previous match list from crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
             }
             catch (Exception ex)
             {
@@ -172,48 +274,59 @@ namespace CO_Driver
             return upload_return;
         }
 
-
-        public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToCrossoutDB(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry)
+        public static Crossout.AspWeb.Models.API.v2.UploadReturn UploadToDomain(Crossout.AspWeb.Models.API.v2.UploadEntry uploadEntry, Domain domain)
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
+            string url = "";
+            Encoding encoding;
 
-            try
+            if (domain == Domain.CrossoutDB)
             {
-                string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
-
+                encoding = Encoding.UTF8;
 #if DEBUG
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v2/co_driver/upload_match_and_build");
+                url = "https://localhost:5001/api/v2/co_driver/upload_match_and_build";
 #else
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build");
+                url = "https://beta.crossoutdb.com/api/v2/co_driver/upload_match_and_build";
 #endif
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=UTF-8";
-                request.Timeout = 100000;
-                using (Stream webStream = request.GetRequestStream())
-                using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-                {
-                    requestWriter.Write(serialized_match_list);
-                }
-
-                WebResponse webResponse = request.GetResponse();
-
-                using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                using (StreamReader responseReader = new StreamReader(webStream))
-                {
-                    string crossoutdb_json = responseReader.ReadToEnd();
-                    upload_return = JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(crossoutdb_json);
-                }
             }
-            catch (WebException)
+            else if (domain == Domain.XOStat)
             {
-                //if (ex.Status != WebExceptionStatus.Timeout)
-                //{
-                //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
-                //}
+                encoding = Encoding.ASCII;
+#if DEBUG
+                url = "http://localhost:3000/dev/upload";
+#else
+                url = "https://6nriz5cih6.execute-api.us-east-2.amazonaws.com/prod/upload";
+#endif
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("The following problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Defaults will be used.");
+                throw new Exception("Invalid Domain");
+            }
+
+            string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
+            File.WriteAllText("C:\\Users\\morgh\\Documents\\CO_Driver\\test.json", serialized_match_list);
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var content = new StringContent(serialized_match_list, encoding, "application/json");
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return JsonConvert.DeserializeObject<Crossout.AspWeb.Models.API.v2.UploadReturn>(response.Content.ReadAsStringAsync().Result);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Error message: {response.Content.ReadAsStringAsync().Result}");
+                        throw new HttpRequestException($"Error: {response.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The following problem occured when loading previous match list from xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
+                }
             }
 
             return upload_return;

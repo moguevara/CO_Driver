@@ -72,7 +72,8 @@ namespace CO_Driver
             if (match_data.MatchRewards.ContainsKey("expFactionTotal"))
             {
                 lb_xp.Text = match_data.MatchRewards["expFactionTotal"].ToString();
-                lb_resources.Text = string.Join(",", match_data.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score" && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));            }
+                lb_resources.Text = string.Join(",", match_data.MatchRewards.Where(x => x.Key.ToLower().Contains("xp") == false && x.Key != "score" && !x.Key.ToLower().Equals("glory")).Select(x => Translate.TranslateString(x.Key, session, translations) + ":" + x.Value.ToString()));
+            }
             else
             {
                 lb_xp.Text = "";

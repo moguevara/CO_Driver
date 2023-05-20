@@ -63,8 +63,8 @@ namespace CO_Driver
                 row.Cells[2].Value = Math.Round(master_part_list[i].HullDurability * resistance_modifier);
                 row.Cells[3].Value = master_part_list[i].Mass;
                 row.Cells[4].Value = master_part_list[i].PowerScore;
-                row.Cells[5].Value = Math.Round(Math.Round((double)master_part_list[i].PartDurability * resistance_modifier) / (double)master_part_list[i].Mass, 2);
-                row.Cells[6].Value = Math.Round(Math.Round((double)master_part_list[i].PowerScore * resistance_modifier) / (double)master_part_list[i].Mass, 2);
+                row.Cells[5].Value = Math.Round(Math.Round(master_part_list[i].PartDurability * resistance_modifier) / master_part_list[i].Mass, 2);
+                row.Cells[6].Value = Math.Round(Math.Round(master_part_list[i].PowerScore * resistance_modifier) / master_part_list[i].Mass, 2);
                 this.dg_available_parts.Rows.Add(row);
             }
             this.dg_available_parts.AllowUserToAddRows = false;

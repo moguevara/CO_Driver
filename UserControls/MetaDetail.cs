@@ -269,7 +269,7 @@ namespace CO_Driver
 
             }
 
-            global_enemy_win_percent = (double)total_games > 0 ? (double)total_wins / (double)total_games : 0.0;
+            global_enemy_win_percent = (double)total_games > 0 ? total_wins / (double)total_games : 0.0;
 
             lb_global_percentage.Text = string.Format("{0}%", Math.Round(global_enemy_win_percent * 100, 1));
             lb_total_game.Text = total_games.ToString();
@@ -311,16 +311,16 @@ namespace CO_Driver
                 row.Cells[2].Value = group.group.movement;
                 row.Cells[3].Value = group.group.map;
                 row.Cells[4].Value = group.games;
-                row.Cells[5].Value = (double)group.games / (double)total_games;
-                row.Cells[6].Value = (double)group.total_seen / (double)group.rounds;
-                row.Cells[7].Value = (double)group.group.stats.Kills / (double)group.total_seen;
-                row.Cells[8].Value = (double)group.group.stats.Assists / (double)group.total_seen;
-                row.Cells[9].Value = (double)group.group.stats.Deaths / (double)group.total_seen;
-                row.Cells[10].Value = (double)group.group.stats.Damage / (double)group.total_seen;
-                row.Cells[11].Value = (double)group.group.stats.DamageTaken / (double)group.total_seen;
-                row.Cells[12].Value = (double)group.group.stats.Score / (double)group.total_seen;
-                row.Cells[13].Value = (double)group.wins / (double)group.games;
-                row.Cells[14].Value = (((double)group.wins / (double)group.games) - global_enemy_win_percent);
+                row.Cells[5].Value = group.games / (double)total_games;
+                row.Cells[6].Value = group.total_seen / (double)group.rounds;
+                row.Cells[7].Value = group.group.stats.Kills / (double)group.total_seen;
+                row.Cells[8].Value = group.group.stats.Assists / (double)group.total_seen;
+                row.Cells[9].Value = group.group.stats.Deaths / (double)group.total_seen;
+                row.Cells[10].Value = (double)group.group.stats.Damage / group.total_seen;
+                row.Cells[11].Value = (double)group.group.stats.DamageTaken / group.total_seen;
+                row.Cells[12].Value = group.group.stats.Score / (double)group.total_seen;
+                row.Cells[13].Value = group.wins / (double)group.games;
+                row.Cells[14].Value = ((group.wins / (double)group.games) - global_enemy_win_percent);
                 dg_meta_detail_view.Rows.Add(row);
             }
 

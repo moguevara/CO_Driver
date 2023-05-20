@@ -441,11 +441,11 @@ namespace CO_Driver
                 writer.AddHeader(string.Format(@"{0,3} Day Stats for {1}", currentSession.TwitchSettings.OverviewTimeRange, game_mode), "day_stats");
                 writer.AddHorizontalRow();
                 writer.AddLine(string.Format(@"{0,16} {1,8}", "Games", stats.Games), "day_stats games");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.Wins, stats.Losses), (double)stats.Wins / (double)stats.Games), "day_stats win_lose_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Deaths), (double)stats.Kills / (double)stats.Deaths), "day_stats kill_death_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Games), (double)stats.Kills / (double)stats.Games), "day_stats kill_game_ratio");
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.Damage / (double)stats.Rounds), "day_stats avg_dmg");
-                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.DamageTaken / (double)stats.Rounds), "day_stats avg_dmg_rec");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:P1}", "W/L %", string.Format(@"{0,4}/{1,-4}", stats.Wins, stats.Losses), stats.Wins / (double)stats.Games), "day_stats win_lose_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/D  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Deaths), stats.Kills / (double)stats.Deaths), "day_stats kill_death_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8} {2:N1}", "K/G  ", string.Format(@"{0,4}/{1,-4}", stats.Kills, stats.Games), stats.Kills / (double)stats.Games), "day_stats kill_game_ratio");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg", stats.Damage / stats.Rounds), "day_stats avg_dmg");
+                writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Dmg Rec", stats.DamageTaken / stats.Rounds), "day_stats avg_dmg_rec");
                 writer.AddLine(string.Format(@"{0,16} {1,8:N1}", "Avg Score", stats.Score / (double)stats.Rounds), "day_stats avg_score");
             }
         }
