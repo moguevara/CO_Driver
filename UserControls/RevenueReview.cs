@@ -100,7 +100,7 @@ namespace CO_Driver
                 }
             }
 
-            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.ID == 369).SellPrice/100});
+            local_values.Add(new market_values { resource = "Badges", ammount = 3000, sell_price = crossoutdb_data.market_items.Find(i => i.ID == 369).SellPrice / 100 });
 
             master_values = local_values;
         }
@@ -177,7 +177,7 @@ namespace CO_Driver
                     fuel_ammount = 60;
 
                 if (chk_badges.Checked)
-                { 
+                {
                     if (match.MatchData.MatchClassification == GlobalData.BRAWL_CLASSIFICATION)
                     {
                         if (match.MatchData.GameResult == "Win")
@@ -309,8 +309,8 @@ namespace CO_Driver
 
             foreach (revenue_grouping group in master_groupings)
             {
-                TimeSpan t2 = TimeSpan.FromSeconds(group.total_queue_time / (double)group.games);
-                TimeSpan t3 = TimeSpan.FromSeconds(group.total_match_time / (double)group.games);
+                TimeSpan t2 = TimeSpan.FromSeconds(group.total_queue_time / group.games);
+                TimeSpan t3 = TimeSpan.FromSeconds(group.total_match_time / group.games);
                 TimeSpan t4 = TimeSpan.FromSeconds(group.total_queue_time);
                 TimeSpan t5 = TimeSpan.FromSeconds(group.total_match_time);
                 DataGridViewRow row = (DataGridViewRow)dg_revenue.Rows[0].Clone();
@@ -324,7 +324,7 @@ namespace CO_Driver
                 {
                     row.Cells[3].Value = t2;
                     row.Cells[4].Value = t3;
-                    row.Cells[5].Value = ((double)group.fuel_cost / (double)group.games).ToString();
+                    row.Cells[5].Value = ((double)group.fuel_cost / group.games).ToString();
                 }
                 else
                 {
@@ -353,7 +353,7 @@ namespace CO_Driver
 
                         if (show_average)
                         {
-                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), Math.Round(((double)reward.Value / (double)group.games), 2).ToString());
+                            row.Cells[6].Value += string.Format(@"{0}{1}:{2}", first ? "" : Environment.NewLine, Translate.TranslateString(reward.Key, session, translations), Math.Round((reward.Value / (double)group.games), 2).ToString());
                         }
                         else
                         {
@@ -366,20 +366,20 @@ namespace CO_Driver
                         {
                             if (Translate.TranslateString(reward.Key, session, translations) == value.resource)
                             {
-                                coin_value += ((double)reward.Value / (double)value.ammount) * value.sell_price;
-                                total_coins += ((double)reward.Value / (double)value.ammount) * value.sell_price;
+                                coin_value += (reward.Value / (double)value.ammount) * value.sell_price;
+                                total_coins += (reward.Value / (double)value.ammount) * value.sell_price;
                             }
                         }
                     }
                     if (!chk_free_fuel.Checked)
                     {
-                        coin_value -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
-                        total_coins -= ((double)group.fuel_cost / (double)master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
+                        coin_value -= ((double)group.fuel_cost / master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
+                        total_coins -= ((double)group.fuel_cost / master_values.FirstOrDefault(x => x.resource == "Fuel").ammount) * master_values.FirstOrDefault(x => x.resource == "Fuel").sell_price;
                     }
                 }
                 if (show_average)
                 {
-                    row.Cells[7].Value = (double)coin_value / (double)group.games;
+                    row.Cells[7].Value = (double)coin_value / group.games;
                 }
                 else
                 {
@@ -406,7 +406,7 @@ namespace CO_Driver
             lb_match_time.Text = ViewHelpers.GetMomentFormatFromSeconds(total_match_duration);
             lb_total_game.Text = total_games.ToString();
             lb_coins.Text = string.Format("{0:n0}", total_coins);
-            lb_coins_rate.Text = Math.Round((double)total_coins / ((double)((total_queue_duration + total_match_duration) / 3600.0)), 2).ToString();
+            lb_coins_rate.Text = Math.Round(total_coins / ((double)((total_queue_duration + total_match_duration) / 3600.0)), 2).ToString();
 
         }
 
@@ -559,7 +559,7 @@ namespace CO_Driver
 
             chk_free_fuel.Checked = false;
             chk_badges.Checked = false;
-            
+
             dt_start_date.Value = DateTime.Now;
             dt_end_date.Value = DateTime.Now;
 
@@ -576,12 +576,12 @@ namespace CO_Driver
         {
             resize.ResizeUserControl(this);
         }
-        
+
         private void dg_revenue_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.Value != null && (dg_revenue.Columns[e.ColumnIndex].Name == "Column14" || dg_revenue.Columns[e.ColumnIndex].Name == "Column5"))
             {
-               ViewHelpers.SetMomentFormatForTimeSpanCell(e);
+                ViewHelpers.SetMomentFormatForTimeSpanCell(e);
             }
         }
     }

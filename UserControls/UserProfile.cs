@@ -239,26 +239,26 @@ namespace CO_Driver
 
         private void populate_user_profile_screen_elements()
         {
-            double avg_player_score = total_rounds > 0 ? Math.Round((((double)total_score) / (double)games_played)) : double.PositiveInfinity;
+            double avg_player_score = total_rounds > 0 ? Math.Round((total_score / (double)games_played)) : double.PositiveInfinity;
 
             lb_user_name.Text = session.LocalUserName;
             lb_games_played.Text = games_played.ToString();
             lb_wins.Text = wins.ToString();
-            lb_win_rate.Text = string.Format(@"{0}%", games_played > 0 ? Math.Round((((double)wins / (double)games_played) * 100), 2) : double.PositiveInfinity);
+            lb_win_rate.Text = string.Format(@"{0}%", games_played > 0 ? Math.Round(((wins / (double)games_played) * 100), 2) : double.PositiveInfinity);
             lb_total_kills.Text = total_kills.ToString();
             lb_total_deaths.Text = total_deaths.ToString();
             lb_total_assists.Text = total_assists.ToString();
             lb_total_drone_kills.Text = total_drone_kills.ToString();
-            lb_total_kill_deaths.Text = string.Format(@"{0}", games_played > 0 ? Math.Round(((double)total_kills / (double)games_played), 1) : double.PositiveInfinity);
-            lb_total_kill_assist_death.Text = string.Format(@"{0}", games_played > 0 ? Math.Round((((double)total_kills + (double)total_assists) / (double)games_played), 1) : double.PositiveInfinity);
+            lb_total_kill_deaths.Text = string.Format(@"{0}", games_played > 0 ? Math.Round((total_kills / (double)games_played), 1) : double.PositiveInfinity);
+            lb_total_kill_assist_death.Text = string.Format(@"{0}", games_played > 0 ? Math.Round(((total_kills + (double)total_assists) / games_played), 1) : double.PositiveInfinity);
             lb_total_medals.Text = total_medals.ToString();
             lb_total_mvp.Text = total_mvp.ToString();
-            lb_mvp_percent.Text = string.Format(@"{0}%", total_rounds > 0 ? Math.Round(((((double)total_mvp) / (double)games_played) * 100), 2) : double.PositiveInfinity);
+            lb_mvp_percent.Text = string.Format(@"{0}%", total_rounds > 0 ? Math.Round(((total_mvp / (double)games_played) * 100), 2) : double.PositiveInfinity);
             lb_avg_score.Text = string.Format(@"{0}", avg_player_score);
-            lb_avg_kills.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_kills) / (double)total_rounds), 1) : double.PositiveInfinity);
-            lb_avg_assists.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_assists) / (double)total_rounds), 1) : double.PositiveInfinity);
-            lb_avg_dmg.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_damage) / (double)total_rounds)) : double.PositiveInfinity);
-            lb_avg_dmg_rec.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((((double)total_damage_rec) / (double)total_rounds)) : double.PositiveInfinity);
+            lb_avg_kills.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((total_kills / (double)total_rounds), 1) : double.PositiveInfinity);
+            lb_avg_assists.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((total_assists / (double)total_rounds), 1) : double.PositiveInfinity);
+            lb_avg_dmg.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((total_damage / total_rounds)) : double.PositiveInfinity);
+            lb_avg_dmg_rec.Text = string.Format(@"{0}", total_rounds > 0 ? Math.Round((total_damage_rec / total_rounds)) : double.PositiveInfinity);
             lb_player_index.Text = player_index.ToString();
             lb_bot_index.Text = bot_index.ToString();
             lb_max_damage.Text = Math.Round(max_damage_dealt, 1).ToString();
@@ -281,8 +281,8 @@ namespace CO_Driver
             else
                 lb_weapon.Text = "";
 
-            lb_player_index.Text = global_total_player_count > 0 ? Math.Round((avg_player_score / ((double)global_total_score / (double)global_total_player_count)), 2).ToString() : "N/A";
-            lb_bot_index.Text = global_total_player_count > 0 ? Math.Round((avg_player_score / ((double)global_total_bot_score / (double)global_total_bot_count)), 2).ToString() : "N/A";
+            lb_player_index.Text = global_total_player_count > 0 ? Math.Round((avg_player_score / (global_total_score / (double)global_total_player_count)), 2).ToString() : "N/A";
+            lb_bot_index.Text = global_total_player_count > 0 ? Math.Round((avg_player_score / (global_total_bot_score / (double)global_total_bot_count)), 2).ToString() : "N/A";
 
             dg_resources.Rows.Clear();
             dg_resources.AllowUserToAddRows = true;
@@ -295,7 +295,7 @@ namespace CO_Driver
 
                 DataGridViewRow row = (DataGridViewRow)dg_resources.Rows[0].Clone();
                 row.Cells[0].Value = Translate.TranslateString(resource.Key, session, translations);
-                row.Cells[1].Value = (int)resource.Value;
+                row.Cells[1].Value = resource.Value;
                 dg_resources.Rows.Add(row);
             }
 
@@ -309,8 +309,8 @@ namespace CO_Driver
             bool first = true;
 
             foreach (KeyValuePair<string, MapData> map in total_map_data
-                .OrderBy(x => (double)x.Value.games / (double)games_played < 0.005)
-                .ThenByDescending(x => (double)x.Value.wins / (double)x.Value.games)
+                .OrderBy(x => x.Value.games / (double)games_played < 0.005)
+                .ThenByDescending(x => x.Value.wins / (double)x.Value.games)
                 .ThenByDescending(x => x.Value.wins))
             {
                 if (first)

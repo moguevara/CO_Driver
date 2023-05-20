@@ -5,7 +5,7 @@ namespace CO_Driver
 {
     public class GlobalData
     {
-        public static string CURRENT_VERSION = "0.1.0.88";
+        public static string CURRENT_VERSION = "0.1.0.89";
 
         public const int FILE_BUFFER_SIZE = 256;
 
@@ -162,6 +162,28 @@ namespace CO_Driver
                                                                     "QuantumCanine",
                                                                     "bIorgus",
                                                                     "LordDrex"};
+
+        public static List<(int min, int max, string label)> PowerScoreRanges = new List<(int min, int max, string label)>
+        {
+            (0, 2499, "0-2499"),
+            (2500, 3499, "2500-3499"),
+            (3500, 4499, "3500-4499"),
+            (4500, 5499, "4500-5499"),
+            (5500, 6499, "5500-6499"),
+            (6500, 7499, "6500-7499"),
+            (7500, 8499, "7500-8499"),
+            (8500, 9499, "8500-9499"),
+            (9500, 12999, "9500-12999"),
+            (13000, 22000, "13000+"),
+            (22000, int.MaxValue, "Leviathan"),
+        };
+
+        public static Dictionary<int, string> MatchClassifications = new Dictionary<int, string> { { UNDEFINED_CLASSIFICATION, "Undefined" },
+                                                                                                   { PVP_CLASSIFICATION, "PvP" },
+                                                                                                   { PVE_CLASSIFICATION, "PvE" },
+                                                                                                   { BRAWL_CLASSIFICATION, "Brawl" },
+                                                                                                   { FREE_PLAY_CLASSIFICATION, "Free Play" },
+                                                                                                   { CUSTOM_CLASSIFICATION, "Custom" } };
 
         public static int AssignBotUid(string nickname)
         {
