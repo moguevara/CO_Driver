@@ -45,8 +45,8 @@ namespace CO_Driver
         public void ResizeUserControl(UserControl UserControl)
         {
             double size_modifier = 1;
-            double width_modifier = (double)UserControl.Size.Width / (double)InitialScreenState.InitialScreenSize.Width;
-            double height_modifier = (double)UserControl.Size.Height / (double)InitialScreenState.InitialScreenSize.Height;
+            double width_modifier = UserControl.Size.Width / (double)InitialScreenState.InitialScreenSize.Width;
+            double height_modifier = UserControl.Size.Height / (double)InitialScreenState.InitialScreenSize.Height;
 
             if (width_modifier > height_modifier)
                 size_modifier = height_modifier;
