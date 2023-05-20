@@ -117,8 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label4.Text" xml:space="preserve">
+    <value>For those who launch with a shortcut to the launcher:
+
+* Wrap the shortcut's target in quotations.
+* Append "+set cl_combatLog 1" to your target within the shortcut.
+
+Ex. "C:\Program Files (x86)\Steam\steamapps\common\Crossout\launcher.exe" +set cl_combatLog 1</value>
+  </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Unable to detect combat.log in any Crossout log file. Combat.log was disabled by default in early 2023 and needs to be re-enabled for CO_Driver to function. Please ensure you have combat.log enabled following the following steps.
+    <value>Unable to detect combat.log in any Crossout log file. Combat.log was disabled by default in early 2023 and needs to be re-enabled for CO_Driver to function. Please ensure you have combat.log enabled using the following steps.
 
 </value>
   </data>
