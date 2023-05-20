@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CO_Driver.Libraries;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using CO_Driver.Modals;
 
 namespace CO_Driver
 {
@@ -97,6 +99,35 @@ namespace CO_Driver
                 UIDLookup = new Dictionary<string, int> { },
                 ValidUsers = new Dictionary<string, int> { }
             };
+        }
+
+        public bool ValidLocalEnviroment()
+        {
+            string path = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "My Games",
+                "Crossout",
+                "logs"
+            );
+
+            if (!Directory.Exists(path))
+            {
+                String errorMessage = "CO_Driver was unable to detect the Crossout log file location. Please ensure that you have played Crossout at least once and that you have not moved the Crossout installation folder.";
+
+
+                MessageBox.Show(errorMessage, "Enviroment Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!Directory.GetFiles(path, "*", SearchOption.AllDirectories)
+                    .Any(file => Path.GetFileName(file).Equals("combat.log", StringComparison.OrdinalIgnoreCase)))
+            {
+                CombatLogIssue combatLogIssue = new CombatLogIssue();
+                combatLogIssue.ShowDialog();
+                return false;
+            }
+
+            return true;
         }
 
         public SessionVariables LoadUserSession()

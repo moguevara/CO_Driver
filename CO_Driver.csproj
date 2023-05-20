@@ -33,7 +33,7 @@
     <PublisherName>Dept116</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>156</ApplicationRevision>
+    <ApplicationRevision>161</ApplicationRevision>
     <ApplicationVersion>0.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -75,7 +75,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -113,6 +113,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modals\CombatLogIssue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modals\CombatLogIssue.Designer.cs">
+      <DependentUpon>CombatLogIssue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Libraries\Filter.cs" />
     <Compile Include="Libraries\GlobalData.cs" />
     <Compile Include="Libraries\LogFileManagment.cs" />
@@ -125,6 +131,7 @@
     <Compile Include="Libraries\Translate.cs" />
     <Compile Include="Libraries\UITranslate.cs" />
     <Compile Include="Libraries\Upload.cs" />
+    <Compile Include="Libraries\Utilities.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -244,6 +251,9 @@
     <Compile Include="UserControls\WelcomePage.Designer.cs">
       <DependentUpon>WelcomePage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Modals\CombatLogIssue.resx">
+      <DependentUpon>CombatLogIssue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AboutScreen.resx">
       <DependentUpon>AboutScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +357,8 @@
   <ItemGroup>
     <None Include="Resources\codriver_transparent.gif" />
     <None Include="Resources\codriver_transparent_initial.gif" />
+    <None Include="Resources\Steam.png" />
+    <None Include="Resources\Shortcut.png" />
     <Content Include="RotFish.ico" />
   </ItemGroup>
   <ItemGroup>

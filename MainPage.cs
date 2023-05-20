@@ -64,6 +64,11 @@ namespace CO_Driver
             this.welcome_screen.tb_progress_tracking.AppendText("Starting RFB Tool Suite." + Environment.NewLine);
             this.welcome_screen.tb_progress_tracking.AppendText("Loading session variables." + Environment.NewLine);
 
+            if (!log_file_manager.ValidLocalEnviroment())
+            {
+                Application.Exit();
+            }
+
             session = log_file_manager.LoadUserSession();
 
             if (session.LocalUserName == null)
