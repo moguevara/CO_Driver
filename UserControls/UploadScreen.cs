@@ -62,8 +62,16 @@ namespace CO_Driver
 
             public int Percent()
             {
-                return (int)(((double)CrossoutDB.Uploaded + (double)XOStat.Uploaded) / ((double)CrossoutDB.Valid + (double)XOStat.Valid));
+                if (CrossoutDB.Valid + XOStat.Valid == 0)
+                {
+                    return 0;
+                }
+
+                int result = (int)(((CrossoutDB.Uploaded + (double)XOStat.Uploaded) / (CrossoutDB.Valid + (double)XOStat.Valid)) * 100);
+
+                return Math.Max(0, Math.Min(100, result));
             }
+
         }
 
         public UploadScreen()
@@ -135,8 +143,8 @@ namespace CO_Driver
             if (bw_file_uploader.CancellationPending)
                 return;
 
-            //bw_file_uploader.ReportProgress(0, new bw_status_update(Upload.Site.ALL, 0, "Starting Upload to CrossoutDB.com"));
-            //upload_site(Upload.Site.CrossoutDB);
+            bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Starting Upload to CrossoutDB.com"));
+            UploadToDomainInBatches(Upload.Domain.CrossoutDB);
 
             bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Starting Upload to XOStat.gg"));
             UploadToDomainInBatches(Upload.Domain.XOStat);
@@ -159,7 +167,7 @@ namespace CO_Driver
                 Crossout.AspWeb.Models.API.v2.UploadReturn upload = Upload.UploadToDomain(batch, domain);
                 uploadedMatches.AddRange(upload.uploaded_matches);
 
-                bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(domain, batch.match_list.Count, string.Format("Uploaded {0} matches to {0}", batch.match_list.Count, domain == Upload.Domain.XOStat ? "XOStat.gg" : "CrossoutDB.com")));
+                bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(domain, batch.match_list.Count, string.Format("Uploaded {0} matches to {1}", batch.match_list.Count, domain == Upload.Domain.XOStat ? "XOStat.gg" : "CrossoutDB.com")));
 
                 batch = Upload.BuildNextBatchForUpload(domain, session, match_history, build_records, translations, ref uploadedMatches, ref uploadedBuilds);
             }

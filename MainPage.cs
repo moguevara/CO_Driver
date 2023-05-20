@@ -588,7 +588,7 @@ namespace CO_Driver
                 return;
             }
 
-            bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.NewWorkerResponse((double)session_variables.ParsedLogs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.ParsedLogs.Count())));
+            bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.NewWorkerResponse(session_variables.ParsedLogs.Count() / (double)file_count, string.Format(@"Processed {0} existing logs.", session_variables.ParsedLogs.Count())));
         }
 
         private void process_historic_files(FileTraceManagment ftm, FileTraceManagment.SessionStats Current_session, LogFileManagment.SessionVariables session_variables)
@@ -624,7 +624,7 @@ namespace CO_Driver
 
                 //MessageBox.Show(string.Format(@"current file {0}, start day {1}", session.combat_log.Name, Current_session.file_data.processing_combat_session_file_day));
 
-                bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.NewWorkerResponse((double)(session_variables.ParsedLogs.Count() / 2) / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.CombatLog.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.ParsedLogs.Count() / 2) * 100) / (double)file_count))));
+                bw_file_feed.ReportProgress(GlobalData.TRACE_EVENT_FILE_COMPLETE, ftm.NewWorkerResponse(session_variables.ParsedLogs.Count() / 2 / (double)file_count, string.Format(@"Processing log files from {0,-19:MM-dd-yyyy hh:mm tt} ({1:N2}%)", DateTime.ParseExact(session.CombatLog.Name.Substring(7, 14), "yyyyMMddHHmmss", CultureInfo.InvariantCulture), (((double)(session_variables.ParsedLogs.Count() / 2) * 100) / file_count))));
 
                 using (FileStream game_stream = File.OpenRead(session.GameLog.FullName))
                 using (FileStream combat_stream = File.OpenRead(session.CombatLog.FullName))
@@ -1055,7 +1055,7 @@ namespace CO_Driver
             gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(0, bmp.Height), new Point(bmp.Width, bmp.Height));
             gr.DrawLine(new Pen(session.ForeColor, border_width * 2), new Point(bmp.Width, 0), new Point(bmp.Width, bmp.Height));
 
-            Clipboard.SetImage((Image)bmp);
+            Clipboard.SetImage(bmp);
 
             if (session.SaveCaptures)
             {

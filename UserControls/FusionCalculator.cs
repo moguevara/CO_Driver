@@ -170,7 +170,7 @@ namespace CO_Driver
             {
                 DataGridViewRow row = (DataGridViewRow)tb_fusion_data.Rows[0].Clone();
                 row.Cells[0].Value = current_iteration.ToString();
-                row.Cells[1].Value = string.Format("{0,6:N2}", (((double)Distribution[current_iteration] + (double)previous_iterations) / (double)Attempt_depth) * 100);
+                row.Cells[1].Value = string.Format("{0,6:N2}", ((Distribution[current_iteration] + (double)previous_iterations) / Attempt_depth) * 100);
                 row.Cells[2].Value = (current_iteration + 1).ToString();
                 row.Cells[3].Value = (Convert.ToInt32(row.Cells[2].Value) * num_item_cost.Value).ToString();
                 row.Cells[4].Value = ((current_iteration * 2) + 1).ToString();

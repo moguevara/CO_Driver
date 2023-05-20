@@ -335,7 +335,7 @@ namespace CO_Driver
                 chart_series = chart_series.OrderBy(x => x.min).ToList();
             else
             if (current_x_axis.ordering == ordering.VALUE_DESC && mode == "Average")
-                chart_series = chart_series.OrderByDescending(x => (double)x.total / (double)x.count).ToList();
+                chart_series = chart_series.OrderByDescending(x => (double)x.total / x.count).ToList();
             else
                 return;
 
@@ -384,7 +384,7 @@ namespace CO_Driver
                     y_value = element.min;
                 else
                 if (mode == "Average")
-                    y_value = (double)element.total / (double)element.count;
+                    y_value = (double)element.total / element.count;
                 else
                     break;
 

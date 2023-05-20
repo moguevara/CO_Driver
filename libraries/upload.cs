@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -19,7 +17,7 @@ namespace CO_Driver
         public enum Domain
         {
             ALL,
-            CrossoutDB, 
+            CrossoutDB,
             XOStat
         }
 
@@ -34,7 +32,7 @@ namespace CO_Driver
             return build_entry;
         }
 
-        public static Crossout.AspWeb.Models.API.v2.UploadEntry BuildNextBatchForUpload(Domain domain, LogFileManagment.SessionVariables session, List<FileTraceManagment.MatchRecord> match_history, 
+        public static Crossout.AspWeb.Models.API.v2.UploadEntry BuildNextBatchForUpload(Domain domain, LogFileManagment.SessionVariables session, List<FileTraceManagment.MatchRecord> match_history,
                                                 Dictionary<string, FileTraceManagment.BuildRecord> build_records, Dictionary<string, Dictionary<string, Translate.Translation>> translations,
                                                 ref List<long> uploaded_matches, ref List<string> uploaded_builds)
         {
@@ -234,7 +232,7 @@ namespace CO_Driver
 #if DEBUG
                 url = "http://localhost:3000/dev/player/" + localUserID.ToString();
 #else
-                url = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/player/" + localUserID.ToString();
+                url = "https://6nriz5cih6.execute-api.us-east-2.amazonaws.com/prod/player/" + localUserID.ToString();
 #endif
             }
             else
@@ -280,9 +278,11 @@ namespace CO_Driver
         {
             Crossout.AspWeb.Models.API.v2.UploadReturn upload_return = new Crossout.AspWeb.Models.API.v2.UploadReturn { uploaded_matches = new List<long> { }, uploaded_builds = 0 };
             string url = "";
+            Encoding encoding;
 
             if (domain == Domain.CrossoutDB)
             {
+                encoding = Encoding.UTF8;
 #if DEBUG
                 url = "https://localhost:5001/api/v2/co_driver/upload_match_and_build";
 #else
@@ -291,10 +291,11 @@ namespace CO_Driver
             }
             else if (domain == Domain.XOStat)
             {
+                encoding = Encoding.ASCII;
 #if DEBUG
                 url = "http://localhost:3000/dev/upload";
 #else
-                url = "https://s0lfp19zc9.execute-api.us-east-2.amazonaws.com/dev/upload";
+                url = "https://6nriz5cih6.execute-api.us-east-2.amazonaws.com/prod/upload";
 #endif
             }
             else
@@ -309,7 +310,7 @@ namespace CO_Driver
             {
                 try
                 {
-                    var content = new StringContent(serialized_match_list, Encoding.ASCII, "application/json");
+                    var content = new StringContent(serialized_match_list, encoding, "application/json");
                     HttpResponseMessage response = client.PostAsync(url, content).Result;
 
                     if (response.IsSuccessStatusCode)
