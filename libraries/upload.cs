@@ -245,7 +245,7 @@ namespace CO_Driver
             request.Accept = "text/html";
             request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
             request.Method = "GET";
-            request.Timeout = 30000;
+            request.Timeout = 5000;
 
             try
             {
@@ -260,11 +260,10 @@ namespace CO_Driver
             }
             catch (WebException ex)
             {
-                //if (ex.Status != WebExceptionStatus.Timeout)
-                //{
-                //    MessageBox.Show("The following web problem occured when loading data from crossoutdb.com" + Environment.NewLine + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine);
-                //}
-                MessageBox.Show("The following request:" + url + Environment.NewLine + Environment.NewLine + "Had the following problem occured when loading previous match list from crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
+                if (ex.Status != WebExceptionStatus.Timeout)
+                {
+                    MessageBox.Show("The following request:" + url + Environment.NewLine + Environment.NewLine + "Had the following problem occured when loading previous match list from crossoutdb.com/xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -304,7 +303,9 @@ namespace CO_Driver
             }
 
             string serialized_match_list = JsonConvert.SerializeObject(uploadEntry);
+#if DEBUG
             File.WriteAllText("C:\\Users\\morgh\\Documents\\CO_Driver\\test.json", serialized_match_list);
+#endif
 
             using (HttpClient client = new HttpClient())
             {
@@ -323,9 +324,16 @@ namespace CO_Driver
                         throw new HttpRequestException($"Error: {response.StatusCode}");
                     }
                 }
+                catch (WebException ex)
+                {
+                    if (ex.Status != WebExceptionStatus.Timeout)
+                    {
+                        MessageBox.Show("The following problem occured when uploading to " + url + Environment.NewLine + Environment.NewLine + ex.Message);
+                    }
+                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("The following problem occured when loading previous match list from xostat.gg" + Environment.NewLine + Environment.NewLine + ex.Message);
+                    MessageBox.Show("The following problem occured when uploading to " + url + Environment.NewLine + Environment.NewLine + ex.Message);
                 }
             }
 

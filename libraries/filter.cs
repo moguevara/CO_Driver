@@ -155,9 +155,14 @@ namespace CO_Driver
 
             PopulateFiltersForMatch(filter, match, buildRecords, session, translations);
 
+
             if (filter.GameModeFilter != GlobalData.GAME_MODE_FILTER_DEFAULT &&
                 GlobalData.MatchClassifications.TryGetValue(match.MatchData.MatchClassification, out var gameModeClassification) &&
-                gameModeClassification != filter.GameModeFilter)
+                gameModeClassification != filter.GameModeFilter &&
+                filter.GameModeFilter != match.MatchData.MatchTypeDesc)
+                return false;
+
+            if (filter.GameModeFilter != GlobalData.GAME_MODE_FILTER_DEFAULT && filter.GameModeFilter != "PvP" && filter.GameModeFilter != "PvE" && filter.GameModeFilter != "Brawl" && filter.GameModeFilter != match.MatchData.MatchTypeDesc)
                 return false;
 
             if (filter.GroupFilter == "Solo" && match.MatchData.LocalPlayer.PartyID > 0 ||

@@ -143,11 +143,11 @@ namespace CO_Driver
             if (bw_file_uploader.CancellationPending)
                 return;
 
-            bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Starting Upload to CrossoutDB.com"));
-            UploadToDomainInBatches(Upload.Domain.CrossoutDB);
-
             bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Starting Upload to XOStat.gg"));
             UploadToDomainInBatches(Upload.Domain.XOStat);
+
+            bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Starting Upload to CrossoutDB.com"));
+            UploadToDomainInBatches(Upload.Domain.CrossoutDB);
 
             bw_file_uploader.ReportProgress(0, new BackgroundWorkerStatusUpdate(Upload.Domain.ALL, 0, "Upload Finished"));
         }
